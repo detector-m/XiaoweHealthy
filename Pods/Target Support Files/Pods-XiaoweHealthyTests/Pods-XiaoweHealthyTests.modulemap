@@ -1,0 +1,6 @@
+framework module Pods_XiaoweHealthyTests {
+  umbrella header "Pods-XiaoweHealthyTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
