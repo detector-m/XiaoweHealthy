@@ -7,6 +7,7 @@
 
 import UIKit
 
+@available(iOS 13.0, *)
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -20,12 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let winScene = (scene as? UIWindowScene) else { return }
         
         let cWin = UIWindow(windowScene: winScene)
-        let rVC = UIViewController()
-        rVC.title = "Hello"
-        rVC.view.backgroundColor = UIColor.red
-        let nav = UINavigationController(rootViewController: rVC)
-        
-        cWin.rootViewController = nav
+        AppDelegate.configWindow(win: cWin)
         
         window = cWin
         
