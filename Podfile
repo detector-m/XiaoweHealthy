@@ -7,6 +7,46 @@ target 'XiaoweHealthy' do
 
   # Pods for XiaoweHealthy
 
+  # 日志
+  pod 'XCGLogger'
+  
+  # 内存监测 FBRetainCycleDetector
+  pod 'FBRetainCycleDetector'
+  
+  # 网络监测
+  pod 'ReachabilitySwift'
+  
+  # 卡顿监测
+  # pod 'CatonMonitor'
+  
+  # 调用栈
+#  pod 'RCBacktrace'
+  
+  # 类的方法拓展
+  pod 'SwifterSwift'
+  
+  # 网络请求
+  pod 'Moya'
+  
+  # 模型转换
+  pod 'SwiftyJSON'
+  
+  # 异步编程
+#  pod 'RxSwift'
+
+  # 日期转换
+  pod 'SwiftDate'
+  
+  # 代码布局
+  pod 'SnapKit'
+  
+  # UI 方面
+  pod "ESTabBarController-swift"
+  
+  # 资源处理
+  pod 'R.swift'
+  
+
   target 'XiaoweHealthyTests' do
     inherit! :search_paths
     # Pods for testing
