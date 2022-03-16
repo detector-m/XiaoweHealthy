@@ -51,12 +51,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
     
     class func configWindow(win: UIWindow) {
-        let rVC = UIViewController()
-        rVC.title = "Hello"
-        rVC.view.backgroundColor = UIColor.red
-        let nav = UINavigationController(rootViewController: rVC)
+        let rVC = XWHRootVCProvider.getTabBarVC()
         
-        win.rootViewController = nav
+        win.rootViewController = rVC
     }
     
 }
