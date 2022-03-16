@@ -11,7 +11,7 @@ target 'XiaoweHealthy' do
   pod 'XCGLogger'
   
   # 内存监测 FBRetainCycleDetector
-  pod 'FBRetainCycleDetector'
+#  pod 'FBRetainCycleDetector'
   
   # 网络监测
   pod 'ReachabilitySwift'

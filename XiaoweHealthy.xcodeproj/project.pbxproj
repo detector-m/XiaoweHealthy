@@ -101,7 +101,6 @@
 				346308B1738C6E3283C6DDAB /* Pods-XiaoweHealthyTests.debug.xcconfig */,
 				95FEB00539882EA5F45C9693 /* Pods-XiaoweHealthyTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -130,13 +129,8 @@
 		9648E60D27E0796D0077180D /* XiaoweHealthy */ = {
 			isa = PBXGroup;
 			children = (
-				9648E60E27E0796D0077180D /* AppDelegate.swift */,
-				9648E61027E0796D0077180D /* SceneDelegate.swift */,
-				9648E61227E0796D0077180D /* ViewController.swift */,
-				9648E61427E0796D0077180D /* Main.storyboard */,
-				9648E61727E0796E0077180D /* Assets.xcassets */,
-				9648E61927E0796E0077180D /* LaunchScreen.storyboard */,
-				9648E61C27E0796E0077180D /* Info.plist */,
+				96E23C0627E18003009EF208 /* AppEntry */,
+				96E23C0727E1839B009EF208 /* Resource */,
 			);
 			path = XiaoweHealthy;
 			sourceTree = "<group>";
@@ -156,6 +150,27 @@
 				9648E63127E0796E0077180D /* XiaoweHealthyUITestsLaunchTests.swift */,
 			);
 			path = XiaoweHealthyUITests;
+			sourceTree = "<group>";
+		};
+		96E23C0627E18003009EF208 /* AppEntry */ = {
+			isa = PBXGroup;
+			children = (
+				9648E60E27E0796D0077180D /* AppDelegate.swift */,
+				9648E61027E0796D0077180D /* SceneDelegate.swift */,
+				9648E61227E0796D0077180D /* ViewController.swift */,
+			);
+			path = AppEntry;
+			sourceTree = "<group>";
+		};
+		96E23C0727E1839B009EF208 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				9648E61427E0796D0077180D /* Main.storyboard */,
+				9648E61727E0796E0077180D /* Assets.xcassets */,
+				9648E61927E0796E0077180D /* LaunchScreen.storyboard */,
+				9648E61C27E0796E0077180D /* Info.plist */,
+			);
+			name = Resource;
 			sourceTree = "<group>";
 		};
 		F13397529419217181216C7B /* Frameworks */ = {
