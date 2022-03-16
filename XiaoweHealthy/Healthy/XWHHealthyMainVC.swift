@@ -7,23 +7,41 @@
 
 import UIKit
 
-class XWHHealthyMainVC: UIViewController {
+class XWHHealthyMainVC: XWHBaseVC {
+    
+    lazy var loginBtn: UIButton = UIButton()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = UIColor.green
+    }
+    
+    override func setupNavigationItems() {
+        
+    }
+    
+    override func addSubViews() {
+        super.addSubViews()
+        
+        loginBtn.setTitle("登录", for: .normal)
+        loginBtn.addTarget(self, action: #selector(clickLoginBtn), for: .touchUpInside)
+        loginBtn.backgroundColor = UIColor.red
+        view.addSubview(loginBtn)
+    }
+    
+    override func relayoutSubViews() {
+        loginBtn.snp.makeConstraints { make in
+            make.width.equalTo(100)
+            make.height.equalTo(50)
+            make.center.equalToSuperview()
+        }
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @objc func clickLoginBtn() {
+        let loginVC = XWHLoginVC()
+        let loginNav = XWHBaseNavigationVC(rootViewController: loginVC)
+        loginNav.modalPresentationStyle = .fullScreen
+        present(loginNav, animated: true, completion: nil)
     }
-    */
 
 }

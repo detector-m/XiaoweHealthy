@@ -42,6 +42,7 @@ target 'XiaoweHealthy' do
   
   # UI 方面
   pod "ESTabBarController-swift"
+  pod "RTRootNavigationController"
   
   # 资源处理
   pod 'R.swift'

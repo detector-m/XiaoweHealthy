@@ -25,6 +25,12 @@
 		96617A6427E1D1B300139B03 /* XWHLaunchImg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96617A6227E1D1B300139B03 /* XWHLaunchImg@2x.png */; };
 		96617A6727E1D31700139B03 /* XWHLaunchBg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96617A6527E1D31700139B03 /* XWHLaunchBg@3x.png */; };
 		96617A6827E1D31700139B03 /* XWHLaunchBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96617A6627E1D31700139B03 /* XWHLaunchBg@2x.png */; };
+		96617A6C27E1DFE100139B03 /* XWHBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96617A6B27E1DFE100139B03 /* XWHBaseView.swift */; };
+		96617A6E27E1E00E00139B03 /* XWHBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96617A6D27E1E00E00139B03 /* XWHBaseVC.swift */; };
+		96617A7227E1E12E00139B03 /* XWHExported.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96617A7127E1E12E00139B03 /* XWHExported.swift */; };
+		96617A7627E1EE3000139B03 /* XWHBaseNavigationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96617A7527E1EE3000139B03 /* XWHBaseNavigationVC.swift */; };
+		96617A7827E1FCF600139B03 /* XWHLoginRegisterBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96617A7727E1FCF600139B03 /* XWHLoginRegisterBaseVC.swift */; };
+		96617A7A27E1FE6B00139B03 /* XWHLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96617A7927E1FE6B00139B03 /* XWHLoginVC.swift */; };
 		96E23C0A27E1898C009EF208 /* XWHTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */; };
 		96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */; };
 		96E23C1427E18D19009EF208 /* XWHDisplayText.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96E23C1627E18D19009EF208 /* XWHDisplayText.strings */; };
@@ -76,6 +82,12 @@
 		96617A6227E1D1B300139B03 /* XWHLaunchImg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XWHLaunchImg@2x.png"; sourceTree = "<group>"; };
 		96617A6527E1D31700139B03 /* XWHLaunchBg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XWHLaunchBg@3x.png"; sourceTree = "<group>"; };
 		96617A6627E1D31700139B03 /* XWHLaunchBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XWHLaunchBg@2x.png"; sourceTree = "<group>"; };
+		96617A6B27E1DFE100139B03 /* XWHBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBaseView.swift; sourceTree = "<group>"; };
+		96617A6D27E1E00E00139B03 /* XWHBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBaseVC.swift; sourceTree = "<group>"; };
+		96617A7127E1E12E00139B03 /* XWHExported.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHExported.swift; sourceTree = "<group>"; };
+		96617A7527E1EE3000139B03 /* XWHBaseNavigationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBaseNavigationVC.swift; sourceTree = "<group>"; };
+		96617A7727E1FCF600139B03 /* XWHLoginRegisterBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLoginRegisterBaseVC.swift; sourceTree = "<group>"; };
+		96617A7927E1FE6B00139B03 /* XWHLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLoginVC.swift; sourceTree = "<group>"; };
 		96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTabBarVC.swift; sourceTree = "<group>"; };
 		96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHRootVCProvider.swift; sourceTree = "<group>"; };
 		96E23C1727E18D9C009EF208 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/XWHDisplayText.strings"; sourceTree = "<group>"; };
@@ -157,11 +169,14 @@
 		9648E60D27E0796D0077180D /* XiaoweHealthy */ = {
 			isa = PBXGroup;
 			children = (
+				96617A6927E1D87E00139B03 /* LoginRegister */,
 				96E23C2127E1A311009EF208 /* Healthy */,
 				96E23C2227E1A322009EF208 /* Sport */,
 				96E23C2327E1A32F009EF208 /* Device */,
 				96E23C2427E1A33E009EF208 /* Me */,
 				96E23C0827E18947009EF208 /* RootVC */,
+				96617A6F27E1E06700139B03 /* Tools */,
+				96617A6A27E1DFC000139B03 /* Base */,
 				96E23C0627E18003009EF208 /* AppEntry */,
 				96E23C0727E1839B009EF208 /* Resource */,
 			);
@@ -198,9 +213,60 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		96617A6927E1D87E00139B03 /* LoginRegister */ = {
+			isa = PBXGroup;
+			children = (
+				96617A7427E1E19E00139B03 /* Register */,
+				96617A7327E1E19900139B03 /* Login */,
+				96617A7727E1FCF600139B03 /* XWHLoginRegisterBaseVC.swift */,
+			);
+			path = LoginRegister;
+			sourceTree = "<group>";
+		};
+		96617A6A27E1DFC000139B03 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				96617A6B27E1DFE100139B03 /* XWHBaseView.swift */,
+				96617A6D27E1E00E00139B03 /* XWHBaseVC.swift */,
+				96617A7527E1EE3000139B03 /* XWHBaseNavigationVC.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		96617A6F27E1E06700139B03 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				96617A7027E1E07B00139B03 /* UI */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		96617A7027E1E07B00139B03 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		96617A7327E1E19900139B03 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				96617A7927E1FE6B00139B03 /* XWHLoginVC.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		96617A7427E1E19E00139B03 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
 		96E23C0627E18003009EF208 /* AppEntry */ = {
 			isa = PBXGroup;
 			children = (
+				96617A7127E1E12E00139B03 /* XWHExported.swift */,
 				9648E60E27E0796D0077180D /* AppDelegate.swift */,
 				9648E61027E0796D0077180D /* SceneDelegate.swift */,
 				9648E61227E0796D0077180D /* ViewController.swift */,
@@ -549,12 +615,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				96E23C0A27E1898C009EF208 /* XWHTabBarVC.swift in Sources */,
+				96617A7627E1EE3000139B03 /* XWHBaseNavigationVC.swift in Sources */,
+				96617A6C27E1DFE100139B03 /* XWHBaseView.swift in Sources */,
 				96E23C2C27E1A579009EF208 /* XWHDeviceMainVC.swift in Sources */,
+				96617A7A27E1FE6B00139B03 /* XWHLoginVC.swift in Sources */,
+				96617A7827E1FCF600139B03 /* XWHLoginRegisterBaseVC.swift in Sources */,
 				9648E61327E0796D0077180D /* ViewController.swift in Sources */,
 				9648E60F27E0796D0077180D /* AppDelegate.swift in Sources */,
+				96617A6E27E1E00E00139B03 /* XWHBaseVC.swift in Sources */,
 				96E23C2827E1A53F009EF208 /* XWHSportMainVC.swift in Sources */,
 				96E23C2E27E1A586009EF208 /* XWHMeMainVC.swift in Sources */,
 				9648E61127E0796D0077180D /* SceneDelegate.swift in Sources */,
+				96617A7227E1E12E00139B03 /* XWHExported.swift in Sources */,
 				96E23C2A27E1A55E009EF208 /* XWHHealthyMainVC.swift in Sources */,
 				96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */,
 				96E23C2027E1A22C009EF208 /* R.generated.swift in Sources */,
