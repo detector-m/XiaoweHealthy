@@ -31,6 +31,12 @@
 		96617A7627E1EE3000139B03 /* XWHBaseNavigationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96617A7527E1EE3000139B03 /* XWHBaseNavigationVC.swift */; };
 		96617A7827E1FCF600139B03 /* XWHLoginRegisterBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96617A7727E1FCF600139B03 /* XWHLoginRegisterBaseVC.swift */; };
 		96617A7A27E1FE6B00139B03 /* XWHLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96617A7927E1FE6B00139B03 /* XWHLoginVC.swift */; };
+		96617A8827E2100700139B03 /* HarmonyOS_Sans_Condensed_Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96617A8127E2100700139B03 /* HarmonyOS_Sans_Condensed_Medium.ttf */; };
+		96617A8927E2100700139B03 /* HarmonyOS_Sans_Condensed_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96617A8227E2100700139B03 /* HarmonyOS_Sans_Condensed_Regular.ttf */; };
+		96617A8A27E2100700139B03 /* HarmonyOS_Sans_Condensed_Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96617A8327E2100700139B03 /* HarmonyOS_Sans_Condensed_Black.ttf */; };
+		96617A8B27E2100700139B03 /* HarmonyOS_Sans_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96617A8527E2100700139B03 /* HarmonyOS_Sans_Regular.ttf */; };
+		96617A8C27E2100700139B03 /* HarmonyOS_Sans_Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96617A8627E2100700139B03 /* HarmonyOS_Sans_Medium.ttf */; };
+		96617A8D27E2100700139B03 /* HarmonyOS_Sans_Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96617A8727E2100700139B03 /* HarmonyOS_Sans_Black.ttf */; };
 		96E23C0A27E1898C009EF208 /* XWHTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */; };
 		96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */; };
 		96E23C1427E18D19009EF208 /* XWHDisplayText.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96E23C1627E18D19009EF208 /* XWHDisplayText.strings */; };
@@ -88,6 +94,12 @@
 		96617A7527E1EE3000139B03 /* XWHBaseNavigationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBaseNavigationVC.swift; sourceTree = "<group>"; };
 		96617A7727E1FCF600139B03 /* XWHLoginRegisterBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLoginRegisterBaseVC.swift; sourceTree = "<group>"; };
 		96617A7927E1FE6B00139B03 /* XWHLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLoginVC.swift; sourceTree = "<group>"; };
+		96617A8127E2100700139B03 /* HarmonyOS_Sans_Condensed_Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HarmonyOS_Sans_Condensed_Medium.ttf; sourceTree = "<group>"; };
+		96617A8227E2100700139B03 /* HarmonyOS_Sans_Condensed_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HarmonyOS_Sans_Condensed_Regular.ttf; sourceTree = "<group>"; };
+		96617A8327E2100700139B03 /* HarmonyOS_Sans_Condensed_Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HarmonyOS_Sans_Condensed_Black.ttf; sourceTree = "<group>"; };
+		96617A8527E2100700139B03 /* HarmonyOS_Sans_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HarmonyOS_Sans_Regular.ttf; sourceTree = "<group>"; };
+		96617A8627E2100700139B03 /* HarmonyOS_Sans_Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HarmonyOS_Sans_Medium.ttf; sourceTree = "<group>"; };
+		96617A8727E2100700139B03 /* HarmonyOS_Sans_Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HarmonyOS_Sans_Black.ttf; sourceTree = "<group>"; };
 		96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTabBarVC.swift; sourceTree = "<group>"; };
 		96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHRootVCProvider.swift; sourceTree = "<group>"; };
 		96E23C1727E18D9C009EF208 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/XWHDisplayText.strings"; sourceTree = "<group>"; };
@@ -263,6 +275,35 @@
 			path = Register;
 			sourceTree = "<group>";
 		};
+		96617A7F27E2100700139B03 /* HarmonyOSFont */ = {
+			isa = PBXGroup;
+			children = (
+				96617A8027E2100700139B03 /* HarmonyOS_Sans_Condensed */,
+				96617A8427E2100700139B03 /* HarmonyOS_Sans */,
+			);
+			path = HarmonyOSFont;
+			sourceTree = "<group>";
+		};
+		96617A8027E2100700139B03 /* HarmonyOS_Sans_Condensed */ = {
+			isa = PBXGroup;
+			children = (
+				96617A8127E2100700139B03 /* HarmonyOS_Sans_Condensed_Medium.ttf */,
+				96617A8227E2100700139B03 /* HarmonyOS_Sans_Condensed_Regular.ttf */,
+				96617A8327E2100700139B03 /* HarmonyOS_Sans_Condensed_Black.ttf */,
+			);
+			path = HarmonyOS_Sans_Condensed;
+			sourceTree = "<group>";
+		};
+		96617A8427E2100700139B03 /* HarmonyOS_Sans */ = {
+			isa = PBXGroup;
+			children = (
+				96617A8527E2100700139B03 /* HarmonyOS_Sans_Regular.ttf */,
+				96617A8627E2100700139B03 /* HarmonyOS_Sans_Medium.ttf */,
+				96617A8727E2100700139B03 /* HarmonyOS_Sans_Black.ttf */,
+			);
+			path = HarmonyOS_Sans;
+			sourceTree = "<group>";
+		};
 		96E23C0627E18003009EF208 /* AppEntry */ = {
 			isa = PBXGroup;
 			children = (
@@ -277,6 +318,7 @@
 		96E23C0727E1839B009EF208 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				96617A7F27E2100700139B03 /* HarmonyOSFont */,
 				96E23C0D27E18B95009EF208 /* LocalString */,
 				96617A5C27E1D19C00139B03 /* Images */,
 				9648E61427E0796D0077180D /* Main.storyboard */,
@@ -459,15 +501,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				96E23C1427E18D19009EF208 /* XWHDisplayText.strings in Resources */,
+				96617A8827E2100700139B03 /* HarmonyOS_Sans_Condensed_Medium.ttf in Resources */,
 				9648E61B27E0796E0077180D /* LaunchScreen.storyboard in Resources */,
+				96617A8927E2100700139B03 /* HarmonyOS_Sans_Condensed_Regular.ttf in Resources */,
+				96617A8D27E2100700139B03 /* HarmonyOS_Sans_Black.ttf in Resources */,
 				96617A6727E1D31700139B03 /* XWHLaunchBg@3x.png in Resources */,
+				96617A8A27E2100700139B03 /* HarmonyOS_Sans_Condensed_Black.ttf in Resources */,
 				9648E61827E0796E0077180D /* Assets.xcassets in Resources */,
 				96617A6027E1D1A600139B03 /* XWHLaunchLogoS@3x.png in Resources */,
 				96617A5F27E1D1A600139B03 /* XWHLaunchLogoS@2x.png in Resources */,
 				9648E61627E0796D0077180D /* Main.storyboard in Resources */,
+				96617A8C27E2100700139B03 /* HarmonyOS_Sans_Medium.ttf in Resources */,
 				96617A6327E1D1B300139B03 /* XWHLaunchImg@3x.png in Resources */,
 				96617A6827E1D31700139B03 /* XWHLaunchBg@2x.png in Resources */,
 				96617A6427E1D1B300139B03 /* XWHLaunchImg@2x.png in Resources */,
+				96617A8B27E2100700139B03 /* HarmonyOS_Sans_Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

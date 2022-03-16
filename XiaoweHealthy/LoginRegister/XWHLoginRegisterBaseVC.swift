@@ -25,6 +25,7 @@ class XWHLoginRegisterBaseVC: XWHBaseVC {
     func getNavRightItem() -> UIBarButtonItem {
         let button = UIButton(type: .custom)
         button.setTitle(R.string.xwhDisplayText.忘记密码(), for: .normal)
+        button.titleLabel?.font = R.font.harmonyOS_Sans(size: 14)
         button.setTitleColor(UIColor.black, for: .normal)
         button.sizeToFit()
         button.addTarget(self, action: #selector(clickNavRightBtn), for: .touchUpInside)

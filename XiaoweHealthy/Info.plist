@@ -2,6 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>HarmonyOS_Sans_Regular.ttf</string>
+		<string>HarmonyOS_Sans_Medium.ttf</string>
+		<string>HarmonyOS_Sans_Black.ttf</string>
+		<string>HarmonyOS_Sans_Condensed_Regular.ttf</string>
+		<string>HarmonyOS_Sans_Condensed_Medium.ttf</string>
+		<string>HarmonyOS_Sans_Condensed_Black.ttf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
