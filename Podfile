@@ -40,6 +40,12 @@ target 'XiaoweHealthy' do
   # 代码布局
   pod 'SnapKit'
   
+  # 富文本标签
+  pod 'ActiveLabel'
+  
+  # 键盘管理
+  pod 'IQKeyboardManagerSwift'
+  
   # UI 方面
   pod "ESTabBarController-swift"
   pod "RTRootNavigationController"

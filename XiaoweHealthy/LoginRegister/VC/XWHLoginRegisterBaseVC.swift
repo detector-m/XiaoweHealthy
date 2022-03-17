@@ -8,14 +8,35 @@
 import UIKit
 
 class XWHLoginRegisterBaseVC: XWHBaseVC {
-
+    
+    lazy var bgView = UIImageView()
+    lazy var otherLoginView = XWHOtherLoginView()
+    
+    lazy var titleLb = UILabel()
+    
+    lazy var checkBtn = UIButton()
+    lazy var protocolLb = UILabel()
+    
+    lazy var loginBtn = UIButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    override func setupNavigationItems() {
-        super.setupNavigationItems()
-        navigationItem.rightBarButtonItem = getNavRightItem()
+//    override func setupNavigationItems() {
+//        super.setupNavigationItems()
+//    }
+    
+    override func addSubViews() {
+        super.addSubViews()
+        
+        view.addSubview(bgView)
+        
+        titleLb.font = R.font.harmonyOS_Sans_Black(size: 30)
+        titleLb.textColor = UIColor(hex: 0x000000, transparency: 0.9)
+        view.addSubview(titleLb)
+        
+        view.addSubview(otherLoginView)
     }
     
     @objc override func clickNavGlobalBackBtn() {

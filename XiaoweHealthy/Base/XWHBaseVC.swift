@@ -38,8 +38,18 @@ class XWHBaseVC: UIViewController {
     }
     
     func getNavGlobalBackItem(target: UIViewController, action: Selector) -> UIBarButtonItem {
+        return getNavItem(text: nil, image: R.image.globalBack(), target: target, action: action)
+    }
+    
+    func getNavItem(text: String? = nil, image: UIImage? = nil, target: UIViewController, action: Selector) -> UIBarButtonItem {
         let button = UIButton(type: .custom)
-        button.setImage(R.image.globalBack(), for: .normal)
+        if let cImage = image {
+            button.setImage(cImage, for: .normal)
+        } else if let cText = text {
+            button.setTitle(cText, for: .normal)
+            button.titleLabel?.font = R.font.harmonyOS_Sans(size: 14)
+            button.setTitleColor(UIColor(hex: 0x000000, transparency: 0.9), for: .normal)
+        }
         button.sizeToFit()
         button.addTarget(target, action: action, for: .touchUpInside)
         

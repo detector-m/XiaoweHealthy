@@ -8,3 +8,5 @@
 import Foundation
 
 @_exported import SnapKit
+@_exported import SwifterSwift
+@_exported import IQKeyboardManagerSwift
