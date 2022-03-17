@@ -40,6 +40,25 @@ class XWHLoginVC: XWHLoginRegisterBaseVC {
         codeView.layer.cornerRadius = 16
         codeView.layer.backgroundColor = UIColor(hex: 0x000000, transparency: 0.03)?.cgColor
         view.addSubview(codeView)
+        
+        otherLoginView.clickCallback = { [weak self] cType in
+            if cType == .password {
+                let vc = XWHPasswordLoginVC()
+                self?.navigationController?.setViewControllers([vc], animated: true)
+                
+                return
+            }
+            
+            if cType == .wechat {
+                let vc = XWHBindPhoneVC()
+                self?.navigationController?.pushViewController(vc, completion: nil)
+                return
+            }
+            
+            if cType == .qq {
+                return
+            }
+        }
     }
     
     override func relayoutSubViews() {

@@ -45,6 +45,8 @@
 		96617AA327E3110E00139B03 /* XWHPasswordLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96617AA227E3110E00139B03 /* XWHPasswordLoginVC.swift */; };
 		96617AA527E3169200139B03 /* XWHCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96617AA427E3169200139B03 /* XWHCodeView.swift */; };
 		96617AA727E3196A00139B03 /* XWHCheckProtocolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96617AA627E3196A00139B03 /* XWHCheckProtocolView.swift */; };
+		96617AA927E328C800139B03 /* XWHResetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96617AA827E328C800139B03 /* XWHResetPasswordVC.swift */; };
+		96617AAB27E32C4100139B03 /* XWHBindPhoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96617AAA27E32C4100139B03 /* XWHBindPhoneVC.swift */; };
 		96E23C0A27E1898C009EF208 /* XWHTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */; };
 		96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */; };
 		96E23C1427E18D19009EF208 /* XWHDisplayText.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96E23C1627E18D19009EF208 /* XWHDisplayText.strings */; };
@@ -116,6 +118,8 @@
 		96617AA227E3110E00139B03 /* XWHPasswordLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPasswordLoginVC.swift; sourceTree = "<group>"; };
 		96617AA427E3169200139B03 /* XWHCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCodeView.swift; sourceTree = "<group>"; };
 		96617AA627E3196A00139B03 /* XWHCheckProtocolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCheckProtocolView.swift; sourceTree = "<group>"; };
+		96617AA827E328C800139B03 /* XWHResetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHResetPasswordVC.swift; sourceTree = "<group>"; };
+		96617AAA27E32C4100139B03 /* XWHBindPhoneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBindPhoneVC.swift; sourceTree = "<group>"; };
 		96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTabBarVC.swift; sourceTree = "<group>"; };
 		96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHRootVCProvider.swift; sourceTree = "<group>"; };
 		96E23C1727E18D9C009EF208 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/XWHDisplayText.strings"; sourceTree = "<group>"; };
@@ -284,6 +288,8 @@
 			children = (
 				96617A7927E1FE6B00139B03 /* XWHLoginVC.swift */,
 				96617AA227E3110E00139B03 /* XWHPasswordLoginVC.swift */,
+				96617AAA27E32C4100139B03 /* XWHBindPhoneVC.swift */,
+				96617AA827E328C800139B03 /* XWHResetPasswordVC.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -760,8 +766,10 @@
 				96617A7827E1FCF600139B03 /* XWHLoginRegisterBaseVC.swift in Sources */,
 				9648E61327E0796D0077180D /* ViewController.swift in Sources */,
 				9648E60F27E0796D0077180D /* AppDelegate.swift in Sources */,
+				96617AAB27E32C4100139B03 /* XWHBindPhoneVC.swift in Sources */,
 				96617AA527E3169200139B03 /* XWHCodeView.swift in Sources */,
 				96617A6E27E1E00E00139B03 /* XWHBaseVC.swift in Sources */,
+				96617AA927E328C800139B03 /* XWHResetPasswordVC.swift in Sources */,
 				96E23C2827E1A53F009EF208 /* XWHSportMainVC.swift in Sources */,
 				96617A9D27E2FEE200139B03 /* XWHTextFieldBaseView.swift in Sources */,
 				96617AA127E30EF600139B03 /* XWHPasswordView.swift in Sources */,

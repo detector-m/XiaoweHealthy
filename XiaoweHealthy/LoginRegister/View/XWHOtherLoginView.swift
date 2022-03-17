@@ -23,6 +23,8 @@ class XWHOtherLoginView: XWHBaseView {
     lazy var loginBtn2 = UIButton()
     lazy var loginBtn3 = UIButton()
     
+    var clickCallback: ((LoginType) -> Void)?
+    
     override func addSubViews() {
         super.addSubViews()
         
@@ -42,6 +44,7 @@ class XWHOtherLoginView: XWHBaseView {
         addSubview(loginBtn2)
         
         loginBtn3.setImage(R.image.keyIcon(), for: .normal)
+        loginBtn3.setImage(R.image.phoneIcon(), for: .selected)
         loginBtn3.titleLabel?.font = R.font.harmonyOS_Sans(size: 14)
         loginBtn3.setTitleColor(UIColor(hex: 0x000000, transparency: 0.9), for: .normal)
         loginBtn3.setTitle(R.string.xwhDisplayText.密码登录(), for: .normal)
@@ -82,7 +85,21 @@ class XWHOtherLoginView: XWHBaseView {
     }
     
     @objc func clickLoginBtn(sender: UIButton) {
+        guard let cCallback = clickCallback else {
+            return
+        }
         
+        if sender == loginBtn1 {
+            cCallback(.wechat)
+        } else if sender == loginBtn2 {
+            cCallback(.qq)
+        } else {
+            if loginBtn3.isSelected {
+                cCallback(.code)
+            } else {
+                cCallback(.password)
+            }
+        }
     }
 
 }
