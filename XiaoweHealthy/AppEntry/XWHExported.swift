@@ -10,3 +10,6 @@ import Foundation
 @_exported import SnapKit
 @_exported import SwifterSwift
 @_exported import IQKeyboardManagerSwift
+@_exported import ObjectMapper
+@_exported import SwiftyJSON
+

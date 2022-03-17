@@ -7,10 +7,8 @@
 
 import UIKit
 
-class XWHBindPhoneVC: XWHBaseVC {
+class XWHBindPhoneVC: XWHRegisterBaseVC {
     
-    lazy var titleLb = UILabel()
-    lazy var subLb = UILabel()
     lazy var phoneNumView = XWHPhoneNumView()
     lazy var codeView = XWHCodeView()
     
@@ -19,7 +17,6 @@ class XWHBindPhoneVC: XWHBaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
 
     override func addSubViews() {
         super.addSubViews()
@@ -30,7 +27,6 @@ class XWHBindPhoneVC: XWHBaseVC {
         titleLb.text = R.string.xwhDisplayText.您好亲爱的用户()
         titleLb.font = R.font.harmonyOS_Sans_Black(size: 24)
         titleLb.textColor = cColor
-        view.addSubview(titleLb)
         
         let cFont = R.font.harmonyOS_Sans(size: 12)
         subLb.font = cFont
@@ -38,7 +34,6 @@ class XWHBindPhoneVC: XWHBaseVC {
         subLb.alpha = 0.5
         subLb.numberOfLines = 2
         subLb.text = R.string.xwhDisplayText.为确保您账户的安全及正常使用依网络安全法相关要求账号需绑定手机号()
-        view.addSubview(subLb)
         
         let bgColor = UIColor(hex: 0x000000, transparency: 0.03)
         phoneNumView.layer.cornerRadius = 16
@@ -49,7 +44,7 @@ class XWHBindPhoneVC: XWHBaseVC {
         codeView.layer.backgroundColor = UIColor(hex: 0x000000, transparency: 0.03)?.cgColor
         view.addSubview(codeView)
         
-        confirmBtn.setTitle(R.string.xwhDisplayText.确认修改(), for: .normal)
+        confirmBtn.setTitle(R.string.xwhDisplayText.确定(), for: .normal)
         confirmBtn.titleLabel?.font = R.font.harmonyOS_Sans_Medium(size: 16)
         confirmBtn.layer.cornerRadius = 26
         confirmBtn.layer.backgroundColor = UIColor(hex: 0x000000, transparency: 0.24)?.cgColor
@@ -89,7 +84,8 @@ class XWHBindPhoneVC: XWHBaseVC {
     }
     
     @objc func clickConfirmBtn() {
-        
+        let vc = XWHGenderSelectVC()
+        navigationController?.pushViewController(vc, animated: true)
     }
 
 }

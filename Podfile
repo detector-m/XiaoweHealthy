@@ -30,6 +30,7 @@ target 'XiaoweHealthy' do
   
   # 模型转换
   pod 'SwiftyJSON'
+  pod 'ObjectMapper'
   
   # 异步编程
 #  pod 'RxSwift'
