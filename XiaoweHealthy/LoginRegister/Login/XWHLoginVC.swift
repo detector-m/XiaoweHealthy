@@ -10,6 +10,9 @@ import UIKit
 class XWHLoginVC: XWHLoginRegisterBaseVC {
     
     lazy var logoImageView = UIImageView()
+    
+    lazy var phoneNumView = XWHPhoneNumView()
+    lazy var codeView = XWHCodeView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +32,14 @@ class XWHLoginVC: XWHLoginRegisterBaseVC {
         
         logoImageView.image = R.image.logoS()
         view.addSubview(logoImageView)
+        
+        phoneNumView.layer.cornerRadius = 16
+        phoneNumView.layer.backgroundColor = UIColor(hex: 0x000000, transparency: 0.03)?.cgColor
+        view.addSubview(phoneNumView)
+        
+        codeView.layer.cornerRadius = 16
+        codeView.layer.backgroundColor = UIColor(hex: 0x000000, transparency: 0.03)?.cgColor
+        view.addSubview(codeView)
     }
     
     override func relayoutSubViews() {
@@ -46,6 +57,29 @@ class XWHLoginVC: XWHLoginRegisterBaseVC {
             make.top.equalTo(logoImageView.snp.bottom).offset(16)
             make.left.right.equalToSuperview().inset(28)
             make.height.equalTo(40)
+        }
+        
+        phoneNumView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(28)
+            make.top.equalTo(titleLb.snp.bottom).offset(40)
+            make.height.equalTo(52)
+        }
+        
+        codeView.snp.makeConstraints { make in
+            make.centerX.size.equalTo(phoneNumView)
+            make.top.equalTo(phoneNumView.snp.bottom).offset(12)
+        }
+        
+        checkProtocolView.snp.makeConstraints { make in
+            make.left.right.equalTo(codeView)
+            make.top.equalTo(codeView.snp.bottom).offset(20)
+            make.height.equalTo(36)
+        }
+        
+        loginBtn.snp.makeConstraints { make in
+            make.centerX.width.equalTo(checkProtocolView)
+            make.top.equalTo(checkProtocolView.snp.bottom).offset(32)
+            make.height.equalTo(52)
         }
         
         otherLoginView.snp.makeConstraints { make in

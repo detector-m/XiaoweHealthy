@@ -10,6 +10,7 @@ import UIKit
 class XWHHealthyMainVC: XWHBaseVC {
     
     lazy var loginBtn: UIButton = UIButton()
+    lazy var loginBtn2: UIButton = UIButton()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,12 @@ class XWHHealthyMainVC: XWHBaseVC {
         loginBtn.addTarget(self, action: #selector(clickLoginBtn), for: .touchUpInside)
         loginBtn.backgroundColor = UIColor.red
         view.addSubview(loginBtn)
+        
+        
+        loginBtn2.setTitle("密码登录", for: .normal)
+        loginBtn2.addTarget(self, action: #selector(clickLoginBtn2), for: .touchUpInside)
+        loginBtn2.backgroundColor = UIColor.red
+        view.addSubview(loginBtn2)
     }
     
     override func relayoutSubViews() {
@@ -34,11 +41,23 @@ class XWHHealthyMainVC: XWHBaseVC {
             make.height.equalTo(50)
             make.center.equalToSuperview()
         }
+        
+        loginBtn2.snp.makeConstraints { make in
+            make.centerX.size.equalTo(loginBtn)
+            make.top.equalTo(loginBtn.snp.bottom).offset(20)
+        }
     }
     
 
     @objc func clickLoginBtn() {
         let loginVC = XWHLoginVC()
+        let loginNav = XWHBaseNavigationVC(rootViewController: loginVC)
+        loginNav.modalPresentationStyle = .fullScreen
+        present(loginNav, animated: true, completion: nil)
+    }
+    
+    @objc func clickLoginBtn2() {
+        let loginVC = XWHPasswordLoginVC()
         let loginNav = XWHBaseNavigationVC(rootViewController: loginVC)
         loginNav.modalPresentationStyle = .fullScreen
         present(loginNav, animated: true, completion: nil)

@@ -14,8 +14,7 @@ class XWHLoginRegisterBaseVC: XWHBaseVC {
     
     lazy var titleLb = UILabel()
     
-    lazy var checkBtn = UIButton()
-    lazy var protocolLb = UILabel()
+    lazy var checkProtocolView = XWHCheckProtocolView()
     
     lazy var loginBtn = UIButton()
     
@@ -35,6 +34,14 @@ class XWHLoginRegisterBaseVC: XWHBaseVC {
         titleLb.font = R.font.harmonyOS_Sans_Black(size: 30)
         titleLb.textColor = UIColor(hex: 0x000000, transparency: 0.9)
         view.addSubview(titleLb)
+        
+        view.addSubview(checkProtocolView)
+        
+        loginBtn.setTitle(R.string.xwhDisplayText.登录(), for: .normal)
+        loginBtn.titleLabel?.font = R.font.harmonyOS_Sans_Medium(size: 16)
+        loginBtn.layer.cornerRadius = 26
+        loginBtn.layer.backgroundColor = UIColor(hex: 0x000000, transparency: 0.24)?.cgColor
+        view.addSubview(loginBtn)
         
         view.addSubview(otherLoginView)
     }
