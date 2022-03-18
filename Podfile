@@ -54,6 +54,9 @@ target 'XiaoweHealthy' do
   # 资源处理
   pod 'R.swift'
   
+  # 优创亿的SDK 依赖
+  pod 'iOSOTARTK'
+  pod 'iOSDFULibrary'
 
   target 'XiaoweHealthyTests' do
     inherit! :search_paths

@@ -19,6 +19,8 @@
 		9648E62627E0796E0077180D /* XiaoweHealthyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648E62527E0796E0077180D /* XiaoweHealthyTests.swift */; };
 		9648E63027E0796E0077180D /* XiaoweHealthyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648E62F27E0796E0077180D /* XiaoweHealthyUITests.swift */; };
 		9648E63227E0796E0077180D /* XiaoweHealthyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648E63127E0796E0077180D /* XiaoweHealthyUITestsLaunchTests.swift */; };
+		9661517627E46BF5006781C1 /* UTESmartBandApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9661517427E46B7B006781C1 /* UTESmartBandApi.framework */; platformFilter = ios; };
+		9661517727E46BF5006781C1 /* UTESmartBandApi.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9661517427E46B7B006781C1 /* UTESmartBandApi.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96617A5F27E1D1A600139B03 /* XWHLaunchLogoS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96617A5D27E1D1A600139B03 /* XWHLaunchLogoS@2x.png */; };
 		96617A6027E1D1A600139B03 /* XWHLaunchLogoS@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96617A5E27E1D1A600139B03 /* XWHLaunchLogoS@3x.png */; };
 		96617A6327E1D1B300139B03 /* XWHLaunchImg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96617A6127E1D1B200139B03 /* XWHLaunchImg@3x.png */; };
@@ -80,6 +82,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		9661517827E46BF5006781C1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9661517727E46BF5006781C1 /* UTESmartBandApi.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		10BCB88FCC09CE0210B07343 /* Pods-XiaoweHealthy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XiaoweHealthy.debug.xcconfig"; path = "Target Support Files/Pods-XiaoweHealthy/Pods-XiaoweHealthy.debug.xcconfig"; sourceTree = "<group>"; };
 		346308B1738C6E3283C6DDAB /* Pods-XiaoweHealthyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XiaoweHealthyTests.debug.xcconfig"; path = "Target Support Files/Pods-XiaoweHealthyTests/Pods-XiaoweHealthyTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -98,6 +114,7 @@
 		9648E62B27E0796E0077180D /* XiaoweHealthyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XiaoweHealthyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9648E62F27E0796E0077180D /* XiaoweHealthyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XiaoweHealthyUITests.swift; sourceTree = "<group>"; };
 		9648E63127E0796E0077180D /* XiaoweHealthyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XiaoweHealthyUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		9661517427E46B7B006781C1 /* UTESmartBandApi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTESmartBandApi.framework; sourceTree = "<group>"; };
 		96617A5D27E1D1A600139B03 /* XWHLaunchLogoS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XWHLaunchLogoS@2x.png"; sourceTree = "<group>"; };
 		96617A5E27E1D1A600139B03 /* XWHLaunchLogoS@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XWHLaunchLogoS@3x.png"; sourceTree = "<group>"; };
 		96617A6127E1D1B200139B03 /* XWHLaunchImg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XWHLaunchImg@3x.png"; sourceTree = "<group>"; };
@@ -153,6 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CBF5AE85A9444D903AE1BC2 /* Pods_XiaoweHealthy.framework in Frameworks */,
+				9661517627E46BF5006781C1 /* UTESmartBandApi.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,6 +240,7 @@
 				96617A6F27E1E06700139B03 /* Tools */,
 				96617A6A27E1DFC000139B03 /* Base */,
 				96E23C0627E18003009EF208 /* AppEntry */,
+				9661517227E46A07006781C1 /* Supplier */,
 				96E23C0727E1839B009EF208 /* Resource */,
 			);
 			path = XiaoweHealthy;
@@ -242,6 +261,22 @@
 				9648E63127E0796E0077180D /* XiaoweHealthyUITestsLaunchTests.swift */,
 			);
 			path = XiaoweHealthyUITests;
+			sourceTree = "<group>";
+		};
+		9661517227E46A07006781C1 /* Supplier */ = {
+			isa = PBXGroup;
+			children = (
+				9661517327E46B6D006781C1 /* UTE */,
+			);
+			path = Supplier;
+			sourceTree = "<group>";
+		};
+		9661517327E46B6D006781C1 /* UTE */ = {
+			isa = PBXGroup;
+			children = (
+				9661517427E46B7B006781C1 /* UTESmartBandApi.framework */,
+			);
+			path = UTE;
 			sourceTree = "<group>";
 		};
 		96617A5C27E1D19C00139B03 /* Images */ = {
@@ -514,6 +549,7 @@
 				9648E60827E0796D0077180D /* Frameworks */,
 				9648E60927E0796D0077180D /* Resources */,
 				6DF382B1887CDDC17B7529BF /* [CP] Embed Pods Frameworks */,
+				9661517827E46BF5006781C1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -872,6 +908,7 @@
 		9648E63327E0796E0077180D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -934,6 +971,7 @@
 		9648E63427E0796E0077180D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -995,6 +1033,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S5PTFQG5C4;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/XiaoweHealthy/Supplier/UTE",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = XiaoweHealthy/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = XiaoweHealth;
@@ -1024,6 +1067,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/XiaoweHealthy/Supplier/UTE",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = XiaoweHealthy/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = XiaoweHealth;
