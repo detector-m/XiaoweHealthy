@@ -15,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        configIQKeyboard()
+        
         if #available(iOS 13.0, *) {
             
         } else {
@@ -54,6 +56,14 @@ extension AppDelegate {
         let rVC = XWHRootVCProvider.getTabBarVC()
         
         win.rootViewController = rVC
+    }
+    
+    func configIQKeyboard() {
+        let kbManager = IQKeyboardManager.shared
+        kbManager.enable = true
+        kbManager.enableAutoToolbar = false
+        kbManager.shouldResignOnTouchOutside = true
+        kbManager.keyboardDistanceFromTextField = 160
     }
     
 }

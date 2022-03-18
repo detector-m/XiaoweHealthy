@@ -16,6 +16,8 @@ class XWHLoginVC: XWHLoginRegisterBaseVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        otherLoginView.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor).isActive = true
     }
     
     override func setupNavigationItems() {
