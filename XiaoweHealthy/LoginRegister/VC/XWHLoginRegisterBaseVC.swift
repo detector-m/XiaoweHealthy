@@ -41,6 +41,7 @@ class XWHLoginRegisterBaseVC: XWHBaseVC {
         loginBtn.titleLabel?.font = R.font.harmonyOS_Sans_Medium(size: 16)
         loginBtn.layer.cornerRadius = 26
         loginBtn.layer.backgroundColor = UIColor(hex: 0x000000, transparency: 0.24)?.cgColor
+        loginBtn.addTarget(self, action: #selector(clickLoginBtn), for: .touchUpInside)
         view.addSubview(loginBtn)
         
         view.addSubview(otherLoginView)
@@ -62,6 +63,10 @@ class XWHLoginRegisterBaseVC: XWHBaseVC {
     }
     
     @objc func clickNavRightBtn() {
+        
+    }
+    
+    @objc func clickLoginBtn() {
         
     }
 

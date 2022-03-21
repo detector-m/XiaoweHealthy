@@ -116,5 +116,9 @@ class XWHPasswordLoginVC: XWHLoginRegisterBaseVC {
         let vc = XWHResetPasswordVC()
         navigationController?.pushViewController(vc, completion: nil)
     }
+    
+    @objc override func clickLoginBtn() {
+        
+    }
 
 }

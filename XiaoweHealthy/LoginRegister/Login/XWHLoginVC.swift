@@ -110,5 +110,13 @@ class XWHLoginVC: XWHLoginRegisterBaseVC {
             make.height.equalTo(110)
         }
     }
+    
+    @objc override func clickLoginBtn() {
+        XWHProgressHUD.show(text: R.string.xwhDisplayText.加速登录中())
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+            XWHProgressHUD.hide()
+        }
+    }
 
 }

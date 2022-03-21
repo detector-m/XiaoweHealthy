@@ -32,6 +32,9 @@ target 'XiaoweHealthy' do
   pod 'SwiftyJSON'
   pod 'ObjectMapper'
   
+  # 图表
+#  pod 'Charts'
+  
   # 异步编程
 #  pod 'RxSwift'
 
@@ -50,6 +53,9 @@ target 'XiaoweHealthy' do
   # UI 方面
   pod "ESTabBarController-swift"
   pod "RTRootNavigationController"
+  
+  # toast
+  pod 'Toast-Swift'
   
   # 资源处理
   pod 'R.swift'

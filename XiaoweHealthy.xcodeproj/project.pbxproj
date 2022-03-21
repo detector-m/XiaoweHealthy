@@ -19,6 +19,8 @@
 		9648E62627E0796E0077180D /* XiaoweHealthyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648E62527E0796E0077180D /* XiaoweHealthyTests.swift */; };
 		9648E63027E0796E0077180D /* XiaoweHealthyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648E62F27E0796E0077180D /* XiaoweHealthyUITests.swift */; };
 		9648E63227E0796E0077180D /* XiaoweHealthyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648E63127E0796E0077180D /* XiaoweHealthyUITestsLaunchTests.swift */; };
+		9651EDEF27E849740043FE52 /* RLPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651EDEE27E849740043FE52 /* RLPopupView.swift */; };
+		9651EDF227E8542B0043FE52 /* XWHProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651EDF127E8542B0043FE52 /* XWHProgressHUD.swift */; };
 		9661517627E46BF5006781C1 /* UTESmartBandApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9661517427E46B7B006781C1 /* UTESmartBandApi.framework */; platformFilter = ios; };
 		9661517727E46BF5006781C1 /* UTESmartBandApi.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9661517427E46B7B006781C1 /* UTESmartBandApi.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96617A5F27E1D1A600139B03 /* XWHLaunchLogoS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96617A5D27E1D1A600139B03 /* XWHLaunchLogoS@2x.png */; };
@@ -114,6 +116,8 @@
 		9648E62B27E0796E0077180D /* XiaoweHealthyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XiaoweHealthyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9648E62F27E0796E0077180D /* XiaoweHealthyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XiaoweHealthyUITests.swift; sourceTree = "<group>"; };
 		9648E63127E0796E0077180D /* XiaoweHealthyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XiaoweHealthyUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		9651EDEE27E849740043FE52 /* RLPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLPopupView.swift; sourceTree = "<group>"; };
+		9651EDF127E8542B0043FE52 /* XWHProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHProgressHUD.swift; sourceTree = "<group>"; };
 		9661517427E46B7B006781C1 /* UTESmartBandApi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTESmartBandApi.framework; sourceTree = "<group>"; };
 		96617A5D27E1D1A600139B03 /* XWHLaunchLogoS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XWHLaunchLogoS@2x.png"; sourceTree = "<group>"; };
 		96617A5E27E1D1A600139B03 /* XWHLaunchLogoS@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XWHLaunchLogoS@3x.png"; sourceTree = "<group>"; };
@@ -263,6 +267,22 @@
 			path = XiaoweHealthyUITests;
 			sourceTree = "<group>";
 		};
+		9651EDED27E8480B0043FE52 /* Popup */ = {
+			isa = PBXGroup;
+			children = (
+				9651EDEE27E849740043FE52 /* RLPopupView.swift */,
+			);
+			path = Popup;
+			sourceTree = "<group>";
+		};
+		9651EDF027E854120043FE52 /* ProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				9651EDF127E8542B0043FE52 /* XWHProgressHUD.swift */,
+			);
+			path = ProgressHUD;
+			sourceTree = "<group>";
+		};
 		9661517227E46A07006781C1 /* Supplier */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,6 +346,8 @@
 		96617A7027E1E07B00139B03 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				9651EDF027E854120043FE52 /* ProgressHUD */,
+				9651EDED27E8480B0043FE52 /* Popup */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -818,6 +840,7 @@
 				96E23C2C27E1A579009EF208 /* XWHDeviceMainVC.swift in Sources */,
 				96617A9F27E302C900139B03 /* XWHPhoneNumView.swift in Sources */,
 				96617A7A27E1FE6B00139B03 /* XWHLoginVC.swift in Sources */,
+				9651EDF227E8542B0043FE52 /* XWHProgressHUD.swift in Sources */,
 				96617A9227E23EAD00139B03 /* XWHColorExtension.swift in Sources */,
 				96617A7827E1FCF600139B03 /* XWHLoginRegisterBaseVC.swift in Sources */,
 				9648E61327E0796D0077180D /* ViewController.swift in Sources */,
@@ -837,6 +860,7 @@
 				9648E61127E0796D0077180D /* SceneDelegate.swift in Sources */,
 				96617A7227E1E12E00139B03 /* XWHExported.swift in Sources */,
 				96E23C2A27E1A55E009EF208 /* XWHHealthyMainVC.swift in Sources */,
+				9651EDEF27E849740043FE52 /* RLPopupView.swift in Sources */,
 				96617AB727E34FAA00139B03 /* XWHBirthdaySelectVC.swift in Sources */,
 				96617AA327E3110E00139B03 /* XWHPasswordLoginVC.swift in Sources */,
 				96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */,
