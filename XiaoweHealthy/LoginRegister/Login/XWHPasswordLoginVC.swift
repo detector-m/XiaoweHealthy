@@ -118,8 +118,10 @@ class XWHPasswordLoginVC: XWHLoginRegisterBaseVC {
     }
     
     @objc override func clickLoginBtn() {
-        view.makeInsetToast("Hello")
+//        view.makeInsetToast("Hello")
 //        view.makeXWHToast("Hello")
+        
+        XWHAlert.show(text: "")
     }
 
 }

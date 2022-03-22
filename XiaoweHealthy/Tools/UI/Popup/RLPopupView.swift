@@ -16,7 +16,7 @@ public protocol RLPopupViewAnimator {
     ///   - contentView: 自定义的弹框视图
     ///   - backgroundView: 背景视图
     /// - Returns: void
-    func setup(popupView: RLPopupView, contentView: UIView, backgroundView: RLPopupView.BackgroundView)
+    func setup(popupView: RLPopupView, contentView: UIView, backgroundView: RLOverlayerBgView)
 
 
     /// 横竖屏切换的时候，刷新布局
@@ -33,7 +33,7 @@ public protocol RLPopupViewAnimator {
     ///   - animated: 是否需要动画
     ///   - completion: 动画完成后的回调
     /// - Returns: void
-    func display(contentView: UIView, backgroundView: RLPopupView.BackgroundView, animated: Bool, completion: @escaping ()->())
+    func display(contentView: UIView, backgroundView: RLOverlayerBgView, animated: Bool, completion: @escaping ()->())
 
     /// 处理消失动画
     ///
@@ -42,7 +42,7 @@ public protocol RLPopupViewAnimator {
     ///   - backgroundView: 背景视图
     ///   - animated: 是否需要动画
     ///   - completion: 动画完成后的回调
-    func dismiss(contentView: UIView, backgroundView: RLPopupView.BackgroundView, animated: Bool, completion: @escaping ()->())
+    func dismiss(contentView: UIView, backgroundView: RLOverlayerBgView, animated: Bool, completion: @escaping ()->())
     
 }
 
@@ -80,7 +80,7 @@ public class RLPopupView: UIView {
     public var isInteractive = true
     public var isPenetrable = false
     public private(set) var isPresenting = false
-    public let backgroundView: BackgroundView
+    public let backgroundView: RLOverlayerBgView
     public var willDispalyCallback: (()->())?
     public var didDispalyCallback: (()->())?
     public var willDismissCallback: (()->())?
@@ -101,7 +101,7 @@ public class RLPopupView: UIView {
         self.containerView = containerView
         self.contentView = contentView
         self.animator = animator
-        backgroundView = BackgroundView(frame: containerView.bounds)
+        backgroundView = RLOverlayerBgView(frame: containerView.bounds)
         
         super.init(frame: containerView.bounds)
 
@@ -181,68 +181,6 @@ public class RLPopupView: UIView {
 
     @objc func backgroundViewClicked() {
         dismiss(animated: true, completion: nil)
-    }
-}
-
-extension RLPopupView {
-
-    public class BackgroundView: UIControl {
-
-        public enum BackgroundStyle {
-            case solidColor
-            case blur
-        }
-
-        public var style = BackgroundStyle.solidColor {
-            didSet {
-
-                refreshBackgroundStyle()
-            }
-        }
-        public var blurEffectStyle = UIBlurEffect.Style.dark {
-            didSet {
-                refreshBackgroundStyle()
-            }
-        }
-        /// 无论style是什么值，color都会生效。如果你使用blur的时候，觉得叠加上该color过于黑暗时，可以置为clearColor。
-        public var color = UIColor.black.withAlphaComponent(0.3) {
-            didSet {
-                backgroundColor = color
-            }
-        }
-        var effectView: UIVisualEffectView?
-
-        public override init(frame: CGRect) {
-            super.init(frame: frame)
-
-            refreshBackgroundStyle()
-            backgroundColor = color
-            layer.allowsGroupOpacity = false
-        }
-
-        required init?(coder aDecoder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-
-        public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-            let view = super.hitTest(point, with: event)
-            if view == effectView {
-                //将event交给backgroundView处理
-                return self
-            }
-            return view
-        }
-
-        func refreshBackgroundStyle() {
-            if style == .solidColor {
-                effectView?.removeFromSuperview()
-                effectView = nil
-            }else {
-                effectView = UIVisualEffectView(effect: UIBlurEffect(style: self.blurEffectStyle))
-                effectView?.frame = bounds
-                addSubview(effectView!)
-            }
-        }
     }
 }
 
@@ -417,7 +355,7 @@ open class RLBaseAnimator: RLPopupViewAnimator {
         self.layout = layout
     }
 
-    open func setup(popupView: RLPopupView, contentView: UIView, backgroundView: RLPopupView.BackgroundView) {
+    open func setup(popupView: RLPopupView, contentView: UIView, backgroundView: RLOverlayerBgView) {
         switch layout {
         case .center(let center):
             contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -480,7 +418,7 @@ open class RLBaseAnimator: RLPopupViewAnimator {
         }
     }
 
-    open func display(contentView: UIView, backgroundView: RLPopupView.BackgroundView, animated: Bool, completion: @escaping () -> ()) {
+    open func display(contentView: UIView, backgroundView: RLOverlayerBgView, animated: Bool, completion: @escaping () -> ()) {
         if animated {
             if let displaySpringDampingRatio = displaySpringDampingRatio, let displaySpringVelocity = displaySpringVelocity {
                 UIView.animate(withDuration: displayDuration, delay: 0, usingSpringWithDamping: displaySpringDampingRatio, initialSpringVelocity: displaySpringVelocity, options: displayAnimationOptions, animations: {
@@ -501,7 +439,7 @@ open class RLBaseAnimator: RLPopupViewAnimator {
         }
     }
 
-    open func dismiss(contentView: UIView, backgroundView: RLPopupView.BackgroundView, animated: Bool, completion: @escaping () -> ()) {
+    open func dismiss(contentView: UIView, backgroundView: RLOverlayerBgView, animated: Bool, completion: @escaping () -> ()) {
         if animated {
             if let displaySpringDampingRatio = displaySpringDampingRatio, let displaySpringVelocity = displaySpringVelocity {
                 UIView.animate(withDuration: displayDuration, delay: 0, usingSpringWithDamping: displaySpringDampingRatio, initialSpringVelocity: displaySpringVelocity, options: displayAnimationOptions, animations: {
@@ -525,7 +463,7 @@ open class RLBaseAnimator: RLPopupViewAnimator {
 }
 
 open class RLLeftwardAnimator: RLBaseAnimator {
-    open override func setup(popupView: RLPopupView, contentView: UIView, backgroundView: RLPopupView.BackgroundView) {
+    open override func setup(popupView: RLPopupView, contentView: UIView, backgroundView: RLOverlayerBgView) {
         super.setup(popupView: popupView, contentView: contentView, backgroundView: backgroundView)
 
         let fromClosure = { [weak self, weak popupView] in
@@ -572,7 +510,7 @@ open class RLLeftwardAnimator: RLBaseAnimator {
 }
 
 open class RLRightwardAnimator: RLBaseAnimator {
-    open override func setup(popupView: RLPopupView, contentView: UIView, backgroundView: RLPopupView.BackgroundView) {
+    open override func setup(popupView: RLPopupView, contentView: UIView, backgroundView: RLOverlayerBgView) {
         super.setup(popupView: popupView, contentView: contentView, backgroundView: backgroundView)
 
         let fromClosure = { [weak self, weak popupView] in
@@ -623,7 +561,7 @@ open class RLRightwardAnimator: RLBaseAnimator {
 }
 
 open class RLUpwardAnimator: RLBaseAnimator {
-    open override func setup(popupView: RLPopupView, contentView: UIView, backgroundView: RLPopupView.BackgroundView) {
+    open override func setup(popupView: RLPopupView, contentView: UIView, backgroundView: RLOverlayerBgView) {
         super.setup(popupView: popupView, contentView: contentView, backgroundView: backgroundView)
 
         let fromClosure = { [weak self, weak popupView] in
@@ -678,7 +616,7 @@ open class RLUpwardAnimator: RLBaseAnimator {
 }
 
 open class RLDownwardAnimator: RLBaseAnimator {
-    open override func setup(popupView: RLPopupView, contentView: UIView, backgroundView: RLPopupView.BackgroundView) {
+    open override func setup(popupView: RLPopupView, contentView: UIView, backgroundView: RLOverlayerBgView) {
         super.setup(popupView: popupView, contentView: contentView, backgroundView: backgroundView)
 
         let fromClosure = { [weak self, weak popupView] in
@@ -733,7 +671,7 @@ open class RLDownwardAnimator: RLBaseAnimator {
 }
 
 open class RLFadeInOutAnimator: RLBaseAnimator {
-    open override func setup(popupView: RLPopupView, contentView: UIView, backgroundView: RLPopupView.BackgroundView) {
+    open override func setup(popupView: RLPopupView, contentView: UIView, backgroundView: RLOverlayerBgView) {
         super.setup(popupView: popupView, contentView: contentView, backgroundView: backgroundView)
 
         contentView.alpha = 0
@@ -751,7 +689,7 @@ open class RLFadeInOutAnimator: RLBaseAnimator {
 }
 
 open class RLZoomInOutAnimator: RLBaseAnimator {
-    open override func setup(popupView: RLPopupView, contentView: UIView, backgroundView: RLPopupView.BackgroundView) {
+    open override func setup(popupView: RLPopupView, contentView: UIView, backgroundView: RLOverlayerBgView) {
         super.setup(popupView: popupView, contentView: contentView, backgroundView: backgroundView)
 
         contentView.alpha = 0
