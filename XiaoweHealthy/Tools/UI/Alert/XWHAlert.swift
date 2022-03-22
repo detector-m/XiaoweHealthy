@@ -11,39 +11,13 @@ import UIKit
 
 class XWHAlert {
     
-    class func show(text: String) {
-//        let contentView = XWHAlertContentView()
-//        contentView.textLb.text = text
-//        contentView.layer.cornerRadius = 16
-//        contentView.layer.backgroundColor = UIColor.white.cgColor
-//
-
-//
-//        let layout: RLBaseAnimator.Layout = .bottom(.init(bottomMargin: 34, width: window.width - 24))
-//
-//        let animator = RLFadeInOutAnimator(layout: layout)
-//        let popupView = RLPopupView(containerView: window, contentView: contentView, animator: animator)
-//
-//        popupView.isDismissible = false
-//        popupView.isInteractive = false
-//        //可以设置为false，再点击弹框中的button试试？
-////        popupView.isInteractive = false
-//        popupView.isPenetrable = false
-//        //- 配置背景
-//        popupView.backgroundView.style = .solidColor
-//        popupView.backgroundView.blurEffectStyle = UIBlurEffect.Style.light
-//        popupView.backgroundView.color = UIColor.black.withAlphaComponent(0.3)
-//        popupView.display(animated: true, completion: nil)
-        
+    class func show(title: String? = nil, message: String?, cancelTitle: String? = R.string.xwhDisplayText.取消(), confirmTitle: String? = R.string.xwhDisplayText.确定(), action: ((XWHAlertContentView.ActionType) -> Void)? = nil) {
         let window = UIApplication.shared.keyWindow!
         let alertView = XWHAlertView(frame: window.bounds)
         window.addSubview(alertView)
-        
-        alertView.show()
-    }
-    
-    class func hide() {
-        
+
+//        alertView.show( message: "hello")
+        alertView.show(title: title, message: message, cancelTitle: cancelTitle, confirmTitle: confirmTitle, action: action)
     }
     
 }
@@ -53,6 +27,10 @@ class XWHAlertView: XWHBaseView {
     lazy var overlayView = RLOverlayerBgView()
     lazy var contentView = XWHAlertContentView()
     
+    var contentCenterY: CGFloat = 0
+    
+    private var clickCallback: ((XWHAlertContentView.ActionType) -> Void)?
+    
     override func addSubViews() {
         super.addSubViews()
         
@@ -61,50 +39,59 @@ class XWHAlertView: XWHBaseView {
         contentView.layer.cornerRadius = 16
         contentView.layer.backgroundColor = UIColor.white.cgColor
         addSubview(contentView)
-        
-        contentView.clickCallback = { [weak self] actionType in
-            self?.hide()
-        }
     }
     
     override func relayoutSubViews() {
         overlayView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
+    
+    func show(title: String? = nil, message: String?, cancelTitle: String? = R.string.xwhDisplayText.取消(), confirmTitle: String? = R.string.xwhDisplayText.确定(), action: ((XWHAlertContentView.ActionType) -> Void)? = nil) {
+        contentView.titleLb.text = title
+        contentView.messageLb.text = message
+        contentView.cancelBtn.setTitle(cancelTitle, for: .normal)
+        contentView.confirmBtn.setTitle(confirmTitle, for: .normal)
+        contentView.clickCallback = { [weak self] actionType in
+            self?.clickCallback?(actionType)
+            
+            self?.hideAnimation()
+        }
+        
+        if title != nil, message != nil, cancelTitle != nil, confirmTitle != nil {
+            contentView.relayoutForNormal()
+        } else if title == nil, cancelTitle == nil {
+            contentView.relayoutForNoTitleCancel()
+        } else if title == nil {
+            contentView.relayoutForNoTitle()
+        } else {
+            
+        }
         
         contentView.snp.remakeConstraints { make in
             make.left.right.equalToSuperview().inset(12)
-            make.bottom.equalToSuperview().offset(500)
+            make.bottom.equalToSuperview().inset(70)
             make.height.greaterThanOrEqualTo(100)
 //            make.height.lessThanOrEqualTo(300)
             make.top.greaterThanOrEqualToSuperview().offset(100)
         }
         
-        self.layoutIfNeeded()
+        layoutIfNeeded()
+        contentCenterY = contentView.center.y
+        
+        showAnimation()
     }
     
-    func show() {
-        UIView.animate(withDuration: 0.5) {
-            self.contentView.snp.remakeConstraints { make in
-                make.left.right.equalToSuperview().inset(12)
-                make.bottom.equalToSuperview().inset(70)
-                make.height.greaterThanOrEqualTo(100)
-    //            make.height.lessThanOrEqualTo(300)
-                make.top.greaterThanOrEqualToSuperview().offset(100)
-            }
-            self.layoutIfNeeded()
-        }
+    func showAnimation() {
+        contentView.center.y = contentCenterY + 500
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut) {
+            self.contentView.center.y = self.contentCenterY
+        } completion: { _ in }
     }
     
-    func hide() {
-        UIView.animate(withDuration: 0.5) {
-            self.contentView.snp.remakeConstraints { make in
-                make.left.right.equalToSuperview().inset(12)
-                make.bottom.equalToSuperview().offset(500)
-                make.height.greaterThanOrEqualTo(100)
-    //            make.height.lessThanOrEqualTo(300)
-                make.top.greaterThanOrEqualToSuperview().offset(100)
-            }
+    func hideAnimation() {
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut) {
+            self.contentView.center.y = self.contentCenterY + 500
         } completion: { _ in
             self.removeFromSuperview()
         }
@@ -135,12 +122,9 @@ class XWHAlertContentView: XWHBaseView {
         titleLb.textAlignment = .center
         addSubview(titleLb)
         
-        titleLb.text = "ABC"
-        
         messageLb.font = R.font.harmonyOS_Sans(size: 16)
         messageLb.textColor = UIColor(hex: 0x000000, transparency: 0.9)
         messageLb.numberOfLines = 0
-        messageLb.text = "ETFETFETFETFETFETFETFETFETFETFETFETETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFETFF"
         addSubview(messageLb)
         
         cancelBtn.setTitle(R.string.xwhDisplayText.取消(), for: .normal)
@@ -160,7 +144,11 @@ class XWHAlertContentView: XWHBaseView {
     }
     
     override func relayoutSubViews() {
-        relayoutForNormal()
+//        relayoutForNormal()
+        
+//        relayoutForNoTitle()
+        
+//        relayoutForNoTitleCancel()
     }
     
     func relayoutForNormal() {
@@ -187,15 +175,45 @@ class XWHAlertContentView: XWHBaseView {
             make.right.equalToSuperview().offset(-28)
             make.bottom.height.width.equalTo(cancelBtn)
         }
-        
     }
     
     func relayoutForNoTitle() {
+        titleLb.isHidden = true
         
+        messageLb.snp.remakeConstraints { make in
+            make.left.right.equalToSuperview().inset(20)
+            make.top.equalTo(24)
+            make.bottom.equalToSuperview().offset(-90)
+        }
+        
+        cancelBtn.snp.remakeConstraints { make in
+            make.left.equalTo(20)
+            make.right.equalTo(snp.centerX).offset(-6)
+            make.height.equalTo(48)
+            make.bottom.equalToSuperview().offset(-28)
+        }
+        
+        confirmBtn.snp.remakeConstraints { make in
+            make.right.equalToSuperview().offset(-20)
+            make.bottom.height.width.equalTo(cancelBtn)
+        }
     }
     
     func relayoutForNoTitleCancel() {
+        titleLb.isHidden = true
+        cancelBtn.isHidden = true
         
+        messageLb.snp.remakeConstraints { make in
+            make.left.right.equalToSuperview().inset(20)
+            make.top.equalTo(24)
+            make.bottom.equalToSuperview().offset(-90)
+        }
+        
+        confirmBtn.snp.remakeConstraints { make in
+            make.left.right.equalToSuperview().inset(20)
+            make.height.equalTo(48)
+            make.bottom.equalToSuperview().offset(-28)
+        }
     }
     
     @objc func clickCancelBtn() {

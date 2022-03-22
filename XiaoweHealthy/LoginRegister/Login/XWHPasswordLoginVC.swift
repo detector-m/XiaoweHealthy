@@ -121,7 +121,7 @@ class XWHPasswordLoginVC: XWHLoginRegisterBaseVC {
 //        view.makeInsetToast("Hello")
 //        view.makeXWHToast("Hello")
         
-        XWHAlert.show(text: "")
+        XWHAlert.show(message: "HELLO")
     }
 
 }
