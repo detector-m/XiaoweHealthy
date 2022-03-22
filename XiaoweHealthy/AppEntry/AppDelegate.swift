@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Toast_Swift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         configIQKeyboard()
+        configToast()
         
         if #available(iOS 13.0, *) {
             
@@ -58,12 +60,36 @@ extension AppDelegate {
         win.rootViewController = rVC
     }
     
-    func configIQKeyboard() {
+    fileprivate func configIQKeyboard() {
         let kbManager = IQKeyboardManager.shared
         kbManager.enable = true
         kbManager.enableAutoToolbar = false
         kbManager.shouldResignOnTouchOutside = true
         kbManager.keyboardDistanceFromTextField = 160
+    }
+    
+    fileprivate func configToast() {
+        // create a new style
+        var style = ToastStyle()
+
+        // this is just one of many style options
+        style.messageColor = UIColor(hex: 0x000000, transparency: 0.9)!
+        style.messageFont = R.font.harmonyOS_Sans(size: 14)!
+        style.cornerRadius = 20
+        style.backgroundColor = UIColor(hex: 0xeeeeee, transparency: 0.85)!
+        style.verticalPadding = 14
+
+        // or perhaps you want to use this style for all toasts going forward?
+        // just set the shared style and there's no need to provide the style again
+        ToastManager.shared.style = style
+
+        // toggle "tap to dismiss" functionality
+        ToastManager.shared.isTapToDismissEnabled = true
+
+        // toggle queueing behavior
+        ToastManager.shared.isQueueEnabled = true
+        
+        ToastManager.shared.position = .bottom
     }
     
 }

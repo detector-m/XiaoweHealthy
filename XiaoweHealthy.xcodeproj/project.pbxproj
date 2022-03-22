@@ -21,6 +21,7 @@
 		9648E63227E0796E0077180D /* XiaoweHealthyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648E63127E0796E0077180D /* XiaoweHealthyUITestsLaunchTests.swift */; };
 		9651EDEF27E849740043FE52 /* RLPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651EDEE27E849740043FE52 /* RLPopupView.swift */; };
 		9651EDF227E8542B0043FE52 /* XWHProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651EDF127E8542B0043FE52 /* XWHProgressHUD.swift */; };
+		9651EDF427E8C3870043FE52 /* XWHUIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651EDF327E8C3870043FE52 /* XWHUIViewExtension.swift */; };
 		9661517627E46BF5006781C1 /* UTESmartBandApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9661517427E46B7B006781C1 /* UTESmartBandApi.framework */; platformFilter = ios; };
 		9661517727E46BF5006781C1 /* UTESmartBandApi.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9661517427E46B7B006781C1 /* UTESmartBandApi.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96617A5F27E1D1A600139B03 /* XWHLaunchLogoS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96617A5D27E1D1A600139B03 /* XWHLaunchLogoS@2x.png */; };
@@ -118,6 +119,7 @@
 		9648E63127E0796E0077180D /* XiaoweHealthyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XiaoweHealthyUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9651EDEE27E849740043FE52 /* RLPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLPopupView.swift; sourceTree = "<group>"; };
 		9651EDF127E8542B0043FE52 /* XWHProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHProgressHUD.swift; sourceTree = "<group>"; };
+		9651EDF327E8C3870043FE52 /* XWHUIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUIViewExtension.swift; sourceTree = "<group>"; };
 		9661517427E46B7B006781C1 /* UTESmartBandApi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTESmartBandApi.framework; sourceTree = "<group>"; };
 		96617A5D27E1D1A600139B03 /* XWHLaunchLogoS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XWHLaunchLogoS@2x.png"; sourceTree = "<group>"; };
 		96617A5E27E1D1A600139B03 /* XWHLaunchLogoS@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XWHLaunchLogoS@3x.png"; sourceTree = "<group>"; };
@@ -408,6 +410,7 @@
 			isa = PBXGroup;
 			children = (
 				96617A9127E23EAD00139B03 /* XWHColorExtension.swift */,
+				9651EDF327E8C3870043FE52 /* XWHUIViewExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -834,6 +837,7 @@
 			files = (
 				96617AB527E34F8B00139B03 /* XWHWeightSelectVC.swift in Sources */,
 				96E23C0A27E1898C009EF208 /* XWHTabBarVC.swift in Sources */,
+				9651EDF427E8C3870043FE52 /* XWHUIViewExtension.swift in Sources */,
 				96617AAF27E3457100139B03 /* XWHRegisterFillInfoBaseVC.swift in Sources */,
 				96617A7627E1EE3000139B03 /* XWHBaseNavigationVC.swift in Sources */,
 				96617A6C27E1DFE100139B03 /* XWHBaseView.swift in Sources */,

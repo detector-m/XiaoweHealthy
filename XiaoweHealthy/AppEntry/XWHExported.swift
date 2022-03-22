@@ -12,4 +12,5 @@ import Foundation
 @_exported import IQKeyboardManagerSwift
 @_exported import ObjectMapper
 @_exported import SwiftyJSON
+@_exported import Toast_Swift
 
