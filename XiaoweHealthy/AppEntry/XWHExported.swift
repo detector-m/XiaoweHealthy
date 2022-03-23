@@ -13,4 +13,8 @@ import Foundation
 @_exported import ObjectMapper
 @_exported import SwiftyJSON
 @_exported import Toast_Swift
+@_exported import XCGLogger
+
+
+let log = XCGLogger.default
 

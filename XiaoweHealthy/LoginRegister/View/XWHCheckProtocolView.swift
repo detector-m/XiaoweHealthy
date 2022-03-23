@@ -31,10 +31,10 @@ class XWHCheckProtocolView: XWHTextFieldBaseView {
         protocolLb.customColor[customType2] = UIColor(hex: 0x2DC84D)
         protocolLb.textColor = UIColor(hex: 0x000000, transparency: 0.9)
         protocolLb.handleCustomTap(for: customType1, handler: { (customType) in
-            print("1111111")
+
         })
         protocolLb.handleCustomTap(for: customType2, handler: { (customType) in
-            print("22222222")
+
         })
         
         addSubview(protocolLb)

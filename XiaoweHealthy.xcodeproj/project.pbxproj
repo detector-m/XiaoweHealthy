@@ -24,6 +24,8 @@
 		9651EDF427E8C3870043FE52 /* XWHUIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651EDF327E8C3870043FE52 /* XWHUIViewExtension.swift */; };
 		9651EDF727E961740043FE52 /* XWHAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651EDF627E961740043FE52 /* XWHAlert.swift */; };
 		9651EDFA27E9A3130043FE52 /* RLOverlayerBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651EDF927E9A3130043FE52 /* RLOverlayerBgView.swift */; };
+		9651EDFF27EAC2560043FE52 /* Repeater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651EDFE27EAC2560043FE52 /* Repeater.swift */; };
+		9651EE0127EAC6730043FE52 /* RLCountDownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651EE0027EAC6730043FE52 /* RLCountDownTimer.swift */; };
 		9661517627E46BF5006781C1 /* UTESmartBandApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9661517427E46B7B006781C1 /* UTESmartBandApi.framework */; platformFilter = ios; };
 		9661517727E46BF5006781C1 /* UTESmartBandApi.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9661517427E46B7B006781C1 /* UTESmartBandApi.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96617A5F27E1D1A600139B03 /* XWHLaunchLogoS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96617A5D27E1D1A600139B03 /* XWHLaunchLogoS@2x.png */; };
@@ -124,6 +126,8 @@
 		9651EDF327E8C3870043FE52 /* XWHUIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUIViewExtension.swift; sourceTree = "<group>"; };
 		9651EDF627E961740043FE52 /* XWHAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHAlert.swift; sourceTree = "<group>"; };
 		9651EDF927E9A3130043FE52 /* RLOverlayerBgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLOverlayerBgView.swift; sourceTree = "<group>"; };
+		9651EDFE27EAC2560043FE52 /* Repeater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repeater.swift; sourceTree = "<group>"; };
+		9651EE0027EAC6730043FE52 /* RLCountDownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLCountDownTimer.swift; sourceTree = "<group>"; };
 		9661517427E46B7B006781C1 /* UTESmartBandApi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTESmartBandApi.framework; sourceTree = "<group>"; };
 		96617A5D27E1D1A600139B03 /* XWHLaunchLogoS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XWHLaunchLogoS@2x.png"; sourceTree = "<group>"; };
 		96617A5E27E1D1A600139B03 /* XWHLaunchLogoS@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XWHLaunchLogoS@3x.png"; sourceTree = "<group>"; };
@@ -306,6 +310,15 @@
 			path = Overlayer;
 			sourceTree = "<group>";
 		};
+		9651EDFB27EABE400043FE52 /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				9651EDFE27EAC2560043FE52 /* Repeater.swift */,
+				9651EE0027EAC6730043FE52 /* RLCountDownTimer.swift */,
+			);
+			path = Timer;
+			sourceTree = "<group>";
+		};
 		9661517227E46A07006781C1 /* Supplier */ = {
 			isa = PBXGroup;
 			children = (
@@ -360,6 +373,7 @@
 		96617A6F27E1E06700139B03 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				9651EDFB27EABE400043FE52 /* Timer */,
 				96617A9027E23E7D00139B03 /* Extension */,
 				96617A7027E1E07B00139B03 /* UI */,
 			);
@@ -857,6 +871,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9651EE0127EAC6730043FE52 /* RLCountDownTimer.swift in Sources */,
 				96617AB527E34F8B00139B03 /* XWHWeightSelectVC.swift in Sources */,
 				96E23C0A27E1898C009EF208 /* XWHTabBarVC.swift in Sources */,
 				9651EDF427E8C3870043FE52 /* XWHUIViewExtension.swift in Sources */,
@@ -878,6 +893,7 @@
 				96617AA527E3169200139B03 /* XWHCodeView.swift in Sources */,
 				96617A6E27E1E00E00139B03 /* XWHBaseVC.swift in Sources */,
 				96617AA927E328C800139B03 /* XWHResetPasswordVC.swift in Sources */,
+				9651EDFF27EAC2560043FE52 /* Repeater.swift in Sources */,
 				96E23C2827E1A53F009EF208 /* XWHSportMainVC.swift in Sources */,
 				96617A9D27E2FEE200139B03 /* XWHTextFieldBaseView.swift in Sources */,
 				96617AA127E30EF600139B03 /* XWHPasswordView.swift in Sources */,

@@ -28,9 +28,15 @@ class XWHTextFieldBaseView: XWHBaseView {
         addSubview(textFiled)
         
         addSubview(button)
+        
+        button.addTarget(self, action: #selector(clickButton), for: .touchUpInside)
     }
     
     override func relayoutSubViews() {
+        
+    }
+    
+    @objc func clickButton() {
         
     }
 

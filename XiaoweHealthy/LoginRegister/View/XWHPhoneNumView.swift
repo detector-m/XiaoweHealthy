@@ -23,6 +23,7 @@ class XWHPhoneNumView: XWHTextFieldBaseView {
         
         textFiled.placeholder = R.string.xwhDisplayText.请输入手机号码()
         textFiled.clearButtonMode = .whileEditing
+        textFiled.keyboardType = .numberPad
         
         if let clearBtn = textFiled.value(forKey: "_clearButton") as? UIButton {
             clearBtn.setImage(R.image.closeGray(), for: .normal)

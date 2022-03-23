@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Toast_Swift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        configLog()
         
         configIQKeyboard()
         configToast()
@@ -58,6 +59,14 @@ extension AppDelegate {
         let rVC = XWHRootVCProvider.getTabBarVC()
         
         win.rootViewController = rVC
+    }
+    
+    fileprivate func configLog() {
+        //日志文件地址
+        let cachePath = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+        let logURL = cachePath.appendingPathComponent("log.txt")
+        
+        log.setup(level: .debug, showThreadName: true, showLevel: true, showFileNames: true, showLineNumbers: true, writeToFile: logURL, fileLevel: .debug)
     }
     
     fileprivate func configIQKeyboard() {
