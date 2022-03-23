@@ -26,6 +26,11 @@
 		9651EDFA27E9A3130043FE52 /* RLOverlayerBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651EDF927E9A3130043FE52 /* RLOverlayerBgView.swift */; };
 		9651EDFF27EAC2560043FE52 /* Repeater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651EDFE27EAC2560043FE52 /* Repeater.swift */; };
 		9651EE0127EAC6730043FE52 /* RLCountDownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651EE0027EAC6730043FE52 /* RLCountDownTimer.swift */; };
+		9651EE0427EAF3100043FE52 /* XWHApiConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651EE0327EAF3100043FE52 /* XWHApiConfig.swift */; };
+		9651EE0727EAF6CE0043FE52 /* XWHServiceTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651EE0627EAF6CE0043FE52 /* XWHServiceTargetType.swift */; };
+		9651EE0A27EAFB0B0043FE52 /* XWHLoginRegisterApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651EE0927EAFB0B0043FE52 /* XWHLoginRegisterApi.swift */; };
+		9651EE0C27EB024B0043FE52 /* XWHNetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651EE0B27EB024B0043FE52 /* XWHNetworkHelper.swift */; };
+		9651EE0E27EB06F20043FE52 /* XWHLoginRegisterVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651EE0D27EB06F20043FE52 /* XWHLoginRegisterVM.swift */; };
 		9661517627E46BF5006781C1 /* UTESmartBandApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9661517427E46B7B006781C1 /* UTESmartBandApi.framework */; platformFilter = ios; };
 		9661517727E46BF5006781C1 /* UTESmartBandApi.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9661517427E46B7B006781C1 /* UTESmartBandApi.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96617A5F27E1D1A600139B03 /* XWHLaunchLogoS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96617A5D27E1D1A600139B03 /* XWHLaunchLogoS@2x.png */; };
@@ -128,6 +133,11 @@
 		9651EDF927E9A3130043FE52 /* RLOverlayerBgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLOverlayerBgView.swift; sourceTree = "<group>"; };
 		9651EDFE27EAC2560043FE52 /* Repeater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repeater.swift; sourceTree = "<group>"; };
 		9651EE0027EAC6730043FE52 /* RLCountDownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLCountDownTimer.swift; sourceTree = "<group>"; };
+		9651EE0327EAF3100043FE52 /* XWHApiConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHApiConfig.swift; sourceTree = "<group>"; };
+		9651EE0627EAF6CE0043FE52 /* XWHServiceTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHServiceTargetType.swift; sourceTree = "<group>"; };
+		9651EE0927EAFB0B0043FE52 /* XWHLoginRegisterApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLoginRegisterApi.swift; sourceTree = "<group>"; };
+		9651EE0B27EB024B0043FE52 /* XWHNetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHNetworkHelper.swift; sourceTree = "<group>"; };
+		9651EE0D27EB06F20043FE52 /* XWHLoginRegisterVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLoginRegisterVM.swift; sourceTree = "<group>"; };
 		9661517427E46B7B006781C1 /* UTESmartBandApi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTESmartBandApi.framework; sourceTree = "<group>"; };
 		96617A5D27E1D1A600139B03 /* XWHLaunchLogoS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XWHLaunchLogoS@2x.png"; sourceTree = "<group>"; };
 		96617A5E27E1D1A600139B03 /* XWHLaunchLogoS@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XWHLaunchLogoS@3x.png"; sourceTree = "<group>"; };
@@ -253,6 +263,7 @@
 				96E23C0827E18947009EF208 /* RootVC */,
 				96617A6F27E1E06700139B03 /* Tools */,
 				96617A6A27E1DFC000139B03 /* Base */,
+				9651EE0227EAF2D60043FE52 /* Config */,
 				96E23C0627E18003009EF208 /* AppEntry */,
 				9661517227E46A07006781C1 /* Supplier */,
 				96E23C0727E1839B009EF208 /* Resource */,
@@ -319,6 +330,31 @@
 			path = Timer;
 			sourceTree = "<group>";
 		};
+		9651EE0227EAF2D60043FE52 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				9651EE0327EAF3100043FE52 /* XWHApiConfig.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		9651EE0527EAF5980043FE52 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				9651EE0627EAF6CE0043FE52 /* XWHServiceTargetType.swift */,
+				9651EE0B27EB024B0043FE52 /* XWHNetworkHelper.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		9651EE0827EAF9F20043FE52 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				9651EE0927EAFB0B0043FE52 /* XWHLoginRegisterApi.swift */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
 		9661517227E46A07006781C1 /* Supplier */ = {
 			isa = PBXGroup;
 			children = (
@@ -353,6 +389,7 @@
 			children = (
 				96617A7427E1E19E00139B03 /* Register */,
 				96617A7327E1E19900139B03 /* Login */,
+				9651EE0827EAF9F20043FE52 /* Api */,
 				96617A9527E2BF5E00139B03 /* ViewModel */,
 				96617A9427E2BF3D00139B03 /* View */,
 				96617A9327E2BF2900139B03 /* VC */,
@@ -373,6 +410,7 @@
 		96617A6F27E1E06700139B03 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				9651EE0527EAF5980043FE52 /* Network */,
 				9651EDFB27EABE400043FE52 /* Timer */,
 				96617A9027E23E7D00139B03 /* Extension */,
 				96617A7027E1E07B00139B03 /* UI */,
@@ -476,6 +514,7 @@
 		96617A9527E2BF5E00139B03 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				9651EE0D27EB06F20043FE52 /* XWHLoginRegisterVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -875,8 +914,10 @@
 				96617AB527E34F8B00139B03 /* XWHWeightSelectVC.swift in Sources */,
 				96E23C0A27E1898C009EF208 /* XWHTabBarVC.swift in Sources */,
 				9651EDF427E8C3870043FE52 /* XWHUIViewExtension.swift in Sources */,
+				9651EE0427EAF3100043FE52 /* XWHApiConfig.swift in Sources */,
 				96617AAF27E3457100139B03 /* XWHRegisterFillInfoBaseVC.swift in Sources */,
 				96617A7627E1EE3000139B03 /* XWHBaseNavigationVC.swift in Sources */,
+				9651EE0A27EAFB0B0043FE52 /* XWHLoginRegisterApi.swift in Sources */,
 				96617A6C27E1DFE100139B03 /* XWHBaseView.swift in Sources */,
 				96E23C2C27E1A579009EF208 /* XWHDeviceMainVC.swift in Sources */,
 				96617A9F27E302C900139B03 /* XWHPhoneNumView.swift in Sources */,
@@ -884,6 +925,7 @@
 				9651EDF227E8542B0043FE52 /* XWHProgressHUD.swift in Sources */,
 				96617A9227E23EAD00139B03 /* XWHColorExtension.swift in Sources */,
 				96617A7827E1FCF600139B03 /* XWHLoginRegisterBaseVC.swift in Sources */,
+				9651EE0E27EB06F20043FE52 /* XWHLoginRegisterVM.swift in Sources */,
 				9648E61327E0796D0077180D /* ViewController.swift in Sources */,
 				9648E60F27E0796D0077180D /* AppDelegate.swift in Sources */,
 				96617AAD27E3408C00139B03 /* XWHRegisterBaseVC.swift in Sources */,
@@ -908,6 +950,8 @@
 				96617AB727E34FAA00139B03 /* XWHBirthdaySelectVC.swift in Sources */,
 				96617AA327E3110E00139B03 /* XWHPasswordLoginVC.swift in Sources */,
 				96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */,
+				9651EE0C27EB024B0043FE52 /* XWHNetworkHelper.swift in Sources */,
+				9651EE0727EAF6CE0043FE52 /* XWHServiceTargetType.swift in Sources */,
 				96E23C2027E1A22C009EF208 /* R.generated.swift in Sources */,
 				96617AA727E3196A00139B03 /* XWHCheckProtocolView.swift in Sources */,
 			);

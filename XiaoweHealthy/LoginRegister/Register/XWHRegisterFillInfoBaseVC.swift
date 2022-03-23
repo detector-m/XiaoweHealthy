@@ -46,7 +46,7 @@ class XWHRegisterFillInfoBaseVC: XWHRegisterBaseVC {
         preBtn.snp.makeConstraints { make in
             make.left.equalTo(24)
             make.right.equalTo(view.snp.centerX).offset(-6)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
             make.height.equalTo(48)
         }
         

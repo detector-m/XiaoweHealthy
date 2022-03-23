@@ -33,7 +33,7 @@ class XWHGenderSelectVC: XWHRegisterFillInfoBaseVC & UIPickerViewDelegate & UIPi
         
         nextBtn.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(24)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
             make.height.equalTo(48)
         }
     }

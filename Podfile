@@ -25,6 +25,9 @@ target 'XiaoweHealthy' do
   # 类的方法拓展
   pod 'SwifterSwift'
   
+  # 加密算法
+  pod 'CryptoSwift'
+  
   # 网络请求
   pod 'Moya'
   

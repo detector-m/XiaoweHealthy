@@ -52,6 +52,7 @@ class XWHAlertView: XWHBaseView {
         contentView.messageLb.text = message
         contentView.cancelBtn.setTitle(cancelTitle, for: .normal)
         contentView.confirmBtn.setTitle(confirmTitle, for: .normal)
+        clickCallback = action
         contentView.clickCallback = { [weak self] actionType in
             self?.clickCallback?(actionType)
             

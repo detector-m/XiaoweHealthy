@@ -10,16 +10,16 @@ import ActiveLabel
 
 class XWHCheckProtocolView: XWHTextFieldBaseView {
 
-    lazy var checkBtn = UIButton()
+//    lazy var checkBtn = UIButton()
     lazy var protocolLb = ActiveLabel()
     
     override func addSubViews() {
         super.addSubViews()
         
-        checkBtn.setImage(R.image.uncheckIcon(), for: .normal)
-        checkBtn.setImage(R.image.checkIcon(), for: .selected)
-        checkBtn.addTarget(self, action: #selector(clickCheckBtn), for: .touchUpInside)
-        addSubview(checkBtn)
+        button.setImage(R.image.uncheckIcon(), for: .normal)
+        button.setImage(R.image.checkIcon(), for: .selected)
+//        button.addTarget(self, action: #selector(clickCheckBtn), for: .touchUpInside)
+//        addSubview(checkBtn)
         
         let customType1 = ActiveType.custom(pattern: "\\\(R.string.xwhDisplayText.用户协议())")
         let customType2 = ActiveType.custom(pattern: "\\\(R.string.xwhDisplayText.隐私政策())")
@@ -41,20 +41,20 @@ class XWHCheckProtocolView: XWHTextFieldBaseView {
     }
     
     override func relayoutSubViews() {
-        checkBtn.snp.makeConstraints { make in
+        button.snp.makeConstraints { make in
             make.size.equalTo(16)
             make.left.top.equalTo(0)
         }
         
         protocolLb.snp.makeConstraints { make in
-            make.left.equalTo(checkBtn.snp.right).offset(6)
+            make.left.equalTo(button.snp.right).offset(6)
             make.top.right.equalToSuperview()
             make.height.equalTo(34)
         }
     }
     
-    @objc func clickCheckBtn() {
-        checkBtn.isSelected = !checkBtn.isSelected
+    @objc override func clickButton() {
+        button.isSelected = !button.isSelected
     }
 
 }

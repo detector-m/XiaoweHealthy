@@ -13,11 +13,17 @@ class XWHLoginVC: XWHLoginRegisterBaseVC {
     
     lazy var phoneNumView = XWHPhoneNumView()
     lazy var codeView = XWHCodeView()
+    
+    private var isPhoneOk = false
+    private var isCodeOk = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
 //        otherLoginView.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor).isActive = true
+        
+        phoneNumView.textFiled.addTarget(self, action: #selector(textFiledChanged(sender:)), for: .editingChanged)
+        codeView.textFiled.addTarget(self, action: #selector(textFiledChanged(sender:)), for: .editingChanged)
     }
     
     override func setupNavigationItems() {
@@ -42,6 +48,14 @@ class XWHLoginVC: XWHLoginRegisterBaseVC {
         codeView.layer.cornerRadius = 16
         codeView.layer.backgroundColor = UIColor(hex: 0x000000, transparency: 0.03)?.cgColor
         view.addSubview(codeView)
+        
+        codeView.clickBtnCallback = {
+            XWHLoginRegisterVM().sendCode(phoneNum: "15000847202") { isOk in
+                if !isOk {
+                    log.error("获取验证码失败")
+                }
+            }
+        }
         
         otherLoginView.clickCallback = { [weak self] cType in
             if cType == .password {
@@ -112,11 +126,62 @@ class XWHLoginVC: XWHLoginRegisterBaseVC {
     }
     
     @objc override func clickLoginBtn() {
-        XWHProgressHUD.show(text: R.string.xwhDisplayText.加速登录中())
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-            XWHProgressHUD.hide()
+        if !isCodeOk || !isPhoneOk {
+            return
         }
+        
+        if !checkProtocolView.button.isSelected {
+            XWHAlert.show(title: R.string.xwhDisplayText.同意隐私条款(), message: R.string.xwhDisplayText.登录注册需要您阅读并同意用户协议隐私政策(), cancelTitle: R.string.xwhDisplayText.不同意(), confirmTitle: R.string.xwhDisplayText.同意()) { [weak self] acType in
+                if acType == .confirm {
+                    self?.checkProtocolView.button.isSelected = true
+                    self?.gotoLogin()
+                }
+            }
+            
+            return
+        }
+        
+        gotoLogin()
+    }
+    
+    @objc func textFiledChanged(sender: UITextField) {
+        if sender == phoneNumView.textFiled {
+            let phoneCount = phoneNumView.textFiled.text?.count ?? 0
+            if phoneCount == 11 {
+                isPhoneOk = true
+            } else {
+                isPhoneOk = false
+            }
+        } else {
+            let codeCount = codeView.textFiled.text?.count ?? 0
+            if codeCount >= 4 {
+                isCodeOk = true
+            } else {
+                isCodeOk = false
+            }
+        }
+        
+        if isPhoneOk && isCodeOk {
+            loginBtn.layer.backgroundColor = UIColor(hex: 0x2DC84D)?.cgColor
+        } else {
+            loginBtn.layer.backgroundColor = UIColor(hex: 0x000000, transparency: 0.24)?.cgColor
+        }
+            
     }
 
+}
+
+extension XWHLoginVC {
+    
+    fileprivate func gotoLogin() {
+        XWHProgressHUD.show(text: R.string.xwhDisplayText.加速登录中())
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) { [unowned self] in
+            XWHProgressHUD.hide()
+            
+            let vc = XWHGenderSelectVC()
+            self.navigationController?.setViewControllers([vc], animated: true)
+        }
+    }
+    
 }
