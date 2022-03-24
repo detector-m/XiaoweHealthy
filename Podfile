@@ -33,7 +33,8 @@ target 'XiaoweHealthy' do
   
   # 模型转换
   pod 'SwiftyJSON'
-  pod 'ObjectMapper'
+#  pod 'ObjectMapper'
+  pod 'HandyJSON'
   
   # 图表
 #  pod 'Charts'

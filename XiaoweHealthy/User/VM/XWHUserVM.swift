@@ -12,7 +12,7 @@ class XWHUserVM {
     
     // 更新用户信息
     func update(userModel: XWHUserModel, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
-        let cParam = userModel.toDic()
+        let cParam = userModel.toJSON() ?? [:]
         userProvider.request(.update(parameters: cParam)) { result in
             let cId = "User.Update"
             var retError = XWHError()

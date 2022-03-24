@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import HandyJSON
 
 
-struct XWHUserModel: CustomDebugStringConvertible {
+struct XWHUserModel: HandyJSON, CustomDebugStringConvertible {
     
     // 性别 0 女 1 男
     var gender: Int = 1
@@ -26,14 +27,14 @@ struct XWHUserModel: CustomDebugStringConvertible {
         return "gender = \(gender), height = \(height), height = \(weight), birthday = \(birthday)"
     }
     
-    func toDic() -> [String: Any] {
-        var cParam = [String: Any]()
-        cParam["gender"] = gender
-        cParam["height"] = height
-        cParam["weight"] = weight
-        cParam["birthday"] = birthday
-        
-        return cParam
-    }
+//    func toDic() -> [String: Any] {
+//        var cParam = [String: Any]()
+//        cParam["gender"] = gender
+//        cParam["height"] = height
+//        cParam["weight"] = weight
+//        cParam["birthday"] = birthday
+//        
+//        return cParam
+//    }
     
 }
