@@ -12,7 +12,12 @@ class XWHWeightSelectVC: XWHHeightSelectVC {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        pickerView.selectRow(30, inComponent: 0, animated: false)
+        var dWeight = 60
+        if userModel.gender == 0 {
+            dWeight = 50
+        }
+        
+        pickerView.selectRow(dWeight - 30, inComponent: 0, animated: false)
     }
     
 
@@ -35,7 +40,11 @@ class XWHWeightSelectVC: XWHHeightSelectVC {
         if sender == preBtn {
             navigationController?.popViewController()
         } else {
+            let sRow = pickerView.selectedRow(inComponent: 0)
+            userModel.weight = sRow + 30
+            
             let vc = XWHBirthdaySelectVC()
+            vc.userModel = userModel
             navigationController?.pushViewController(vc, animated: true)
         }
     }

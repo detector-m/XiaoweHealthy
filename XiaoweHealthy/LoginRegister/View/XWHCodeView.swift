@@ -68,10 +68,12 @@ class XWHCodeView: XWHTextFieldBaseView {
     }
     
     @objc override func clickButton() {
+        clickBtnCallback?()
+    }
+    
+    func start() {
         button.isEnabled = false
         countDownTimer.timer?.start()
-        
-        clickBtnCallback?()
     }
 
 }

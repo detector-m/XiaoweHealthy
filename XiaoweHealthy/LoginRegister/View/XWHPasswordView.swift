@@ -14,6 +14,7 @@ class XWHPasswordView: XWHTextFieldBaseView {
         
         titleLb.isEnabled = true
         button.setImage(R.image.eyeOff(), for: .normal)
+        button.setImage(R.image.eyeOn(), for: .selected)
         
         textFiled.placeholder = R.string.xwhDisplayText.请输入密码()
         textFiled.clearButtonMode = .never
@@ -32,6 +33,15 @@ class XWHPasswordView: XWHTextFieldBaseView {
             make.right.equalTo(button.snp.left).offset(-8)
             make.centerY.equalToSuperview()
             make.height.equalTo(30)
+        }
+    }
+    
+    @objc override func clickButton() {
+        button.isSelected = !button.isSelected
+        if button.isSelected {
+            textFiled.isSecureTextEntry = false
+        } else {
+            textFiled.isSecureTextEntry = true
         }
     }
 

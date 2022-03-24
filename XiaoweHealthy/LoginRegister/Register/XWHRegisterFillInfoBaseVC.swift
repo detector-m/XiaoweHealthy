@@ -11,6 +11,8 @@ class XWHRegisterFillInfoBaseVC: XWHRegisterBaseVC {
     
     lazy var preBtn = UIButton()
     lazy var nextBtn = UIButton()
+    
+    lazy var userModel = XWHUserModel()
 
     override func addSubViews() {
         super.addSubViews()

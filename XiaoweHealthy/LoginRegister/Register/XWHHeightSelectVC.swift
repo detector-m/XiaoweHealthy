@@ -14,7 +14,11 @@ class XWHHeightSelectVC: XWHGenderSelectVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        pickerView.selectRow(140, inComponent: 0, animated: false)
+        var dHeight = 170
+        if userModel.gender == 0 {
+            dHeight = 160
+        }
+        pickerView.selectRow(dHeight - 30, inComponent: 0, animated: false)
     }
     
 
@@ -42,7 +46,11 @@ class XWHHeightSelectVC: XWHGenderSelectVC {
         if sender == preBtn {
             navigationController?.popViewController()
         } else {
+            let sRow = pickerView.selectedRow(inComponent: 0)
+            userModel.height = sRow + 30
+            
             let vc = XWHWeightSelectVC()
+            vc.userModel = userModel
             navigationController?.pushViewController(vc, animated: true)
         }
     }

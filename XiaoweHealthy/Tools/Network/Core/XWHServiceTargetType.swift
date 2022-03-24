@@ -37,6 +37,10 @@ extension XWHServiceTargetType {
         param["SenseSign"] = signStr
         param["Content-Type"] = "application/json"
         
+        if let cToken = XWHNetworkHelper.getToken() {
+            param["SenseToken"] = cToken
+        }
+        
         return param
     }
     

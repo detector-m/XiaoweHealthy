@@ -42,7 +42,15 @@ class XWHGenderSelectVC: XWHRegisterFillInfoBaseVC & UIPickerViewDelegate & UIPi
         if sender == preBtn {
             
         } else {
+            let sRow = pickerView.selectedRow(inComponent: 0)
+            if sRow == 0 {
+                userModel.gender = 1
+            } else {
+                userModel.gender = 0
+            }
+            
             let vc = XWHHeightSelectVC()
+            vc.userModel = userModel
             navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -85,5 +93,9 @@ class XWHGenderSelectVC: XWHRegisterFillInfoBaseVC & UIPickerViewDelegate & UIPi
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 60
     }
+    
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//
+//    }
     
 }

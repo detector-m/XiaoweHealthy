@@ -10,9 +10,17 @@ import UIKit
 class XWHResetPasswordVC: XWHBindPhoneVC {
     
     lazy var passwordView = XWHPasswordView()
+    
+    private var isPhoneOk = false
+    private var isCodeOk = false
+    private var isPasswordOk = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        phoneNumView.textFiled.addTarget(self, action: #selector(textFiledChanged(sender:)), for: .editingChanged)
+        passwordView.textFiled.addTarget(self, action: #selector(textFiledChanged(sender:)), for: .editingChanged)
+        codeView.textFiled.addTarget(self, action: #selector(textFiledChanged(sender:)), for: .editingChanged)
     }
     
 
@@ -46,6 +54,26 @@ class XWHResetPasswordVC: XWHBindPhoneVC {
 //        confirmBtn.titleLabel?.font = R.font.harmonyOS_Sans_Medium(size: 16)
 //        confirmBtn.layer.cornerRadius = 26
 //        confirmBtn.layer.backgroundColor = UIColor(hex: 0x000000, transparency: 0.24)?.cgColor
+        
+        codeView.clickBtnCallback = { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            let phoneNum = self.phoneNumView.textFiled.text ?? ""
+            if phoneNum.count != 11 {
+                self.view.makeInsetToast(R.string.xwhDisplayText.请输入正确的手机号())
+                return
+            }
+            
+            self.codeView.start()
+            
+            XWHLoginRegisterVM().sendCode(phoneNum: phoneNum) { _ in
+                XWHAlert.show(message: R.string.xwhDisplayText.验证码获取失败(), cancelTitle: nil)
+            } successHandler: { _ in
+                
+            }
+        }
     }
     
     override func relayoutSubViews() {
@@ -85,7 +113,42 @@ class XWHResetPasswordVC: XWHBindPhoneVC {
     }
     
     @objc override func clickConfirmBtn() {
+        if !isPhoneOk || !isCodeOk || !isPasswordOk {
+            return
+        }
         
+        
+    }
+    
+    @objc func textFiledChanged(sender: UITextField) {
+        if sender == phoneNumView.textFiled {
+            let phoneCount = phoneNumView.textFiled.text?.count ?? 0
+            if phoneCount == 11 {
+                isPhoneOk = true
+            } else {
+                isPhoneOk = false
+            }
+        } else if sender == passwordView.textFiled {
+            let pwCount = passwordView.textFiled.text?.count ?? 0
+            if pwCount >= 6 {
+                isPasswordOk = true
+            } else {
+                isPasswordOk = false
+            }
+        } else {
+            let codeCount = codeView.textFiled.text?.count ?? 0
+            if codeCount >= 4 {
+                isCodeOk = true
+            } else {
+                isCodeOk = false
+            }
+        }
+        
+        if isPhoneOk && isCodeOk && isPasswordOk {
+            confirmBtn.layer.backgroundColor = UIColor(hex: 0x2DC84D)?.cgColor
+        } else {
+            confirmBtn.layer.backgroundColor = UIColor(hex: 0x000000, transparency: 0.24)?.cgColor
+        }
     }
 
 }

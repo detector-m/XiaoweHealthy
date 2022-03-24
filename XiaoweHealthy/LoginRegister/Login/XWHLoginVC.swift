@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class XWHLoginVC: XWHLoginRegisterBaseVC {
     
@@ -49,11 +50,23 @@ class XWHLoginVC: XWHLoginRegisterBaseVC {
         codeView.layer.backgroundColor = UIColor(hex: 0x000000, transparency: 0.03)?.cgColor
         view.addSubview(codeView)
         
-        codeView.clickBtnCallback = {
-            XWHLoginRegisterVM().sendCode(phoneNum: "15000847202") { isOk in
-                if !isOk {
-                    log.error("获取验证码失败")
-                }
+        codeView.clickBtnCallback = { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            let phoneNum = self.phoneNumView.textFiled.text ?? ""
+            if phoneNum.count != 11 {
+                self.view.makeInsetToast(R.string.xwhDisplayText.请输入正确的手机号())
+                return
+            }
+            
+            self.codeView.start()
+            
+            XWHLoginRegisterVM().sendCode(phoneNum: phoneNum) { _ in
+                XWHAlert.show(message: R.string.xwhDisplayText.验证码获取失败(), cancelTitle: nil)
+            } successHandler: { _ in
+                
             }
         }
         
@@ -126,6 +139,10 @@ class XWHLoginVC: XWHLoginRegisterBaseVC {
     }
     
     @objc override func clickLoginBtn() {
+        if gotoUpdateUserInfo() {
+            return
+        }
+        
         if !isCodeOk || !isPhoneOk {
             return
         }
@@ -166,22 +183,57 @@ class XWHLoginVC: XWHLoginRegisterBaseVC {
         } else {
             loginBtn.layer.backgroundColor = UIColor(hex: 0x000000, transparency: 0.24)?.cgColor
         }
-            
     }
 
 }
 
+// MARK: - Api
 extension XWHLoginVC {
     
     fileprivate func gotoLogin() {
         XWHProgressHUD.show(text: R.string.xwhDisplayText.加速登录中())
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) { [unowned self] in
+        let phone = phoneNumView.textFiled.text ?? ""
+        let code = codeView.textFiled.text ?? ""
+        
+        let vm = XWHLoginRegisterVM()
+        vm.login(parameters: vm.getCodeLoginParameters(phoneNum: phone, code: code)) { [weak self] error in
             XWHProgressHUD.hide()
             
-            let vc = XWHGenderSelectVC()
-            self.navigationController?.setViewControllers([vc], animated: true)
+            self?.view.makeInsetToast(error.message)
+        } successHandler: { [weak self] response in
+            XWHProgressHUD.hide()
+            
+            if let cRes = response.data as? JSON {
+                if let token = cRes["token"].string, !token.isEmpty {
+                    XWHNetworkHelper.setToken(token: token)
+                }
+                
+                let isNewer = cRes["newer"].boolValue
+                
+                if isNewer {
+                    let vc = XWHGenderSelectVC()
+                    self?.navigationController?.setViewControllers([vc], animated: true)
+                }
+            }
         }
+    }
+    
+}
+
+// MARK: - Test
+extension XWHLoginVC {
+    
+    func gotoUpdateUserInfo() -> Bool {
+        let token = XWHNetworkHelper.getToken() ?? ""
+        if !token.isEmpty {
+            let vc = XWHGenderSelectVC()
+            navigationController?.setViewControllers([vc], animated: true)
+            
+            return true
+        }
+            
+        return false
     }
     
 }

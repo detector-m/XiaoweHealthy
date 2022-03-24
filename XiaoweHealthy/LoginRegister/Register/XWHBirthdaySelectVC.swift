@@ -15,7 +15,8 @@ class XWHBirthdaySelectVC: XWHGenderSelectVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        pickerView.selectRow(90, inComponent: 0, animated: false)
+        var dYear = 1990
+        pickerView.selectRow(dYear - 1900, inComponent: 0, animated: false)
     }
     
 
@@ -40,7 +41,13 @@ class XWHBirthdaySelectVC: XWHGenderSelectVC {
         if sender == preBtn {
             navigationController?.popViewController()
         } else {
-            dismiss(animated: true)
+            let yRow = pickerView.selectedRow(inComponent: 0) + 1900
+            let mRow = pickerView.selectedRow(inComponent: 1) + 1
+            let dRow = pickerView.selectedRow(inComponent: 2) + 1
+            
+            let birthday = String(format: "%d-%02d-%02d", yRow, mRow, dRow)
+            userModel.birthday = birthday
+            gotoUpdateUserInfo(userModel: userModel)
         }
     }
     
@@ -131,6 +138,26 @@ extension XWHBirthdaySelectVC {
         }
        
         return 29
+    }
+    
+}
+
+// MARK: - Api
+extension XWHBirthdaySelectVC {
+    
+    fileprivate func gotoUpdateUserInfo(userModel: XWHUserModel) {
+        XWHProgressHUD.show(text: R.string.xwhDisplayText.加速登录中())
+
+        XWHUserVM().update(userModel: userModel) { [weak self] error in
+            XWHProgressHUD.hide()
+            
+            self?.view.makeInsetToast(R.string.xwhDisplayText.更新用户信息失败())
+        } successHandler: { [weak self] response in
+            XWHProgressHUD.hide()
+            
+            self?.dismiss(animated: true)
+        }
+
     }
     
 }

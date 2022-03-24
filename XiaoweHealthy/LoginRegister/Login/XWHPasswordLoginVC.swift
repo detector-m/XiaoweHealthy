@@ -12,9 +12,15 @@ class XWHPasswordLoginVC: XWHLoginRegisterBaseVC {
     lazy var subLb = UILabel()
     lazy var phoneNumView = XWHPhoneNumView()
     lazy var passwordView = XWHPasswordView()
+    
+    private var isPhoneOk = false
+    private var isPasswordOk = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        phoneNumView.textFiled.addTarget(self, action: #selector(textFiledChanged(sender:)), for: .editingChanged)
+        passwordView.textFiled.addTarget(self, action: #selector(textFiledChanged(sender:)), for: .editingChanged)
     }
     
     override func setupNavigationItems() {
@@ -118,10 +124,45 @@ class XWHPasswordLoginVC: XWHLoginRegisterBaseVC {
     }
     
     @objc override func clickLoginBtn() {
-//        view.makeInsetToast("Hello")
-//        view.makeXWHToast("Hello")
+        if !isPhoneOk || !isPasswordOk {
+            return
+        }
         
-        XWHAlert.show(message: "HELLO")
+        if !checkProtocolView.button.isSelected {
+            XWHAlert.show(title: R.string.xwhDisplayText.同意隐私条款(), message: R.string.xwhDisplayText.登录注册需要您阅读并同意用户协议隐私政策(), cancelTitle: R.string.xwhDisplayText.不同意(), confirmTitle: R.string.xwhDisplayText.同意()) { [weak self] acType in
+                if acType == .confirm {
+                    self?.checkProtocolView.button.isSelected = true
+//                    self?.gotoLogin()
+                }
+            }
+            
+            return
+        }
     }
+    
+    @objc func textFiledChanged(sender: UITextField) {
+        if sender == phoneNumView.textFiled {
+            let phoneCount = phoneNumView.textFiled.text?.count ?? 0
+            if phoneCount == 11 {
+                isPhoneOk = true
+            } else {
+                isPhoneOk = false
+            }
+        } else if sender == passwordView.textFiled {
+            let pwCount = passwordView.textFiled.text?.count ?? 0
+            if pwCount >= 6 {
+                isPasswordOk = true
+            } else {
+                isPasswordOk = false
+            }
+        }
+        
+        if isPhoneOk && isPasswordOk {
+            loginBtn.layer.backgroundColor = UIColor(hex: 0x2DC84D)?.cgColor
+        } else {
+            loginBtn.layer.backgroundColor = UIColor(hex: 0x000000, transparency: 0.24)?.cgColor
+        }
+    }
+
 
 }

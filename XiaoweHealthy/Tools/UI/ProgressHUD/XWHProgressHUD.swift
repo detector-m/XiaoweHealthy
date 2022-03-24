@@ -33,7 +33,7 @@ class XWHProgressHUD {
         popupView.backgroundView.style = .solidColor
         popupView.backgroundView.blurEffectStyle = UIBlurEffect.Style.light
         popupView.backgroundView.color = UIColor.black.withAlphaComponent(0.3)
-        popupView.display(animated: true, completion: nil)
+        popupView.display(animated: false, completion: nil)
     }
     
     class func hide() {
