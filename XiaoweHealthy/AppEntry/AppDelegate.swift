@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         configLog()
         
+        configUM()
+        
         configIQKeyboard()
         configToast()
         
@@ -99,6 +101,13 @@ extension AppDelegate {
         ToastManager.shared.isQueueEnabled = true
         
         ToastManager.shared.position = .bottom
+    }
+    
+    // 配置友盟
+    fileprivate func configUM() {
+        XWHUMManager.configUMCommon()
+        
+        XWHUMManager.configShare()
     }
     
 }

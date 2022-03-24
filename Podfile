@@ -67,6 +67,26 @@ target 'XiaoweHealthy' do
   # 优创亿的SDK 依赖
   pod 'iOSOTARTK'
   pod 'iOSDFULibrary'
+  
+  
+  # 友盟集成
+  # 友盟统计
+  # 必须集成
+  pod 'UMCommon'
+  pod 'UMDevice'
+  
+  # 性能检监测 错误分析升级为独立SDK，看crash数据请务必集成
+  pod 'UMAPM'
+  
+  # 推送
+  pod 'UMPush'
+  
+  # 社会化分享
+  pod 'UMShare/Social/WeChat'
+  pod 'UMShare/Social/QQ'
+  
+  # 集成新浪微博(精简版1M)
+#  pod 'UMShare/Social/ReducedSina'
 
   target 'XiaoweHealthyTests' do
     inherit! :search_paths

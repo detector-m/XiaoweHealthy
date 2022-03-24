@@ -79,12 +79,14 @@ class XWHLoginVC: XWHLoginRegisterBaseVC {
             }
             
             if cType == .wechat {
-                let vc = XWHBindPhoneVC()
-                self?.navigationController?.pushViewController(vc, completion: nil)
+//                let vc = XWHBindPhoneVC()
+//                self?.navigationController?.pushViewController(vc, completion: nil)
+                XWHUMManager.getUserInfo(pType: .wechatSession)
                 return
             }
             
             if cType == .qq {
+                XWHUMManager.getUserInfo(pType: .QQ)
                 return
             }
         }
