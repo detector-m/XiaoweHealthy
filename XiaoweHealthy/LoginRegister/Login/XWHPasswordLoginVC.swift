@@ -132,12 +132,14 @@ class XWHPasswordLoginVC: XWHLoginRegisterBaseVC {
             XWHAlert.show(title: R.string.xwhDisplayText.同意隐私条款(), message: R.string.xwhDisplayText.登录注册需要您阅读并同意用户协议隐私政策(), cancelTitle: R.string.xwhDisplayText.不同意(), confirmTitle: R.string.xwhDisplayText.同意()) { [weak self] acType in
                 if acType == .confirm {
                     self?.checkProtocolView.button.isSelected = true
-//                    self?.gotoLogin()
+                    self?.gotoLogin()
                 }
             }
             
             return
         }
+        
+        gotoLogin()
     }
     
     @objc func textFiledChanged(sender: UITextField) {
@@ -164,5 +166,41 @@ class XWHPasswordLoginVC: XWHLoginRegisterBaseVC {
         }
     }
 
-
 }
+
+// MARK: - Api
+extension XWHPasswordLoginVC {
+    
+    fileprivate func gotoLogin() {
+        XWHProgressHUD.show(text: R.string.xwhDisplayText.加速登录中())
+        
+        let phone = phoneNumView.textFiled.text ?? ""
+        let password = passwordView.textFiled.text ?? ""
+        
+        let vm = XWHLoginRegisterVM()
+        vm.login(parameters: vm.getPasswordLoginParameters(phoneNum: phone, password: password)) { [weak self] error in
+            XWHProgressHUD.hide()
+            
+            self?.view.makeInsetToast(error.message)
+        } successHandler: { [weak self] response in
+            XWHProgressHUD.hide()
+            
+            if let cRes = response.data as? JSON {
+                if let token = cRes["token"].string, !token.isEmpty {
+                    XWHNetworkHelper.setToken(token: token)
+                }
+                
+                let isNewer = cRes["newer"].boolValue
+                
+                if isNewer {
+                    let vc = XWHGenderSelectVC()
+                    self?.navigationController?.setViewControllers([vc], animated: true)
+                } else {
+                    self?.dismiss(animated: true)
+                }
+            }
+        }
+    }
+    
+}
+

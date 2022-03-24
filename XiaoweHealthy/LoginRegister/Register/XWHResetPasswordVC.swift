@@ -68,11 +68,11 @@ class XWHResetPasswordVC: XWHBindPhoneVC {
             
             self.codeView.start()
             
-            XWHLoginRegisterVM().sendCode(phoneNum: phoneNum) { _ in
-                XWHAlert.show(message: R.string.xwhDisplayText.验证码获取失败(), cancelTitle: nil)
-            } successHandler: { _ in
-                
-            }
+//            XWHLoginRegisterVM().sendCode(phoneNum: phoneNum) { _ in
+//                XWHAlert.show(message: R.string.xwhDisplayText.验证码获取失败(), cancelTitle: nil)
+//            } successHandler: { _ in
+//                
+//            }
         }
     }
     
@@ -117,7 +117,11 @@ class XWHResetPasswordVC: XWHBindPhoneVC {
             return
         }
         
+        let phoneNum = phoneNumView.textFiled.text ?? ""
+        let code = codeView.textFiled.text ?? ""
+        let pw = passwordView.textFiled.text ?? ""
         
+        gotoResetPassword(phoneNum: phoneNum, code: code, pw: pw)
     }
     
     @objc func textFiledChanged(sender: UITextField) {
@@ -151,4 +155,22 @@ class XWHResetPasswordVC: XWHBindPhoneVC {
         }
     }
 
+}
+
+// MARK: - Api
+extension XWHResetPasswordVC {
+    
+    fileprivate func gotoResetPassword(phoneNum: String, code: String, pw: String) {
+        XWHProgressHUD.show(text: R.string.xwhDisplayText.重置密码中())
+        XWHUserVM().setPassword(phoneNum: phoneNum, code: code, password: pw) { [weak self] error in
+            XWHProgressHUD.hide()
+            self?.view.makeInsetToast(error.message)
+        } successHandler: { [weak self] response in
+            XWHProgressHUD.hide()
+            
+            self?.navigationController?.popToRootViewController(animated: true)
+        }
+
+    }
+    
 }
