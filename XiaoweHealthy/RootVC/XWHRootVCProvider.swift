@@ -60,6 +60,7 @@ enum XWHRootVCProvider {
         tabBarController.tabBar.shadowRadius = 0
         
         tabBarController.tabBar.layer.cornerRadius = 16
+        tabBarController.tabBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
 //        tabBarController.tabBar.layer.masksToBounds = true
         
 //        tabBarController.tabBar.isTranslucent = false
