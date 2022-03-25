@@ -11,6 +11,12 @@ class XWHRegisterBaseVC: XWHBaseVC {
     
     lazy var titleLb = UILabel()
     lazy var subLb = UILabel()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setNavTransparent()
+    }
 
     override func addSubViews() {
         super.addSubViews()

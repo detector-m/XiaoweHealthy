@@ -20,6 +20,8 @@ class XWHLoginRegisterBaseVC: XWHBaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setNavTransparent()
     }
     
 //    override func setupNavigationItems() {
