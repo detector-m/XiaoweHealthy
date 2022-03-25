@@ -33,7 +33,7 @@ class XWHLoginRegisterBaseVC: XWHBaseVC {
         
         view.addSubview(bgView)
         
-        titleLb.font = XWHFont.harmonyOSSans(ofSize: 30, weight: .black)
+        titleLb.font = XWHFont.harmonyOSSans(ofSize: 30, weight: .bold)
         titleLb.textColor = UIColor(hex: 0x000000, transparency: 0.9)
         view.addSubview(titleLb)
         

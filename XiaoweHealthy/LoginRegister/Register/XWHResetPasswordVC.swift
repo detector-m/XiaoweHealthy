@@ -35,7 +35,7 @@ class XWHResetPasswordVC: XWHBindPhoneVC {
 
         titleLb.textAlignment = .left
         titleLb.text = R.string.xwhDisplayText.重置密码()
-        titleLb.font = XWHFont.harmonyOSSans(ofSize: 30, weight: .black)
+        titleLb.font = XWHFont.harmonyOSSans(ofSize: 30, weight: .bold)
         
         let cFont = XWHFont.harmonyOSSans(ofSize: 12)
         subLb.font = cFont

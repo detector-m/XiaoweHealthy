@@ -37,7 +37,7 @@ class XWHBindPhoneVC: XWHRegisterBaseVC {
 
         titleLb.textAlignment = .left
         titleLb.text = R.string.xwhDisplayText.您好亲爱的用户()
-        titleLb.font = XWHFont.harmonyOSSans(ofSize: 24, weight: .black)
+        titleLb.font = XWHFont.harmonyOSSans(ofSize: 24, weight: .bold)
         titleLb.textColor = cColor
         
         let cFont = XWHFont.harmonyOSSans(ofSize: 12)

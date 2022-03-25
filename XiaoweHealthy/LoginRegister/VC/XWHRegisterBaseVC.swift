@@ -25,7 +25,7 @@ class XWHRegisterBaseVC: XWHBaseVC {
 
         titleLb.textAlignment = .left
         titleLb.text = ""
-        titleLb.font = XWHFont.harmonyOSSans(ofSize: 30, weight: .black)
+        titleLb.font = XWHFont.harmonyOSSans(ofSize: 30, weight: .bold)
         titleLb.textColor = cColor
         view.addSubview(titleLb)
         

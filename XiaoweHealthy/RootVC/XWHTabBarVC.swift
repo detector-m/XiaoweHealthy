@@ -13,7 +13,8 @@ class XWHTabBarVC: ESTabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+//        tabBar.shadowColor = UIColor(hex: 0x000000, transparency: 0.9)
+//        tabBar.isTranslucent = false
     }
     
 

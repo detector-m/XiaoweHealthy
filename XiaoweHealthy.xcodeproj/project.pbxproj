@@ -83,11 +83,13 @@
 		96E23C2E27E1A586009EF208 /* XWHMeMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C2D27E1A586009EF208 /* XWHMeMainVC.swift */; };
 		96FC406B27ED738100D64B64 /* XWHUIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC406A27ED738100D64B64 /* XWHUIViewControllerExtension.swift */; };
 		96FC407727EDA16800D64B64 /* HarmonyOS_Sans_SC_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96FC407027EDA16800D64B64 /* HarmonyOS_Sans_SC_Regular.ttf */; };
-		96FC407927EDA16800D64B64 /* HarmonyOS_Sans_SC_Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96FC407227EDA16800D64B64 /* HarmonyOS_Sans_SC_Black.ttf */; };
 		96FC407D27EDA16800D64B64 /* HarmonyOS_Sans_SC_Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96FC407627EDA16800D64B64 /* HarmonyOS_Sans_SC_Medium.ttf */; };
 		96FC407F27EDA19300D64B64 /* XWHFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC407E27EDA19300D64B64 /* XWHFont.swift */; };
 		96FC408327EDA4F400D64B64 /* SKSans-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 96FC408127EDA4F400D64B64 /* SKSans-Regular.otf */; };
 		96FC408427EDA4F400D64B64 /* SKSans-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 96FC408227EDA4F400D64B64 /* SKSans-Bold.otf */; };
+		96FC408627EDB78F00D64B64 /* XWHDeviceBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC408527EDB78F00D64B64 /* XWHDeviceBaseVC.swift */; };
+		96FC408827EDB9B700D64B64 /* HarmonyOS_Sans_SC_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96FC408727EDB9B700D64B64 /* HarmonyOS_Sans_SC_Bold.ttf */; };
+		96FC408A27EDBB3B00D64B64 /* XWHDeviceText.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96FC408927EDBB3B00D64B64 /* XWHDeviceText.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,11 +205,13 @@
 		96E23C2D27E1A586009EF208 /* XWHMeMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMeMainVC.swift; sourceTree = "<group>"; };
 		96FC406A27ED738100D64B64 /* XWHUIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUIViewControllerExtension.swift; sourceTree = "<group>"; };
 		96FC407027EDA16800D64B64 /* HarmonyOS_Sans_SC_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HarmonyOS_Sans_SC_Regular.ttf; sourceTree = "<group>"; };
-		96FC407227EDA16800D64B64 /* HarmonyOS_Sans_SC_Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HarmonyOS_Sans_SC_Black.ttf; sourceTree = "<group>"; };
 		96FC407627EDA16800D64B64 /* HarmonyOS_Sans_SC_Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HarmonyOS_Sans_SC_Medium.ttf; sourceTree = "<group>"; };
 		96FC407E27EDA19300D64B64 /* XWHFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XWHFont.swift; sourceTree = "<group>"; };
 		96FC408127EDA4F400D64B64 /* SKSans-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SKSans-Regular.otf"; sourceTree = "<group>"; };
 		96FC408227EDA4F400D64B64 /* SKSans-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SKSans-Bold.otf"; sourceTree = "<group>"; };
+		96FC408527EDB78F00D64B64 /* XWHDeviceBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceBaseVC.swift; sourceTree = "<group>"; };
+		96FC408727EDB9B700D64B64 /* HarmonyOS_Sans_SC_Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HarmonyOS_Sans_SC_Bold.ttf; sourceTree = "<group>"; };
+		96FC408927EDBB3B00D64B64 /* XWHDeviceText.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = XWHDeviceText.strings; sourceTree = "<group>"; };
 		9E36C9C5C621D98412D2473D /* Pods-XiaoweHealthy-XiaoweHealthyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XiaoweHealthy-XiaoweHealthyUITests.debug.xcconfig"; path = "Target Support Files/Pods-XiaoweHealthy-XiaoweHealthyUITests/Pods-XiaoweHealthy-XiaoweHealthyUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C24BBC7C44348E71CC065B15 /* Pods_XiaoweHealthyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XiaoweHealthyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF4A353C734F593A2D13B536 /* Pods_XiaoweHealthy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XiaoweHealthy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -630,6 +634,7 @@
 		96617A9A27E2BFEB00139B03 /* VC */ = {
 			isa = PBXGroup;
 			children = (
+				96FC408527EDB78F00D64B64 /* XWHDeviceBaseVC.swift */,
 				96E23C2B27E1A579009EF208 /* XWHDeviceMainVC.swift */,
 			);
 			path = VC;
@@ -684,6 +689,7 @@
 			isa = PBXGroup;
 			children = (
 				96E23C1627E18D19009EF208 /* XWHDisplayText.strings */,
+				96FC408927EDBB3B00D64B64 /* XWHDeviceText.strings */,
 			);
 			path = LocalString;
 			sourceTree = "<group>";
@@ -732,7 +738,7 @@
 			isa = PBXGroup;
 			children = (
 				96FC407027EDA16800D64B64 /* HarmonyOS_Sans_SC_Regular.ttf */,
-				96FC407227EDA16800D64B64 /* HarmonyOS_Sans_SC_Black.ttf */,
+				96FC408727EDB9B700D64B64 /* HarmonyOS_Sans_SC_Bold.ttf */,
 				96FC407627EDA16800D64B64 /* HarmonyOS_Sans_SC_Medium.ttf */,
 			);
 			path = HarmonyOS_Sans_SC;
@@ -874,18 +880,19 @@
 				96E23C1427E18D19009EF208 /* XWHDisplayText.strings in Resources */,
 				9648E61B27E0796E0077180D /* LaunchScreen.storyboard in Resources */,
 				96FC407D27EDA16800D64B64 /* HarmonyOS_Sans_SC_Medium.ttf in Resources */,
-				96FC407927EDA16800D64B64 /* HarmonyOS_Sans_SC_Black.ttf in Resources */,
 				96617A6727E1D31700139B03 /* XWHLaunchBg@3x.png in Resources */,
 				96FC408327EDA4F400D64B64 /* SKSans-Regular.otf in Resources */,
 				96FC407727EDA16800D64B64 /* HarmonyOS_Sans_SC_Regular.ttf in Resources */,
 				9648E61827E0796E0077180D /* Assets.xcassets in Resources */,
 				96617A6027E1D1A600139B03 /* XWHLaunchLogoS@3x.png in Resources */,
 				96617A5F27E1D1A600139B03 /* XWHLaunchLogoS@2x.png in Resources */,
+				96FC408A27EDBB3B00D64B64 /* XWHDeviceText.strings in Resources */,
 				96FC408427EDA4F400D64B64 /* SKSans-Bold.otf in Resources */,
 				9648E61627E0796D0077180D /* Main.storyboard in Resources */,
 				96617A6327E1D1B300139B03 /* XWHLaunchImg@3x.png in Resources */,
 				96617A6827E1D31700139B03 /* XWHLaunchBg@2x.png in Resources */,
 				96617A6427E1D1B300139B03 /* XWHLaunchImg@2x.png in Resources */,
+				96FC408827EDB9B700D64B64 /* HarmonyOS_Sans_SC_Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1088,6 +1095,7 @@
 				96617A9227E23EAD00139B03 /* XWHColorExtension.swift in Sources */,
 				9651EE2E27EC5BD30043FE52 /* UMShareSwiftInterface.swift in Sources */,
 				96617A7827E1FCF600139B03 /* XWHLoginRegisterBaseVC.swift in Sources */,
+				96FC408627EDB78F00D64B64 /* XWHDeviceBaseVC.swift in Sources */,
 				9651EE0E27EB06F20043FE52 /* XWHLoginRegisterVM.swift in Sources */,
 				9648E61327E0796D0077180D /* ViewController.swift in Sources */,
 				9648E60F27E0796D0077180D /* AppDelegate.swift in Sources */,

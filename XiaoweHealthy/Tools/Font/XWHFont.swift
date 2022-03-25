@@ -14,7 +14,7 @@ enum XWHFont: String, FontRepresentable {
     // MARK: - HarmonyOS_Sans
     case harmonyOSSansRegular = "HarmonyOS_Sans_SC"
     case harmonyOSSansMedium = "HarmonyOS_Sans_SC_Medium"
-    case harmonyOSSansBlack = "HarmonyOS_Sans_SC_Black"
+    case harmonyOSSansBold = "HarmonyOS_Sans_SC_Bold"
     
     // MARK: - HarmonyOS_Sans_Condensed
 //    case harmonyOSSansCondensedRegular = "HarmonyOS_Sans_Condensed_Regular"
@@ -32,8 +32,8 @@ enum XWHFont: String, FontRepresentable {
             cFont = XWHFont.harmonyOSSansRegular.of(size: fontSize)
         } else if weight == .medium {
             cFont = XWHFont.harmonyOSSansMedium.of(size: fontSize)
-        } else if weight == .black {
-            cFont = XWHFont.harmonyOSSansBlack.of(size: fontSize)
+        } else if weight == .bold {
+            cFont = XWHFont.harmonyOSSansBold.of(size: fontSize)
         } else {
             cFont = XWHFont.harmonyOSSansRegular.of(size: fontSize)
         }

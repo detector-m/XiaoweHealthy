@@ -58,6 +58,9 @@ target 'XiaoweHealthy' do
   pod "ESTabBarController-swift"
   pod "RTRootNavigationController"
   
+  # 轮播图
+  pod 'FSPagerView'
+  
   # toast
   pod 'Toast-Swift'
   
