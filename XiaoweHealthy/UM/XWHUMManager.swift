@@ -36,10 +36,12 @@ class XWHUMManager {
     }
     
     // 获取用户资料
-    class func getUserInfo(pType: UMSocialPlatformType, vc: UIViewController?) {
+    class func getUserInfo(pType: UMSocialPlatformType, vc: UIViewController?) -> Bool {
         UMShareSwiftInterface.getUserInfo(plattype: pType, viewController: vc) { data, error in
             log.error("第三方获取用户资料 data: \(String(describing: data)) error: \(String(describing: error))")
         }
+        
+        return true
     }
     
     
@@ -54,23 +56,23 @@ class XWHUMManager {
         return result;
     }
     
-//    class func handleOpen(url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-//        let result = UMSocialManager.default().handleOpen(url, sourceApplication: sourceApplication, annotation: annotation)
-//        
-//        if !result {
-//        }
-//        
-//        return result
-//    }
-//    
-//    class func handleOpen(url: URL) -> Bool {
-//        let result = UMSocialManager.default().handleOpen(url)
-//        
-//        if !result {
-//        }
-//        
-//        return result
-//    }
+    class func handleOpen(url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        let result = UMSocialManager.default().handleOpen(url, sourceApplication: sourceApplication, annotation: annotation)
+        
+        if !result {
+        }
+        
+        return result
+    }
+    
+    class func handleOpen(url: URL) -> Bool {
+        let result = UMSocialManager.default().handleOpen(url)
+        
+        if !result {
+        }
+        
+        return result
+    }
     
     @discardableResult
     class func handleUniversalLink(userActivity: NSUserActivity) -> Bool {

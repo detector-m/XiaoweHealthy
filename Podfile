@@ -84,6 +84,10 @@ target 'XiaoweHealthy' do
   # 社会化分享
   pod 'UMShare/Social/WeChat'
   pod 'UMShare/Social/QQ'
+
+#  pod 'UMShare/Social/ReducedWeChat'
+#  pod 'UMShare/Social/ReducedQQ'
+
   
   # 集成新浪微博(精简版1M)
 #  pod 'UMShare/Social/ReducedSina'
