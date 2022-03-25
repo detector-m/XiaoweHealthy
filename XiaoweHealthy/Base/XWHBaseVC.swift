@@ -49,7 +49,7 @@ class XWHBaseVC: UIViewController {
             button.setImage(cImage, for: .normal)
         } else if let cText = text {
             button.setTitle(cText, for: .normal)
-            button.titleLabel?.font = R.font.harmonyOS_Sans(size: 14)
+            button.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 14)
             button.setTitleColor(UIColor(hex: 0x000000, transparency: 0.9), for: .normal)
         }
         button.sizeToFit()

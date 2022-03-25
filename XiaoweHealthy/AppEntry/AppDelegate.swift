@@ -109,7 +109,7 @@ extension AppDelegate {
 
         // this is just one of many style options
         style.messageColor = UIColor(hex: 0x000000, transparency: 0.9)!
-        style.messageFont = R.font.harmonyOS_Sans(size: 14)!
+        style.messageFont = XWHFont.harmonyOSSans(ofSize: 14)
         style.cornerRadius = 20
         style.backgroundColor = UIColor(hex: 0xeeeeee, transparency: 0.85)!
         style.verticalPadding = 14

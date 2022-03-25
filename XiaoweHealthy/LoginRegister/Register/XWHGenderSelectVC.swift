@@ -78,7 +78,7 @@ class XWHGenderSelectVC: XWHRegisterFillInfoBaseVC & UIPickerViewDelegate & UIPi
         if let tLabel = rLabel {
             cLabel = tLabel
         }
-        cLabel.font = R.font.harmonyOS_Sans_Medium(size: 38)
+        cLabel.font = XWHFont.harmonyOSSans(ofSize: 38, weight: .medium)
         cLabel.textColor = UIColor(hex: 0x000000, transparency: 0.9)
         cLabel.textAlignment = .center
         if row == 0 {

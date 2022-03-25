@@ -16,7 +16,7 @@ class XWHTextFieldBaseView: XWHBaseView {
     override func addSubViews() {
         super.addSubViews()
         
-        let cFont = R.font.harmonyOS_Sans_Medium(size: 16)
+        let cFont = XWHFont.harmonyOSSans(ofSize: 16, weight: .medium)
         let cColor = UIColor(hex: 0x000000, transparency: 0.9)
         titleLb.font = cFont
         titleLb.textColor = cColor

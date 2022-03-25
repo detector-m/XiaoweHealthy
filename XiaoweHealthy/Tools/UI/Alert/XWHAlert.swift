@@ -119,17 +119,17 @@ class XWHAlertContentView: XWHBaseView {
         super.addSubViews()
         
         titleLb.textColor = UIColor(hex: 0x000000, transparency: 0.9)
-        titleLb.font = R.font.harmonyOS_Sans_Medium(size: 20)
+        titleLb.font = XWHFont.harmonyOSSans(ofSize: 20, weight: .medium)
         titleLb.textAlignment = .center
         addSubview(titleLb)
         
-        messageLb.font = R.font.harmonyOS_Sans(size: 16)
+        messageLb.font = XWHFont.harmonyOSSans(ofSize: 16)
         messageLb.textColor = UIColor(hex: 0x000000, transparency: 0.9)
         messageLb.numberOfLines = 0
         addSubview(messageLb)
         
         cancelBtn.setTitle(R.string.xwhDisplayText.取消(), for: .normal)
-        cancelBtn.titleLabel?.font = R.font.harmonyOS_Sans_Medium(size: 16)
+        cancelBtn.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 16, weight: .medium)
         cancelBtn.setTitleColor(UIColor(hex: 0x000000, transparency: 0.9), for: .normal)
         cancelBtn.layer.cornerRadius = 24
         cancelBtn.layer.backgroundColor = UIColor(hex: 0x000000, transparency: 0.05)?.cgColor
@@ -137,7 +137,7 @@ class XWHAlertContentView: XWHBaseView {
         addSubview(cancelBtn)
         
         confirmBtn.setTitle(R.string.xwhDisplayText.确定(), for: .normal)
-        confirmBtn.titleLabel?.font = R.font.harmonyOS_Sans_Medium(size: 16)
+        confirmBtn.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 16, weight: .medium)
         confirmBtn.layer.cornerRadius = 24
         confirmBtn.layer.backgroundColor = UIColor(hex: 0x2DC84D)?.cgColor
         confirmBtn.addTarget(self, action: #selector(clickConfirmBtn), for: .touchUpInside)

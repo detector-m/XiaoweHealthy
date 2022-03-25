@@ -63,7 +63,7 @@ class XWHProgressHUDContentView: XWHBaseView {
         rotateAnimation.repeatCount = .infinity
         loadingView.layer.add(rotateAnimation, forKey: nil)
         
-        textLb.font = R.font.harmonyOS_Sans(size: 16)
+        textLb.font = XWHFont.harmonyOSSans(ofSize: 16)
         textLb.textColor = UIColor(hex: 0x000000, transparency: 0.9)
         textLb.numberOfLines = 0
         addSubview(textLb)

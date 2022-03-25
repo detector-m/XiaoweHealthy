@@ -64,6 +64,9 @@ target 'XiaoweHealthy' do
   # 资源处理
   pod 'R.swift'
   
+  # 字体管理
+  pod 'UIFontComplete'
+  
   # 优创亿的SDK 依赖
   pod 'iOSOTARTK'
   pod 'iOSDFULibrary'

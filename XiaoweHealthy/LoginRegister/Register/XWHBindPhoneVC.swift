@@ -37,10 +37,10 @@ class XWHBindPhoneVC: XWHRegisterBaseVC {
 
         titleLb.textAlignment = .left
         titleLb.text = R.string.xwhDisplayText.您好亲爱的用户()
-        titleLb.font = R.font.harmonyOS_Sans_Black(size: 24)
+        titleLb.font = XWHFont.harmonyOSSans(ofSize: 24, weight: .black)
         titleLb.textColor = cColor
         
-        let cFont = R.font.harmonyOS_Sans(size: 12)
+        let cFont = XWHFont.harmonyOSSans(ofSize: 12)
         subLb.font = cFont
         subLb.textColor = cColor
         subLb.alpha = 0.5
@@ -57,7 +57,7 @@ class XWHBindPhoneVC: XWHRegisterBaseVC {
         view.addSubview(codeView)
         
         confirmBtn.setTitle(R.string.xwhDisplayText.确定(), for: .normal)
-        confirmBtn.titleLabel?.font = R.font.harmonyOS_Sans_Medium(size: 16)
+        confirmBtn.titleLabel?.font = XWHFont.harmonyOSSans(ofSize:16, weight: .medium)
         confirmBtn.layer.cornerRadius = 26
         confirmBtn.layer.backgroundColor = UIColor(hex: 0x000000, transparency: 0.24)?.cgColor
         confirmBtn.addTarget(self, action: #selector(clickConfirmBtn), for: .touchUpInside)

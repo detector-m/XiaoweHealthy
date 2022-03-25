@@ -33,14 +33,14 @@ class XWHLoginRegisterBaseVC: XWHBaseVC {
         
         view.addSubview(bgView)
         
-        titleLb.font = R.font.harmonyOS_Sans_Black(size: 30)
+        titleLb.font = XWHFont.harmonyOSSans(ofSize: 30, weight: .black)
         titleLb.textColor = UIColor(hex: 0x000000, transparency: 0.9)
         view.addSubview(titleLb)
         
         view.addSubview(checkProtocolView)
         
         loginBtn.setTitle(R.string.xwhDisplayText.登录(), for: .normal)
-        loginBtn.titleLabel?.font = R.font.harmonyOS_Sans_Medium(size: 16)
+        loginBtn.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 16, weight: .medium)
         loginBtn.layer.cornerRadius = 26
         loginBtn.layer.backgroundColor = UIColor(hex: 0x000000, transparency: 0.24)?.cgColor
         loginBtn.addTarget(self, action: #selector(clickLoginBtn), for: .touchUpInside)
@@ -56,7 +56,7 @@ class XWHLoginRegisterBaseVC: XWHBaseVC {
     func getNavRightItem() -> UIBarButtonItem {
         let button = UIButton(type: .custom)
         button.setTitle(R.string.xwhDisplayText.忘记密码(), for: .normal)
-        button.titleLabel?.font = R.font.harmonyOS_Sans(size: 14)
+        button.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 14)
         button.setTitleColor(UIColor.black, for: .normal)
         button.sizeToFit()
         button.addTarget(self, action: #selector(clickNavRightBtn), for: .touchUpInside)

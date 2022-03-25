@@ -37,7 +37,7 @@ class XWHPasswordLoginVC: XWHLoginRegisterBaseVC {
         titleLb.textAlignment = .left
         titleLb.text = R.string.xwhDisplayText.欢迎使用小维健康()
         
-        let cFont = R.font.harmonyOS_Sans(size: 12)
+        let cFont = XWHFont.harmonyOSSans(ofSize: 12)
         let cColor = UIColor(hex: 0x000000, transparency: 0.9)
         subLb.font = cFont
         subLb.textColor = cColor

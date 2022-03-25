@@ -28,7 +28,7 @@ class XWHHeightSelectVC: XWHGenderSelectVC {
         preBtn.isHidden = false
         titleLb.text = R.string.xwhDisplayText.身高()
         
-        unitLabel.font = R.font.harmonyOS_Sans_Medium(size: 12)
+        unitLabel.font = XWHFont.harmonyOSSans(ofSize: 12, weight: .medium)
         unitLabel.textColor = UIColor(hex: 0x000000, transparency: 0.9)
         unitLabel.text = R.string.xwhDisplayText.厘米()
         view.addSubview(unitLabel)
@@ -77,7 +77,7 @@ class XWHHeightSelectVC: XWHGenderSelectVC {
         if let tLabel = rLabel {
             cLabel = tLabel
         }
-        cLabel.font = R.font.harmonyOS_Sans_Medium(size: 38)
+        cLabel.font = XWHFont.harmonyOSSans(ofSize: 38, weight: .medium)
         cLabel.textColor = UIColor(hex: 0x000000, transparency: 0.9)
         cLabel.textAlignment = .center
         cLabel.text = (30 + row).string

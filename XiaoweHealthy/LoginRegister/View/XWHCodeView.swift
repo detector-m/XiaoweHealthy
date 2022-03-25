@@ -41,7 +41,7 @@ class XWHCodeView: XWHTextFieldBaseView {
         
         titleLb.isEnabled = true
         button.setTitle(R.string.xwhDisplayText.获取验证码(), for: .normal)
-        button.titleLabel?.font = R.font.harmonyOS_Sans(size: 14)
+        button.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 14)
         button.layer.cornerRadius = 14
         button.layer.backgroundColor = UIColor(hex: 0x000000, transparency: 0.04)?.cgColor
         button.setTitleColor(UIColor(hex: 0x000000, transparency: 0.6), for: .normal)

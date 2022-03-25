@@ -19,7 +19,7 @@ class XWHRegisterFillInfoBaseVC: XWHRegisterBaseVC {
         
         subLb.text = R.string.xwhDisplayText.为了保证运动数据准确请填写个人信息()
         
-        preBtn.titleLabel?.font = R.font.harmonyOS_Sans_Medium(size: 16)
+        preBtn.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 16, weight: .medium)
         preBtn.setTitleColor(UIColor(hex: 0x000000, transparency: 0.9), for: .normal)
         preBtn.setTitle(R.string.xwhDisplayText.上一步(), for: .normal)
         preBtn.layer.backgroundColor = UIColor(hex: 0x000000, transparency: 0.04)?.cgColor
@@ -27,7 +27,7 @@ class XWHRegisterFillInfoBaseVC: XWHRegisterBaseVC {
         preBtn.addTarget(self, action: #selector(clickBtnAction(sender:)), for: .touchUpInside)
         view.addSubview(preBtn)
         
-        nextBtn.titleLabel?.font = R.font.harmonyOS_Sans_Medium(size: 16)
+        nextBtn.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 16, weight: .medium)
 //        nextBtn.setTitleColor(UIColor(hex: 0x000000, transparency: 0.9), for: .normal)
         nextBtn.setTitle(R.string.xwhDisplayText.下一步(), for: .normal)
         nextBtn.layer.backgroundColor = UIColor(hex: 0x2DC84D)?.cgColor

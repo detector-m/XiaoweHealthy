@@ -19,7 +19,7 @@ class XWHOtherLoginView: XWHBaseView {
     override func addSubViews() {
         super.addSubViews()
         
-        titleLb.font = R.font.harmonyOS_Sans(size: 14)
+        titleLb.font = XWHFont.harmonyOSSans(ofSize: 14)
         titleLb.textColor = UIColor(hex: 0x000000, transparency: 0.9)
         titleLb.textAlignment = .center
         titleLb.text = R.string.xwhDisplayText.其他登录方式()
@@ -36,7 +36,7 @@ class XWHOtherLoginView: XWHBaseView {
         
         loginBtn3.setImage(R.image.keyIcon(), for: .normal)
         loginBtn3.setImage(R.image.phoneIcon(), for: .selected)
-        loginBtn3.titleLabel?.font = R.font.harmonyOS_Sans(size: 14)
+        loginBtn3.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 14)
         loginBtn3.setTitleColor(UIColor(hex: 0x000000, transparency: 0.9), for: .normal)
         loginBtn3.setTitle(R.string.xwhDisplayText.密码登录(), for: .normal)
         loginBtn3.layer.borderColor = UIColor(hex: 0x979797, transparency: 0.34)?.cgColor

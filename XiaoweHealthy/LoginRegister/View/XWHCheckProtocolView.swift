@@ -26,7 +26,7 @@ class XWHCheckProtocolView: XWHTextFieldBaseView {
         protocolLb.enabledTypes = [customType1, customType2]
         protocolLb.numberOfLines = 2
         protocolLb.text = R.string.xwhDisplayText.我已阅读并同意用户协议隐私政策首次登录将自动创建小维健康账号()
-        protocolLb.font = R.font.harmonyOS_Sans(size: 14)
+        protocolLb.font = XWHFont.harmonyOSSans(ofSize: 14)
         protocolLb.customColor[customType1] = UIColor(hex: 0x2DC84D)
         protocolLb.customColor[customType2] = UIColor(hex: 0x2DC84D)
         protocolLb.textColor = UIColor(hex: 0x000000, transparency: 0.9)
