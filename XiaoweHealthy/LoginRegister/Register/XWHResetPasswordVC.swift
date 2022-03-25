@@ -11,16 +11,16 @@ class XWHResetPasswordVC: XWHBindPhoneVC {
     
     lazy var passwordView = XWHPasswordView()
     
-    private var isPhoneOk = false
-    private var isCodeOk = false
+//    private var isPhoneOk = false
+//    private var isCodeOk = false
     private var isPasswordOk = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        phoneNumView.textFiled.addTarget(self, action: #selector(textFiledChanged(sender:)), for: .editingChanged)
+//        phoneNumView.textFiled.addTarget(self, action: #selector(textFiledChanged(sender:)), for: .editingChanged)
         passwordView.textFiled.addTarget(self, action: #selector(textFiledChanged(sender:)), for: .editingChanged)
-        codeView.textFiled.addTarget(self, action: #selector(textFiledChanged(sender:)), for: .editingChanged)
+//        codeView.textFiled.addTarget(self, action: #selector(textFiledChanged(sender:)), for: .editingChanged)
     }
     
 
@@ -124,7 +124,7 @@ class XWHResetPasswordVC: XWHBindPhoneVC {
         gotoResetPassword(phoneNum: phoneNum, code: code, pw: pw)
     }
     
-    @objc func textFiledChanged(sender: UITextField) {
+    @objc override func textFiledChanged(sender: UITextField) {
         if sender == phoneNumView.textFiled {
             let phoneCount = phoneNumView.textFiled.text?.count ?? 0
             if phoneCount == 11 {

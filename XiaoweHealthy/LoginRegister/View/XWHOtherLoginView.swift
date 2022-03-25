@@ -7,15 +7,6 @@
 
 import UIKit
 
-enum LoginType {
-    
-    case code
-    case password
-    case wechat
-    case qq
-    
-}
-
 class XWHOtherLoginView: XWHBaseView {
 
     lazy var titleLb = UILabel()
@@ -23,7 +14,7 @@ class XWHOtherLoginView: XWHBaseView {
     lazy var loginBtn2 = UIButton()
     lazy var loginBtn3 = UIButton()
     
-    var clickCallback: ((LoginType) -> Void)?
+    var clickCallback: ((XWHLoginType) -> Void)?
     
     override func addSubViews() {
         super.addSubViews()
@@ -90,12 +81,12 @@ class XWHOtherLoginView: XWHBaseView {
         }
         
         if sender == loginBtn1 {
-            cCallback(.wechat)
+            cCallback(.weixin)
         } else if sender == loginBtn2 {
             cCallback(.qq)
         } else {
             if loginBtn3.isSelected {
-                cCallback(.code)
+                cCallback(.phone)
             } else {
                 cCallback(.password)
             }

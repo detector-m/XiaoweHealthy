@@ -15,7 +15,7 @@ class XWHBirthdaySelectVC: XWHGenderSelectVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var dYear = 1990
+        let dYear = 1990
         pickerView.selectRow(dYear - 1900, inComponent: 0, animated: false)
     }
     

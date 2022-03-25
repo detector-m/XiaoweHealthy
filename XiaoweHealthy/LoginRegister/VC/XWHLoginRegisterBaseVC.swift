@@ -71,3 +71,44 @@ class XWHLoginRegisterBaseVC: XWHBaseVC {
     }
 
 }
+
+// MARK: - Api
+extension XWHLoginRegisterBaseVC {
+    
+    // 获取第三方登录信息
+    func getThirdPlatformUserInfo(loginType: XWHLoginType) {
+        if loginType == .weixin {
+//            XWHUMManager.getUserInfo(pType: .wechatSession, vc: self)
+            gotoBindPhone(loginType: loginType, nickname: "", avatar: "", wxOpenid: "", qqOpenid: "")
+            
+            return
+        }
+        
+        if loginType == .qq {
+//            XWHUMManager.getUserInfo(pType: .QQ, vc: self)
+            gotoBindPhone(loginType: loginType, nickname: "", avatar: "", wxOpenid: "", qqOpenid: "")
+
+            return
+        }
+    }
+    
+}
+
+// MARK: - UI Jump
+extension XWHLoginRegisterBaseVC {
+    
+    func gotoBindPhone(loginType: XWHLoginType, nickname: String, avatar: String, wxOpenid: String, qqOpenid: String) {
+        if loginType != .weixin, loginType != .qq {
+            return
+        }
+        
+        let vc = XWHBindPhoneVC()
+        vc.loginType = loginType
+        vc.nickname = nickname
+        vc.avatar = avatar
+        vc.wxOpenid = wxOpenid
+        vc.qqOpenid = qqOpenid
+        navigationController?.pushViewController(vc, completion: nil)
+    }
+    
+}

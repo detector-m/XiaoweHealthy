@@ -59,10 +59,14 @@ class XWHPasswordLoginVC: XWHLoginRegisterBaseVC {
         otherLoginView.loginBtn3.isSelected = true
         otherLoginView.loginBtn3.setTitle(R.string.xwhDisplayText.验证码登录(), for: .normal)
         otherLoginView.clickCallback = { [weak self] cType in
-            if cType == .code {
+            if cType == .phone {
                 let vc = XWHLoginVC()
                 self?.navigationController?.setViewControllers([vc], animated: true)
+                
+                return
             }
+            
+            self?.getThirdPlatformUserInfo(loginType: cType)
         }
     }
     
