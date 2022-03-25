@@ -87,6 +87,8 @@
 		<string>HarmonyOS_Sans_SC_Regular.ttf</string>
 		<string>HarmonyOS_Sans_SC_Medium.ttf</string>
 		<string>HarmonyOS_Sans_SC_Black.ttf</string>
+		<string>SKSans-Regular.otf</string>
+		<string>SKSans-Bold.otf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

@@ -21,6 +21,10 @@ enum XWHFont: String, FontRepresentable {
 //    case harmonyOSSansCondensedMedium = "HarmonyOS_Sans_Condensed_Medium"
 //    case harmonyOSSansCondensedBlack = "HarmonyOS_Sans_Condensed_Black"
     
+    // MARK: - SKSans
+    case skSansRegular = "SKSans-Regular"
+    case skSansBold = "SKSans-Bold"
+    
     static func harmonyOSSans(ofSize fontSize: CGFloat, weight: UIFont.Weight = .regular) -> UIFont {
         var cFont: UIFont? = nil
         
@@ -30,6 +34,8 @@ enum XWHFont: String, FontRepresentable {
             cFont = XWHFont.harmonyOSSansMedium.of(size: fontSize)
         } else if weight == .black {
             cFont = XWHFont.harmonyOSSansBlack.of(size: fontSize)
+        } else {
+            cFont = XWHFont.harmonyOSSansRegular.of(size: fontSize)
         }
         
         guard let retFont = cFont else {
@@ -56,5 +62,23 @@ enum XWHFont: String, FontRepresentable {
 //
 //        return retFont
 //    }
+    
+    static func skSans(ofSize fontSize: CGFloat, weight: UIFont.Weight = .regular) -> UIFont {
+        var cFont: UIFont? = nil
+        
+        if weight == .regular {
+            cFont = XWHFont.skSansRegular.of(size: fontSize)
+        } else if weight == .bold {
+            cFont = XWHFont.skSansBold.of(size: fontSize)
+        } else {
+            cFont = XWHFont.skSansRegular.of(size: fontSize)
+        }
+        
+        guard let retFont = cFont else {
+            return UIFont.systemFont(ofSize: fontSize, weight: weight)
+        }
+        
+        return retFont
+    }
     
 }

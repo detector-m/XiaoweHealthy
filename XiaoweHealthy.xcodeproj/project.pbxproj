@@ -86,6 +86,8 @@
 		96FC407927EDA16800D64B64 /* HarmonyOS_Sans_SC_Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96FC407227EDA16800D64B64 /* HarmonyOS_Sans_SC_Black.ttf */; };
 		96FC407D27EDA16800D64B64 /* HarmonyOS_Sans_SC_Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96FC407627EDA16800D64B64 /* HarmonyOS_Sans_SC_Medium.ttf */; };
 		96FC407F27EDA19300D64B64 /* XWHFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC407E27EDA19300D64B64 /* XWHFont.swift */; };
+		96FC408327EDA4F400D64B64 /* SKSans-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 96FC408127EDA4F400D64B64 /* SKSans-Regular.otf */; };
+		96FC408427EDA4F400D64B64 /* SKSans-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 96FC408227EDA4F400D64B64 /* SKSans-Bold.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -204,6 +206,8 @@
 		96FC407227EDA16800D64B64 /* HarmonyOS_Sans_SC_Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HarmonyOS_Sans_SC_Black.ttf; sourceTree = "<group>"; };
 		96FC407627EDA16800D64B64 /* HarmonyOS_Sans_SC_Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HarmonyOS_Sans_SC_Medium.ttf; sourceTree = "<group>"; };
 		96FC407E27EDA19300D64B64 /* XWHFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XWHFont.swift; sourceTree = "<group>"; };
+		96FC408127EDA4F400D64B64 /* SKSans-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SKSans-Regular.otf"; sourceTree = "<group>"; };
+		96FC408227EDA4F400D64B64 /* SKSans-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SKSans-Bold.otf"; sourceTree = "<group>"; };
 		9E36C9C5C621D98412D2473D /* Pods-XiaoweHealthy-XiaoweHealthyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XiaoweHealthy-XiaoweHealthyUITests.debug.xcconfig"; path = "Target Support Files/Pods-XiaoweHealthy-XiaoweHealthyUITests/Pods-XiaoweHealthy-XiaoweHealthyUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C24BBC7C44348E71CC065B15 /* Pods_XiaoweHealthyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XiaoweHealthyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF4A353C734F593A2D13B536 /* Pods_XiaoweHealthy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XiaoweHealthy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -653,6 +657,7 @@
 		96E23C0727E1839B009EF208 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				96FC408027EDA4CB00D64B64 /* SKSansFont */,
 				96617A7F27E2100700139B03 /* HarmonyOSFont */,
 				96E23C0D27E18B95009EF208 /* LocalString */,
 				96617A5C27E1D19C00139B03 /* Images */,
@@ -731,6 +736,15 @@
 				96FC407627EDA16800D64B64 /* HarmonyOS_Sans_SC_Medium.ttf */,
 			);
 			path = HarmonyOS_Sans_SC;
+			sourceTree = "<group>";
+		};
+		96FC408027EDA4CB00D64B64 /* SKSansFont */ = {
+			isa = PBXGroup;
+			children = (
+				96FC408227EDA4F400D64B64 /* SKSans-Bold.otf */,
+				96FC408127EDA4F400D64B64 /* SKSans-Regular.otf */,
+			);
+			path = SKSansFont;
 			sourceTree = "<group>";
 		};
 		F13397529419217181216C7B /* Frameworks */ = {
@@ -862,10 +876,12 @@
 				96FC407D27EDA16800D64B64 /* HarmonyOS_Sans_SC_Medium.ttf in Resources */,
 				96FC407927EDA16800D64B64 /* HarmonyOS_Sans_SC_Black.ttf in Resources */,
 				96617A6727E1D31700139B03 /* XWHLaunchBg@3x.png in Resources */,
+				96FC408327EDA4F400D64B64 /* SKSans-Regular.otf in Resources */,
 				96FC407727EDA16800D64B64 /* HarmonyOS_Sans_SC_Regular.ttf in Resources */,
 				9648E61827E0796E0077180D /* Assets.xcassets in Resources */,
 				96617A6027E1D1A600139B03 /* XWHLaunchLogoS@3x.png in Resources */,
 				96617A5F27E1D1A600139B03 /* XWHLaunchLogoS@2x.png in Resources */,
+				96FC408427EDA4F400D64B64 /* SKSans-Bold.otf in Resources */,
 				9648E61627E0796D0077180D /* Main.storyboard in Resources */,
 				96617A6327E1D1B300139B03 /* XWHLaunchImg@3x.png in Resources */,
 				96617A6827E1D31700139B03 /* XWHLaunchBg@2x.png in Resources */,
