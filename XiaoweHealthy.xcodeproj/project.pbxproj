@@ -75,6 +75,8 @@
 		96617AB527E34F8B00139B03 /* XWHWeightSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96617AB427E34F8B00139B03 /* XWHWeightSelectVC.swift */; };
 		96617AB727E34FAA00139B03 /* XWHBirthdaySelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96617AB627E34FAA00139B03 /* XWHBirthdaySelectVC.swift */; };
 		9672B25E27EEA48900DC80D6 /* XWHUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9672B25D27EEA48900DC80D6 /* XWHUser.swift */; };
+		9672B26027EF05F700DC80D6 /* XWHAddDeviceEntryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9672B25F27EF05F700DC80D6 /* XWHAddDeviceEntryVC.swift */; };
+		9672B26227EF06FB00DC80D6 /* XWHAddBrandDeviceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9672B26127EF06FB00DC80D6 /* XWHAddBrandDeviceVC.swift */; };
 		96E23C0A27E1898C009EF208 /* XWHTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */; };
 		96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */; };
 		96E23C1427E18D19009EF208 /* XWHDisplayText.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96E23C1627E18D19009EF208 /* XWHDisplayText.strings */; };
@@ -199,6 +201,8 @@
 		96617AB427E34F8B00139B03 /* XWHWeightSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHWeightSelectVC.swift; sourceTree = "<group>"; };
 		96617AB627E34FAA00139B03 /* XWHBirthdaySelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBirthdaySelectVC.swift; sourceTree = "<group>"; };
 		9672B25D27EEA48900DC80D6 /* XWHUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUser.swift; sourceTree = "<group>"; };
+		9672B25F27EF05F700DC80D6 /* XWHAddDeviceEntryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHAddDeviceEntryVC.swift; sourceTree = "<group>"; };
+		9672B26127EF06FB00DC80D6 /* XWHAddBrandDeviceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHAddBrandDeviceVC.swift; sourceTree = "<group>"; };
 		96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTabBarVC.swift; sourceTree = "<group>"; };
 		96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHRootVCProvider.swift; sourceTree = "<group>"; };
 		96E23C1727E18D9C009EF208 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/XWHDisplayText.strings"; sourceTree = "<group>"; };
@@ -649,6 +653,8 @@
 			isa = PBXGroup;
 			children = (
 				96FC408527EDB78F00D64B64 /* XWHDeviceBaseVC.swift */,
+				9672B25F27EF05F700DC80D6 /* XWHAddDeviceEntryVC.swift */,
+				9672B26127EF06FB00DC80D6 /* XWHAddBrandDeviceVC.swift */,
 				96E23C2B27E1A579009EF208 /* XWHDeviceMainVC.swift */,
 			);
 			path = VC;
@@ -1134,6 +1140,7 @@
 				96617A6E27E1E00E00139B03 /* XWHBaseVC.swift in Sources */,
 				96617AA927E328C800139B03 /* XWHResetPasswordVC.swift in Sources */,
 				9651EE3027EC5C7E0043FE52 /* XWHUMManager.swift in Sources */,
+				9672B26027EF05F700DC80D6 /* XWHAddDeviceEntryVC.swift in Sources */,
 				9651EDFF27EAC2560043FE52 /* Repeater.swift in Sources */,
 				96E23C2827E1A53F009EF208 /* XWHSportMainVC.swift in Sources */,
 				96617A9D27E2FEE200139B03 /* XWHTextFieldBaseView.swift in Sources */,
@@ -1145,6 +1152,7 @@
 				96617A7227E1E12E00139B03 /* XWHExported.swift in Sources */,
 				9651EDF727E961740043FE52 /* XWHAlert.swift in Sources */,
 				96E23C2A27E1A55E009EF208 /* XWHHealthyMainVC.swift in Sources */,
+				9672B26227EF06FB00DC80D6 /* XWHAddBrandDeviceVC.swift in Sources */,
 				9651EDEF27E849740043FE52 /* RLPopupView.swift in Sources */,
 				96617AB727E34FAA00139B03 /* XWHBirthdaySelectVC.swift in Sources */,
 				9651EE1527EB6CF50043FE52 /* XWHUserApi.swift in Sources */,
@@ -1347,7 +1355,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S5PTFQG5C4;
+				DEVELOPMENT_TEAM = NG938XPGZ9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XiaoweHealthy/Supplier/UTE",

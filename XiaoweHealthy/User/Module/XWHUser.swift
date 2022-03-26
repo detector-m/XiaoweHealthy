@@ -27,3 +27,17 @@ class XWHUser {
     }
     
 }
+
+// MARK: - UI
+extension XWHUser {
+    
+    class func gotoSetUserInfo(at targetVC: UIViewController, isNewer: Bool) {
+        if isNewer {
+            let vc = XWHGenderSelectVC()
+            targetVC.navigationController?.setViewControllers([vc], animated: true)
+        } else {
+            targetVC.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+}

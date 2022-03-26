@@ -15,7 +15,7 @@ enum XWHRootVCProvider {
         let tabBarController = XWHTabBarVC()
         let v1 = XWHHealthyMainVC()
         let v2 = XWHSportMainVC()
-        let v3 = XWHDeviceMainVC()
+        let v3 = XWHAddDeviceEntryVC()
         let v4 = XWHMeMainVC()
         
         let nav1 = XWHBaseNavigationVC(rootViewController: v1)

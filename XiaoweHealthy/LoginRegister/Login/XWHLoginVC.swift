@@ -193,7 +193,7 @@ extension XWHLoginVC {
             XWHProgressHUD.hide()
             
             self?.view.makeInsetToast(error.message)
-        } successHandler: { [weak self] response in
+        } successHandler: { [unowned self] response in
             XWHProgressHUD.hide()
             
             if let cRes = response.data as? JSON {
@@ -203,10 +203,13 @@ extension XWHLoginVC {
                 
                 let isNewer = cRes["newer"].boolValue
                 
-                if isNewer {
-                    let vc = XWHGenderSelectVC()
-                    self?.navigationController?.setViewControllers([vc], animated: true)
-                }
+//                if isNewer {
+//                    let vc = XWHGenderSelectVC()
+//                    self?.navigationController?.setViewControllers([vc], animated: true)
+//                } else {
+//                    self?.dismiss(animated: true, completion: nil)
+//                }
+                XWHUser.gotoSetUserInfo(at: self, isNewer: isNewer)
             }
         }
     }
