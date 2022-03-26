@@ -191,7 +191,7 @@ extension XWHPasswordLoginVC {
             
             if let cRes = response.data as? JSON {
                 if let token = cRes["token"].string, !token.isEmpty {
-                    XWHNetworkHelper.setToken(token: token)
+                    XWHUser.setToken(token: token)
                 }
                 
                 let isNewer = cRes["newer"].boolValue

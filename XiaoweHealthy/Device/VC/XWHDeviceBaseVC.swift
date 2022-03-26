@@ -17,7 +17,7 @@ class XWHDeviceBaseVC: XWHBaseVC {
     }
     
     override func setupNavigationItems() {
-        
+        super.setupNavigationItems()
     }
     
     override func addSubViews() {

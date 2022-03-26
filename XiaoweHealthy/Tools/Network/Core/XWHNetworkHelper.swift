@@ -38,12 +38,4 @@ class XWHNetworkHelper {
         return signStr
     }
     
-    class func getToken() -> String? {
-        return UserDefaults.standard[kToken] as? String
-    }
-    
-    class func setToken(token: String?) {
-        UserDefaults.standard[kToken] = token
-    }
-    
 }

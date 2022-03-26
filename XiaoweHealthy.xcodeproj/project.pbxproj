@@ -10,6 +10,7 @@
 		0E7FDCC05F2FC1303034168E /* Pods_XiaoweHealthyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C24BBC7C44348E71CC065B15 /* Pods_XiaoweHealthyTests.framework */; };
 		4CF26601F584F2CD1F7E4FAA /* Pods_XiaoweHealthy_XiaoweHealthyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F259963E5DB67A1A5D3C45EC /* Pods_XiaoweHealthy_XiaoweHealthyUITests.framework */; };
 		8CBF5AE85A9444D903AE1BC2 /* Pods_XiaoweHealthy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF4A353C734F593A2D13B536 /* Pods_XiaoweHealthy.framework */; };
+		9628F85027EE9EF300221C5E /* XWHLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9628F84F27EE9EF300221C5E /* XWHLogin.swift */; };
 		9648E60F27E0796D0077180D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648E60E27E0796D0077180D /* AppDelegate.swift */; };
 		9648E61127E0796D0077180D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648E61027E0796D0077180D /* SceneDelegate.swift */; };
 		9648E61327E0796D0077180D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648E61227E0796D0077180D /* ViewController.swift */; };
@@ -73,6 +74,7 @@
 		96617AB327E34CBB00139B03 /* XWHHeightSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96617AB227E34CBB00139B03 /* XWHHeightSelectVC.swift */; };
 		96617AB527E34F8B00139B03 /* XWHWeightSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96617AB427E34F8B00139B03 /* XWHWeightSelectVC.swift */; };
 		96617AB727E34FAA00139B03 /* XWHBirthdaySelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96617AB627E34FAA00139B03 /* XWHBirthdaySelectVC.swift */; };
+		9672B25E27EEA48900DC80D6 /* XWHUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9672B25D27EEA48900DC80D6 /* XWHUser.swift */; };
 		96E23C0A27E1898C009EF208 /* XWHTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */; };
 		96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */; };
 		96E23C1427E18D19009EF208 /* XWHDisplayText.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96E23C1627E18D19009EF208 /* XWHDisplayText.strings */; };
@@ -128,6 +130,7 @@
 		346308B1738C6E3283C6DDAB /* Pods-XiaoweHealthyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XiaoweHealthyTests.debug.xcconfig"; path = "Target Support Files/Pods-XiaoweHealthyTests/Pods-XiaoweHealthyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7B56A4371E144F6BDF14AD52 /* Pods-XiaoweHealthy-XiaoweHealthyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XiaoweHealthy-XiaoweHealthyUITests.release.xcconfig"; path = "Target Support Files/Pods-XiaoweHealthy-XiaoweHealthyUITests/Pods-XiaoweHealthy-XiaoweHealthyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		95FEB00539882EA5F45C9693 /* Pods-XiaoweHealthyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XiaoweHealthyTests.release.xcconfig"; path = "Target Support Files/Pods-XiaoweHealthyTests/Pods-XiaoweHealthyTests.release.xcconfig"; sourceTree = "<group>"; };
+		9628F84F27EE9EF300221C5E /* XWHLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLogin.swift; sourceTree = "<group>"; };
 		9648E60B27E0796D0077180D /* XiaoweHealthy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XiaoweHealthy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9648E60E27E0796D0077180D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9648E61027E0796D0077180D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -195,6 +198,7 @@
 		96617AB227E34CBB00139B03 /* XWHHeightSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHeightSelectVC.swift; sourceTree = "<group>"; };
 		96617AB427E34F8B00139B03 /* XWHWeightSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHWeightSelectVC.swift; sourceTree = "<group>"; };
 		96617AB627E34FAA00139B03 /* XWHBirthdaySelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBirthdaySelectVC.swift; sourceTree = "<group>"; };
+		9672B25D27EEA48900DC80D6 /* XWHUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUser.swift; sourceTree = "<group>"; };
 		96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTabBarVC.swift; sourceTree = "<group>"; };
 		96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHRootVCProvider.swift; sourceTree = "<group>"; };
 		96E23C1727E18D9C009EF208 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/XWHDisplayText.strings"; sourceTree = "<group>"; };
@@ -259,6 +263,14 @@
 				95FEB00539882EA5F45C9693 /* Pods-XiaoweHealthyTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		9628F84E27EE9ECC00221C5E /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				9628F84F27EE9EF300221C5E /* XWHLogin.swift */,
+			);
+			path = Module;
 			sourceTree = "<group>";
 		};
 		9648E60227E0796D0077180D = {
@@ -395,6 +407,7 @@
 		9651EE1127EB6CB30043FE52 /* User */ = {
 			isa = PBXGroup;
 			children = (
+				9672B25C27EEA47C00DC80D6 /* Module */,
 				9651EE2127EC0EA60043FE52 /* Model */,
 				9651EE1327EB6CD20043FE52 /* VM */,
 				9651EE1227EB6CBF0043FE52 /* Api */,
@@ -501,6 +514,7 @@
 		96617A6927E1D87E00139B03 /* LoginRegister */ = {
 			isa = PBXGroup;
 			children = (
+				9628F84E27EE9ECC00221C5E /* Module */,
 				96617A7427E1E19E00139B03 /* Register */,
 				96617A7327E1E19900139B03 /* Login */,
 				9651EE0827EAF9F20043FE52 /* Api */,
@@ -646,6 +660,14 @@
 				96E23C2D27E1A586009EF208 /* XWHMeMainVC.swift */,
 			);
 			path = VC;
+			sourceTree = "<group>";
+		};
+		9672B25C27EEA47C00DC80D6 /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				9672B25D27EEA48900DC80D6 /* XWHUser.swift */,
+			);
+			path = Module;
 			sourceTree = "<group>";
 		};
 		96E23C0627E18003009EF208 /* AppEntry */ = {
@@ -1090,9 +1112,11 @@
 				9651EE1A27EBFBEA0043FE52 /* XWHError.swift in Sources */,
 				96617A9F27E302C900139B03 /* XWHPhoneNumView.swift in Sources */,
 				96617A7A27E1FE6B00139B03 /* XWHLoginVC.swift in Sources */,
+				9628F85027EE9EF300221C5E /* XWHLogin.swift in Sources */,
 				9651EDF227E8542B0043FE52 /* XWHProgressHUD.swift in Sources */,
 				96FC406B27ED738100D64B64 /* XWHUIViewControllerExtension.swift in Sources */,
 				96617A9227E23EAD00139B03 /* XWHColorExtension.swift in Sources */,
+				9672B25E27EEA48900DC80D6 /* XWHUser.swift in Sources */,
 				9651EE2E27EC5BD30043FE52 /* UMShareSwiftInterface.swift in Sources */,
 				96617A7827E1FCF600139B03 /* XWHLoginRegisterBaseVC.swift in Sources */,
 				96FC408627EDB78F00D64B64 /* XWHDeviceBaseVC.swift in Sources */,

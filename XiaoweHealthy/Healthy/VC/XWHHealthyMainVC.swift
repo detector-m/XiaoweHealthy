@@ -50,17 +50,11 @@ class XWHHealthyMainVC: XWHBaseVC {
     
 
     @objc func clickLoginBtn() {
-        let loginVC = XWHLoginVC()
-        let loginNav = XWHBaseNavigationVC(rootViewController: loginVC)
-        loginNav.modalPresentationStyle = .fullScreen
-        present(loginNav, animated: true, completion: nil)
+        XWHLogin.present(at: self)
     }
     
     @objc func clickLoginBtn2() {
-        let loginVC = XWHPasswordLoginVC()
-        let loginNav = XWHBaseNavigationVC(rootViewController: loginVC)
-        loginNav.modalPresentationStyle = .fullScreen
-        present(loginNav, animated: true, completion: nil)
+        XWHLogin.presentPasswordLogin(at: self)
     }
 
 }

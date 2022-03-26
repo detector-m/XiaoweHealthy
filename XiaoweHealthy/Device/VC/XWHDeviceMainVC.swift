@@ -10,6 +10,7 @@ import UIKit
 class XWHDeviceMainVC: XWHDeviceBaseVC {
     
     lazy var addBtn = UIButton()
+    lazy var textAddBtn = UIButton()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,14 @@ class XWHDeviceMainVC: XWHDeviceBaseVC {
         addBtn.setImage(R.image.addDevice(), for: .normal)
         addBtn.addTarget(self, action: #selector(clickAddBtn), for: .touchUpInside)
         view.addSubview(addBtn)
+        
+        textAddBtn.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 16, weight: .medium)
+        textAddBtn.setTitleColor(UIColor(hex: 0xffffff, transparency: 0.9), for: .normal)
+        textAddBtn.setTitle(R.string.xwhDeviceText.添加设备(), for: .normal)
+        textAddBtn.layer.backgroundColor = UIColor(hex: 0x2DC84D)?.cgColor
+        textAddBtn.layer.cornerRadius = 24
+        textAddBtn.addTarget(self, action: #selector(clickTextAddBtn), for: .touchUpInside)
+        view.addSubview(textAddBtn)
     }
     
     override func relayoutSubViews() {
@@ -49,11 +58,21 @@ class XWHDeviceMainVC: XWHDeviceBaseVC {
             make.top.equalTo(titleLb.snp.bottom).offset(6)
             make.height.equalTo(20)
         }
+        
+        textAddBtn.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(53)
+            make.height.equalTo(48)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-50)
+        }
     }
     
     // MARK: - Private
     @objc private func clickAddBtn() {
-        view.makeInsetToast("点击了")
+        XWHAlert.showLogin(at: self)
+    }
+    
+    @objc private func clickTextAddBtn() {
+        XWHAlert.showLogin(at: self)
     }
 
 }

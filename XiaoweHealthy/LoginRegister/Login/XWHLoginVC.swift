@@ -198,7 +198,7 @@ extension XWHLoginVC {
             
             if let cRes = response.data as? JSON {
                 if let token = cRes["token"].string, !token.isEmpty {
-                    XWHNetworkHelper.setToken(token: token)
+                    XWHUser.setToken(token: token)
                 }
                 
                 let isNewer = cRes["newer"].boolValue
@@ -217,8 +217,8 @@ extension XWHLoginVC {
 extension XWHLoginVC {
     
     func gotoUpdateUserInfo() -> Bool {
-        let token = XWHNetworkHelper.getToken() ?? ""
-        if !token.isEmpty {
+//        let token = XWHUser.getToken() ?? ""
+        if XWHUser.isLogined() {
             let vc = XWHGenderSelectVC()
             navigationController?.setViewControllers([vc], animated: true)
             
