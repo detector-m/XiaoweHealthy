@@ -77,6 +77,12 @@
 		9672B25E27EEA48900DC80D6 /* XWHUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9672B25D27EEA48900DC80D6 /* XWHUser.swift */; };
 		9672B26027EF05F700DC80D6 /* XWHAddDeviceEntryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9672B25F27EF05F700DC80D6 /* XWHAddDeviceEntryVC.swift */; };
 		9672B26227EF06FB00DC80D6 /* XWHAddBrandDeviceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9672B26127EF06FB00DC80D6 /* XWHAddBrandDeviceVC.swift */; };
+		967AF4C127EF544200235E08 /* XWHDevicePagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C027EF544200235E08 /* XWHDevicePagerViewCell.swift */; };
+		967AF4C327EF545800235E08 /* XWHDeviceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C227EF545800235E08 /* XWHDeviceVM.swift */; };
+		967AF4C527EF547B00235E08 /* XWHDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C427EF547B00235E08 /* XWHDevice.swift */; };
+		967AF4CA27EF568A00235E08 /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 967AF4C727EF568A00235E08 /* 1.jpg */; };
+		967AF4CB27EF568A00235E08 /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 967AF4C827EF568A00235E08 /* 3.jpg */; };
+		967AF4CC27EF568A00235E08 /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 967AF4C927EF568A00235E08 /* 2.jpg */; };
 		96E23C0A27E1898C009EF208 /* XWHTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */; };
 		96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */; };
 		96E23C1427E18D19009EF208 /* XWHDisplayText.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96E23C1627E18D19009EF208 /* XWHDisplayText.strings */; };
@@ -203,6 +209,12 @@
 		9672B25D27EEA48900DC80D6 /* XWHUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUser.swift; sourceTree = "<group>"; };
 		9672B25F27EF05F700DC80D6 /* XWHAddDeviceEntryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHAddDeviceEntryVC.swift; sourceTree = "<group>"; };
 		9672B26127EF06FB00DC80D6 /* XWHAddBrandDeviceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHAddBrandDeviceVC.swift; sourceTree = "<group>"; };
+		967AF4C027EF544200235E08 /* XWHDevicePagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevicePagerViewCell.swift; sourceTree = "<group>"; };
+		967AF4C227EF545800235E08 /* XWHDeviceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceVM.swift; sourceTree = "<group>"; };
+		967AF4C427EF547B00235E08 /* XWHDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevice.swift; sourceTree = "<group>"; };
+		967AF4C727EF568A00235E08 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
+		967AF4C827EF568A00235E08 /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
+		967AF4C927EF568A00235E08 /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
 		96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTabBarVC.swift; sourceTree = "<group>"; };
 		96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHRootVCProvider.swift; sourceTree = "<group>"; };
 		96E23C1727E18D9C009EF208 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/XWHDisplayText.strings"; sourceTree = "<group>"; };
@@ -505,6 +517,7 @@
 		96617A5C27E1D19C00139B03 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				967AF4C627EF567E00235E08 /* Test */,
 				96617A6627E1D31700139B03 /* XWHLaunchBg@2x.png */,
 				96617A6527E1D31700139B03 /* XWHLaunchBg@3x.png */,
 				96617A6227E1D1B300139B03 /* XWHLaunchImg@2x.png */,
@@ -676,6 +689,47 @@
 			path = Module;
 			sourceTree = "<group>";
 		};
+		967AF4BC27EF535600235E08 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				967AF4C027EF544200235E08 /* XWHDevicePagerViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		967AF4BD27EF535B00235E08 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				967AF4C227EF545800235E08 /* XWHDeviceVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		967AF4BE27EF536800235E08 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		967AF4BF27EF536D00235E08 /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				967AF4C427EF547B00235E08 /* XWHDevice.swift */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
+		967AF4C627EF567E00235E08 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				967AF4C727EF568A00235E08 /* 1.jpg */,
+				967AF4C927EF568A00235E08 /* 2.jpg */,
+				967AF4C827EF568A00235E08 /* 3.jpg */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
 		96E23C0627E18003009EF208 /* AppEntry */ = {
 			isa = PBXGroup;
 			children = (
@@ -741,6 +795,10 @@
 		96E23C2327E1A32F009EF208 /* Device */ = {
 			isa = PBXGroup;
 			children = (
+				967AF4BF27EF536D00235E08 /* Module */,
+				967AF4BE27EF536800235E08 /* Model */,
+				967AF4BD27EF535B00235E08 /* ViewModel */,
+				967AF4BC27EF535600235E08 /* View */,
 				96617A9A27E2BFEB00139B03 /* VC */,
 			);
 			path = Device;
@@ -909,10 +967,13 @@
 				9648E61B27E0796E0077180D /* LaunchScreen.storyboard in Resources */,
 				96FC407D27EDA16800D64B64 /* HarmonyOS_Sans_SC_Medium.ttf in Resources */,
 				96617A6727E1D31700139B03 /* XWHLaunchBg@3x.png in Resources */,
+				967AF4CA27EF568A00235E08 /* 1.jpg in Resources */,
 				96FC408327EDA4F400D64B64 /* SKSans-Regular.otf in Resources */,
 				96FC407727EDA16800D64B64 /* HarmonyOS_Sans_SC_Regular.ttf in Resources */,
 				9648E61827E0796E0077180D /* Assets.xcassets in Resources */,
 				96617A6027E1D1A600139B03 /* XWHLaunchLogoS@3x.png in Resources */,
+				967AF4CC27EF568A00235E08 /* 2.jpg in Resources */,
+				967AF4CB27EF568A00235E08 /* 3.jpg in Resources */,
 				96617A5F27E1D1A600139B03 /* XWHLaunchLogoS@2x.png in Resources */,
 				96FC408A27EDBB3B00D64B64 /* XWHDeviceText.strings in Resources */,
 				96FC408427EDA4F400D64B64 /* SKSans-Bold.otf in Resources */,
@@ -1107,8 +1168,10 @@
 				9651EDF427E8C3870043FE52 /* XWHUIViewExtension.swift in Sources */,
 				96FC407F27EDA19300D64B64 /* XWHFont.swift in Sources */,
 				9651EE2027EBFE390043FE52 /* XWHNetwork.swift in Sources */,
+				967AF4C327EF545800235E08 /* XWHDeviceVM.swift in Sources */,
 				9651EE0427EAF3100043FE52 /* XWHApiConfig.swift in Sources */,
 				96617AAF27E3457100139B03 /* XWHRegisterFillInfoBaseVC.swift in Sources */,
+				967AF4C127EF544200235E08 /* XWHDevicePagerViewCell.swift in Sources */,
 				96617A7627E1EE3000139B03 /* XWHBaseNavigationVC.swift in Sources */,
 				9651EE0A27EAFB0B0043FE52 /* XWHLoginRegisterApi.swift in Sources */,
 				9651EE2327EC0EC60043FE52 /* XWHUserModel.swift in Sources */,
@@ -1164,6 +1227,7 @@
 				96E23C2027E1A22C009EF208 /* R.generated.swift in Sources */,
 				9651EE1727EB6D040043FE52 /* XWHUserVM.swift in Sources */,
 				96617AA727E3196A00139B03 /* XWHCheckProtocolView.swift in Sources */,
+				967AF4C527EF547B00235E08 /* XWHDevice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
