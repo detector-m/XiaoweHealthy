@@ -1,34 +1,11 @@
 {
-  "applinks": {
-      "details": [
-           {
-             "appIDs": [ "NG938XPGZ9.com.xiaowe.XiaoweHealth"],
-             "components": [
-                {
-                    "/": "/XiaoweHealth/*",
-                    "comment": "Matches any URL whose path starts with /XiaoweHealth/"
-                },
-                {
-                    "/": "/xiaoweHealth/*",
-                    "comment": "Matches any URL whose path starts with /xiaoweHealth/"
-                },
-                {
-                    "/": "/xiaowehealth/*",
-                    "comment": "Matches any URL whose path starts with /xiaowehealth/"
-                },
-                {
-                    "/": "/qq_conn/102000116/*",
-                    "comment": "Matches any URL whose path starts with /qq_conn/102000116/"
-                }
-             ]
-           }
-       ]
-   },
-   "webcredentials": {
-      "apps": [ "NG938XPGZ9.com.xiaowe.XiaoweHealth" ]
-   },
-
-    "appclips": {
-        "apps": []
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "NG938XPGZ9.com.xiaowe.XiaoweHealth",
+                "paths": [ "/XiaoweHealth/*", "/xiaoweHealth/*", "/xiaowehealth/*", "/qq_conn/102000116/*"]
+            }
+        ]
     }
 }

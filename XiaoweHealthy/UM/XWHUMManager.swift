@@ -17,7 +17,7 @@ class XWHUMManager {
     
     // 配置友盟分享
     class func configShare() {
-        UMSocialGlobal.shareInstance().universalLinkDic = [UMSocialPlatformType.wechatSession.rawValue: kRedirectURL, UMSocialPlatformType.QQ.rawValue: kQQUniversalLink]
+        UMSocialGlobal.shareInstance().universalLinkDic = [UMSocialPlatformType.wechatSession.rawValue: kWechatUniversalLink, UMSocialPlatformType.QQ.rawValue: kQQUniversalLink]
         
         // U-Share 平台设置
         /*

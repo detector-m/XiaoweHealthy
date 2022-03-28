@@ -94,6 +94,7 @@
 		96E23C2A27E1A55E009EF208 /* XWHHealthyMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C2927E1A55E009EF208 /* XWHHealthyMainVC.swift */; };
 		96E23C2C27E1A579009EF208 /* XWHDeviceMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C2B27E1A579009EF208 /* XWHDeviceMainVC.swift */; };
 		96E23C2E27E1A586009EF208 /* XWHMeMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C2D27E1A586009EF208 /* XWHMeMainVC.swift */; };
+		96E8A6BD27F1738200F5C75C /* XWHUINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8A6BC27F1738200F5C75C /* XWHUINavigationControllerExtension.swift */; };
 		96FC406B27ED738100D64B64 /* XWHUIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC406A27ED738100D64B64 /* XWHUIViewControllerExtension.swift */; };
 		96FC407727EDA16800D64B64 /* HarmonyOS_Sans_SC_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96FC407027EDA16800D64B64 /* HarmonyOS_Sans_SC_Regular.ttf */; };
 		96FC407D27EDA16800D64B64 /* HarmonyOS_Sans_SC_Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96FC407627EDA16800D64B64 /* HarmonyOS_Sans_SC_Medium.ttf */; };
@@ -230,6 +231,7 @@
 		96E23C2B27E1A579009EF208 /* XWHDeviceMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceMainVC.swift; sourceTree = "<group>"; };
 		96E23C2D27E1A586009EF208 /* XWHMeMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMeMainVC.swift; sourceTree = "<group>"; };
 		96E8A6BB27F150F100F5C75C /* XiaoweHealthyDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = XiaoweHealthyDebug.entitlements; sourceTree = "<group>"; };
+		96E8A6BC27F1738200F5C75C /* XWHUINavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUINavigationControllerExtension.swift; sourceTree = "<group>"; };
 		96FC406A27ED738100D64B64 /* XWHUIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUIViewControllerExtension.swift; sourceTree = "<group>"; };
 		96FC407027EDA16800D64B64 /* HarmonyOS_Sans_SC_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HarmonyOS_Sans_SC_Regular.ttf; sourceTree = "<group>"; };
 		96FC407627EDA16800D64B64 /* HarmonyOS_Sans_SC_Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HarmonyOS_Sans_SC_Medium.ttf; sourceTree = "<group>"; };
@@ -630,6 +632,7 @@
 				96617A9127E23EAD00139B03 /* XWHColorExtension.swift */,
 				9651EDF327E8C3870043FE52 /* XWHUIViewExtension.swift */,
 				96FC406A27ED738100D64B64 /* XWHUIViewControllerExtension.swift */,
+				96E8A6BC27F1738200F5C75C /* XWHUINavigationControllerExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1210,6 +1213,7 @@
 				96617A7827E1FCF600139B03 /* XWHLoginRegisterBaseVC.swift in Sources */,
 				960E768527F0B17D00A0DA25 /* XWHSafari.swift in Sources */,
 				96FC408627EDB78F00D64B64 /* XWHDeviceBaseVC.swift in Sources */,
+				96E8A6BD27F1738200F5C75C /* XWHUINavigationControllerExtension.swift in Sources */,
 				9651EE0E27EB06F20043FE52 /* XWHLoginRegisterVM.swift in Sources */,
 				9648E61327E0796D0077180D /* ViewController.swift in Sources */,
 				9648E60F27E0796D0077180D /* AppDelegate.swift in Sources */,

@@ -10,14 +10,22 @@ import Foundation
 
 extension UIViewController {
 
-    func setNavTransparent() {
+    public func setNavTransparent() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
     }
     
-    func resetNavFromTransparent() {
+    public func resetNavFromTransparent() {
         navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
         navigationController?.navigationBar.shadowImage = nil
+    }
+    
+    public func addNavInteractivePopGestureRecognizerDelegate() {
+        navigationController?.addInteractivePopGestureRecognizerDelegate()
+    }
+    
+    public func removeNavInteractivePopGestureRecognizerDelegate() {
+        navigationController?.removeInteractivePopGestureRecognizerDelegate()
     }
 
 }
