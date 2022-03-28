@@ -229,6 +229,7 @@
 		96E23C2927E1A55E009EF208 /* XWHHealthyMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyMainVC.swift; sourceTree = "<group>"; };
 		96E23C2B27E1A579009EF208 /* XWHDeviceMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceMainVC.swift; sourceTree = "<group>"; };
 		96E23C2D27E1A586009EF208 /* XWHMeMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMeMainVC.swift; sourceTree = "<group>"; };
+		96E8A6BB27F150F100F5C75C /* XiaoweHealthyDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = XiaoweHealthyDebug.entitlements; sourceTree = "<group>"; };
 		96FC406A27ED738100D64B64 /* XWHUIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUIViewControllerExtension.swift; sourceTree = "<group>"; };
 		96FC407027EDA16800D64B64 /* HarmonyOS_Sans_SC_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HarmonyOS_Sans_SC_Regular.ttf; sourceTree = "<group>"; };
 		96FC407627EDA16800D64B64 /* HarmonyOS_Sans_SC_Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HarmonyOS_Sans_SC_Medium.ttf; sourceTree = "<group>"; };
@@ -328,6 +329,7 @@
 		9648E60D27E0796D0077180D /* XiaoweHealthy */ = {
 			isa = PBXGroup;
 			children = (
+				96E8A6BB27F150F100F5C75C /* XiaoweHealthyDebug.entitlements */,
 				9651EE1127EB6CB30043FE52 /* User */,
 				96617A6927E1D87E00139B03 /* LoginRegister */,
 				96E23C2127E1A311009EF208 /* Healthy */,
@@ -1437,6 +1439,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = XiaoweHealthy/XiaoweHealthyDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = NG938XPGZ9;
