@@ -12,6 +12,7 @@
 		8CBF5AE85A9444D903AE1BC2 /* Pods_XiaoweHealthy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF4A353C734F593A2D13B536 /* Pods_XiaoweHealthy.framework */; };
 		960E768027F00BB700A0DA25 /* XWHAddBrandDeviceCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960E767F27F00BB700A0DA25 /* XWHAddBrandDeviceCTCell.swift */; };
 		960E768227F0574200A0DA25 /* XWHBaseCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960E768127F0574200A0DA25 /* XWHBaseCTCell.swift */; };
+		960E768527F0B17D00A0DA25 /* XWHSafari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960E768427F0B17D00A0DA25 /* XWHSafari.swift */; };
 		9628F85027EE9EF300221C5E /* XWHLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9628F84F27EE9EF300221C5E /* XWHLogin.swift */; };
 		9648E60F27E0796D0077180D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648E60E27E0796D0077180D /* AppDelegate.swift */; };
 		9648E61127E0796D0077180D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648E61027E0796D0077180D /* SceneDelegate.swift */; };
@@ -142,6 +143,7 @@
 		95FEB00539882EA5F45C9693 /* Pods-XiaoweHealthyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XiaoweHealthyTests.release.xcconfig"; path = "Target Support Files/Pods-XiaoweHealthyTests/Pods-XiaoweHealthyTests.release.xcconfig"; sourceTree = "<group>"; };
 		960E767F27F00BB700A0DA25 /* XWHAddBrandDeviceCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHAddBrandDeviceCTCell.swift; sourceTree = "<group>"; };
 		960E768127F0574200A0DA25 /* XWHBaseCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBaseCTCell.swift; sourceTree = "<group>"; };
+		960E768427F0B17D00A0DA25 /* XWHSafari.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSafari.swift; sourceTree = "<group>"; };
 		9628F84F27EE9EF300221C5E /* XWHLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLogin.swift; sourceTree = "<group>"; };
 		9648E60B27E0796D0077180D /* XiaoweHealthy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XiaoweHealthy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9648E60E27E0796D0077180D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -285,6 +287,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		960E768327F0B0F900A0DA25 /* Safari */ = {
+			isa = PBXGroup;
+			children = (
+				960E768427F0B17D00A0DA25 /* XWHSafari.swift */,
+			);
+			path = Safari;
+			sourceTree = "<group>";
+		};
 		9628F84E27EE9ECC00221C5E /* Module */ = {
 			isa = PBXGroup;
 			children = (
@@ -329,6 +339,7 @@
 				96617A6A27E1DFC000139B03 /* Base */,
 				9651EE0227EAF2D60043FE52 /* Config */,
 				96E23C0627E18003009EF208 /* AppEntry */,
+				960E768327F0B0F900A0DA25 /* Safari */,
 				9661517227E46A07006781C1 /* Supplier */,
 				9651EE2A27EC5B030043FE52 /* UM */,
 				96E23C0727E1839B009EF208 /* Resource */,
@@ -1195,6 +1206,7 @@
 				9672B25E27EEA48900DC80D6 /* XWHUser.swift in Sources */,
 				9651EE2E27EC5BD30043FE52 /* UMShareSwiftInterface.swift in Sources */,
 				96617A7827E1FCF600139B03 /* XWHLoginRegisterBaseVC.swift in Sources */,
+				960E768527F0B17D00A0DA25 /* XWHSafari.swift in Sources */,
 				96FC408627EDB78F00D64B64 /* XWHDeviceBaseVC.swift in Sources */,
 				9651EE0E27EB06F20043FE52 /* XWHLoginRegisterVM.swift in Sources */,
 				9648E61327E0796D0077180D /* ViewController.swift in Sources */,

@@ -50,7 +50,8 @@ class XWHHealthyMainVC: XWHBaseVC {
     
 
     @objc func clickLoginBtn() {
-        XWHLogin.present(at: self)
+//        XWHLogin.present(at: self)
+        XWHSafari.present(at: self, urlStr: "https://www.xiaowe.cc")
     }
     
     @objc func clickLoginBtn2() {
