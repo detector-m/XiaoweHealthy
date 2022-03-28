@@ -17,8 +17,11 @@ struct XWHSafari {
         }
         
         let sf = SFSafariViewController(url: url)
+        sf.view.backgroundColor = .white
+        sf.preferredBarTintColor = UIColor(hex: 0x000000, transparency: 0.9)
+        sf.preferredControlTintColor = .white
         
-        vc.present(sf, animated: true, completion: nil)
+        vc.present(sf, animated: true) { }
     }
     
 }

@@ -94,10 +94,17 @@ class XWHAddBrandDeviceVC: XWHDeviceBaseVC, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = UIViewController()
-        vc.view.backgroundColor = .red
-        vc.title = "Test"
-        navigationController?.pushViewController(vc, animated: true)
+        gotoSearchDevice()
     }
 
+}
+
+// MARK: - UI Jump
+extension XWHAddBrandDeviceVC {
+    
+    fileprivate func gotoSearchDevice() {
+        let vc = XWHSearchDeviceVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
