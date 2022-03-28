@@ -36,12 +36,33 @@ class XWHUMManager {
     }
     
     // 获取用户资料
-    class func getUserInfo(pType: UMSocialPlatformType, vc: UIViewController?) -> Bool {
+    class func getUserInfo(pType: UMSocialPlatformType, vc: UIViewController?, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
         UMShareSwiftInterface.getUserInfo(plattype: pType, viewController: vc) { data, error in
-            log.error("第三方获取用户资料 data: \(String(describing: data)) error: \(String(describing: error))")
+            let retIdStr = "thirdLogin-getUserInfo"
+            var retError = XWHError()
+            retError.identifier = retIdStr
+            
+            if let cError = error {
+                retError.message = cError.localizedDescription
+                log.error("第三方获取用户资料 error: \(retError)")
+                
+                failureHandler?(retError)
+                return
+            }
+            
+            guard let userInfo = data as? UMSocialUserInfoResponse else {
+                retError.message = "返回的数据格式不对"
+                log.error("第三方获取用户资料 error: \(retError)")
+                
+                failureHandler?(retError)
+                return
+            }
+            
+            let retResponse = XWHResponse()
+            retResponse.identifier = retIdStr
+            retResponse.data = userInfo
+            successHandler?(retResponse)
         }
-        
-        return true
     }
     
     

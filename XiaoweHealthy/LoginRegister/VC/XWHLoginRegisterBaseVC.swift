@@ -79,26 +79,26 @@ extension XWHLoginRegisterBaseVC {
     
     // 获取第三方登录信息
     func getThirdPlatformUserInfo(loginType: XWHLoginType) {
+        var pType = UMSocialPlatformType.unKnown
+        
         if loginType == .weixin {
-            let isOk = XWHUMManager.getUserInfo(pType: .wechatSession, vc: self)
-            if isOk {
-                return
-            }
-
-            gotoBindPhone(loginType: loginType, nickname: "", avatar: "", wxOpenid: "", qqOpenid: "")
-            
+            pType = .wechatSession
+        } else if loginType == .qq {
+            pType = .QQ
+        }
+        
+        if pType == .unKnown {
             return
         }
         
-        if loginType == .qq {
-            let isOk = XWHUMManager.getUserInfo(pType: .QQ, vc: self)
-            if isOk {
+        XWHUMManager.getUserInfo(pType: pType, vc: self) { [unowned self] cError in
+            self.view.makeInsetToast(cError.message)
+        } successHandler: { [unowned self] cResponse in
+            guard let info = cResponse.data as? UMSocialUserInfoResponse else {
                 return
             }
             
-            gotoBindPhone(loginType: loginType, nickname: "", avatar: "", wxOpenid: "", qqOpenid: "")
-
-            return
+            self.gotoBindPhone(loginType: loginType, nickname: info.name, avatar: info.iconurl, wxOpenid: info.usid, qqOpenid: info.usid)
         }
     }
     

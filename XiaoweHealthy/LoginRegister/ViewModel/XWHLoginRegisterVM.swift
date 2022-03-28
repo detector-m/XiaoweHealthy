@@ -22,20 +22,27 @@ class XWHLoginRegisterVM {
     /// 发送验证码
     func sendCode(phoneNum: String, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
         loginRegisterProvider.request(.sendCode(phoneNum: phoneNum)) { result in
+            var retError = XWHError()
+            retError.identifier = "sendCode"
+            
             switch result {
             case .failure(let error):
-                failureHandler?(XWHError())
+                retError.message = error.errorDescription ?? ""
+                failureHandler?(retError)
                 
             case .success(let response):
                 let cJson = try? JSON(data: response.data)
                 guard let json = cJson else {
+                    retError.message = "解析失败"
                     failureHandler?(XWHError())
                     return
                 }
                 
                 log.info(json.dictionaryObject)
                 if json["code"].intValue != 0 {
-                    failureHandler?(XWHError())
+                    retError.message = "code = \(json["code"].intValue)"
+
+                    failureHandler?(retError)
                     return
                 }
             }

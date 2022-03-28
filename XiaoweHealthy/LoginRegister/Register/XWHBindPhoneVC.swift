@@ -76,11 +76,11 @@ class XWHBindPhoneVC: XWHRegisterBaseVC {
             
             self.codeView.start()
             
-//            XWHLoginRegisterVM().sendCode(phoneNum: phoneNum) { _ in
-//                XWHAlert.show(message: R.string.xwhDisplayText.验证码获取失败(), cancelTitle: nil)
-//            } successHandler: { _ in
-//                
-//            }
+            XWHLoginRegisterVM().sendCode(phoneNum: phoneNum) { _ in
+                XWHAlert.show(message: R.string.xwhDisplayText.验证码获取失败(), cancelTitle: nil)
+            } successHandler: { _ in
+                
+            }
         }
     }
     
@@ -182,7 +182,7 @@ extension XWHBindPhoneVC {
             XWHProgressHUD.hide()
             
             self?.view.makeInsetToast(error.message)
-        } successHandler: { [weak self] response in
+        } successHandler: { [unowned self] response in
             XWHProgressHUD.hide()
             
             if let cRes = response.data as? JSON {
@@ -192,10 +192,7 @@ extension XWHBindPhoneVC {
                 
                 let isNewer = cRes["newer"].boolValue
                 
-                if isNewer {
-                    let vc = XWHGenderSelectVC()
-                    self?.navigationController?.setViewControllers([vc], animated: true)
-                }
+                XWHUser.gotoSetUserInfo(at: self, isNewer: isNewer)
             }
         }
     }
