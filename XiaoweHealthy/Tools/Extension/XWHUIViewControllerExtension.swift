@@ -23,9 +23,29 @@ extension UIViewController {
     public func addNavInteractivePopGestureRecognizerDelegate() {
         navigationController?.addInteractivePopGestureRecognizerDelegate()
     }
-    
+
     public func removeNavInteractivePopGestureRecognizerDelegate() {
         navigationController?.removeInteractivePopGestureRecognizerDelegate()
     }
 
 }
+
+//extension UIViewController: UIGestureRecognizerDelegate {
+//    
+//    public func addNavInteractivePopGestureRecognizerDelegate() {
+//        navigationController?.interactivePopGestureRecognizer?.delegate = self
+//    }
+//    
+//    public func removeNavInteractivePopGestureRecognizerDelegate() {
+//        navigationController?.interactivePopGestureRecognizer?.delegate = nil
+//    }
+//    
+//    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+//        if children.count == 1 {
+//            return false
+//        }
+//        
+//        return true
+//    }
+//    
+//}

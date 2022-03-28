@@ -21,8 +21,6 @@ class XWHBaseVC: UIViewController {
     
     func setupNavigationItems() {
         navigationItem.leftBarButtonItem = getNavGlobalBackItem()
-        
-        addNavInteractivePopGestureRecognizerDelegate()
     }
     
     func addSubViews() {
@@ -58,12 +56,6 @@ class XWHBaseVC: UIViewController {
         button.addTarget(target, action: action, for: .touchUpInside)
         
         return UIBarButtonItem(customView: button)
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        addNavInteractivePopGestureRecognizerDelegate()
     }
     
 }
