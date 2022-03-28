@@ -21,6 +21,7 @@ class XWHBaseVC: UIViewController {
     
     func setupNavigationItems() {
         navigationItem.leftBarButtonItem = getNavGlobalBackItem()
+        rt_disableInteractivePop = false
     }
     
     func addSubViews() {

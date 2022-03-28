@@ -12,6 +12,8 @@ class XWHBaseNavigationVC: RTRootNavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        addInteractivePopGestureRecognizerDelegate()
     }
 
 }

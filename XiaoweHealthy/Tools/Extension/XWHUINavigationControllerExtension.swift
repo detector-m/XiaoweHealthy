@@ -7,22 +7,22 @@
 
 import Foundation
 
-extension UINavigationController: UIGestureRecognizerDelegate {
+//extension UINavigationController {
     
-    public func addInteractivePopGestureRecognizerDelegate() {
-        interactivePopGestureRecognizer?.delegate = self
-    }
+//    public func addInteractivePopGestureRecognizerDelegate() {
+//        interactivePopGestureRecognizer?.delegate = self
+//    }
+//    
+//    public func removeInteractivePopGestureRecognizerDelegate() {
+//        interactivePopGestureRecognizer?.delegate = nil
+//    }
+//    
+//    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+//        if children.count == 1 {
+//            return false
+//        }
+//        
+//        return true
+//    }
     
-    public func removeInteractivePopGestureRecognizerDelegate() {
-        interactivePopGestureRecognizer?.delegate = nil
-    }
-    
-    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if children.count == 1 {
-            return false
-        }
-        
-        return true
-    }
-    
-}
+//}

@@ -20,13 +20,13 @@ extension UIViewController {
         navigationController?.navigationBar.shadowImage = nil
     }
     
-    public func addNavInteractivePopGestureRecognizerDelegate() {
-        navigationController?.addInteractivePopGestureRecognizerDelegate()
-    }
-
-    public func removeNavInteractivePopGestureRecognizerDelegate() {
-        navigationController?.removeInteractivePopGestureRecognizerDelegate()
-    }
+//    public func addNavInteractivePopGestureRecognizerDelegate() {
+//        navigationController?.addInteractivePopGestureRecognizerDelegate()
+//    }
+//
+//    public func removeNavInteractivePopGestureRecognizerDelegate() {
+//        navigationController?.removeInteractivePopGestureRecognizerDelegate()
+//    }
 
 }
 

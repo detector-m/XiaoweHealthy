@@ -92,5 +92,12 @@ class XWHAddBrandDeviceVC: XWHDeviceBaseVC, UICollectionViewDataSource, UICollec
             return UICollectionReusableView()
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = UIViewController()
+        vc.view.backgroundColor = .red
+        vc.title = "Test"
+        navigationController?.pushViewController(vc, animated: true)
+    }
 
 }
