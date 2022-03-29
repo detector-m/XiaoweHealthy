@@ -9,6 +9,8 @@ import Foundation
 
 class XWHDevice {
     
-    
+    class func gotoHelp(at targetVC: UIViewController) {
+        XWHSafari.present(at: targetVC, urlStr: kRedirectURL)
+    }
     
 }

@@ -8,10 +8,9 @@
 import UIKit
 import FSPagerView
 
-class XWHAddDeviceEntryVC: XWHDeviceBaseVC, FSPagerViewDataSource, FSPagerViewDelegate {
+class XWHAddDeviceEntryVC: XWHSearchBindDevBaseVC, FSPagerViewDataSource, FSPagerViewDelegate {
 
     lazy var addBtn = UIButton()
-    lazy var textAddBtn = UIButton()
     
     lazy var pagerView = FSPagerView()
     lazy var pageControl = FSPageControl()
@@ -38,13 +37,11 @@ class XWHAddDeviceEntryVC: XWHDeviceBaseVC, FSPagerViewDataSource, FSPagerViewDe
         addBtn.addTarget(self, action: #selector(clickAddBtn), for: .touchUpInside)
         view.addSubview(addBtn)
         
-        textAddBtn.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 16, weight: .medium)
-        textAddBtn.setTitleColor(UIColor(hex: 0xffffff, transparency: 0.9), for: .normal)
-        textAddBtn.setTitle(R.string.xwhDeviceText.添加设备(), for: .normal)
-        textAddBtn.layer.backgroundColor = UIColor(hex: 0x2DC84D)?.cgColor
-        textAddBtn.layer.cornerRadius = 24
-        textAddBtn.addTarget(self, action: #selector(clickTextAddBtn), for: .touchUpInside)
-        view.addSubview(textAddBtn)
+//        button.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 16, weight: .medium)
+//        button.setTitleColor(UIColor(hex: 0xffffff, transparency: 0.9), for: .normal)
+        button.setTitle(R.string.xwhDeviceText.添加设备(), for: .normal)
+//        textAddBtn.layer.backgroundColor = UIColor(hex: 0x2DC84D)?.cgColor
+//        textAddBtn.layer.cornerRadius = 24
         
         pagerView.register(XWHDevicePagerViewCell.self, forCellWithReuseIdentifier: "PagerViewCell")
         pagerView.dataSource = self
@@ -93,7 +90,7 @@ class XWHAddDeviceEntryVC: XWHDeviceBaseVC, FSPagerViewDataSource, FSPagerViewDe
             make.height.equalTo(16)
         }
         
-        textAddBtn.snp.makeConstraints { make in
+        button.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(53)
             make.top.equalTo(pageControl.snp.bottom).offset(50)
             make.height.equalTo(48)
@@ -112,7 +109,7 @@ class XWHAddDeviceEntryVC: XWHDeviceBaseVC, FSPagerViewDataSource, FSPagerViewDe
         gotoAddBrandDevice()
     }
     
-    @objc private func clickTextAddBtn() {
+    @objc override func clickButton() {
         if !XWHUser.isLogined() {
             XWHAlert.showLogin(at: self)
             
