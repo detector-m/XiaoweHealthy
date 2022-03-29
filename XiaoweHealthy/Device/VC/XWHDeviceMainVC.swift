@@ -7,7 +7,15 @@
 
 import UIKit
 
-class XWHDeviceMainVC: XWHDeviceBaseVC {
+class XWHDeviceMainVC: XWHSearchBindDevBaseVC {
     
+    
+    override func addSubViews() {
+        super.addSubViews()
+        
+        detailLb.isHidden = true
+        
+        
+    }
 
 }

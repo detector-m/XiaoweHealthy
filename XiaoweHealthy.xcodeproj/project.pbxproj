@@ -82,6 +82,10 @@
 		9672B25E27EEA48900DC80D6 /* XWHUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9672B25D27EEA48900DC80D6 /* XWHUser.swift */; };
 		9672B26027EF05F700DC80D6 /* XWHAddDeviceEntryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9672B25F27EF05F700DC80D6 /* XWHAddDeviceEntryVC.swift */; };
 		9672B26227EF06FB00DC80D6 /* XWHAddBrandDeviceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9672B26127EF06FB00DC80D6 /* XWHAddBrandDeviceVC.swift */; };
+		967823AB27F2C9B5004F66FB /* XWHUIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967823AA27F2C9B5004F66FB /* XWHUIImageExtension.swift */; };
+		967823AD27F2C9DC004F66FB /* XWHUIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967823AC27F2C9DC004F66FB /* XWHUIFontExtension.swift */; };
+		967823AF27F2CA42004F66FB /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 967823AE27F2CA42004F66FB /* iconfont.ttf */; };
+		9678257627F2DD0C004F66FB /* XWHIconFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9678257527F2DD0C004F66FB /* XWHIconFont.swift */; };
 		967AF4C127EF544200235E08 /* XWHDevicePagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C027EF544200235E08 /* XWHDevicePagerViewCell.swift */; };
 		967AF4C327EF545800235E08 /* XWHDeviceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C227EF545800235E08 /* XWHDeviceVM.swift */; };
 		967AF4C527EF547B00235E08 /* XWHDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C427EF547B00235E08 /* XWHDevice.swift */; };
@@ -221,6 +225,10 @@
 		9672B25D27EEA48900DC80D6 /* XWHUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUser.swift; sourceTree = "<group>"; };
 		9672B25F27EF05F700DC80D6 /* XWHAddDeviceEntryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHAddDeviceEntryVC.swift; sourceTree = "<group>"; };
 		9672B26127EF06FB00DC80D6 /* XWHAddBrandDeviceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHAddBrandDeviceVC.swift; sourceTree = "<group>"; };
+		967823AA27F2C9B5004F66FB /* XWHUIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUIImageExtension.swift; sourceTree = "<group>"; };
+		967823AC27F2C9DC004F66FB /* XWHUIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUIFontExtension.swift; sourceTree = "<group>"; };
+		967823AE27F2CA42004F66FB /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
+		9678257527F2DD0C004F66FB /* XWHIconFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHIconFont.swift; sourceTree = "<group>"; };
 		967AF4C027EF544200235E08 /* XWHDevicePagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevicePagerViewCell.swift; sourceTree = "<group>"; };
 		967AF4C227EF545800235E08 /* XWHDeviceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceVM.swift; sourceTree = "<group>"; };
 		967AF4C427EF547B00235E08 /* XWHDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevice.swift; sourceTree = "<group>"; };
@@ -582,6 +590,7 @@
 		96617A6F27E1E06700139B03 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				9678257427F2DCAB004F66FB /* IconFont */,
 				96FC406C27ED91EC00D64B64 /* Font */,
 				9651EE0527EAF5980043FE52 /* Network */,
 				9651EDFB27EABE400043FE52 /* Timer */,
@@ -639,6 +648,8 @@
 				9651EDF327E8C3870043FE52 /* XWHUIViewExtension.swift */,
 				96FC406A27ED738100D64B64 /* XWHUIViewControllerExtension.swift */,
 				96E8A6BC27F1738200F5C75C /* XWHUINavigationControllerExtension.swift */,
+				967823AC27F2C9DC004F66FB /* XWHUIFontExtension.swift */,
+				967823AA27F2C9B5004F66FB /* XWHUIImageExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -719,6 +730,14 @@
 			path = Module;
 			sourceTree = "<group>";
 		};
+		9678257427F2DCAB004F66FB /* IconFont */ = {
+			isa = PBXGroup;
+			children = (
+				9678257527F2DD0C004F66FB /* XWHIconFont.swift */,
+			);
+			path = IconFont;
+			sourceTree = "<group>";
+		};
 		967AF4BC27EF535600235E08 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -783,6 +802,7 @@
 				9648E61927E0796E0077180D /* LaunchScreen.storyboard */,
 				9648E61727E0796E0077180D /* Assets.xcassets */,
 				9648E61C27E0796E0077180D /* Info.plist */,
+				967823AE27F2CA42004F66FB /* iconfont.ttf */,
 				96E23C1F27E1A22C009EF208 /* R.generated.swift */,
 				9651EE2727EC51060043FE52 /* XiaoweHealthy-Bridging-Header.h */,
 			);
@@ -1002,6 +1022,7 @@
 				96FC408327EDA4F400D64B64 /* SKSans-Regular.otf in Resources */,
 				96FC407727EDA16800D64B64 /* HarmonyOS_Sans_SC_Regular.ttf in Resources */,
 				9648E61827E0796E0077180D /* Assets.xcassets in Resources */,
+				967823AF27F2CA42004F66FB /* iconfont.ttf in Resources */,
 				96617A6027E1D1A600139B03 /* XWHLaunchLogoS@3x.png in Resources */,
 				967AF4CC27EF568A00235E08 /* 2.jpg in Resources */,
 				967AF4CB27EF568A00235E08 /* 3.jpg in Resources */,
@@ -1236,6 +1257,7 @@
 				96617AB327E34CBB00139B03 /* XWHHeightSelectVC.swift in Sources */,
 				9651EDFA27E9A3130043FE52 /* RLOverlayerBgView.swift in Sources */,
 				96617AA527E3169200139B03 /* XWHCodeView.swift in Sources */,
+				967823AD27F2C9DC004F66FB /* XWHUIFontExtension.swift in Sources */,
 				96617A6E27E1E00E00139B03 /* XWHBaseVC.swift in Sources */,
 				96617AA927E328C800139B03 /* XWHResetPasswordVC.swift in Sources */,
 				9651EE3027EC5C7E0043FE52 /* XWHUMManager.swift in Sources */,
@@ -1263,7 +1285,9 @@
 				9651EE2527EC15290043FE52 /* XWHTextDescriptionConfig.swift in Sources */,
 				9651EE0727EAF6CE0043FE52 /* XWHServiceTargetType.swift in Sources */,
 				96E23C2027E1A22C009EF208 /* R.generated.swift in Sources */,
+				9678257627F2DD0C004F66FB /* XWHIconFont.swift in Sources */,
 				9651EE1727EB6D040043FE52 /* XWHUserVM.swift in Sources */,
+				967823AB27F2C9B5004F66FB /* XWHUIImageExtension.swift in Sources */,
 				96617AA727E3196A00139B03 /* XWHCheckProtocolView.swift in Sources */,
 				967AF4C527EF547B00235E08 /* XWHDevice.swift in Sources */,
 			);
@@ -1465,7 +1489,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = XiaoweHealthy/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = XiaoweHealth;
+				INFOPLIST_KEY_CFBundleDisplayName = "小维健康";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1502,7 +1526,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = XiaoweHealthy/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = XiaoweHealth;
+				INFOPLIST_KEY_CFBundleDisplayName = "小维健康";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

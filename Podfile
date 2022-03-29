@@ -69,6 +69,8 @@ target 'XiaoweHealthy' do
   
   # 字体管理
   pod 'UIFontComplete'
+  # 查看项目中自定义字体
+#  pod 'FontBlaster'
   
   # 三端易用的现代跨平台 Javascript bridge， 通过它，你可以在Javascript和原生之间同步或异步的调用彼此的函数.
   pod "dsBridge"
