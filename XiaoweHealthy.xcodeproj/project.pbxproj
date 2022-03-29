@@ -87,6 +87,8 @@
 		967823AF27F2CA42004F66FB /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 967823AE27F2CA42004F66FB /* iconfont.ttf */; };
 		9678257627F2DD0C004F66FB /* XWHIconFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9678257527F2DD0C004F66FB /* XWHIconFont.swift */; };
 		9678257927F2EF3B004F66FB /* XWHDeviceFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9678257827F2EF3B004F66FB /* XWHDeviceFaceView.swift */; };
+		9678257C27F2F44D004F66FB /* RLRadarIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9678257B27F2F44D004F66FB /* RLRadarIndicatorView.swift */; };
+		9678257E27F2F495004F66FB /* RLRadarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9678257D27F2F495004F66FB /* RLRadarView.swift */; };
 		967AF4C127EF544200235E08 /* XWHDevicePagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C027EF544200235E08 /* XWHDevicePagerViewCell.swift */; };
 		967AF4C327EF545800235E08 /* XWHDeviceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C227EF545800235E08 /* XWHDeviceVM.swift */; };
 		967AF4C527EF547B00235E08 /* XWHDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C427EF547B00235E08 /* XWHDevice.swift */; };
@@ -231,6 +233,8 @@
 		967823AE27F2CA42004F66FB /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
 		9678257527F2DD0C004F66FB /* XWHIconFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHIconFont.swift; sourceTree = "<group>"; };
 		9678257827F2EF3B004F66FB /* XWHDeviceFaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceFaceView.swift; sourceTree = "<group>"; };
+		9678257B27F2F44D004F66FB /* RLRadarIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLRadarIndicatorView.swift; sourceTree = "<group>"; };
+		9678257D27F2F495004F66FB /* RLRadarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLRadarView.swift; sourceTree = "<group>"; };
 		967AF4C027EF544200235E08 /* XWHDevicePagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevicePagerViewCell.swift; sourceTree = "<group>"; };
 		967AF4C227EF545800235E08 /* XWHDeviceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceVM.swift; sourceTree = "<group>"; };
 		967AF4C427EF547B00235E08 /* XWHDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevice.swift; sourceTree = "<group>"; };
@@ -605,6 +609,7 @@
 		96617A7027E1E07B00139B03 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				9678257A27F2F40A004F66FB /* RadarView */,
 				9678257727F2EE8A004F66FB /* Common */,
 				9651EDF527E961210043FE52 /* Alert */,
 				9651EDF027E854120043FE52 /* ProgressHUD */,
@@ -747,6 +752,15 @@
 				9678257827F2EF3B004F66FB /* XWHDeviceFaceView.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		9678257A27F2F40A004F66FB /* RadarView */ = {
+			isa = PBXGroup;
+			children = (
+				9678257B27F2F44D004F66FB /* RLRadarIndicatorView.swift */,
+				9678257D27F2F495004F66FB /* RLRadarView.swift */,
+			);
+			path = RadarView;
 			sourceTree = "<group>";
 		};
 		967AF4BC27EF535600235E08 /* View */ = {
@@ -1232,6 +1246,7 @@
 				966F53C727F1E71800411D38 /* XWHSearchBindDevBaseVC.swift in Sources */,
 				96FC407F27EDA19300D64B64 /* XWHFont.swift in Sources */,
 				9651EE2027EBFE390043FE52 /* XWHNetwork.swift in Sources */,
+				9678257C27F2F44D004F66FB /* RLRadarIndicatorView.swift in Sources */,
 				967AF4C327EF545800235E08 /* XWHDeviceVM.swift in Sources */,
 				9651EE0427EAF3100043FE52 /* XWHApiConfig.swift in Sources */,
 				960E768027F00BB700A0DA25 /* XWHAddBrandDeviceCTCell.swift in Sources */,
@@ -1301,6 +1316,7 @@
 				9651EE1727EB6D040043FE52 /* XWHUserVM.swift in Sources */,
 				967823AB27F2C9B5004F66FB /* XWHUIImageExtension.swift in Sources */,
 				96617AA727E3196A00139B03 /* XWHCheckProtocolView.swift in Sources */,
+				9678257E27F2F495004F66FB /* RLRadarView.swift in Sources */,
 				967AF4C527EF547B00235E08 /* XWHDevice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
