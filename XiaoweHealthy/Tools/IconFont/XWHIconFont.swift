@@ -29,4 +29,6 @@ enum XWHIconFontOcticons: String {
     
     case arrowLeft = "\u{e667}"
     
+    case addCircle = "\u{e66d}"
+    
 }

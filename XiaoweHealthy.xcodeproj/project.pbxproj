@@ -86,6 +86,7 @@
 		967823AD27F2C9DC004F66FB /* XWHUIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967823AC27F2C9DC004F66FB /* XWHUIFontExtension.swift */; };
 		967823AF27F2CA42004F66FB /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 967823AE27F2CA42004F66FB /* iconfont.ttf */; };
 		9678257627F2DD0C004F66FB /* XWHIconFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9678257527F2DD0C004F66FB /* XWHIconFont.swift */; };
+		9678257927F2EF3B004F66FB /* XWHDeviceFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9678257827F2EF3B004F66FB /* XWHDeviceFaceView.swift */; };
 		967AF4C127EF544200235E08 /* XWHDevicePagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C027EF544200235E08 /* XWHDevicePagerViewCell.swift */; };
 		967AF4C327EF545800235E08 /* XWHDeviceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C227EF545800235E08 /* XWHDeviceVM.swift */; };
 		967AF4C527EF547B00235E08 /* XWHDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C427EF547B00235E08 /* XWHDevice.swift */; };
@@ -229,6 +230,7 @@
 		967823AC27F2C9DC004F66FB /* XWHUIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUIFontExtension.swift; sourceTree = "<group>"; };
 		967823AE27F2CA42004F66FB /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
 		9678257527F2DD0C004F66FB /* XWHIconFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHIconFont.swift; sourceTree = "<group>"; };
+		9678257827F2EF3B004F66FB /* XWHDeviceFaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceFaceView.swift; sourceTree = "<group>"; };
 		967AF4C027EF544200235E08 /* XWHDevicePagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevicePagerViewCell.swift; sourceTree = "<group>"; };
 		967AF4C227EF545800235E08 /* XWHDeviceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceVM.swift; sourceTree = "<group>"; };
 		967AF4C427EF547B00235E08 /* XWHDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevice.swift; sourceTree = "<group>"; };
@@ -603,6 +605,7 @@
 		96617A7027E1E07B00139B03 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				9678257727F2EE8A004F66FB /* Common */,
 				9651EDF527E961210043FE52 /* Alert */,
 				9651EDF027E854120043FE52 /* ProgressHUD */,
 				9651EDED27E8480B0043FE52 /* Popup */,
@@ -736,6 +739,14 @@
 				9678257527F2DD0C004F66FB /* XWHIconFont.swift */,
 			);
 			path = IconFont;
+			sourceTree = "<group>";
+		};
+		9678257727F2EE8A004F66FB /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				9678257827F2EF3B004F66FB /* XWHDeviceFaceView.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		967AF4BC27EF535600235E08 /* View */ = {
@@ -1259,6 +1270,7 @@
 				96617AA527E3169200139B03 /* XWHCodeView.swift in Sources */,
 				967823AD27F2C9DC004F66FB /* XWHUIFontExtension.swift in Sources */,
 				96617A6E27E1E00E00139B03 /* XWHBaseVC.swift in Sources */,
+				9678257927F2EF3B004F66FB /* XWHDeviceFaceView.swift in Sources */,
 				96617AA927E328C800139B03 /* XWHResetPasswordVC.swift in Sources */,
 				9651EE3027EC5C7E0043FE52 /* XWHUMManager.swift in Sources */,
 				9672B26027EF05F700DC80D6 /* XWHAddDeviceEntryVC.swift in Sources */,

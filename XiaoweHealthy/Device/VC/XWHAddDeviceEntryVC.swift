@@ -160,6 +160,7 @@ extension XWHAddDeviceEntryVC {
     
     fileprivate func gotoAddBrandDevice() {
         let vc = XWHAddBrandDeviceVC()
+        vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
     }
     

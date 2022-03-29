@@ -9,7 +9,7 @@ import UIKit
 
 class XWHBindDeviceVC: XWHSearchBindDevBaseVC {
 
-    lazy var devImageView = UIImageView()
+    lazy var devImageView = XWHDeviceFaceView()
     lazy var helpBtn = UIButton()
 
     override func viewDidLoad() {
@@ -19,7 +19,11 @@ class XWHBindDeviceVC: XWHSearchBindDevBaseVC {
     override func addSubViews() {
         super.addSubViews()
         
-        devImageView.image = R.image.devicePlaceholder()
+//        devImageView.image = R.image.devicePlaceholder()
+        devImageView.bgImageView.contentMode = .scaleAspectFit
+        devImageView.imageView.contentMode = .scaleAspectFit
+        devImageView.bgImageView.image = R.image.devicePlacehodlerBg()
+        devImageView.imageView.image = R.image.devicePlacehodlerCover()
         view.addSubview(devImageView)
         
         helpBtn.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 14, weight: .medium)
@@ -61,7 +65,8 @@ class XWHBindDeviceVC: XWHSearchBindDevBaseVC {
     }
     
     override func clickButton() {
-        
+        let vc = XWHDeviceMainVC()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func clickHelpBtn() {
