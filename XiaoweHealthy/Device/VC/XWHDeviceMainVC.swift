@@ -9,7 +9,8 @@ import UIKit
 
 class XWHDeviceMainVC: XWHSearchBindDevBaseVC {
     
-    lazy var tableView = UITableView()
+    lazy var tableView = UITableView(frame: .zero, style: .grouped)
+    lazy var tableFooter = XWHDeviceMainFooter(frame: CGRect(origin: .zero, size: CGSize(width: UIScreen.main.bounds.width - 32, height: 120)))
     
     private lazy var deviceItems = [[XWHDeployItemModel]]()
     
@@ -80,18 +81,31 @@ extension XWHDeviceMainVC {
     private func configTableView() {
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
-        tableView.tableHeaderView = UIView()
-        tableView.tableFooterView = UIView()
+//        tableView.tableHeaderView = UIView()
+//        tableView.tableFooterView = UIView()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = view.backgroundColor
         tableView.separatorStyle = .none
         
+        tableView.tableFooterView = tableFooter
+        
+        tableFooter.clickCallback = { [unowned self] in
+            XWHAlert.show(title: nil, message: R.string.xwhDeviceText.确认解除绑定的设备吗(), cancelTitle: R.string.xwhDisplayText.取消(), confirmTitle: R.string.xwhDeviceText.解除绑定()) { cType in
+                if cType == .confirm {
+                    self.view.makeInsetToast("已经解除绑定")
+                }
+            }
+        }
+        
         registerTableViewCell()
     }
     
     private func registerTableViewCell() {
+        tableView.register(cellWithClass: XWHDeviceInfoTBCell.self)
+        
         tableView.register(cellWithClass: XWHDeviceNormallTBCell.self)
+        tableView.register(cellWithClass: XWHDialMarketTBCell.self)
     }
     
 }
@@ -118,6 +132,19 @@ extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let section = indexPath.section
+        let row = indexPath.row
+        
+        let item = deviceItems[section][row]
+        
+        if item.cellType == .info {
+            return 209
+        }
+        
+        if item.cellType == .dail {
+            return 184
+        }
+            
         return 52
     }
     
@@ -127,18 +154,47 @@ extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableVi
         
         let item = deviceItems[section][row]
         
-        let cell = tableView.dequeueReusableCell(withClass: XWHDeviceNormallTBCell.self)
-        
-        cell.iconView.image = UIImage(named: item.iconImageName)
-        cell.iconView.layer.backgroundColor = item.iconBgColor?.cgColor
-        cell.titleLb.text = item.title
-        cell.subTitleLb.text = item.subTitle
-        
-        return cell
+        if item.cellType == .info {
+            let cell = tableView.dequeueReusableCell(withClass: XWHDeviceInfoTBCell.self)
+            
+            let tColor = UIColor(hex: 0x2A2A2A)!
+            let txt1 = "SKYWORTH"
+            let txt2 = "Watch S1"
+            let attr = "\(txt1) \(txt2)".colored(with: tColor).applying(attributes: [.font: XWHFont.skSans(ofSize: 13, weight: .bold)], toOccurrencesOf: txt1).applying(attributes: [.font: XWHFont.skSans(ofSize: 13, weight: .regular)], toOccurrencesOf: txt2)
+            
+            cell.titleLb.attributedText = attr
+            cell.subTitleLb.text = "已连接  |  电量：90%"
+            
+            return cell
+        } else if item.cellType == .dail {
+            let cell = tableView.dequeueReusableCell(withClass: XWHDialMarketTBCell.self)
+            
+            cell.titleLb.text = item.title
+            cell.subTitleLb.text = item.subTitle
+            
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withClass: XWHDeviceNormallTBCell.self)
+            
+            cell.iconView.image = UIImage(named: item.iconImageName)
+            cell.iconView.layer.backgroundColor = item.iconBgColor?.cgColor
+            cell.titleLb.text = item.title
+            cell.subTitleLb.text = item.subTitle
+            
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         rounded(tableView, willDisplay: cell, forRowAt: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.001
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -150,6 +206,28 @@ extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableVi
         cView.backgroundColor = UIColor(hex: 0xF8F8F8)
         
         return cView
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let section = indexPath.section
+        let row = indexPath.row
+        
+        let item = deviceItems[section][row]
+        
+        if item.type == .recover {
+            gotoRecover()
+            return
+        }
+    }
+    
+}
+
+extension XWHDeviceMainVC {
+    
+    private func gotoRecover() {
+        XWHAlert.show(title: R.string.xwhDeviceText.恢复出厂设置(), message: R.string.xwhDeviceText.恢复出厂设置后设备中的设置和运动健康数据将被清空您确定恢复吗(), cancelTitle: R.string.xwhDisplayText.取消(), confirmTitle: R.string.xwhDeviceText.恢复()) { [unowned self] cType in
+            self.view.makeInsetToast("恢复出厂设置了")
+        }
     }
     
 }

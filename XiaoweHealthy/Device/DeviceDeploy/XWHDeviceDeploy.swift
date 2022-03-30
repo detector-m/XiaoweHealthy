@@ -11,6 +11,8 @@ import Foundation
 // MARK: - item 的类型
 enum XWHDeviceDeployType: Int {
     
+    case info = 0 // 设备信息
+    
     case guide = 100 // 使用指南
     case recover = 101 // 恢复出厂
     case update = 102 // 检查更新
@@ -38,6 +40,7 @@ enum XWHDeployCellType: Int {
     case `switch` = 1
     case explanation = 2
     case dail = 3
+    case info = 4
     
 }
 
@@ -62,6 +65,8 @@ struct XWHDeployItemModel {
 class XWHDeviceDeploy {
     
     // 各系列产品功能配置
+    lazy var deviceInfoDeploy: [XWHDeviceDeployType] = [.info]
+    
     lazy var commonDeploy1: [XWHDeviceDeployType] = [.chat, .call, .user]
     lazy var commonDeploy2: [XWHDeviceDeployType] = [.heart, .oxygen, .pressure, .stand]
     lazy var commonDeploy3: [XWHDeviceDeployType] = [.weather, .wrist, .disturb]
@@ -81,6 +86,8 @@ class XWHDeviceDeploy {
     // 获取配置类型
     private func loadDeployTypes() -> [[XWHDeviceDeployType]] {
         var deployTypes = [[XWHDeviceDeployType]]()
+        
+        deployTypes.append(deviceInfoDeploy)
         
         deployTypes.append(dialCommonDeploy)
         
@@ -115,6 +122,9 @@ class XWHDeviceDeploy {
         var item = XWHDeployItemModel(type: type)
         
         switch type {
+        case .info:
+            item.cellType = .info
+            
         case .guide:
             item.title = R.string.xwhDeviceText.使用指南()
             item.iconBgColor = UIColor(hex: 0x6AACF7)
@@ -133,6 +143,8 @@ class XWHDeviceDeploy {
             
         case .dialMarket:
             item.title = R.string.xwhDeviceText.表盘市场()
+            item.subTitle = R.string.xwhDeviceText.更多()
+            item.cellType = .dail
 //            item.iconBgColor = UIColor(hex: 0x6AACF7)
 //            item.iconImageName = "DeviceUpdate"
             
