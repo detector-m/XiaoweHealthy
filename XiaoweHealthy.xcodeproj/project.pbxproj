@@ -97,6 +97,8 @@
 		967AF4CA27EF568A00235E08 /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 967AF4C727EF568A00235E08 /* 1.jpg */; };
 		967AF4CB27EF568A00235E08 /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 967AF4C827EF568A00235E08 /* 3.jpg */; };
 		967AF4CC27EF568A00235E08 /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 967AF4C927EF568A00235E08 /* 2.jpg */; };
+		968CB8A327F3FB8800E549AC /* UITableViewRoundedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */; };
+		968CB8A627F40B5A00E549AC /* XWHDeviceDeploy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */; };
 		96E23C0A27E1898C009EF208 /* XWHTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */; };
 		96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */; };
 		96E23C1427E18D19009EF208 /* XWHDisplayText.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96E23C1627E18D19009EF208 /* XWHDisplayText.strings */; };
@@ -245,6 +247,8 @@
 		967AF4C727EF568A00235E08 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
 		967AF4C827EF568A00235E08 /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
 		967AF4C927EF568A00235E08 /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
+		968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewRoundedProtocol.swift; sourceTree = "<group>"; };
+		968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceDeploy.swift; sourceTree = "<group>"; };
 		96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTabBarVC.swift; sourceTree = "<group>"; };
 		96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHRootVCProvider.swift; sourceTree = "<group>"; };
 		96E23C1727E18D9C009EF208 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/XWHDisplayText.strings"; sourceTree = "<group>"; };
@@ -614,6 +618,7 @@
 		96617A7027E1E07B00139B03 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				968CB8A127F3FB3700E549AC /* UITableViewRoundedProtocol */,
 				9678257A27F2F40A004F66FB /* RadarView */,
 				9678257727F2EE8A004F66FB /* Common */,
 				9651EDF527E961210043FE52 /* Alert */,
@@ -811,6 +816,22 @@
 			path = Test;
 			sourceTree = "<group>";
 		};
+		968CB8A127F3FB3700E549AC /* UITableViewRoundedProtocol */ = {
+			isa = PBXGroup;
+			children = (
+				968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */,
+			);
+			path = UITableViewRoundedProtocol;
+			sourceTree = "<group>";
+		};
+		968CB8A427F40ABB00E549AC /* DeviceDeploy */ = {
+			isa = PBXGroup;
+			children = (
+				968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */,
+			);
+			path = DeviceDeploy;
+			sourceTree = "<group>";
+		};
 		96E23C0627E18003009EF208 /* AppEntry */ = {
 			isa = PBXGroup;
 			children = (
@@ -877,6 +898,7 @@
 		96E23C2327E1A32F009EF208 /* Device */ = {
 			isa = PBXGroup;
 			children = (
+				968CB8A427F40ABB00E549AC /* DeviceDeploy */,
 				967AF4BF27EF536D00235E08 /* Module */,
 				967AF4BE27EF536800235E08 /* Model */,
 				967AF4BD27EF535B00235E08 /* ViewModel */,
@@ -1271,6 +1293,7 @@
 				9628F85027EE9EF300221C5E /* XWHLogin.swift in Sources */,
 				9651EDF227E8542B0043FE52 /* XWHProgressHUD.swift in Sources */,
 				96FC406B27ED738100D64B64 /* XWHUIViewControllerExtension.swift in Sources */,
+				968CB8A327F3FB8800E549AC /* UITableViewRoundedProtocol.swift in Sources */,
 				96617A9227E23EAD00139B03 /* XWHColorExtension.swift in Sources */,
 				9672B25E27EEA48900DC80D6 /* XWHUser.swift in Sources */,
 				9651EE2E27EC5BD30043FE52 /* UMShareSwiftInterface.swift in Sources */,
@@ -1315,6 +1338,7 @@
 				9651EE1527EB6CF50043FE52 /* XWHUserApi.swift in Sources */,
 				96617AA327E3110E00139B03 /* XWHPasswordLoginVC.swift in Sources */,
 				96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */,
+				968CB8A627F40B5A00E549AC /* XWHDeviceDeploy.swift in Sources */,
 				9651EE0C27EB024B0043FE52 /* XWHNetworkHelper.swift in Sources */,
 				96759D8427F34D2E0098CA92 /* XWHBaseTBCell.swift in Sources */,
 				9651EE2527EC15290043FE52 /* XWHTextDescriptionConfig.swift in Sources */,

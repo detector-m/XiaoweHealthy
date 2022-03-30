@@ -77,8 +77,7 @@ class XWHSearchDeviceVC: XWHSearchBindDevBaseVC {
     }
     
     @objc func clickNavRightBtn() {
-//        gotoHelp()
-        gotoTest()
+        gotoHelp()
     }
 
 }
@@ -102,7 +101,9 @@ extension XWHSearchDeviceVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        gotoBindDevice()
+    }
     
 }
 
@@ -210,7 +211,7 @@ extension XWHSearchDeviceVC {
         XWHDevice.gotoHelp(at: self)
     }
     
-    fileprivate func gotoTest() {
+    fileprivate func gotoBindDevice() {
         let vc = XWHBindDeviceVC()
         navigationController?.pushViewController(vc, animated: true)
     }
