@@ -99,6 +99,8 @@
 		967AF4CC27EF568A00235E08 /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 967AF4C927EF568A00235E08 /* 2.jpg */; };
 		968CB8A327F3FB8800E549AC /* UITableViewRoundedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */; };
 		968CB8A627F40B5A00E549AC /* XWHDeviceDeploy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */; };
+		968CB8A827F42A8C00E549AC /* XWHCommonBaseTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A727F42A8C00E549AC /* XWHCommonBaseTBCell.swift */; };
+		968CB8AA27F42DB800E549AC /* XWHDeviceNormallTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A927F42DB800E549AC /* XWHDeviceNormallTBCell.swift */; };
 		96E23C0A27E1898C009EF208 /* XWHTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */; };
 		96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */; };
 		96E23C1427E18D19009EF208 /* XWHDisplayText.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96E23C1627E18D19009EF208 /* XWHDisplayText.strings */; };
@@ -249,6 +251,8 @@
 		967AF4C927EF568A00235E08 /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
 		968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewRoundedProtocol.swift; sourceTree = "<group>"; };
 		968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceDeploy.swift; sourceTree = "<group>"; };
+		968CB8A727F42A8C00E549AC /* XWHCommonBaseTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCommonBaseTBCell.swift; sourceTree = "<group>"; };
+		968CB8A927F42DB800E549AC /* XWHDeviceNormallTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceNormallTBCell.swift; sourceTree = "<group>"; };
 		96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTabBarVC.swift; sourceTree = "<group>"; };
 		96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHRootVCProvider.swift; sourceTree = "<group>"; };
 		96E23C1727E18D9C009EF208 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/XWHDisplayText.strings"; sourceTree = "<group>"; };
@@ -598,6 +602,7 @@
 				96617A7527E1EE3000139B03 /* XWHBaseNavigationVC.swift */,
 				960E768127F0574200A0DA25 /* XWHBaseCTCell.swift */,
 				96759D8327F34D2E0098CA92 /* XWHBaseTBCell.swift */,
+				968CB8A727F42A8C00E549AC /* XWHCommonBaseTBCell.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -779,6 +784,7 @@
 				967AF4C027EF544200235E08 /* XWHDevicePagerViewCell.swift */,
 				960E767F27F00BB700A0DA25 /* XWHAddBrandDeviceCTCell.swift */,
 				96759D8527F3533C0098CA92 /* XWHSearchDeviceTBCell.swift */,
+				968CB8A927F42DB800E549AC /* XWHDeviceNormallTBCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1300,6 +1306,7 @@
 				96617A7827E1FCF600139B03 /* XWHLoginRegisterBaseVC.swift in Sources */,
 				96E8A6BF27F1B2A700F5C75C /* XWHSearchDeviceVC.swift in Sources */,
 				960E768527F0B17D00A0DA25 /* XWHSafari.swift in Sources */,
+				968CB8A827F42A8C00E549AC /* XWHCommonBaseTBCell.swift in Sources */,
 				96FC408627EDB78F00D64B64 /* XWHDeviceBaseVC.swift in Sources */,
 				96E8A6BD27F1738200F5C75C /* XWHUINavigationControllerExtension.swift in Sources */,
 				9651EE0E27EB06F20043FE52 /* XWHLoginRegisterVM.swift in Sources */,
@@ -1307,6 +1314,7 @@
 				9648E60F27E0796D0077180D /* AppDelegate.swift in Sources */,
 				96617AAD27E3408C00139B03 /* XWHRegisterBaseVC.swift in Sources */,
 				9651EE2927EC58AA0043FE52 /* XWHThirdAppConfig.swift in Sources */,
+				968CB8AA27F42DB800E549AC /* XWHDeviceNormallTBCell.swift in Sources */,
 				9651EE2C27EC5B1B0043FE52 /* UMAnalyticsSwift.swift in Sources */,
 				9651EE1027EB30040043FE52 /* XWHKeyConfig.swift in Sources */,
 				96617AAB27E32C4100139B03 /* XWHBindPhoneVC.swift in Sources */,

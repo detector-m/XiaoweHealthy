@@ -11,8 +11,12 @@ class XWHDeviceMainVC: XWHSearchBindDevBaseVC {
     
     lazy var tableView = UITableView()
     
+    private lazy var deviceItems = [[XWHDeployItemModel]]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        configDeviceItems()
     }
     
     override func setupNavigationItems() {
@@ -24,14 +28,7 @@ class XWHDeviceMainVC: XWHSearchBindDevBaseVC {
         
         view.backgroundColor = UIColor(hex: 0xF8F8F8)
         
-        tableView.showsVerticalScrollIndicator = false
-        tableView.showsHorizontalScrollIndicator = false
-        tableView.tableHeaderView = UIView()
-        tableView.tableFooterView = UIView()
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.backgroundColor = view.backgroundColor
-        tableView.separatorStyle = .none
+        configTableView()
         view.addSubview(tableView)
         
         detailLb.isHidden = true
@@ -68,24 +65,74 @@ class XWHDeviceMainVC: XWHSearchBindDevBaseVC {
 
 }
 
+// MARK: - Config Data
+extension XWHDeviceMainVC {
+    
+    private func configDeviceItems() {
+        deviceItems = XWHDeviceDeploy().loadDeploys()
+    }
+    
+}
+
+// MARK: - ConfigUI
+extension XWHDeviceMainVC {
+    
+    private func configTableView() {
+        tableView.showsVerticalScrollIndicator = false
+        tableView.showsHorizontalScrollIndicator = false
+        tableView.tableHeaderView = UIView()
+        tableView.tableFooterView = UIView()
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.backgroundColor = view.backgroundColor
+        tableView.separatorStyle = .none
+        
+        registerTableViewCell()
+    }
+    
+    private func registerTableViewCell() {
+        tableView.register(cellWithClass: XWHDeviceNormallTBCell.self)
+    }
+    
+}
+
+// MARK: - UI
+extension XWHDeviceMainVC {
+    
+    private func reloadAll() {
+        configDeviceItems()
+        tableView.reloadData()
+    }
+    
+}
+
 // MARK: - UITableViewDataSource,
 extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableViewRoundedProtocol {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 6
+        return deviceItems.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let cCount = arc4random() % 5 + 1
-        return Int(cCount)
+        return deviceItems[section].count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 48
+        return 52
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
+        let section = indexPath.section
+        let row = indexPath.row
+        
+        let item = deviceItems[section][row]
+        
+        let cell = tableView.dequeueReusableCell(withClass: XWHDeviceNormallTBCell.self)
+        
+        cell.iconView.image = UIImage(named: item.iconImageName)
+        cell.iconView.layer.backgroundColor = item.iconBgColor?.cgColor
+        cell.titleLb.text = item.title
+        cell.subTitleLb.text = item.subTitle
         
         return cell
     }
