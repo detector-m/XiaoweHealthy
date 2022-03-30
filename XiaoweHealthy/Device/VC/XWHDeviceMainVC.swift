@@ -15,7 +15,7 @@ class XWHDeviceMainVC: XWHSearchBindDevBaseVC {
         
         detailLb.isHidden = true
         
-        titleLb.text = R.string.xwhDeviceText.添加设备()
+        titleLb.text = R.string.xwhDeviceText.我的设备()
         
         button.titleLabel?.font = UIFont.iconFont(size: 24)
         button.setTitleColor(UIColor.black, for: .normal)
