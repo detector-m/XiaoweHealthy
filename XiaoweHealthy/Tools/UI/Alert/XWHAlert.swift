@@ -16,7 +16,6 @@ class XWHAlert {
         let alertView = XWHAlertView(frame: window.bounds)
         window.addSubview(alertView)
 
-//        alertView.show( message: "hello")
         alertView.show(title: title, message: message, cancelTitle: cancelTitle, confirmTitle: confirmTitle, action: action)
     }
     
@@ -119,7 +118,7 @@ class XWHAlertContentView: XWHBaseView {
         super.addSubViews()
         
         titleLb.textColor = UIColor(hex: 0x000000, transparency: 0.9)
-        titleLb.font = XWHFont.harmonyOSSans(ofSize: 20, weight: .medium)
+        titleLb.font = XWHFont.harmonyOSSans(ofSize: 20, weight: .bold)
         titleLb.textAlignment = .center
         addSubview(titleLb)
         

@@ -35,16 +35,26 @@ class XWHDeviceBaseVC: XWHBaseVC {
     }
     
     func relayoutTitleAndDetailLb() {
+//        titleLb.snp.makeConstraints { make in
+//            make.top.equalTo(74)
+//            make.height.equalTo(40)
+//
+//            make.left.right.equalToSuperview().inset(28)
+//        }
+        relayoutTitleLb()
+        detailLb.snp.makeConstraints { make in
+            make.left.right.equalTo(titleLb)
+            make.top.equalTo(titleLb.snp.bottom).offset(6)
+            make.height.equalTo(20)
+        }
+    }
+    
+    func relayoutTitleLb() {
         titleLb.snp.makeConstraints { make in
             make.top.equalTo(74)
             make.height.equalTo(40)
 
             make.left.right.equalToSuperview().inset(28)
-        }
-        detailLb.snp.makeConstraints { make in
-            make.left.right.equalTo(titleLb)
-            make.top.equalTo(titleLb.snp.bottom).offset(6)
-            make.height.equalTo(20)
         }
     }
 

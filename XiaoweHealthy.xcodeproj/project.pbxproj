@@ -13,6 +13,7 @@
 		960E768027F00BB700A0DA25 /* XWHAddBrandDeviceCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960E767F27F00BB700A0DA25 /* XWHAddBrandDeviceCTCell.swift */; };
 		960E768227F0574200A0DA25 /* XWHBaseCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960E768127F0574200A0DA25 /* XWHBaseCTCell.swift */; };
 		960E768527F0B17D00A0DA25 /* XWHSafari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960E768427F0B17D00A0DA25 /* XWHSafari.swift */; };
+		9613E78527F4A0BC007A1589 /* XWHThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613E78427F4A0BC007A1589 /* XWHThemeConfig.swift */; };
 		9628F85027EE9EF300221C5E /* XWHLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9628F84F27EE9EF300221C5E /* XWHLogin.swift */; };
 		9648E60F27E0796D0077180D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648E60E27E0796D0077180D /* AppDelegate.swift */; };
 		9648E61127E0796D0077180D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648E61027E0796D0077180D /* SceneDelegate.swift */; };
@@ -47,6 +48,11 @@
 		9651EE2C27EC5B1B0043FE52 /* UMAnalyticsSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651EE2B27EC5B1B0043FE52 /* UMAnalyticsSwift.swift */; };
 		9651EE2E27EC5BD30043FE52 /* UMShareSwiftInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651EE2D27EC5BD30043FE52 /* UMShareSwiftInterface.swift */; };
 		9651EE3027EC5C7E0043FE52 /* XWHUMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651EE2F27EC5C7E0043FE52 /* XWHUMManager.swift */; };
+		9653E48927F54D5900EE55FF /* XWHDataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9653E48827F54D5900EE55FF /* XWHDataExtension.swift */; };
+		9653E49027F552E300EE55FF /* XWHDevSetBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9653E48F27F552E300EE55FF /* XWHDevSetBaseVC.swift */; };
+		9653E49227F5545100EE55FF /* XWHDevSetChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9653E49127F5545100EE55FF /* XWHDevSetChatVC.swift */; };
+		9653E49427F5556300EE55FF /* XWHDevSetCallVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9653E49327F5556300EE55FF /* XWHDevSetCallVC.swift */; };
+		9653E49627F55D1B00EE55FF /* XWHDevSetSwitchTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9653E49527F55D1B00EE55FF /* XWHDevSetSwitchTBCell.swift */; };
 		9661517627E46BF5006781C1 /* UTESmartBandApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9661517427E46B7B006781C1 /* UTESmartBandApi.framework */; platformFilter = ios; };
 		9661517727E46BF5006781C1 /* UTESmartBandApi.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9661517427E46B7B006781C1 /* UTESmartBandApi.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96617A5F27E1D1A600139B03 /* XWHLaunchLogoS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96617A5D27E1D1A600139B03 /* XWHLaunchLogoS@2x.png */; };
@@ -164,6 +170,7 @@
 		960E767F27F00BB700A0DA25 /* XWHAddBrandDeviceCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHAddBrandDeviceCTCell.swift; sourceTree = "<group>"; };
 		960E768127F0574200A0DA25 /* XWHBaseCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBaseCTCell.swift; sourceTree = "<group>"; };
 		960E768427F0B17D00A0DA25 /* XWHSafari.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSafari.swift; sourceTree = "<group>"; };
+		9613E78427F4A0BC007A1589 /* XWHThemeConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHThemeConfig.swift; sourceTree = "<group>"; };
 		9628F84F27EE9EF300221C5E /* XWHLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLogin.swift; sourceTree = "<group>"; };
 		9648E60B27E0796D0077180D /* XiaoweHealthy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XiaoweHealthy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9648E60E27E0796D0077180D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -203,6 +210,11 @@
 		9651EE2B27EC5B1B0043FE52 /* UMAnalyticsSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UMAnalyticsSwift.swift; sourceTree = "<group>"; };
 		9651EE2D27EC5BD30043FE52 /* UMShareSwiftInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UMShareSwiftInterface.swift; sourceTree = "<group>"; };
 		9651EE2F27EC5C7E0043FE52 /* XWHUMManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUMManager.swift; sourceTree = "<group>"; };
+		9653E48827F54D5900EE55FF /* XWHDataExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataExtension.swift; sourceTree = "<group>"; };
+		9653E48F27F552E300EE55FF /* XWHDevSetBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetBaseVC.swift; sourceTree = "<group>"; };
+		9653E49127F5545100EE55FF /* XWHDevSetChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetChatVC.swift; sourceTree = "<group>"; };
+		9653E49327F5556300EE55FF /* XWHDevSetCallVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetCallVC.swift; sourceTree = "<group>"; };
+		9653E49527F55D1B00EE55FF /* XWHDevSetSwitchTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetSwitchTBCell.swift; sourceTree = "<group>"; };
 		9661517427E46B7B006781C1 /* UTESmartBandApi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTESmartBandApi.framework; sourceTree = "<group>"; };
 		96617A5D27E1D1A600139B03 /* XWHLaunchLogoS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XWHLaunchLogoS@2x.png"; sourceTree = "<group>"; };
 		96617A5E27E1D1A600139B03 /* XWHLaunchLogoS@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XWHLaunchLogoS@3x.png"; sourceTree = "<group>"; };
@@ -455,6 +467,7 @@
 				9651EE0F27EB30040043FE52 /* XWHKeyConfig.swift */,
 				9651EE2427EC15290043FE52 /* XWHTextDescriptionConfig.swift */,
 				9651EE2827EC58AA0043FE52 /* XWHThirdAppConfig.swift */,
+				9613E78427F4A0BC007A1589 /* XWHThemeConfig.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -553,6 +566,49 @@
 				9651EE2F27EC5C7E0043FE52 /* XWHUMManager.swift */,
 			);
 			path = UM;
+			sourceTree = "<group>";
+		};
+		9653E48A27F5519E00EE55FF /* DeviceSettings */ = {
+			isa = PBXGroup;
+			children = (
+				9653E48E27F552B500EE55FF /* View */,
+				9653E48D27F552B100EE55FF /* VC */,
+				9653E48B27F5523800EE55FF /* Chat */,
+				9653E48C27F5525C00EE55FF /* Call */,
+			);
+			path = DeviceSettings;
+			sourceTree = "<group>";
+		};
+		9653E48B27F5523800EE55FF /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				9653E49127F5545100EE55FF /* XWHDevSetChatVC.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		9653E48C27F5525C00EE55FF /* Call */ = {
+			isa = PBXGroup;
+			children = (
+				9653E49327F5556300EE55FF /* XWHDevSetCallVC.swift */,
+			);
+			path = Call;
+			sourceTree = "<group>";
+		};
+		9653E48D27F552B100EE55FF /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				9653E48F27F552E300EE55FF /* XWHDevSetBaseVC.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		9653E48E27F552B500EE55FF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9653E49527F55D1B00EE55FF /* XWHDevSetSwitchTBCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		9661517227E46A07006781C1 /* Supplier */ = {
@@ -679,6 +735,7 @@
 				96E8A6BC27F1738200F5C75C /* XWHUINavigationControllerExtension.swift */,
 				967823AC27F2C9DC004F66FB /* XWHUIFontExtension.swift */,
 				967823AA27F2C9B5004F66FB /* XWHUIImageExtension.swift */,
+				9653E48827F54D5900EE55FF /* XWHDataExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -919,6 +976,7 @@
 				967AF4BD27EF535B00235E08 /* ViewModel */,
 				967AF4BC27EF535600235E08 /* View */,
 				96617A9A27E2BFEB00139B03 /* VC */,
+				9653E48A27F5519E00EE55FF /* DeviceSettings */,
 			);
 			path = Device;
 			sourceTree = "<group>";
@@ -1292,7 +1350,9 @@
 				968CB8AC27F4570A00E549AC /* XWHDialMarketTBCell.swift in Sources */,
 				9678257C27F2F44D004F66FB /* RLRadarIndicatorView.swift in Sources */,
 				967AF4C327EF545800235E08 /* XWHDeviceVM.swift in Sources */,
+				9653E49027F552E300EE55FF /* XWHDevSetBaseVC.swift in Sources */,
 				9651EE0427EAF3100043FE52 /* XWHApiConfig.swift in Sources */,
+				9653E48927F54D5900EE55FF /* XWHDataExtension.swift in Sources */,
 				960E768027F00BB700A0DA25 /* XWHAddBrandDeviceCTCell.swift in Sources */,
 				96617AAF27E3457100139B03 /* XWHRegisterFillInfoBaseVC.swift in Sources */,
 				967AF4C127EF544200235E08 /* XWHDevicePagerViewCell.swift in Sources */,
@@ -1303,6 +1363,7 @@
 				96759D8627F3533C0098CA92 /* XWHSearchDeviceTBCell.swift in Sources */,
 				9651EE1E27EBFDAA0043FE52 /* XWHResponse.swift in Sources */,
 				96E23C2C27E1A579009EF208 /* XWHDeviceMainVC.swift in Sources */,
+				9653E49427F5556300EE55FF /* XWHDevSetCallVC.swift in Sources */,
 				9651EE1A27EBFBEA0043FE52 /* XWHError.swift in Sources */,
 				96617A9F27E302C900139B03 /* XWHPhoneNumView.swift in Sources */,
 				96617A7A27E1FE6B00139B03 /* XWHLoginVC.swift in Sources */,
@@ -1340,6 +1401,8 @@
 				960E768227F0574200A0DA25 /* XWHBaseCTCell.swift in Sources */,
 				9651EDFF27EAC2560043FE52 /* Repeater.swift in Sources */,
 				96E23C2827E1A53F009EF208 /* XWHSportMainVC.swift in Sources */,
+				9613E78527F4A0BC007A1589 /* XWHThemeConfig.swift in Sources */,
+				9653E49627F55D1B00EE55FF /* XWHDevSetSwitchTBCell.swift in Sources */,
 				96617A9D27E2FEE200139B03 /* XWHTextFieldBaseView.swift in Sources */,
 				96617AA127E30EF600139B03 /* XWHPasswordView.swift in Sources */,
 				96617A9727E2BFB600139B03 /* XWHOtherLoginView.swift in Sources */,
@@ -1370,6 +1433,7 @@
 				96617AA727E3196A00139B03 /* XWHCheckProtocolView.swift in Sources */,
 				9678257E27F2F495004F66FB /* RLRadarView.swift in Sources */,
 				967AF4C527EF547B00235E08 /* XWHDevice.swift in Sources */,
+				9653E49227F5545100EE55FF /* XWHDevSetChatVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

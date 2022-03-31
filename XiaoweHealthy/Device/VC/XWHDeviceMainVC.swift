@@ -27,7 +27,7 @@ class XWHDeviceMainVC: XWHSearchBindDevBaseVC {
     override func addSubViews() {
         super.addSubViews()
         
-        view.backgroundColor = UIColor(hex: 0xF8F8F8)
+        view.backgroundColor = collectionBgColor
         
         configTableView()
         view.addSubview(tableView)
@@ -214,20 +214,45 @@ extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableVi
         
         let item = deviceItems[section][row]
         
-        if item.type == .recover {
+        switch item.type {
+        case .recover:
             gotoRecover()
+            
+        case .chat:
+            gotoDevSetChat()
+            
+        case .call:
+            gotoDevSetCall()
+            
+        default:
             return
         }
     }
     
 }
 
+// MARK: - UI Jump
 extension XWHDeviceMainVC {
     
+    // 恢复出厂设置
     private func gotoRecover() {
         XWHAlert.show(title: R.string.xwhDeviceText.恢复出厂设置(), message: R.string.xwhDeviceText.恢复出厂设置后设备中的设置和运动健康数据将被清空您确定恢复吗(), cancelTitle: R.string.xwhDisplayText.取消(), confirmTitle: R.string.xwhDeviceText.恢复()) { [unowned self] cType in
-            self.view.makeInsetToast("恢复出厂设置了")
+            if cType == .confirm {
+                self.view.makeInsetToast("恢复出厂设置了")
+            }
         }
+    }
+    
+    // 消息通知
+    private func gotoDevSetChat() {
+        let vc = XWHDevSetChatVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // 来电提醒
+    private func gotoDevSetCall() {
+        let vc = XWHDevSetCallVC()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }

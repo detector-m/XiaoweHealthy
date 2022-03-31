@@ -18,7 +18,7 @@ class XWHCommonBaseTBCell: XWHBaseTBCell {
         contentView.addSubview(subIconView)
         
         subTitleLb.font = XWHFont.harmonyOSSans(ofSize: 12, weight: .regular)
-        subTitleLb.textColor = UIColor(hex: 0x000000, transparency: 0.27)
+        subTitleLb.textColor = fontLightColor
         subTitleLb.textAlignment = .right
         contentView.addSubview(subTitleLb)
     

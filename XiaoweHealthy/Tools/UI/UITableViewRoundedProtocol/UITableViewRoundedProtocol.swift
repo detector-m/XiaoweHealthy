@@ -37,7 +37,7 @@ protocol UITableViewRoundedProtocol {
 extension UITableViewRoundedProtocol {
     
     func rounded(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        rounded(tableView, willDisplay: cell, forRowAt: indexPath, cornerRadius: 16, bgColor: .white)
+        rounded(tableView, willDisplay: cell, forRowAt: indexPath, cornerRadius: 16, bgColor: bgColor)
     }
     
     func rounded(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath, cornerRadius: CGFloat, bgColor: UIColor) {
