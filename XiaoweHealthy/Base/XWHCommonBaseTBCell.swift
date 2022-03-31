@@ -23,7 +23,7 @@ class XWHCommonBaseTBCell: XWHBaseTBCell {
         contentView.addSubview(subTitleLb)
     
         titleLb.font = XWHFont.harmonyOSSans(ofSize: 16, weight: .medium)
-        subIconView.image = UIImage.iconFont(text: XWHIconFontOcticons.cellArrowRight.rawValue, size: 18, color: UIColor(hex: 0x000000, transparency: 0.15) ?? .black)
+        subIconView.image = UIImage.iconFont(text: XWHIconFontOcticons.cellArrowRight.rawValue, size: 18, color: fontLightColor)
     }
 
 }

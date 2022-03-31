@@ -74,6 +74,17 @@ var fontLightLightColor: UIColor {
     }
 }
 
+let lightTableSeparatorColor = UIColor(hex: 0x000000, transparency: 0.08)!
+let darkTableSeparatorColor = lightTableSeparatorColor
+
+var tableSeparatorColor: UIColor {
+    if #available(iOS 13.0, *) {
+        return UIColor(light: lightTableSeparatorColor, dark: darkTableSeparatorColor)
+    } else {
+        return lightTableSeparatorColor
+    }
+}
+
 //struct XWHThemeConfig {
 //
 //}

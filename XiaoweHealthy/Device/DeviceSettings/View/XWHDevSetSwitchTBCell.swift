@@ -38,8 +38,8 @@ class XWHDevSetSwitchTBCell: XWHCommonBaseTBCell {
     }
     
     @objc func clickButton() {
-        button.isSelected = !button.isSelected
-        clickAction?(button.isSelected)
+//        button.isSelected = !button.isSelected
+        clickAction?(!button.isSelected)
     }
     
     func relayoutTitleSubTitleLb() {

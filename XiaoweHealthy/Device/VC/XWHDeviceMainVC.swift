@@ -17,7 +17,8 @@ class XWHDeviceMainVC: XWHSearchBindDevBaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configDeviceItems()
+//        configDeviceItems()
+        reloadAll()
     }
     
     override func setupNavigationItems() {
@@ -224,6 +225,21 @@ extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableVi
         case .call:
             gotoDevSetCall()
             
+        case .heart:
+            gotoDevSetHeart()
+            
+        case .oxygen:
+            gotoDevSetOxygen()
+            
+        case .stand:
+            gotoDevSetStand()
+            
+        case .pressure:
+            gotoDevSetWeather()
+            
+        case .weather:
+            gotoDevSetWeather()
+            
         default:
             return
         }
@@ -252,6 +268,36 @@ extension XWHDeviceMainVC {
     // 来电提醒
     private func gotoDevSetCall() {
         let vc = XWHDevSetCallVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // 心率设置
+    private func gotoDevSetHeart() {
+        let vc = XWHDevSetHeartVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // 血氧饱和度设置
+    private func gotoDevSetOxygen() {
+        let vc = XWHDevSetOxygenVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // 久坐提醒
+    private func gotoDevSetStand() {
+        let vc = XWHDevSetStandVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // 压力设置
+    private func gotoDevSetPressure() {
+        let vc = XWHDevSetPressureVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // 天气推送
+    private func gotoDevSetWeather() {
+        let vc = XWHDevSetWeatherVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     

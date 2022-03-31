@@ -9,7 +9,7 @@ import UIKit
 
 class XWHDevSetBaseVC: XWHDeviceBaseVC, UITableViewDataSource, UITableViewDelegate {
     
-    lazy var tableView = UITableView()
+    lazy var tableView = UITableView(frame: .zero, style: .grouped)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,8 +38,6 @@ class XWHDevSetBaseVC: XWHDeviceBaseVC, UITableViewDataSource, UITableViewDelega
     private func configTableView() {
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
-        tableView.tableHeaderView = UIView()
-        tableView.tableFooterView = UIView()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = view.backgroundColor
@@ -72,27 +70,24 @@ class XWHDevSetBaseVC: XWHDeviceBaseVC, UITableViewDataSource, UITableViewDelega
 //        rounded(tableView, willDisplay: cell, forRowAt: indexPath)
 //    }
     
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 0.001
-//    }
-//
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        return UIView()
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return 12
-//    }
-//
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        let cView = UIView()
-//        cView.backgroundColor = UIColor(hex: 0xF8F8F8)
-//
-//        return cView
-//    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.001
     }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.001
+    }
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        
+//    }
 
 }
