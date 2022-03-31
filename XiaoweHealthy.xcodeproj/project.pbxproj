@@ -92,6 +92,8 @@
 		96617AB327E34CBB00139B03 /* XWHHeightSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96617AB227E34CBB00139B03 /* XWHHeightSelectVC.swift */; };
 		96617AB527E34F8B00139B03 /* XWHWeightSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96617AB427E34F8B00139B03 /* XWHWeightSelectVC.swift */; };
 		96617AB727E34FAA00139B03 /* XWHBirthdaySelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96617AB627E34FAA00139B03 /* XWHBirthdaySelectVC.swift */; };
+		9661D35827F5FD830062B2B8 /* XWHDevSetWristVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661D35727F5FD830062B2B8 /* XWHDevSetWristVC.swift */; };
+		9661D35A27F5FD970062B2B8 /* XWHDevSetDisturbVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661D35927F5FD970062B2B8 /* XWHDevSetDisturbVC.swift */; };
 		966F53C727F1E71800411D38 /* XWHSearchBindDevBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966F53C627F1E71800411D38 /* XWHSearchBindDevBaseVC.swift */; };
 		966F53C927F1E8B200411D38 /* XWHBindDeviceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966F53C827F1E8B200411D38 /* XWHBindDeviceVC.swift */; };
 		9672B25E27EEA48900DC80D6 /* XWHUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9672B25D27EEA48900DC80D6 /* XWHUser.swift */; };
@@ -262,6 +264,8 @@
 		96617AB227E34CBB00139B03 /* XWHHeightSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHeightSelectVC.swift; sourceTree = "<group>"; };
 		96617AB427E34F8B00139B03 /* XWHWeightSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHWeightSelectVC.swift; sourceTree = "<group>"; };
 		96617AB627E34FAA00139B03 /* XWHBirthdaySelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBirthdaySelectVC.swift; sourceTree = "<group>"; };
+		9661D35727F5FD830062B2B8 /* XWHDevSetWristVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetWristVC.swift; sourceTree = "<group>"; };
+		9661D35927F5FD970062B2B8 /* XWHDevSetDisturbVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetDisturbVC.swift; sourceTree = "<group>"; };
 		966F53C627F1E71800411D38 /* XWHSearchBindDevBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSearchBindDevBaseVC.swift; sourceTree = "<group>"; };
 		966F53C827F1E8B200411D38 /* XWHBindDeviceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBindDeviceVC.swift; sourceTree = "<group>"; };
 		9672B25D27EEA48900DC80D6 /* XWHUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUser.swift; sourceTree = "<group>"; };
@@ -598,6 +602,8 @@
 				9653E49D27F5A24200EE55FF /* Oxygen */,
 				9653E4AB27F5BD0900EE55FF /* Stand */,
 				9653E49E27F5A2E800EE55FF /* Weather */,
+				9661D35527F5FCED0062B2B8 /* Wrist */,
+				9661D35627F5FCF30062B2B8 /* Disturb */,
 			);
 			path = DeviceSettings;
 			sourceTree = "<group>";
@@ -873,6 +879,22 @@
 				96E23C2D27E1A586009EF208 /* XWHMeMainVC.swift */,
 			);
 			path = VC;
+			sourceTree = "<group>";
+		};
+		9661D35527F5FCED0062B2B8 /* Wrist */ = {
+			isa = PBXGroup;
+			children = (
+				9661D35727F5FD830062B2B8 /* XWHDevSetWristVC.swift */,
+			);
+			path = Wrist;
+			sourceTree = "<group>";
+		};
+		9661D35627F5FCF30062B2B8 /* Disturb */ = {
+			isa = PBXGroup;
+			children = (
+				9661D35927F5FD970062B2B8 /* XWHDevSetDisturbVC.swift */,
+			);
+			path = Disturb;
 			sourceTree = "<group>";
 		};
 		9672B25C27EEA47C00DC80D6 /* Module */ = {
@@ -1483,6 +1505,7 @@
 				966F53C927F1E8B200411D38 /* XWHBindDeviceVC.swift in Sources */,
 				9648E61127E0796D0077180D /* SceneDelegate.swift in Sources */,
 				96617A7227E1E12E00139B03 /* XWHExported.swift in Sources */,
+				9661D35A27F5FD970062B2B8 /* XWHDevSetDisturbVC.swift in Sources */,
 				9651EDF727E961740043FE52 /* XWHAlert.swift in Sources */,
 				96E23C2A27E1A55E009EF208 /* XWHHealthyMainVC.swift in Sources */,
 				9672B26227EF06FB00DC80D6 /* XWHAddBrandDeviceVC.swift in Sources */,
@@ -1492,6 +1515,7 @@
 				9653E4A427F5A60900EE55FF /* XWHDevSetHeartVC.swift in Sources */,
 				96617AA327E3110E00139B03 /* XWHPasswordLoginVC.swift in Sources */,
 				96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */,
+				9661D35827F5FD830062B2B8 /* XWHDevSetWristVC.swift in Sources */,
 				968CB8A627F40B5A00E549AC /* XWHDeviceDeploy.swift in Sources */,
 				9651EE0C27EB024B0043FE52 /* XWHNetworkHelper.swift in Sources */,
 				9653E4A027F5A32000EE55FF /* XWHDevSetPressureVC.swift in Sources */,

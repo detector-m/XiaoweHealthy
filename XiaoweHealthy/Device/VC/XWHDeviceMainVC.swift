@@ -240,6 +240,12 @@ extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableVi
         case .weather:
             gotoDevSetWeather()
             
+        case .wrist:
+            gotoDevSetWrist()
+            
+        case .disturb:
+            gotoDevSetDisturb()
+            
         default:
             return
         }
@@ -298,6 +304,18 @@ extension XWHDeviceMainVC {
     // 天气推送
     private func gotoDevSetWeather() {
         let vc = XWHDevSetWeatherVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // 抬腕亮屏
+    private func gotoDevSetWrist() {
+        let vc = XWHDevSetWristVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // 勿扰模式
+    private func gotoDevSetDisturb() {
+        let vc = XWHDevSetDisturbVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     
