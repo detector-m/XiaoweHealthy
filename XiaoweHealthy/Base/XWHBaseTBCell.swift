@@ -38,5 +38,12 @@ class XWHBaseTBCell: UITableViewCell {
         
     }
     
+    func relayoutOnlyTitleLb() {
+        iconView.isHidden = true
+        titleLb.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview().inset(2)
+            make.left.right.equalToSuperview().inset(28)
+        }
+    }
 
 }
