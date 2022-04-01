@@ -10,6 +10,9 @@ import UIKit
 class XWHDevSetOxygenVC: XWHDevSetBaseVC {
     
     var isOxygenOn = true
+    
+    lazy var monitorTimes = [10, 30, 60, 60 * 2, 60 * 3,  60 * 4,  60 * 5,  60 * 6,  60 * 7,  60 * 8]
+    lazy var sIndex = 2
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,7 +71,9 @@ class XWHDevSetOxygenVC: XWHDevSetBaseVC {
             let cell = tableView.dequeueReusableCell(withClass: XWHDevSetCommonTBCell.self)
             
             cell.titleLb.text = R.string.xwhDeviceText.监测频率()
-            cell.subTitleLb.text = "每1小时"
+            
+            let sTimeStr = getTimeText(mTime: monitorTimes[sIndex])
+            cell.subTitleLb.text = sTimeStr
             
             return cell
         }
@@ -86,7 +91,15 @@ extension XWHDevSetOxygenVC {
     
     // 选取监测频率
     fileprivate func gotoPickMonitorTime() {
-        view.makeInsetToast("选取监测频率")
+        let pickItems = monitorTimes.map({ getTimeText(mTime: $0) })
+        XWHPopupPick.show(pickItems: pickItems, sIndex: sIndex) { [unowned self] cType, index in
+            if cType == .cancel {
+                return
+            }
+            
+            self.sIndex = index
+            self.tableView.reloadData()
+        }
     }
     
 }

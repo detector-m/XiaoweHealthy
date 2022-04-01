@@ -11,6 +11,9 @@ class XWHDevSetWristVC: XWHDevSetBaseVC {
 
     var isWristOn = true
     
+    lazy var brightTimes = [5, 10, 15]
+    lazy var sIndex = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -71,7 +74,9 @@ class XWHDevSetWristVC: XWHDevSetBaseVC {
             let cell = tableView.dequeueReusableCell(withClass: XWHDevSetCommonTBCell.self)
             
             cell.titleLb.text = R.string.xwhDeviceText.提醒间隔()
-            cell.subTitleLb.text = "5s"
+            
+            let sTime = brightTimes[sIndex]
+            cell.subTitleLb.text = "\(sTime)s"
             
             return cell
         }
@@ -89,7 +94,15 @@ extension XWHDevSetWristVC {
     
     // 选取亮屏时长
     private func gotoPickBrightScreenTime() {
-        view.makeInsetToast("选取亮屏时长")
+        let pickItems = brightTimes.map({ $0.string + "s" })
+        XWHPopupPick.show(pickItems: pickItems, sIndex: sIndex) { [unowned self] cType, index in
+            if cType == .cancel {
+                return
+            }
+            
+            self.sIndex = index
+            self.tableView.reloadData()
+        }
     }
     
 }

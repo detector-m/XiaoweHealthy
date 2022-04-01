@@ -11,6 +11,9 @@ class XWHDevSetStandVC: XWHDevSetBaseVC {
 
     var isStandOn = true
     var isNotDisturbAtNoon = false
+    
+    lazy var warnTimes = [30, 45, 60, 60 * 2, 60 * 3]
+    lazy var sIndex = 2
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,7 +86,9 @@ class XWHDevSetStandVC: XWHDevSetBaseVC {
             let cell = tableView.dequeueReusableCell(withClass: XWHDevSetCommonTBCell.self)
             
             cell.titleLb.text = R.string.xwhDeviceText.提醒间隔()
-            cell.subTitleLb.text = "1小时"
+            
+            let sTimeStr = getTimeText(mTime: warnTimes[sIndex])
+            cell.subTitleLb.text = sTimeStr
             
             return cell
         }
@@ -101,7 +106,16 @@ extension XWHDevSetStandVC {
     
     // 选取久坐提醒间隔
     private func gotoPickStandWarnTime() {
-        view.makeInsetToast("选取久坐提醒间隔")
+        let pickItems = warnTimes.map({ getTimeText(mTime: $0) })
+        XWHPopupPick.show(pickItems: pickItems, sIndex: sIndex) { [unowned self] cType, index in
+            if cType == .cancel {
+                return
+            }
+            
+            self.sIndex = index
+            self.tableView.reloadData()
+        }
     }
-    
+
 }
+

@@ -216,8 +216,8 @@ extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableVi
         let item = deviceItems[section][row]
         
         switch item.type {
-        case .recover:
-            gotoRecover()
+        case .dialMarket:
+            gotoDevSetDailMarket()
             
         case .chat:
             gotoDevSetChat()
@@ -246,6 +246,18 @@ extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableVi
         case .disturb:
             gotoDevSetDisturb()
             
+            // 使用指南
+        case .guide:
+            gotoDevSetGuide()
+            
+            // 恢复出厂
+        case .recover:
+            gotoDevSetRecover()
+            
+            // 检查更新
+        case .update:
+            gotoDevSetUpdate()
+            
         default:
             return
         }
@@ -256,13 +268,9 @@ extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableVi
 // MARK: - UI Jump
 extension XWHDeviceMainVC {
     
-    // 恢复出厂设置
-    private func gotoRecover() {
-        XWHAlert.show(title: R.string.xwhDeviceText.恢复出厂设置(), message: R.string.xwhDeviceText.恢复出厂设置后设备中的设置和运动健康数据将被清空您确定恢复吗(), cancelTitle: R.string.xwhDisplayText.取消(), confirmTitle: R.string.xwhDeviceText.恢复()) { [unowned self] cType in
-            if cType == .confirm {
-                self.view.makeInsetToast("恢复出厂设置了")
-            }
-        }
+    // 表盘市场
+    private func gotoDevSetDailMarket() {
+        view.makeInsetToast("功能开发中...")
     }
     
     // 消息通知
@@ -317,6 +325,25 @@ extension XWHDeviceMainVC {
     private func gotoDevSetDisturb() {
         let vc = XWHDevSetDisturbVC()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // 使用指南
+    private func gotoDevSetGuide() {
+        XWHSafari.present(at: self, urlStr: "www.baidu.com")
+    }
+    
+    // 恢复出厂设置
+    private func gotoDevSetRecover() {
+        XWHAlert.show(title: R.string.xwhDeviceText.恢复出厂设置(), message: R.string.xwhDeviceText.恢复出厂设置后设备中的设置和运动健康数据将被清空您确定恢复吗(), cancelTitle: R.string.xwhDisplayText.取消(), confirmTitle: R.string.xwhDeviceText.恢复()) { [unowned self] cType in
+            if cType == .confirm {
+                self.view.makeInsetToast("恢复出厂设置了")
+            }
+        }
+    }
+    
+    // 检查更新
+    private func gotoDevSetUpdate() {
+        view.makeInsetToast("功能开发中...")
     }
     
 }

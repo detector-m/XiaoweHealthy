@@ -11,6 +11,11 @@ class XWHDevSetHeartVC: XWHDevSetBaseVC {
     
     var isHeartOn = true
     var isHeartHighWarn = true
+    
+    let warnMin = 100
+    let warnMax = 180
+    
+    var sIndex = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,7 +93,9 @@ class XWHDevSetHeartVC: XWHDevSetBaseVC {
             cell.topLine.isHidden = false
             
             cell.titleLb.text = R.string.xwhDeviceText.心率预警值()
-            cell.subTitleLb.text = "5s"
+            
+            let valueStr = (warnMin + sIndex * 10).string + R.string.xwhDeviceText.次分钟()
+            cell.subTitleLb.text = valueStr
             
             return cell
         }
@@ -106,7 +113,17 @@ class XWHDevSetHeartVC: XWHDevSetBaseVC {
 extension XWHDevSetHeartVC {
     
     private func gotoPickHeartWarnValue() {
-        view.makeInsetToast("选取一个心率预警值")
+        let pickItems = stride(from: warnMin, through: warnMax, by: 10).map { value in
+            return value.string + R.string.xwhDeviceText.次分钟()
+        }
+        XWHPopupPick.show(pickItems: pickItems, sIndex: sIndex) { [unowned self] cType, index in
+            if cType == .cancel {
+                return
+            }
+            
+            self.sIndex = index
+            self.tableView.reloadData()
+        }
     }
     
 }

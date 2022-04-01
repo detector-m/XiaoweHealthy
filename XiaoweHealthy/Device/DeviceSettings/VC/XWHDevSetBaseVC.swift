@@ -91,3 +91,18 @@ class XWHDevSetBaseVC: XWHDeviceBaseVC, UITableViewDataSource, UITableViewDelega
 //    }
 
 }
+
+extension XWHDevSetBaseVC {
+    
+    func getTimeText(mTime: Int) -> String {
+        var mTimeStr = ""
+        if mTime >= 60 {
+            mTimeStr = (mTime / 60).string + R.string.xwhDeviceText.小时()
+        } else {
+            mTimeStr = mTime.string + R.string.xwhDeviceText.分钟()
+        }
+        
+        return mTimeStr
+    }
+    
+}
