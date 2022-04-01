@@ -33,4 +33,6 @@ enum XWHIconFontOcticons: String {
     
     case cellArrowRight = "\u{e670}"
     
+    case update = "\u{e678}"
+    
 }

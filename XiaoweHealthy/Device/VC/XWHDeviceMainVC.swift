@@ -88,15 +88,12 @@ extension XWHDeviceMainVC {
         tableView.delegate = self
         tableView.backgroundColor = view.backgroundColor
         tableView.separatorStyle = .none
+//        tableView.isExclusiveTouch = true
         
         tableView.tableFooterView = tableFooter
         
         tableFooter.clickCallback = { [unowned self] in
-            XWHAlert.show(title: nil, message: R.string.xwhDeviceText.确认解除绑定的设备吗(), cancelTitle: R.string.xwhDisplayText.取消(), confirmTitle: R.string.xwhDeviceText.解除绑定()) { cType in
-                if cType == .confirm {
-                    self.view.makeInsetToast("已经解除绑定")
-                }
-            }
+            self.gotoDevSetUnbind()
         }
         
         registerTableViewCell()
@@ -329,12 +326,15 @@ extension XWHDeviceMainVC {
     
     // 使用指南
     private func gotoDevSetGuide() {
-        XWHSafari.present(at: self, urlStr: "www.baidu.com")
+        XWHSafari.present(at: self, urlStr: "https://www.baidu.com")
     }
     
     // 恢复出厂设置
     private func gotoDevSetRecover() {
+        tableFooter.button.cancelTracking(with: nil)
+//        tableFooter.button.touchesCancelled([UITouch()], with: nil)
         XWHAlert.show(title: R.string.xwhDeviceText.恢复出厂设置(), message: R.string.xwhDeviceText.恢复出厂设置后设备中的设置和运动健康数据将被清空您确定恢复吗(), cancelTitle: R.string.xwhDisplayText.取消(), confirmTitle: R.string.xwhDeviceText.恢复()) { [unowned self] cType in
+            
             if cType == .confirm {
                 self.view.makeInsetToast("恢复出厂设置了")
             }
@@ -343,7 +343,19 @@ extension XWHDeviceMainVC {
     
     // 检查更新
     private func gotoDevSetUpdate() {
-        view.makeInsetToast("功能开发中...")
+        let vc = XWHDevSetUpdateVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // 解除绑定
+    private func gotoDevSetUnbind() {
+        tableView.isUserInteractionEnabled = false
+        XWHAlert.show(title: nil, message: R.string.xwhDeviceText.确认解除绑定的设备吗(), cancelTitle: R.string.xwhDisplayText.取消(), confirmTitle: R.string.xwhDeviceText.解除绑定()) { [unowned self] cType in
+            self.tableView.isUserInteractionEnabled = true
+            if cType == .confirm {
+                self.view.makeInsetToast("已经解除绑定")
+            }
+        }
     }
     
 }

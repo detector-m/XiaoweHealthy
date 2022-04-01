@@ -85,6 +85,17 @@ var tableSeparatorColor: UIColor {
     }
 }
 
+let lightBtnBgColor = UIColor(hex: 0x2DC84D)!
+let darkBtnBgColor = lightBtnBgColor
+
+var btnBgColor: UIColor {
+    if #available(iOS 13.0, *) {
+        return UIColor(light: lightBtnBgColor, dark: darkBtnBgColor)
+    } else {
+        return lightBtnBgColor
+    }
+}
+
 //struct XWHThemeConfig {
 //
 //}
