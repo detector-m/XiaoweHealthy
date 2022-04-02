@@ -53,9 +53,9 @@ class XWHHealthyMainVC: XWHBaseVC {
 
     @objc func clickLoginBtn() {
         XWHLogin.present(at: self)
+            
         
-//        let vc = XWHLoginVC()
-//        navigationController?.pushViewController(vc, animated: true)
+//        testBridge()
     }
     
     @objc func clickLoginBtn2() {
@@ -85,6 +85,11 @@ extension XWHHealthyMainVC {
         } catch let e {
             log.error(e)
         }
+    }
+    
+    fileprivate func testBridge() {
+        let vc = XWHTestWebViewBridgeVC()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }

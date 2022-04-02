@@ -127,6 +127,9 @@
 		969F01BD27F69D8B00CA4DA4 /* XWHPopupPick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F01BC27F69D8B00CA4DA4 /* XWHPopupPick.swift */; };
 		969F01C027F6DBB600CA4DA4 /* XWHDevSetUpdateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F01BF27F6DBB600CA4DA4 /* XWHDevSetUpdateVC.swift */; };
 		969F01C227F6DDF800CA4DA4 /* XWHDevSetUpdateHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F01C127F6DDF800CA4DA4 /* XWHDevSetUpdateHeaderView.swift */; };
+		96D0041427F821D100E569C7 /* XWHTestWebViewBridge.html in Resources */ = {isa = PBXBuildFile; fileRef = 96D0041327F821D100E569C7 /* XWHTestWebViewBridge.html */; };
+		96D0041727F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D0041627F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift */; };
+		96D0041927F8236D00E569C7 /* XWHJsApiTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D0041827F8236D00E569C7 /* XWHJsApiTest.swift */; };
 		96E23C0A27E1898C009EF208 /* XWHTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */; };
 		96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */; };
 		96E23C1427E18D19009EF208 /* XWHDisplayText.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96E23C1627E18D19009EF208 /* XWHDisplayText.strings */; };
@@ -305,6 +308,9 @@
 		969F01BC27F69D8B00CA4DA4 /* XWHPopupPick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPopupPick.swift; sourceTree = "<group>"; };
 		969F01BF27F6DBB600CA4DA4 /* XWHDevSetUpdateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetUpdateVC.swift; sourceTree = "<group>"; };
 		969F01C127F6DDF800CA4DA4 /* XWHDevSetUpdateHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetUpdateHeaderView.swift; sourceTree = "<group>"; };
+		96D0041327F821D100E569C7 /* XWHTestWebViewBridge.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = XWHTestWebViewBridge.html; sourceTree = "<group>"; };
+		96D0041627F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTestWebViewBridgeVC.swift; sourceTree = "<group>"; };
+		96D0041827F8236D00E569C7 /* XWHJsApiTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHJsApiTest.swift; sourceTree = "<group>"; };
 		96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTabBarVC.swift; sourceTree = "<group>"; };
 		96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHRootVCProvider.swift; sourceTree = "<group>"; };
 		96E23C1727E18D9C009EF208 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/XWHDisplayText.strings"; sourceTree = "<group>"; };
@@ -430,6 +436,7 @@
 				96E23C2227E1A322009EF208 /* Sport */,
 				96E23C2327E1A32F009EF208 /* Device */,
 				96E23C2427E1A33E009EF208 /* Me */,
+				96D0041127F8212400E569C7 /* WebViewBridge */,
 				96E23C0827E18947009EF208 /* RootVC */,
 				96617A6F27E1E06700139B03 /* Tools */,
 				96617A6A27E1DFC000139B03 /* Base */,
@@ -1043,6 +1050,24 @@
 			path = Update;
 			sourceTree = "<group>";
 		};
+		96D0041127F8212400E569C7 /* WebViewBridge */ = {
+			isa = PBXGroup;
+			children = (
+				96D0041227F8219100E569C7 /* Test */,
+			);
+			path = WebViewBridge;
+			sourceTree = "<group>";
+		};
+		96D0041227F8219100E569C7 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				96D0041327F821D100E569C7 /* XWHTestWebViewBridge.html */,
+				96D0041627F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift */,
+				96D0041827F8236D00E569C7 /* XWHJsApiTest.swift */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
 		96E23C0627E18003009EF208 /* AppEntry */ = {
 			isa = PBXGroup;
 			children = (
@@ -1287,6 +1312,7 @@
 				96FC408327EDA4F400D64B64 /* SKSans-Regular.otf in Resources */,
 				96FC407727EDA16800D64B64 /* HarmonyOS_Sans_SC_Regular.ttf in Resources */,
 				9648E61827E0796E0077180D /* Assets.xcassets in Resources */,
+				96D0041427F821D100E569C7 /* XWHTestWebViewBridge.html in Resources */,
 				967823AF27F2CA42004F66FB /* iconfont.ttf in Resources */,
 				96617A6027E1D1A600139B03 /* XWHLaunchLogoS@3x.png in Resources */,
 				967AF4CC27EF568A00235E08 /* 2.jpg in Resources */,
@@ -1540,6 +1566,7 @@
 				969F01BA27F693B100CA4DA4 /* RLPopupBaseView.swift in Sources */,
 				96617A6E27E1E00E00139B03 /* XWHBaseVC.swift in Sources */,
 				9678257927F2EF3B004F66FB /* XWHDeviceFaceView.swift in Sources */,
+				96D0041727F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift in Sources */,
 				96617AA927E328C800139B03 /* XWHResetPasswordVC.swift in Sources */,
 				9651EE3027EC5C7E0043FE52 /* XWHUMManager.swift in Sources */,
 				9672B26027EF05F700DC80D6 /* XWHAddDeviceEntryVC.swift in Sources */,
@@ -1584,6 +1611,7 @@
 				969F01BD27F69D8B00CA4DA4 /* XWHPopupPick.swift in Sources */,
 				9651EE1727EB6D040043FE52 /* XWHUserVM.swift in Sources */,
 				967823AB27F2C9B5004F66FB /* XWHUIImageExtension.swift in Sources */,
+				96D0041927F8236D00E569C7 /* XWHJsApiTest.swift in Sources */,
 				96617AA727E3196A00139B03 /* XWHCheckProtocolView.swift in Sources */,
 				9653E4A227F5A4A400EE55FF /* XWHDevSetWeatherVC.swift in Sources */,
 				9678257E27F2F495004F66FB /* RLRadarView.swift in Sources */,
