@@ -61,6 +61,18 @@ target 'XiaoweHealthy' do
   # 轮播图
   pod 'FSPagerView'
   
+  # 下载进度条
+  pod 'LinearProgressBar'
+  
+  # 文件下载管理
+  pod 'Tiercel'
+  
+  # 网络图片处理
+  pod 'Kingfisher'
+  
+  # 文件管理
+  pod 'Files'
+  
   # toast
   pod 'Toast-Swift'
   

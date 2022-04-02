@@ -15,6 +15,7 @@
 		960E768527F0B17D00A0DA25 /* XWHSafari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960E768427F0B17D00A0DA25 /* XWHSafari.swift */; };
 		9613E78527F4A0BC007A1589 /* XWHThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613E78427F4A0BC007A1589 /* XWHThemeConfig.swift */; };
 		9628F85027EE9EF300221C5E /* XWHLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9628F84F27EE9EF300221C5E /* XWHLogin.swift */; };
+		9644928827F7EB2F001CA321 /* XWHProgressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9644928727F7EB2F001CA321 /* XWHProgressButton.swift */; };
 		9648E60F27E0796D0077180D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648E60E27E0796D0077180D /* AppDelegate.swift */; };
 		9648E61127E0796D0077180D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648E61027E0796D0077180D /* SceneDelegate.swift */; };
 		9648E61327E0796D0077180D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648E61227E0796D0077180D /* ViewController.swift */; };
@@ -188,6 +189,7 @@
 		960E768427F0B17D00A0DA25 /* XWHSafari.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSafari.swift; sourceTree = "<group>"; };
 		9613E78427F4A0BC007A1589 /* XWHThemeConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHThemeConfig.swift; sourceTree = "<group>"; };
 		9628F84F27EE9EF300221C5E /* XWHLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLogin.swift; sourceTree = "<group>"; };
+		9644928727F7EB2F001CA321 /* XWHProgressButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHProgressButton.swift; sourceTree = "<group>"; };
 		9648E60B27E0796D0077180D /* XiaoweHealthy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XiaoweHealthy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9648E60E27E0796D0077180D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9648E61027E0796D0077180D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -386,6 +388,14 @@
 				9628F84F27EE9EF300221C5E /* XWHLogin.swift */,
 			);
 			path = Module;
+			sourceTree = "<group>";
+		};
+		9644928627F7EAC9001CA321 /* ProgressButton */ = {
+			isa = PBXGroup;
+			children = (
+				9644928727F7EB2F001CA321 /* XWHProgressButton.swift */,
+			);
+			path = ProgressButton;
 			sourceTree = "<group>";
 		};
 		9648E60227E0796D0077180D = {
@@ -770,10 +780,11 @@
 		96617A7027E1E07B00139B03 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				969F01BB27F69D5500CA4DA4 /* PopupPick */,
+				9644928627F7EAC9001CA321 /* ProgressButton */,
 				968CB8A127F3FB3700E549AC /* UITableViewRoundedProtocol */,
 				9678257A27F2F40A004F66FB /* RadarView */,
 				9678257727F2EE8A004F66FB /* Common */,
+				969F01BB27F69D5500CA4DA4 /* PopupPick */,
 				9651EDF527E961210043FE52 /* Alert */,
 				9651EDF027E854120043FE52 /* ProgressHUD */,
 				9651EDED27E8480B0043FE52 /* Popup */,
@@ -1557,6 +1568,7 @@
 				9653E4A427F5A60900EE55FF /* XWHDevSetHeartVC.swift in Sources */,
 				96617AA327E3110E00139B03 /* XWHPasswordLoginVC.swift in Sources */,
 				96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */,
+				9644928827F7EB2F001CA321 /* XWHProgressButton.swift in Sources */,
 				9661D35827F5FD830062B2B8 /* XWHDevSetWristVC.swift in Sources */,
 				968CB8A627F40B5A00E549AC /* XWHDeviceDeploy.swift in Sources */,
 				9651EE0C27EB024B0043FE52 /* XWHNetworkHelper.swift in Sources */,

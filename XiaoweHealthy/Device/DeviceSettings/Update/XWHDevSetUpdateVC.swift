@@ -6,12 +6,15 @@
 //
 
 import UIKit
+import LinearProgressBar
 
 class XWHDevSetUpdateVC: XWHDevSetBaseVC {
     
     lazy var headerView = XWHDevSetUpdateHeaderView()
     
-    lazy var button = UIButton()
+    lazy var button = XWHProgressButton()
+    
+    private lazy var testTimer = RLCountDownTimer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,9 +27,10 @@ class XWHDevSetUpdateVC: XWHDevSetBaseVC {
         
         button.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 16, weight: .medium)
         button.setTitleColor(fontLightLightColor, for: .normal)
-        button.layer.backgroundColor = btnBgColor.cgColor
-        button.layer.cornerRadius = 24
         button.addTarget(self, action: #selector(clickButton), for: .touchUpInside)
+        button.progressView.capType = 1
+        button.progressView.trackColor = btnBgColor.withAlphaComponent(0.35)
+        button.progressView.barColor = btnBgColor
         view.addSubview(button)
 
         titleLb.text = R.string.xwhDeviceText.检查更新()
@@ -63,7 +67,10 @@ class XWHDevSetUpdateVC: XWHDevSetBaseVC {
     }
     
     @objc func clickButton() {
-        
+        testTimer.createTimer { [unowned self] in
+            self.button.progressView.progressValue = abs(self.testTimer.curCount - 10).cgFloat * 10
+        }
+        testTimer.timer?.start()
     }
     
 
