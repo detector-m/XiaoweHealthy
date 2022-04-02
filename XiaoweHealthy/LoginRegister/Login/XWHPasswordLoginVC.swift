@@ -179,10 +179,17 @@ extension XWHPasswordLoginVC {
         XWHProgressHUD.show(text: R.string.xwhDisplayText.加速登录中())
         
         let phone = phoneNumView.textFiled.text ?? ""
-        let password = passwordView.textFiled.text ?? ""
+        let password = passwordView.textFiled.text
+        
+        guard let ePassword = password?.aesEncrypt() else {
+//            view.makeInsetToast()
+            log.error("登录失败")
+            
+            return
+        }
         
         let vm = XWHLoginRegisterVM()
-        vm.login(parameters: vm.getPasswordLoginParameters(phoneNum: phone, password: password)) { [weak self] error in
+        vm.login(parameters: vm.getPasswordLoginParameters(phoneNum: phone, password: ePassword)) { [weak self] error in
             XWHProgressHUD.hide()
             
             self?.view.makeInsetToast(error.message)

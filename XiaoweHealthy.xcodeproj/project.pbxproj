@@ -130,6 +130,7 @@
 		96D0041427F821D100E569C7 /* XWHTestWebViewBridge.html in Resources */ = {isa = PBXBuildFile; fileRef = 96D0041327F821D100E569C7 /* XWHTestWebViewBridge.html */; };
 		96D0041727F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D0041627F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift */; };
 		96D0041927F8236D00E569C7 /* XWHJsApiTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D0041827F8236D00E569C7 /* XWHJsApiTest.swift */; };
+		96D0041C27F8328B00E569C7 /* XWHCryptoAES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D0041B27F8328B00E569C7 /* XWHCryptoAES.swift */; };
 		96E23C0A27E1898C009EF208 /* XWHTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */; };
 		96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */; };
 		96E23C1427E18D19009EF208 /* XWHDisplayText.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96E23C1627E18D19009EF208 /* XWHDisplayText.strings */; };
@@ -311,6 +312,7 @@
 		96D0041327F821D100E569C7 /* XWHTestWebViewBridge.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = XWHTestWebViewBridge.html; sourceTree = "<group>"; };
 		96D0041627F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTestWebViewBridgeVC.swift; sourceTree = "<group>"; };
 		96D0041827F8236D00E569C7 /* XWHJsApiTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHJsApiTest.swift; sourceTree = "<group>"; };
+		96D0041B27F8328B00E569C7 /* XWHCryptoAES.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCryptoAES.swift; sourceTree = "<group>"; };
 		96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTabBarVC.swift; sourceTree = "<group>"; };
 		96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHRootVCProvider.swift; sourceTree = "<group>"; };
 		96E23C1727E18D9C009EF208 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/XWHDisplayText.strings"; sourceTree = "<group>"; };
@@ -774,6 +776,7 @@
 		96617A6F27E1E06700139B03 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				96D0041A27F8323C00E569C7 /* Crypto */,
 				9678257427F2DCAB004F66FB /* IconFont */,
 				96FC406C27ED91EC00D64B64 /* Font */,
 				9651EE0527EAF5980043FE52 /* Network */,
@@ -1066,6 +1069,14 @@
 				96D0041827F8236D00E569C7 /* XWHJsApiTest.swift */,
 			);
 			path = Test;
+			sourceTree = "<group>";
+		};
+		96D0041A27F8323C00E569C7 /* Crypto */ = {
+			isa = PBXGroup;
+			children = (
+				96D0041B27F8328B00E569C7 /* XWHCryptoAES.swift */,
+			);
+			path = Crypto;
 			sourceTree = "<group>";
 		};
 		96E23C0627E18003009EF208 /* AppEntry */ = {
@@ -1505,6 +1516,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96D0041C27F8328B00E569C7 /* XWHCryptoAES.swift in Sources */,
 				9651EE0127EAC6730043FE52 /* RLCountDownTimer.swift in Sources */,
 				96617AB527E34F8B00139B03 /* XWHWeightSelectVC.swift in Sources */,
 				969F01B827F692AE00CA4DA4 /* RLPopupContentBaseView.swift in Sources */,

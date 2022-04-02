@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import CryptoSwift
-import CryptoKit
 
 class XWHHealthyMainVC: XWHBaseVC {
     
@@ -53,7 +51,6 @@ class XWHHealthyMainVC: XWHBaseVC {
 
     @objc func clickLoginBtn() {
         XWHLogin.present(at: self)
-            
         
 //        testBridge()
     }
@@ -61,7 +58,7 @@ class XWHHealthyMainVC: XWHBaseVC {
     @objc func clickLoginBtn2() {
         XWHLogin.presentPasswordLogin(at: self)
         
-//        testAES()
+//        XWHCryptoAES.test()
     }
 
 }
@@ -69,23 +66,6 @@ class XWHHealthyMainVC: XWHBaseVC {
 
 // MARK: - Test
 extension XWHHealthyMainVC {
-    
-    fileprivate func testAES() {
-        do {
-            let str = "VHn5WXeXswWKN3wRs9bG3w=="
-            let keyStr = "EUaIBFQcCS0rEUUs8YAEww=="
-            let key = Data(base64Encoded: keyStr)!
-            let keyBytes = [UInt8](key)
-            
-            let aes = try AES(key: keyBytes, blockMode: ECB(), padding: .pkcs5)
-            
-            let aStr = try str.decryptBase64ToString(cipher: aes)
-            
-            log.error(aStr)
-        } catch let e {
-            log.error(e)
-        }
-    }
     
     fileprivate func testBridge() {
         let vc = XWHTestWebViewBridgeVC()

@@ -119,9 +119,16 @@ class XWHResetPasswordVC: XWHBindPhoneVC {
         
         let phoneNum = phoneNumView.textFiled.text ?? ""
         let code = codeView.textFiled.text ?? ""
-        let pw = passwordView.textFiled.text ?? ""
+        let pw = passwordView.textFiled.text
         
-        gotoResetPassword(phoneNum: phoneNum, code: code, pw: pw)
+        guard let ePassword = pw?.aesEncrypt() else {
+//            view.makeInsetToast()
+            log.error("重置密码失败")
+            
+            return
+        }
+        
+        gotoResetPassword(phoneNum: phoneNum, code: code, pw: ePassword)
     }
     
     @objc override func textFiledChanged(sender: UITextField) {
