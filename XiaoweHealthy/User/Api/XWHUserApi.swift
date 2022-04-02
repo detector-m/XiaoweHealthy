@@ -12,11 +12,23 @@ let userProvider = MoyaProvider<XWHUserApi>()
 
 enum XWHUserApi {
     
+    // 获取用户信息
     case profile
     
+    // 更新用户信息
     case update(parameters: [String: Any])
     
+    // 设置密码
     case setPassword(parameters: [String: String])
+    
+    // 绑定设备
+    case bindDevice(parameters: [String: String])
+    
+    // 解绑设备
+    case unbindDevice(deviceSn: String)
+    
+    // 查询用户设备列表
+    case devices
     
 }
 
@@ -32,6 +44,15 @@ extension XWHUserApi: XWHServiceTargetType {
             
         case .setPassword:
             return "/user/set_password"
+            
+        case .bindDevice:
+            return "/user/bind_device"
+            
+        case .unbindDevice:
+            return "/user/remove_device"
+            
+        case .devices:
+            return "/user/devices"
         }
     }
     
@@ -40,7 +61,8 @@ extension XWHUserApi: XWHServiceTargetType {
         case .profile:
             return .get
             
-        case .update, .setPassword:
+//        case .update, .setPassword:
+        default:
             return .post
         }
     }
@@ -53,15 +75,23 @@ extension XWHUserApi: XWHServiceTargetType {
 //            param = ["mobile": phoneNum]
             break
             
-            
         case .update(parameters: let cParam):
             param = cParam
-            
-        case .setPassword(parameters: let cParam):
+                        
+        case let .setPassword(parameters: cParam), let .bindDevice(parameters: cParam):
             param = cParam
+            
+        case .unbindDevice(deviceSn: let deviceSn):
+            param = ["deviceSn": deviceSn]
+            
+        case .devices:
+            break
         }
         
         log.debug("url: \(baseURL.absoluteString + path) param: \(param)")
+        if param.isEmpty {
+            return .requestPlain
+        }
         return .requestParameters(parameters: param, encoding: JSONEncoding.default)
     }
     

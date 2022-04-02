@@ -10,6 +10,14 @@ import Foundation
 
 class XWHUserVM {
     
+    // 获取用户信息
+    func profile(failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        userProvider.request(.profile) { result in
+            let cId = "User.Profile"
+            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler)
+        }
+    }
+    
     // 更新用户信息
     func update(userModel: XWHUserModel, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
         let cParam = userModel.toJSON() ?? [:]
@@ -101,5 +109,14 @@ class XWHUserVM {
             }
         }
     }
+    
+//    // 绑定设备
+//    case bindDevice(parameters: [String: String])
+//
+//    // 解绑设备
+//    case unbindDevice(deviceSn: String)
+//
+//    // 查询用户设备列表
+//    case devices
     
 }
