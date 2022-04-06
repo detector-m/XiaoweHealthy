@@ -130,6 +130,7 @@
 		96D0041727F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D0041627F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift */; };
 		96D0041927F8236D00E569C7 /* XWHJsApiTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D0041827F8236D00E569C7 /* XWHJsApiTest.swift */; };
 		96D0041C27F8328B00E569C7 /* XWHCryptoAES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D0041B27F8328B00E569C7 /* XWHCryptoAES.swift */; };
+		96DC429327FD26A9009BF300 /* XWHJsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DC429227FD26A9009BF300 /* XWHJsApi.swift */; };
 		96E23C0A27E1898C009EF208 /* XWHTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */; };
 		96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */; };
 		96E23C1427E18D19009EF208 /* XWHDisplayText.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96E23C1627E18D19009EF208 /* XWHDisplayText.strings */; };
@@ -311,6 +312,7 @@
 		96D0041627F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTestWebViewBridgeVC.swift; sourceTree = "<group>"; };
 		96D0041827F8236D00E569C7 /* XWHJsApiTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHJsApiTest.swift; sourceTree = "<group>"; };
 		96D0041B27F8328B00E569C7 /* XWHCryptoAES.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCryptoAES.swift; sourceTree = "<group>"; };
+		96DC429227FD26A9009BF300 /* XWHJsApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHJsApi.swift; sourceTree = "<group>"; };
 		96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTabBarVC.swift; sourceTree = "<group>"; };
 		96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHRootVCProvider.swift; sourceTree = "<group>"; };
 		96E23C1727E18D9C009EF208 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/XWHDisplayText.strings"; sourceTree = "<group>"; };
@@ -1055,6 +1057,7 @@
 			isa = PBXGroup;
 			children = (
 				96D0041227F8219100E569C7 /* Test */,
+				96DC429227FD26A9009BF300 /* XWHJsApi.swift */,
 			);
 			path = WebViewBridge;
 			sourceTree = "<group>";
@@ -1622,6 +1625,7 @@
 				96D0041927F8236D00E569C7 /* XWHJsApiTest.swift in Sources */,
 				96617AA727E3196A00139B03 /* XWHCheckProtocolView.swift in Sources */,
 				9653E4A227F5A4A400EE55FF /* XWHDevSetWeatherVC.swift in Sources */,
+				96DC429327FD26A9009BF300 /* XWHJsApi.swift in Sources */,
 				9678257E27F2F495004F66FB /* RLRadarView.swift in Sources */,
 				967AF4C527EF547B00235E08 /* XWHDevice.swift in Sources */,
 				9653E49227F5545100EE55FF /* XWHDevSetChatVC.swift in Sources */,

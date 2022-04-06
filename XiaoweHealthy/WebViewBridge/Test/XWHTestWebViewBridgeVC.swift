@@ -18,6 +18,7 @@ class XWHTestWebViewBridgeVC: UIViewController {
         view.addSubview(webView)
         
         webView.addJavascriptObject(XWHJsApiTest(), namespace: "swift")
+        webView.addJavascriptObject(XWHJsApi(), namespace: nil)
         
         // load test.html
         let path = Bundle.main.bundlePath
