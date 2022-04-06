@@ -14,7 +14,10 @@ class XWHUserVM {
     func profile(failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
         userProvider.request(.profile) { result in
             let cId = "User.Profile"
-            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler)
+            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
+                let userModel = XWHUserModel.deserialize(from: json.dictionaryValue)
+                return userModel
+            }
         }
     }
     

@@ -59,6 +59,8 @@ class XWHHealthyMainVC: XWHBaseVC {
         XWHLogin.presentPasswordLogin(at: self)
         
 //        XWHCryptoAES.test()
+        
+//        testUserProfile()
     }
 
 }
@@ -70,6 +72,15 @@ extension XWHHealthyMainVC {
     fileprivate func testBridge() {
         let vc = XWHTestWebViewBridgeVC()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    fileprivate func testUserProfile() {
+        XWHUserVM().profile { error in
+            self.view.makeInsetToast(error.message)
+        } successHandler: { response in
+            self.view.makeInsetToast(response.data.debugDescription)
+        }
+
     }
     
 }

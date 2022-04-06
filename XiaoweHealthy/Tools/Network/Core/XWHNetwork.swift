@@ -15,8 +15,7 @@ typealias ParseDataHandler = (SwiftyJSON.JSON, XWHResponse) -> Any?
 
 class XWHNetwork {
     
-    @discardableResult
-    class func handleResult(rId: String, result: Result<Moya.Response, MoyaError>, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil, parseDataHandler: ParseDataHandler? = nil) -> Bool {
+    class func handleResult(rId: String, result: Result<Moya.Response, MoyaError>, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil, parseDataHandler: ParseDataHandler? = nil) {
         let cId = rId
         var retError = XWHError()
         retError.identifier = cId
@@ -28,8 +27,7 @@ class XWHNetwork {
             log.error(retError)
             
             failureHandler?(retError)
-            
-            return false
+            return
             
         case .success(let response):
             let cJson = try? JSON(data: response.data)
@@ -40,7 +38,7 @@ class XWHNetwork {
                 
                 failureHandler?(retError)
                 
-                return false
+                return
             }
             
             log.info(json.dictionaryObject)
@@ -51,15 +49,13 @@ class XWHNetwork {
                 log.error(retError)
                 
                 failureHandler?(retError)
-                return false
+                return
             }
             
             let retResponse = XWHResponse()
             retResponse.identifier = cId
             retResponse.data = parseDataHandler?(json["data"], retResponse)
             successHandler?(retResponse)
-            
-            return true
         }
     }
     
