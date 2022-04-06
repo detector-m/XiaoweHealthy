@@ -7,12 +7,15 @@
 
 import UIKit
 import LinearProgressBar
+import SwiftyJSON
 
 class XWHDevSetUpdateVC: XWHDevSetBaseVC {
     
     lazy var headerView = XWHDevSetUpdateHeaderView()
     
     lazy var button = XWHProgressButton()
+    
+    var updateInfo: JSON?
     
     private lazy var testTimer = RLCountDownTimer()
 
@@ -36,6 +39,11 @@ class XWHDevSetUpdateVC: XWHDevSetBaseVC {
         titleLb.text = R.string.xwhDeviceText.检查更新()
         
         button.setTitle(R.string.xwhDeviceText.下载升级包N(), for: .normal)
+        
+        let verStr = updateInfo?["versionNo"].string ?? ""
+        if !verStr.isEmpty {
+            headerView.titleLb.text = verStr + "\n发现新版本"
+        }
     }
     
     override func relayoutSubViews() {
@@ -76,10 +84,18 @@ class XWHDevSetUpdateVC: XWHDevSetBaseVC {
 
     // MARK: - UITableViewDataSource, UITableViewDelegate
     override func numberOfSections(in tableView: UITableView) -> Int {
+        if let _ = updateInfo {
+            return 1
+        }
+        
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let updateDes = updateInfo?["versionDesc"].stringValue.components(separatedBy: "\n") {
+            return updateDes.count
+        }
+        
         return 3
     }
     

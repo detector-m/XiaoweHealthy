@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         configLog()
         
+        configCache()
+        
         configUM()
         
         configIQKeyboard()
@@ -93,6 +95,11 @@ extension AppDelegate {
         let logURL = cachePath.appendingPathComponent("log.txt")
         
         log.setup(level: .debug, showThreadName: true, showLevel: true, showFileNames: true, showLineNumbers: true, writeToFile: logURL, fileLevel: .debug)
+    }
+    
+    // 配置缓存
+    fileprivate func configCache() {
+        XWHCache.config()
     }
     
     fileprivate func configIQKeyboard() {

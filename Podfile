@@ -36,6 +36,9 @@ target 'XiaoweHealthy' do
 #  pod 'ObjectMapper'
   pod 'HandyJSON'
   
+  # 缓存
+  pod 'Cache'
+  
   # 图表
 #  pod 'Charts'
   
@@ -71,7 +74,8 @@ target 'XiaoweHealthy' do
   pod 'Kingfisher'
   
   # 文件管理
-  pod 'Files'
+#  pod 'Files'
+#  pod "FilesProvider"
   
   # toast
   pod 'Toast-Swift'

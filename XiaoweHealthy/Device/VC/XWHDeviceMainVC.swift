@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class XWHDeviceMainVC: XWHSearchBindDevBaseVC {
     
@@ -253,7 +254,7 @@ extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableVi
             
             // 检查更新
         case .update:
-            gotoDevSetUpdate()
+            gotoCheckFirmwareUpdate()
             
         default:
             return
@@ -342,8 +343,9 @@ extension XWHDeviceMainVC {
     }
     
     // 检查更新
-    private func gotoDevSetUpdate() {
+    private func gotoDevSetUpdate(updateInfo: JSON) {
         let vc = XWHDevSetUpdateVC()
+        vc.updateInfo = updateInfo
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -358,4 +360,26 @@ extension XWHDeviceMainVC {
         }
     }
     
+}
+
+
+// MARK: - Private Tools
+extension XWHDeviceMainVC {
+    
+    private func gotoCheckFirmwareUpdate() {
+        XWHDeviceVM().firmwareUpdate(deviceSn: "1923190012204123450", version: "v1.0.0") { [unowned self] error in
+            self.view.makeInsetToast(error.message)
+        } successHandler: { [unowned self] response in
+            guard let cJson = response.data as? JSON else {
+                self.view.makeInsetToast(R.string.xwhDeviceText.当前已经是最新版本())
+                return
+            }
+            
+            if let _ = cJson["fileUrl"].string {
+                self.gotoDevSetUpdate(updateInfo: cJson)
+            } else {
+                self.view.makeInsetToast(R.string.xwhDeviceText.当前已经是最新版本())
+            }
+        }
+    }
 }

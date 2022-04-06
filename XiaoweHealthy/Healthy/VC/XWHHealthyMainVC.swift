@@ -50,11 +50,13 @@ class XWHHealthyMainVC: XWHBaseVC {
     
 
     @objc func clickLoginBtn() {
-        XWHLogin.present(at: self)
+//        XWHLogin.present(at: self)
         
 //        testBridge()
         
 //        testFirmwareUpdate()
+        
+        testCache()
     }
     
     @objc func clickLoginBtn2() {
@@ -91,6 +93,10 @@ extension XWHHealthyMainVC {
         } successHandler: { response in
             self.view.makeInsetToast(response.data.debugDescription)
         }
+    }
+    
+    fileprivate func testCache() {
+        XWHCache.test()
     }
     
 }

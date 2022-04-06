@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Cache
 
 
 class XWHDeviceVM {
@@ -21,5 +22,5 @@ class XWHDeviceVM {
             }
         }
     }
-    
+        
 }
