@@ -54,7 +54,8 @@ class XWHNetwork {
             
             let retResponse = XWHResponse()
             retResponse.identifier = cId
-            retResponse.data = parseDataHandler?(json["data"], retResponse)
+            let _ = parseDataHandler?(json["data"], retResponse)
+            
             successHandler?(retResponse)
         }
     }

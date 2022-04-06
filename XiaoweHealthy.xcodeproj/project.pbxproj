@@ -131,6 +131,8 @@
 		96D0041927F8236D00E569C7 /* XWHJsApiTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D0041827F8236D00E569C7 /* XWHJsApiTest.swift */; };
 		96D0041C27F8328B00E569C7 /* XWHCryptoAES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D0041B27F8328B00E569C7 /* XWHCryptoAES.swift */; };
 		96DC429327FD26A9009BF300 /* XWHJsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DC429227FD26A9009BF300 /* XWHJsApi.swift */; };
+		96DC429A27FD34C7009BF300 /* RLBLEPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DC429927FD34C7009BF300 /* RLBLEPermissions.swift */; };
+		96DC429D27FD42B7009BF300 /* XWHDeviceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DC429C27FD42B7009BF300 /* XWHDeviceApi.swift */; };
 		96E23C0A27E1898C009EF208 /* XWHTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */; };
 		96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */; };
 		96E23C1427E18D19009EF208 /* XWHDisplayText.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96E23C1627E18D19009EF208 /* XWHDisplayText.strings */; };
@@ -313,6 +315,8 @@
 		96D0041827F8236D00E569C7 /* XWHJsApiTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHJsApiTest.swift; sourceTree = "<group>"; };
 		96D0041B27F8328B00E569C7 /* XWHCryptoAES.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCryptoAES.swift; sourceTree = "<group>"; };
 		96DC429227FD26A9009BF300 /* XWHJsApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHJsApi.swift; sourceTree = "<group>"; };
+		96DC429927FD34C7009BF300 /* RLBLEPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLBLEPermissions.swift; sourceTree = "<group>"; };
+		96DC429C27FD42B7009BF300 /* XWHDeviceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceApi.swift; sourceTree = "<group>"; };
 		96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTabBarVC.swift; sourceTree = "<group>"; };
 		96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHRootVCProvider.swift; sourceTree = "<group>"; };
 		96E23C1727E18D9C009EF208 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/XWHDisplayText.strings"; sourceTree = "<group>"; };
@@ -438,6 +442,7 @@
 				96E23C2227E1A322009EF208 /* Sport */,
 				96E23C2327E1A32F009EF208 /* Device */,
 				96E23C2427E1A33E009EF208 /* Me */,
+				96DC429427FD303A009BF300 /* DeviceManager */,
 				96D0041127F8212400E569C7 /* WebViewBridge */,
 				96E23C0827E18947009EF208 /* RootVC */,
 				96617A6F27E1E06700139B03 /* Tools */,
@@ -1080,6 +1085,54 @@
 			path = Crypto;
 			sourceTree = "<group>";
 		};
+		96DC429427FD303A009BF300 /* DeviceManager */ = {
+			isa = PBXGroup;
+			children = (
+				96DC429727FD3330009BF300 /* Protocol */,
+				96DC429827FD3469009BF300 /* Common */,
+				96DC429627FD3310009BF300 /* Manager */,
+				96DC429527FD3307009BF300 /* Model */,
+			);
+			path = DeviceManager;
+			sourceTree = "<group>";
+		};
+		96DC429527FD3307009BF300 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		96DC429627FD3310009BF300 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		96DC429727FD3330009BF300 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		96DC429827FD3469009BF300 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				96DC429927FD34C7009BF300 /* RLBLEPermissions.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		96DC429B27FD4285009BF300 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				96DC429C27FD42B7009BF300 /* XWHDeviceApi.swift */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
 		96E23C0627E18003009EF208 /* AppEntry */ = {
 			isa = PBXGroup;
 			children = (
@@ -1147,8 +1200,9 @@
 			children = (
 				968CB8A427F40ABB00E549AC /* DeviceDeploy */,
 				967AF4BF27EF536D00235E08 /* Module */,
-				967AF4BE27EF536800235E08 /* Model */,
 				967AF4BD27EF535B00235E08 /* ViewModel */,
+				96DC429B27FD4285009BF300 /* Api */,
+				967AF4BE27EF536800235E08 /* Model */,
 				967AF4BC27EF535600235E08 /* View */,
 				96617A9A27E2BFEB00139B03 /* VC */,
 				9653E48A27F5519E00EE55FF /* DeviceSettings */,
@@ -1543,6 +1597,7 @@
 				9651EE1E27EBFDAA0043FE52 /* XWHResponse.swift in Sources */,
 				96E23C2C27E1A579009EF208 /* XWHDeviceMainVC.swift in Sources */,
 				9653E49827F58C4D00EE55FF /* XWHDevSetChartDeploy.swift in Sources */,
+				96DC429A27FD34C7009BF300 /* RLBLEPermissions.swift in Sources */,
 				9653E49427F5556300EE55FF /* XWHDevSetCallVC.swift in Sources */,
 				9651EE1A27EBFBEA0043FE52 /* XWHError.swift in Sources */,
 				96617A9F27E302C900139B03 /* XWHPhoneNumView.swift in Sources */,
@@ -1557,6 +1612,7 @@
 				96617A7827E1FCF600139B03 /* XWHLoginRegisterBaseVC.swift in Sources */,
 				96E8A6BF27F1B2A700F5C75C /* XWHSearchDeviceVC.swift in Sources */,
 				960E768527F0B17D00A0DA25 /* XWHSafari.swift in Sources */,
+				96DC429D27FD42B7009BF300 /* XWHDeviceApi.swift in Sources */,
 				968CB8A827F42A8C00E549AC /* XWHCommonBaseTBCell.swift in Sources */,
 				96FC408627EDB78F00D64B64 /* XWHDeviceBaseVC.swift in Sources */,
 				96E8A6BD27F1738200F5C75C /* XWHUINavigationControllerExtension.swift in Sources */,

@@ -11,6 +11,8 @@ import Moya
 
 protocol XWHServiceTargetType: TargetType {
     
+    var parameterEncoding: ParameterEncoding { get }
+    
 }
 
 extension XWHServiceTargetType {
@@ -21,6 +23,19 @@ extension XWHServiceTargetType {
     
     var method: Moya.Method {
         return .post
+    }
+    
+    var parameterEncoding: ParameterEncoding {
+        switch method {
+        case .get:
+            return URLEncoding.default
+            
+        case .post:
+            return JSONEncoding.default
+            
+        default:
+            return URLEncoding.default
+        }
     }
     
     // 这个就是做单元测试模拟的数据，只会在单元测试文件中有作用

@@ -16,6 +16,8 @@ class XWHUserVM {
             let cId = "User.Profile"
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
                 let userModel = XWHUserModel.deserialize(from: json.dictionaryValue)
+                response.data = userModel
+                
                 return userModel
             }
         }
@@ -113,13 +115,31 @@ class XWHUserVM {
         }
     }
     
-//    // 绑定设备
-//    case bindDevice(parameters: [String: String])
-//
-//    // 解绑设备
-//    case unbindDevice(deviceSn: String)
-//
-//    // 查询用户设备列表
-//    case devices
+    // 绑定设备
+    func bindDevice(deviceInfo: [String: String], failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        let reqParam = ["deviceName": "", "deviceMode": "deviceSn", "macAddr": ""]
+        userProvider.request(.bindDevice(parameters: reqParam)) { result in
+            let cId = "User.BindDevice"
+            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
+                return nil
+            }
+        }
+    }
+    
+    // 解绑设备
+    func unbindDevice(deviceSn: String, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        userProvider.request(.unbindDevice(deviceSn: deviceSn)) { result in
+            let cId = "User.UnbindDevice"
+            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler)
+        }
+    }
+
+    // 查询用户设备列表
+    func devices(deviceSn: String, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        userProvider.request(.devices) { result in
+            let cId = "User.Devices"
+            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler)
+        }
+    }
     
 }

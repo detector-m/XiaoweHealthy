@@ -53,6 +53,8 @@ class XWHHealthyMainVC: XWHBaseVC {
         XWHLogin.present(at: self)
         
 //        testBridge()
+        
+//        testFirmwareUpdate()
     }
     
     @objc func clickLoginBtn2() {
@@ -81,6 +83,14 @@ extension XWHHealthyMainVC {
             self.view.makeInsetToast(response.data.debugDescription)
         }
 
+    }
+    
+    fileprivate func testFirmwareUpdate() {
+        XWHDeviceVM().firmwareUpdate(deviceSn: "1923190012204123456", version: "v1.2.32") { error in
+            self.view.makeInsetToast(error.message)
+        } successHandler: { response in
+            self.view.makeInsetToast(response.data.debugDescription)
+        }
     }
     
 }
