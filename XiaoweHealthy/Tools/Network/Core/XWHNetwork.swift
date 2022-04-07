@@ -10,6 +10,7 @@ import Moya
 
 typealias SuccessHandler = (XWHResponse) -> Void
 typealias FailureHandler = (XWHError) -> Void
+typealias ProgressHandler = SuccessHandler
 
 typealias ParseDataHandler = (SwiftyJSON.JSON, XWHResponse) -> Any?
 

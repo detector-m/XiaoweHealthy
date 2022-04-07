@@ -11,8 +11,12 @@ import Foundation
 class XWHResponse {
     
     var identifier: String = ""
+    
     var code: String = ""
+    
     var message: String = ""
+    
+    var progress: Int = 0
     
     var data: Any? = nil
     
