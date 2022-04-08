@@ -103,23 +103,11 @@ class XWHAddDeviceEntryVC: XWHSearchBindDevBaseVC, FSPagerViewDataSource, FSPage
     
     // MARK: - Private
     @objc private func clickAddBtn() {
-        if !XWHUser.isLogined() {
-            XWHAlert.showLogin(at: self)
-            
-            return
-        }
-        
-        gotoAddBrandDevice()
+        addBrandDevice()
     }
     
     @objc override func clickButton() {
-        if !XWHUser.isLogined() {
-            XWHAlert.showLogin(at: self)
-            
-            return
-        }
-        
-        gotoAddBrandDevice()
+        addBrandDevice()
     }
     
     // MARK:- FSPagerView DataSource
@@ -158,6 +146,36 @@ class XWHAddDeviceEntryVC: XWHSearchBindDevBaseVC, FSPagerViewDataSource, FSPage
         pageControl.currentPage = pagerView.currentIndex
     }
 
+}
+
+// MARK: - Api
+extension XWHAddDeviceEntryVC {
+    
+    fileprivate func addBrandDevice() {
+        if !XWHUser.isLogined() {
+            XWHAlert.showLogin(at: self)
+            
+            return
+        }
+        
+        RLBLEPermissions.shared.getState { [unowned self] bleState in
+            switch bleState {
+            case .poweredOff:
+                break
+                
+            case .poweredOn:
+                self.gotoAddBrandDevice()
+                
+            case .unauthorized:
+                XWHAlert.show(title: nil, message: R.string.xwhDeviceText.连接设备需要打开手机蓝牙要开启吗(), confirmTitle: R.string.xwhDeviceText.开启()) { aType in
+                    if aType == .confirm {
+                        RLBLEPermissions.openAppSettings()
+                    }
+                }
+            }
+        }
+    }
+    
 }
 
 // MARK: - Api

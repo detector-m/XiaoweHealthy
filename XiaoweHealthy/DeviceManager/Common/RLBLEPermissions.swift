@@ -24,51 +24,17 @@ class RLBLEPermissions: NSObject {
     
     lazy var state = RLBLEState.unauthorized
     
-    lazy var central: CBCentralManager = CBCentralManager(delegate: self, queue: nil)
+    var central: CBCentralManager?
     
     var stateHandler: RLBLEStateHandler?
     
-    fileprivate func checkState(handler: RLBLEStateHandler?) {
-        switch central.state {
-        case .poweredOff:
-            state = .poweredOff
-            
-        case .unauthorized:
-            state = .unauthorized
-            
-        default:
-            state = .poweredOn
-        }
+    private override init() {
         
-        stateHandler = handler
     }
     
-    
     func getState(handler: RLBLEStateHandler? = nil) {
-//        let tipsView = R.nib.hbTipsView(owner: nil)
-        checkState { state in
-            switch state {
-            case .poweredOn:
-                handler?(.poweredOn)
-                
-            case .unauthorized:
-//                tipsView?.show(title: R.string.tips.需打开蓝牙权限才可连接设备().attributed, okClosure: {
-//                    HBBLEPermissions.shared.openAppSettings()
-//                })
-                handler?(.unauthorized)
-                
-            case .poweredOff:
-                guard #available(iOS 13.0, *) else {
-//                    tipsView?.show(title: R.string.tips.请先打开蓝牙开关().attributed)
-                    handler?(.poweredOff)
-                    
-                    return
-                }
-                
-                handler?(.poweredOff)
-            }
-        }
-        
+        central = CBCentralManager(delegate: self, queue: nil)
+        stateHandler = handler
     }
     
 }
@@ -77,7 +43,6 @@ class RLBLEPermissions: NSObject {
 extension RLBLEPermissions: CBCentralManagerDelegate {
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        
         switch central.state {
         case .poweredOff:
 //            HBAnalytics.logDeviceEvent(HBAnalyticsEvent.Device.device_scan_8000)
@@ -94,6 +59,9 @@ extension RLBLEPermissions: CBCentralManagerDelegate {
         stateHandler?(state)
         
         stateHandler = nil
+        
+        self.central?.delegate = nil
+        self.central = nil
     }
 }
 
@@ -102,7 +70,7 @@ extension RLBLEPermissions: CBCentralManagerDelegate {
 // MARK: - Method
 extension RLBLEPermissions {
     
-    func openAppSettings() {
+    static func openAppSettings() {
         guard let url = URL(string: UIApplication.openSettingsURLString) else {
             return
         }
