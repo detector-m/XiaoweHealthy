@@ -95,6 +95,8 @@
 		9661D35827F5FD830062B2B8 /* XWHDevSetWristVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661D35727F5FD830062B2B8 /* XWHDevSetWristVC.swift */; };
 		9661D35A27F5FD970062B2B8 /* XWHDevSetDisturbVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661D35927F5FD970062B2B8 /* XWHDevSetDisturbVC.swift */; };
 		966A60F627FFD5DE00CBE915 /* XWHDeviceProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966A60F527FFD5DE00CBE915 /* XWHDeviceProductModel.swift */; };
+		966A60F828001F6100CBE915 /* XWHLoginProgressHUDContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966A60F728001F6100CBE915 /* XWHLoginProgressHUDContentView.swift */; };
+		966A60FA2800206400CBE915 /* XWHProgressHUDViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966A60F92800206400CBE915 /* XWHProgressHUDViews.swift */; };
 		966F53C727F1E71800411D38 /* XWHSearchBindDevBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966F53C627F1E71800411D38 /* XWHSearchBindDevBaseVC.swift */; };
 		966F53C927F1E8B200411D38 /* XWHBindDeviceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966F53C827F1E8B200411D38 /* XWHBindDeviceVC.swift */; };
 		9672B25E27EEA48900DC80D6 /* XWHUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9672B25D27EEA48900DC80D6 /* XWHUser.swift */; };
@@ -291,6 +293,8 @@
 		9661D35727F5FD830062B2B8 /* XWHDevSetWristVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetWristVC.swift; sourceTree = "<group>"; };
 		9661D35927F5FD970062B2B8 /* XWHDevSetDisturbVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetDisturbVC.swift; sourceTree = "<group>"; };
 		966A60F527FFD5DE00CBE915 /* XWHDeviceProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceProductModel.swift; sourceTree = "<group>"; };
+		966A60F728001F6100CBE915 /* XWHLoginProgressHUDContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLoginProgressHUDContentView.swift; sourceTree = "<group>"; };
+		966A60F92800206400CBE915 /* XWHProgressHUDViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHProgressHUDViews.swift; sourceTree = "<group>"; };
 		966F53C627F1E71800411D38 /* XWHSearchBindDevBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSearchBindDevBaseVC.swift; sourceTree = "<group>"; };
 		966F53C827F1E8B200411D38 /* XWHBindDeviceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBindDeviceVC.swift; sourceTree = "<group>"; };
 		9672B25D27EEA48900DC80D6 /* XWHUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUser.swift; sourceTree = "<group>"; };
@@ -513,6 +517,8 @@
 			isa = PBXGroup;
 			children = (
 				9651EDF127E8542B0043FE52 /* XWHProgressHUD.swift */,
+				966A60F92800206400CBE915 /* XWHProgressHUDViews.swift */,
+				966A60F728001F6100CBE915 /* XWHLoginProgressHUDContentView.swift */,
 			);
 			path = ProgressHUD;
 			sourceTree = "<group>";
@@ -1717,6 +1723,7 @@
 				967823AD27F2C9DC004F66FB /* XWHUIFontExtension.swift in Sources */,
 				969F01BA27F693B100CA4DA4 /* RLPopupBaseView.swift in Sources */,
 				96617A6E27E1E00E00139B03 /* XWHBaseVC.swift in Sources */,
+				966A60FA2800206400CBE915 /* XWHProgressHUDViews.swift in Sources */,
 				9678257927F2EF3B004F66FB /* XWHDeviceFaceView.swift in Sources */,
 				96F3588B27FE8C9A00783614 /* XWHBLEDispatchBaseHandler.swift in Sources */,
 				96D0041727F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift in Sources */,
@@ -1756,6 +1763,7 @@
 				968CB8AE27F45DB100E549AC /* XWHDeviceInfoTBCell.swift in Sources */,
 				96759D8427F34D2E0098CA92 /* XWHBaseTBCell.swift in Sources */,
 				9651EE2527EC15290043FE52 /* XWHTextDescriptionConfig.swift in Sources */,
+				966A60F828001F6100CBE915 /* XWHLoginProgressHUDContentView.swift in Sources */,
 				9651EE0727EAF6CE0043FE52 /* XWHServiceTargetType.swift in Sources */,
 				969F01C027F6DBB600CA4DA4 /* XWHDevSetUpdateVC.swift in Sources */,
 				96E23C2027E1A22C009EF208 /* R.generated.swift in Sources */,

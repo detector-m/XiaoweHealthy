@@ -10,8 +10,8 @@ import UIKit
 
 class XWHProgressHUD {
     
-    class func show(text: String) {
-        let contentView = XWHProgressHUDContentView()
+    class func showLogin(text: String) {
+        let contentView = XWHLoginProgressHUDContentView()
         contentView.textLb.text = text
         contentView.layer.cornerRadius = 16
         contentView.layer.backgroundColor = UIColor.white.cgColor
@@ -36,58 +36,26 @@ class XWHProgressHUD {
         popupView.display(animated: false, completion: nil)
     }
     
-    class func hide() {
+    class func hideLogin() {
         UIApplication.shared.keyWindow?.popupView()?.dismiss(animated: true, completion: nil)
     }
     
-}
-
-class XWHProgressHUDContentView: XWHBaseView {
-
-    lazy var loadingView: UIImageView = UIImageView()
-    lazy var textLb = UILabel()
-    
-    deinit {
-        layer.removeAllAnimations()
-    }
-    
-    override func addSubViews() {
-        super.addSubViews()
-        
-        loadingView.image = R.image.loading()
-        addSubview(loadingView)
-        
-        let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
-        rotateAnimation.toValue = Double.pi * 2
-        rotateAnimation.duration = 1
-        rotateAnimation.repeatCount = .infinity
-        loadingView.layer.add(rotateAnimation, forKey: nil)
-        
-        textLb.font = XWHFont.harmonyOSSans(ofSize: 16)
-        textLb.textColor = UIColor(hex: 0x000000, transparency: 0.9)
-        textLb.numberOfLines = 0
-        addSubview(textLb)
-    }
-    
-    override func relayoutSubViews() {
-        loadingView.snp.makeConstraints { make in
-            make.size.equalTo(24)
-            make.centerY.equalToSuperview()
-            make.left.equalToSuperview().offset(24)
-        }
-        
-        textLb.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.height.lessThanOrEqualToSuperview()
-            make.left.equalTo(loadingView.snp.right).offset(12)
-            make.right.equalToSuperview().offset(-24)
-        }
-    }
-    
-    override var intrinsicContentSize: CGSize {
+    class func show(title: String? = nil) {
         let window = UIApplication.shared.keyWindow!
+        let hud = XWHProgressHUDView(frame: window.bounds)
+        window.addSubview(hud)
 
-        return CGSize(width: window.width - 24, height: 70)
+        hud.show(title: title)
     }
-
+    
+    class func hide() {
+        let window = UIApplication.shared.keyWindow!
+        for v in window.subviews {
+            if let hud = v as? XWHProgressHUDView {
+                hud.hideAnimation()
+                return
+            }
+        }
+    }
+    
 }

@@ -146,14 +146,14 @@ extension XWHBirthdaySelectVC {
 extension XWHBirthdaySelectVC {
     
     fileprivate func gotoUpdateUserInfo(userModel: XWHUserModel) {
-        XWHProgressHUD.show(text: R.string.xwhDisplayText.加速登录中())
+        XWHProgressHUD.showLogin(text: R.string.xwhDisplayText.加速登录中())
 
         XWHUserVM().update(userModel: userModel) { [weak self] error in
-            XWHProgressHUD.hide()
+            XWHProgressHUD.hideLogin()
             
             self?.view.makeInsetToast(R.string.xwhDisplayText.更新用户信息失败())
         } successHandler: { [weak self] response in
-            XWHProgressHUD.hide()
+            XWHProgressHUD.hideLogin()
             
             self?.dismiss(animated: true)
         }

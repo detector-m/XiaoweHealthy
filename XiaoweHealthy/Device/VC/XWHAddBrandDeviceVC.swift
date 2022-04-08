@@ -113,13 +113,13 @@ class XWHAddBrandDeviceVC: XWHDeviceBaseVC, UICollectionViewDataSource, UICollec
 extension XWHAddBrandDeviceVC {
     
     fileprivate func getDeviceList() {
-//        XWHProgressHUD.show(text: "加载中...")
+        XWHProgressHUD.show()
         view.makeToastActivity(.center)
         XWHDeviceVM().list { [unowned self] error in
-//            XWHProgressHUD.hide()
+            XWHProgressHUD.hide()
             self.view.hideToastActivity()
         } successHandler: { [unowned self] response in
-//            XWHProgressHUD.hide()
+            XWHProgressHUD.hide()
             self.view.hideToastActivity()
             
             if let cDevice = response.data as? [XWHDeviceProductModel] {

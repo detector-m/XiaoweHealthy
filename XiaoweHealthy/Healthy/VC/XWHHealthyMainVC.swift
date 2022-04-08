@@ -58,7 +58,7 @@ class XWHHealthyMainVC: XWHBaseVC {
         
 //        testCache()
         
-        testScan()
+//        testScan()
     }
     
     @objc func clickLoginBtn2() {

@@ -177,13 +177,13 @@ extension XWHBindPhoneVC {
             param = vm.getQQLoginParameters(phoneNum: phone, code: code, nickname: nickname, avatar: avatar, qqOpenid: qqOpenid)
         }
         
-        XWHProgressHUD.show(text: R.string.xwhDisplayText.加速登录中())
+        XWHProgressHUD.showLogin(text: R.string.xwhDisplayText.加速登录中())
         vm.login(parameters: param) { [weak self] error in
-            XWHProgressHUD.hide()
+            XWHProgressHUD.hideLogin()
             
             self?.view.makeInsetToast(error.message)
         } successHandler: { [unowned self] response in
-            XWHProgressHUD.hide()
+            XWHProgressHUD.hideLogin()
             
             if let cRes = response.data as? JSON {
                 if let token = cRes["token"].string, !token.isEmpty {

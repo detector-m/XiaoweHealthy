@@ -176,7 +176,7 @@ class XWHPasswordLoginVC: XWHLoginRegisterBaseVC {
 extension XWHPasswordLoginVC {
     
     fileprivate func gotoLogin() {
-        XWHProgressHUD.show(text: R.string.xwhDisplayText.加速登录中())
+        XWHProgressHUD.showLogin(text: R.string.xwhDisplayText.加速登录中())
         
         let phone = phoneNumView.textFiled.text ?? ""
         let password = passwordView.textFiled.text
@@ -190,11 +190,11 @@ extension XWHPasswordLoginVC {
         
         let vm = XWHLoginRegisterVM()
         vm.login(parameters: vm.getPasswordLoginParameters(phoneNum: phone, password: ePassword)) { [weak self] error in
-            XWHProgressHUD.hide()
+            XWHProgressHUD.hideLogin()
             
             self?.view.makeInsetToast(error.message)
         } successHandler: { [unowned self] response in
-            XWHProgressHUD.hide()
+            XWHProgressHUD.hideLogin()
             
             if let cRes = response.data as? JSON {
                 if let token = cRes["token"].string, !token.isEmpty {

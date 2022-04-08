@@ -183,18 +183,18 @@ class XWHLoginVC: XWHLoginRegisterBaseVC {
 extension XWHLoginVC {
     
     fileprivate func gotoLogin() {
-        XWHProgressHUD.show(text: R.string.xwhDisplayText.加速登录中())
+        XWHProgressHUD.showLogin(text: R.string.xwhDisplayText.加速登录中())
         
         let phone = phoneNumView.textFiled.text ?? ""
         let code = codeView.textFiled.text ?? ""
         
         let vm = XWHLoginRegisterVM()
         vm.login(parameters: vm.getCodeLoginParameters(phoneNum: phone, code: code)) { [weak self] error in
-            XWHProgressHUD.hide()
+            XWHProgressHUD.hideLogin()
             
             self?.view.makeInsetToast(error.message)
         } successHandler: { [unowned self] response in
-            XWHProgressHUD.hide()
+            XWHProgressHUD.hideLogin()
             
             if let cRes = response.data as? JSON {
                 if let token = cRes["token"].string, !token.isEmpty {
