@@ -147,6 +147,13 @@
 		96E23C2E27E1A586009EF208 /* XWHMeMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C2D27E1A586009EF208 /* XWHMeMainVC.swift */; };
 		96E8A6BD27F1738200F5C75C /* XWHUINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8A6BC27F1738200F5C75C /* XWHUINavigationControllerExtension.swift */; };
 		96E8A6BF27F1B2A700F5C75C /* XWHSearchDeviceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8A6BE27F1B2A700F5C75C /* XWHSearchDeviceVC.swift */; };
+		96F3588327FE7CE000783614 /* XWHBLEDispatchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3588227FE7CE000783614 /* XWHBLEDispatchProtocol.swift */; };
+		96F3588527FE7F1800783614 /* XWHDeviceManagerEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3588427FE7F1800783614 /* XWHDeviceManagerEnum.swift */; };
+		96F3588727FE815B00783614 /* XWHDeviceBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3588627FE815B00783614 /* XWHDeviceBaseModel.swift */; };
+		96F3588927FE858900783614 /* XWHDevWatchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3588827FE858900783614 /* XWHDevWatchModel.swift */; };
+		96F3588B27FE8C9A00783614 /* XWHBLEDispatchBaseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3588A27FE8C9A00783614 /* XWHBLEDispatchBaseHandler.swift */; };
+		96F3588E27FE92C900783614 /* XWHBLEUTEDispatchHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3588D27FE92C900783614 /* XWHBLEUTEDispatchHandler.swift */; };
+		96F3589027FE940300783614 /* XWHDevWatchDispatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3588F27FE940300783614 /* XWHDevWatchDispatchManager.swift */; };
 		96FC406B27ED738100D64B64 /* XWHUIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC406A27ED738100D64B64 /* XWHUIViewControllerExtension.swift */; };
 		96FC407727EDA16800D64B64 /* HarmonyOS_Sans_SC_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96FC407027EDA16800D64B64 /* HarmonyOS_Sans_SC_Regular.ttf */; };
 		96FC407D27EDA16800D64B64 /* HarmonyOS_Sans_SC_Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96FC407627EDA16800D64B64 /* HarmonyOS_Sans_SC_Medium.ttf */; };
@@ -336,6 +343,13 @@
 		96E8A6BB27F150F100F5C75C /* XiaoweHealthyDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = XiaoweHealthyDebug.entitlements; sourceTree = "<group>"; };
 		96E8A6BC27F1738200F5C75C /* XWHUINavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUINavigationControllerExtension.swift; sourceTree = "<group>"; };
 		96E8A6BE27F1B2A700F5C75C /* XWHSearchDeviceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSearchDeviceVC.swift; sourceTree = "<group>"; };
+		96F3588227FE7CE000783614 /* XWHBLEDispatchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBLEDispatchProtocol.swift; sourceTree = "<group>"; };
+		96F3588427FE7F1800783614 /* XWHDeviceManagerEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceManagerEnum.swift; sourceTree = "<group>"; };
+		96F3588627FE815B00783614 /* XWHDeviceBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceBaseModel.swift; sourceTree = "<group>"; };
+		96F3588827FE858900783614 /* XWHDevWatchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevWatchModel.swift; sourceTree = "<group>"; };
+		96F3588A27FE8C9A00783614 /* XWHBLEDispatchBaseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBLEDispatchBaseHandler.swift; sourceTree = "<group>"; };
+		96F3588D27FE92C900783614 /* XWHBLEUTEDispatchHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBLEUTEDispatchHandler.swift; sourceTree = "<group>"; };
+		96F3588F27FE940300783614 /* XWHDevWatchDispatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevWatchDispatchManager.swift; sourceTree = "<group>"; };
 		96FC406A27ED738100D64B64 /* XWHUIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUIViewControllerExtension.swift; sourceTree = "<group>"; };
 		96FC407027EDA16800D64B64 /* HarmonyOS_Sans_SC_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HarmonyOS_Sans_SC_Regular.ttf; sourceTree = "<group>"; };
 		96FC407627EDA16800D64B64 /* HarmonyOS_Sans_SC_Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HarmonyOS_Sans_SC_Medium.ttf; sourceTree = "<group>"; };
@@ -452,11 +466,11 @@
 				96E23C2427E1A33E009EF208 /* Me */,
 				96DC429427FD303A009BF300 /* DeviceManager */,
 				96D0041127F8212400E569C7 /* WebViewBridge */,
-				96E23C0827E18947009EF208 /* RootVC */,
-				96617A6F27E1E06700139B03 /* Tools */,
-				96617A6A27E1DFC000139B03 /* Base */,
-				9651EE0227EAF2D60043FE52 /* Config */,
 				96DC429E27FD7323009BF300 /* DataManager */,
+				96617A6F27E1E06700139B03 /* Tools */,
+				9651EE0227EAF2D60043FE52 /* Config */,
+				96617A6A27E1DFC000139B03 /* Base */,
+				96E23C0827E18947009EF208 /* RootVC */,
 				96E23C0627E18003009EF208 /* AppEntry */,
 				960E768327F0B0F900A0DA25 /* Safari */,
 				9661517227E46A07006781C1 /* Supplier */,
@@ -1103,6 +1117,7 @@
 				96DC429827FD3469009BF300 /* Common */,
 				96DC429627FD3310009BF300 /* Manager */,
 				96DC429527FD3307009BF300 /* Model */,
+				96F3588C27FE926C00783614 /* UTEAchieve */,
 			);
 			path = DeviceManager;
 			sourceTree = "<group>";
@@ -1110,6 +1125,8 @@
 		96DC429527FD3307009BF300 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				96F3588627FE815B00783614 /* XWHDeviceBaseModel.swift */,
+				96F3588827FE858900783614 /* XWHDevWatchModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1117,6 +1134,8 @@
 		96DC429627FD3310009BF300 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				96F3588A27FE8C9A00783614 /* XWHBLEDispatchBaseHandler.swift */,
+				96F3588F27FE940300783614 /* XWHDevWatchDispatchManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1124,6 +1143,7 @@
 		96DC429727FD3330009BF300 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
+				96F3588227FE7CE000783614 /* XWHBLEDispatchProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1132,6 +1152,7 @@
 			isa = PBXGroup;
 			children = (
 				96DC429927FD34C7009BF300 /* RLBLEPermissions.swift */,
+				96F3588427FE7F1800783614 /* XWHDeviceManagerEnum.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1260,6 +1281,14 @@
 				96617A9B27E2BFF200139B03 /* VC */,
 			);
 			path = Me;
+			sourceTree = "<group>";
+		};
+		96F3588C27FE926C00783614 /* UTEAchieve */ = {
+			isa = PBXGroup;
+			children = (
+				96F3588D27FE92C900783614 /* XWHBLEUTEDispatchHandler.swift */,
+			);
+			path = UTEAchieve;
 			sourceTree = "<group>";
 		};
 		96FC406C27ED91EC00D64B64 /* Font */ = {
@@ -1627,11 +1656,13 @@
 				9678257C27F2F44D004F66FB /* RLRadarIndicatorView.swift in Sources */,
 				967AF4C327EF545800235E08 /* XWHDeviceVM.swift in Sources */,
 				9653E49027F552E300EE55FF /* XWHDevSetBaseVC.swift in Sources */,
+				96F3588E27FE92C900783614 /* XWHBLEUTEDispatchHandler.swift in Sources */,
 				9651EE0427EAF3100043FE52 /* XWHApiConfig.swift in Sources */,
 				9653E48927F54D5900EE55FF /* XWHDataExtension.swift in Sources */,
 				96DC42A427FD88A2009BF300 /* XWHFileManager.swift in Sources */,
 				960E768027F00BB700A0DA25 /* XWHAddBrandDeviceCTCell.swift in Sources */,
 				96617AAF27E3457100139B03 /* XWHRegisterFillInfoBaseVC.swift in Sources */,
+				96F3588527FE7F1800783614 /* XWHDeviceManagerEnum.swift in Sources */,
 				9653E4A827F5B1F800EE55FF /* XWHComLineBaseTBCell.swift in Sources */,
 				967AF4C127EF544200235E08 /* XWHDevicePagerViewCell.swift in Sources */,
 				96617A7627E1EE3000139B03 /* XWHBaseNavigationVC.swift in Sources */,
@@ -1661,17 +1692,20 @@
 				968CB8A827F42A8C00E549AC /* XWHCommonBaseTBCell.swift in Sources */,
 				96FC408627EDB78F00D64B64 /* XWHDeviceBaseVC.swift in Sources */,
 				96E8A6BD27F1738200F5C75C /* XWHUINavigationControllerExtension.swift in Sources */,
+				96F3588327FE7CE000783614 /* XWHBLEDispatchProtocol.swift in Sources */,
 				9651EE0E27EB06F20043FE52 /* XWHLoginRegisterVM.swift in Sources */,
 				96DC42A727FD9F8A009BF300 /* XWHDownloader.swift in Sources */,
 				9648E61327E0796D0077180D /* ViewController.swift in Sources */,
 				9648E60F27E0796D0077180D /* AppDelegate.swift in Sources */,
 				96617AAD27E3408C00139B03 /* XWHRegisterBaseVC.swift in Sources */,
 				9651EE2927EC58AA0043FE52 /* XWHThirdAppConfig.swift in Sources */,
+				96F3588927FE858900783614 /* XWHDevWatchModel.swift in Sources */,
 				968CB8AA27F42DB800E549AC /* XWHDeviceNormallTBCell.swift in Sources */,
 				9651EE2C27EC5B1B0043FE52 /* UMAnalyticsSwift.swift in Sources */,
 				9651EE1027EB30040043FE52 /* XWHKeyConfig.swift in Sources */,
 				96617AAB27E32C4100139B03 /* XWHBindPhoneVC.swift in Sources */,
 				96617AB327E34CBB00139B03 /* XWHHeightSelectVC.swift in Sources */,
+				96F3588727FE815B00783614 /* XWHDeviceBaseModel.swift in Sources */,
 				969F01C227F6DDF800CA4DA4 /* XWHDevSetUpdateHeaderView.swift in Sources */,
 				9651EDFA27E9A3130043FE52 /* RLOverlayerBgView.swift in Sources */,
 				96617AA527E3169200139B03 /* XWHCodeView.swift in Sources */,
@@ -1680,6 +1714,7 @@
 				969F01BA27F693B100CA4DA4 /* RLPopupBaseView.swift in Sources */,
 				96617A6E27E1E00E00139B03 /* XWHBaseVC.swift in Sources */,
 				9678257927F2EF3B004F66FB /* XWHDeviceFaceView.swift in Sources */,
+				96F3588B27FE8C9A00783614 /* XWHBLEDispatchBaseHandler.swift in Sources */,
 				96D0041727F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift in Sources */,
 				96617AA927E328C800139B03 /* XWHResetPasswordVC.swift in Sources */,
 				9651EE3027EC5C7E0043FE52 /* XWHUMManager.swift in Sources */,
@@ -1726,6 +1761,7 @@
 				9651EE1727EB6D040043FE52 /* XWHUserVM.swift in Sources */,
 				96DC42A927FDA3C7009BF300 /* XWHTimeoutHandler.swift in Sources */,
 				967823AB27F2C9B5004F66FB /* XWHUIImageExtension.swift in Sources */,
+				96F3589027FE940300783614 /* XWHDevWatchDispatchManager.swift in Sources */,
 				96D0041927F8236D00E569C7 /* XWHJsApiTest.swift in Sources */,
 				96617AA727E3196A00139B03 /* XWHCheckProtocolView.swift in Sources */,
 				9653E4A227F5A4A400EE55FF /* XWHDevSetWeatherVC.swift in Sources */,

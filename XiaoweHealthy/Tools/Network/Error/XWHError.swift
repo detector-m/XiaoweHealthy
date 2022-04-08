@@ -10,11 +10,14 @@ import Foundation
 struct XWHError: Error, CustomDebugStringConvertible {
     
     var identifier: String = ""
+    
+    var tag: Int = 0
+
     var code: String = ""
     var message: String = ""
     
     var debugDescription: String {
-        return "identifier = \(identifier), code = \(code), message = \(message)"
+        return "identifier = \(identifier), code = \(code), message = \(message), tag = \(tag)"
     }
     
 }

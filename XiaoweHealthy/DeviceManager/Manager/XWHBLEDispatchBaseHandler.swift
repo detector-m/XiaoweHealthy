@@ -1,0 +1,159 @@
+//
+//  XWHBLEDispatchBaseHandler.swift
+//  XiaoweHealthy
+//
+//  Created by Riven on 2022/4/7.
+//
+
+import UIKit
+
+class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
+    
+    /// 配对方式
+    var pairMode: XWHDevicePairMode = .search
+//    var randomCode = ""
+
+    /// 连接状态
+    var connectState: XWHDeviceConnectState = .disconnected
+    
+    var scanProgressHandler: XWHDevScanProgressHandler?
+    var connectHandler: XWHDevConnectHandler?
+    var bindHandler: XWHDevBindHandler?
+    
+    // MARK: - 基类计时器等
+    ///扫描计时器
+    fileprivate var _scanTimer: Timer?
+    /// 连接计时器
+    var connectTimer: Timer?
+    /// 绑定计时器
+    var bindTimer: Timer?
+    
+    /// 是否搜索成功
+    var isSearchSuccess = false
+    
+    // MARK: - 私有定义
+    /// 搜索设备超时时间
+    fileprivate let searchTime: TimeInterval = 30
+    
+    /// 连接设备超时时间
+    var connectTime: TimeInterval = 30
+    
+    /// 绑定设备超时时间
+    class var bindTime: TimeInterval {
+        return 30
+    }
+    
+//    func configCurType(type: XWHDeviceType) {
+//        if curType != type {
+//            DDLogDebug("configCurType 当前curType \(curType) || 将要替换为type \(type)")
+//            curType = type
+//        }
+//    }
+    
+    
+    // MARK: - 扫描
+    // 开始扫描
+    func startScan(pairMode: XWHDevicePairMode, randomCode: String, progressHandler: XWHDevScanProgressHandler? = nil, scanHandler: XWHDevScanHandler?) {
+        
+        self.pairMode = pairMode;
+//        self.randomCode = randomCode;
+        
+        //此处子类调用，可以回调，sdkDeviceToHBDevice子类分别调用的，无须担心
+        log.debug("扫描创建计时器")
+
+        scanTimerInvalidate()
+        _scanTimer = Timer.scheduledTimer(withTimeInterval: searchTime, repeats: false, block: { [unowned self] cTimer in
+            
+            self.stopScan()
+
+            let devices = self.sdkDeviceToXWHDevice()
+
+            self.isSearchSuccess = false
+            
+            log.debug("扫描计时器\(self.searchTime)s，刷新回调")
+            
+            DispatchQueue.main.async {
+//                scanHandler?(devices)
+                scanHandler?(.success(devices))
+            }
+        })
+    }
+  
+    // 停止扫描
+    func stopScan() {
+        log.debug("扫描停止，计时器销毁")
+        scanTimerInvalidate()
+    }
+    
+    // MARK: - 连接
+    func connect(device: XWHDevWatchModel, isReconnect: Bool, connectHandler: XWHDevConnectHandler?) {
+        
+    }
+
+    /// 断开连接
+    func disconnect(device: XWHDevWatchModel?) {
+        
+    }
+    
+    /// 连接超时
+    /// - 连接超时处理
+    func connectTimeout() {
+        
+    }
+    
+    /// 重连设备
+    func reconnect(device: XWHDevWatchModel, connectHandler: XWHDevConnectHandler?) {
+        
+    }
+    
+    // MARK: - 绑定
+    func bind(device: XWHDevWatchModel?, bindHandler: XWHDevBindHandler?) {
+        
+    }
+    
+    /// 绑定超时
+    /// - 绑定超时处理
+    func bindTimeout() {
+        
+    }
+    
+    // 取消配对
+    func unpair(device: XWHDevWatchModel?) {
+        
+    }
+    
+    /// 解除绑定
+    func unbind(device: XWHDevWatchModel?, unbindHandler: XWHDevBindHandler?) {
+        
+    }
+    
+    /// 切换解绑
+    func switchUnbind(handler: XWHDevBindHandler?) {
+        
+    }
+    
+    // MARK: - -------- 模型转换 --------
+    /// SDK设备模型转XWH设备模型
+    func sdkDeviceToXWHDevice() -> [XWHDevWatchModel] {
+        return []
+    }
+    
+    // MARK: - Private
+    private func scanTimerInvalidate() {
+        _scanTimer?.invalidate()
+        _scanTimer = nil
+    }
+    
+    // 关闭连接的计时器
+    func connectTimerInvalidate() {
+        connectTimer?.invalidate()
+        connectTimer = nil
+    }
+    
+    // 关闭绑定定时器
+    func bindTimerInvalidate() {
+        bindTimer?.invalidate()
+        bindTimer = nil
+    }
+    
+}

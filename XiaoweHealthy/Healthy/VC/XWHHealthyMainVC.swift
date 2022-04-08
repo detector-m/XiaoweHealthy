@@ -56,7 +56,9 @@ class XWHHealthyMainVC: XWHBaseVC {
         
 //        testFirmwareUpdate()
         
-        testCache()
+//        testCache()
+        
+        testScan()
     }
     
     @objc func clickLoginBtn2() {
@@ -97,6 +99,16 @@ extension XWHHealthyMainVC {
     
     fileprivate func testCache() {
         XWHCache.test()
+    }
+    
+    fileprivate func testScan() {
+        let devModel = XWHDevWatchModel()
+        devModel.type = .skyworthWatchS1
+        XWHDDMShared.config(device: devModel)
+        
+        XWHDDMShared.startScan { devices in
+            log.debug(devices)
+        }
     }
     
 }

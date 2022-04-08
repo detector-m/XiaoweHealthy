@@ -8,9 +8,11 @@
 import Foundation
 
 
-class XWHResponse {
+class XWHResponse: CustomDebugStringConvertible {
     
     var identifier: String = ""
+    
+    var tag: Int = 0
     
     var code: String = ""
     
@@ -19,5 +21,9 @@ class XWHResponse {
     var progress: Int = 0
     
     var data: Any? = nil
+    
+    var debugDescription: String {
+        return "identifier = \(identifier)"
+    }
     
 }
