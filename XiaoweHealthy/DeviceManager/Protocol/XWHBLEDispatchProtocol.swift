@@ -13,7 +13,7 @@ typealias XWHDevScanProgressHandler = (_ devices: [XWHDevWatchModel]) -> Void
 
 typealias XWHDevScanHandler = (Result<[XWHDevWatchModel], XWHBLEError>) -> Void
 
-typealias XWHDevConnectHandler = ((Result<XWHDeviceConnectState, XWHBLEError>) -> Void)
+typealias XWHDevConnectHandler = ((Result<XWHDeviceConnectState, XWHBLEError>, XWHDeviceConnectState) -> Void)
 
 typealias XWHDevBindHandler = ((Result<Bool, XWHBLEError>) -> Void)
 

@@ -91,7 +91,17 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
     
     // MARK: - 连接
     func connect(device: XWHDevWatchModel, isReconnect: Bool, connectHandler: XWHDevConnectHandler?) {
+        connectTimerInvalidate()
+        bindTimerInvalidate()
         
+        self.connectHandler = nil
+        bindHandler = nil
+        
+        self.connectHandler = connectHandler
+        
+        connectTimer = Timer.scheduledTimer(timeInterval: connectTime, target: self, selector: #selector(connectTimeout), userInfo: nil, repeats: false)
+
+        RunLoop.current.add(connectTimer!, forMode: .common)
     }
 
     /// 断开连接
@@ -101,8 +111,22 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
     
     /// 连接超时
     /// - 连接超时处理
-    func connectTimeout() {
+    @objc func connectTimeout() {
+        //TODO:这段代码进行一次调整，此处不应直接发Post
+        if self.connectState == .connected {
+            return
+        }
+
+        log.error("-----------连接手表超时-----------")
+        connectState = .disconnected
+
+        connectHandler?(.failure(.normal), .connected)
+        connectHandler = nil
         
+//        let cState = connectState
+//        let dic = [connectState: "state"]
+        
+//        bleNotice.post(name: ConnectStateChanged, object: dic)
     }
     
     /// 重连设备
@@ -117,8 +141,11 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
     
     /// 绑定超时
     /// - 绑定超时处理
-    func bindTimeout() {
+    @objc func bindTimeout() {
+        log.error("-----------绑定设备超时-----------")
         
+        bindHandler?(.failure(.normal))
+        bindHandler = nil
     }
     
     // 取消配对

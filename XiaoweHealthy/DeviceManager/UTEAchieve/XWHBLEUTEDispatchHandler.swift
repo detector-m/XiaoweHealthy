@@ -53,7 +53,8 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
     override func startScan(pairMode: XWHDevicePairMode, randomCode: String, progressHandler: XWHDevScanProgressHandler? = nil, scanHandler: XWHDevScanHandler?) {
         super.startScan(pairMode: pairMode, randomCode: randomCode, progressHandler: progressHandler, scanHandler: scanHandler)
         
-//        manager.startScanDevices()
+//        uteDevices = []
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [unowned self] in
             self.manager.startScanDevices()
         }
@@ -64,6 +65,24 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
         manager.stopScanDevices()
         
 //        log.debug(manager.delegate)
+    }
+    
+    override func connect(device: XWHDevWatchModel, isReconnect: Bool, connectHandler: XWHDevConnectHandler?) {
+        super.connect(device: device, isReconnect: isReconnect, connectHandler: connectHandler)
+        
+        log.info("-----------UTE开始连接手表-----------")
+    
+        let uteModel = UTEModelDevices()
+        uteModel.identifier = device.identifier
+        uteModel.addressStr = device.mac
+        
+        manager.connect(uteModel)
+    }
+    
+    override func disconnect(device: XWHDevWatchModel?) {
+//        super.disconnect(device: device)
+        
+        log.info("-----------UTE断开连接手表-----------")
     }
     
     override func sdkDeviceToXWHDevice() -> [XWHDevWatchModel] {
@@ -110,21 +129,43 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
             if modelDevices.name.isEmpty {
                 return
             }
+            
             uteDevices.append(modelDevices)
         }
     }
     
-    func uteManagerExtraIsAble(_ isAble: Bool) {
-        if isAble {
-            log.debug("***Successfully turn on the additional functions of the device")
-        }else{
-            log.debug("***Failed to open the extra functions of the device, the device is actively disconnected, please reconnect the device")
-        }
-    }
+//    func uteManagerExtraIsAble(_ isAble: Bool) {
+//        if isAble {
+//            log.debug("***Successfully turn on the additional functions of the device")
+//        }else{
+//            log.debug("***Failed to open the extra functions of the device, the device is actively disconnected, please reconnect the device")
+//        }
+//    }
     
     // 连接设备成功回调
     func uteManagerDevicesSate(_ devicesState: UTEDevicesSate, error: Error!, userInfo info: [AnyHashable : Any]! = [:]) {
+        log.info("-----------UTE手表连接状态：----------- \(devicesState.rawValue)")
+        switch devicesState {
+        case .connected:
+            connectState = .connected
+            
+        case .disconnected:
+            connectState = .disconnected
+            
+        default:
+            connectState = .disconnected
+        }
         
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            if self.connectState == .connected {
+                self.connectHandler?(.success(self.connectState), self.connectState)
+            } else {
+                self.connectHandler?(.failure(.normal), self.connectState)
+            }
+        }
     }
     
 }

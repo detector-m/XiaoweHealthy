@@ -112,7 +112,9 @@ extension XWHSearchDeviceVC: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        gotoBindDevice()
+        let cWatchModel = scanWatches[indexPath.row]
+
+        gotoBindDevice(bindDeviceModel: cWatchModel)
     }
     
 }
@@ -279,9 +281,18 @@ extension XWHSearchDeviceVC {
         XWHDevice.gotoHelp(at: self)
     }
     
-    fileprivate func gotoBindDevice() {
-        let vc = XWHBindDeviceVC()
-        navigationController?.pushViewController(vc, animated: true)
+    fileprivate func gotoBindDevice(bindDeviceModel: XWHDevWatchModel) {
+        let devName = bindDeviceModel.type.rawValue
+        let alertMsg = R.string.xwhDeviceText.要与N配对吗().replacingOccurrences(of: "N", with: devName)
+        XWHAlert.show(message: alertMsg) { [unowned self] cType in
+            if cType == .confirm {
+                let vc = XWHBindDeviceVC()
+                vc.bindDeviceModel = bindDeviceModel
+                navigationController?.pushViewController(vc, animated: true)
+            } else {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
     }
     
 }

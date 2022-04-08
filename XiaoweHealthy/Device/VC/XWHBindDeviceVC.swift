@@ -11,11 +11,13 @@ class XWHBindDeviceVC: XWHSearchBindDevBaseVC {
 
     lazy var devImageView = XWHDeviceFaceView()
     lazy var helpBtn = UIButton()
+    
+    lazy var bindDeviceModel = XWHDevWatchModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        testUI()
+        startBindDevice()
     }
     
     override func addSubViews() {
@@ -60,15 +62,26 @@ class XWHBindDeviceVC: XWHSearchBindDevBaseVC {
         }
     }
     
-    override func clickButton() {
-        if rNum != 0 {
-//            startBindDevice()
-            testUI()
-            
+    @objc override func clickNavGlobalBackBtn() {
+        guard let vcs = navigationController?.viewControllers else {
             return
         }
         
-        gotoDeviceMain()
+        for vc in vcs {
+            if vc.isKind(of: XWHAddBrandDeviceVC.self) {
+                navigationController?.popToViewController(vc, animated: true)
+                
+                return
+            }
+        }
+    }
+    
+    override func clickButton() {
+        if XWHDDMShared.connectState == .disconnected {
+            startBindDevice()
+        } else if XWHDDMShared.connectState == .connected {
+            gotoDeviceMain()
+        }
     }
     
     @objc func clickHelpBtn() {
@@ -85,27 +98,24 @@ extension XWHBindDeviceVC {
         return Self.rNum
     }
     
-    // Test
-    private func testUI() {
-        startBindDevice()
-        
-        Self.rNum = arc4random() % 2
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-            if self.rNum == 0 {
-                self.bindDeviceSuccess()
-            } else {
-                self.bindDeviceFailed()
-            }
-        }
-    }
-    
     // 绑定
     private func startBindDevice() {
         button.isHidden = true
         helpBtn.isHidden = true
         
         titleLb.text = R.string.xwhDeviceText.正在配对()
-        detailLb.text = R.string.xwhDeviceText.正在对N进行配对()
+        
+        detailLb.text = getDetailText(with: R.string.xwhDeviceText.正在对N进行配对())
+        
+        XWHDDMShared.connect(device: bindDeviceModel, isReconnect: false) { [unowned self] (result: Result<XWHDeviceConnectState, XWHBLEError>, conState) in
+            switch result {
+            case .success(_):
+                self.bindDeviceSuccess()
+                
+            case .failure(_):
+                self.bindDeviceFailed()
+            }
+        }
     }
     
     private func bindDeviceFailed() {
@@ -113,7 +123,8 @@ extension XWHBindDeviceVC {
         helpBtn.isHidden = false
         
         titleLb.text = R.string.xwhDeviceText.配对失败()
-        detailLb.text = R.string.xwhDeviceText.与N配对失败()
+                
+        detailLb.text = getDetailText(with: R.string.xwhDeviceText.与N配对失败())
         
         button.setTitle(R.string.xwhDeviceText.重试(), for: .normal)
         helpBtn.setTitle(R.string.xwhDeviceText.查看帮助(), for: .normal)
@@ -124,7 +135,7 @@ extension XWHBindDeviceVC {
         helpBtn.isHidden = true
         
         titleLb.text = R.string.xwhDeviceText.配对成功()
-        detailLb.text = R.string.xwhDeviceText.与N配对成功()
+        detailLb.text = getDetailText(with: R.string.xwhDeviceText.与N配对成功())
         
         button.setTitle(R.string.xwhDisplayText.完成(), for: .normal)
     }
@@ -137,6 +148,18 @@ extension XWHBindDeviceVC {
     private func gotoDeviceMain() {
         let vc = XWHDeviceMainVC()
         navigationController?.setViewControllers([vc], animated: true)
+    }
+    
+}
+
+// MARK: - Private
+extension XWHBindDeviceVC {
+    
+    private func getDetailText(with oString: String) -> String {
+        let devName = bindDeviceModel.type.rawValue
+        let detailText = oString.replacingOccurrences(of: "N", with: devName)
+        
+        return detailText
     }
     
 }
