@@ -14,6 +14,7 @@ import Foundation
 @_exported import SwiftyJSON
 @_exported import Toast_Swift
 @_exported import XCGLogger
+//@_exported import Kingfisher
 
 
 let log = XCGLogger.default

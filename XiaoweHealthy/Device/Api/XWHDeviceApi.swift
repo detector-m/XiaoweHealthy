@@ -11,6 +11,8 @@ import Moya
 let deviceProvider = MoyaProvider<XWHDeviceApi>()
 
 enum XWHDeviceApi {
+    // 获取设备产品列表
+    case list
     
     // 检查固件更新
     case firmwareUpdate(deviceSn: String, version: String)
@@ -21,6 +23,9 @@ extension XWHDeviceApi: XWHServiceTargetType {
     
     var path: String {
         switch self {
+        case .list:
+            return "/device/list"
+            
         case .firmwareUpdate:
             return "/device/firmware_update"
         }
@@ -28,7 +33,7 @@ extension XWHDeviceApi: XWHServiceTargetType {
     
     var method: Moya.Method {
         switch self {
-        case .firmwareUpdate:
+        case .list, .firmwareUpdate:
             return .get
             
 //        default:
@@ -40,6 +45,9 @@ extension XWHDeviceApi: XWHServiceTargetType {
         var param: [String: Any] = [:]
         
         switch self {
+        case .list:
+            break
+            
         case let .firmwareUpdate(deviceSn: sn, version: ver):
             param = ["deviceSn": sn, "version": ver]
         }

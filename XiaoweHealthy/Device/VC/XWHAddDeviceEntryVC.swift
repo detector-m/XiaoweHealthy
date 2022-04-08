@@ -7,6 +7,7 @@
 
 import UIKit
 import FSPagerView
+import Kingfisher
 
 class XWHAddDeviceEntryVC: XWHSearchBindDevBaseVC, FSPagerViewDataSource, FSPagerViewDelegate {
 
@@ -15,12 +16,14 @@ class XWHAddDeviceEntryVC: XWHSearchBindDevBaseVC, FSPagerViewDataSource, FSPage
     lazy var pagerView = FSPagerView()
     lazy var pageControl = FSPageControl()
     
-    lazy var dataSource = ["1.jpg","2.jpg","3.jpg"]
+    lazy var dataSource = [XWHDeviceProductModel]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setNavTransparent()
+        
+        getDeviceList()
     }
     
     override func setupNavigationItems() {
@@ -125,14 +128,15 @@ class XWHAddDeviceEntryVC: XWHSearchBindDevBaseVC, FSPagerViewDataSource, FSPage
     }
     
     public func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
+        let devModel = dataSource[index]
         let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "PagerViewCell", at: index)
-        cell.imageView?.image = UIImage(named: dataSource[index])
+        cell.imageView?.kf.setImage(with: URL(string: devModel.cover))
         cell.imageView?.contentMode = .scaleAspectFill
         cell.imageView?.clipsToBounds = true
         
         let tColor = UIColor(hex: 0x2A2A2A)!
-        let txt1 = "SKYWORTH"
-        let txt2 = "Watch S\(index + 1)"
+        let txt1 = devModel.brand
+        let txt2 = devModel.mode
         let attr = "\(txt1) \(txt2)".colored(with: tColor).applying(attributes: [.font: XWHFont.skSans(ofSize: 20, weight: .bold)], toOccurrencesOf: txt1).applying(attributes: [.font: XWHFont.skSans(ofSize: 20, weight: .regular)], toOccurrencesOf: txt2)
         cell.textLabel?.attributedText = attr
         
@@ -153,6 +157,40 @@ class XWHAddDeviceEntryVC: XWHSearchBindDevBaseVC, FSPagerViewDataSource, FSPage
         pageControl.currentPage = pagerView.currentIndex
     }
 
+}
+
+// MARK: - Api
+extension XWHAddDeviceEntryVC {
+    
+    fileprivate func getDeviceList() {
+        XWHDeviceVM().list { error in
+
+        } successHandler: { [unowned self] response in
+            if let cDevice = response.data as? [XWHDeviceProductModel] {
+                var devProducts: [XWHDeviceProductModel] = []
+                
+                if cDevice.count > 6 {
+                    devProducts.append(contentsOf: cDevice[..<6])
+                } else {
+                    devProducts = cDevice
+                }
+                self.dataSource = devProducts
+                self.reloadUIData()
+            }
+        }
+    }
+    
+}
+
+// MARK: - UI
+extension XWHAddDeviceEntryVC {
+    
+    fileprivate func reloadUIData() {
+        pagerView.reloadData()
+        pageControl.currentPage = 0
+        pageControl.numberOfPages = dataSource.count
+    }
+    
 }
 
 // MARK: - UI Jump
