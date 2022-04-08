@@ -12,6 +12,14 @@ class XWHSearchDeviceVC: XWHSearchBindDevBaseVC {
     lazy var radarView = RLRadarView()
     
     lazy var tableView = UITableView()
+    
+    lazy var watchModel = XWHDevWatchModel()
+    
+    lazy var scanWatches = [XWHDevWatchModel]()
+    
+    deinit {
+        stopSearchDevice()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +69,7 @@ class XWHSearchDeviceVC: XWHSearchBindDevBaseVC {
         
         tableView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
-            make.top.equalTo(radarView.snp.bottom)
+            make.top.equalTo(radarView.snp.bottom).offset(10)
             make.bottom.equalTo(button.snp.top)
         }
         
@@ -73,7 +81,7 @@ class XWHSearchDeviceVC: XWHSearchBindDevBaseVC {
     }
     
     @objc override func clickButton() {
-        
+        startSearching()
     }
     
     @objc func clickNavRightBtn() {
@@ -85,17 +93,19 @@ class XWHSearchDeviceVC: XWHSearchBindDevBaseVC {
 extension XWHSearchDeviceVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return scanWatches.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cWatchModel = scanWatches[indexPath.row]
+        
         let cell = tableView.dequeueReusableCell(withClass: XWHSearchDeviceTBCell.self, for: indexPath)
         
-        let str = "abc \(indexPath.row)"
-        let imgStr = "SignalQuality_\(arc4random() % 5)"
+        let rssi = (abs(cWatchModel.rssi) / 25)
+        let rssiImageStr = "SignalQuality_\(rssi)"
         
-        cell.titleLb.text = str
-        cell.iconView.image = UIImage(named: imgStr)
+        cell.titleLb.text = cWatchModel.name
+        cell.iconView.image = UIImage(named: rssiImageStr)
         
         return cell
     }
@@ -107,11 +117,71 @@ extension XWHSearchDeviceVC: UITableViewDataSource, UITableViewDelegate {
     
 }
 
-// MARK: - Radar
+// MARK: -
 extension XWHSearchDeviceVC {
     
     private func startSearching() {
+        startSearchDevice()
+
+        startRadarSearching()
+    }
+    
+    private func stopSearching() {
+        stopSearchDevice()
+
+        stopRadarSearching()
+    }
+    
+//    private func searchingTimeout() {
+//        radarSearchingTimeout()
+//    }
+    
+}
+
+// MARK: - Api
+extension XWHSearchDeviceVC {
+    
+    private func startSearchDevice() {
+        XWHDDMShared.config(device: watchModel)
+        
+        XWHDDMShared.startScan { [unowned self] result in
+            switch result {
+            case .success(let cWatches):
+                self.scanWatches = cWatches
+                self.stopSearching()
+                self.reloadUIData()
+                
+            case .failure:
+                self.radarSearchingTimeout()
+            }
+        }
+    }
+    
+    private func stopSearchDevice() {
+        XWHDDMShared.stopScan()
+    }
+    
+}
+
+// MARK: - UI
+extension XWHSearchDeviceVC {
+    
+    private func reloadUIData() {
+        button.isHidden = true
+        button.snp.updateConstraints { make in
+            make.height.equalTo(0)
+        }
+        
+        tableView.reloadData()
+    }
+    
+    private func startRadarSearching() {
         radarView.scan()
+    
+        button.isHidden = false
+        button.snp.updateConstraints { make in
+            make.height.equalTo(48)
+        }
         
         UIView.animate(withDuration: 0.25) {
             self.button.setTitle(R.string.xwhDeviceText.正在搜索(), for: .normal)
@@ -119,18 +189,16 @@ extension XWHSearchDeviceVC {
             self.button.alpha = 0.24
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-//            self.searchingTimeout()
-            
-            
-            self.stopSearching()
-//            self.scaleRadarScan()
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+////            self.searchingTimeout()
+//            self.stopSearching()
+////            self.scaleRadarScan()
+//        }
     }
     
-    private func stopSearching() {
+    private func stopRadarSearching() {
         radarView.stop()
-        
+
 //        var rRect = radarView.frame
 //        radarView.snp.removeConstraints()
 //        radarView.frame = rRect
@@ -162,7 +230,7 @@ extension XWHSearchDeviceVC {
         }
     }
     
-    private func searchingTimeout() {
+    private func radarSearchingTimeout() {
         radarView.stop()
         
         UIView.animate(withDuration: 0.25) {

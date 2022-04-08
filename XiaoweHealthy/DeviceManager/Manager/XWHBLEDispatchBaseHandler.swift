@@ -33,7 +33,7 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
     
     // MARK: - 私有定义
     /// 搜索设备超时时间
-    fileprivate let searchTime: TimeInterval = 30
+    fileprivate let searchTime: TimeInterval = 6
     
     /// 连接设备超时时间
     var connectTime: TimeInterval = 30
@@ -63,18 +63,22 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
 
         scanTimerInvalidate()
         _scanTimer = Timer.scheduledTimer(withTimeInterval: searchTime, repeats: false, block: { [unowned self] cTimer in
+            log.debug("扫描计时器\(self.searchTime)s，刷新回调")
             
             self.stopScan()
 
             let devices = self.sdkDeviceToXWHDevice()
-
-            self.isSearchSuccess = false
             
-            log.debug("扫描计时器\(self.searchTime)s，刷新回调")
+            var response: Result<[XWHDevWatchModel], XWHBLEError> = .failure(XWHBLEError.normal)
+            if devices.isEmpty {
+                self.isSearchSuccess = false
+            } else {
+                self.isSearchSuccess = true
+                response = .success(devices)
+            }
             
             DispatchQueue.main.async {
-//                scanHandler?(devices)
-                scanHandler?(.success(devices))
+                scanHandler?(response)
             }
         })
     }

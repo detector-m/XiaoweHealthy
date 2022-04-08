@@ -12,9 +12,9 @@ enum XWHDeviceType: String {
     
     case none = ""
     
-    case skyworthWatchS1 = "Skyworth Watch S1"
+    case skyworthWatchS1 = "SKYWORTH Watch S1"
     
-    case skyworthWatchS2 = "Skyworth Watch S2"
+    case skyworthWatchS2 = "SKYWORTH Watch S2"
     
 }
 

@@ -35,7 +35,7 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
         
         // 设置过滤服务（可以搜索包含设置服务的设备）
         // 默认情况下，SDK只会扫描其中某个设备，请开发者再次设置过滤
-//        manager.filerServers = ["5533"]
+        manager.filerServers = ["5533"]
 //        manager.isScanAllDevice = true
         
         manager.delegate = self
@@ -62,6 +62,8 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
     override func stopScan() {
         super.stopScan()
         manager.stopScanDevices()
+        
+//        log.debug(manager.delegate)
     }
     
     override func sdkDeviceToXWHDevice() -> [XWHDevWatchModel] {
@@ -73,7 +75,7 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
             device.name = model.name
             device.type = .skyworthWatchS1
             device.identifier = model.identifier
-            device.mac = model.addressStr
+            device.mac = model.addressStr ?? ""
             device.rssi = model.rssi
             
             return device
@@ -105,6 +107,9 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
         
         if !sameDevices {
             log.debug("***Scanned device name=\(String(describing: modelDevices.name)) id=\(String(describing: modelDevices.identifier))")
+            if modelDevices.name.isEmpty {
+                return
+            }
             uteDevices.append(modelDevices)
         }
     }

@@ -128,15 +128,16 @@ class XWHAddDeviceEntryVC: XWHSearchBindDevBaseVC, FSPagerViewDataSource, FSPage
     }
     
     public func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
-        let devModel = dataSource[index]
+        let productModel = dataSource[index]
+
         let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "PagerViewCell", at: index)
-        cell.imageView?.kf.setImage(with: URL(string: devModel.cover))
+        cell.imageView?.kf.setImage(with: URL(string: productModel.cover))
         cell.imageView?.contentMode = .scaleAspectFill
         cell.imageView?.clipsToBounds = true
         
         let tColor = UIColor(hex: 0x2A2A2A)!
-        let txt1 = devModel.brand
-        let txt2 = devModel.mode
+        let txt1 = productModel.brand
+        let txt2 = productModel.mode
         let attr = "\(txt1) \(txt2)".colored(with: tColor).applying(attributes: [.font: XWHFont.skSans(ofSize: 20, weight: .bold)], toOccurrencesOf: txt1).applying(attributes: [.font: XWHFont.skSans(ofSize: 20, weight: .regular)], toOccurrencesOf: txt2)
         cell.textLabel?.attributedText = attr
         

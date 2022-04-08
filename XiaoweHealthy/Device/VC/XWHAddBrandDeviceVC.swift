@@ -6,14 +6,19 @@
 //
 
 import UIKit
+import Kingfisher
 
 class XWHAddBrandDeviceVC: XWHDeviceBaseVC, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     
     fileprivate lazy var flowLayout = UICollectionViewFlowLayout()
     fileprivate lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+    
+    fileprivate lazy var dataSource = [XWHDeviceProductModel]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getDeviceList()
     }
     
     override func addSubViews() {
@@ -55,24 +60,27 @@ class XWHAddBrandDeviceVC: XWHDeviceBaseVC, UICollectionViewDataSource, UICollec
     
     // MARK: - UICollectionViewDataSource, UICollectionViewFlowLayout, UICollectionViewDelegate
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0 {
-            return 3
-        }
+//        if section == 0 {
+//            return 3
+//        }
         
-        return 4
+        return dataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let productModel = dataSource[indexPath.item]
+
         let cell = collectionView.dequeueReusableCell(withClass: XWHAddBrandDeviceCTCell.self, for: indexPath)
         
-        cell.imageView.image = R.image.devicePlaceholder()
+//        cell.imageView.image = R.image.devicePlaceholder()
+        cell.imageView.kf.setImage(with: URL(string: productModel.cover))
         
         let tColor = UIColor(hex: 0x2A2A2A)!
-        let txt1 = "SKYWORTH"
-        let txt2 = "Watch S\(indexPath.item + 1)"
+        let txt1 = productModel.brand
+        let txt2 = productModel.mode
         let attr = "\(txt1) \(txt2)".colored(with: tColor).applying(attributes: [.font: XWHFont.skSans(ofSize: 13, weight: .bold)], toOccurrencesOf: txt1).applying(attributes: [.font: XWHFont.skSans(ofSize: 13, weight: .regular)], toOccurrencesOf: txt2)
         
         cell.textLb.attributedText = attr
@@ -85,7 +93,7 @@ class XWHAddBrandDeviceVC: XWHDeviceBaseVC, UICollectionViewDataSource, UICollec
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withClass: XWHBaseCTCell.self, for: indexPath)
             
             header.addRelayoutTextLb(inset: UIEdgeInsets(top: 0, left: 28, bottom: 0, right: 28))
-            header.textLb.text = "创维智能手表 \(1)"
+            header.textLb.text = R.string.xwhDeviceText.创维智能手表()
             
             return header
         } else {
@@ -94,16 +102,59 @@ class XWHAddBrandDeviceVC: XWHDeviceBaseVC, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        gotoSearchDevice()
+        let productModel = dataSource[indexPath.item]
+
+        gotoSearchDevice(productModel: productModel)
     }
 
+}
+
+// MARK: - Api
+extension XWHAddBrandDeviceVC {
+    
+    fileprivate func getDeviceList() {
+//        XWHProgressHUD.show(text: "加载中...")
+        view.makeToastActivity(.center)
+        XWHDeviceVM().list { [unowned self] error in
+//            XWHProgressHUD.hide()
+            self.view.hideToastActivity()
+        } successHandler: { [unowned self] response in
+//            XWHProgressHUD.hide()
+            self.view.hideToastActivity()
+            
+            if let cDevice = response.data as? [XWHDeviceProductModel] {
+                self.dataSource = cDevice
+                self.reloadUIData()
+            }
+        }
+    }
+    
+}
+
+// MARK: - UI
+extension XWHAddBrandDeviceVC {
+    
+    fileprivate func reloadUIData() {
+        collectionView.reloadData()
+    }
+    
 }
 
 // MARK: - UI Jump
 extension XWHAddBrandDeviceVC {
     
-    fileprivate func gotoSearchDevice() {
+    fileprivate func gotoSearchDevice(productModel: XWHDeviceProductModel) {
+        let watchModel = XWHDevWatchModel()
+        let typeStr = productModel.brand + " " + productModel.mode
+        watchModel.type = XWHDeviceType(rawValue: typeStr) ?? .none
+        
+        if watchModel.type == .none {
+            view.makeInsetToast("产品的型号不对")
+            return
+        }
+        
         let vc = XWHSearchDeviceVC()
+        vc.watchModel = watchModel
         navigationController?.pushViewController(vc, animated: true)
     }
     
