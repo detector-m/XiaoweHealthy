@@ -129,6 +129,8 @@
 		969F01BD27F69D8B00CA4DA4 /* XWHPopupPick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F01BC27F69D8B00CA4DA4 /* XWHPopupPick.swift */; };
 		969F01C027F6DBB600CA4DA4 /* XWHDevSetUpdateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F01BF27F6DBB600CA4DA4 /* XWHDevSetUpdateVC.swift */; };
 		969F01C227F6DDF800CA4DA4 /* XWHDevSetUpdateHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F01C127F6DDF800CA4DA4 /* XWHDevSetUpdateHeaderView.swift */; };
+		96AD2857280139670092B843 /* AppDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD2856280139670092B843 /* AppDatabase.swift */; };
+		96AD285A280144F40092B843 /* XWHLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD2859280144F40092B843 /* XWHLog.swift */; };
 		96D0041427F821D100E569C7 /* XWHTestWebViewBridge.html in Resources */ = {isa = PBXBuildFile; fileRef = 96D0041327F821D100E569C7 /* XWHTestWebViewBridge.html */; };
 		96D0041727F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D0041627F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift */; };
 		96D0041927F8236D00E569C7 /* XWHJsApiTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D0041827F8236D00E569C7 /* XWHJsApiTest.swift */; };
@@ -327,6 +329,8 @@
 		969F01BC27F69D8B00CA4DA4 /* XWHPopupPick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPopupPick.swift; sourceTree = "<group>"; };
 		969F01BF27F6DBB600CA4DA4 /* XWHDevSetUpdateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetUpdateVC.swift; sourceTree = "<group>"; };
 		969F01C127F6DDF800CA4DA4 /* XWHDevSetUpdateHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetUpdateHeaderView.swift; sourceTree = "<group>"; };
+		96AD2856280139670092B843 /* AppDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDatabase.swift; sourceTree = "<group>"; };
+		96AD2859280144F40092B843 /* XWHLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLog.swift; sourceTree = "<group>"; };
 		96D0041327F821D100E569C7 /* XWHTestWebViewBridge.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = XWHTestWebViewBridge.html; sourceTree = "<group>"; };
 		96D0041627F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTestWebViewBridgeVC.swift; sourceTree = "<group>"; };
 		96D0041827F8236D00E569C7 /* XWHJsApiTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHJsApiTest.swift; sourceTree = "<group>"; };
@@ -812,6 +816,7 @@
 		96617A6F27E1E06700139B03 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				96AD2858280144E40092B843 /* Log */,
 				9651EE0527EAF5980043FE52 /* Network */,
 				96DC42A527FD9F5E009BF300 /* DownloadManager */,
 				96DC42A227FD875A009BF300 /* FileManager */,
@@ -1092,6 +1097,22 @@
 			path = Update;
 			sourceTree = "<group>";
 		};
+		96AD28552801393B0092B843 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				96AD2856280139670092B843 /* AppDatabase.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		96AD2858280144E40092B843 /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				96AD2859280144F40092B843 /* XWHLog.swift */,
+			);
+			path = Log;
+			sourceTree = "<group>";
+		};
 		96D0041127F8212400E569C7 /* WebViewBridge */ = {
 			isa = PBXGroup;
 			children = (
@@ -1177,6 +1198,7 @@
 		96DC429E27FD7323009BF300 /* DataManager */ = {
 			isa = PBXGroup;
 			children = (
+				96AD28552801393B0092B843 /* Database */,
 				96DC429F27FD734B009BF300 /* Cache */,
 			);
 			path = DataManager;
@@ -1684,6 +1706,7 @@
 				96E23C2C27E1A579009EF208 /* XWHDeviceMainVC.swift in Sources */,
 				9653E49827F58C4D00EE55FF /* XWHDevSetChartDeploy.swift in Sources */,
 				96DC429A27FD34C7009BF300 /* RLBLEPermissions.swift in Sources */,
+				96AD285A280144F40092B843 /* XWHLog.swift in Sources */,
 				9653E49427F5556300EE55FF /* XWHDevSetCallVC.swift in Sources */,
 				9651EE1A27EBFBEA0043FE52 /* XWHError.swift in Sources */,
 				96617A9F27E302C900139B03 /* XWHPhoneNumView.swift in Sources */,
@@ -1701,6 +1724,7 @@
 				96DC429D27FD42B7009BF300 /* XWHDeviceApi.swift in Sources */,
 				968CB8A827F42A8C00E549AC /* XWHCommonBaseTBCell.swift in Sources */,
 				96FC408627EDB78F00D64B64 /* XWHDeviceBaseVC.swift in Sources */,
+				96AD2857280139670092B843 /* AppDatabase.swift in Sources */,
 				96E8A6BD27F1738200F5C75C /* XWHUINavigationControllerExtension.swift in Sources */,
 				96F3588327FE7CE000783614 /* XWHBLEDispatchProtocol.swift in Sources */,
 				9651EE0E27EB06F20043FE52 /* XWHLoginRegisterVM.swift in Sources */,

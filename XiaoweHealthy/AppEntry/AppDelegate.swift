@@ -90,11 +90,7 @@ extension AppDelegate {
     }
     
     fileprivate func configLog() {
-        //日志文件地址
-        let cachePath = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
-        let logURL = cachePath.appendingPathComponent("log.txt")
-        
-        log.setup(level: .debug, showThreadName: true, showLevel: true, showFileNames: true, showLineNumbers: true, writeToFile: logURL, fileLevel: .debug)
+        XWHLog.configLog()
     }
     
     // 配置缓存

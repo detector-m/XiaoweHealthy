@@ -59,6 +59,8 @@ class XWHHealthyMainVC: XWHBaseVC {
 //        testCache()
         
 //        testScan()
+        
+        testDatabase()
     }
     
     @objc func clickLoginBtn2() {
@@ -109,6 +111,10 @@ extension XWHHealthyMainVC {
         XWHDDMShared.startScan { devices in
             log.debug(devices)
         }
+    }
+    
+    fileprivate func testDatabase() {
+        AppDatabase.test()
     }
     
 }
