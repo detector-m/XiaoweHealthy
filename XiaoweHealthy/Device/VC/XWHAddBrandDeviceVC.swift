@@ -114,13 +114,13 @@ extension XWHAddBrandDeviceVC {
     
     fileprivate func getDeviceList() {
         XWHProgressHUD.show()
-        view.makeToastActivity(.center)
-        XWHDeviceVM().list { [unowned self] error in
+//        view.makeToastActivity(.center)
+        XWHDeviceVM().list { error in
             XWHProgressHUD.hide()
-            self.view.hideToastActivity()
+//            self.view.hideToastActivity()
         } successHandler: { [unowned self] response in
             XWHProgressHUD.hide()
-            self.view.hideToastActivity()
+//            self.view.hideToastActivity()
             
             if let cDevice = response.data as? [XWHDeviceProductModel] {
                 self.dataSource = cDevice
