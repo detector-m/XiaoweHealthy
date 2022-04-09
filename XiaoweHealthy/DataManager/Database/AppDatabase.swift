@@ -9,8 +9,12 @@ import Foundation
 import GRDB
 import ObjectiveC
 
+//let appDB = AppDatabase.shared
+
 // MARK: - AppDatabase
 final class AppDatabase {
+    
+    static let version: String = "1.0.0"
         
     /// Provides access to the database.
     ///
@@ -31,27 +35,30 @@ final class AppDatabase {
         // See https://github.com/groue/GRDB.swift/blob/master/Documentation/Migrations.md#the-erasedatabaseonschemachange-option
         migrator.eraseDatabaseOnSchemaChange = true
         #endif
-        
-//        migrator.registerMigration("createPlayer") { db in
-//            // Create a table
-//            // See https://github.com/groue/GRDB.swift#create-tables
-//            try db.create(table: "player") { t in
-//                t.autoIncrementedPrimaryKey("id")
-//                t.column("name", .text).notNull()
-//                t.column("score", .integer).notNull()
-//            }
-//        }
-        
         // Migrations for future application versions will be inserted here:
         // migrator.registerMigration(...) { db in
         //     ...
         // }
         
+        migrator.registerMigration("1.0.0") { [unowned self] db in
+            // Create a table
+            // See https://github.com/groue/GRDB.swift#create-tables
+            try self.createXWHDevWatchModelTable(db: db)
+        }
+        
+//        migrator.registerMigration("1.0.1") { db in
+//            // Create a table
+//            // See https://github.com/groue/GRDB.swift#create-tables
+//            try db.alter(table: XWHTestModel.databaseTableName, body: { ta in
+//                ta.add(column: "age", .integer).notNull().defaults(to: 0)
+//            })
+//        }
+                
         return migrator
     }
     
     /// Provides a read-only access to the database
-    var databaseReader: DatabaseReader {
+    var dbReader: DatabaseReader {
         dbWriter
     }
     
@@ -124,7 +131,88 @@ extension AppDatabase {
     }
     
     class func test() {
-       let _ = Self.shared
+//        do {
+//            try shared.dbWriter.write { db in
+//                let c1 = XWHTestModel()
+//                c1.name = "hello100"
+//                c1.score = 12000
+//                try c1.insert(db)
+//            }
+//        } catch let e {
+//            log.error(e)
+//        }
     }
 }
 
+extension AppDatabase {
+    
+    private func createXWHDevWatchModelTable(db: Database) throws {
+        try db.create(table: XWHDevWatchModel.databaseTableName) { t in
+//                t.autoIncrementedPrimaryKey("id")
+            t.column(XWHDevWatchModel.Columns.identifier.name, .text).notNull()
+            t.column(XWHDevWatchModel.Columns.name.name, .text).notNull()
+            t.column(XWHDevWatchModel.Columns.type.name, .text).notNull()
+            t.column(XWHDevWatchModel.Columns.mac.name, .text).notNull()
+            t.column(XWHDevWatchModel.Columns.version.name, .text).notNull()
+            t.column(XWHDevWatchModel.Columns.battery.name, .integer).notNull()
+            
+            t.primaryKey([XWHDevWatchModel.Columns.identifier.name])
+        }
+    }
+    
+}
+
+// MARK: - Private
+extension AppDatabase {
+    
+    public func write<T>(_ updates: (Database) throws -> T) {
+        do {
+            try dbWriter.write(updates)
+        } catch let e {
+            log.error("数据写入失败, e = \(e)")
+        }
+    }
+    
+    public func read<T>(_ value: (Database) throws -> T) -> T? {
+        do {
+            return try dbReader.read(value)
+        } catch let e {
+            log.error("数据读取失败, e = \(e)")
+            return nil
+        }
+    }
+    
+    
+}
+
+// MARK: - XWHDevWatchModel
+extension AppDatabase {
+    
+    /// Saves (inserts or updates) a player. When the method returns, the
+    /// player is present in the database, and its id is not nil.
+    func saveDevWatchModel(_ devWatch: inout XWHDevWatchModel) {
+        write { db in
+            try devWatch.save(db)
+        }
+    }
+    
+    func deleteDevWatchModel(_ devWatch: XWHDevWatchModel) {
+        write { db in
+//            try XWHDevWatchModel.deleteOne(db, key: devWatch.identifier)
+            try devWatch.delete(db)
+        }
+    }
+    
+    func deleteAllDevWatchModel() {
+        write { db in
+            try XWHDevWatchModel.deleteAll(db)
+        }
+    }
+    
+    func getDevWatchModel(_ id: String) -> XWHDevWatchModel? {
+        return read { db in
+            try XWHDevWatchModel.fetchOne(db, key: id)
+        } as? XWHDevWatchModel
+    }
+    
+}

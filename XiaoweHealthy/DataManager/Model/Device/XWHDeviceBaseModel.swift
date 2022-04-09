@@ -6,9 +6,13 @@
 //
 
 import Foundation
+import GRDB
 
 // MARK: - 设备基础类模型
-class XWHDeviceBaseModel: CustomDebugStringConvertible {
+class XWHDeviceBaseModel: Record, CustomDebugStringConvertible {
+    
+    /// 设备ID（标识）
+    var identifier = ""
     
     /// 设备名称
     var name = ""
@@ -31,14 +35,23 @@ class XWHDeviceBaseModel: CustomDebugStringConvertible {
     /// 信号
     var rssi = 0
     
-    /// 设备ID
-    var identifier = ""
-    
     /// 固件版本
     var version = ""
     
     /// 电量
     var battery = 0
+    
+    class override var databaseTableName: String {
+        "deviceBaseModel"
+    }
+    
+    override init() {
+        super.init()
+    }
+    
+    required init(row: Row) {
+        super.init(row: row)
+    }
     
     var debugDescription: String {
         return "name = \(name), type = \(type), mac = \(mac), identifier = \(identifier), version = \(version)"
