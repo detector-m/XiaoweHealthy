@@ -80,9 +80,11 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
     }
     
     override func disconnect(device: XWHDevWatchModel?) {
-//        super.disconnect(device: device)
-        
         log.info("-----------UTE断开连接手表-----------")
+        
+        let devModel = UTEModelDevices()
+        devModel.identifier = device?.identifier
+        manager.disConnect(devModel)
     }
     
     override func sdkDeviceToXWHDevice() -> [XWHDevWatchModel] {

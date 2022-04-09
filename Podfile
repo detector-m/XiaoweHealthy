@@ -25,6 +25,9 @@ target 'XiaoweHealthy' do
   # 类的方法拓展
   pod 'SwifterSwift'
   
+  # 数据库
+  pod 'GRDB.swift'
+  
   # 加密算法
   pod 'CryptoSwift'
   

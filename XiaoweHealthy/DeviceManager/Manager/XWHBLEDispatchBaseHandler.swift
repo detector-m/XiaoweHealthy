@@ -33,7 +33,7 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
     
     // MARK: - 私有定义
     /// 搜索设备超时时间
-    fileprivate let searchTime: TimeInterval = 6
+    fileprivate let searchTime: TimeInterval = 5
     
     /// 连接设备超时时间
     var connectTime: TimeInterval = 30
