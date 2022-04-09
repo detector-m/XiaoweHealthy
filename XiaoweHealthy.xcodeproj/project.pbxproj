@@ -132,6 +132,8 @@
 		96AD2857280139670092B843 /* AppDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD2856280139670092B843 /* AppDatabase.swift */; };
 		96AD285A280144F40092B843 /* XWHLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD2859280144F40092B843 /* XWHLog.swift */; };
 		96AD285C28016BB30092B843 /* XWHTestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD285B28016BB30092B843 /* XWHTestModel.swift */; };
+		96AD28662801C5AA0092B843 /* XWHDataUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD28652801C5AA0092B843 /* XWHDataUserManager.swift */; };
+		96AD28682801C5BA0092B843 /* XWHDataDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD28672801C5BA0092B843 /* XWHDataDeviceManager.swift */; };
 		96D0041427F821D100E569C7 /* XWHTestWebViewBridge.html in Resources */ = {isa = PBXBuildFile; fileRef = 96D0041327F821D100E569C7 /* XWHTestWebViewBridge.html */; };
 		96D0041727F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D0041627F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift */; };
 		96D0041927F8236D00E569C7 /* XWHJsApiTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D0041827F8236D00E569C7 /* XWHJsApiTest.swift */; };
@@ -333,6 +335,8 @@
 		96AD2856280139670092B843 /* AppDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDatabase.swift; sourceTree = "<group>"; };
 		96AD2859280144F40092B843 /* XWHLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLog.swift; sourceTree = "<group>"; };
 		96AD285B28016BB30092B843 /* XWHTestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTestModel.swift; sourceTree = "<group>"; };
+		96AD28652801C5AA0092B843 /* XWHDataUserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataUserManager.swift; sourceTree = "<group>"; };
+		96AD28672801C5BA0092B843 /* XWHDataDeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataDeviceManager.swift; sourceTree = "<group>"; };
 		96D0041327F821D100E569C7 /* XWHTestWebViewBridge.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = XWHTestWebViewBridge.html; sourceTree = "<group>"; };
 		96D0041627F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTestWebViewBridgeVC.swift; sourceTree = "<group>"; };
 		96D0041827F8236D00E569C7 /* XWHJsApiTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHJsApiTest.swift; sourceTree = "<group>"; };
@@ -640,7 +644,6 @@
 		9651EE2127EC0EA60043FE52 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				9651EE2227EC0EC60043FE52 /* XWHUserModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1103,7 +1106,6 @@
 			isa = PBXGroup;
 			children = (
 				96AD2856280139670092B843 /* AppDatabase.swift */,
-				96AD285B28016BB30092B843 /* XWHTestModel.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -1119,7 +1121,7 @@
 		96AD285D280183A30092B843 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				96AD285E280183DD0092B843 /* Device */,
+				96AD285B28016BB30092B843 /* XWHTestModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1127,10 +1129,52 @@
 		96AD285E280183DD0092B843 /* Device */ = {
 			isa = PBXGroup;
 			children = (
+				96AD28612801C5610092B843 /* Manager */,
+				96AD28602801C5590092B843 /* Model */,
+			);
+			path = Device;
+			sourceTree = "<group>";
+		};
+		96AD28602801C5590092B843 /* Model */ = {
+			isa = PBXGroup;
+			children = (
 				96F3588627FE815B00783614 /* XWHDeviceBaseModel.swift */,
 				96F3588827FE858900783614 /* XWHDevWatchModel.swift */,
 			);
-			path = Device;
+			path = Model;
+			sourceTree = "<group>";
+		};
+		96AD28612801C5610092B843 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				96AD28672801C5BA0092B843 /* XWHDataDeviceManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		96AD28622801C57D0092B843 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				96AD28642801C5890092B843 /* Manager */,
+				96AD28632801C5830092B843 /* Model */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		96AD28632801C5830092B843 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9651EE2227EC0EC60043FE52 /* XWHUserModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		96AD28642801C5890092B843 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				96AD28652801C5AA0092B843 /* XWHDataUserManager.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		96D0041127F8212400E569C7 /* WebViewBridge */ = {
@@ -1216,6 +1260,8 @@
 		96DC429E27FD7323009BF300 /* DataManager */ = {
 			isa = PBXGroup;
 			children = (
+				96AD28622801C57D0092B843 /* User */,
+				96AD285E280183DD0092B843 /* Device */,
 				96AD285D280183A30092B843 /* Model */,
 				96AD28552801393B0092B843 /* Database */,
 				96DC429F27FD734B009BF300 /* Cache */,
@@ -1723,6 +1769,7 @@
 				96759D8627F3533C0098CA92 /* XWHSearchDeviceTBCell.swift in Sources */,
 				9651EE1E27EBFDAA0043FE52 /* XWHResponse.swift in Sources */,
 				96E23C2C27E1A579009EF208 /* XWHDeviceMainVC.swift in Sources */,
+				96AD28662801C5AA0092B843 /* XWHDataUserManager.swift in Sources */,
 				9653E49827F58C4D00EE55FF /* XWHDevSetChartDeploy.swift in Sources */,
 				96DC429A27FD34C7009BF300 /* RLBLEPermissions.swift in Sources */,
 				96AD285A280144F40092B843 /* XWHLog.swift in Sources */,
@@ -1761,6 +1808,7 @@
 				96617AB327E34CBB00139B03 /* XWHHeightSelectVC.swift in Sources */,
 				96F3588727FE815B00783614 /* XWHDeviceBaseModel.swift in Sources */,
 				969F01C227F6DDF800CA4DA4 /* XWHDevSetUpdateHeaderView.swift in Sources */,
+				96AD28682801C5BA0092B843 /* XWHDataDeviceManager.swift in Sources */,
 				9651EDFA27E9A3130043FE52 /* RLOverlayerBgView.swift in Sources */,
 				96617AA527E3169200139B03 /* XWHCodeView.swift in Sources */,
 				9653E49A27F5978800EE55FF /* XWHTBHeaderFooterBaseView.swift in Sources */,

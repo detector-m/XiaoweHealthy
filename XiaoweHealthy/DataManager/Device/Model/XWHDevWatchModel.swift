@@ -16,7 +16,7 @@ class XWHDevWatchModel: XWHDeviceBaseModel {
     }
     
     class override var databaseTableName: String {
-        "XWHDevWatchModel"
+        "device_watch_model"
     }
     
     override init() {

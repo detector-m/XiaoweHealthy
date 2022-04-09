@@ -7,9 +7,22 @@
 
 import Foundation
 import HandyJSON
+import GRDB
 
-
-struct XWHUserModel: HandyJSON, CustomDebugStringConvertible {
+struct XWHUserModel: Codable, FetchableRecord, TableRecord, PersistableRecord, HandyJSON, CustomDebugStringConvertible {
+    
+    public enum Columns: String, ColumnExpression {
+        case mobile, nickname, avatar, gender, height, weight, birthday
+    }
+    
+    // 手机号码
+    var mobile = ""
+    
+    // 昵称
+    var nickname = ""
+    
+    // 头像
+    var avatar = ""
     
     // 性别 0 女 1 男
     var gender: Int = 1
@@ -22,6 +35,10 @@ struct XWHUserModel: HandyJSON, CustomDebugStringConvertible {
     
     // 生日 格式yyyy-MM-dd
     var birthday: String = "1990-01-01"
+    
+    static var databaseTableName: String {
+        return "user_model"
+    }
     
     var debugDescription: String {
         return "gender = \(gender), height = \(height), height = \(weight), birthday = \(birthday)"
