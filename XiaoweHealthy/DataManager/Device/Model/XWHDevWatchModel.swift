@@ -12,7 +12,7 @@ import GRDB
 class XWHDevWatchModel: XWHDeviceBaseModel {
     
     public enum Columns: String, ColumnExpression {
-        case identifier, name, type, mac, version, battery
+        case identifier, name, type, mac, version, battery, isCurrent
     }
     
     class override var databaseTableName: String {
@@ -33,6 +33,7 @@ class XWHDevWatchModel: XWHDeviceBaseModel {
         mac = row[Columns.mac]
         version = row[Columns.version]
         battery = row[Columns.battery]
+        isCurrent = row[Columns.isCurrent]
     }
     
     override func encode(to container: inout PersistenceContainer) {
@@ -43,6 +44,8 @@ class XWHDevWatchModel: XWHDeviceBaseModel {
         container[Columns.mac] = mac
         container[Columns.version] = version
         container[Columns.battery] = battery
+        
+        container[Columns.isCurrent] = isCurrent
     }
 
 }

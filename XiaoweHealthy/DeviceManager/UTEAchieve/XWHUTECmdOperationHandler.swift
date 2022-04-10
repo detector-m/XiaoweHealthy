@@ -7,7 +7,6 @@
 
 import UIKit
 import UTESmartBandApi
-import Alamofire
 
 class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
     
@@ -24,15 +23,20 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
             setUserInfo(user: user, handler: handler)
         } else {
             log.error("UTE 获取用户信息失败")
+            var error = XWHError()
+            error.message = "获取用户信息失败"
+            handler?(.failure(error))
         }
     }
     
     func reboot(handler: XWHDevCmdOperationHandler?) {
-        
+        log.info("UTE 重启设备")
     }
     
     func reset(handler: XWHDevCmdOperationHandler?) {
         log.info("UTE 恢复出厂设置")
+        manager.setUTEOption(UTEOption.deleteDevicesAllData)
+        handler?(.success(nil))
     }
     
     func setTime(handler: XWHDevCmdOperationHandler?) {
@@ -40,6 +44,7 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
         
         // 设置设备时间
         manager.setUTEOption(UTEOption.syncTime)
+        handler?(.success(nil))
     }
     
     func setUnit(handler: XWHDevCmdOperationHandler?) {
@@ -47,6 +52,7 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
         
         // 设置设备单位:公尺或者英寸
         manager.setUTEOption(UTEOption.unitMeter)
+        handler?(.success(nil))
     }
     
     func setUserInfo(user: XWHUserModel, handler: XWHDevCmdOperationHandler?) {
@@ -74,6 +80,36 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
         infoModel.handlight = 0
         
         manager.setUTEInfoModel(infoModel)
+        
+        handler?(.success(nil))
     }
+    
+    // MARK: - 获取设备信息
+    func getDeviceInfo(handler: XWHDevCmdOperationHandler?) {
+        let retIdStr = "getDeviceInfo"
+        if let connDevice = manager.connectedDevicesModel {
+            let response = XWHResponse()
+            response.identifier = retIdStr
+            
+            let retWatchModel = XWHDevWatchModel()
+            retWatchModel.identifier = connDevice.identifier
+            retWatchModel.battery = connDevice.battery
+            retWatchModel.name = connDevice.name
+            retWatchModel.mac = connDevice.addressStr ?? ""
+            retWatchModel.version = connDevice.version
+            retWatchModel.isCurrent = true
+            
+            response.data = retWatchModel
+            
+            handler?(.success(response))
+        } else {
+            var error = XWHError()
+            error.identifier = retIdStr
+            error.message = "设备未连接"
+            
+            handler?(.failure(error))
+        }
+    }
+    
 
 }

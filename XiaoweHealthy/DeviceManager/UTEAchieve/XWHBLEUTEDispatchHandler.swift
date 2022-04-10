@@ -170,7 +170,21 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
             } else {
                 self.connectHandler?(.failure(.normal), self.connectState)
             }
+            
+            self.connectHandler = nil
         }
     }
     
+    func uteManagerBluetoothState(_ bluetoothState: UTEBluetoothState) {
+        log.info("bluetoothState = \(bluetoothState.rawValue)")
+    }
+    
+    func uteManagerExtraIsAble(_ isAble: Bool) {
+        if isAble {
+            log.info("***Successfully turn on the additional functions of the device")
+        } else{
+            log.info("***Failed to open the extra functions of the device, the device is actively disconnected, please reconnect the device")
+        }
+        
+    }
 }

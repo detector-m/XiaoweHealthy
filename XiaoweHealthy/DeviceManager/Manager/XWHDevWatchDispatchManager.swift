@@ -165,4 +165,9 @@ extension XWHDevWatchDispatchManager: XWHDevCmdOperationProtocol {
         cmdHandler?.setUserInfo(user: user, handler: handler)
     }
     
+    // MARK: - 获取设备信息
+    func getDeviceInfo(handler: XWHDevCmdOperationHandler?) {
+        cmdHandler?.getDeviceInfo(handler: handler)
+    }
+    
 }

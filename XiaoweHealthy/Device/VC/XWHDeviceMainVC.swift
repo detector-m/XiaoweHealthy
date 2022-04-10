@@ -15,11 +15,32 @@ class XWHDeviceMainVC: XWHSearchBindDevBaseVC {
     
     private lazy var deviceItems = [[XWHDeployItemModel]]()
     
+    private var connWatchModel: XWHDevWatchModel? {
+        XWHDataDeviceManager.getCurrentDeviceWatchModel()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
 //        configDeviceItems()
         reloadAll()
+        
+//        if var connWatch = XWHDataDeviceManager.getCurrentDeviceWatchModel() {
+//            XWHDDMShared.config(device: connWatch)
+////            XWHDDMShared.disconnect(device: connWatch)
+//            XWHDDMShared.connect(device: connWatch, isReconnect: true) { [unowned self] (result: Result<XWHDeviceConnectState, XWHBLEError>, conState) in
+//                switch result {
+//                case .success(_):
+//                    connWatch.isCurrent = true
+//                    XWHDataDeviceManager.saveDeviceWatchModel(&connWatch)
+//                    
+//                case .failure(_):
+//                    view.makeInsetToast("连接失败")
+//                }
+//            }
+//        }
+        
+        getDeviceInfo()
     }
     
     override func setupNavigationItems() {
@@ -73,6 +94,24 @@ extension XWHDeviceMainVC {
     
     private func configDeviceItems() {
         deviceItems = XWHDeviceDeploy().loadDeploys()
+    }
+    
+    private func getDeviceInfo() {
+        XWHDDMShared.getDeviceInfo { [unowned self] result in
+            switch result {
+            case .success(let cModel):
+                if var connModel = cModel?.data as? XWHDevWatchModel, let curModel = XWHDataDeviceManager.getCurrentDeviceWatchModel() {
+                    connModel.isCurrent = curModel.isCurrent
+                    connModel.type = curModel.type
+                    XWHDataDeviceManager.saveDeviceWatchModel(&connModel)
+                    
+                    reloadAll()
+                }
+                
+            case .failure(let error):
+                self.view.makeInsetToast(error.message)
+            }
+        }
     }
     
 }
@@ -158,11 +197,12 @@ extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableVi
             
             let tColor = UIColor(hex: 0x2A2A2A)!
             let txt1 = "SKYWORTH"
-            let txt2 = "Watch S1"
+//            let txt2 = "Watch S1"
+            let txt2 = connWatchModel?.name.replacingOccurrences(of: txt1, with: "") ?? ""
             let attr = "\(txt1) \(txt2)".colored(with: tColor).applying(attributes: [.font: XWHFont.skSans(ofSize: 13, weight: .bold)], toOccurrencesOf: txt1).applying(attributes: [.font: XWHFont.skSans(ofSize: 13, weight: .regular)], toOccurrencesOf: txt2)
             
             cell.titleLb.attributedText = attr
-            cell.subTitleLb.text = "已连接  |  电量：90%"
+            cell.subTitleLb.text = "已连接  |  电量：\(connWatchModel?.battery ?? 0)%"
             
             return cell
         } else if item.cellType == .dail {
@@ -335,9 +375,19 @@ extension XWHDeviceMainVC {
         tableFooter.button.cancelTracking(with: nil)
 //        tableFooter.button.touchesCancelled([UITouch()], with: nil)
         XWHAlert.show(title: R.string.xwhDeviceText.恢复出厂设置(), message: R.string.xwhDeviceText.恢复出厂设置后设备中的设置和运动健康数据将被清空您确定恢复吗(), cancelTitle: R.string.xwhDisplayText.取消(), confirmTitle: R.string.xwhDeviceText.恢复()) { [unowned self] cType in
-            
             if cType == .confirm {
-                self.view.makeInsetToast("恢复出厂设置了")
+                XWHDDMShared.reset { result in
+                    switch result {
+                    case .success(_):
+                        if let cModel = self.connWatchModel {
+                            XWHDataDeviceManager.deleteDeviceWatchModel(cModel)
+                        }
+                        self.gotoAddDeviceEntry()
+                        
+                    case .failure(let error):
+                        self.view.makeInsetToast(error.message)
+                    }
+                }
             }
         }
     }
@@ -355,9 +405,18 @@ extension XWHDeviceMainVC {
         XWHAlert.show(title: nil, message: R.string.xwhDeviceText.确认解除绑定的设备吗(), cancelTitle: R.string.xwhDisplayText.取消(), confirmTitle: R.string.xwhDeviceText.解除绑定()) { [unowned self] cType in
             self.tableView.isUserInteractionEnabled = true
             if cType == .confirm {
-                self.view.makeInsetToast("已经解除绑定")
+//                self.view.makeInsetToast("已经解除绑定")
+                if let cModel = self.connWatchModel {
+                    XWHDDMShared.disconnect(device: cModel)
+                }
             }
         }
+    }
+    
+    // 去设备入口
+    private func gotoAddDeviceEntry() {
+        let vc = XWHAddDeviceEntryVC()
+        navigationController?.setViewControllers([vc], animated: true)
     }
     
 }

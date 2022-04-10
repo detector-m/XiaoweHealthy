@@ -41,6 +41,9 @@ class XWHDeviceBaseModel: Record, CustomDebugStringConvertible {
     /// 电量
     var battery = 0
     
+    /// 是否是当前
+    var isCurrent = false
+    
     class override var databaseTableName: String {
         "deviceBaseModel"
     }

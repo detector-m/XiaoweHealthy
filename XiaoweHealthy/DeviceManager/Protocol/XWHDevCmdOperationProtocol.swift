@@ -46,6 +46,13 @@ protocol XWHDevCmdOperationProtocol {
     ///     - handler: 操作回调结果
     func setUserInfo(user: XWHUserModel, handler: XWHDevCmdOperationHandler?)
     
+    
+    // MARK: - 获取设备信息
+    /// 获取设备信息
+    /// - Parameters:
+    ///     - handler: 操作回调结果 (XWHResponse.data 为 XWHDevWatchModel )
+    func getDeviceInfo(handler: XWHDevCmdOperationHandler?)
+    
 }
 
 // MARK: - 默认实现

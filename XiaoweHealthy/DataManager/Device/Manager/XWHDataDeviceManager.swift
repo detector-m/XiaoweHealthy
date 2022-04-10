@@ -24,6 +24,8 @@ class XWHDataDeviceManager {
             t.column(XWHDevWatchModel.Columns.version.name, .text).notNull()
             t.column(XWHDevWatchModel.Columns.battery.name, .integer).notNull()
             
+            t.column(XWHDevWatchModel.Columns.isCurrent.name, .boolean).notNull()
+            
             t.primaryKey([XWHDevWatchModel.Columns.identifier.name])
         }
     }
@@ -55,9 +57,13 @@ class XWHDataDeviceManager {
         }
     }
     
-    class func getDeviceWatchModel() -> XWHDevWatchModel? {
+    class func getCurrentDeviceWatchModel() -> XWHDevWatchModel? {
         return appDB.read { db in
-            try XWHDevWatchModel.fetchOne(db)
+            //try XWHDevWatchModel.fetchOne(db, key: [XWHDevWatchModel.Columns.isCurrent.name: true])
+//            try XWHDevWatchModel.filter(Column(XWHDevWatchModel.Columns.isCurrent.name) == true).fetchOne(db)
+            
+            try XWHDevWatchModel.filter(XWHDevWatchModel.Columns.isCurrent == true).fetchOne(db)
+
         }
     }
     

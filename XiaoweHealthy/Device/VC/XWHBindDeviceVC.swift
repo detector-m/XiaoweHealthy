@@ -114,11 +114,16 @@ extension XWHBindDeviceVC {
         
         detailLb.text = getDetailText(with: R.string.xwhDeviceText.正在对N进行配对())
         
-        XWHDDMShared.connect(device: bindDeviceModel, isReconnect: false) { [unowned self] (result: Result<XWHDeviceConnectState, XWHBLEError>, conState) in
+        XWHDDMShared.connect(device: bindDeviceModel, isReconnect: false) { [weak self] (result: Result<XWHDeviceConnectState, XWHBLEError>, conState) in
+            guard let self = self else {
+                return
+            }
+            
             switch result {
             case .success(_):
-                isBindSuccess = true
-                XWHDataDeviceManager.saveDeviceWatchModel(&bindDeviceModel)
+                self.bindDeviceModel.isCurrent = true
+                self.isBindSuccess = true
+                XWHDataDeviceManager.saveDeviceWatchModel(&(self.bindDeviceModel))
                 self.bindDeviceSuccess()
                 
             case .failure(_):
