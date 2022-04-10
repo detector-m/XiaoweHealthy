@@ -9,6 +9,14 @@ import Foundation
 import HandyJSON
 import GRDB
 
+enum XWHUserGenderType: Int {
+    
+    case none = -1
+    case female = 0
+    case male
+    
+}
+
 struct XWHUserModel: Codable, FetchableRecord, TableRecord, PersistableRecord, HandyJSON, CustomDebugStringConvertible {
     
     public enum Columns: String, ColumnExpression {
@@ -27,6 +35,10 @@ struct XWHUserModel: Codable, FetchableRecord, TableRecord, PersistableRecord, H
     // 性别 0 女 1 男
     var gender: Int = 1
     
+    var genderType: XWHUserGenderType {
+        return XWHUserGenderType(rawValue: gender) ?? .none
+    }
+    
     // 身高 cm
     var height: Int = 170
     
@@ -35,6 +47,16 @@ struct XWHUserModel: Codable, FetchableRecord, TableRecord, PersistableRecord, H
     
     // 生日 格式yyyy-MM-dd
     var birthday: String = "1990-01-01"
+    
+    // 年龄
+    var age: Int {
+        let cDate = Date()
+        guard let bDate = birthday.date(withFormat: "yyyy-MM-dd") else {
+            return 18
+        }
+    
+        return cDate.year - bDate.year
+    }
     
     static var databaseTableName: String {
         return "user_model"

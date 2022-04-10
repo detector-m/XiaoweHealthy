@@ -10,6 +10,8 @@
 		0E7FDCC05F2FC1303034168E /* Pods_XiaoweHealthyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C24BBC7C44348E71CC065B15 /* Pods_XiaoweHealthyTests.framework */; };
 		4CF26601F584F2CD1F7E4FAA /* Pods_XiaoweHealthy_XiaoweHealthyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F259963E5DB67A1A5D3C45EC /* Pods_XiaoweHealthy_XiaoweHealthyUITests.framework */; };
 		8CBF5AE85A9444D903AE1BC2 /* Pods_XiaoweHealthy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF4A353C734F593A2D13B536 /* Pods_XiaoweHealthy.framework */; };
+		960A836A28025EFD00FC1B5F /* XWHDevCmdOperationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A836928025EFD00FC1B5F /* XWHDevCmdOperationProtocol.swift */; };
+		960A836C2802635C00FC1B5F /* XWHUTECmdOperationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A836B2802635C00FC1B5F /* XWHUTECmdOperationHandler.swift */; };
 		960E768027F00BB700A0DA25 /* XWHAddBrandDeviceCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960E767F27F00BB700A0DA25 /* XWHAddBrandDeviceCTCell.swift */; };
 		960E768227F0574200A0DA25 /* XWHBaseCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960E768127F0574200A0DA25 /* XWHBaseCTCell.swift */; };
 		960E768527F0B17D00A0DA25 /* XWHSafari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960E768427F0B17D00A0DA25 /* XWHSafari.swift */; };
@@ -209,6 +211,8 @@
 		346308B1738C6E3283C6DDAB /* Pods-XiaoweHealthyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XiaoweHealthyTests.debug.xcconfig"; path = "Target Support Files/Pods-XiaoweHealthyTests/Pods-XiaoweHealthyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7B56A4371E144F6BDF14AD52 /* Pods-XiaoweHealthy-XiaoweHealthyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XiaoweHealthy-XiaoweHealthyUITests.release.xcconfig"; path = "Target Support Files/Pods-XiaoweHealthy-XiaoweHealthyUITests/Pods-XiaoweHealthy-XiaoweHealthyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		95FEB00539882EA5F45C9693 /* Pods-XiaoweHealthyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XiaoweHealthyTests.release.xcconfig"; path = "Target Support Files/Pods-XiaoweHealthyTests/Pods-XiaoweHealthyTests.release.xcconfig"; sourceTree = "<group>"; };
+		960A836928025EFD00FC1B5F /* XWHDevCmdOperationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevCmdOperationProtocol.swift; sourceTree = "<group>"; };
+		960A836B2802635C00FC1B5F /* XWHUTECmdOperationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUTECmdOperationHandler.swift; sourceTree = "<group>"; };
 		960E767F27F00BB700A0DA25 /* XWHAddBrandDeviceCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHAddBrandDeviceCTCell.swift; sourceTree = "<group>"; };
 		960E768127F0574200A0DA25 /* XWHBaseCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBaseCTCell.swift; sourceTree = "<group>"; };
 		960E768427F0B17D00A0DA25 /* XWHSafari.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSafari.swift; sourceTree = "<group>"; };
@@ -1236,6 +1240,7 @@
 			isa = PBXGroup;
 			children = (
 				96F3588227FE7CE000783614 /* XWHBLEDispatchProtocol.swift */,
+				960A836928025EFD00FC1B5F /* XWHDevCmdOperationProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1383,6 +1388,7 @@
 			isa = PBXGroup;
 			children = (
 				96F3588D27FE92C900783614 /* XWHBLEUTEDispatchHandler.swift */,
+				960A836B2802635C00FC1B5F /* XWHUTECmdOperationHandler.swift */,
 			);
 			path = UTEAchieve;
 			sourceTree = "<group>";
@@ -1867,7 +1873,9 @@
 				967823AB27F2C9B5004F66FB /* XWHUIImageExtension.swift in Sources */,
 				96F3589027FE940300783614 /* XWHDevWatchDispatchManager.swift in Sources */,
 				96D0041927F8236D00E569C7 /* XWHJsApiTest.swift in Sources */,
+				960A836A28025EFD00FC1B5F /* XWHDevCmdOperationProtocol.swift in Sources */,
 				96617AA727E3196A00139B03 /* XWHCheckProtocolView.swift in Sources */,
+				960A836C2802635C00FC1B5F /* XWHUTECmdOperationHandler.swift in Sources */,
 				9653E4A227F5A4A400EE55FF /* XWHDevSetWeatherVC.swift in Sources */,
 				96DC429327FD26A9009BF300 /* XWHJsApi.swift in Sources */,
 				9678257E27F2F495004F66FB /* RLRadarView.swift in Sources */,

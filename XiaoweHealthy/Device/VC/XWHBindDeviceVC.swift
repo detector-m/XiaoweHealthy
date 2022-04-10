@@ -13,6 +13,8 @@ class XWHBindDeviceVC: XWHSearchBindDevBaseVC {
     lazy var helpBtn = UIButton()
     
     lazy var bindDeviceModel = XWHDevWatchModel()
+    
+    private var isBindSuccess = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +69,11 @@ class XWHBindDeviceVC: XWHSearchBindDevBaseVC {
             return
         }
         
+        if isBindSuccess {
+            gotoDeviceMain()
+            return
+        }
+        
         for vc in vcs {
             if vc.isKind(of: XWHAddBrandDeviceVC.self) {
                 navigationController?.popToViewController(vc, animated: true)
@@ -110,6 +117,8 @@ extension XWHBindDeviceVC {
         XWHDDMShared.connect(device: bindDeviceModel, isReconnect: false) { [unowned self] (result: Result<XWHDeviceConnectState, XWHBLEError>, conState) in
             switch result {
             case .success(_):
+                isBindSuccess = true
+                XWHDataDeviceManager.saveDeviceWatchModel(&bindDeviceModel)
                 self.bindDeviceSuccess()
                 
             case .failure(_):

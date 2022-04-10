@@ -16,6 +16,8 @@ struct XWHError: Error, CustomDebugStringConvertible {
     var code: String = ""
     var message: String = ""
     
+    var data: Any?
+    
     var debugDescription: String {
         return "identifier = \(identifier), code = \(code), message = \(message), tag = \(tag)"
     }

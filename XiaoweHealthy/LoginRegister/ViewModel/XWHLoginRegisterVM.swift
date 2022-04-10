@@ -52,8 +52,10 @@ class XWHLoginRegisterVM {
     // 登录
     func login(parameters: [String: String], failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
         loginRegisterProvider.request(.login(parameters: parameters)) { result in
+            let retId = "login"
             var retError = XWHError()
-            retError.identifier = "login"
+            retError.identifier = retId
+            
             switch result {
             case .failure(let error):
                 retError.message = error.errorDescription ?? ""
@@ -93,8 +95,14 @@ class XWHLoginRegisterVM {
                 }
                 
                 let retResponse = XWHResponse()
-                retResponse.identifier = "login"
+                retResponse.identifier = retId
                 retResponse.data = json["data"]
+                
+                if let token = json["data"]["token"].string, !token.isEmpty {
+                    XWHUser.setToken(token: token)
+                    
+                    XWHUserVM().profile()
+                }
 
                 DispatchQueue.main.async {
                     successHandler?(retResponse)

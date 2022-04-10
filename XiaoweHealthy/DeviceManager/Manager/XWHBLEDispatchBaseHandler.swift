@@ -20,6 +20,10 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
     var connectHandler: XWHDevConnectHandler?
     var bindHandler: XWHDevBindHandler?
     
+    var cmdHandler: XWHDevCmdOperationProtocol?
+    
+    var connectDevModel: XWHDevWatchModel?
+    
     // MARK: - 基类计时器等
     ///扫描计时器
     fileprivate var _scanTimer: Timer?
@@ -98,6 +102,8 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
         bindHandler = nil
         
         self.connectHandler = connectHandler
+        
+        connectDevModel = device
         
         connectTimer = Timer.scheduledTimer(timeInterval: connectTime, target: self, selector: #selector(connectTimeout), userInfo: nil, repeats: false)
 

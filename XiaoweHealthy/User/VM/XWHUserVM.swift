@@ -18,6 +18,11 @@ class XWHUserVM {
                 let userModel = XWHUserModel.deserialize(from: json.dictionaryValue)
                 response.data = userModel
                 
+                if var cUser = userModel {
+                    XWHDataUserManager.deleteAll()
+                    XWHDataUserManager.save(user: &cUser)
+                }
+                
                 return userModel
             }
         }

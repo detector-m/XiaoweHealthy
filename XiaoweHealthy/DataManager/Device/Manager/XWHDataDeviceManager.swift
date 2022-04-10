@@ -30,28 +30,34 @@ class XWHDataDeviceManager {
     
     /// Saves (inserts or updates) a player. When the method returns, the
     /// player is present in the database, and its id is not nil.
-    func saveDeviceWatchModel(_ devWatch: inout XWHDevWatchModel) {
+    class func saveDeviceWatchModel(_ devWatch: inout XWHDevWatchModel) {
         appDB.write { db in
             try devWatch.save(db)
         }
     }
     
-    func deleteDeviceWatchModel(_ devWatch: XWHDevWatchModel) {
+    class func deleteDeviceWatchModel(_ devWatch: XWHDevWatchModel) {
         appDB.write { db in
 //            try XWHDevWatchModel.deleteOne(db, key: devWatch.identifier)
             try devWatch.delete(db)
         }
     }
     
-    func deleteAllDeviceWatchModel() {
+    class func deleteAllDeviceWatchModel() {
         appDB.write { db in
             try XWHDevWatchModel.deleteAll(db)
         }
     }
     
-    func getDeviceWatchModel(_ id: String) -> XWHDevWatchModel? {
+    class func getDeviceWatchModel(_ id: String) -> XWHDevWatchModel? {
         return appDB.read { db in
             try XWHDevWatchModel.fetchOne(db, key: id)
+        }
+    }
+    
+    class func getDeviceWatchModel() -> XWHDevWatchModel? {
+        return appDB.read { db in
+            try XWHDevWatchModel.fetchOne(db)
         }
     }
     

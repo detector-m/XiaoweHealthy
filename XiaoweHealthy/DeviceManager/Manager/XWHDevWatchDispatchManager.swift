@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 var XWHDDMShared: XWHDevWatchDispatchManager {
@@ -29,19 +30,27 @@ class XWHDevWatchDispatchManager {
     // 核心设备与外设操作
     private var bleHandler: XWHBLEDispatchBaseHandler?
     
+    // 设备指令操作
+    private var cmdHandler: XWHDevCmdOperationProtocol?
+    
     // MARK: - handlers
     /* 简单粗暴，为了减少设备init导致delegate变化 */
     private lazy var _uteBLEHandler = XWHBLEUTEDispatchHandler()
+    private lazy var _uteCmdHandler = XWHUTECmdOperationHandler()
     
     // MARK: - 方法
     @discardableResult
     func config(device: XWHDevWatchModel) -> Self {
         switch device.type {
         case .none:
+            bleHandler?.cmdHandler = nil
             bleHandler = nil
+            cmdHandler = nil
             
         case .skyworthWatchS1, .skyworthWatchS2:
             bleHandler = _uteBLEHandler
+            cmdHandler = _uteCmdHandler
+            bleHandler?.cmdHandler = cmdHandler
             
         }
         return self
@@ -49,7 +58,7 @@ class XWHDevWatchDispatchManager {
     
 }
 
-// MARK: - XWHBLEDispatchProtocol
+// MARK: - XWHBLEDispatchProtocol(设备连接相关)
 extension XWHDevWatchDispatchManager: XWHBLEDispatchProtocol {
     
     /// 配对方式
@@ -124,6 +133,36 @@ extension XWHDevWatchDispatchManager: XWHBLEDispatchProtocol {
     /// 切换解绑
     func switchUnbind(handler: XWHDevBindHandler?) {
         bleHandler?.switchUnbind(handler: handler)
+    }
+    
+}
+
+
+// MARK: - XWHDevCmdOperationProtocol(设备指令相关)
+extension XWHDevWatchDispatchManager: XWHDevCmdOperationProtocol {
+    
+    func config(handler: XWHDevCmdOperationHandler? = nil) {
+        cmdHandler?.config(handler: handler)
+    }
+    
+    func reboot(handler: XWHDevCmdOperationHandler?) {
+        cmdHandler?.reboot(handler: handler)
+    }
+    
+    func reset(handler: XWHDevCmdOperationHandler?) {
+        cmdHandler?.reset(handler: handler)
+    }
+    
+    func setTime(handler: XWHDevCmdOperationHandler?) {
+        cmdHandler?.setTime(handler: handler)
+    }
+    
+    func setUnit(handler: XWHDevCmdOperationHandler?) {
+        cmdHandler?.setUnit(handler: handler)
+    }
+    
+    func setUserInfo(user: XWHUserModel, handler: XWHDevCmdOperationHandler?) {
+        cmdHandler?.setUserInfo(user: user, handler: handler)
     }
     
 }

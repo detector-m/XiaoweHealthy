@@ -14,6 +14,14 @@ class XWHDevice {
         XWHSafari.present(at: targetVC, urlStr: kRedirectURL)
     }
     
+    class func getRootVC() -> UIViewController {
+        if let _ = XWHDataDeviceManager.getDeviceWatchModel() {
+            return XWHDeviceMainVC()
+        }
+        
+        return XWHAddDeviceEntryVC()
+    }
+    
     // MARK: - Api
     
     

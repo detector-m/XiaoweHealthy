@@ -94,15 +94,17 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
 //            device.uuid = model.uuidString
             
             device.name = model.name
-            device.type = .skyworthWatchS1
+//            device.type = .skyworthWatchS1
+            device.type = connectDevModel?.type ?? .skyworthWatchS1
             device.identifier = model.identifier
-            device.mac = model.addressStr ?? ""
+            device.mac = (model.addressStr ?? (model.advertisementAddress ?? ""))
             device.rssi = model.rssi
             
             return device
         }
         
         uteDevices = []
+        connectDevModel = nil
         
         return devices
     }
@@ -164,6 +166,7 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
             }
             if self.connectState == .connected {
                 self.connectHandler?(.success(self.connectState), self.connectState)
+                self.cmdHandler?.config(handler: nil)
             } else {
                 self.connectHandler?(.failure(.normal), self.connectState)
             }

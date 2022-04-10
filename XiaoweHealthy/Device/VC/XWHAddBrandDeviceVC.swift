@@ -115,9 +115,10 @@ extension XWHAddBrandDeviceVC {
     fileprivate func getDeviceList() {
         XWHProgressHUD.show()
 //        view.makeToastActivity(.center)
-        XWHDeviceVM().list { error in
+        XWHDeviceVM().list { [unowned self] error in
             XWHProgressHUD.hide()
 //            self.view.hideToastActivity()
+            self.view.makeInsetToast(error.message)
         } successHandler: { [unowned self] response in
             XWHProgressHUD.hide()
 //            self.view.hideToastActivity()
@@ -125,6 +126,8 @@ extension XWHAddBrandDeviceVC {
             if let cDevice = response.data as? [XWHDeviceProductModel] {
                 self.dataSource = cDevice
                 self.reloadUIData()
+            } else {
+                self.view.makeInsetToast("产品信息有误")
             }
         }
     }

@@ -35,6 +35,12 @@ class XWHDataUserManager {
         }
     }
     
+    class func get() -> XWHUserModel? {
+        return appDB.read { db in
+            try XWHUserModel.fetchOne(db)
+        }
+    }
+    
     class func delete(user: XWHUserModel) {
         appDB.write { db in
             try user.delete(db)
