@@ -53,6 +53,18 @@ protocol XWHDevCmdOperationProtocol {
     ///     - handler: 操作回调结果 (XWHResponse.data 为 XWHDevWatchModel )
     func getDeviceInfo(handler: XWHDevCmdOperationHandler?)
     
+    // MARK: - 设备设置
+    
+    /// 设置消息通知
+    /// - Parameters:
+    ///   - noticeSet: 久坐设置模型
+    func setNoticeSet(_ noticeSet: XWHNoticeSetModel, handler: XWHDevCmdOperationHandler?)
+    
+    /// 设置久坐提醒
+    /// - Parameters:
+    ///   - longSitSet: 久坐设置模型
+    func setLongSitSet(_ longSitSet: XWHLongSitSetModel, handler: XWHDevCmdOperationHandler?)
+    
 }
 
 // MARK: - 默认实现

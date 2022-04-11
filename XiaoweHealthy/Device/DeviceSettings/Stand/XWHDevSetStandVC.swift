@@ -73,8 +73,22 @@ class XWHDevSetStandVC: XWHDevSetBaseVC {
             
             cell.clickAction = { [unowned cell, unowned self] isOn in
                 if indexPath.section == 0 {
-                    isStandOn = isOn
-                    self.tableView.reloadData()
+                    let longSitSet = XWHLongSitSetModel()
+                    XWHDDMShared.setLongSitSet(longSitSet) { [weak self] result in
+                        guard let self = self else {
+                            return
+                        }
+                        
+                        switch result {
+                        case .success(_):
+                            self.isStandOn = isOn
+                            self.tableView.reloadData()
+                            
+                        case .failure(_):
+                            self.view.makeInsetToast("久坐提醒设置失败")
+                        }
+                    }
+                    
                 } else {
                     isNotDisturbAtNoon = isOn
                     cell.button.isSelected = isOn
@@ -117,5 +131,11 @@ extension XWHDevSetStandVC {
         }
     }
 
+}
+
+extension XWHDevSetStandVC {
+    
+    
+    
 }
 

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Alamofire
 
 
 var XWHDDMShared: XWHDevWatchDispatchManager {
@@ -141,9 +142,13 @@ extension XWHDevWatchDispatchManager: XWHBLEDispatchProtocol {
 // MARK: - XWHDevCmdOperationProtocol(设备指令相关)
 extension XWHDevWatchDispatchManager: XWHDevCmdOperationProtocol {
     
+    // MARK: - 配置
+    
     func config(handler: XWHDevCmdOperationHandler? = nil) {
         cmdHandler?.config(handler: handler)
     }
+    
+    // MARK: - 重启/重置
     
     func reboot(handler: XWHDevCmdOperationHandler?) {
         cmdHandler?.reboot(handler: handler)
@@ -166,8 +171,21 @@ extension XWHDevWatchDispatchManager: XWHDevCmdOperationProtocol {
     }
     
     // MARK: - 获取设备信息
+    
     func getDeviceInfo(handler: XWHDevCmdOperationHandler?) {
         cmdHandler?.getDeviceInfo(handler: handler)
+    }
+    
+    // MARK: - 设备设置
+    
+    // 设置通知设置
+    func setNoticeSet(_ noticeSet: XWHNoticeSetModel, handler: XWHDevCmdOperationHandler?) {
+        cmdHandler?.setNoticeSet(noticeSet, handler: handler)
+    }
+
+    // 设置久坐提醒
+    func setLongSitSet(_ longSitSet: XWHLongSitSetModel, handler: XWHDevCmdOperationHandler?) {
+        cmdHandler?.setLongSitSet(longSitSet, handler: handler)
     }
     
 }

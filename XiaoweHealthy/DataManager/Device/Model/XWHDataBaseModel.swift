@@ -15,7 +15,7 @@ class XWHDataBaseModel: Record, CustomDebugStringConvertible {
     var identifier = ""
     
     var debugDescription: String {
-        return "pid = \(identifier)"
+        return "identifier = \(identifier)"
     }
     
 }

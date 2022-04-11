@@ -137,8 +137,16 @@
 		96AD28662801C5AA0092B843 /* XWHDataUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD28652801C5AA0092B843 /* XWHDataUserManager.swift */; };
 		96AD28682801C5BA0092B843 /* XWHDataDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD28672801C5BA0092B843 /* XWHDataDeviceManager.swift */; };
 		96C67ADC2803D27A001ACA81 /* XWHDataBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C67ADB2803D27A001ACA81 /* XWHDataBaseModel.swift */; };
-		96C67ADE2803D5E7001ACA81 /* XWHNoticeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C67ADD2803D5E7001ACA81 /* XWHNoticeModel.swift */; };
-		96C67AE02803D79E001ACA81 /* XWHDataNoticeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C67ADF2803D79E001ACA81 /* XWHDataNoticeManager.swift */; };
+		96C67ADE2803D5E7001ACA81 /* XWHNoticeSetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C67ADD2803D5E7001ACA81 /* XWHNoticeSetModel.swift */; };
+		96C67AE02803D79E001ACA81 /* XWHDataDevSettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C67ADF2803D79E001ACA81 /* XWHDataDevSettingsManager.swift */; };
+		96C67AE3280415DD001ACA81 /* XWHLongSitSetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C67AE2280415DD001ACA81 /* XWHLongSitSetModel.swift */; };
+		96C67AE52804166B001ACA81 /* XWHWeatherSetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C67AE42804166B001ACA81 /* XWHWeatherSetModel.swift */; };
+		96C67AE728041732001ACA81 /* XWHDisturbSetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C67AE628041732001ACA81 /* XWHDisturbSetModel.swift */; };
+		96C67AE92804174B001ACA81 /* XWHHeartSetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C67AE82804174B001ACA81 /* XWHHeartSetModel.swift */; };
+		96C67AEC28043315001ACA81 /* XWHDataLongSitSetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C67AEB28043315001ACA81 /* XWHDataLongSitSetManager.swift */; };
+		96C67AEE28043328001ACA81 /* XWHDataWeatherSetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C67AED28043328001ACA81 /* XWHDataWeatherSetManager.swift */; };
+		96C67AF028043348001ACA81 /* XWHDataDisturbSetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C67AEF28043348001ACA81 /* XWHDataDisturbSetManager.swift */; };
+		96C67AF228043362001ACA81 /* XWHDataHeartSetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C67AF128043362001ACA81 /* XWHDataHeartSetManager.swift */; };
 		96D0041427F821D100E569C7 /* XWHTestWebViewBridge.html in Resources */ = {isa = PBXBuildFile; fileRef = 96D0041327F821D100E569C7 /* XWHTestWebViewBridge.html */; };
 		96D0041727F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D0041627F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift */; };
 		96D0041927F8236D00E569C7 /* XWHJsApiTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D0041827F8236D00E569C7 /* XWHJsApiTest.swift */; };
@@ -345,8 +353,16 @@
 		96AD28652801C5AA0092B843 /* XWHDataUserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataUserManager.swift; sourceTree = "<group>"; };
 		96AD28672801C5BA0092B843 /* XWHDataDeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataDeviceManager.swift; sourceTree = "<group>"; };
 		96C67ADB2803D27A001ACA81 /* XWHDataBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataBaseModel.swift; sourceTree = "<group>"; };
-		96C67ADD2803D5E7001ACA81 /* XWHNoticeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHNoticeModel.swift; sourceTree = "<group>"; };
-		96C67ADF2803D79E001ACA81 /* XWHDataNoticeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataNoticeManager.swift; sourceTree = "<group>"; };
+		96C67ADD2803D5E7001ACA81 /* XWHNoticeSetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHNoticeSetModel.swift; sourceTree = "<group>"; };
+		96C67ADF2803D79E001ACA81 /* XWHDataDevSettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataDevSettingsManager.swift; sourceTree = "<group>"; };
+		96C67AE2280415DD001ACA81 /* XWHLongSitSetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLongSitSetModel.swift; sourceTree = "<group>"; };
+		96C67AE42804166B001ACA81 /* XWHWeatherSetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHWeatherSetModel.swift; sourceTree = "<group>"; };
+		96C67AE628041732001ACA81 /* XWHDisturbSetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDisturbSetModel.swift; sourceTree = "<group>"; };
+		96C67AE82804174B001ACA81 /* XWHHeartSetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHeartSetModel.swift; sourceTree = "<group>"; };
+		96C67AEB28043315001ACA81 /* XWHDataLongSitSetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataLongSitSetManager.swift; sourceTree = "<group>"; };
+		96C67AED28043328001ACA81 /* XWHDataWeatherSetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataWeatherSetManager.swift; sourceTree = "<group>"; };
+		96C67AEF28043348001ACA81 /* XWHDataDisturbSetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataDisturbSetManager.swift; sourceTree = "<group>"; };
+		96C67AF128043362001ACA81 /* XWHDataHeartSetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataHeartSetManager.swift; sourceTree = "<group>"; };
 		96D0041327F821D100E569C7 /* XWHTestWebViewBridge.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = XWHTestWebViewBridge.html; sourceTree = "<group>"; };
 		96D0041627F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTestWebViewBridgeVC.swift; sourceTree = "<group>"; };
 		96D0041827F8236D00E569C7 /* XWHJsApiTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHJsApiTest.swift; sourceTree = "<group>"; };
@@ -1151,7 +1167,7 @@
 				96C67ADB2803D27A001ACA81 /* XWHDataBaseModel.swift */,
 				96F3588627FE815B00783614 /* XWHDeviceBaseModel.swift */,
 				96F3588827FE858900783614 /* XWHDevWatchModel.swift */,
-				96C67ADD2803D5E7001ACA81 /* XWHNoticeModel.swift */,
+				96C67AE1280414F9001ACA81 /* DeviceSettings */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1160,7 +1176,7 @@
 			isa = PBXGroup;
 			children = (
 				96AD28672801C5BA0092B843 /* XWHDataDeviceManager.swift */,
-				96C67ADF2803D79E001ACA81 /* XWHDataNoticeManager.swift */,
+				96C67AEA280432C8001ACA81 /* DeviceSettings */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1188,6 +1204,30 @@
 				96AD28652801C5AA0092B843 /* XWHDataUserManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		96C67AE1280414F9001ACA81 /* DeviceSettings */ = {
+			isa = PBXGroup;
+			children = (
+				96C67ADD2803D5E7001ACA81 /* XWHNoticeSetModel.swift */,
+				96C67AE2280415DD001ACA81 /* XWHLongSitSetModel.swift */,
+				96C67AE42804166B001ACA81 /* XWHWeatherSetModel.swift */,
+				96C67AE628041732001ACA81 /* XWHDisturbSetModel.swift */,
+				96C67AE82804174B001ACA81 /* XWHHeartSetModel.swift */,
+			);
+			path = DeviceSettings;
+			sourceTree = "<group>";
+		};
+		96C67AEA280432C8001ACA81 /* DeviceSettings */ = {
+			isa = PBXGroup;
+			children = (
+				96C67ADF2803D79E001ACA81 /* XWHDataDevSettingsManager.swift */,
+				96C67AEB28043315001ACA81 /* XWHDataLongSitSetManager.swift */,
+				96C67AED28043328001ACA81 /* XWHDataWeatherSetManager.swift */,
+				96C67AEF28043348001ACA81 /* XWHDataDisturbSetManager.swift */,
+				96C67AF128043362001ACA81 /* XWHDataHeartSetManager.swift */,
+			);
+			path = DeviceSettings;
 			sourceTree = "<group>";
 		};
 		96D0041127F8212400E569C7 /* WebViewBridge */ = {
@@ -1762,6 +1802,7 @@
 				9651EDF427E8C3870043FE52 /* XWHUIViewExtension.swift in Sources */,
 				966F53C727F1E71800411D38 /* XWHSearchBindDevBaseVC.swift in Sources */,
 				96FC407F27EDA19300D64B64 /* XWHFont.swift in Sources */,
+				96C67AE52804166B001ACA81 /* XWHWeatherSetModel.swift in Sources */,
 				9651EE2027EBFE390043FE52 /* XWHNetwork.swift in Sources */,
 				968CB8AC27F4570A00E549AC /* XWHDialMarketTBCell.swift in Sources */,
 				9678257C27F2F44D004F66FB /* RLRadarIndicatorView.swift in Sources */,
@@ -1784,12 +1825,14 @@
 				96759D8627F3533C0098CA92 /* XWHSearchDeviceTBCell.swift in Sources */,
 				9651EE1E27EBFDAA0043FE52 /* XWHResponse.swift in Sources */,
 				96E23C2C27E1A579009EF208 /* XWHDeviceMainVC.swift in Sources */,
+				96C67AEE28043328001ACA81 /* XWHDataWeatherSetManager.swift in Sources */,
 				96AD28662801C5AA0092B843 /* XWHDataUserManager.swift in Sources */,
 				9653E49827F58C4D00EE55FF /* XWHDevSetChartDeploy.swift in Sources */,
 				96DC429A27FD34C7009BF300 /* RLBLEPermissions.swift in Sources */,
+				96C67AF228043362001ACA81 /* XWHDataHeartSetManager.swift in Sources */,
 				96AD285A280144F40092B843 /* XWHLog.swift in Sources */,
 				9653E49427F5556300EE55FF /* XWHDevSetCallVC.swift in Sources */,
-				96C67AE02803D79E001ACA81 /* XWHDataNoticeManager.swift in Sources */,
+				96C67AE02803D79E001ACA81 /* XWHDataDevSettingsManager.swift in Sources */,
 				9651EE1A27EBFBEA0043FE52 /* XWHError.swift in Sources */,
 				96617A9F27E302C900139B03 /* XWHPhoneNumView.swift in Sources */,
 				96617A7A27E1FE6B00139B03 /* XWHLoginVC.swift in Sources */,
@@ -1798,6 +1841,7 @@
 				96FC406B27ED738100D64B64 /* XWHUIViewControllerExtension.swift in Sources */,
 				968CB8A327F3FB8800E549AC /* UITableViewRoundedProtocol.swift in Sources */,
 				96617A9227E23EAD00139B03 /* XWHColorExtension.swift in Sources */,
+				96C67AE3280415DD001ACA81 /* XWHLongSitSetModel.swift in Sources */,
 				96AD285C28016BB30092B843 /* XWHTestModel.swift in Sources */,
 				9672B25E27EEA48900DC80D6 /* XWHUser.swift in Sources */,
 				9651EE2E27EC5BD30043FE52 /* UMShareSwiftInterface.swift in Sources */,
@@ -1818,6 +1862,7 @@
 				9651EE2927EC58AA0043FE52 /* XWHThirdAppConfig.swift in Sources */,
 				96F3588927FE858900783614 /* XWHDevWatchModel.swift in Sources */,
 				968CB8AA27F42DB800E549AC /* XWHDeviceNormallTBCell.swift in Sources */,
+				96C67AF028043348001ACA81 /* XWHDataDisturbSetManager.swift in Sources */,
 				9651EE2C27EC5B1B0043FE52 /* UMAnalyticsSwift.swift in Sources */,
 				9651EE1027EB30040043FE52 /* XWHKeyConfig.swift in Sources */,
 				96617AAB27E32C4100139B03 /* XWHBindPhoneVC.swift in Sources */,
@@ -1825,6 +1870,7 @@
 				96F3588727FE815B00783614 /* XWHDeviceBaseModel.swift in Sources */,
 				969F01C227F6DDF800CA4DA4 /* XWHDevSetUpdateHeaderView.swift in Sources */,
 				96AD28682801C5BA0092B843 /* XWHDataDeviceManager.swift in Sources */,
+				96C67AE92804174B001ACA81 /* XWHHeartSetModel.swift in Sources */,
 				9651EDFA27E9A3130043FE52 /* RLOverlayerBgView.swift in Sources */,
 				96617AA527E3169200139B03 /* XWHCodeView.swift in Sources */,
 				9653E49A27F5978800EE55FF /* XWHTBHeaderFooterBaseView.swift in Sources */,
@@ -1834,7 +1880,7 @@
 				96C67ADC2803D27A001ACA81 /* XWHDataBaseModel.swift in Sources */,
 				966A60FA2800206400CBE915 /* XWHProgressHUDViews.swift in Sources */,
 				9678257927F2EF3B004F66FB /* XWHDeviceFaceView.swift in Sources */,
-				96C67ADE2803D5E7001ACA81 /* XWHNoticeModel.swift in Sources */,
+				96C67ADE2803D5E7001ACA81 /* XWHNoticeSetModel.swift in Sources */,
 				96F3588B27FE8C9A00783614 /* XWHBLEDispatchBaseHandler.swift in Sources */,
 				96D0041727F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift in Sources */,
 				96617AA927E328C800139B03 /* XWHResetPasswordVC.swift in Sources */,
@@ -1847,10 +1893,12 @@
 				9613E78527F4A0BC007A1589 /* XWHThemeConfig.swift in Sources */,
 				9653E49627F55D1B00EE55FF /* XWHDevSetSwitchTBCell.swift in Sources */,
 				96617A9D27E2FEE200139B03 /* XWHTextFieldBaseView.swift in Sources */,
+				96C67AEC28043315001ACA81 /* XWHDataLongSitSetManager.swift in Sources */,
 				96617AA127E30EF600139B03 /* XWHPasswordView.swift in Sources */,
 				96617A9727E2BFB600139B03 /* XWHOtherLoginView.swift in Sources */,
 				96617AB127E3496000139B03 /* XWHGenderSelectVC.swift in Sources */,
 				96E23C2E27E1A586009EF208 /* XWHMeMainVC.swift in Sources */,
+				96C67AE728041732001ACA81 /* XWHDisturbSetModel.swift in Sources */,
 				968CB8B027F4661700E549AC /* XWHDeviceMainFooter.swift in Sources */,
 				966F53C927F1E8B200411D38 /* XWHBindDeviceVC.swift in Sources */,
 				96617A7227E1E12E00139B03 /* XWHExported.swift in Sources */,

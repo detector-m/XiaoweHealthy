@@ -17,7 +17,9 @@ class XWHDataDeviceManager {
     ///  - Parameter db: 数据库handler
     class func createTables(_ db: Database) throws {
         try createWatchTable(db)
-        try createNoticeTable(db)
+        
+        try createNoticeSetTable(db)
+        try createLongSitSetTable(db)
     }
     
     class func test() {
@@ -94,13 +96,24 @@ extension XWHDataDeviceManager {
     
 }
 
-// MARK: - Notice
+// MARK: - NoticeSet
 extension XWHDataDeviceManager {
     
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
     ///  - Parameter db: 数据库handler
-    class func createNoticeTable(_ db: Database) throws {
-        try XWHDataNoticeManager.createNoticeTable(db)
+    class func createNoticeSetTable(_ db: Database) throws {
+        try XWHDataNoticeSetManager.createNoticeSetTable(db)
+    }
+    
+}
+
+// MARK: - LongSitSet
+extension XWHDataDeviceManager {
+    
+    /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
+    ///  - Parameter db: 数据库handler
+    class func createLongSitSetTable(_ db: Database) throws {
+        try XWHDataLongSitSetManager.createLongSitSetTable(db)
     }
     
 }

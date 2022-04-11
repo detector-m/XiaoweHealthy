@@ -11,7 +11,7 @@ import GRDB
 // MARK: - 手表模型
 class XWHDevWatchModel: XWHDeviceBaseModel {
     
-    public enum Columns: String, ColumnExpression {
+    enum Columns: String, ColumnExpression {
         case identifier, name, type, mac, version, battery, isCurrent
     }
     

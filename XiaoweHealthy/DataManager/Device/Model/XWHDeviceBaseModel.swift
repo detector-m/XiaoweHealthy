@@ -57,7 +57,7 @@ class XWHDeviceBaseModel: XWHDataBaseModel {
     }
     
     override var debugDescription: String {
-        return "name = \(name), type = \(type), mac = \(mac), identifier = \(identifier), version = \(version)"
+        return "identifier = \(identifier), name = \(name), type = \(type), mac = \(mac), version = \(version)"
     }
     
 }

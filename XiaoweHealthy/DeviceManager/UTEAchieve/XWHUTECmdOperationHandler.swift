@@ -111,5 +111,38 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
         }
     }
     
+    // MARK: - 设备设置
+    
+    // 设置通知设置
+    func setNoticeSet(_ noticeSet: XWHNoticeSetModel, handler: XWHDevCmdOperationHandler?) {
+        
+    }
+
+    // 设置久坐提醒
+    func setLongSitSet(_ longSitSet: XWHLongSitSetModel, handler: XWHDevCmdOperationHandler?) {
+        guard let uteConnModel = manager.connectedDevicesModel else {
+            log.error("设备未连接")
+            return
+        }
+        
+        if uteConnModel.isHasSitRemindDuration {
+            let model = UTEModelDeviceSitRemind()
+            model.enable = longSitSet.isOn
+            model.startTime = longSitSet.beginTime
+            model.endTime = longSitSet.endTime
+            model.duration = longSitSet.duration
+            model.enableSiesta = longSitSet.isSiestaOn
+            
+            manager.sendUTESitRemindModel(model)
+        } else {
+            if longSitSet.isOn {
+                manager.setUTESitRemindOpenTime(longSitSet.duration)
+            } else {
+                manager.setUTESitRemindClose()
+            }
+        }
+        
+        handler?(.success(nil))
+    }
 
 }
