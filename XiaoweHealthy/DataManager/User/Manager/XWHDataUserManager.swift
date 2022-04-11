@@ -26,6 +26,10 @@ class XWHDataUserManager {
             t.column(XWHUserModel.Columns.weight.name, .integer).notNull()
             t.column(XWHUserModel.Columns.birthday.name, .text).notNull()
             
+            t.column(XWHUserModel.Columns.raiseWristLightDuration.name, .integer).notNull()
+            
+            t.column(XWHUserModel.Columns.goal.name, .integer).notNull()
+            
             t.primaryKey([XWHUserModel.Columns.mobile.name])
         }
     }
@@ -59,7 +63,7 @@ class XWHDataUserManager {
 extension XWHDataUserManager {
     
     class func test() {
-        var user = XWHUserModel(mobile: "15000847202", nickname: "Riven", avatar: "", gender: 1, height: 168, weight: 57, birthday: "1990-03-16")
+        var user = XWHUserModel(mobile: "15000847202", nickname: "Riven", avatar: "", gender: 1, height: 168, weight: 57, birthday: "1990-03-16", goal: 9000)
         save(user: &user)
     }
     

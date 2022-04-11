@@ -25,4 +25,36 @@ class XWHDataDisturbSetManager {
 //        })
     }
     
+    class func saveDisturbSet(_ disturbSet: XWHDisturbSetModel) {
+        appDB.write { db in
+            try disturbSet.save(db)
+        }
+    }
+    
+    class func getDisturbSet(identifier: String) -> XWHDisturbSetModel? {
+        appDB.read { db in
+//            try XWHDisturbSetModel.filter(XWHDisturbSetModel.Columns.identifier == identifier).fetchOne(db)
+            try XWHDisturbSetModel.fetchOne(db, key: identifier)
+        }
+    }
+    
+    class func deleteDisturbSet(identifier: String) {
+        appDB.write { db in
+            try XWHDisturbSetModel.deleteOne(db, key: identifier)
+        }
+    }
+    
+    class func deleteDisturbSet(_ disturbSet: XWHDisturbSetModel) {
+        appDB.write { db in
+//            try XWHDevWatchModel.deleteOne(db, key: devWatch.identifier)
+            try disturbSet.delete(db)
+        }
+    }
+    
+    class func deleteAllDisturbSet() {
+        appDB.write { db in
+            try XWHDisturbSetModel.deleteAll(db)
+        }
+    }
+    
 }

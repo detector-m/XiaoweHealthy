@@ -26,4 +26,36 @@ class XWHDataHeartSetManager {
 //        })
     }
     
+    class func saveHeartSet(_ heartSet: XWHHeartSetModel) {
+        appDB.write { db in
+            try heartSet.save(db)
+        }
+    }
+    
+    class func getHeartSet(identifier: String) -> XWHHeartSetModel? {
+        appDB.read { db in
+//            try XWHHeartSetModel.filter(XWHHeartSetModel.Columns.identifier == identifier).fetchOne(db)
+            try XWHHeartSetModel.fetchOne(db, key: identifier)
+        }
+    }
+    
+    class func deleteHeartSet(identifier: String) {
+        appDB.write { db in
+            try XWHHeartSetModel.deleteOne(db, key: identifier)
+        }
+    }
+    
+    class func deleteHeartSet(_ heartSet: XWHHeartSetModel) {
+        appDB.write { db in
+//            try XWHDevWatchModel.deleteOne(db, key: devWatch.identifier)
+            try heartSet.delete(db)
+        }
+    }
+    
+    class func deleteAllHeartSet() {
+        appDB.write { db in
+            try XWHHeartSetModel.deleteAll(db)
+        }
+    }
+    
 }

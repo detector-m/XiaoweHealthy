@@ -20,6 +20,8 @@ class XWHDataDeviceManager {
         
         try createNoticeSetTable(db)
         try createLongSitSetTable(db)
+        
+        try createBloodPressureSetTable(db)
     }
     
     class func test() {
@@ -105,6 +107,18 @@ extension XWHDataDeviceManager {
         try XWHDataNoticeSetManager.createNoticeSetTable(db)
     }
     
+    class func saveNoticeSet(_ noticeSet: XWHNoticeSetModel) {
+        XWHDataNoticeSetManager.saveNoticeSet(noticeSet)
+    }
+    
+    class func getNoticeSet(identifier: String) -> XWHNoticeSetModel? {
+        XWHDataNoticeSetManager.getNoticeSet(identifier: identifier)
+    }
+    
+    class func deleteNoticeSet(identifier: String) {
+        XWHDataNoticeSetManager.deleteNoticeSet(identifier: identifier)
+    }
+    
 }
 
 // MARK: - LongSitSet
@@ -116,5 +130,64 @@ extension XWHDataDeviceManager {
         try XWHDataLongSitSetManager.createLongSitSetTable(db)
     }
     
+    class func saveLongSitSet(_ longSitSet: XWHLongSitSetModel) {
+        XWHDataLongSitSetManager.saveLongSitSet(longSitSet)
+    }
+    
+    class func getLongSitSet(identifier: String) -> XWHLongSitSetModel? {
+        XWHDataLongSitSetManager.getLongSitSet(identifier: identifier)
+    }
+    
+    class func deleteLongSitSet(identifier: String) {
+        XWHDataLongSitSetManager.deleteLongSitSet(identifier: identifier)
+    }
+    
 }
+
+// MARK: - BloodPressureSet
+extension XWHDataDeviceManager {
+    
+    /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
+    ///  - Parameter db: 数据库handler
+    class func createBloodPressureSetTable(_ db: Database) throws {
+        try XWHDataBloodPressureSetManager.createBloodPressureSetTable(db)
+    }
+    
+    class func saveBloodPressureSet(_ bloodPressureSet: XWHBloodPressureSetModel) {
+        XWHDataBloodPressureSetManager.saveBloodPressureSet(bloodPressureSet)
+    }
+    
+    class func getBloodPressureSet(identifier: String) -> XWHBloodPressureSetModel? {
+        XWHDataBloodPressureSetManager.getBloodPressureSet(identifier: identifier)
+    }
+    
+    class func deleteBloodPressureSet(identifier: String) {
+        XWHDataBloodPressureSetManager.deleteBloodPressureSet(identifier: identifier)
+    }
+    
+}
+
+// MARK: - BloodOxygenSet
+extension XWHDataDeviceManager {
+    
+    /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
+    ///  - Parameter db: 数据库handler
+    class func createBloodOxygenSetTable(_ db: Database) throws {
+        try XWHDataBloodOxygenSetManager.createBloodOxygenSetTable(db)
+    }
+    
+    class func saveBloodOxygenSet(_ bloodOxygenSet: XWHBloodOxygenSetModel) {
+        XWHDataBloodOxygenSetManager.saveBloodOxygenSet(bloodOxygenSet)
+    }
+    
+    class func getBloodPressureSet(identifier: String) -> XWHBloodOxygenSetModel? {
+        XWHDataBloodOxygenSetManager.getBloodOxygenSet(identifier: identifier)
+    }
+    
+    class func deleteBloodOxygenSet(identifier: String) {
+        XWHDataBloodOxygenSetManager.deleteBloodOxygenSet(identifier: identifier)
+    }
+    
+}
+
 

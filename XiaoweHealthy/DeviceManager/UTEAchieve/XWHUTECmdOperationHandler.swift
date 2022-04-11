@@ -72,9 +72,9 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
             infoModel.sex = UTEDeviceInfoSex.default
         }
 
-        infoModel.lightTime = 6
+        infoModel.lightTime = user.raiseWristLightDuration
         
-        infoModel.sportTarget = 8000
+        infoModel.sportTarget = user.goal
         
         // 手灯
         infoModel.handlight = 0
@@ -144,5 +144,27 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
         
         handler?(.success(nil))
     }
+    
+    /// 设置血压设置
+    func setBloodPressureSet(_ bloodPressureSet: XWHBloodPressureSetModel, handler: XWHDevCmdOperationHandler?) {
+        let option: UTEOption = bloodPressureSet.isOn ? .bloodCalibrateStart : .bloodDetectingStop
+        
+        setUTEOption(option)
+    }
+    
+    /// 设置血氧设置
+    /// - Parameters:
+    ///   - bloodOxygenSet: 久坐设置模型
+    func setBloodOxygenSet(_ bloodOxygenSet: XWHBloodOxygenSetModel, handler: XWHDevCmdOperationHandler?) {
+        
+    }
 
+}
+
+extension XWHUTECmdOperationHandler {
+    
+    private func setUTEOption(_ option: UTEOption) {
+        manager.setUTEOption(option)
+    }
+    
 }

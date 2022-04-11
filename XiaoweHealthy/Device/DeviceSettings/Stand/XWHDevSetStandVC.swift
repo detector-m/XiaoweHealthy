@@ -72,26 +72,24 @@ class XWHDevSetStandVC: XWHDevSetBaseVC {
             }
             
             cell.clickAction = { [unowned cell, unowned self] isOn in
+                let longSitSet = XWHLongSitSetModel()
                 if indexPath.section == 0 {
-                    let longSitSet = XWHLongSitSetModel()
-                    XWHDDMShared.setLongSitSet(longSitSet) { [weak self] result in
-                        guard let self = self else {
-                            return
-                        }
-                        
-                        switch result {
-                        case .success(_):
-                            self.isStandOn = isOn
-                            self.tableView.reloadData()
-                            
-                        case .failure(_):
-                            self.view.makeInsetToast("久坐提醒设置失败")
-                        }
-                    }
+                    longSitSet.isOn = isOn
                     
                 } else {
-                    isNotDisturbAtNoon = isOn
-                    cell.button.isSelected = isOn
+                    longSitSet.isSiestaOn = isOn
+                }
+                
+                self.setLongSitSet(longSitSet) {
+                    XWHDataDeviceManager.saveLongSitSet(longSitSet)
+
+                    if indexPath.section == 0 {
+                        self.isStandOn = isOn
+                        self.tableView.reloadData()
+                    } else {
+                        self.isNotDisturbAtNoon = isOn
+                        cell.button.isSelected = isOn
+                    }
                 }
             }
             
@@ -125,16 +123,38 @@ extension XWHDevSetStandVC {
             if cType == .cancel {
                 return
             }
-            
-            self.sIndex = index
-            self.tableView.reloadData()
+            let longSitSet = XWHLongSitSetModel()
+            longSitSet.duration = self.warnTimes[index]
+            self.setLongSitSet(longSitSet) {
+                XWHDataDeviceManager.saveLongSitSet(longSitSet)
+                
+                self.sIndex = index
+                self.tableView.reloadData()
+            }
         }
     }
 
 }
 
+// MARK: - Api
 extension XWHDevSetStandVC {
     
+    // Device Api
+    private func setLongSitSet(_ longSitSet: XWHLongSitSetModel, _ completion: (() -> Void)?) {
+        XWHDDMShared.setLongSitSet(longSitSet) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success(_):
+                completion?()
+                
+            case .failure(_):
+                self.view.makeInsetToast("久坐提醒设置失败")
+            }
+        }
+    }
     
     
 }

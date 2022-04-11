@@ -65,6 +65,17 @@ protocol XWHDevCmdOperationProtocol {
     ///   - longSitSet: 久坐设置模型
     func setLongSitSet(_ longSitSet: XWHLongSitSetModel, handler: XWHDevCmdOperationHandler?)
     
+    /// 设置血压设置
+    /// - Parameters:
+    ///   - bloodPressureSet: 久坐设置模型
+    func setBloodPressureSet(_ bloodPressureSet: XWHBloodPressureSetModel, handler: XWHDevCmdOperationHandler?)
+    
+    /// 设置血氧设置
+    /// - Parameters:
+    ///   - bloodOxygenSet: 久坐设置模型
+    func setBloodOxygenSet(_ bloodOxygenSet: XWHBloodOxygenSetModel, handler: XWHDevCmdOperationHandler?)
+
+    
 }
 
 // MARK: - 默认实现

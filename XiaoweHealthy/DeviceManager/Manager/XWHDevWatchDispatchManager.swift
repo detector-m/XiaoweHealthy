@@ -188,4 +188,16 @@ extension XWHDevWatchDispatchManager: XWHDevCmdOperationProtocol {
         cmdHandler?.setLongSitSet(longSitSet, handler: handler)
     }
     
+    /// 设置血压设置
+    func setBloodPressureSet(_ bloodPressureSet: XWHBloodPressureSetModel, handler: XWHDevCmdOperationHandler?) {
+        cmdHandler?.setBloodPressureSet(bloodPressureSet, handler: handler)
+    }
+    
+    /// 设置血氧设置
+    /// - Parameters:
+    ///   - bloodOxygenSet: 久坐设置模型
+    func setBloodOxygenSet(_ bloodOxygenSet: XWHBloodOxygenSetModel, handler: XWHDevCmdOperationHandler?) {
+        cmdHandler?.setBloodOxygenSet(bloodOxygenSet, handler: handler)
+    }
+    
 }

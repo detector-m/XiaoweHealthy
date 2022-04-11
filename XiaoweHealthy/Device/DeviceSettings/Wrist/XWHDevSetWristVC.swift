@@ -100,8 +100,34 @@ extension XWHDevSetWristVC {
                 return
             }
             
-            self.sIndex = index
-            self.tableView.reloadData()
+            var user = XWHUserModel()
+            user.raiseWristLightDuration = self.brightTimes[index]
+            self.setRaiseWrist(user) {
+                XWHDataUserManager.save(user: &user)
+                self.sIndex = index
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+}
+
+// MARK: - Api
+extension XWHDevSetWristVC {
+    
+    private func setRaiseWrist(_ user: XWHUserModel, _ completion: (() -> Void)?) {
+        XWHDDMShared.setUserInfo(user: user) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success(_):
+                completion?()
+                
+            case .failure(_):
+                self.view.makeInsetToast("久坐提醒设置失败")
+            }
         }
     }
     

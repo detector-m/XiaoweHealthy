@@ -62,8 +62,13 @@ class XWHDevSetOxygenVC: XWHDevSetBaseVC {
             cell.titleLb.text = R.string.xwhDeviceText.自动监测血氧饱和度()
             cell.subTitleLb.text = R.string.xwhDeviceText._24小时自动监测血氧饱和度()
             
-            cell.clickAction = { [unowned cell] isOn in
-                cell.button.isSelected = isOn
+            cell.clickAction = { [unowned cell, unowned self] isOn in
+                let boSet = XWHBloodOxygenSetModel()
+                boSet.isOn = isOn
+                self.setBloodOxygen(boSet) {
+                    XWHDataDeviceManager.saveBloodOxygenSet(boSet)
+                    cell.button.isSelected = isOn
+                }
             }
             
             return cell
@@ -97,8 +102,34 @@ extension XWHDevSetOxygenVC {
                 return
             }
             
-            self.sIndex = index
-            self.tableView.reloadData()
+            let bloodOxygenSet = XWHBloodOxygenSetModel()
+            bloodOxygenSet.duration = self.monitorTimes[index]
+            self.setBloodOxygen(bloodOxygenSet) {
+                XWHDataDeviceManager.saveBloodOxygenSet(bloodOxygenSet)
+                self.sIndex = index
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+}
+
+// MARK: - Api
+extension XWHDevSetOxygenVC {
+    
+    private func setBloodOxygen(_ bloodOxygenSet: XWHBloodOxygenSetModel, _ completion: (() -> Void)?) {
+        XWHDDMShared.setBloodOxygenSet(bloodOxygenSet) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success(_):
+                completion?()
+                
+            case .failure(_):
+                self.view.makeInsetToast("久坐提醒设置失败")
+            }
         }
     }
     

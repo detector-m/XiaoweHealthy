@@ -28,4 +28,36 @@ class XWHDataLongSitSetManager {
         })
     }
     
+    class func saveLongSitSet(_ longSitSet: XWHLongSitSetModel) {
+        appDB.write { db in
+            try longSitSet.save(db)
+        }
+    }
+    
+    class func getLongSitSet(identifier: String) -> XWHLongSitSetModel? {
+        appDB.read { db in
+//            try XWHLongSitSetModel.filter(XWHLongSitSetModel.Columns.identifier == identifier).fetchOne(db)
+            try XWHLongSitSetModel.fetchOne(db, key: identifier)
+        }
+    }
+    
+    class func deleteLongSitSet(identifier: String) {
+        appDB.write { db in
+            try XWHLongSitSetModel.deleteOne(db, key: identifier)
+        }
+    }
+    
+    class func deleteLongSitSet(_ longSitSet: XWHLongSitSetModel) {
+        appDB.write { db in
+//            try XWHDevWatchModel.deleteOne(db, key: devWatch.identifier)
+            try longSitSet.delete(db)
+        }
+    }
+    
+    class func deleteAllLongSitSet() {
+        appDB.write { db in
+            try XWHLongSitSetModel.deleteAll(db)
+        }
+    }
+    
 }

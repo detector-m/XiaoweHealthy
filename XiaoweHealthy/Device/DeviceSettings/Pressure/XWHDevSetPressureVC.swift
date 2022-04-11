@@ -38,11 +38,35 @@ class XWHDevSetPressureVC: XWHDevSetBaseVC {
         cell.titleLb.text = R.string.xwhDeviceText.压力自动监测()
         cell.subTitleLb.text = R.string.xwhDeviceText.开启后设备将根据HRV等生理指标测量你的压力情况()
         
-        cell.clickAction = { [unowned cell] isOn in
-            cell.button.isSelected = isOn
+        cell.clickAction = { [unowned cell, unowned self] isOn in
+            let bp = XWHBloodPressureSetModel()
+            self.setBloodPressure(bp) {
+                
+                cell.button.isSelected = isOn
+            }
         }
         
         return cell
     }
 
+}
+
+extension XWHDevSetPressureVC {
+    
+    private func setBloodPressure(_ bloodPressureSet: XWHBloodPressureSetModel, _ completion: (() -> Void)?) {
+        XWHDDMShared.setBloodPressureSet(bloodPressureSet) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success(_):
+                completion?()
+                
+            case .failure(_):
+                self.view.makeInsetToast("久坐提醒设置失败")
+            }
+        }
+    }
+    
 }
