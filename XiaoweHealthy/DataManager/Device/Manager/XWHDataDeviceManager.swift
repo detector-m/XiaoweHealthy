@@ -14,7 +14,7 @@ class XWHDataDeviceManager {
 
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
     ///  - Parameter db: 数据库handler
-    class func createDeviceModelTable(_ db: Database) throws {
+    class func createWatchTable(_ db: Database) throws {
         try db.create(table: XWHDevWatchModel.databaseTableName) { t in
 //                t.autoIncrementedPrimaryKey("id")
             t.column(XWHDevWatchModel.Columns.identifier.name, .text).notNull()
@@ -32,32 +32,32 @@ class XWHDataDeviceManager {
     
     /// Saves (inserts or updates) a player. When the method returns, the
     /// player is present in the database, and its id is not nil.
-    class func saveDeviceWatchModel(_ devWatch: inout XWHDevWatchModel) {
+    class func saveWatch(_ devWatch: inout XWHDevWatchModel) {
         appDB.write { db in
             try devWatch.save(db)
         }
     }
     
-    class func deleteDeviceWatchModel(_ devWatch: XWHDevWatchModel) {
+    class func deleteWatch(_ devWatch: XWHDevWatchModel) {
         appDB.write { db in
 //            try XWHDevWatchModel.deleteOne(db, key: devWatch.identifier)
             try devWatch.delete(db)
         }
     }
     
-    class func deleteAllDeviceWatchModel() {
+    class func deleteAllWatch() {
         appDB.write { db in
             try XWHDevWatchModel.deleteAll(db)
         }
     }
     
-    class func getDeviceWatchModel(_ id: String) -> XWHDevWatchModel? {
+    class func getWatch(_ id: String) -> XWHDevWatchModel? {
         return appDB.read { db in
             try XWHDevWatchModel.fetchOne(db, key: id)
         }
     }
     
-    class func getCurrentDeviceWatchModel() -> XWHDevWatchModel? {
+    class func getCurrentWatch() -> XWHDevWatchModel? {
         return appDB.read { db in
             //try XWHDevWatchModel.fetchOne(db, key: [XWHDevWatchModel.Columns.isCurrent.name: true])
 //            try XWHDevWatchModel.filter(Column(XWHDevWatchModel.Columns.isCurrent.name) == true).fetchOne(db)

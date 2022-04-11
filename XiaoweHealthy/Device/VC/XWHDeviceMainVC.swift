@@ -16,7 +16,7 @@ class XWHDeviceMainVC: XWHSearchBindDevBaseVC {
     private lazy var deviceItems = [[XWHDeployItemModel]]()
     
     private var connWatchModel: XWHDevWatchModel? {
-        XWHDataDeviceManager.getCurrentDeviceWatchModel()
+        XWHDataDeviceManager.getCurrentWatch()
     }
     
     override func viewDidLoad() {
@@ -100,10 +100,10 @@ extension XWHDeviceMainVC {
         XWHDDMShared.getDeviceInfo { [unowned self] result in
             switch result {
             case .success(let cModel):
-                if var connModel = cModel?.data as? XWHDevWatchModel, let curModel = XWHDataDeviceManager.getCurrentDeviceWatchModel() {
+                if var connModel = cModel?.data as? XWHDevWatchModel, let curModel = XWHDataDeviceManager.getCurrentWatch() {
                     connModel.isCurrent = curModel.isCurrent
                     connModel.type = curModel.type
-                    XWHDataDeviceManager.saveDeviceWatchModel(&connModel)
+                    XWHDataDeviceManager.saveWatch(&connModel)
                     
                     reloadAll()
                 }
@@ -380,7 +380,7 @@ extension XWHDeviceMainVC {
                     switch result {
                     case .success(_):
                         if let cModel = self.connWatchModel {
-                            XWHDataDeviceManager.deleteDeviceWatchModel(cModel)
+                            XWHDataDeviceManager.deleteWatch(cModel)
                         }
                         self.gotoAddDeviceEntry()
                         

@@ -13,7 +13,7 @@ class XWHDataUserManager {
     
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
     ///  - Parameter db: 数据库handler
-    class func createUserModelTable(_ db: Database) throws {
+    class func createUserTable(_ db: Database) throws {
         try db.create(table: XWHUserModel.databaseTableName) { t in
 //            t.autoIncrementedPrimaryKey("id")
             t.column(XWHUserModel.Columns.mobile.name, .text).notNull()
