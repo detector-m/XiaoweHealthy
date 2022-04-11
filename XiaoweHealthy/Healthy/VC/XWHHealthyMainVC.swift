@@ -114,7 +114,8 @@ extension XWHHealthyMainVC {
     }
     
     fileprivate func testDatabase() {
-        XWHDataUserManager.test()
+//        XWHDataUserManager.test()
+        XWHDataDeviceManager.test()
     }
     
 }

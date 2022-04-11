@@ -9,6 +9,7 @@ import Foundation
 import GRDB
 
 
+// MARK: - 用户数据管理
 class XWHDataUserManager {
     
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)

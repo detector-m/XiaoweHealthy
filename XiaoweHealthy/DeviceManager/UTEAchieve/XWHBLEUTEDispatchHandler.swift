@@ -138,14 +138,6 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
         }
     }
     
-//    func uteManagerExtraIsAble(_ isAble: Bool) {
-//        if isAble {
-//            log.debug("***Successfully turn on the additional functions of the device")
-//        }else{
-//            log.debug("***Failed to open the extra functions of the device, the device is actively disconnected, please reconnect the device")
-//        }
-//    }
-    
     // 连接设备成功回调
     func uteManagerDevicesSate(_ devicesState: UTEDevicesSate, error: Error!, userInfo info: [AnyHashable : Any]! = [:]) {
         log.info("-----------UTE手表连接状态：----------- \(devicesState.rawValue)")
@@ -175,16 +167,22 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
         }
     }
     
+    //
     func uteManagerBluetoothState(_ bluetoothState: UTEBluetoothState) {
         log.info("bluetoothState = \(bluetoothState.rawValue)")
     }
     
+    // 蓝牙配对弹框选择回调
     func uteManagerExtraIsAble(_ isAble: Bool) {
         if isAble {
-            log.info("***Successfully turn on the additional functions of the device")
+            log.info("UTE 配对 对话框----OK 点击")
         } else{
-            log.info("***Failed to open the extra functions of the device, the device is actively disconnected, please reconnect the device")
+            log.info("UTE 配对 对话框----Cancel 点击")
         }
-        
+    }
+    
+    // 打开或关闭消息推送，回调代理方法
+    func uteManageUTEOptionCallBack(_ callback: UTECallBack) {
+
     }
 }

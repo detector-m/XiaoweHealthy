@@ -47,5 +47,9 @@ class XWHDevWatchModel: XWHDeviceBaseModel {
         
         container[Columns.isCurrent] = isCurrent
     }
+    
+//    override func didInsert(with rowID: Int64, for column: String?) {
+//        pid = rowID
+//    }
 
 }

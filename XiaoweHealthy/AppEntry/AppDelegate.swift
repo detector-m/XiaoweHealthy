@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         configLog()
         
+//        configAppDatabase()
+        
         configCache()
         
         configUM()
@@ -91,6 +93,11 @@ extension AppDelegate {
     
     fileprivate func configLog() {
         XWHLog.configLog()
+    }
+    
+    // 配置数据库
+    fileprivate func configAppDatabase() {
+        appDB.connect()
     }
     
     // 配置缓存

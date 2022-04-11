@@ -123,7 +123,7 @@ extension XWHBindDeviceVC {
             case .success(_):
                 self.bindDeviceModel.isCurrent = true
                 self.isBindSuccess = true
-                XWHDataDeviceManager.saveWatch(&(self.bindDeviceModel))
+                XWHDataDeviceManager.saveWatch(self.bindDeviceModel)
                 self.bindDeviceSuccess()
                 
             case .failure(_):

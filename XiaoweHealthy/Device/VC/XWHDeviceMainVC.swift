@@ -100,10 +100,10 @@ extension XWHDeviceMainVC {
         XWHDDMShared.getDeviceInfo { [unowned self] result in
             switch result {
             case .success(let cModel):
-                if var connModel = cModel?.data as? XWHDevWatchModel, let curModel = XWHDataDeviceManager.getCurrentWatch() {
+                if let connModel = cModel?.data as? XWHDevWatchModel, let curModel = XWHDataDeviceManager.getCurrentWatch() {
                     connModel.isCurrent = curModel.isCurrent
                     connModel.type = curModel.type
-                    XWHDataDeviceManager.saveWatch(&connModel)
+                    XWHDataDeviceManager.saveWatch(connModel)
                     
                     reloadAll()
                 }

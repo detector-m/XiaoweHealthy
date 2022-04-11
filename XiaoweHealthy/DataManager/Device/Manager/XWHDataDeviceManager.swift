@@ -9,15 +9,40 @@ import Foundation
 import GRDB
 
 
+// MARK: - 设备数据管理
 
 class XWHDataDeviceManager {
+    
+    /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
+    ///  - Parameter db: 数据库handler
+    class func createTables(_ db: Database) throws {
+        try createWatchTable(db)
+        try createNoticeTable(db)
+    }
+    
+    class func test() {
+//        let watch = XWHDevWatchModel()
+//        watch.identifier = "AAAAAA"
+//        watch.name = "hello1"
+//        saveWatch(watch)
+//
+//        let watch2 = XWHDevWatchModel()
+//        watch2.identifier = "ababab"
+//        watch2.name = "1234567890"
+//        saveWatch(watch2)
+    }
+    
+}
+
+// MARK: - Watch
+extension XWHDataDeviceManager {
 
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
     ///  - Parameter db: 数据库handler
     class func createWatchTable(_ db: Database) throws {
         try db.create(table: XWHDevWatchModel.databaseTableName) { t in
-//                t.autoIncrementedPrimaryKey("id")
-            t.column(XWHDevWatchModel.Columns.identifier.name, .text).notNull()
+//            t.autoIncrementedPrimaryKey("id")
+            t.column(XWHDevWatchModel.Columns.identifier.name, .text).notNull().primaryKey()
             t.column(XWHDevWatchModel.Columns.name.name, .text).notNull()
             t.column(XWHDevWatchModel.Columns.type.name, .text).notNull()
             t.column(XWHDevWatchModel.Columns.mac.name, .text).notNull()
@@ -26,13 +51,13 @@ class XWHDataDeviceManager {
             
             t.column(XWHDevWatchModel.Columns.isCurrent.name, .boolean).notNull()
             
-            t.primaryKey([XWHDevWatchModel.Columns.identifier.name])
+//            t.primaryKey([XWHDevWatchModel.Columns.identifier.name])
         }
     }
     
     /// Saves (inserts or updates) a player. When the method returns, the
     /// player is present in the database, and its id is not nil.
-    class func saveWatch(_ devWatch: inout XWHDevWatchModel) {
+    class func saveWatch(_ devWatch: XWHDevWatchModel) {
         appDB.write { db in
             try devWatch.save(db)
         }
@@ -65,6 +90,17 @@ class XWHDataDeviceManager {
             try XWHDevWatchModel.filter(XWHDevWatchModel.Columns.isCurrent == true).fetchOne(db)
 
         }
+    }
+    
+}
+
+// MARK: - Notice
+extension XWHDataDeviceManager {
+    
+    /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
+    ///  - Parameter db: 数据库handler
+    class func createNoticeTable(_ db: Database) throws {
+        try XWHDataNoticeManager.createNoticeTable(db)
     }
     
 }
