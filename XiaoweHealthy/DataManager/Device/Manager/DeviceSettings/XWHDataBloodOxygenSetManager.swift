@@ -31,7 +31,6 @@ class XWHDataBloodOxygenSetManager {
     
     class func getBloodOxygenSet(identifier: String) -> XWHBloodOxygenSetModel? {
         appDB.read { db in
-//            try XWHBloodOxygenSetModel.filter(XWHBloodOxygenSetModel.Columns.identifier == identifier).fetchOne(db)
             try XWHBloodOxygenSetModel.fetchOne(db, key: identifier)
         }
     }
@@ -44,7 +43,6 @@ class XWHDataBloodOxygenSetManager {
     
     class func deleteBloodOxygenSet(_ bloodOxygenSet: XWHBloodOxygenSetModel) {
         appDB.write { db in
-//            try XWHDevWatchModel.deleteOne(db, key: devWatch.identifier)
             try bloodOxygenSet.delete(db)
         }
     }

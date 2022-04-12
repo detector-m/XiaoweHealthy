@@ -8,21 +8,19 @@
 import Foundation
 import GRDB
 
+#if false
+
 // MARK: - 抬腕亮屏设置数据管理
 class XWHDataRaiseWristSetManager {
     
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
     ///  - Parameter db: 数据库handler
     class func createRaiseWristSetTable(_ db: Database) throws {
-//        try db.create(table: XWHRaiseWristSetModel.databaseTableName, body: { t in
-//            t.column(XWHWeatherSetModel.Columns.identifier.name, .text).primaryKey()
-//
-//            t.column(XWHRaiseWristSetModel.Columns.isOn.name, .boolean)
-//            t.column(XWHRaiseWristSetModel.Columns.isOnCall.name, .boolean)
-//            t.column(XWHRaiseWristSetModel.Columns.isOnSms.name, .boolean)
-//            t.column(XWHRaiseWristSetModel.Columns.isOnWeChat.name, .boolean)
-//            t.column(XWHRaiseWristSetModel.Columns.isOnQQ.name, .boolean)
-//        })
+        try db.create(table: XWHRaiseWristSetModel.databaseTableName, body: { t in
+            t.column(XWHRaiseWristSetModel.Columns.identifier.name, .text).primaryKey()
+
+            t.column(XWHRaiseWristSetModel.Columns.isOn.name, .boolean)
+        })
     }
     
     class func saveRaiseWristSet(_ raiseWristSet: XWHRaiseWristSetModel) {
@@ -33,7 +31,6 @@ class XWHDataRaiseWristSetManager {
     
     class func getRaiseWristSet(identifier: String) -> XWHRaiseWristSetModel? {
         appDB.read { db in
-//            try XWHRaiseWristSetModel.filter(XWHRaiseWristSetModel.Columns.identifier == identifier).fetchOne(db)
             try XWHRaiseWristSetModel.fetchOne(db, key: identifier)
         }
     }
@@ -46,7 +43,6 @@ class XWHDataRaiseWristSetManager {
     
     class func deleteRaiseWristSet(_ raiseWristSet: XWHRaiseWristSetModel) {
         appDB.write { db in
-//            try XWHDevWatchModel.deleteOne(db, key: devWatch.identifier)
             try raiseWristSet.delete(db)
         }
     }
@@ -58,3 +54,5 @@ class XWHDataRaiseWristSetManager {
     }
     
 }
+
+#endif

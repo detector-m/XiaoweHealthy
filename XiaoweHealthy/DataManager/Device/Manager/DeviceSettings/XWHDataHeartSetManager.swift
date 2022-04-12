@@ -34,7 +34,6 @@ class XWHDataHeartSetManager {
     
     class func getHeartSet(identifier: String) -> XWHHeartSetModel? {
         appDB.read { db in
-//            try XWHHeartSetModel.filter(XWHHeartSetModel.Columns.identifier == identifier).fetchOne(db)
             try XWHHeartSetModel.fetchOne(db, key: identifier)
         }
     }
@@ -47,7 +46,6 @@ class XWHDataHeartSetManager {
     
     class func deleteHeartSet(_ heartSet: XWHHeartSetModel) {
         appDB.write { db in
-//            try XWHDevWatchModel.deleteOne(db, key: devWatch.identifier)
             try heartSet.delete(db)
         }
     }

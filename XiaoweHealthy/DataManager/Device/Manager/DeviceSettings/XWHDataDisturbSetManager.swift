@@ -16,7 +16,7 @@ class XWHDataDisturbSetManager {
     ///  - Parameter db: 数据库handler
     class func createDisturbSetTable(_ db: Database) throws {
 //        try db.create(table: XWHDisturbSetModel.databaseTableName, body: { t in
-//            t.column(XWHWeatherSetModel.Columns.identifier.name, .text).primaryKey()
+//            t.column(XWHDisturbSetModel.Columns.identifier.name, .text).primaryKey()
 //            t.column(XWHDisturbSetModel.Columns.isOn.name, .boolean)
 //            t.column(XWHDisturbSetModel.Columns.isOnCall.name, .boolean)
 //            t.column(XWHDisturbSetModel.Columns.isOnSms.name, .boolean)
@@ -33,7 +33,6 @@ class XWHDataDisturbSetManager {
     
     class func getDisturbSet(identifier: String) -> XWHDisturbSetModel? {
         appDB.read { db in
-//            try XWHDisturbSetModel.filter(XWHDisturbSetModel.Columns.identifier == identifier).fetchOne(db)
             try XWHDisturbSetModel.fetchOne(db, key: identifier)
         }
     }
@@ -46,7 +45,6 @@ class XWHDataDisturbSetManager {
     
     class func deleteDisturbSet(_ disturbSet: XWHDisturbSetModel) {
         appDB.write { db in
-//            try XWHDevWatchModel.deleteOne(db, key: devWatch.identifier)
             try disturbSet.delete(db)
         }
     }

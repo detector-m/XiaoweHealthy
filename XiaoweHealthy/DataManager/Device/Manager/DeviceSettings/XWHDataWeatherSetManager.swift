@@ -30,7 +30,6 @@ class XWHDataWeatherSetManager {
     
     class func getWeatherSet(identifier: String) -> XWHWeatherSetModel? {
         appDB.read { db in
-//            try XWHWeatherSetModel.filter(XWHWeatherSetModel.Columns.identifier == identifier).fetchOne(db)
             try XWHWeatherSetModel.fetchOne(db, key: identifier)
         }
     }
@@ -43,7 +42,6 @@ class XWHDataWeatherSetManager {
     
     class func deleteWeatherSet(_ weatherSet: XWHWeatherSetModel) {
         appDB.write { db in
-//            try XWHDevWatchModel.deleteOne(db, key: devWatch.identifier)
             try weatherSet.delete(db)
         }
     }
