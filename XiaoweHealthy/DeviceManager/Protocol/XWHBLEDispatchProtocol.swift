@@ -13,9 +13,9 @@ typealias XWHDevScanProgressHandler = (_ devices: [XWHDevWatchModel]) -> Void
 
 typealias XWHDevScanHandler = (Result<[XWHDevWatchModel], XWHBLEError>) -> Void
 
-typealias XWHDevConnectHandler = ((Result<XWHDeviceConnectState, XWHBLEError>, XWHDeviceConnectState) -> Void)
+typealias XWHDevConnectHandler = ((Result<XWHDeviceConnectBindState, XWHBLEError>) -> Void)
 
-typealias XWHDevBindHandler = ((Result<Bool, XWHBLEError>) -> Void)
+typealias XWHDevBindHandler = XWHDevConnectHandler
 
 
 protocol XWHBLEDispatchProtocol {
@@ -26,8 +26,9 @@ protocol XWHBLEDispatchProtocol {
     
 //    var randomCode: String { get }
     
-    /// 连接状态
-    var connectState: XWHDeviceConnectState { get }
+    /// 连接绑定状态
+    var connectBindState: XWHDeviceConnectBindState { get }
+    
     
     /// 开始扫描
     /// - Parameters:

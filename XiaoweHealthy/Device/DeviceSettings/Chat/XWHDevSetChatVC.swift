@@ -9,7 +9,8 @@ import UIKit
 
 class XWHDevSetChatVC: XWHDevSetBaseVC {
     
-    private static var isShowAlert = true
+    // 是否是第一次
+    private static var isFirstAlert = true
     
     private lazy var chatItems = [XWHDevSetChatDeployItemModel]()
     
@@ -144,6 +145,8 @@ extension XWHDevSetChatVC {
         noticeSet.isOn = isOn
         
         setNoticeSet(noticeSet) { [unowned self] in
+            XWHDataDeviceManager.saveNoticeSet(noticeSet)
+            
             self.isChatOn = isOn
 //            if isOn {
 //                self.gotoTurnOnChat()
@@ -153,6 +156,8 @@ extension XWHDevSetChatVC {
             self.tableView.reloadData()
         }
     }
+    
+    // 该功能由系统弹出，ios 无法控制和获取状态
     private func gotoTurnOnChat() {
         XWHAlert.show(title: R.string.xwhDeviceText.消息通知授权失败(), message: R.string.xwhDeviceText.这将导致部分功能无法正常使用您可到手机设置页面进行手动授权(), confirmTitle: R.string.xwhDeviceText.去授权()) { cType in
             if cType == .confirm {
@@ -164,15 +169,37 @@ extension XWHDevSetChatVC {
     
     private func gotoSetChatItem(at row: Int, isOn: Bool) {
         let item = chatItems[row]
-        item.isOn = isOn
-        if let cell = self.tableView.cellForRow(at: IndexPath(row: row, section: 1)) as? XWHDevSetSwitchTBCell {
-            cell.button.isSelected = isOn
+        
+        let noticeSet = XWHNoticeSetModel()
+        noticeSet.isOn = isChatOn
+        
+        switch item.type {
+        case .message:
+            noticeSet.isOnSms = isOn
+            
+        case .wechat:
+            noticeSet.isOnWeChat = isOn
+            
+        case .qq:
+            noticeSet.isOnQQ = isOn
+            
+        default:
+            break
         }
+        
+        setNoticeSet(noticeSet) { [unowned self] in
+            XWHDataDeviceManager.saveNoticeSet(noticeSet)
+            item.isOn = isOn
+            if let cell = self.tableView.cellForRow(at: IndexPath(row: row, section: 1)) as? XWHDevSetSwitchTBCell {
+                cell.button.isSelected = isOn
+            }
+        }
+        
         if item.type == .message {
-            if Self.isShowAlert {
+            if Self.isFirstAlert {
                 XWHAlert.show(message: R.string.xwhDeviceText.在手机通知栏显示的消息才能推送到设备上哦(), cancelTitle: nil, confirmTitle: R.string.xwhDeviceText.知道了())
                 
-                Self.isShowAlert = false
+                Self.isFirstAlert = false
             }
         }
     }

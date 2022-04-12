@@ -18,17 +18,23 @@ enum XWHDeviceType: String {
     
 }
 
-// MARK: - 设备连接状态
-enum XWHDeviceConnectState {
+// MARK: - 设备连接绑定状态
+enum XWHDeviceConnectBindState {
     
-    /// 已连接
-    case connected
+    /// 断开连接
+    case disconnected
     
     /// 连接中
     case connecting
     
-    /// 断开连接
-    case disconnected
+    /// 已连接
+    case connected
+    
+    /// 配对中
+    case pairing
+    
+    /// 配对完成
+    case paired
     
 }
 

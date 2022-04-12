@@ -14,7 +14,7 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
 //    var randomCode = ""
 
     /// 连接状态
-    var connectState: XWHDeviceConnectState = .disconnected
+    var connectBindState: XWHDeviceConnectBindState = .disconnected
     
     var scanProgressHandler: XWHDevScanProgressHandler?
     var connectHandler: XWHDevConnectHandler?
@@ -119,14 +119,14 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
     /// - 连接超时处理
     @objc func connectTimeout() {
         //TODO:这段代码进行一次调整，此处不应直接发Post
-        if self.connectState == .connected {
+        if self.connectBindState == .connected {
             return
         }
 
         log.error("-----------连接手表超时-----------")
-        connectState = .disconnected
+        connectBindState = .disconnected
 
-        connectHandler?(.failure(.normal), .connected)
+        connectHandler?(.failure(.normal))
         connectHandler = nil
         
 //        let cState = connectState

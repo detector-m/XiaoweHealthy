@@ -69,8 +69,8 @@ extension XWHDevWatchDispatchManager: XWHBLEDispatchProtocol {
 //    var randomCode: String { get }
     
     /// 连接状态
-    var connectState: XWHDeviceConnectState {
-        bleHandler?.connectState ?? .disconnected
+    var connectBindState: XWHDeviceConnectBindState {
+        bleHandler?.connectBindState ?? .disconnected
     }
     
     // MARK: - 扫描

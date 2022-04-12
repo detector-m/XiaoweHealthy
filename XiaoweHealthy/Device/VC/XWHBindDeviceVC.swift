@@ -84,9 +84,9 @@ class XWHBindDeviceVC: XWHSearchBindDevBaseVC {
     }
     
     override func clickButton() {
-        if XWHDDMShared.connectState == .disconnected {
+        if XWHDDMShared.connectBindState == .disconnected {
             startBindDevice()
-        } else if XWHDDMShared.connectState == .connected {
+        } else if XWHDDMShared.connectBindState == .paired {
             gotoDeviceMain()
         }
     }
@@ -114,22 +114,7 @@ extension XWHBindDeviceVC {
         
         detailLb.text = getDetailText(with: R.string.xwhDeviceText.正在对N进行配对())
         
-        XWHDDMShared.connect(device: bindDeviceModel, isReconnect: false) { [weak self] (result: Result<XWHDeviceConnectState, XWHBLEError>, conState) in
-            guard let self = self else {
-                return
-            }
-            
-            switch result {
-            case .success(_):
-                self.bindDeviceModel.isCurrent = true
-                self.isBindSuccess = true
-                XWHDataDeviceManager.saveWatch(self.bindDeviceModel)
-                self.bindDeviceSuccess()
-                
-            case .failure(_):
-                self.bindDeviceFailed()
-            }
-        }
+        connect(device: bindDeviceModel)
     }
     
     private func bindDeviceFailed() {
@@ -162,6 +147,57 @@ extension XWHBindDeviceVC {
     private func gotoDeviceMain() {
         let vc = XWHDeviceMainVC()
         navigationController?.setViewControllers([vc], animated: true)
+    }
+    
+}
+
+// MARK: - Api
+extension XWHBindDeviceVC {
+    
+    // 连接设备
+    private func connect(device: XWHDevWatchModel) {
+        XWHDDMShared.connect(device: device, isReconnect: false) { [weak self] (result: Result<XWHDeviceConnectBindState, XWHBLEError>) in
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success(let connBindState):
+                if connBindState == .paired {
+                    device.isCurrent = true
+                    self.isBindSuccess = true
+                    XWHDataDeviceManager.saveWatch(device)
+                    self.bindDeviceSuccess()
+                } else {
+                    self.bind(device: device)
+                }
+                
+            case .failure(_):
+                self.bindDeviceFailed()
+            }
+        }
+    }
+    
+    // 绑定（配对）设备
+    private func bind(device: XWHDevWatchModel) {
+        XWHDDMShared.bind(device: device) { [weak self] (result: Result<XWHDeviceConnectBindState, XWHBLEError>) in
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success(let connBindState):
+                if connBindState == .paired {
+                    device.isCurrent = true
+                    self.isBindSuccess = true
+                    XWHDataDeviceManager.saveWatch(device)
+                    self.bindDeviceSuccess()
+                }
+                
+            case .failure(_):
+                self.bindDeviceFailed()
+            }
+        }
     }
     
 }
