@@ -61,6 +61,7 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
         log.info("UTE 设置用户信息")
         let infoModel = getUTEDeviceInfo(user)
         infoModel.lightTime = raiseWristSet?.duration ?? 5
+        infoModel.handlight = (raiseWristSet?.isOn ?? false) ? 1 : -1
         
         manager.setUTEInfoModel(infoModel)
         
@@ -253,13 +254,12 @@ extension XWHUTECmdOperationHandler {
         } else {
             infoModel.sex = UTEDeviceInfoSex.default
         }
-
-        infoModel.lightTime = 5
         
         infoModel.sportTarget = user.goal
-        
-        // 手灯
+
+        // 抬腕亮屏开关
         infoModel.handlight = 0
+        infoModel.lightTime = 5
         
         return infoModel
     }

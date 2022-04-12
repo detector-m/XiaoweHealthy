@@ -64,10 +64,18 @@ class XWHDevSetWristVC: XWHDevSetBaseVC {
             cell.subTitleLb.text = R.string.xwhDeviceText.持续时间未活动设备将震动提醒()
             cell.button.isSelected = isWristOn
             
-//            cell.clickAction = { [unowned self] isOn in
-//                self.isWristOn = isOn
-//                self.tableView.reloadData()
-//            }
+            cell.clickAction = { [unowned self] isOn in
+                let user = XWHUserModel()
+                let raiseWristSet = XWHRaiseWristSetModel()
+                raiseWristSet.isOn = isOn
+                
+                self.setRaiseWristSet(raiseWristSet, user) {
+                    XWHDataDeviceManager.saveRaiseWristSet(raiseWristSet)
+                    
+                    self.isWristOn = isOn
+                    self.tableView.reloadData()
+                }
+            }
             
             return cell
         } else {

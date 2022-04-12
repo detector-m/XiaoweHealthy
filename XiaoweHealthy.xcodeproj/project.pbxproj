@@ -172,6 +172,7 @@
 		96E23C2A27E1A55E009EF208 /* XWHHealthyMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C2927E1A55E009EF208 /* XWHHealthyMainVC.swift */; };
 		96E23C2C27E1A579009EF208 /* XWHDeviceMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C2B27E1A579009EF208 /* XWHDeviceMainVC.swift */; };
 		96E23C2E27E1A586009EF208 /* XWHMeMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C2D27E1A586009EF208 /* XWHMeMainVC.swift */; };
+		96E3F2DD2805656800D9BF11 /* XWHUTEWeatherInfoHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3F2DC2805656800D9BF11 /* XWHUTEWeatherInfoHandler.swift */; };
 		96E8A6BD27F1738200F5C75C /* XWHUINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8A6BC27F1738200F5C75C /* XWHUINavigationControllerExtension.swift */; };
 		96E8A6BF27F1B2A700F5C75C /* XWHSearchDeviceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8A6BE27F1B2A700F5C75C /* XWHSearchDeviceVC.swift */; };
 		96F3588327FE7CE000783614 /* XWHBLEDispatchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3588227FE7CE000783614 /* XWHBLEDispatchProtocol.swift */; };
@@ -394,6 +395,7 @@
 		96E23C2927E1A55E009EF208 /* XWHHealthyMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyMainVC.swift; sourceTree = "<group>"; };
 		96E23C2B27E1A579009EF208 /* XWHDeviceMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceMainVC.swift; sourceTree = "<group>"; };
 		96E23C2D27E1A586009EF208 /* XWHMeMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMeMainVC.swift; sourceTree = "<group>"; };
+		96E3F2DC2805656800D9BF11 /* XWHUTEWeatherInfoHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUTEWeatherInfoHandler.swift; sourceTree = "<group>"; };
 		96E8A6BB27F150F100F5C75C /* XiaoweHealthyDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = XiaoweHealthyDebug.entitlements; sourceTree = "<group>"; };
 		96E8A6BC27F1738200F5C75C /* XWHUINavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUINavigationControllerExtension.swift; sourceTree = "<group>"; };
 		96E8A6BE27F1B2A700F5C75C /* XWHSearchDeviceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSearchDeviceVC.swift; sourceTree = "<group>"; };
@@ -1456,6 +1458,7 @@
 			children = (
 				96F3588D27FE92C900783614 /* XWHBLEUTEDispatchHandler.swift */,
 				960A836B2802635C00FC1B5F /* XWHUTECmdOperationHandler.swift */,
+				96E3F2DC2805656800D9BF11 /* XWHUTEWeatherInfoHandler.swift */,
 			);
 			path = UTEAchieve;
 			sourceTree = "<group>";
@@ -1959,6 +1962,7 @@
 				96D0041927F8236D00E569C7 /* XWHJsApiTest.swift in Sources */,
 				960A836A28025EFD00FC1B5F /* XWHDevCmdOperationProtocol.swift in Sources */,
 				96617AA727E3196A00139B03 /* XWHCheckProtocolView.swift in Sources */,
+				96E3F2DD2805656800D9BF11 /* XWHUTEWeatherInfoHandler.swift in Sources */,
 				960A836C2802635C00FC1B5F /* XWHUTECmdOperationHandler.swift in Sources */,
 				9653E4A227F5A4A400EE55FF /* XWHDevSetWeatherVC.swift in Sources */,
 				96DC429327FD26A9009BF300 /* XWHJsApi.swift in Sources */,
