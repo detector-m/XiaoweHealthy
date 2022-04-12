@@ -229,7 +229,7 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
     
     /// 设置天气
     func setWeatherSet(_ weatherSet: XWHWeatherSetModel, handler: XWHDevCmdOperationHandler?) {
-        UTEModelWeatherInfo
+//        UTEModelWeatherInfo
         manager.sendUTETodayWeather(UTEWeatherType.snow, currentTemp: -2, maxTemp: 10, minTemp: -5, pm25: 100, aqi: 120, tomorrowType: UTEWeatherType.wind, tmrMax: 5, tmrMin: 0)
         handler?(.success(nil))
     }
