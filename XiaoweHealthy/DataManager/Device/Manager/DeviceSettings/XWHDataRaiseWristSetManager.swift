@@ -8,8 +8,6 @@
 import Foundation
 import GRDB
 
-#if false
-
 // MARK: - 抬腕亮屏设置数据管理
 class XWHDataRaiseWristSetManager {
     
@@ -20,6 +18,8 @@ class XWHDataRaiseWristSetManager {
             t.column(XWHRaiseWristSetModel.Columns.identifier.name, .text).primaryKey()
 
             t.column(XWHRaiseWristSetModel.Columns.isOn.name, .boolean)
+            
+            t.column(XWHRaiseWristSetModel.Columns.duration.name, .integer)
         })
     }
     
@@ -54,5 +54,3 @@ class XWHDataRaiseWristSetManager {
     }
     
 }
-
-#endif

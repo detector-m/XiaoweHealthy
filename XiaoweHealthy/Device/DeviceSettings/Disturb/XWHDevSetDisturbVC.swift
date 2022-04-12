@@ -83,15 +83,35 @@ class XWHDevSetDisturbVC: XWHDevSetBaseVC {
         }
         
         cell.clickAction = { [unowned self, unowned cell] isOn in
+            let disturbSet = XWHDisturbSetModel()
+            
             if indexPath.section == 0 {
-                self.isNotDisturb = isOn
-                self.tableView.reloadData()
+                disturbSet.isOn = isOn
+                
+                self.setDisturbSet(disturbSet) {
+                    XWHDataDeviceManager.saveDisturbSet(disturbSet)
+                    
+                    self.isNotDisturb = isOn
+                    self.tableView.reloadData()
+                }
             } else if indexPath.section == 1 {
-                self.isShockOn = isOn
-                cell.button.isSelected = isOn
+                disturbSet.isVibrationOn = isOn
+
+                self.setDisturbSet(disturbSet) {
+                    XWHDataDeviceManager.saveDisturbSet(disturbSet)
+                    
+                    self.isShockOn = isOn
+                    cell.button.isSelected = isOn
+                }
             } else {
-                self.isChatOn = isOn
-                cell.button.isSelected = isOn
+                disturbSet.isMessageOn = isOn
+                
+                self.setDisturbSet(disturbSet) {
+                    XWHDataDeviceManager.saveDisturbSet(disturbSet)
+                    
+                    self.isChatOn = isOn
+                    cell.button.isSelected = isOn
+                }
             }   
         }
         
@@ -119,9 +139,25 @@ class XWHDevSetDisturbVC: XWHDevSetBaseVC {
 
 }
 
+
+// MARK: - Api
 extension XWHDevSetDisturbVC {
     
-    
+    private func setDisturbSet(_ disturbSet: XWHDisturbSetModel, _ completion: (() -> Void)?) {
+        XWHDDMShared.setDisturbSet(disturbSet) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success(_):
+                completion?()
+                
+            case .failure(_):
+                self.view.makeInsetToast("勿扰模式设置失败")
+            }
+        }
+    }
     
 }
 

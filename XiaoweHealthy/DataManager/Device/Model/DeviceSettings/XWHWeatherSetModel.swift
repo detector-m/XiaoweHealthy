@@ -22,5 +22,23 @@ class XWHWeatherSetModel: XWHDataBaseModel {
     
     /// 总开关
     var isOn = false
+    
+    override init() {
+        super.init()
+    }
+    
+    required init(row: Row) {
+        super.init(row: row)
+        
+        identifier = row[Columns.identifier]
+
+        isOn = row[Columns.isOn]
+    }
+    
+    override func encode(to container: inout PersistenceContainer) {
+        container[Columns.identifier] = identifier
+
+        container[Columns.isOn] = isOn
+    }
 
 }

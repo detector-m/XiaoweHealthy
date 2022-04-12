@@ -78,12 +78,28 @@ class XWHDevSetHeartVC: XWHDevSetBaseVC {
             }
         
             cell.clickAction = { [unowned self] isOn in
+                let heartSet = XWHHeartSetModel()
+                
                 if indexPath.row == 0 {
-                    self.isHeartOn = isOn
-                    self.tableView.reloadData()
+                    heartSet.optionType = .none
+                    heartSet.isOn = isOn
+                    
+                    self.setHeartSet(heartSet, nil) {
+                        XWHDataDeviceManager.saveHeartSet(heartSet)
+                        
+                        self.isHeartOn = isOn
+                        self.tableView.reloadData()
+                    }
                 } else {
-                    self.isHeartHighWarn = isOn
-                    self.tableView.reloadData()
+                    heartSet.optionType = .highWarn
+                    heartSet.isHighWarn = isOn
+                    let user = XWHDataUserManager.get()
+                    self.setHeartSet(heartSet, user) {
+                        XWHDataDeviceManager.saveHeartSet(heartSet)
+                        
+                        self.isHeartHighWarn = isOn
+                        self.tableView.reloadData()
+                    }
                 }
             }
             
@@ -113,16 +129,47 @@ class XWHDevSetHeartVC: XWHDevSetBaseVC {
 extension XWHDevSetHeartVC {
     
     private func gotoPickHeartWarnValue() {
-        let pickItems = stride(from: warnMin, through: warnMax, by: 10).map { value in
+        let valueItems = stride(from: warnMin, through: warnMax, by: 10).map { $0 }
+        let pickItems = valueItems.map { value in
             return value.string + R.string.xwhDeviceText.次分钟()
         }
         XWHPopupPick.show(pickItems: pickItems, sIndex: sIndex) { [unowned self] cType, index in
             if cType == .cancel {
                 return
             }
+            let heartSet = XWHHeartSetModel()
+
+            heartSet.optionType = .highWarn
+            heartSet.highWarnValue = valueItems[index]
             
-            self.sIndex = index
-            self.tableView.reloadData()
+            let user = XWHDataUserManager.get()
+            self.setHeartSet(heartSet, user) {
+                XWHDataDeviceManager.saveHeartSet(heartSet)
+                
+                self.sIndex = index
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+}
+
+// MARK: - Api
+extension XWHDevSetHeartVC {
+    
+    private func setHeartSet(_ heartSet: XWHHeartSetModel, _ user: XWHUserModel?, _ completion: (() -> Void)?) {
+        XWHDDMShared.setHeartSet(heartSet, user) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success(_):
+                completion?()
+                
+            case .failure(let error):
+                self.view.makeInsetToast(error.message)
+            }
         }
     }
     

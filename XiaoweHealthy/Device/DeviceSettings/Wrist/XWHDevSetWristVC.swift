@@ -64,10 +64,10 @@ class XWHDevSetWristVC: XWHDevSetBaseVC {
             cell.subTitleLb.text = R.string.xwhDeviceText.持续时间未活动设备将震动提醒()
             cell.button.isSelected = isWristOn
             
-            cell.clickAction = { [unowned self] isOn in
-                self.isWristOn = isOn
-                self.tableView.reloadData()
-            }
+//            cell.clickAction = { [unowned self] isOn in
+//                self.isWristOn = isOn
+//                self.tableView.reloadData()
+//            }
             
             return cell
         } else {
@@ -100,10 +100,13 @@ extension XWHDevSetWristVC {
                 return
             }
             
-            var user = XWHUserModel()
-            user.raiseWristLightDuration = self.brightTimes[index]
-            self.setRaiseWrist(user) {
-                XWHDataUserManager.save(user: &user)
+            let user = XWHUserModel()
+            let raiseWristSet = XWHRaiseWristSetModel()
+            
+            raiseWristSet.duration = self.brightTimes[index]
+            self.setRaiseWristSet(raiseWristSet, user) {
+                XWHDataDeviceManager.saveRaiseWristSet(raiseWristSet)
+                
                 self.sIndex = index
                 self.tableView.reloadData()
             }
@@ -115,8 +118,8 @@ extension XWHDevSetWristVC {
 // MARK: - Api
 extension XWHDevSetWristVC {
     
-    private func setRaiseWrist(_ user: XWHUserModel, _ completion: (() -> Void)?) {
-        XWHDDMShared.setUserInfo(user: user) { [weak self] result in
+    private func setRaiseWristSet(_ raiseWristSet: XWHRaiseWristSetModel, _ user: XWHUserModel, _ completion: (() -> Void)?) {
+        XWHDDMShared.setRaiseWristSet(raiseWristSet, user) { [weak self] result in
             guard let self = self else {
                 return
             }
@@ -126,7 +129,7 @@ extension XWHDevSetWristVC {
                 completion?()
                 
             case .failure(_):
-                self.view.makeInsetToast("久坐提醒设置失败")
+                self.view.makeInsetToast("抬腕亮屏设置失败")
             }
         }
     }

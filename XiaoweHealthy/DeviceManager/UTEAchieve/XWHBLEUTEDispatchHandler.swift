@@ -158,7 +158,7 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
             }
             if self.connectState == .connected {
                 self.connectHandler?(.success(self.connectState), self.connectState)
-                self.cmdHandler?.config(handler: nil)
+                self.cmdHandler?.config(nil, nil, handler: nil)
             } else {
                 self.connectHandler?(.failure(.normal), self.connectState)
             }

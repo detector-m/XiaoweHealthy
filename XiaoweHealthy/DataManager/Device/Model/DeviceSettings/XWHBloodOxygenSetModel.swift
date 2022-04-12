@@ -13,7 +13,7 @@ import GRDB
 class XWHBloodOxygenSetModel: XWHDataBaseModel {
     
     enum Columns: String, ColumnExpression {
-        case identifier, isOn, duration
+        case identifier, isOn, beginTime, endTime, duration
     }
     
     class override var databaseTableName: String {
@@ -21,9 +21,44 @@ class XWHBloodOxygenSetModel: XWHDataBaseModel {
     }
     
     /// 总开关
-    var isOn = false
+    var isOn = true
+    
+    /// 开始结束时间
+    var beginTime = "00:00"
+    var endTime = "23:59"
     
     /// 间隔时间 分钟
     var duration = 60
+    
+    var isSetBeginEndTime = false
+    
+    override init() {
+        super.init()
+    }
+    
+    required init(row: Row) {
+        super.init(row: row)
+        
+        identifier = row[Columns.identifier]
+
+        isOn = row[Columns.isOn]
+        
+        beginTime = row[Columns.beginTime]
+        
+        endTime = row[Columns.endTime]
+        
+        duration = row[Columns.duration]
+    }
+    
+    override func encode(to container: inout PersistenceContainer) {
+        container[Columns.identifier] = identifier
+
+        container[Columns.isOn] = isOn
+        
+        container[Columns.beginTime] = beginTime
+        container[Columns.endTime] = endTime
+        
+        container[Columns.duration] = duration
+    }
 
 }

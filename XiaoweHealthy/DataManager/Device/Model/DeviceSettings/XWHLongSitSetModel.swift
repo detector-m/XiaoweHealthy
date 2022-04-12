@@ -24,7 +24,7 @@ class XWHLongSitSetModel: XWHDataBaseModel {
     
     /// 开始结束时间
     var beginTime = "08:00"
-    var endTime = "23:00"
+    var endTime = "21:00"
     
     /// 间隔 分钟
     var duration = 60

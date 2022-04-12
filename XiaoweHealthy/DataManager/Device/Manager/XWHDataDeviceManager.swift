@@ -18,10 +18,19 @@ class XWHDataDeviceManager {
     class func createTables(_ db: Database) throws {
         try createWatchTable(db)
         
+        try createRaiseWristSetTable(db)
+
         try createNoticeSetTable(db)
         try createLongSitSetTable(db)
         
         try createBloodPressureSetTable(db)
+        try createBloodOxygenSetTable(db)
+        
+        try createHeartSetTable(db)
+        
+        try createDisturbSetTable(db)
+                
+        try createWeatherSetTable(db)
     }
     
     class func test() {
@@ -67,12 +76,18 @@ extension XWHDataDeviceManager {
         }
     }
     
-    class func deleteWatch(_ devWatch: XWHDevWatchModel) {
+    class func deleteWatch(identifier: String) {
         appDB.write { db in
-//            try XWHDevWatchModel.deleteOne(db, key: devWatch.identifier)
-            try devWatch.delete(db)
+            try XWHDevWatchModel.deleteOne(db, key: identifier)
         }
     }
+    
+//    class func deleteWatch(_ devWatch: XWHDevWatchModel) {
+//        appDB.write { db in
+////            try XWHDevWatchModel.deleteOne(db, key: devWatch.identifier)
+//            try devWatch.delete(db)
+//        }
+//    }
     
     class func deleteAllWatch() {
         appDB.write { db in
@@ -80,9 +95,9 @@ extension XWHDataDeviceManager {
         }
     }
     
-    class func getWatch(_ id: String) -> XWHDevWatchModel? {
+    class func getWatch(identifier: String) -> XWHDevWatchModel? {
         return appDB.read { db in
-            try XWHDevWatchModel.fetchOne(db, key: id)
+            try XWHDevWatchModel.fetchOne(db, key: identifier)
         }
     }
     
@@ -94,6 +109,33 @@ extension XWHDataDeviceManager {
             try XWHDevWatchModel.filter(XWHDevWatchModel.Columns.isCurrent == true).fetchOne(db)
 
         }
+    }
+    
+    class func getCurrentWatchIdentifier() -> String? {
+        return getCurrentWatch()?.identifier
+    }
+    
+}
+
+// MARK: - RaiseWristSet
+extension XWHDataDeviceManager {
+    
+    /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
+    ///  - Parameter db: 数据库handler
+    class func createRaiseWristSetTable(_ db: Database) throws {
+        try XWHDataRaiseWristSetManager.createRaiseWristSetTable(db)
+    }
+    
+    class func saveRaiseWristSet(_ raiseWristSet: XWHRaiseWristSetModel) {
+        XWHDataRaiseWristSetManager.saveRaiseWristSet(raiseWristSet)
+    }
+    
+    class func getRaiseWristSet(identifier: String) -> XWHRaiseWristSetModel? {
+        XWHDataRaiseWristSetManager.getRaiseWristSet(identifier: identifier)
+    }
+    
+    class func deleteRaiseWristSet(identifier: String) {
+        XWHDataRaiseWristSetManager.deleteRaiseWristSet(identifier: identifier)
     }
     
 }
@@ -191,3 +233,72 @@ extension XWHDataDeviceManager {
 }
 
 
+// MARK: - HeartSet
+extension XWHDataDeviceManager {
+    
+    /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
+    ///  - Parameter db: 数据库handler
+    class func createHeartSetTable(_ db: Database) throws {
+        try XWHDataHeartSetManager.createHeartSetTable(db)
+    }
+    
+    class func saveHeartSet(_ heartSet: XWHHeartSetModel) {
+        XWHDataHeartSetManager.saveHeartSet(heartSet)
+    }
+    
+    class func getHeartSet(identifier: String) -> XWHHeartSetModel? {
+        XWHDataHeartSetManager.getHeartSet(identifier: identifier)
+    }
+    
+    class func deleteHeartSet(identifier: String) {
+        XWHDataHeartSetManager.deleteHeartSet(identifier: identifier)
+    }
+    
+}
+
+// MARK: - DisturbSet
+extension XWHDataDeviceManager {
+    
+    /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
+    ///  - Parameter db: 数据库handler
+    class func createDisturbSetTable(_ db: Database) throws {
+        try XWHDataDisturbSetManager.createDisturbSetTable(db)
+    }
+    
+    class func saveDisturbSet(_ disturbSet: XWHDisturbSetModel) {
+        XWHDataDisturbSetManager.saveDisturbSet(disturbSet)
+    }
+    
+    class func getDisturbSet(identifier: String) -> XWHDisturbSetModel? {
+        XWHDataDisturbSetManager.getDisturbSet(identifier: identifier)
+    }
+    
+    class func deleteDisturbSet(identifier: String) {
+        XWHDataDisturbSetManager.deleteDisturbSet(identifier: identifier)
+    }
+    
+}
+
+
+// MARK: - WeatherSet
+extension XWHDataDeviceManager {
+    
+    /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
+    ///  - Parameter db: 数据库handler
+    class func createWeatherSetTable(_ db: Database) throws {
+        try XWHDataWeatherSetManager.createWeatherSetTable(db)
+    }
+    
+    class func saveWeatherSet(_ weatherSet: XWHWeatherSetModel) {
+        XWHDataWeatherSetManager.saveWeatherSet(weatherSet)
+    }
+    
+    class func getWeatherSet(identifier: String) -> XWHWeatherSetModel? {
+        XWHDataWeatherSetManager.getWeatherSet(identifier: identifier)
+    }
+    
+    class func deleteWeatherSet(identifier: String) {
+        XWHDataWeatherSetManager.deleteWeatherSet(identifier: identifier)
+    }
+    
+}

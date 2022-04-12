@@ -19,6 +19,9 @@ class XWHDataBloodOxygenSetManager {
 
             t.column(XWHBloodOxygenSetModel.Columns.isOn.name, .boolean)
             
+            t.column(XWHBloodOxygenSetModel.Columns.beginTime.name, .text)
+            t.column(XWHBloodOxygenSetModel.Columns.endTime.name, .text)
+
             t.column(XWHBloodOxygenSetModel.Columns.duration.name, .integer)
         })
     }

@@ -144,8 +144,8 @@ extension XWHDevWatchDispatchManager: XWHDevCmdOperationProtocol {
     
     // MARK: - 配置
     
-    func config(handler: XWHDevCmdOperationHandler? = nil) {
-        cmdHandler?.config(handler: handler)
+    func config(_ user: XWHUserModel? = nil, _ raiseWristSet: XWHRaiseWristSetModel? = nil, handler: XWHDevCmdOperationHandler?) {
+        cmdHandler?.config(user, raiseWristSet, handler: handler)
     }
     
     // MARK: - 重启/重置
@@ -166,8 +166,9 @@ extension XWHDevWatchDispatchManager: XWHDevCmdOperationProtocol {
         cmdHandler?.setUnit(handler: handler)
     }
     
-    func setUserInfo(user: XWHUserModel, handler: XWHDevCmdOperationHandler?) {
-        cmdHandler?.setUserInfo(user: user, handler: handler)
+    // 设置用户信息
+    func setUserInfo(_ user: XWHUserModel, _ raiseWristSet: XWHRaiseWristSetModel? = nil, handler: XWHDevCmdOperationHandler?) {
+        cmdHandler?.setUserInfo(user, raiseWristSet, handler: handler)
     }
     
     // MARK: - 获取设备信息
@@ -177,6 +178,11 @@ extension XWHDevWatchDispatchManager: XWHDevCmdOperationProtocol {
     }
     
     // MARK: - 设备设置
+    
+    /// 设置抬腕亮屏
+    func setRaiseWristSet(_ raiseWristSet: XWHRaiseWristSetModel, _ user: XWHUserModel? = nil, handler: XWHDevCmdOperationHandler?) {
+        cmdHandler?.setRaiseWristSet(raiseWristSet, user, handler: handler)
+    }
     
     // 设置通知设置
     func setNoticeSet(_ noticeSet: XWHNoticeSetModel, handler: XWHDevCmdOperationHandler?) {
@@ -194,10 +200,23 @@ extension XWHDevWatchDispatchManager: XWHDevCmdOperationProtocol {
     }
     
     /// 设置血氧设置
-    /// - Parameters:
-    ///   - bloodOxygenSet: 久坐设置模型
     func setBloodOxygenSet(_ bloodOxygenSet: XWHBloodOxygenSetModel, handler: XWHDevCmdOperationHandler?) {
         cmdHandler?.setBloodOxygenSet(bloodOxygenSet, handler: handler)
+    }
+    
+    /// 设置心率设置
+    func setHeartSet(_ heartSet: XWHHeartSetModel, _ user: XWHUserModel? = nil, handler: XWHDevCmdOperationHandler?) {
+        cmdHandler?.setHeartSet(heartSet, user, handler: handler)
+    }
+    
+    /// 设置勿扰模式设置
+    func setDisturbSet(_ disturbSet: XWHDisturbSetModel, handler: XWHDevCmdOperationHandler?) {
+        cmdHandler?.setDisturbSet(disturbSet, handler: handler)
+    }
+    
+    /// 设置天气
+    func setWeatherSet(_ weatherSet: XWHWeatherSetModel, handler: XWHDevCmdOperationHandler?) {
+        cmdHandler?.setWeatherSet(weatherSet, handler: handler)
     }
     
 }

@@ -380,7 +380,7 @@ extension XWHDeviceMainVC {
                     switch result {
                     case .success(_):
                         if let cModel = self.connWatchModel {
-                            XWHDataDeviceManager.deleteWatch(cModel)
+                            XWHDataDeviceManager.deleteWatch(identifier: cModel.identifier)
                         }
                         self.gotoAddDeviceEntry()
                         

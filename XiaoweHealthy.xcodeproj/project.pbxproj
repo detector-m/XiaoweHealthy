@@ -1221,6 +1221,7 @@
 		96C67AE1280414F9001ACA81 /* DeviceSettings */ = {
 			isa = PBXGroup;
 			children = (
+				96C67AF7280473AE001ACA81 /* XWHRaiseWristSetModel.swift */,
 				96C67ADD2803D5E7001ACA81 /* XWHNoticeSetModel.swift */,
 				96C67AE2280415DD001ACA81 /* XWHLongSitSetModel.swift */,
 				96C67AE42804166B001ACA81 /* XWHWeatherSetModel.swift */,
@@ -1228,7 +1229,6 @@
 				96C67AE82804174B001ACA81 /* XWHHeartSetModel.swift */,
 				96C67AF328047249001ACA81 /* XWHBloodPressureSetModel.swift */,
 				96C67AF528047278001ACA81 /* XWHBloodOxygenSetModel.swift */,
-				96C67AF7280473AE001ACA81 /* XWHRaiseWristSetModel.swift */,
 			);
 			path = DeviceSettings;
 			sourceTree = "<group>";
@@ -1236,6 +1236,7 @@
 		96C67AEA280432C8001ACA81 /* DeviceSettings */ = {
 			isa = PBXGroup;
 			children = (
+				96C67AFD2804743D001ACA81 /* XWHDataRaiseWristSetManager.swift */,
 				96C67ADF2803D79E001ACA81 /* XWHDataNoticeSetManager.swift */,
 				96C67AEB28043315001ACA81 /* XWHDataLongSitSetManager.swift */,
 				96C67AED28043328001ACA81 /* XWHDataWeatherSetManager.swift */,
@@ -1243,7 +1244,6 @@
 				96C67AF128043362001ACA81 /* XWHDataHeartSetManager.swift */,
 				96C67AF928047416001ACA81 /* XWHDataBloodPressureSetManager.swift */,
 				96C67AFB2804742D001ACA81 /* XWHDataBloodOxygenSetManager.swift */,
-				96C67AFD2804743D001ACA81 /* XWHDataRaiseWristSetManager.swift */,
 			);
 			path = DeviceSettings;
 			sourceTree = "<group>";

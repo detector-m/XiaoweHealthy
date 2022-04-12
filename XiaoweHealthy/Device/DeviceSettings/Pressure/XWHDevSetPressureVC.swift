@@ -40,7 +40,7 @@ class XWHDevSetPressureVC: XWHDevSetBaseVC {
         
         cell.clickAction = { [unowned cell, unowned self] isOn in
             let bp = XWHBloodPressureSetModel()
-            self.setBloodPressure(bp) {
+            self.setBloodPressureSet(bp) {
                 
                 cell.button.isSelected = isOn
             }
@@ -53,7 +53,7 @@ class XWHDevSetPressureVC: XWHDevSetBaseVC {
 
 extension XWHDevSetPressureVC {
     
-    private func setBloodPressure(_ bloodPressureSet: XWHBloodPressureSetModel, _ completion: (() -> Void)?) {
+    private func setBloodPressureSet(_ bloodPressureSet: XWHBloodPressureSetModel, _ completion: (() -> Void)?) {
         XWHDDMShared.setBloodPressureSet(bloodPressureSet) { [weak self] result in
             guard let self = self else {
                 return
@@ -64,7 +64,7 @@ extension XWHDevSetPressureVC {
                 completion?()
                 
             case .failure(_):
-                self.view.makeInsetToast("久坐提醒设置失败")
+                self.view.makeInsetToast("血压设置失败")
             }
         }
     }

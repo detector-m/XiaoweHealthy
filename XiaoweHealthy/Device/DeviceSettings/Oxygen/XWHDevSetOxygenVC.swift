@@ -103,8 +103,10 @@ extension XWHDevSetOxygenVC {
             }
             
             let bloodOxygenSet = XWHBloodOxygenSetModel()
+            bloodOxygenSet.isSetBeginEndTime = true
             bloodOxygenSet.duration = self.monitorTimes[index]
             self.setBloodOxygen(bloodOxygenSet) {
+                bloodOxygenSet.isSetBeginEndTime = false
                 XWHDataDeviceManager.saveBloodOxygenSet(bloodOxygenSet)
                 self.sIndex = index
                 self.tableView.reloadData()
@@ -128,7 +130,7 @@ extension XWHDevSetOxygenVC {
                 completion?()
                 
             case .failure(_):
-                self.view.makeInsetToast("久坐提醒设置失败")
+                self.view.makeInsetToast("血氧设置失败")
             }
         }
     }
