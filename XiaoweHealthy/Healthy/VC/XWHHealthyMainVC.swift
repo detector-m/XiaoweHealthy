@@ -60,7 +60,8 @@ class XWHHealthyMainVC: XWHBaseVC {
         
 //        testScan()
         
-        testDatabase()
+//        testDatabase()
+        testUTEWeatherApi()
     }
     
     @objc func clickLoginBtn2() {
@@ -116,6 +117,10 @@ extension XWHHealthyMainVC {
     fileprivate func testDatabase() {
 //        XWHDataUserManager.test()
         XWHDataDeviceManager.test()
+    }
+    
+    fileprivate func testUTEWeatherApi() {
+        XWHUTEWeatherInfoHandler.getWeatherInfo(cityId: "CN101010100", latitude: 0, longitude: 0)
     }
     
 }

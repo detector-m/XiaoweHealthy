@@ -10,10 +10,11 @@ import UTESmartBandApi
 
 class XWHUTEWeatherInfoHandler {
     
-    static let kWeatherApiKey = "017f5b7d60003890229c3bdccf9548e1"
+    static let kUTEWeatherApiKey = "017f5b7d60003890229c3bdccf9548e1"
     
+    // UTE 目前不提供该功能
     class func getWeatherInfo(cityId: String, latitude: Double, longitude: Double) {
-        UTESmartBandClient.sharedInstance().getUTEWeatherDataFormServer(kWeatherApiKey, cityID: cityId, latitude: latitude, longitude: longitude) { weatherInfo in
+        UTESmartBandClient.sharedInstance().getUTEWeatherDataFormServer(kUTEWeatherApiKey, cityID: cityId, latitude: latitude, longitude: longitude) { weatherInfo in
             
         } failure: { error in
             
