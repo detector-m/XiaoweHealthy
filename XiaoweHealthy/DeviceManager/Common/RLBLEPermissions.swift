@@ -63,6 +63,7 @@ extension RLBLEPermissions: CBCentralManagerDelegate {
         self.central?.delegate = nil
         self.central = nil
     }
+    
 }
 
 

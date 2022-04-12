@@ -8,6 +8,8 @@
 import UIKit
 
 class XWHDevSetCallVC: XWHDevSetPressureVC {
+    
+    private static var isShowAuthorize = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,14 +40,31 @@ class XWHDevSetCallVC: XWHDevSetPressureVC {
         cell.titleLb.text = R.string.xwhDeviceText.来电提醒()
         cell.subTitleLb.text = R.string.xwhDeviceText.手机有来电时手表会同步震动提醒此功能需要设备和手机是连接状态且蓝牙是开启的()
         
-        cell.clickAction = { [unowned cell] isOn in
+        cell.clickAction = { [unowned cell, unowned self] isOn in
+            let noticeSet = XWHNoticeSetModel()
+            noticeSet.isOnCall = isOn
+            
             if isOn {
-                XWHAlert.show(title: R.string.xwhDeviceText.消息通知授权失败(), message: R.string.xwhDeviceText.这将导致部分功能无法正常使用您可到手机设置页面进行手动授权(), cancelTitle: R.string.xwhDeviceText.拒绝(), confirmTitle: R.string.xwhDeviceText.允许()) { cType in
-                    if cType == .confirm {
-                        cell.button.isSelected = isOn
+                if Self.isShowAuthorize {
+                    XWHAlert.show(title: R.string.xwhDeviceText.授权说明(), message: R.string.xwhDeviceText.在使用过程中本应用需要访问通讯录权限以便在设备上显示来电联系人姓名(), cancelTitle: R.string.xwhDeviceText.拒绝(), confirmTitle: R.string.xwhDeviceText.允许()) { cType in
+                        if cType == .confirm {
+                            self.setNoticeSet(noticeSet) {
+                                XWHDataDeviceManager.saveNoticeSet(noticeSet)
+                                
+                                cell.button.isSelected = isOn
+                            }
+                        }
                     }
+                    
+                    Self.isShowAuthorize = false
+
+                    return
                 }
-            } else {
+            }
+            
+            self.setNoticeSet(noticeSet) {
+                XWHDataDeviceManager.saveNoticeSet(noticeSet)
+                
                 cell.button.isSelected = isOn
             }
         }
@@ -53,4 +72,26 @@ class XWHDevSetCallVC: XWHDevSetPressureVC {
         return cell
     }
 
+}
+
+
+// MARK: - Api
+extension XWHDevSetCallVC {
+    
+    private func setNoticeSet(_ noticeSet: XWHNoticeSetModel, _ completion: (() -> Void)?) {
+        XWHDDMShared.setNoticeSet(noticeSet) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success(_):
+                completion?()
+                
+            case .failure(let error):
+                self.view.makeInsetToast(error.message)
+            }
+        }
+    }
+    
 }

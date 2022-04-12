@@ -181,8 +181,18 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
         }
     }
     
+    // 共享通知
+    func uteManagerANCSAuthorization(_ ancsAuthorized: Bool) {
+        if ancsAuthorized {
+            log.info("UTE 收到系统 共享ANCS通知 --------打开")
+        } else {
+            log.info("UTE 收到系统 共享ANCS通知 --------关闭")
+        }
+    }
+    
     // 打开或关闭消息推送，回调代理方法
     func uteManageUTEOptionCallBack(_ callback: UTECallBack) {
 
     }
+    
 }

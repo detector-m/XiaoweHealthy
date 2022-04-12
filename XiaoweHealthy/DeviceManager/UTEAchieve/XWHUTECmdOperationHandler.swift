@@ -111,13 +111,90 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
     
     // 设置通知设置
     func setNoticeSet(_ noticeSet: XWHNoticeSetModel, handler: XWHDevCmdOperationHandler?) {
+        guard let uteConnModel = manager.connectedDevicesModel else {
+            var error = XWHError()
+            error.message = "设备未连接"
+            log.error(error.message)
+            handler?(.failure(error))
+            
+            return
+        }
         
+        if uteConnModel.isHasSocialNotification || uteConnModel.isHasSocialNotification2 {
+            let remindApp = UTEModelDeviceRemindApp()
+            
+            if noticeSet.isOnCall {
+                remindApp.phone = UTEDeviceRemindEnableType.open
+            } else {
+                remindApp.phone = UTEDeviceRemindEnableType.close
+            }
+            
+            if noticeSet.isOn {
+                remindApp.sms = noticeSet.isOnSms ? .open : .close
+                remindApp.wechat = noticeSet.isOnWeChat ? .open : .close
+                remindApp.qq = noticeSet.isOnQQ ? .open : .close
+                
+                remindApp.other = .open
+            } else {
+                let remindType = UTEDeviceRemindEnableType.close
+                
+                remindApp.sms = remindType
+                remindApp.wechat = remindType
+                remindApp.qq = remindType
+                
+                remindApp.other = remindType
+            }
+            
+            manager.setUTERemindApp(remindApp)
+        } else {
+            if noticeSet.isOnCall {
+                setUTEOption(UTEOption.openRemindIncall)
+            } else {
+                setUTEOption(UTEOption.closeRemindIncall)
+            }
+            
+            if noticeSet.isOn {
+                if noticeSet.isOnSms {
+                    setUTEOption(UTEOption.openRemindSms)
+                } else {
+                    setUTEOption(UTEOption.closeRemindSms)
+                }
+                
+                if noticeSet.isOnWeChat {
+                    setUTEOption(UTEOption.openRemindWeixin)
+                } else {
+                    setUTEOption(UTEOption.closeRemindWeixin)
+                }
+                
+                if noticeSet.isOnQQ {
+                    setUTEOption(UTEOption.openRemindQQ)
+                } else {
+                    setUTEOption(UTEOption.closeRemindQQ)
+                }
+                
+                setUTEOption(UTEOption.openRemindMore)
+                
+            } else {
+                setUTEOption(UTEOption.closeRemindSms)
+                
+                setUTEOption(UTEOption.closeRemindWeixin)
+                setUTEOption(UTEOption.closeRemindQQ)
+                
+                setUTEOption(UTEOption.closeRemindMore)
+            }
+        }
+        
+        handler?(.success(nil))
     }
 
     // 设置久坐提醒
     func setLongSitSet(_ longSitSet: XWHLongSitSetModel, handler: XWHDevCmdOperationHandler?) {
         guard let uteConnModel = manager.connectedDevicesModel else {
-            log.error("设备未连接")
+            var error = XWHError()
+            error.message = "设备未连接"
+            log.error(error.message)
+            handler?(.failure(error))
+            
             return
         }
         

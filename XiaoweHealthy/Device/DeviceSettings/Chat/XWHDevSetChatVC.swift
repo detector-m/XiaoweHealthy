@@ -9,6 +9,8 @@ import UIKit
 
 class XWHDevSetChatVC: XWHDevSetBaseVC {
     
+    private static var isShowAlert = true
+    
     private lazy var chatItems = [XWHDevSetChatDeployItemModel]()
     
     private var isChatOn = false
@@ -138,19 +140,23 @@ extension XWHDevSetChatVC {
 extension XWHDevSetChatVC {
     
     private func gotoSetChat(isOn: Bool) {
-        isChatOn = isOn
-        if isOn {
-            gotoTurnOnChat()
-        } else {
-//            self.reloadAll()
-            tableView.reloadData()
+        let noticeSet = XWHNoticeSetModel()
+        noticeSet.isOn = isOn
+        
+        setNoticeSet(noticeSet) { [unowned self] in
+            self.isChatOn = isOn
+//            if isOn {
+//                self.gotoTurnOnChat()
+//            } else {
+//                self.tableView.reloadData()
+//            }
+            self.tableView.reloadData()
         }
     }
     private func gotoTurnOnChat() {
         XWHAlert.show(title: R.string.xwhDeviceText.消息通知授权失败(), message: R.string.xwhDeviceText.这将导致部分功能无法正常使用您可到手机设置页面进行手动授权(), confirmTitle: R.string.xwhDeviceText.去授权()) { cType in
             if cType == .confirm {
                 log.debug("点击了去授权")
-//                self.reloadAll()
                 self.tableView.reloadData()
             }
         }
@@ -163,7 +169,32 @@ extension XWHDevSetChatVC {
             cell.button.isSelected = isOn
         }
         if item.type == .message {
-            XWHAlert.show(message: R.string.xwhDeviceText.在手机通知栏显示的消息才能推送到设备上哦(), cancelTitle: nil, confirmTitle: R.string.xwhDeviceText.知道了())
+            if Self.isShowAlert {
+                XWHAlert.show(message: R.string.xwhDeviceText.在手机通知栏显示的消息才能推送到设备上哦(), cancelTitle: nil, confirmTitle: R.string.xwhDeviceText.知道了())
+                
+                Self.isShowAlert = false
+            }
+        }
+    }
+    
+}
+
+// MARK: - Api
+extension XWHDevSetChatVC {
+    
+    private func setNoticeSet(_ noticeSet: XWHNoticeSetModel, _ completion: (() -> Void)?) {
+        XWHDDMShared.setNoticeSet(noticeSet) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success(_):
+                completion?()
+                
+            case .failure(let error):
+                self.view.makeInsetToast(error.message)
+            }
         }
     }
     
