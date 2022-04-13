@@ -97,27 +97,40 @@ class XWHBindDeviceVC: XWHSearchBindDevBaseVC {
 
 }
 
-// MARK: - UI
 extension XWHBindDeviceVC {
-    
-    static var rNum: UInt32 = 0
-    private var rNum: UInt32 {
-        return Self.rNum
-    }
     
     // 绑定
     private func startBindDevice() {
+        connect(device: bindDeviceModel)
+        startBindDeviceUI()
+    }
+    
+    // 绑定成功
+    private func bindDeviceSuccess(bindDevice: XWHDevWatchModel) {
+        bindDevice.isCurrent = true
+        isBindSuccess = true
+        XWHDataDeviceManager.setCurrent(device: bindDevice)
+        
+        bindDeviceSuccessUI()
+        
+        updateDeviceInfo()
+    }
+    
+}
+
+// MARK: - UI
+extension XWHBindDeviceVC {
+    
+    private func startBindDeviceUI() {
         button.isHidden = true
         helpBtn.isHidden = true
         
         titleLb.text = R.string.xwhDeviceText.正在配对()
         
         detailLb.text = getDetailText(with: R.string.xwhDeviceText.正在对N进行配对())
-        
-        connect(device: bindDeviceModel)
     }
     
-    private func bindDeviceFailed() {
+    private func bindDeviceFailedUI() {
         button.isHidden = false
         helpBtn.isHidden = false
         
@@ -129,7 +142,7 @@ extension XWHBindDeviceVC {
         helpBtn.setTitle(R.string.xwhDeviceText.查看帮助(), for: .normal)
     }
     
-    private func bindDeviceSuccess() {
+    private func bindDeviceSuccessUI() {
         button.isHidden = false
         helpBtn.isHidden = true
         
@@ -164,16 +177,13 @@ extension XWHBindDeviceVC {
             switch result {
             case .success(let connBindState):
                 if connBindState == .paired {
-                    device.isCurrent = true
-                    self.isBindSuccess = true
-                    XWHDataDeviceManager.setCurrent(device: device)
-                    self.bindDeviceSuccess()
+                    self.bindDeviceSuccess(bindDevice: device)
                 } else {
                     self.bind(device: device)
                 }
                 
             case .failure(_):
-                self.bindDeviceFailed()
+                self.bindDeviceFailedUI()
             }
         }
     }
@@ -188,14 +198,28 @@ extension XWHBindDeviceVC {
             switch result {
             case .success(let connBindState):
                 if connBindState == .paired {
-                    device.isCurrent = true
-                    self.isBindSuccess = true
-                    XWHDataDeviceManager.setCurrent(device: device)
-                    self.bindDeviceSuccess()
+                    self.bindDeviceSuccess(bindDevice: device)
                 }
                 
             case .failure(_):
-                self.bindDeviceFailed()
+                self.bindDeviceFailedUI()
+            }
+        }
+    }
+    
+    private func updateDeviceInfo() {
+        XWHDDMShared.getDeviceInfo { [unowned self] result in
+            switch result {
+            case .success(let cModel):
+                if let connModel = cModel?.data as? XWHDevWatchModel, let curModel = XWHDataDeviceManager.getCurrentWatch() {
+                    connModel.isCurrent = curModel.isCurrent
+                    connModel.type = curModel.type
+                    connModel.category = curModel.category
+                    XWHDataDeviceManager.setCurrent(device: connModel)
+                }
+                
+            case .failure(let error):
+                self.view.makeInsetToast(error.message)
             }
         }
     }

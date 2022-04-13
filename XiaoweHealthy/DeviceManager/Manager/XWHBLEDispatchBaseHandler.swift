@@ -16,6 +16,9 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
     /// 连接状态
     var connectBindState: XWHDeviceConnectBindState = .disconnected
     
+    /// 是否是重连
+    var isReconnect = false
+    
     var scanProgressHandler: XWHDevScanProgressHandler?
     var connectHandler: XWHDevConnectHandler?
     var bindHandler: XWHDevBindHandler?
@@ -101,6 +104,8 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
         
         self.connectHandler = nil
         bindHandler = nil
+        
+        self.isReconnect = isReconnect
         
         self.connectHandler = connectHandler
         

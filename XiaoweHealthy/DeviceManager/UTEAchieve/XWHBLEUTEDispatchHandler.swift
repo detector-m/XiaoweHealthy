@@ -96,6 +96,15 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
         connectBindState = .disconnected
     }
     
+    /// 重连设备
+    override func reconnect(device: XWHDevWatchModel, connectHandler: XWHDevConnectHandler?) {
+        log.info("UTE 重连设备")
+        disconnect(device: device)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            self?.connect(device: device, isReconnect: true, connectHandler: connectHandler)
+        }
+    }
+    
     override func bind(device: XWHDevWatchModel?, bindHandler: XWHDevBindHandler?) {
         bindTimerInvalidate()
         
@@ -175,7 +184,11 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
         switch devicesState {
         // MARK: - 连接
         case .connected:
-            connectBindState = .connected
+            if isReconnect {
+                connectBindState = .paired
+            } else {
+                connectBindState = .connected
+            }
             
             stateType = .connect
             
@@ -230,7 +243,7 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
                 guard let self = self else {
                     return
                 }
-                if self.connectBindState == .connected {
+                if self.connectBindState == .connected, self.connectBindState == .paired {
                     self.connectHandler?(.success(self.connectBindState))
                     self.cmdHandler?.config(nil, nil, handler: nil)
                 } else {

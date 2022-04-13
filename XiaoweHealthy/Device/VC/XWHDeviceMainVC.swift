@@ -24,23 +24,6 @@ class XWHDeviceMainVC: XWHSearchBindDevBaseVC {
         
 //        configDeviceItems()
         reloadAll()
-        
-//        if var connWatch = XWHDataDeviceManager.getCurrentDeviceWatchModel() {
-//            XWHDDMShared.config(device: connWatch)
-////            XWHDDMShared.disconnect(device: connWatch)
-//            XWHDDMShared.connect(device: connWatch, isReconnect: true) { [unowned self] (result: Result<XWHDeviceConnectState, XWHBLEError>, conState) in
-//                switch result {
-//                case .success(_):
-//                    connWatch.isCurrent = true
-//                    XWHDataDeviceManager.saveDeviceWatchModel(&connWatch)
-//                    
-//                case .failure(_):
-//                    view.makeInsetToast("连接失败")
-//                }
-//            }
-//        }
-        
-        getDeviceInfo()
     }
     
     override func setupNavigationItems() {
@@ -86,6 +69,13 @@ class XWHDeviceMainVC: XWHSearchBindDevBaseVC {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
+    
+    // MARK: -
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        checkDevConnectState()
+    }
 
 }
 
@@ -94,25 +84,6 @@ extension XWHDeviceMainVC {
     
     private func configDeviceItems() {
         deviceItems = XWHDeviceDeploy().loadDeploys()
-    }
-    
-    private func getDeviceInfo() {
-        XWHDDMShared.getDeviceInfo { [unowned self] result in
-            switch result {
-            case .success(let cModel):
-                if let connModel = cModel?.data as? XWHDevWatchModel, let curModel = XWHDataDeviceManager.getCurrentWatch() {
-                    connModel.isCurrent = curModel.isCurrent
-                    connModel.type = curModel.type
-                    connModel.category = curModel.category
-                    XWHDataDeviceManager.setCurrent(device: connModel)
-                    
-                    reloadAll()
-                }
-                
-            case .failure(let error):
-                self.view.makeInsetToast(error.message)
-            }
-        }
     }
     
 }
@@ -299,6 +270,61 @@ extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableVi
             
         default:
             return
+        }
+    }
+    
+}
+
+// MARK: - Api
+extension XWHDeviceMainVC {
+    
+    private func checkDevConnectState() {
+        if XWHDDMShared.connectBindState == .disconnected {
+            reconnect()
+        } else if XWHDDMShared.connectBindState == .paired {
+            updateDeviceInfo()
+        }
+    }
+    
+    private func reconnect() {
+        if let connWatch = XWHDataDeviceManager.getCurrentWatch() {
+            XWHDDMShared.config(device: connWatch)
+            XWHDDMShared.reconnect(device: connWatch) { [weak self] (result: Result<XWHDeviceConnectBindState, XWHBLEError>) in
+                guard let self = self else {
+                    return
+                }
+                
+                switch result {
+                case .success(let connBindState):
+                    if connBindState == .paired {
+                        self.updateDeviceInfo()
+                    } else {
+                        self.view.makeInsetToast("重连设备失败")
+                    }
+                    
+                case .failure(_):
+                    self.view.makeInsetToast("重连设备失败")
+                }
+            }
+        }
+    }
+    
+    private func updateDeviceInfo() {
+        XWHDDMShared.getDeviceInfo { [unowned self] result in
+            switch result {
+            case .success(let cModel):
+                if let connModel = cModel?.data as? XWHDevWatchModel, let curModel = XWHDataDeviceManager.getCurrentWatch() {
+                    connModel.isCurrent = curModel.isCurrent
+                    connModel.type = curModel.type
+                    connModel.category = curModel.category
+                    XWHDataDeviceManager.setCurrent(device: connModel)
+                    
+                    reloadAll()
+                }
+                
+            case .failure(let error):
+                self.view.makeInsetToast(error.message)
+            }
         }
     }
     
