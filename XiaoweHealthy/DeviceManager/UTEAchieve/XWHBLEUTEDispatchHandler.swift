@@ -137,8 +137,6 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
     
     // 发现设备回调
     func uteManagerDiscover(_ modelDevices: UTEModelDevices!) {
-        log.debug(modelDevices)
-        
         var sameDevices = false
         for model in uteDevices {
             if (model.identifier?.isEqual(modelDevices.identifier as String))! {
@@ -150,7 +148,7 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
         }
         
         if !sameDevices {
-            log.debug("***Scanned device name=\(String(describing: modelDevices.name)) id=\(String(describing: modelDevices.identifier))")
+            log.debug("UTE 扫描到的设备: name = \(String(describing: modelDevices.name)), id = \(String(describing: modelDevices.identifier))")
             if modelDevices.name.isEmpty {
                 return
             }
@@ -160,11 +158,26 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
     }
     
     // 连接设备成功回调
-    func uteManagerDevicesSate(_ devicesState: UTEDevicesSate, error: Error!, userInfo info: [AnyHashable : Any]! = [:]) {
+    func uteManagerDevicesSate(_ devicesState: UTEDevicesSate, error: Error?, userInfo info: [AnyHashable: Any]? = [:]) {
+        // UTE 设备状态类型
+        enum UTEDevStateType {
+            case none
+            case connect
+            case firmware
+        }
+        
+        
         log.info("-----------UTE手表连接状态：----------- \(devicesState.rawValue)")
+        
+        var stateType = UTEDevStateType.none
+        var transferState = XWHDevDataTransferState.failed
+        
         switch devicesState {
+        // MARK: - 连接
         case .connected:
             connectBindState = .connected
+            
+            stateType = .connect
             
         case .disconnected:
             bindTimerInvalidate()
@@ -172,30 +185,82 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
             
             connectBindState = .disconnected
             
-        default:
+            stateType = .connect
+            
+        case .connectingError:
             connectBindState = .disconnected
+            
+            stateType = .connect
+            
+            
+            // MARK: - 固件升级
+            // UTE 服务器管理的固件
+        case .updateHaveNewVersion:
+            stateType = .firmware
+            transferState = .inTransit
+            
+            // UTE 服务器管理的固件
+        case .updateNoNewVersion:
+            stateType = .firmware
+            transferState = .succeed
+            
+        case .updateBegin:
+            stateType = .firmware
+            transferState = .inTransit
+            
+        case .updateSuccess:
+            stateType = .firmware
+            transferState = .succeed
+            
+        case .updateError:
+            stateType = .firmware
+            transferState = .failed
+            
+            
+        default:
+            break
         }
         
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else {
-                return
-            }
-            if self.connectBindState == .connected {
-                self.connectHandler?(.success(self.connectBindState))
-                self.cmdHandler?.config(nil, nil, handler: nil)
-            } else {
-                self.connectHandler?(.failure(.normal))
+        switch stateType {
+        case .none:
+            break
+            
+        case .connect:
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                if self.connectBindState == .connected {
+                    self.connectHandler?(.success(self.connectBindState))
+                    self.cmdHandler?.config(nil, nil, handler: nil)
+                } else {
+                    self.connectHandler?(.failure(.normal))
+                }
+                
+                self.connectTimerInvalidate()
+                self.connectHandler = nil
             }
             
-            self.connectTimerInvalidate()
-            self.connectHandler = nil
+        case .firmware:
+            guard let uteCmdHandler = cmdHandler as? XWHUTECmdOperationHandler else {
+                log.error("UTE cmdHandler 无法转换为 XWHUTECmdOperationHandler")
+                
+                return
+            }
+            
+            if transferState == .failed {
+                var tError = XWHError()
+                tError.message = error?.localizedDescription ?? "UTE 数据传输失败"
+                uteCmdHandler.handleTransferResult(.failure(tError))
+            } else {
+                uteCmdHandler.handleTransferResult(.success(transferState))
+            }
         }
     }
     
-    //
-    func uteManagerBluetoothState(_ bluetoothState: UTEBluetoothState) {
-        log.info("bluetoothState = \(bluetoothState.rawValue)")
-    }
+//    func uteManagerBluetoothState(_ bluetoothState: UTEBluetoothState) {
+//        log.info("bluetoothState = \(bluetoothState.rawValue)")
+//    }
     
     // 蓝牙配对弹框选择回调
     func uteManagerExtraIsAble(_ isAble: Bool) {
@@ -223,6 +288,17 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
     // 打开或关闭消息推送，回调代理方法
     func uteManageUTEOptionCallBack(_ callback: UTECallBack) {
 
+    }
+    
+    // MARK: - 固件升级（Firmware）
+    /// 升级进度代理监听
+    func uteManagerUpdateProcess(_ process: Int) {
+        guard let uteCmdHandler = cmdHandler as? XWHUTECmdOperationHandler else {
+            log.error("UTE cmdHandler 无法转换为 XWHUTECmdOperationHandler")
+            return
+        }
+        
+        uteCmdHandler.handleTransferProgress(process)
     }
     
 }

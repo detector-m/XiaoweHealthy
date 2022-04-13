@@ -11,7 +11,7 @@ typealias XWHDevCmdOperationHandler = ((Result<XWHResponse?, XWHError>) -> Void)
 
 
 // MARK: - 设备指令操作协议
-protocol XWHDevCmdOperationProtocol: XWHDevDialOperationProtocol {
+protocol XWHDevCmdOperationProtocol: XWHDevDialOperationProtocol, XWHDevFirmwareOperationProtocol {
     
     // MARK: - 配置
     

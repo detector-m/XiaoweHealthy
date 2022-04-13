@@ -16,6 +16,10 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
         return UTESmartBandClient.sharedInstance()
     }
     
+    // 传输进度handler
+    var transferProgressHandler: DevTransferProgressHandler?
+    var transferResultHandler: XWHDevCmdOperationHandler?
+    
     func config(_ user: XWHUserModel?, _ raiseWristSet: XWHRaiseWristSetModel?, handler: XWHDevCmdOperationHandler?) {
         setTime(handler: handler)
         setUnit(handler: handler)
@@ -314,10 +318,10 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
     
     // MARK: - 表盘（Dial）
     /// 发送表盘数据
-    func sendDialData(_ data: Data, progressHandler: DialProgressHandler?, handler: XWHDevCmdOperationHandler?) {
+    func sendDialData(_ data: Data, progressHandler: DevTransferProgressHandler?, handler: XWHDevCmdOperationHandler?) {
         var error = XWHError()
         error.message = "发送表盘数据失败"
-        error.data = XWHDevDataProgressState.failed
+        error.data = XWHDevDataTransferState.failed
         
         if data.isEmpty {
             error.message = "发送表盘数据为空"
@@ -341,12 +345,10 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
     }
     
     /// 发送表盘文件
-    func sendDialFile(_ fileUrl: URL, progressHandler: DialProgressHandler?, handler: XWHDevCmdOperationHandler?) {
+    func sendDialFile(_ fileUrl: URL, progressHandler: DevTransferProgressHandler?, handler: XWHDevCmdOperationHandler?) {
         var error = XWHError()
         error.message = "发送表盘文件失败"
-        error.data = XWHDevDataProgressState.failed
-        
-        log.info("UTE 发送表盘数据")
+        error.data = XWHDevDataTransferState.failed
         
         if !fileUrl.isFileURL {
             error.message = "发送表盘文件路径错误"
@@ -367,12 +369,80 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
             return
         }
         
+        log.info("UTE 发送表盘文件")
         sendDialData(dailData, progressHandler: progressHandler, handler: handler)
+    }
+    
+    // MARK: - 固件 （Firmware）
+    /// 发送固件文件
+    func sendFirmwareFile(_ fileUrl: URL, progressHandler: DevTransferProgressHandler?, handler: XWHDevCmdOperationHandler?) {
+        var error = XWHError()
+        error.message = "发送固件文件失败"
+        error.data = XWHDevDataTransferState.failed
+        
+        transferProgressHandler = nil
+        transferResultHandler = nil
+        
+        if !fileUrl.isFileURL {
+            error.message = "发送固件文件路径错误"
+            
+            log.error("\(error), \(fileUrl)")
+            
+            handler?(.failure(error))
+            return
+        }
+        
+        // 请修改固件名称与当前设备完整的名称类似（UTEModelDevices.version,如SH0AV0000564.bin）
+        let isOk = manager.updateLocalFirmwareUrl(fileUrl.path)
+        if isOk {
+            // 开始升级
+            log.info("UTE 发送固件文件")
+            transferProgressHandler = progressHandler
+            transferResultHandler = handler
+            manager.beginUpdateFirmware()
+        } else {
+            // 固件名称不对，请修改。或固件文件不存在、版本不一致。
+            error.message = "固件名称不对，请修改。或固件文件不存在、版本不一致。"
+            log.error("\(error), \(fileUrl)")
+            
+            handler?(.failure(error))
+        }
+    }
+    
+    // MARK: - 设备数据传输处理
+    /// 处理数据传输结果
+    /// - Parameters:
+    ///     - tProgress: 进度
+    func handleTransferProgress(_ tProgress: Int) {
+        transferProgressHandler?(tProgress)
+    }
+    
+    /// 处理数据传输结果
+    /// - Parameters:
+    ///     - result: 结果<传输状态, 传输错误>
+    func handleTransferResult(_ result: Result<XWHDevDataTransferState, XWHError>) {
+        switch result {
+        case .success(let tState):
+            let res = XWHResponse()
+            res.data = tState
+            
+            transferResultHandler?(.success(res))
+            if tState == .succeed {
+                transferProgressHandler = nil
+                transferResultHandler = nil
+            }
+            
+        case .failure(let error):
+            transferResultHandler?(.failure(error))
+            
+            transferProgressHandler = nil
+            transferResultHandler = nil
+        }
     }
 
 }
 
-// MARK: - Private
+// MARK: - Private (UTE)
 extension XWHUTECmdOperationHandler {
     
     private func getUTEDeviceInfo(_ user: XWHUserModel) -> UTEModelDeviceInfo {

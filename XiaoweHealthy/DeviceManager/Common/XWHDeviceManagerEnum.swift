@@ -64,7 +64,7 @@ enum XWHBLEError: Error {
 }
 
 // MARK: - 设备数据传输进度状态
-enum XWHDevDataProgressState: Error {
+enum XWHDevDataTransferState: Error {
     
     /// 传输失败
     case failed

@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias DialProgressHandler = (Int) -> Void
+typealias DevTransferProgressHandler = (Int) -> Void
 
 
 // MARK: - 设备表盘操作协议
@@ -17,14 +17,14 @@ protocol XWHDevDialOperationProtocol {
     /// - Parameters:
     ///     - data: 表盘数据
     ///     - progressHandler: 进度回调结果
-    ///     - handler: 操作回调结果 (Result<XWHResponse?, XWHError>) XWHError.data = XWHDevDataProgressState
-    func sendDialData(_ data: Data, progressHandler: DialProgressHandler?, handler: XWHDevCmdOperationHandler?)
+    ///     - handler: 操作回调结果 (Result<XWHResponse?, XWHError>) XWHError.data = XWHDevDataTransferState
+    func sendDialData(_ data: Data, progressHandler: DevTransferProgressHandler?, handler: XWHDevCmdOperationHandler?)
     
     /// 发送表盘文件
     /// - Parameters:
     ///     - fileUrl: 表盘文件
     ///     - progressHandler: 进度回调结果
     ///     - handler: 操作回调结果
-    func sendDialFile(_ fileUrl: URL, progressHandler: DialProgressHandler?, handler: XWHDevCmdOperationHandler?)
+    func sendDialFile(_ fileUrl: URL, progressHandler: DevTransferProgressHandler?, handler: XWHDevCmdOperationHandler?)
     
 }

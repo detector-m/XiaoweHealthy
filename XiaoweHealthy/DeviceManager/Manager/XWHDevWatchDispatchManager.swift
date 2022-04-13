@@ -224,13 +224,23 @@ extension XWHDevWatchDispatchManager: XWHDevCmdOperationProtocol {
 extension XWHDevWatchDispatchManager {
     
     /// 发送表盘数据
-    func sendDialData(_ data: Data, progressHandler: DialProgressHandler?, handler: XWHDevCmdOperationHandler?) {
+    func sendDialData(_ data: Data, progressHandler: DevTransferProgressHandler?, handler: XWHDevCmdOperationHandler?) {
         cmdHandler?.sendDialData(data, progressHandler: progressHandler, handler: handler)
     }
     
     /// 发送表盘文件
-    func sendDialFile(_ fileUrl: URL, progressHandler: DialProgressHandler?, handler: XWHDevCmdOperationHandler?) {
+    func sendDialFile(_ fileUrl: URL, progressHandler: DevTransferProgressHandler?, handler: XWHDevCmdOperationHandler?) {
         cmdHandler?.sendDialFile(fileUrl, progressHandler: progressHandler, handler: handler)
+    }
+    
+}
+
+// MARK: - 固件 （Firmware）
+extension XWHDevWatchDispatchManager {
+    
+    /// 发送固件文件
+    func sendFirmwareFile(_ fileUrl: URL, progressHandler: DevTransferProgressHandler?, handler: XWHDevCmdOperationHandler?) {
+        cmdHandler?.sendFirmwareFile(fileUrl, progressHandler: progressHandler, handler: handler)
     }
     
 }

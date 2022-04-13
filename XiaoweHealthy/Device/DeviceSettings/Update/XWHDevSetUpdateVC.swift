@@ -75,10 +75,35 @@ class XWHDevSetUpdateVC: XWHDevSetBaseVC {
     }
     
     @objc func clickButton() {
-        testTimer.createTimer { [unowned self] in
-            self.button.progressView.progressValue = abs(self.testTimer.curCount - 10).cgFloat * 10
+//        testTimer.createTimer { [unowned self] in
+//            self.button.progressView.progressValue = abs(self.testTimer.curCount - 10).cgFloat * 10
+//        }
+//        testTimer.timer?.start()
+        
+        let fileName = "D391901_pix360x360_rgb565"
+        
+        guard let fileUrl = Bundle.main.url(forResource: fileName, withExtension: "bin") else {
+            return
         }
-        testTimer.timer?.start()
+        
+        XWHProgressHUD.show(title: "升级固件中...")
+        XWHDDMShared.sendFirmwareFile(fileUrl) { progress in
+            
+        } handler: { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
+            XWHProgressHUD.hide()
+            
+            switch result {
+            case .success(_):
+                self.view.makeInsetToast("安装成功")
+                
+            case .failure(let error):
+                self.view.makeInsetToast(error.message)
+            }
+        }
     }
     
 
