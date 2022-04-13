@@ -179,6 +179,7 @@
 		96F1D65D28066CC30067DBFD /* XWHDevDialOperationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1D65C28066CC30067DBFD /* XWHDevDialOperationProtocol.swift */; };
 		96F1D66128067CF40067DBFD /* D391901_pix360x360_rgb565.bin in Resources */ = {isa = PBXBuildFile; fileRef = 96F1D66028067CF30067DBFD /* D391901_pix360x360_rgb565.bin */; };
 		96F1D66328069A9C0067DBFD /* XWHDevFirmwareOperationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1D66228069A9C0067DBFD /* XWHDevFirmwareOperationProtocol.swift */; };
+		96F1D6662806BE960067DBFD /* XWHDevContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1D6652806BE960067DBFD /* XWHDevContactModel.swift */; };
 		96F3588327FE7CE000783614 /* XWHBLEDispatchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3588227FE7CE000783614 /* XWHBLEDispatchProtocol.swift */; };
 		96F3588527FE7F1800783614 /* XWHDeviceManagerEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3588427FE7F1800783614 /* XWHDeviceManagerEnum.swift */; };
 		96F3588727FE815B00783614 /* XWHDeviceBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3588627FE815B00783614 /* XWHDeviceBaseModel.swift */; };
@@ -407,6 +408,7 @@
 		96F1D65C28066CC30067DBFD /* XWHDevDialOperationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevDialOperationProtocol.swift; sourceTree = "<group>"; };
 		96F1D66028067CF30067DBFD /* D391901_pix360x360_rgb565.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = D391901_pix360x360_rgb565.bin; sourceTree = "<group>"; };
 		96F1D66228069A9C0067DBFD /* XWHDevFirmwareOperationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevFirmwareOperationProtocol.swift; sourceTree = "<group>"; };
+		96F1D6652806BE960067DBFD /* XWHDevContactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevContactModel.swift; sourceTree = "<group>"; };
 		96F3588227FE7CE000783614 /* XWHBLEDispatchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBLEDispatchProtocol.swift; sourceTree = "<group>"; };
 		96F3588427FE7F1800783614 /* XWHDeviceManagerEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceManagerEnum.swift; sourceTree = "<group>"; };
 		96F3588627FE815B00783614 /* XWHDeviceBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceBaseModel.swift; sourceTree = "<group>"; };
@@ -1189,6 +1191,7 @@
 				96C67ADB2803D27A001ACA81 /* XWHDataBaseModel.swift */,
 				96F3588627FE815B00783614 /* XWHDeviceBaseModel.swift */,
 				96F3588827FE858900783614 /* XWHDevWatchModel.swift */,
+				96F1D6642806BE530067DBFD /* Contact */,
 				96C67AE1280414F9001ACA81 /* DeviceSettings */,
 			);
 			path = Model;
@@ -1479,6 +1482,14 @@
 				96F1D66028067CF30067DBFD /* D391901_pix360x360_rgb565.bin */,
 			);
 			path = TestDial;
+			sourceTree = "<group>";
+		};
+		96F1D6642806BE530067DBFD /* Contact */ = {
+			isa = PBXGroup;
+			children = (
+				96F1D6652806BE960067DBFD /* XWHDevContactModel.swift */,
+			);
+			path = Contact;
 			sourceTree = "<group>";
 		};
 		96F3588C27FE926C00783614 /* UTEAchieve */ = {
@@ -1858,6 +1869,7 @@
 				9678257C27F2F44D004F66FB /* RLRadarIndicatorView.swift in Sources */,
 				967AF4C327EF545800235E08 /* XWHDeviceVM.swift in Sources */,
 				9653E49027F552E300EE55FF /* XWHDevSetBaseVC.swift in Sources */,
+				96F1D6662806BE960067DBFD /* XWHDevContactModel.swift in Sources */,
 				96F3588E27FE92C900783614 /* XWHBLEUTEDispatchHandler.swift in Sources */,
 				9651EE0427EAF3100043FE52 /* XWHApiConfig.swift in Sources */,
 				966A60F627FFD5DE00CBE915 /* XWHDeviceProductModel.swift in Sources */,

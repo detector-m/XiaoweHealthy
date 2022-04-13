@@ -316,6 +316,14 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
         handler?(.success(nil))
     }
     
+    /// 同步联系人
+    func sendContact(_ contacts: [XWHDevContactModel], handler: XWHDevCmdOperationHandler?) {
+        let uteContacts = getUTEContacts(contacts)
+        manager.sendUTEContactInfo(uteContacts) {
+            handler?(.success(nil))
+        }
+    }
+    
     // MARK: - 表盘（Dial）
     /// 发送表盘数据
     func sendDialData(_ data: Data, progressHandler: DevTransferProgressHandler?, handler: XWHDevCmdOperationHandler?) {
@@ -475,6 +483,18 @@ extension XWHUTECmdOperationHandler {
     
     private func setUTEOption(_ option: UTEOption) {
         manager.setUTEOption(option)
+    }
+    
+    private func getUTEContacts(_ contacts: [XWHDevContactModel]) -> [UTEModelContactInfo] {
+        let uteContacts = contacts.map { contact -> UTEModelContactInfo in
+            let uteContact = UTEModelContactInfo()
+            uteContact.name = contact.name
+            uteContact.number = contact.number
+            
+            return uteContact
+        }
+        
+        return uteContacts
     }
     
 }

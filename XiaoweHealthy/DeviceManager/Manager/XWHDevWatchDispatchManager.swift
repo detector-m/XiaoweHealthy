@@ -218,6 +218,11 @@ extension XWHDevWatchDispatchManager: XWHDevCmdOperationProtocol {
         cmdHandler?.setWeatherSet(weatherSet, handler: handler)
     }
     
+    /// 同步联系人
+    func sendContact(_ contacts: [XWHDevContactModel], handler: XWHDevCmdOperationHandler?) {
+        cmdHandler?.sendContact(contacts, handler: handler)
+    }
+    
 }
 
 // MARK: - 表盘 （Dial）

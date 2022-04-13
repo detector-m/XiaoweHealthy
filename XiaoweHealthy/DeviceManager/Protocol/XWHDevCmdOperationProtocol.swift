@@ -108,6 +108,12 @@ protocol XWHDevCmdOperationProtocol: XWHDevDialOperationProtocol, XWHDevFirmware
     ///   - handler: 操作回调结果
     func setWeatherSet(_ weatherSet: XWHWeatherSetModel, handler: XWHDevCmdOperationHandler?)
     
+    /// 同步联系人
+    /// - Parameters:
+    ///   - contacts: 联系人信息列表
+    ///   - handler: 操作回调结果
+    func sendContact(_ contacts: [XWHDevContactModel], handler: XWHDevCmdOperationHandler?)
+    
 }
 
 // MARK: - 默认实现
