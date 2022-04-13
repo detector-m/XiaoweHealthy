@@ -308,7 +308,25 @@ extension XWHDeviceMainVC {
     
     // 表盘市场
     private func gotoDevSetDailMarket() {
-        view.makeInsetToast("功能开发中...")
+//        view.makeInsetToast("功能开发中...")
+        let fileName = "D391901_pix360x360_rgb565"
+        
+        guard let dialUrl = Bundle.main.url(forResource: fileName, withExtension: "bin") else {
+            return
+        }
+        
+        XWHDDMShared.sendDialFile(dialUrl) { cp in
+            
+        } handler: { result in
+            switch result {
+            case .success(_):
+                break
+                
+            case .failure(let error):
+                break
+            }
+        }
+
     }
     
     // 消息通知

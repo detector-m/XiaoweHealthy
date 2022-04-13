@@ -175,6 +175,9 @@
 		96E3F2DD2805656800D9BF11 /* XWHUTEWeatherInfoHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3F2DC2805656800D9BF11 /* XWHUTEWeatherInfoHandler.swift */; };
 		96E8A6BD27F1738200F5C75C /* XWHUINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8A6BC27F1738200F5C75C /* XWHUINavigationControllerExtension.swift */; };
 		96E8A6BF27F1B2A700F5C75C /* XWHSearchDeviceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8A6BE27F1B2A700F5C75C /* XWHSearchDeviceVC.swift */; };
+		96F1D65B28065C7D0067DBFD /* XWHDevDataHandleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1D65A28065C7D0067DBFD /* XWHDevDataHandleProtocol.swift */; };
+		96F1D65D28066CC30067DBFD /* XWHDevDialOperationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1D65C28066CC30067DBFD /* XWHDevDialOperationProtocol.swift */; };
+		96F1D66128067CF40067DBFD /* D391901_pix360x360_rgb565.bin in Resources */ = {isa = PBXBuildFile; fileRef = 96F1D66028067CF30067DBFD /* D391901_pix360x360_rgb565.bin */; };
 		96F3588327FE7CE000783614 /* XWHBLEDispatchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3588227FE7CE000783614 /* XWHBLEDispatchProtocol.swift */; };
 		96F3588527FE7F1800783614 /* XWHDeviceManagerEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3588427FE7F1800783614 /* XWHDeviceManagerEnum.swift */; };
 		96F3588727FE815B00783614 /* XWHDeviceBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3588627FE815B00783614 /* XWHDeviceBaseModel.swift */; };
@@ -399,6 +402,9 @@
 		96E8A6BB27F150F100F5C75C /* XiaoweHealthyDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = XiaoweHealthyDebug.entitlements; sourceTree = "<group>"; };
 		96E8A6BC27F1738200F5C75C /* XWHUINavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUINavigationControllerExtension.swift; sourceTree = "<group>"; };
 		96E8A6BE27F1B2A700F5C75C /* XWHSearchDeviceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSearchDeviceVC.swift; sourceTree = "<group>"; };
+		96F1D65A28065C7D0067DBFD /* XWHDevDataHandleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevDataHandleProtocol.swift; sourceTree = "<group>"; };
+		96F1D65C28066CC30067DBFD /* XWHDevDialOperationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevDialOperationProtocol.swift; sourceTree = "<group>"; };
+		96F1D66028067CF30067DBFD /* D391901_pix360x360_rgb565.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = D391901_pix360x360_rgb565.bin; sourceTree = "<group>"; };
 		96F3588227FE7CE000783614 /* XWHBLEDispatchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBLEDispatchProtocol.swift; sourceTree = "<group>"; };
 		96F3588427FE7F1800783614 /* XWHDeviceManagerEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceManagerEnum.swift; sourceTree = "<group>"; };
 		96F3588627FE815B00783614 /* XWHDeviceBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceBaseModel.swift; sourceTree = "<group>"; };
@@ -1309,7 +1315,9 @@
 			isa = PBXGroup;
 			children = (
 				96F3588227FE7CE000783614 /* XWHBLEDispatchProtocol.swift */,
+				96F1D65A28065C7D0067DBFD /* XWHDevDataHandleProtocol.swift */,
 				960A836928025EFD00FC1B5F /* XWHDevCmdOperationProtocol.swift */,
+				96F1D65C28066CC30067DBFD /* XWHDevDialOperationProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1441,6 +1449,7 @@
 				967AF4BC27EF535600235E08 /* View */,
 				96617A9A27E2BFEB00139B03 /* VC */,
 				9653E48A27F5519E00EE55FF /* DeviceSettings */,
+				96F1D65E28067BE80067DBFD /* Dial */,
 			);
 			path = Device;
 			sourceTree = "<group>";
@@ -1451,6 +1460,22 @@
 				96617A9B27E2BFF200139B03 /* VC */,
 			);
 			path = Me;
+			sourceTree = "<group>";
+		};
+		96F1D65E28067BE80067DBFD /* Dial */ = {
+			isa = PBXGroup;
+			children = (
+				96F1D65F28067CE50067DBFD /* TestDial */,
+			);
+			path = Dial;
+			sourceTree = "<group>";
+		};
+		96F1D65F28067CE50067DBFD /* TestDial */ = {
+			isa = PBXGroup;
+			children = (
+				96F1D66028067CF30067DBFD /* D391901_pix360x360_rgb565.bin */,
+			);
+			path = TestDial;
 			sourceTree = "<group>";
 		};
 		96F3588C27FE926C00783614 /* UTEAchieve */ = {
@@ -1621,6 +1646,7 @@
 				967AF4CA27EF568A00235E08 /* 1.jpg in Resources */,
 				96FC408327EDA4F400D64B64 /* SKSans-Regular.otf in Resources */,
 				96FC407727EDA16800D64B64 /* HarmonyOS_Sans_SC_Regular.ttf in Resources */,
+				96F1D66128067CF40067DBFD /* D391901_pix360x360_rgb565.bin in Resources */,
 				9648E61827E0796E0077180D /* Assets.xcassets in Resources */,
 				96D0041427F821D100E569C7 /* XWHTestWebViewBridge.html in Resources */,
 				967823AF27F2CA42004F66FB /* iconfont.ttf in Resources */,
@@ -1846,6 +1872,7 @@
 				96C67AFA28047416001ACA81 /* XWHDataBloodPressureSetManager.swift in Sources */,
 				96759D8627F3533C0098CA92 /* XWHSearchDeviceTBCell.swift in Sources */,
 				9651EE1E27EBFDAA0043FE52 /* XWHResponse.swift in Sources */,
+				96F1D65D28066CC30067DBFD /* XWHDevDialOperationProtocol.swift in Sources */,
 				96E23C2C27E1A579009EF208 /* XWHDeviceMainVC.swift in Sources */,
 				96C67AEE28043328001ACA81 /* XWHDataWeatherSetManager.swift in Sources */,
 				96AD28662801C5AA0092B843 /* XWHDataUserManager.swift in Sources */,
@@ -1888,6 +1915,7 @@
 				96617AAD27E3408C00139B03 /* XWHRegisterBaseVC.swift in Sources */,
 				9651EE2927EC58AA0043FE52 /* XWHThirdAppConfig.swift in Sources */,
 				96F3588927FE858900783614 /* XWHDevWatchModel.swift in Sources */,
+				96F1D65B28065C7D0067DBFD /* XWHDevDataHandleProtocol.swift in Sources */,
 				968CB8AA27F42DB800E549AC /* XWHDeviceNormallTBCell.swift in Sources */,
 				96C67AF028043348001ACA81 /* XWHDataDisturbSetManager.swift in Sources */,
 				9651EE2C27EC5B1B0043FE52 /* UMAnalyticsSwift.swift in Sources */,

@@ -62,3 +62,17 @@ enum XWHBLEError: Error {
     case reset
     
 }
+
+// MARK: - 设备数据传输进度状态
+enum XWHDevDataProgressState: Error {
+    
+    /// 传输失败
+    case failed
+    
+    /// 传输成功
+    case succeed
+    
+    /// 传输中
+    case inTransit
+    
+}

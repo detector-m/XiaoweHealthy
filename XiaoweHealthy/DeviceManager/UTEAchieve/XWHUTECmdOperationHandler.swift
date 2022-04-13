@@ -311,6 +311,64 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
         manager.sendUTETodayWeather(UTEWeatherType.snow, currentTemp: -2, maxTemp: 10, minTemp: -5, pm25: 100, aqi: 120, tomorrowType: UTEWeatherType.wind, tmrMax: 5, tmrMin: 0)
         handler?(.success(nil))
     }
+    
+    // MARK: - 表盘（Dial）
+    /// 发送表盘数据
+    func sendDialData(_ data: Data, progressHandler: DialProgressHandler?, handler: XWHDevCmdOperationHandler?) {
+        var error = XWHError()
+        error.message = "发送表盘数据失败"
+        error.data = XWHDevDataProgressState.failed
+        
+        if data.isEmpty {
+            error.message = "发送表盘数据为空"
+            
+            log.error(error)
+            
+            handler?(.failure(error))
+            
+            return
+        }
+        
+        log.info("UTE 发送表盘数据")
+        manager.sendUTEDisplayData(toDevice: data) { cp in
+            progressHandler?(cp.int)
+        } success: {
+            handler?(.success(nil))
+        } failure: { cErr in
+            log.error(cErr)
+            handler?(.failure(error))
+        }
+    }
+    
+    /// 发送表盘文件
+    func sendDialFile(_ fileUrl: URL, progressHandler: DialProgressHandler?, handler: XWHDevCmdOperationHandler?) {
+        var error = XWHError()
+        error.message = "发送表盘文件失败"
+        error.data = XWHDevDataProgressState.failed
+        
+        log.info("UTE 发送表盘数据")
+        
+        if !fileUrl.isFileURL {
+            error.message = "发送表盘文件路径错误"
+            
+            log.error("\(error), \(fileUrl)")
+            
+            handler?(.failure(error))
+            return
+        }
+        
+        guard let dailData = try? Data(contentsOf: fileUrl) else {
+            error.message = "发送表盘文件路径错误"
+            
+            log.error("\(error), \(fileUrl)")
+            
+            handler?(.failure(error))
+            
+            return
+        }
+        
+        sendDialData(dailData, progressHandler: progressHandler, handler: handler)
+    }
 
 }
 
