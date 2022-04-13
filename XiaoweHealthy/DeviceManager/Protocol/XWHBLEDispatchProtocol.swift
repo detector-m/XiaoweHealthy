@@ -32,11 +32,12 @@ protocol XWHBLEDispatchProtocol {
     
     /// 开始扫描
     /// - Parameters:
+    ///     - device: 扫描的设备信息
     ///     - pairMode: .search , .qrCode 必传
     ///     - randomCode: 默认传 空字符串 ""
     ///     - progressHandler: 扫描进度回调
     ///     - scanHandler: 返回扫描的设备数组 devices[]
-    func startScan(pairMode: XWHDevicePairMode, randomCode: String, progressHandler: XWHDevScanProgressHandler?, scanHandler: XWHDevScanHandler?)
+    func startScan(device: XWHDevWatchModel, pairMode: XWHDevicePairMode, randomCode: String, progressHandler: XWHDevScanProgressHandler?, scanHandler: XWHDevScanHandler?)
     
     
     /// 停止扫描

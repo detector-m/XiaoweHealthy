@@ -146,7 +146,7 @@ extension XWHSearchDeviceVC {
     private func startSearchDevice() {
         XWHDDMShared.config(device: watchModel)
         
-        XWHDDMShared.startScan { [unowned self] result in
+        XWHDDMShared.startScan(device: watchModel) { [unowned self] result in
             switch result {
             case .success(let cWatches):
                 self.scanWatches = cWatches

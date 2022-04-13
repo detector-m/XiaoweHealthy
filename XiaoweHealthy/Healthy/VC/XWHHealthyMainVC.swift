@@ -106,10 +106,11 @@ extension XWHHealthyMainVC {
     
     fileprivate func testScan() {
         let devModel = XWHDevWatchModel()
+        devModel.category = .watch
         devModel.type = .skyworthWatchS1
         XWHDDMShared.config(device: devModel)
         
-        XWHDDMShared.startScan { devices in
+        XWHDDMShared.startScan(device: devModel) { devices in
             log.debug(devices)
         }
     }

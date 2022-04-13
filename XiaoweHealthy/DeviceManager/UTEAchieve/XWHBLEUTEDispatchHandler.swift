@@ -50,8 +50,8 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
     }
     
     // 开始扫描
-    override func startScan(pairMode: XWHDevicePairMode, randomCode: String, progressHandler: XWHDevScanProgressHandler? = nil, scanHandler: XWHDevScanHandler?) {
-        super.startScan(pairMode: pairMode, randomCode: randomCode, progressHandler: progressHandler, scanHandler: scanHandler)
+    override func startScan(device: XWHDevWatchModel, pairMode: XWHDevicePairMode, randomCode: String, progressHandler: XWHDevScanProgressHandler? = nil, scanHandler: XWHDevScanHandler?) {
+        super.startScan(device: device, pairMode: pairMode, randomCode: randomCode, progressHandler: progressHandler, scanHandler: scanHandler)
         
 //        uteDevices = []
 
@@ -114,9 +114,9 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
             
             device.name = model.name
             
-            device.category = connectDevModel?.category ?? .watch
+            device.category = bleDevModel?.category ?? .watch
             
-            device.type = connectDevModel?.type ?? .skyworthWatchS1
+            device.type = bleDevModel?.type ?? .skyworthWatchS1
             device.identifier = model.identifier
             device.mac = (model.addressStr ?? (model.advertisementAddress ?? ""))
             device.rssi = model.rssi
@@ -125,7 +125,7 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
         }
         
         uteDevices = []
-        connectDevModel = nil
+        bleDevModel = nil
         
         return devices
     }
@@ -239,6 +239,7 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
                 
                 self.connectTimerInvalidate()
                 self.connectHandler = nil
+                self.bleDevModel = nil
             }
             
         case .firmware:

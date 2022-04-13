@@ -103,6 +103,7 @@ extension XWHDeviceMainVC {
                 if let connModel = cModel?.data as? XWHDevWatchModel, let curModel = XWHDataDeviceManager.getCurrentWatch() {
                     connModel.isCurrent = curModel.isCurrent
                     connModel.type = curModel.type
+                    connModel.category = curModel.category
                     XWHDataDeviceManager.setCurrent(device: connModel)
                     
                     reloadAll()

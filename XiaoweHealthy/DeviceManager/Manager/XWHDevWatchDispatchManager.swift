@@ -75,12 +75,12 @@ extension XWHDevWatchDispatchManager: XWHBLEDispatchProtocol {
     
     // MARK: - 扫描
     // 开始扫描
-    func startScan(pairMode: XWHDevicePairMode = .search, randomCode: String = "", progressHandler: XWHDevScanProgressHandler? = nil, scanHandler: XWHDevScanHandler?) {
+    func startScan(device: XWHDevWatchModel, pairMode: XWHDevicePairMode = .search, randomCode: String = "", progressHandler: XWHDevScanProgressHandler? = nil, scanHandler: XWHDevScanHandler?) {
         //调用startScan方法
         //等待各类 处理扫描到的devices后，回调block
         //后 返回给最上层device[]
 //        bleHandler?.startScan(pairMode: pairMode, randomCode: randomCode, scanHandler)
-        bleHandler?.startScan(pairMode: pairMode, randomCode: randomCode, progressHandler: progressHandler, scanHandler: scanHandler)
+        bleHandler?.startScan(device: device, pairMode: pairMode, randomCode: randomCode, progressHandler: progressHandler, scanHandler: scanHandler)
     }
   
     // 停止扫描

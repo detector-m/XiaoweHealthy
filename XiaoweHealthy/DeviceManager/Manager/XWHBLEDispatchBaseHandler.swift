@@ -22,7 +22,8 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
     
     var cmdHandler: XWHDevCmdOperationProtocol?
     
-    var connectDevModel: XWHDevWatchModel?
+    var bleDevModel: XWHDevWatchModel?
+//    var connectDevModel: XWHDevWatchModel?
     
     // MARK: - 基类计时器等
     ///扫描计时器
@@ -57,8 +58,8 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
     
     // MARK: - 扫描
     // 开始扫描
-    func startScan(pairMode: XWHDevicePairMode, randomCode: String, progressHandler: XWHDevScanProgressHandler? = nil, scanHandler: XWHDevScanHandler?) {
-        
+    func startScan(device: XWHDevWatchModel, pairMode: XWHDevicePairMode, randomCode: String, progressHandler: XWHDevScanProgressHandler? = nil, scanHandler: XWHDevScanHandler?) {
+        bleDevModel = device
         self.pairMode = pairMode;
 //        self.randomCode = randomCode;
         
@@ -103,7 +104,7 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
         
         self.connectHandler = connectHandler
         
-        connectDevModel = device
+        bleDevModel = device
         
         connectTimer = Timer.scheduledTimer(timeInterval: connectTime, target: self, selector: #selector(connectTimeout), userInfo: nil, repeats: false)
 
@@ -118,6 +119,7 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
     /// 连接超时
     /// - 连接超时处理
     @objc func connectTimeout() {
+        bleDevModel = nil
         //TODO:这段代码进行一次调整，此处不应直接发Post
         if self.connectBindState == .connected {
             return
