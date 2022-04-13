@@ -166,7 +166,7 @@ extension XWHBindDeviceVC {
                 if connBindState == .paired {
                     device.isCurrent = true
                     self.isBindSuccess = true
-                    XWHDataDeviceManager.saveWatch(device)
+                    XWHDataDeviceManager.setCurrent(device: device)
                     self.bindDeviceSuccess()
                 } else {
                     self.bind(device: device)
@@ -190,7 +190,7 @@ extension XWHBindDeviceVC {
                 if connBindState == .paired {
                     device.isCurrent = true
                     self.isBindSuccess = true
-                    XWHDataDeviceManager.saveWatch(device)
+                    XWHDataDeviceManager.setCurrent(device: device)
                     self.bindDeviceSuccess()
                 }
                 

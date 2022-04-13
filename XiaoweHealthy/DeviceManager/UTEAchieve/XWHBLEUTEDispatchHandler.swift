@@ -112,10 +112,10 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
         let devices = uteDevices.map { (model) -> XWHDevWatchModel in
             let device = XWHDevWatchModel()
             
-//            device.uuid = model.uuidString
-            
             device.name = model.name
-//            device.type = .skyworthWatchS1
+            
+            device.category = connectDevModel?.category ?? .watch
+            
             device.type = connectDevModel?.type ?? .skyworthWatchS1
             device.identifier = model.identifier
             device.mac = (model.addressStr ?? (model.advertisementAddress ?? ""))

@@ -18,4 +18,17 @@ class XWHDataBaseModel: Record, CustomDebugStringConvertible {
         return "identifier = \(identifier)"
     }
     
+    override init() {
+        super.init()
+    }
+    
+    convenience init(_ identifier: String) {
+        self.init()
+        self.identifier = identifier
+    }
+    
+    required init(row: Row) {
+        super.init(row: row)
+    }
+    
 }

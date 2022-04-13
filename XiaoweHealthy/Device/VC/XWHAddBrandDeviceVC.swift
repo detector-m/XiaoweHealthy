@@ -148,6 +148,7 @@ extension XWHAddBrandDeviceVC {
     
     fileprivate func gotoSearchDevice(productModel: XWHDeviceProductModel) {
         let watchModel = XWHDevWatchModel()
+        watchModel.category = .watch
         let typeStr = productModel.brand + " " + productModel.mode
         watchModel.type = XWHDeviceType(rawValue: typeStr) ?? .none
         

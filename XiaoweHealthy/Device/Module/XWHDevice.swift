@@ -15,9 +15,9 @@ class XWHDevice {
     }
     
     class func getRootVC() -> UIViewController {
-//        if let _ = XWHDataDeviceManager.getCurrentDeviceWatchModel() {
-//            return XWHDeviceMainVC()
-//        }
+        if let _ = XWHDataDeviceManager.getCurrentWatch() {
+            return XWHDeviceMainVC()
+        }
         
         return XWHAddDeviceEntryVC()
     }

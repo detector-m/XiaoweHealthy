@@ -7,17 +7,6 @@
 
 import Foundation
 
-// MARK: - 设备类型
-enum XWHDeviceType: String {
-    
-    case none = ""
-    
-    case skyworthWatchS1 = "SKYWORTH Watch S1"
-    
-    case skyworthWatchS2 = "SKYWORTH Watch S2"
-    
-}
-
 // MARK: - 设备连接绑定状态
 enum XWHDeviceConnectBindState {
     

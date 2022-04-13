@@ -44,9 +44,7 @@ class XWHLongSitSetModel: XWHDataBaseModel {
         isOn = row[Columns.isOn]
         
         beginTime = row[Columns.beginTime]
-        
         endTime = row[Columns.endTime]
-        
         duration = row[Columns.duration]
         
         isSiestaOn = row[Columns.isSiestaOn]

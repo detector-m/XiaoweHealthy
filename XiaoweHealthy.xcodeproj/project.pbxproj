@@ -180,6 +180,8 @@
 		96F1D66128067CF40067DBFD /* D391901_pix360x360_rgb565.bin in Resources */ = {isa = PBXBuildFile; fileRef = 96F1D66028067CF30067DBFD /* D391901_pix360x360_rgb565.bin */; };
 		96F1D66328069A9C0067DBFD /* XWHDevFirmwareOperationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1D66228069A9C0067DBFD /* XWHDevFirmwareOperationProtocol.swift */; };
 		96F1D6662806BE960067DBFD /* XWHDevContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1D6652806BE960067DBFD /* XWHDevContactModel.swift */; };
+		96F1D6692806D2010067DBFD /* XWHDataWatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1D6682806D2010067DBFD /* XWHDataWatchManager.swift */; };
+		96F1D66C2806D6E70067DBFD /* XWHDataManagerEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1D66B2806D6E70067DBFD /* XWHDataManagerEnum.swift */; };
 		96F3588327FE7CE000783614 /* XWHBLEDispatchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3588227FE7CE000783614 /* XWHBLEDispatchProtocol.swift */; };
 		96F3588527FE7F1800783614 /* XWHDeviceManagerEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3588427FE7F1800783614 /* XWHDeviceManagerEnum.swift */; };
 		96F3588727FE815B00783614 /* XWHDeviceBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3588627FE815B00783614 /* XWHDeviceBaseModel.swift */; };
@@ -409,6 +411,8 @@
 		96F1D66028067CF30067DBFD /* D391901_pix360x360_rgb565.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = D391901_pix360x360_rgb565.bin; sourceTree = "<group>"; };
 		96F1D66228069A9C0067DBFD /* XWHDevFirmwareOperationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevFirmwareOperationProtocol.swift; sourceTree = "<group>"; };
 		96F1D6652806BE960067DBFD /* XWHDevContactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevContactModel.swift; sourceTree = "<group>"; };
+		96F1D6682806D2010067DBFD /* XWHDataWatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataWatchManager.swift; sourceTree = "<group>"; };
+		96F1D66B2806D6E70067DBFD /* XWHDataManagerEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataManagerEnum.swift; sourceTree = "<group>"; };
 		96F3588227FE7CE000783614 /* XWHBLEDispatchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBLEDispatchProtocol.swift; sourceTree = "<group>"; };
 		96F3588427FE7F1800783614 /* XWHDeviceManagerEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceManagerEnum.swift; sourceTree = "<group>"; };
 		96F3588627FE815B00783614 /* XWHDeviceBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceBaseModel.swift; sourceTree = "<group>"; };
@@ -1201,6 +1205,7 @@
 			isa = PBXGroup;
 			children = (
 				96AD28672801C5BA0092B843 /* XWHDataDeviceManager.swift */,
+				96F1D6672806D1B00067DBFD /* Device */,
 				96C67AEA280432C8001ACA81 /* DeviceSettings */,
 			);
 			path = Manager;
@@ -1348,6 +1353,7 @@
 		96DC429E27FD7323009BF300 /* DataManager */ = {
 			isa = PBXGroup;
 			children = (
+				96F1D66A2806D6A80067DBFD /* Constant */,
 				96AD28622801C57D0092B843 /* User */,
 				96AD285E280183DD0092B843 /* Device */,
 				96AD285D280183A30092B843 /* Model */,
@@ -1490,6 +1496,22 @@
 				96F1D6652806BE960067DBFD /* XWHDevContactModel.swift */,
 			);
 			path = Contact;
+			sourceTree = "<group>";
+		};
+		96F1D6672806D1B00067DBFD /* Device */ = {
+			isa = PBXGroup;
+			children = (
+				96F1D6682806D2010067DBFD /* XWHDataWatchManager.swift */,
+			);
+			path = Device;
+			sourceTree = "<group>";
+		};
+		96F1D66A2806D6A80067DBFD /* Constant */ = {
+			isa = PBXGroup;
+			children = (
+				96F1D66B2806D6E70067DBFD /* XWHDataManagerEnum.swift */,
+			);
+			path = Constant;
 			sourceTree = "<group>";
 		};
 		96F3588C27FE926C00783614 /* UTEAchieve */ = {
@@ -1931,6 +1953,7 @@
 				9651EE2927EC58AA0043FE52 /* XWHThirdAppConfig.swift in Sources */,
 				96F3588927FE858900783614 /* XWHDevWatchModel.swift in Sources */,
 				96F1D65B28065C7D0067DBFD /* XWHDevDataOperationProtocol.swift in Sources */,
+				96F1D66C2806D6E70067DBFD /* XWHDataManagerEnum.swift in Sources */,
 				968CB8AA27F42DB800E549AC /* XWHDeviceNormallTBCell.swift in Sources */,
 				96F1D66328069A9C0067DBFD /* XWHDevFirmwareOperationProtocol.swift in Sources */,
 				96C67AF028043348001ACA81 /* XWHDataDisturbSetManager.swift in Sources */,
@@ -1974,6 +1997,7 @@
 				966F53C927F1E8B200411D38 /* XWHBindDeviceVC.swift in Sources */,
 				96617A7227E1E12E00139B03 /* XWHExported.swift in Sources */,
 				9661D35A27F5FD970062B2B8 /* XWHDevSetDisturbVC.swift in Sources */,
+				96F1D6692806D2010067DBFD /* XWHDataWatchManager.swift in Sources */,
 				9651EDF727E961740043FE52 /* XWHAlert.swift in Sources */,
 				96E23C2A27E1A55E009EF208 /* XWHHealthyMainVC.swift in Sources */,
 				9672B26227EF06FB00DC80D6 /* XWHAddBrandDeviceVC.swift in Sources */,

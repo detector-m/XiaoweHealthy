@@ -33,4 +33,36 @@ class XWHDisturbSetModel: XWHDataBaseModel {
     /// 是否消息推送
     var isMessageOn = true
     
+    override init() {
+        super.init()
+    }
+    
+    required init(row: Row) {
+        super.init(row: row)
+        
+        identifier = row[Columns.identifier]
+
+        isOn = row[Columns.isOn]
+        
+        beginTime = row[Columns.beginTime]
+        endTime = row[Columns.endTime]
+        
+        isVibrationOn = row[Columns.isVibrationOn]
+        
+        isMessageOn = row[Columns.isMessageOn]
+    }
+    
+    override func encode(to container: inout PersistenceContainer) {
+        container[Columns.identifier] = identifier
+
+        container[Columns.isOn] = isOn
+        
+        container[Columns.beginTime] = beginTime
+        container[Columns.endTime] = endTime
+        
+        container[Columns.isVibrationOn] = isVibrationOn
+        
+        container[Columns.isMessageOn] = isMessageOn
+    }
+    
 }

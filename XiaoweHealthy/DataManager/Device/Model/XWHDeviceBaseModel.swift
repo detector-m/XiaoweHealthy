@@ -17,6 +17,19 @@ class XWHDeviceBaseModel: XWHDataBaseModel {
     /// 设备名称
     var name = ""
     
+    /// 设备的分类
+    private var _category = ""
+    
+    var category: XWHDeviceCategory {
+        get {
+            return XWHDeviceCategory(rawValue: _category) ?? .none
+        }
+        
+        set {
+            _category = newValue.rawValue
+        }
+    }
+    
     /// 设备类型
     private var _type = ""
     
@@ -40,6 +53,9 @@ class XWHDeviceBaseModel: XWHDataBaseModel {
     
     /// 电量
     var battery = 0
+    
+    /// 绑定的时间
+    var bindDate = ""
     
     /// 是否是当前
     var isCurrent = false

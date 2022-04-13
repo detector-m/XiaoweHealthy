@@ -47,72 +47,143 @@ class XWHDataDeviceManager {
     
 }
 
-// MARK: - Watch
+// MARK: - 设备（Device）
 extension XWHDataDeviceManager {
+    
+    /// 设置当前设备
+    /// - Parameters:
+    ///     - device: 设备信息
+    class func setCurrent(device: XWHDeviceBaseModel) {
+        log.info("设置当前设备")
+        
+        switch device.category {
+        case .none:
+            log.error("未知设备")
+            return
+            
+        case .watch:
+            guard let watch = device as? XWHDevWatchModel else {
+                log.error("该设备非手表设备 device = \(device)")
+                return
+            }
+            
+            setCurrentWatch(watch: watch)
+        }
+    }
+    
+    private class func setCurrentWatch(watch: XWHDevWatchModel) {
+        watch.bindDate = Date().string(withFormat: "yyyy-MM-dd HH:mm:ss")
+        watch.isCurrent = true
+        
+        let oldWatch = getWatch(identifier: watch.identifier)
+    
+        saveWatch(watch)
+        
+        if oldWatch == nil {
+            initDeviceSets(identifier: watch.identifier)
+        }
+    }
+    
+}
 
+// MARK: - 手表 （Watch）
+extension XWHDataDeviceManager {
+    
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
     ///  - Parameter db: 数据库handler
     class func createWatchTable(_ db: Database) throws {
-        try db.create(table: XWHDevWatchModel.databaseTableName) { t in
-//            t.autoIncrementedPrimaryKey("id")
-            t.column(XWHDevWatchModel.Columns.identifier.name, .text).notNull().primaryKey()
-            t.column(XWHDevWatchModel.Columns.name.name, .text).notNull()
-            t.column(XWHDevWatchModel.Columns.type.name, .text).notNull()
-            t.column(XWHDevWatchModel.Columns.mac.name, .text).notNull()
-            t.column(XWHDevWatchModel.Columns.version.name, .text).notNull()
-            t.column(XWHDevWatchModel.Columns.battery.name, .integer).notNull()
-            
-            t.column(XWHDevWatchModel.Columns.isCurrent.name, .boolean).notNull()
-            
-//            t.primaryKey([XWHDevWatchModel.Columns.identifier.name])
-        }
+        try XWHDataWatchManager.createWatchTable(db)
     }
     
-    /// Saves (inserts or updates) a player. When the method returns, the
-    /// player is present in the database, and its id is not nil.
-    class func saveWatch(_ devWatch: XWHDevWatchModel) {
-        appDB.write { db in
-            try devWatch.save(db)
-        }
-    }
-    
-    class func deleteWatch(identifier: String) {
-        appDB.write { db in
-            try XWHDevWatchModel.deleteOne(db, key: identifier)
-        }
-    }
-    
-//    class func deleteWatch(_ devWatch: XWHDevWatchModel) {
-//        appDB.write { db in
-////            try XWHDevWatchModel.deleteOne(db, key: devWatch.identifier)
-//            try devWatch.delete(db)
-//        }
-//    }
-    
-    class func deleteAllWatch() {
-        appDB.write { db in
-            try XWHDevWatchModel.deleteAll(db)
-        }
+    class func saveWatch(_ watch: XWHDevWatchModel) {
+        XWHDataWatchManager.saveWatch(watch)
     }
     
     class func getWatch(identifier: String) -> XWHDevWatchModel? {
-        return appDB.read { db in
-            try XWHDevWatchModel.fetchOne(db, key: identifier)
-        }
+        XWHDataWatchManager.getWatch(identifier: identifier)
+    }
+    
+    class func deleteWatch(identifier: String) {
+        XWHDataWatchManager.deleteWatch(identifier: identifier)
     }
     
     class func getCurrentWatch() -> XWHDevWatchModel? {
-        return appDB.read { db in
-            //try XWHDevWatchModel.fetchOne(db, key: [XWHDevWatchModel.Columns.isCurrent.name: true])
-//            try XWHDevWatchModel.filter(Column(XWHDevWatchModel.Columns.isCurrent.name) == true).fetchOne(db)
-            
-            try XWHDevWatchModel.filter(XWHDevWatchModel.Columns.isCurrent == true).fetchOne(db)
-
-        }
+        XWHDataWatchManager.getCurrentWatch()
     }
     
     class func getCurrentWatchIdentifier() -> String? {
         return getCurrentWatch()?.identifier
+    }
+    
+}
+
+// MARK: - Device Settings (Device Sets)
+extension XWHDataDeviceManager {
+    
+    /// 初始化设备设置项
+    /// - Parameters:
+    ///     - identifier: 标识符
+    class func initDeviceSets(identifier: String) {
+        // RaiseWristSet
+        let raiseWristSet = XWHRaiseWristSetModel(identifier)
+        saveRaiseWristSet(raiseWristSet)
+
+        // NoticeSet
+        let noticeSet = XWHNoticeSetModel(identifier)
+        saveNoticeSet(noticeSet)
+        
+        // LongSitSet
+        let longSitSet = XWHLongSitSetModel(identifier)
+        saveLongSitSet(longSitSet)
+        
+        // BloodPressureSet
+        let bloodPressureSet = XWHBloodPressureSetModel(identifier)
+        saveBloodPressureSet(bloodPressureSet)
+        
+        // BloodOxygenSet
+        let bloodOxygenSet = XWHBloodOxygenSetModel(identifier)
+        saveBloodOxygenSet(bloodOxygenSet)
+        
+        // HeartSet
+        let heartSet = XWHHeartSetModel(identifier)
+        saveHeartSet(heartSet)
+        
+        // DisturbSet
+        let disturbSet = XWHDisturbSetModel(identifier)
+        saveDisturbSet(disturbSet)
+        
+        // WeatherSet
+        let weatherSet = XWHWeatherSetModel(identifier)
+        saveWeatherSet(weatherSet)
+    }
+    
+    /// 删除(析构)设备设置项
+    /// - Parameters:
+    ///     - identifier: 标识符
+    class func deinitDeviceSets(identifier: String) {
+        // RaiseWristSet
+        deleteRaiseWristSet(identifier: identifier)
+
+        // NoticeSet
+        deleteNoticeSet(identifier: identifier)
+        
+        // LongSitSet
+        deleteLongSitSet(identifier: identifier)
+        
+        // BloodPressureSet
+        deleteBloodPressureSet(identifier: identifier)
+        
+        // BloodOxygenSet
+        deleteBloodOxygenSet(identifier: identifier)
+        
+        // HeartSet
+        deleteHeartSet(identifier: identifier)
+        
+        // DisturbSet
+        deleteDisturbSet(identifier: identifier)
+        
+        // WeatherSet
+        deleteWeatherSet(identifier: identifier)
     }
     
 }
