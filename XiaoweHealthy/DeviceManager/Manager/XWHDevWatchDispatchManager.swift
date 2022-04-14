@@ -73,6 +73,11 @@ extension XWHDevWatchDispatchManager: XWHBLEDispatchProtocol {
         bleHandler?.connectBindState ?? .disconnected
     }
     
+    /// 设置设备连接状态监听回调
+    func setMonitorHandler(device: XWHDevWatchModel?, monitorHnadler: XWHDeviceMonitorHandler?) {
+        
+    }
+    
     // MARK: - 扫描
     // 开始扫描
     func startScan(device: XWHDevWatchModel, pairMode: XWHDevicePairMode = .search, randomCode: String = "", progressHandler: XWHDevScanProgressHandler? = nil, scanHandler: XWHDevScanHandler?) {

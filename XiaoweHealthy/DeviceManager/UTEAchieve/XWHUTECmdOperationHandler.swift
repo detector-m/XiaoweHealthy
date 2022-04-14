@@ -84,7 +84,7 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
             retWatchModel.battery = connDevice.battery
             retWatchModel.name = connDevice.name
             retWatchModel.mac = connDevice.addressStr ?? ""
-            retWatchModel.version = connDevice.version
+            retWatchModel.version = connDevice.version ?? ""
             retWatchModel.isCurrent = true
             
             response.data = retWatchModel

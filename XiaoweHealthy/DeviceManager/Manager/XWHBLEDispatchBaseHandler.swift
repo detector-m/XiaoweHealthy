@@ -19,6 +19,8 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
     /// 是否是重连
     var isReconnect = false
     
+    var monitorHnadler: XWHDeviceMonitorHandler?
+    
     var scanProgressHandler: XWHDevScanProgressHandler?
     var connectHandler: XWHDevConnectHandler?
     var bindHandler: XWHDevBindHandler?
@@ -49,6 +51,11 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
     /// 绑定设备超时时间
     class var bindTime: TimeInterval {
         return 30
+    }
+    
+    /// 设置设备连接状态监听回调
+    func setMonitorHandler(device: XWHDevWatchModel?, monitorHnadler: XWHDeviceMonitorHandler?) {
+        self.monitorHnadler = monitorHnadler
     }
     
 //    func configCurType(type: XWHDeviceType) {

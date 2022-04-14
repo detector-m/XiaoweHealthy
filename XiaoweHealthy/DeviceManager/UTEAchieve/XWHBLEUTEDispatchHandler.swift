@@ -119,17 +119,7 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
     
     override func sdkDeviceToXWHDevice() -> [XWHDevWatchModel] {
         let devices = uteDevices.map { (model) -> XWHDevWatchModel in
-            let device = XWHDevWatchModel()
-            
-            device.name = model.name
-            
-            device.category = bleDevModel?.category ?? .watch
-            
-            device.type = bleDevModel?.type ?? .skyworthWatchS1
-            device.identifier = model.identifier
-            device.mac = (model.addressStr ?? (model.advertisementAddress ?? ""))
-            device.rssi = model.rssi
-            
+            let device = getDeviceInfo(with: model)
             return device
         }
         
@@ -178,7 +168,11 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
         
         log.info("-----------UTE手表连接状态：----------- \(devicesState.rawValue)")
         
-        var stateType = UTEDevStateType.none
+        // 之前的连接状态
+        let preConnBindState = connectBindState
+        
+        // ute 状态的类型
+        var uteStateType = UTEDevStateType.none
         var transferState = XWHDevDataTransferState.failed
         
         switch devicesState {
@@ -190,7 +184,7 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
                 connectBindState = .connected
             }
             
-            stateType = .connect
+            uteStateType = .connect
             
         case .disconnected:
             bindTimerInvalidate()
@@ -198,35 +192,35 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
             
             connectBindState = .disconnected
             
-            stateType = .connect
+            uteStateType = .connect
             
         case .connectingError:
             connectBindState = .disconnected
             
-            stateType = .connect
+            uteStateType = .connect
             
             
             // MARK: - 固件升级
             // UTE 服务器管理的固件
         case .updateHaveNewVersion:
-            stateType = .firmware
+            uteStateType = .firmware
             transferState = .inTransit
             
             // UTE 服务器管理的固件
         case .updateNoNewVersion:
-            stateType = .firmware
+            uteStateType = .firmware
             transferState = .succeed
             
         case .updateBegin:
-            stateType = .firmware
+            uteStateType = .firmware
             transferState = .inTransit
             
         case .updateSuccess:
-            stateType = .firmware
+            uteStateType = .firmware
             transferState = .succeed
             
         case .updateError:
-            stateType = .firmware
+            uteStateType = .firmware
             transferState = .failed
             
             
@@ -234,7 +228,7 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
             break
         }
         
-        switch stateType {
+        switch uteStateType {
         case .none:
             break
             
@@ -248,6 +242,19 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
                     self.cmdHandler?.config(nil, nil, handler: nil)
                 } else {
                     self.connectHandler?(.failure(.normal))
+                }
+                
+                if (preConnBindState == .connected || preConnBindState == .paired) && self.connectHandler == nil {
+                    var deviceModel: XWHDevWatchModel!
+                    if let cUteModel = self.manager.connectedDevicesModel {
+                        deviceModel = self.getDeviceInfo(with: cUteModel)
+                    } else {
+                        deviceModel = XWHDevWatchModel()
+                        deviceModel.category = .watch
+                        deviceModel.type = .skyworthWatchS1
+                    }
+                    
+                    self.monitorHnadler?(deviceModel, self.connectBindState)
                 }
                 
                 self.connectTimerInvalidate()
@@ -279,11 +286,11 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
     // 蓝牙配对弹框选择回调
     func uteManagerExtraIsAble(_ isAble: Bool) {
         if isAble {
-            log.info("UTE 配对 对话框----OK 点击")
+            log.debug("UTE 配对 对话框----OK 点击")
 //            connectBindState = .paired
 //            bindHandler?(.success(connectBindState))
         } else {
-            log.info("UTE 配对 对话框----Cancel 点击")
+            log.error("UTE 配对 对话框----Cancel 点击")
 //            bindHandler?(.failure(XWHBLEError.normal))
         }
         
@@ -293,9 +300,9 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
     // 共享通知
     func uteManagerANCSAuthorization(_ ancsAuthorized: Bool) {
         if ancsAuthorized {
-            log.info("UTE 收到系统 共享ANCS通知 --------打开")
+            log.debug("UTE 收到系统 共享ANCS通知 --------打开")
         } else {
-            log.info("UTE 收到系统 共享ANCS通知 --------关闭")
+            log.error("UTE 收到系统 共享ANCS通知 --------关闭")
         }
     }
     
@@ -313,6 +320,25 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
         }
         
         uteCmdHandler.handleTransferProgress(process)
+    }
+    
+}
+
+// MARK: - Private
+extension XWHBLEUTEDispatchHandler {
+    
+    private func getDeviceInfo(with uteDevice: UTEModelDevices) -> XWHDevWatchModel {
+        let device = XWHDevWatchModel()
+
+        device.identifier = uteDevice.identifier
+        device.name = uteDevice.name
+        device.category = .watch
+        device.type = bleDevModel?.type ?? .skyworthWatchS1
+        
+        device.mac = (uteDevice.addressStr ?? (uteDevice.advertisementAddress ?? ""))
+        device.rssi = uteDevice.rssi
+        
+        return device
     }
     
 }

@@ -17,6 +17,9 @@ typealias XWHDevConnectHandler = ((Result<XWHDeviceConnectBindState, XWHBLEError
 
 typealias XWHDevBindHandler = XWHDevConnectHandler
 
+/// 监听设备的handler
+typealias XWHDeviceMonitorHandler = (XWHDevWatchModel, XWHDeviceConnectBindState) -> Void
+
 
 protocol XWHBLEDispatchProtocol {
     // MARK: - 基础属性相关
@@ -28,6 +31,12 @@ protocol XWHBLEDispatchProtocol {
     
     /// 连接绑定状态
     var connectBindState: XWHDeviceConnectBindState { get }
+    
+    /// 设置设备连接状态监听回调
+    /// - Parameters:
+    ///     - device: 设备信息
+    ///     - monitorHandler: 设备监听回调
+    func setMonitorHandler(device: XWHDevWatchModel?, monitorHnadler: XWHDeviceMonitorHandler?)
     
     
     /// 开始扫描
