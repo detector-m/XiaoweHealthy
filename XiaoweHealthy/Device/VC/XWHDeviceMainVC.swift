@@ -333,6 +333,24 @@ extension XWHDeviceMainVC {
         }
     }
     
+    private func gotoCheckFirmwareUpdate() {
+        XWHDeviceVM().firmwareUpdate(deviceSn: "1923190012204123450", version: "v1.0.0") { [unowned self] error in
+            self.view.makeInsetToast(error.message)
+        } successHandler: { [unowned self] response in
+//            guard let cJson = response.data as? JSON else {
+//                self.view.makeInsetToast(R.string.xwhDeviceText.当前已经是最新版本())
+//                return
+//            }
+//
+//            if let _ = cJson["fileUrl"].string {
+//                self.gotoDevSetUpdate(updateInfo: cJson)
+//            } else {
+//                self.view.makeInsetToast(R.string.xwhDeviceText.当前已经是最新版本())
+//            }
+            self.gotoDevSetUpdate(updateInfo: JSON())
+        }
+    }
+    
 }
 
 // MARK: - UI Jump
@@ -477,27 +495,4 @@ extension XWHDeviceMainVC {
         navigationController?.setViewControllers([vc], animated: true)
     }
     
-}
-
-
-// MARK: - Private Tools
-extension XWHDeviceMainVC {
-    
-    private func gotoCheckFirmwareUpdate() {
-        XWHDeviceVM().firmwareUpdate(deviceSn: "1923190012204123450", version: "v1.0.0") { [unowned self] error in
-            self.view.makeInsetToast(error.message)
-        } successHandler: { [unowned self] response in
-//            guard let cJson = response.data as? JSON else {
-//                self.view.makeInsetToast(R.string.xwhDeviceText.当前已经是最新版本())
-//                return
-//            }
-//
-//            if let _ = cJson["fileUrl"].string {
-//                self.gotoDevSetUpdate(updateInfo: cJson)
-//            } else {
-//                self.view.makeInsetToast(R.string.xwhDeviceText.当前已经是最新版本())
-//            }
-            self.gotoDevSetUpdate(updateInfo: JSON())
-        }
-    }
 }

@@ -13,6 +13,10 @@ typealias XWHDevCmdOperationHandler = ((Result<XWHResponse?, XWHError>) -> Void)
 // MARK: - 设备指令操作协议
 protocol XWHDevCmdOperationProtocol: XWHDevDialOperationProtocol, XWHDevFirmwareOperationProtocol {
     
+    // MARK: - 变量
+    // 天气服务数据处理
+    var wsHandler: XWHWeatherServiceProtocol? { get set }
+    
     // MARK: - 配置
     
     /// 配置手表
@@ -107,6 +111,20 @@ protocol XWHDevCmdOperationProtocol: XWHDevDialOperationProtocol, XWHDevFirmware
     ///   - weatherSet: 天气设置
     ///   - handler: 操作回调结果
     func setWeatherSet(_ weatherSet: XWHWeatherSetModel, handler: XWHDevCmdOperationHandler?)
+    
+    /// 同步天气信息
+    /// - Parameters:
+    ///   - weatherInfo: 天气信息
+    ///   - handler: 操作回调结果
+    func sendWeatherInfo(_ weatherInfo: XWHWeatherInfoModel, handler: XWHDevCmdOperationHandler?)
+    
+    /// 同步天气服务的天气信息信息
+    /// - Parameters:
+    ///     - cityId: 城市代码 (为nil时使用 latitude, longitude )
+    ///     - latitude: 纬度
+    ///     - longitude: 经度
+    ///     - handler: 操作回调结果
+    func sendWeatherServiceWeatherInfo(cityId: String?, latitude: Double, longitude: Double, handler: XWHDevCmdOperationHandler?)
     
     /// 同步联系人
     /// - Parameters:

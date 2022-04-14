@@ -32,19 +32,19 @@ class XWHDataUserManager {
         }
     }
     
-    class func save(user: inout XWHUserModel) {
+    class func saveUser(_ user: inout XWHUserModel) {
         appDB.write { db in
             try user.insert(db)
         }
     }
     
-    class func get() -> XWHUserModel? {
+    class func getUser() -> XWHUserModel? {
         return appDB.read { db in
             try XWHUserModel.fetchOne(db)
         }
     }
     
-    class func delete(user: XWHUserModel) {
+    class func deleteUser(_ user: XWHUserModel) {
         appDB.write { db in
             try user.delete(db)
         }
@@ -62,7 +62,7 @@ extension XWHDataUserManager {
     
     class func test() {
         var user = XWHUserModel(mobile: "15000847202", nickname: "Riven", avatar: "", gender: 1, height: 168, weight: 57, birthday: "1990-03-16", goal: 9000)
-        save(user: &user)
+        saveUser(&user)
     }
     
 }

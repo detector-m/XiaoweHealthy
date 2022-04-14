@@ -20,7 +20,7 @@ class XWHUserVM {
                 
                 if var cUser = userModel {
                     XWHDataUserManager.deleteAll()
-                    XWHDataUserManager.save(user: &cUser)
+                    XWHDataUserManager.saveUser(&cUser)
                 }
                 
                 return userModel

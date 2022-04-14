@@ -20,14 +20,19 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
     var transferProgressHandler: DevTransferProgressHandler?
     var transferResultHandler: XWHDevCmdOperationHandler?
     
+    // 天气服务数据处理
+//    private var _wsHandler: XWHWeatherServiceProtocol?
+    var wsHandler: XWHWeatherServiceProtocol?
+    
     func config(_ user: XWHUserModel?, _ raiseWristSet: XWHRaiseWristSetModel?, handler: XWHDevCmdOperationHandler?) {
         setTime(handler: handler)
         setUnit(handler: handler)
         
-        if let user = XWHDataUserManager.get() {
+        if let user = XWHDataUserManager.getUser() {
             setUserInfo(user, raiseWristSet, handler: handler)
         } else {
             log.error("UTE 获取用户信息失败")
+            
             var error = XWHError()
             error.message = "获取用户信息失败"
             handler?(.failure(error))
@@ -336,9 +341,74 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
     
     /// 设置天气
     func setWeatherSet(_ weatherSet: XWHWeatherSetModel, handler: XWHDevCmdOperationHandler?) {
-//        UTEModelWeatherInfo
-        manager.sendUTETodayWeather(UTEWeatherType.snow, currentTemp: -2, maxTemp: 10, minTemp: -5, pm25: 100, aqi: 120, tomorrowType: UTEWeatherType.wind, tmrMax: 5, tmrMin: 0)
         handler?(.success(nil))
+    }
+    
+    /// 同步天气信息
+    func sendWeatherInfo(_ weatherInfo: XWHWeatherInfoModel, handler: XWHDevCmdOperationHandler?) {
+//        UTEModelWeatherInfo
+        guard let uteConnModel = manager.connectedDevicesModel else {
+            handleDisconnectError(handler)
+            return
+        }
+        
+        if uteConnModel.isHasWeatherSeven {
+            if weatherInfo.items.count < 2 {
+                let errorMsg = "传入的天气信息有误"
+                log.error(errorMsg)
+                handler?(.failure(XWHError(message: errorMsg)))
+                return
+            }
+            
+            let uteWeatherItems: [UTEModelWeather] = weatherInfo.items.map { one in
+                let uteOne = UTEModelWeather()
+                uteOne.city = weatherInfo.cityName
+                uteOne.temperatureMax = one.maxTemp
+                uteOne.temperatureMin = one.minTemp
+                uteOne.type = manager.getUTEWeatherType(one.code)
+                
+                return uteOne
+            }
+            
+            uteWeatherItems[0].temperatureCurrent = weatherInfo.tempNow
+            
+            manager.sendUTESevenWeather(uteWeatherItems)
+            
+            handler?(.success(nil))
+        } else if uteConnModel.isHasWeather {
+            if weatherInfo.items.count < 2 {
+                let errorMsg = "传入的天气信息有误"
+                log.error(errorMsg)
+                handler?(.failure(XWHError(message: errorMsg)))
+                return
+            }
+            
+            let today = weatherInfo.items[0]
+            let tom = weatherInfo.items[1]
+            
+            let todayType = manager.getUTEWeatherType(today.code)
+            let tomType = manager.getUTEWeatherType(tom.code)
+            manager.sendUTETodayWeather(todayType, currentTemp: weatherInfo.tempNow, maxTemp: today.maxTemp, minTemp: today.minTemp, pm25: 0, aqi: 0, tomorrowType: tomType, tmrMax: tom.maxTemp, tmrMin: tom.maxTemp)
+            
+            handler?(.success(nil))
+        } else {
+            let errorMsg = "不支持天气设置"
+            log.error(errorMsg)
+            handler?(.failure(XWHError(message: "不支持天气设置")))
+        }
+    }
+    
+    /// 同步天气服务的天气信息信息
+    func sendWeatherServiceWeatherInfo(cityId: String? = nil, latitude: Double, longitude: Double, handler: XWHDevCmdOperationHandler?) {
+        wsHandler?.getWeatherServiceWeatherInfo(cityId: cityId, latitude: latitude, longitude: longitude) { [weak self] result in
+            switch result {
+            case .success(let weatherInfo):
+                self?.sendWeatherInfo(weatherInfo, handler: handler)
+
+            case .failure(let error):
+                handler?(.failure(error))
+            }
+        }        
     }
     
     /// 同步联系人
@@ -473,6 +543,18 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
         }
     }
 
+}
+
+// MARK: - Private
+extension XWHUTECmdOperationHandler {
+    
+    private func handleDisconnectError(_ handler: XWHDevCmdOperationHandler?) {
+        var error = XWHError()
+        error.message = "设备未连接"
+        log.error(error.message)
+        handler?(.failure(error))
+    }
+    
 }
 
 // MARK: - Private (UTE)

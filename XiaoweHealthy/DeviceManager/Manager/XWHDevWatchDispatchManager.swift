@@ -33,10 +33,14 @@ class XWHDevWatchDispatchManager {
     // 设备指令操作
     private var cmdHandler: XWHDevCmdOperationProtocol?
     
+    // 天气服务数据处理
+    internal var wsHandler: XWHWeatherServiceProtocol?
+    
     // MARK: - handlers
     /* 简单粗暴，为了减少设备init导致delegate变化 */
     private lazy var _uteBLEHandler = XWHBLEUTEDispatchHandler()
     private lazy var _uteCmdHandler = XWHUTECmdOperationHandler()
+    private lazy var _uteWSHandler = XWHUTEWeatherInfoHandler()
     
     // MARK: - 方法
     @discardableResult
@@ -45,12 +49,20 @@ class XWHDevWatchDispatchManager {
         case .none:
             bleHandler?.cmdHandler = nil
             bleHandler = nil
+            
+            cmdHandler?.wsHandler = nil
             cmdHandler = nil
+            
+            wsHandler = nil
             
         case .skyworthWatchS1, .skyworthWatchS2:
             bleHandler = _uteBLEHandler
+            
             cmdHandler = _uteCmdHandler
             bleHandler?.cmdHandler = cmdHandler
+            
+            wsHandler = _uteWSHandler
+            cmdHandler?.wsHandler = wsHandler
             
         }
         return self
@@ -223,6 +235,17 @@ extension XWHDevWatchDispatchManager: XWHDevCmdOperationProtocol {
         cmdHandler?.setWeatherSet(weatherSet, handler: handler)
     }
     
+    /// 同步天气信息
+    func sendWeatherInfo(_ weatherInfo: XWHWeatherInfoModel, handler: XWHDevCmdOperationHandler?) {
+        cmdHandler?.sendWeatherInfo(weatherInfo, handler: handler)
+    }
+    
+    /// 同步天气服务的天气信息信息
+    func sendWeatherServiceWeatherInfo(cityId: String? = nil, latitude: Double, longitude: Double, handler: XWHDevCmdOperationHandler?) {
+        cmdHandler?.sendWeatherServiceWeatherInfo(cityId: cityId, latitude: latitude, longitude: longitude, handler: handler)
+    }
+
+    
     /// 同步联系人
     func sendContact(_ contacts: [XWHDevContactModel], handler: XWHDevCmdOperationHandler?) {
         cmdHandler?.sendContact(contacts, handler: handler)
@@ -252,5 +275,16 @@ extension XWHDevWatchDispatchManager {
     func sendFirmwareFile(_ fileUrl: URL, progressHandler: DevTransferProgressHandler?, handler: XWHDevCmdOperationHandler?) {
         cmdHandler?.sendFirmwareFile(fileUrl, progressHandler: progressHandler, handler: handler)
     }
+    
+}
+
+// MARK: - 天气服务数据 （WeatherService）
+extension XWHDevWatchDispatchManager: XWHWeatherServiceProtocol {
+    
+    /// 获取天气服务的天气数据
+    func getWeatherServiceWeatherInfo(cityId: String? = nil, latitude: Double, longitude: Double, handler: XWHWeatherServiceHandler?) {
+        wsHandler?.getWeatherServiceWeatherInfo(cityId: cityId, latitude: latitude, longitude: longitude, handler: handler)
+    }
+    
     
 }

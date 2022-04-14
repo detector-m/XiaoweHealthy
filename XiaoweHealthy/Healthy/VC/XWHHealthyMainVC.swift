@@ -121,7 +121,20 @@ extension XWHHealthyMainVC {
     }
     
     fileprivate func testUTEWeatherApi() {
-        XWHUTEWeatherInfoHandler.getWeatherInfo(cityId: "CN101010100", latitude: 0, longitude: 0)
+        let devModel = XWHDevWatchModel()
+        devModel.category = .watch
+        devModel.type = .skyworthWatchS1
+        XWHDDMShared.config(device: devModel)
+        
+        XWHDDMShared.getWeatherServiceWeatherInfo(cityId: "CN101010100", latitude: 0, longitude: 0) { [weak self] result in
+            switch result {
+            case .success(let wsInfo):
+                log.debug(wsInfo)
+                
+            case .failure(let error):
+                self?.view.makeInsetToast(error.message)
+            }
+        }
     }
     
 }

@@ -182,6 +182,10 @@
 		96F1D6662806BE960067DBFD /* XWHDevContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1D6652806BE960067DBFD /* XWHDevContactModel.swift */; };
 		96F1D6692806D2010067DBFD /* XWHDataWatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1D6682806D2010067DBFD /* XWHDataWatchManager.swift */; };
 		96F1D66C2806D6E70067DBFD /* XWHDataManagerEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1D66B2806D6E70067DBFD /* XWHDataManagerEnum.swift */; };
+		96F1D66E2807F7CC0067DBFD /* XWHWeatherServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1D66D2807F7CC0067DBFD /* XWHWeatherServiceProtocol.swift */; };
+		96F1D6712807FB4C0067DBFD /* XWHWeatherInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1D6702807FB4C0067DBFD /* XWHWeatherInfoModel.swift */; };
+		96F1D6732808002F0067DBFD /* XWHWeatherInfoOneDayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1D6722808002F0067DBFD /* XWHWeatherInfoOneDayModel.swift */; };
+		96F1D67628082B510067DBFD /* XWHLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1D67528082B510067DBFD /* XWHLocation.swift */; };
 		96F3588327FE7CE000783614 /* XWHBLEDispatchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3588227FE7CE000783614 /* XWHBLEDispatchProtocol.swift */; };
 		96F3588527FE7F1800783614 /* XWHDeviceManagerEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3588427FE7F1800783614 /* XWHDeviceManagerEnum.swift */; };
 		96F3588727FE815B00783614 /* XWHDeviceBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3588627FE815B00783614 /* XWHDeviceBaseModel.swift */; };
@@ -413,6 +417,10 @@
 		96F1D6652806BE960067DBFD /* XWHDevContactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevContactModel.swift; sourceTree = "<group>"; };
 		96F1D6682806D2010067DBFD /* XWHDataWatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataWatchManager.swift; sourceTree = "<group>"; };
 		96F1D66B2806D6E70067DBFD /* XWHDataManagerEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataManagerEnum.swift; sourceTree = "<group>"; };
+		96F1D66D2807F7CC0067DBFD /* XWHWeatherServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHWeatherServiceProtocol.swift; sourceTree = "<group>"; };
+		96F1D6702807FB4C0067DBFD /* XWHWeatherInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHWeatherInfoModel.swift; sourceTree = "<group>"; };
+		96F1D6722808002F0067DBFD /* XWHWeatherInfoOneDayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHWeatherInfoOneDayModel.swift; sourceTree = "<group>"; };
+		96F1D67528082B510067DBFD /* XWHLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLocation.swift; sourceTree = "<group>"; };
 		96F3588227FE7CE000783614 /* XWHBLEDispatchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBLEDispatchProtocol.swift; sourceTree = "<group>"; };
 		96F3588427FE7F1800783614 /* XWHDeviceManagerEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceManagerEnum.swift; sourceTree = "<group>"; };
 		96F3588627FE815B00783614 /* XWHDeviceBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceBaseModel.swift; sourceTree = "<group>"; };
@@ -875,6 +883,7 @@
 		96617A6F27E1E06700139B03 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				96F1D67428082B270067DBFD /* Location */,
 				96AD2858280144E40092B843 /* Log */,
 				9651EE0527EAF5980043FE52 /* Network */,
 				96DC42A527FD9F5E009BF300 /* DownloadManager */,
@@ -1308,6 +1317,7 @@
 		96DC429527FD3307009BF300 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				96F1D66F2807FB2C0067DBFD /* WeatherInfo */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1329,6 +1339,7 @@
 				960A836928025EFD00FC1B5F /* XWHDevCmdOperationProtocol.swift */,
 				96F1D65C28066CC30067DBFD /* XWHDevDialOperationProtocol.swift */,
 				96F1D66228069A9C0067DBFD /* XWHDevFirmwareOperationProtocol.swift */,
+				96F1D66D2807F7CC0067DBFD /* XWHWeatherServiceProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1512,6 +1523,23 @@
 				96F1D66B2806D6E70067DBFD /* XWHDataManagerEnum.swift */,
 			);
 			path = Constant;
+			sourceTree = "<group>";
+		};
+		96F1D66F2807FB2C0067DBFD /* WeatherInfo */ = {
+			isa = PBXGroup;
+			children = (
+				96F1D6702807FB4C0067DBFD /* XWHWeatherInfoModel.swift */,
+				96F1D6722808002F0067DBFD /* XWHWeatherInfoOneDayModel.swift */,
+			);
+			path = WeatherInfo;
+			sourceTree = "<group>";
+		};
+		96F1D67428082B270067DBFD /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				96F1D67528082B510067DBFD /* XWHLocation.swift */,
+			);
+			path = Location;
 			sourceTree = "<group>";
 		};
 		96F3588C27FE926C00783614 /* UTEAchieve */ = {
@@ -1887,6 +1915,8 @@
 				96FC407F27EDA19300D64B64 /* XWHFont.swift in Sources */,
 				96C67AE52804166B001ACA81 /* XWHWeatherSetModel.swift in Sources */,
 				9651EE2027EBFE390043FE52 /* XWHNetwork.swift in Sources */,
+				96F1D66E2807F7CC0067DBFD /* XWHWeatherServiceProtocol.swift in Sources */,
+				96F1D67628082B510067DBFD /* XWHLocation.swift in Sources */,
 				968CB8AC27F4570A00E549AC /* XWHDialMarketTBCell.swift in Sources */,
 				9678257C27F2F44D004F66FB /* RLRadarIndicatorView.swift in Sources */,
 				967AF4C327EF545800235E08 /* XWHDeviceVM.swift in Sources */,
@@ -1926,6 +1956,7 @@
 				96617A7A27E1FE6B00139B03 /* XWHLoginVC.swift in Sources */,
 				9628F85027EE9EF300221C5E /* XWHLogin.swift in Sources */,
 				9651EDF227E8542B0043FE52 /* XWHProgressHUD.swift in Sources */,
+				96F1D6712807FB4C0067DBFD /* XWHWeatherInfoModel.swift in Sources */,
 				96FC406B27ED738100D64B64 /* XWHUIViewControllerExtension.swift in Sources */,
 				968CB8A327F3FB8800E549AC /* UITableViewRoundedProtocol.swift in Sources */,
 				96C67AF628047278001ACA81 /* XWHBloodOxygenSetModel.swift in Sources */,
@@ -2022,6 +2053,7 @@
 				96E23C2027E1A22C009EF208 /* R.generated.swift in Sources */,
 				9653E4A627F5A6D700EE55FF /* XWHDevSetOxygenVC.swift in Sources */,
 				9678257627F2DD0C004F66FB /* XWHIconFont.swift in Sources */,
+				96F1D6732808002F0067DBFD /* XWHWeatherInfoOneDayModel.swift in Sources */,
 				969F01BD27F69D8B00CA4DA4 /* XWHPopupPick.swift in Sources */,
 				9651EE1727EB6D040043FE52 /* XWHUserVM.swift in Sources */,
 				96DC42A927FDA3C7009BF300 /* XWHTimeoutHandler.swift in Sources */,
@@ -2240,6 +2272,9 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "小维健康";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "需要定位权限以测试校准。";
+				INFOPLIST_KEY_NSLocationUsageDescription = "需要定位权限以测试校准。";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "需要定位权限以测试校准。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -2277,6 +2312,9 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "小维健康";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "需要定位权限以测试校准。";
+				INFOPLIST_KEY_NSLocationUsageDescription = "需要定位权限以测试校准。";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "需要定位权限以测试校准。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

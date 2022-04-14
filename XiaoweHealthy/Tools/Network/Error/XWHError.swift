@@ -22,4 +22,20 @@ struct XWHError: Error, CustomDebugStringConvertible {
         return "identifier = \(identifier), code = \(code), message = \(message), tag = \(tag)"
     }
     
+    init() {
+
+    }
+    
+    init(message: String) {
+        self.message = message
+    }
+    
+    static func handleSysError(_ sysError: Error?) -> String {
+        guard let nsError = sysError as NSError? else {
+            return ""
+        }
+        
+        return nsError.localizedDescription
+    }
+    
 }
