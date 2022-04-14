@@ -9,6 +9,8 @@ import Foundation
 import GRDB
 
 
+let ddManager = XWHDataDeviceManager.self
+
 // MARK: - 设备数据管理
 
 class XWHDataDeviceManager {
@@ -140,7 +142,13 @@ extension XWHDataDeviceManager {
             return nil
         }
         
-       return getNoticeSet(identifier: cId)
+        guard let noticeSet = getNoticeSet(identifier: cId) else {
+            log.error("当前不存在 noticeSet")
+
+            return nil
+        }
+        
+       return noticeSet
     }
     
     // LongSitSet
@@ -150,7 +158,12 @@ extension XWHDataDeviceManager {
             return nil
         }
         
-       return getLongSitSet(identifier: cId)
+        guard let longSitSet = getLongSitSet(identifier: cId) else {
+            log.error("当前不存在 longSitSet")
+            return nil
+        }
+        
+       return longSitSet
     }
     
     // BloodPressureSet
@@ -160,7 +173,12 @@ extension XWHDataDeviceManager {
             return nil
         }
         
-       return getBloodPressureSet(identifier: cId)
+        guard let bpSet = getBloodPressureSet(identifier: cId) else {
+            log.error("当前不存在 bloodPressureSet")
+            return nil
+        }
+        
+       return bpSet
     }
     
     // BloodOxygenSet
@@ -170,7 +188,13 @@ extension XWHDataDeviceManager {
             return nil
         }
         
-       return getBloodOxygenSet(identifier: cId)
+        guard let boSet = getBloodOxygenSet(identifier: cId) else {
+            log.error("当前不存在 bloodOxygenSet")
+
+            return nil
+        }
+        
+       return boSet
     }
     
     // HeartSet
@@ -180,7 +204,13 @@ extension XWHDataDeviceManager {
             return nil
         }
         
-       return getHeartSet(identifier: cId)
+        guard let heartSet = getHeartSet(identifier: cId) else {
+            log.error("当前不存在 heartSet")
+
+            return nil
+        }
+        
+       return heartSet
     }
     
     // DisturbSet
@@ -190,7 +220,13 @@ extension XWHDataDeviceManager {
             return nil
         }
         
-       return getDisturbSet(identifier: cId)
+        guard let disturbSet = getDisturbSet(identifier: cId) else {
+            log.error("当前不存在 disturbSet")
+
+            return nil
+        }
+        
+       return disturbSet
     }
     
     // WeatherSet
@@ -200,8 +236,15 @@ extension XWHDataDeviceManager {
             return nil
         }
         
-       return getWeatherSet(identifier: cId)
+        guard let weatherSet = getWeatherSet(identifier: cId) else {
+            log.error("当前不存在 weatherSet")
+
+            return nil
+        }
+        
+       return weatherSet
     }
+    
 }
 
 // MARK: - 手表 （Watch）

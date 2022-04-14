@@ -9,11 +9,22 @@ import UIKit
 
 class XWHDevSetStandVC: XWHDevSetBaseVC {
 
-    var isStandOn = true
-    var isNotDisturbAtNoon = false
+    lazy var isStandOn = ddManager.getCurrentLongSitSet()?.isOn ?? false
+    lazy var isNotDisturbAtNoon = ddManager.getCurrentLongSitSet()?.isSiestaOn ?? false
     
     lazy var warnTimes = [30, 45, 60, 60 * 2, 60 * 3]
-    lazy var sIndex = 2
+    lazy var sIndex: Int = {
+        var ret = 2
+        guard let lsSet = ddManager.getCurrentLongSitSet() else {
+            return ret
+        }
+        
+        guard let cIndex = warnTimes.firstIndex(of: lsSet.duration) else {
+            return ret
+        }
+        
+        return cIndex
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,10 +83,11 @@ class XWHDevSetStandVC: XWHDevSetBaseVC {
             }
             
             cell.clickAction = { [unowned cell, unowned self] isOn in
-                let longSitSet = XWHLongSitSetModel()
+                guard let longSitSet = ddManager.getCurrentLongSitSet() else {
+                    return
+                }
                 if indexPath.section == 0 {
                     longSitSet.isOn = isOn
-                    
                 } else {
                     longSitSet.isSiestaOn = isOn
                 }
@@ -123,7 +135,10 @@ extension XWHDevSetStandVC {
             if cType == .cancel {
                 return
             }
-            let longSitSet = XWHLongSitSetModel()
+            
+            guard let longSitSet = ddManager.getCurrentLongSitSet() else {
+                return
+            }
             longSitSet.duration = self.warnTimes[index]
             self.setLongSitSet(longSitSet) {
                 XWHDataDeviceManager.saveLongSitSet(longSitSet)

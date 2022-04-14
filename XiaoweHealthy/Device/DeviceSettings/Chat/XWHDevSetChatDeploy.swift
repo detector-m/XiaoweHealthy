@@ -1,5 +1,5 @@
 //
-//  XWHDevSetChartDeploy.swift
+//  XWHDevSetChatDeploy.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/3/31.
@@ -42,13 +42,16 @@ class XWHDevSetChatDeployItemModel {
     
 }
 
-class XWHDevSetChartDeploy {
+class XWHDevSetChatDeploy {
     
     // 各系列产品功能配置
     lazy var chatDeploy: [XWHDevSetChatDeployType] = [.message, .wechat, .qq]
     
+    var noticeSet: XWHNoticeSetModel?
+    
     // 获取配置数据
-    func loadDeploys() -> [XWHDevSetChatDeployItemModel] {
+    func loadDeploys(noticeSet: XWHNoticeSetModel?) -> [XWHDevSetChatDeployItemModel] {
+        self.noticeSet = noticeSet
         let deployTypes = loadDeployTypes()
 
         return loadDeployItems(deployTypes: deployTypes)
@@ -78,14 +81,17 @@ class XWHDevSetChartDeploy {
         case .message:
             // 信息
             item.title = R.string.xwhDeviceText.信息()
+            item.isOn = noticeSet?.isOnSms ?? false
             
         case .wechat:
             // 微信
             item.title = R.string.xwhDeviceText.微信()
+            item.isOn = noticeSet?.isOnWeChat ?? false
             
         case .qq:
             // qq
             item.title = R.string.xwhDeviceText.qQ()
+            item.isOn = noticeSet?.isOnQQ ?? false
         
         case .weibo:
             // 微博

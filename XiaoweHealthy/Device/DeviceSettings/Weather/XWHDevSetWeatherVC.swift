@@ -8,6 +8,8 @@
 import UIKit
 
 class XWHDevSetWeatherVC: XWHDevSetPressureVC {
+    
+    private lazy var isOnWeather = ddManager.getCurrentWeatherSet()?.isOn ?? false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,11 +27,29 @@ class XWHDevSetWeatherVC: XWHDevSetPressureVC {
         cell.titleLb.text = R.string.xwhDeviceText.天气推送()
         cell.subTitleLb.text = R.string.xwhDeviceText.开启后设备将接收手机的天气信息()
         
+        cell.button.isSelected = isOnWeather
+        
         cell.clickAction = { [unowned cell, unowned self] isOn in
-            self.checkLocationState { isOk in
-                if isOk {
-                    cell.button.isSelected = isOn
+            guard let weatherSet = ddManager.getCurrentWeatherSet() else {
+                return
+            }
+            
+            weatherSet.isOn = isOn
+            
+            if isOn {
+                self.checkLocationState { isOk in
+                    if isOk {
+                        ddManager.saveWeatherSet(weatherSet)
+
+                        isOnWeather = isOn
+                        cell.button.isSelected = isOnWeather
+                    }
                 }
+            } else {
+                ddManager.saveWeatherSet(weatherSet)
+                
+                isOnWeather = isOn
+                cell.button.isSelected = isOnWeather
             }
         }
         

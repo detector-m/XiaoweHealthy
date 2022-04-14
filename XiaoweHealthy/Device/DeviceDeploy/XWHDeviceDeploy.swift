@@ -150,14 +150,18 @@ class XWHDeviceDeploy {
             
             
         case .chat:
+            let isOn = ddManager.getCurrentNoticeSet()?.isOn ?? false
+            
             item.title = R.string.xwhDeviceText.消息通知()
-            item.subTitle = R.string.xwhDeviceText.未开启()
+            item.subTitle = isOn ? R.string.xwhDeviceText.开启() : R.string.xwhDeviceText.未开启()
             item.iconBgColor = UIColor(hex: 0x49CE64)
             item.iconImageName = "DeviceChat"
             
         case .call: // 来电提醒
+            let isOn = ddManager.getCurrentNoticeSet()?.isOnCall ?? false
+
             item.title = R.string.xwhDeviceText.来电提醒()
-            item.subTitle = R.string.xwhDeviceText.未开启()
+            item.subTitle = isOn ? R.string.xwhDeviceText.开启() : R.string.xwhDeviceText.未开启()
             item.iconBgColor = UIColor(hex: 0x6AACF7)
             item.iconImageName = "DeviceCall"
             

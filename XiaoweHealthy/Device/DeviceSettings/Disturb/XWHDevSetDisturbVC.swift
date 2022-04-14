@@ -9,9 +9,9 @@ import UIKit
 
 class XWHDevSetDisturbVC: XWHDevSetBaseVC {
 
-    var isNotDisturb = false
-    var isShockOn = false
-    var isChatOn = false
+    lazy var isNotDisturb = ddManager.getCurrentDisturbSet()?.isOn ?? false
+    lazy var isShockOn = ddManager.getCurrentDisturbSet()?.isVibrationOn ?? false
+    lazy var isChatOn = ddManager.getCurrentDisturbSet()?.isMessageOn ?? false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,13 +83,15 @@ class XWHDevSetDisturbVC: XWHDevSetBaseVC {
         }
         
         cell.clickAction = { [unowned self, unowned cell] isOn in
-            let disturbSet = XWHDisturbSetModel()
+            guard let disturbSet = ddManager.getCurrentDisturbSet() else {
+                return
+            }
             
             if indexPath.section == 0 {
                 disturbSet.isOn = isOn
                 
                 self.setDisturbSet(disturbSet) {
-                    XWHDataDeviceManager.saveDisturbSet(disturbSet)
+                    ddManager.saveDisturbSet(disturbSet)
                     
                     self.isNotDisturb = isOn
                     self.tableView.reloadData()
@@ -98,7 +100,7 @@ class XWHDevSetDisturbVC: XWHDevSetBaseVC {
                 disturbSet.isVibrationOn = isOn
 
                 self.setDisturbSet(disturbSet) {
-                    XWHDataDeviceManager.saveDisturbSet(disturbSet)
+                    ddManager.saveDisturbSet(disturbSet)
                     
                     self.isShockOn = isOn
                     cell.button.isSelected = isOn
@@ -107,7 +109,7 @@ class XWHDevSetDisturbVC: XWHDevSetBaseVC {
                 disturbSet.isMessageOn = isOn
                 
                 self.setDisturbSet(disturbSet) {
-                    XWHDataDeviceManager.saveDisturbSet(disturbSet)
+                    ddManager.saveDisturbSet(disturbSet)
                     
                     self.isChatOn = isOn
                     cell.button.isSelected = isOn

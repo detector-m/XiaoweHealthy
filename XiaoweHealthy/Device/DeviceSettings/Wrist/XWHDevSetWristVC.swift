@@ -9,10 +9,21 @@ import UIKit
 
 class XWHDevSetWristVC: XWHDevSetBaseVC {
 
-    var isWristOn = true
+    lazy var isWristOn = ddManager.getCurrentRaiseWristSet()?.isOn ?? false
     
     lazy var brightTimes = [5, 10, 15]
-    lazy var sIndex = 0
+    lazy var sIndex: Int = {
+        var ret = 0
+        guard let rwSet = ddManager.getCurrentRaiseWristSet() else {
+            return ret
+        }
+        
+        guard let cIndex = brightTimes.firstIndex(of: rwSet.duration) else {
+            return ret
+        }
+        
+        return cIndex
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,12 +76,15 @@ class XWHDevSetWristVC: XWHDevSetBaseVC {
             cell.button.isSelected = isWristOn
             
             cell.clickAction = { [unowned self] isOn in
-                let user = XWHUserModel()
-                let raiseWristSet = XWHRaiseWristSetModel()
-                raiseWristSet.isOn = isOn
+                guard let rwSet = ddManager.getCurrentRaiseWristSet() else {
+                    return
+                }
                 
-                self.setRaiseWristSet(raiseWristSet, user) {
-                    XWHDataDeviceManager.saveRaiseWristSet(raiseWristSet)
+                let user = XWHUserModel()
+                rwSet.isOn = isOn
+                
+                self.setRaiseWristSet(rwSet, user) {
+                    ddManager.saveRaiseWristSet(rwSet)
                     
                     self.isWristOn = isOn
                     self.tableView.reloadData()

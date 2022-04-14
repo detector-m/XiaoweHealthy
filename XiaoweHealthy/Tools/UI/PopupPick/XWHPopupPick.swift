@@ -48,6 +48,7 @@ class XWHPopupPickView: RLPopupBaseView {
             self?.hideAnimation()
         }
         _contentView.pickerView.reloadAllComponents()
+        _contentView.pickerView.selectRow(sIndex, inComponent: 0, animated: false)
         
         _contentView.snp.remakeConstraints { make in
             make.left.right.equalToSuperview().inset(12)

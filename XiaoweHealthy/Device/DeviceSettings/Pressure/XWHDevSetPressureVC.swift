@@ -8,6 +8,8 @@
 import UIKit
 
 class XWHDevSetPressureVC: XWHDevSetBaseVC {
+    
+    private lazy var isBpOn = ddManager.getCurrentBloodPressureSet()?.isOn ?? false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,11 +40,18 @@ class XWHDevSetPressureVC: XWHDevSetBaseVC {
         cell.titleLb.text = R.string.xwhDeviceText.压力自动监测()
         cell.subTitleLb.text = R.string.xwhDeviceText.开启后设备将根据HRV等生理指标测量你的压力情况()
         
+        cell.button.isSelected = isBpOn
+        
         cell.clickAction = { [unowned cell, unowned self] isOn in
-            let bp = XWHBloodPressureSetModel()
-            self.setBloodPressureSet(bp) {
+            guard let bpSet = ddManager.getCurrentBloodPressureSet() else {
+                return
+            }
+            bpSet.isOn = isOn
+            self.setBloodPressureSet(bpSet) {
+                ddManager.saveBloodPressureSet(bpSet)
                 
-                cell.button.isSelected = isOn
+                isBpOn = isOn
+                cell.button.isSelected = isBpOn
             }
         }
         

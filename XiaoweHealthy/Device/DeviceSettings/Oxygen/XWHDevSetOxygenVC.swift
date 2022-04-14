@@ -9,10 +9,21 @@ import UIKit
 
 class XWHDevSetOxygenVC: XWHDevSetBaseVC {
     
-    var isOxygenOn = true
+    lazy var isOxygenOn = ddManager.getCurrentBloodOxygenSet()?.isOn ?? false
     
     lazy var monitorTimes = [10, 30, 60, 60 * 2, 60 * 3,  60 * 4,  60 * 5,  60 * 6,  60 * 7,  60 * 8]
-    lazy var sIndex = 2
+    lazy var sIndex: Int = {
+        var ret = 2
+        guard let boSet = ddManager.getCurrentBloodOxygenSet() else {
+            return ret
+        }
+        
+        guard let cIndex = monitorTimes.firstIndex(of: boSet.duration) else {
+            return ret
+        }
+        
+        return cIndex
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,12 +73,19 @@ class XWHDevSetOxygenVC: XWHDevSetBaseVC {
             cell.titleLb.text = R.string.xwhDeviceText.自动监测血氧饱和度()
             cell.subTitleLb.text = R.string.xwhDeviceText._24小时自动监测血氧饱和度()
             
-            cell.clickAction = { [unowned cell, unowned self] isOn in
-                let boSet = XWHBloodOxygenSetModel()
+            cell.button.isSelected = isOxygenOn
+            
+            cell.clickAction = { [unowned self] isOn in
+                guard let boSet = ddManager.getCurrentBloodOxygenSet() else {
+                    return
+                }
+                
                 boSet.isOn = isOn
+                
                 self.setBloodOxygen(boSet) {
                     XWHDataDeviceManager.saveBloodOxygenSet(boSet)
-                    cell.button.isSelected = isOn
+                    self.isOxygenOn = isOn
+                    self.tableView.reloadData()
                 }
             }
             
@@ -101,13 +119,14 @@ extension XWHDevSetOxygenVC {
             if cType == .cancel {
                 return
             }
+            guard let boSet = ddManager.getCurrentBloodOxygenSet() else {
+                return
+            }
             
-            let bloodOxygenSet = XWHBloodOxygenSetModel()
-            bloodOxygenSet.isSetBeginEndTime = true
-            bloodOxygenSet.duration = self.monitorTimes[index]
-            self.setBloodOxygen(bloodOxygenSet) {
-                bloodOxygenSet.isSetBeginEndTime = false
-                XWHDataDeviceManager.saveBloodOxygenSet(bloodOxygenSet)
+            boSet.duration = self.monitorTimes[index]
+            self.setBloodOxygen(boSet) {
+                XWHDataDeviceManager.saveBloodOxygenSet(boSet)
+                
                 self.sIndex = index
                 self.tableView.reloadData()
             }

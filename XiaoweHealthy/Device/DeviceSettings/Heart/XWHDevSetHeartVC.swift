@@ -9,13 +9,24 @@ import UIKit
 
 class XWHDevSetHeartVC: XWHDevSetBaseVC {
     
-    var isHeartOn = true
-    var isHeartHighWarn = true
+    lazy var isHeartOn = ddManager.getCurrentHeartSet()?.isOn ?? false
+    lazy var isHeartHighWarn = ddManager.getCurrentHeartSet()?.isHighWarn ?? false
     
     let warnMin = 100
     let warnMax = 180
     
-    var sIndex = 0
+    lazy var sIndex: Int = {
+        guard let heartSet = ddManager.getCurrentHeartSet() else {
+            return 0
+        }
+        if heartSet.highWarnValue < warnMin {
+            return 0
+        }
+        
+        let ret = (heartSet.highWarnValue - warnMin) / 10
+        
+        return ret
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,7 +89,9 @@ class XWHDevSetHeartVC: XWHDevSetBaseVC {
             }
         
             cell.clickAction = { [unowned self] isOn in
-                let heartSet = XWHHeartSetModel()
+                guard let heartSet = ddManager.getCurrentHeartSet() else {
+                    return
+                }
                 
                 if indexPath.row == 0 {
                     heartSet.optionType = .none
@@ -137,8 +150,10 @@ extension XWHDevSetHeartVC {
             if cType == .cancel {
                 return
             }
-            let heartSet = XWHHeartSetModel()
-
+            guard let heartSet = ddManager.getCurrentHeartSet() else {
+                return
+            }
+            
             heartSet.optionType = .highWarn
             heartSet.highWarnValue = valueItems[index]
             

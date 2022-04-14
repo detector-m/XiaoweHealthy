@@ -14,7 +14,7 @@ class XWHDevSetChatVC: XWHDevSetBaseVC {
     
     private lazy var chatItems = [XWHDevSetChatDeployItemModel]()
     
-    private var isChatOn = false
+    private lazy var isChatOn = ddManager.getCurrentNoticeSet()?.isOn ?? false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,7 +122,7 @@ class XWHDevSetChatVC: XWHDevSetBaseVC {
 extension XWHDevSetChatVC {
     
     private func configChatItems() {
-        chatItems = XWHDevSetChartDeploy().loadDeploys()
+        chatItems = XWHDevSetChatDeploy().loadDeploys(noticeSet: ddManager.getCurrentNoticeSet())
     }
     
 }
@@ -141,18 +141,15 @@ extension XWHDevSetChatVC {
 extension XWHDevSetChatVC {
     
     private func gotoSetChat(isOn: Bool) {
-        let noticeSet = XWHNoticeSetModel()
+        guard let noticeSet = ddManager.getCurrentNoticeSet() else {
+            return
+        }
         noticeSet.isOn = isOn
         
         setNoticeSet(noticeSet) { [unowned self] in
             XWHDataDeviceManager.saveNoticeSet(noticeSet)
             
             self.isChatOn = isOn
-//            if isOn {
-//                self.gotoTurnOnChat()
-//            } else {
-//                self.tableView.reloadData()
-//            }
             self.tableView.reloadData()
         }
     }
@@ -168,10 +165,11 @@ extension XWHDevSetChatVC {
     }
     
     private func gotoSetChatItem(at row: Int, isOn: Bool) {
-        let item = chatItems[row]
+        guard let noticeSet = ddManager.getCurrentNoticeSet() else {
+            return
+        }
         
-        let noticeSet = XWHNoticeSetModel()
-        noticeSet.isOn = isChatOn
+        let item = chatItems[row]
         
         switch item.type {
         case .message:

@@ -10,6 +10,8 @@ import UIKit
 class XWHDevSetCallVC: XWHDevSetPressureVC {
     
     private static var isShowAuthorize = true
+    
+    private lazy var isOnCall = ddManager.getCurrentNoticeSet()?.isOnCall ?? false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +42,12 @@ class XWHDevSetCallVC: XWHDevSetPressureVC {
         cell.titleLb.text = R.string.xwhDeviceText.来电提醒()
         cell.subTitleLb.text = R.string.xwhDeviceText.手机有来电时手表会同步震动提醒此功能需要设备和手机是连接状态且蓝牙是开启的()
         
+        cell.button.isSelected = isOnCall
+        
         cell.clickAction = { [unowned cell, unowned self] isOn in
-            let noticeSet = XWHNoticeSetModel()
+            guard let noticeSet = ddManager.getCurrentNoticeSet() else {
+                return
+            }
             noticeSet.isOnCall = isOn
             
             if isOn {
@@ -51,7 +57,8 @@ class XWHDevSetCallVC: XWHDevSetPressureVC {
                             self.setNoticeSet(noticeSet) {
                                 XWHDataDeviceManager.saveNoticeSet(noticeSet)
                                 
-                                cell.button.isSelected = isOn
+                                isOnCall = isOn
+                                cell.button.isSelected = isOnCall
                             }
                         }
                     }
@@ -65,7 +72,8 @@ class XWHDevSetCallVC: XWHDevSetPressureVC {
             self.setNoticeSet(noticeSet) {
                 XWHDataDeviceManager.saveNoticeSet(noticeSet)
                 
-                cell.button.isSelected = isOn
+                isOnCall = isOn
+                cell.button.isSelected = isOnCall
             }
         }
         

@@ -55,7 +55,7 @@
 		9653E49227F5545100EE55FF /* XWHDevSetChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9653E49127F5545100EE55FF /* XWHDevSetChatVC.swift */; };
 		9653E49427F5556300EE55FF /* XWHDevSetCallVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9653E49327F5556300EE55FF /* XWHDevSetCallVC.swift */; };
 		9653E49627F55D1B00EE55FF /* XWHDevSetSwitchTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9653E49527F55D1B00EE55FF /* XWHDevSetSwitchTBCell.swift */; };
-		9653E49827F58C4D00EE55FF /* XWHDevSetChartDeploy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9653E49727F58C4D00EE55FF /* XWHDevSetChartDeploy.swift */; };
+		9653E49827F58C4D00EE55FF /* XWHDevSetChatDeploy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9653E49727F58C4D00EE55FF /* XWHDevSetChatDeploy.swift */; };
 		9653E49A27F5978800EE55FF /* XWHTBHeaderFooterBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9653E49927F5978800EE55FF /* XWHTBHeaderFooterBaseView.swift */; };
 		9653E4A027F5A32000EE55FF /* XWHDevSetPressureVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9653E49F27F5A32000EE55FF /* XWHDevSetPressureVC.swift */; };
 		9653E4A227F5A4A400EE55FF /* XWHDevSetWeatherVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9653E4A127F5A4A400EE55FF /* XWHDevSetWeatherVC.swift */; };
@@ -290,7 +290,7 @@
 		9653E49127F5545100EE55FF /* XWHDevSetChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetChatVC.swift; sourceTree = "<group>"; };
 		9653E49327F5556300EE55FF /* XWHDevSetCallVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetCallVC.swift; sourceTree = "<group>"; };
 		9653E49527F55D1B00EE55FF /* XWHDevSetSwitchTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetSwitchTBCell.swift; sourceTree = "<group>"; };
-		9653E49727F58C4D00EE55FF /* XWHDevSetChartDeploy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetChartDeploy.swift; sourceTree = "<group>"; };
+		9653E49727F58C4D00EE55FF /* XWHDevSetChatDeploy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetChatDeploy.swift; sourceTree = "<group>"; };
 		9653E49927F5978800EE55FF /* XWHTBHeaderFooterBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTBHeaderFooterBaseView.swift; sourceTree = "<group>"; };
 		9653E49F27F5A32000EE55FF /* XWHDevSetPressureVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetPressureVC.swift; sourceTree = "<group>"; };
 		9653E4A127F5A4A400EE55FF /* XWHDevSetWeatherVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetWeatherVC.swift; sourceTree = "<group>"; };
@@ -749,7 +749,7 @@
 		9653E48B27F5523800EE55FF /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				9653E49727F58C4D00EE55FF /* XWHDevSetChartDeploy.swift */,
+				9653E49727F58C4D00EE55FF /* XWHDevSetChatDeploy.swift */,
 				9653E49127F5545100EE55FF /* XWHDevSetChatVC.swift */,
 			);
 			path = Chat;
@@ -1943,7 +1943,7 @@
 				96E23C2C27E1A579009EF208 /* XWHDeviceMainVC.swift in Sources */,
 				96C67AEE28043328001ACA81 /* XWHDataWeatherSetManager.swift in Sources */,
 				96AD28662801C5AA0092B843 /* XWHDataUserManager.swift in Sources */,
-				9653E49827F58C4D00EE55FF /* XWHDevSetChartDeploy.swift in Sources */,
+				9653E49827F58C4D00EE55FF /* XWHDevSetChatDeploy.swift in Sources */,
 				96DC429A27FD34C7009BF300 /* RLBLEPermissions.swift in Sources */,
 				96C67AF228043362001ACA81 /* XWHDataHeartSetManager.swift in Sources */,
 				96C67AFE2804743D001ACA81 /* XWHDataRaiseWristSetManager.swift in Sources */,
