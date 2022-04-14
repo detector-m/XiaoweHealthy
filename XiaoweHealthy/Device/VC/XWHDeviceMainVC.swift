@@ -19,6 +19,10 @@ class XWHDeviceMainVC: XWHSearchBindDevBaseVC {
         XWHDataDeviceManager.getCurrentWatch()
     }
     
+    private var isConnected: Bool {
+        return XWHDDMShared.connectBindState == .paired
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -222,6 +226,11 @@ extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let section = indexPath.section
         let row = indexPath.row
+
+        if !isConnected {
+            view.makeInsetToast(R.string.xwhDeviceText.设备未连接())
+            return
+        }
         
         let item = deviceItems[section][row]
         
@@ -245,7 +254,7 @@ extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableVi
             gotoDevSetStand()
             
         case .pressure:
-            gotoDevSetWeather()
+            gotoDevSetPressure()
             
         case .weather:
             gotoDevSetWeather()
@@ -431,7 +440,7 @@ extension XWHDeviceMainVC {
                     switch result {
                     case .success(_):
                         if let cModel = self.connWatchModel {
-                            XWHDataDeviceManager.deleteWatch(identifier: cModel.identifier)
+                            XWHDataDeviceManager.remove(device: cModel)
                         }
                         self.gotoAddDeviceEntry()
                         
@@ -459,6 +468,8 @@ extension XWHDeviceMainVC {
 //                self.view.makeInsetToast("已经解除绑定")
                 if let cModel = self.connWatchModel {
                     XWHDDMShared.disconnect(device: cModel)
+                    XWHDataDeviceManager.remove(device: cModel)
+                    self.gotoAddDeviceEntry()
                 }
             }
         }

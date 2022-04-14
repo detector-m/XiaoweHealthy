@@ -97,6 +97,31 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
             
             handler?(.failure(error))
         }
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { [unowned self] in
+//            if let connDevice = self.manager.connectedDevicesModel {
+//                let response = XWHResponse()
+//                response.identifier = retIdStr
+//
+//                let retWatchModel = XWHDevWatchModel()
+//                retWatchModel.identifier = connDevice.identifier
+//                retWatchModel.battery = connDevice.battery
+//                retWatchModel.name = connDevice.name
+//                retWatchModel.mac = connDevice.addressStr ?? ""
+//                retWatchModel.version = connDevice.version ?? ""
+//                retWatchModel.isCurrent = true
+//
+//                response.data = retWatchModel
+//
+//                handler?(.success(response))
+//            } else {
+//                var error = XWHError()
+//                error.identifier = retIdStr
+//                error.message = "设备未连接"
+//
+//                handler?(.failure(error))
+//            }
+//        }
     }
     
     // MARK: - 设备设置

@@ -175,13 +175,14 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
         var uteStateType = UTEDevStateType.none
         var transferState = XWHDevDataTransferState.failed
         
+        var cConnBindState = connectBindState
         switch devicesState {
         // MARK: - 连接
         case .connected:
             if isReconnect {
-                connectBindState = .paired
+                cConnBindState = .paired
             } else {
-                connectBindState = .connected
+                cConnBindState = .connected
             }
             
             uteStateType = .connect
@@ -190,12 +191,12 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
             bindTimerInvalidate()
             bindHandler = nil
             
-            connectBindState = .disconnected
+            cConnBindState = .disconnected
             
             uteStateType = .connect
             
         case .connectingError:
-            connectBindState = .disconnected
+            cConnBindState = .disconnected
             
             uteStateType = .connect
             
@@ -237,12 +238,6 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
                 guard let self = self else {
                     return
                 }
-                if self.connectBindState == .connected, self.connectBindState == .paired {
-                    self.connectHandler?(.success(self.connectBindState))
-                    self.cmdHandler?.config(nil, nil, handler: nil)
-                } else {
-                    self.connectHandler?(.failure(.normal))
-                }
                 
                 if (preConnBindState == .connected || preConnBindState == .paired) && self.connectHandler == nil {
                     var deviceModel: XWHDevWatchModel!
@@ -257,9 +252,25 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
                     self.monitorHnadler?(deviceModel, self.connectBindState)
                 }
                 
-                self.connectTimerInvalidate()
-                self.connectHandler = nil
-                self.bleDevModel = nil
+                if cConnBindState == .connected || cConnBindState == .paired {
+                    self.cmdHandler?.config(nil, nil, handler: nil)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                        self.connectBindState = cConnBindState
+                        self.connectHandler?(.success(self.connectBindState))
+                        
+                        self.connectTimerInvalidate()
+                        self.connectHandler = nil
+                        self.bleDevModel = nil
+                    }
+                } else {
+                    self.connectBindState = cConnBindState
+                    self.connectHandler?(.failure(.normal))
+                    
+                    self.connectTimerInvalidate()
+                    self.connectHandler = nil
+                    self.bleDevModel = nil
+                }
             }
             
         case .firmware:

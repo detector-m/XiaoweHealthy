@@ -67,11 +67,11 @@ extension XWHDataDeviceManager {
                 return
             }
             
-            setCurrentWatch(watch: watch)
+            setCurrentWatch(watch)
         }
     }
     
-    private class func setCurrentWatch(watch: XWHDevWatchModel) {
+    private class func setCurrentWatch(_ watch: XWHDevWatchModel) {
         watch.bindDate = Date().string(withFormat: "yyyy-MM-dd HH:mm:ss")
         watch.isCurrent = true
         
@@ -82,6 +82,37 @@ extension XWHDataDeviceManager {
         if oldWatch == nil {
             initDeviceSets(identifier: watch.identifier)
         }
+    }
+    
+    /// 移除当前设备
+    /// - Parameters:
+    ///     - device: 设备信息
+    class func remove(device: XWHDeviceBaseModel) {
+        log.info("移除当前设备")
+        
+        switch device.category {
+        case .none:
+            log.error("未知设备")
+            return
+            
+        case .watch:
+            guard let watch = device as? XWHDevWatchModel else {
+                log.error("该设备非手表设备 device = \(device)")
+                return
+            }
+            
+            removeWatch(watch)
+        }
+    }
+    
+    private class func removeWatch(_ watch: XWHDevWatchModel) {
+        guard let _ = getWatch(identifier: watch.identifier) else {
+            log.error("该手表不存在数据库中")
+            return
+        }
+    
+        deinitDeviceSets(identifier: watch.identifier)
+        deleteWatch(identifier: watch.identifier)
     }
     
 }
@@ -103,7 +134,7 @@ extension XWHDataDeviceManager {
         XWHDataWatchManager.getWatch(identifier: identifier)
     }
     
-    class func deleteWatch(identifier: String) {
+    private class func deleteWatch(identifier: String) {
         XWHDataWatchManager.deleteWatch(identifier: identifier)
     }
     

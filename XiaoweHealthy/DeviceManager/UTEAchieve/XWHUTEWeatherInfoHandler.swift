@@ -14,6 +14,8 @@ class XWHUTEWeatherInfoHandler {
     
     class func getWeatherInfo(cityId: String, latitude: Double, longitude: Double) {
         UTESmartBandClient.sharedInstance().getUTEWeatherDataFormServer(kUTEWeatherApiKey, cityID: cityId, latitude: latitude, longitude: longitude) { (weatherInfo: UTEModelWeatherInfo?) -> Void in
+//            UTEModelWeather
+//            UTEModelWeatherOneDay
             log.debug(weatherInfo)
         } failure: { error in
             log.error(error)
