@@ -78,7 +78,7 @@ class XWHDeviceMainVC: XWHSearchBindDevBaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        checkDevConnectState()
+        tableView.reloadData()
     }
 
 }
@@ -170,15 +170,13 @@ extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableVi
         
         if item.cellType == .info {
             let cell = tableView.dequeueReusableCell(withClass: XWHDeviceInfoTBCell.self)
-            
-            let tColor = UIColor(hex: 0x2A2A2A)!
-            let txt1 = "SKYWORTH"
-//            let txt2 = "Watch S1"
-            let txt2 = connWatchModel?.name.replacingOccurrences(of: txt1, with: "") ?? ""
-            let attr = "\(txt1) \(txt2)".colored(with: tColor).applying(attributes: [.font: XWHFont.skSans(ofSize: 13, weight: .bold)], toOccurrencesOf: txt1).applying(attributes: [.font: XWHFont.skSans(ofSize: 13, weight: .regular)], toOccurrencesOf: txt2)
-            
-            cell.titleLb.attributedText = attr
-            cell.subTitleLb.text = "已连接  |  电量：\(connWatchModel?.battery ?? 0)%"
+            if let cDevModel = connWatchModel {
+                cell.update(cDevModel, isConnected: isConnected)
+                
+                cell.clickCallback = { [unowned self] in
+                    self.checkReconnect()
+                }
+            }
             
             return cell
         } else if item.cellType == .dail {
@@ -287,11 +285,9 @@ extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableVi
 // MARK: - Api
 extension XWHDeviceMainVC {
     
-    private func checkDevConnectState() {
+    private func checkReconnect() {
         if XWHDDMShared.connectBindState == .disconnected {
             reconnect()
-        } else if XWHDDMShared.connectBindState == .paired {
-            updateDeviceInfo()
         }
     }
     

@@ -98,7 +98,12 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
     
     /// 重连设备
     override func reconnect(device: XWHDevWatchModel, connectHandler: XWHDevConnectHandler?) {
+        if connectBindState != .disconnected {
+            return
+        }
+        
         log.info("UTE 重连设备")
+        
         disconnect(device: device)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             self?.connect(device: device, isReconnect: true, connectHandler: connectHandler)

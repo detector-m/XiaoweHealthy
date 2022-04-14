@@ -11,6 +11,8 @@ class XWHDeviceInfoTBCell: XWHCommonBaseTBCell {
     
     lazy var devImageView = XWHDeviceFaceView()
     lazy var button = UIButton()
+    
+    var clickCallback: (() -> ())?
 
     override func addSubViews() {
         super.addSubViews()
@@ -57,14 +59,49 @@ class XWHDeviceInfoTBCell: XWHCommonBaseTBCell {
         }
         
         button.snp.makeConstraints { make in
-            make.size.equalTo(32)
+            make.width.height.equalTo(32)
             make.left.equalTo(titleLb)
             make.top.equalTo(subTitleLb.snp.bottom).offset(12)
         }
     }
     
     @objc func clickButton() {
-        
+        clickCallback?()
     }
 
+    func update(_ deviceInfo: XWHDevWatchModel, isConnected: Bool) {
+        let tColor = UIColor(hex: 0x2A2A2A)!
+        let txt1 = "SKYWORTH"
+//            let txt2 = "Watch S1"
+        let txt2 = deviceInfo.name.replacingOccurrences(of: txt1, with: "")
+        let attr = "\(txt1) \(txt2)".colored(with: tColor).applying(attributes: [.font: XWHFont.skSans(ofSize: 13, weight: .bold)], toOccurrencesOf: txt1).applying(attributes: [.font: XWHFont.skSans(ofSize: 13, weight: .regular)], toOccurrencesOf: txt2)
+        titleLb.attributedText = attr
+        
+        if isConnected {
+            subTitleLb.text = R.string.xwhDeviceText.已连接电量N().replacingOccurrences(of: "N", with: deviceInfo.battery.string)
+            
+            button.setImage(R.image.loading()?.scaled(toWidth: 18), for: .normal)
+            button.setTitle(nil, for: .normal)
+            button.contentEdgeInsets = .zero
+            button.snp.remakeConstraints { make in
+                make.width.height.equalTo(32)
+                make.left.equalTo(titleLb)
+                make.top.equalTo(subTitleLb.snp.bottom).offset(12)
+            }
+        } else {
+            subTitleLb.text = R.string.xwhDeviceText.设备已断开点击重连()
+            
+            button.setImage(nil, for: .normal)
+            button.setTitle(R.string.xwhDeviceText.重新连接(), for: .normal)
+            button.contentEdgeInsets = UIEdgeInsets(horizontal: 12, vertical: 0)
+            
+            button.snp.remakeConstraints { make in
+                make.width.lessThanOrEqualTo(150)
+                make.height.equalTo(32)
+                make.left.equalTo(titleLb)
+                make.top.equalTo(subTitleLb.snp.bottom).offset(12)
+            }
+        }
+    }
+    
 }
