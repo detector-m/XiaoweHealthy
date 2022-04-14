@@ -115,6 +115,93 @@ extension XWHDataDeviceManager {
         deleteWatch(identifier: watch.identifier)
     }
     
+    class func getCurrentDevice() -> XWHDevWatchModel? {
+        XWHDataWatchManager.getCurrentWatch()
+    }
+    
+    class func getCurrentDeviceIdentifier() -> String? {
+        return getCurrentWatch()?.identifier
+    }
+    
+    // WristSet
+    class func getCurrentRaiseWristSet() -> XWHRaiseWristSetModel? {
+        guard let cId = getCurrentDeviceIdentifier() else {
+            log.error("当前不存在设备")
+            return nil
+        }
+        
+       return getRaiseWristSet(identifier: cId)
+    }
+    
+    // NoticeSet
+    class func getCurrentNoticeSet() -> XWHNoticeSetModel? {
+        guard let cId = getCurrentDeviceIdentifier() else {
+            log.error("当前不存在设备")
+            return nil
+        }
+        
+       return getNoticeSet(identifier: cId)
+    }
+    
+    // LongSitSet
+    class func getCurrentLongSitSet() -> XWHLongSitSetModel? {
+        guard let cId = getCurrentDeviceIdentifier() else {
+            log.error("当前不存在设备")
+            return nil
+        }
+        
+       return getLongSitSet(identifier: cId)
+    }
+    
+    // BloodPressureSet
+    class func getCurrentBloodPressureSet() -> XWHBloodPressureSetModel? {
+        guard let cId = getCurrentDeviceIdentifier() else {
+            log.error("当前不存在设备")
+            return nil
+        }
+        
+       return getBloodPressureSet(identifier: cId)
+    }
+    
+    // BloodOxygenSet
+    class func getCurrentBloodOxygenSet() -> XWHBloodOxygenSetModel? {
+        guard let cId = getCurrentDeviceIdentifier() else {
+            log.error("当前不存在设备")
+            return nil
+        }
+        
+       return getBloodOxygenSet(identifier: cId)
+    }
+    
+    // HeartSet
+    class func getCurrentHeartSet() -> XWHHeartSetModel? {
+        guard let cId = getCurrentDeviceIdentifier() else {
+            log.error("当前不存在设备")
+            return nil
+        }
+        
+       return getHeartSet(identifier: cId)
+    }
+    
+    // DisturbSet
+    class func getCurrentDisturbSet() -> XWHDisturbSetModel? {
+        guard let cId = getCurrentDeviceIdentifier() else {
+            log.error("当前不存在设备")
+            return nil
+        }
+        
+       return getDisturbSet(identifier: cId)
+    }
+    
+    // WeatherSet
+    class func getCurrentWeatherSet() -> XWHWeatherSetModel? {
+        guard let cId = getCurrentDeviceIdentifier() else {
+            log.error("当前不存在设备")
+            return nil
+        }
+        
+       return getWeatherSet(identifier: cId)
+    }
 }
 
 // MARK: - 手表 （Watch）
@@ -324,7 +411,7 @@ extension XWHDataDeviceManager {
         XWHDataBloodOxygenSetManager.saveBloodOxygenSet(bloodOxygenSet)
     }
     
-    class func getBloodPressureSet(identifier: String) -> XWHBloodOxygenSetModel? {
+    class func getBloodOxygenSet(identifier: String) -> XWHBloodOxygenSetModel? {
         XWHDataBloodOxygenSetManager.getBloodOxygenSet(identifier: identifier)
     }
     
