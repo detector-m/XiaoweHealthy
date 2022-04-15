@@ -53,4 +53,8 @@ class XWHDialTitleCTCell: XWHBaseCTCell {
         clickAction?()
     }
     
+    func update(_ category: XWHDialCategoryModel) {
+        textLb.text = category.name
+    }
+    
 }

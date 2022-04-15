@@ -59,7 +59,7 @@ class XWHDialVC: TabmanViewController {
         
         view.backgroundColor = bgColor
         
-        setNavTransparent()
+        setNav(color: bgColor)
         
         setupNavigationItems()
         configPageController()
@@ -76,6 +76,7 @@ class XWHDialVC: TabmanViewController {
     
     @objc private func clickNavGlobalBackBtn() {
         navigationController?.popViewController(animated: true)
+        resetNavFromTransparent()
     }
     
     private func getNavGlobalBackItem(target: UIViewController, action: Selector) -> UIBarButtonItem {
@@ -137,6 +138,7 @@ class XWHDialVC: TabmanViewController {
     private func getBgView() -> UIView {
         let bgView = UIView()
         let contentView = UIView()
+        bgView.backgroundColor = bgColor
         bgView.addSubview(contentView)
         contentView.layer.cornerRadius = 22
         contentView.layer.backgroundColor = dialBarBgColor.cgColor

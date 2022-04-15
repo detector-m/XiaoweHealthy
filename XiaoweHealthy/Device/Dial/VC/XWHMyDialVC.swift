@@ -11,6 +11,8 @@ class XWHMyDialVC: XWHDialContentBaseVC {
     
     lazy var page = 1
     lazy var pageSize = 20
+    
+    lazy var dials = [XWHDialModel]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +30,7 @@ class XWHMyDialVC: XWHDialContentBaseVC {
     
     // MARK: - UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return dials.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -41,16 +43,17 @@ class XWHMyDialVC: XWHDialContentBaseVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cDial = dials[indexPath.item]
         let cell = collectionView.dequeueReusableCell(withClass: XWHDialCTCell.self, for: indexPath)
         
-        cell.imageView.image = R.image.devicePlaceholder()
-        cell.textLb.text = "index \(indexPath.item)"
+        cell.update(cDial)
         
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        gotoDialDetail()
+        let cDial = dials[indexPath.item]
+        gotoDialDetail(cDial)
     }
 
 }
@@ -65,6 +68,14 @@ extension XWHMyDialVC {
             self.view.makeInsetToast(error.message)
         } successHandler: { [unowned self] response in
             XWHProgressHUD.hide()
+            
+            guard let cDials = response.data as? [XWHDialModel] else {
+                self.view.makeInsetToast("数据解析错误")
+                return
+            }
+            
+            self.dials = cDials
+            self.collectionView.reloadData()
         }
     }
     
@@ -74,8 +85,9 @@ extension XWHMyDialVC {
 // MARK: - Jump
 extension XWHMyDialVC {
     
-    func gotoDialDetail() {
+    func gotoDialDetail(_ dial: XWHDialModel) {
         let vc = XWHDialDetailVC()
+        vc.dial = dial
         navigationController?.pushViewController(vc, animated: true)
     }
     

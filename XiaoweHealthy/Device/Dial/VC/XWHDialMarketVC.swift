@@ -8,10 +8,14 @@
 import UIKit
 
 class XWHDialMarketVC: XWHDialContentBaseVC {
+    
+    private lazy var categories = [XWHDialCategoryModel]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        collectionView.clipsToBounds = true
+
         getMarketCategoryDial()
     }
     
@@ -21,8 +25,13 @@ class XWHDialMarketVC: XWHDialContentBaseVC {
     }
     
     // MARK: - UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return categories.count
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        let dials = categories[section].items
+        return dials.count + 1
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -38,22 +47,23 @@ class XWHDialMarketVC: XWHDialContentBaseVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cCagegory = categories[indexPath.section]
         if indexPath.item == 0 {
             let cell = collectionView.dequeueReusableCell(withClass:XWHDialTitleCTCell.self, for: indexPath)
             
-            cell.textLb.text = "最新上传 \(indexPath.item)"
+            cell.update(cCagegory)
             
             cell.clickAction = { [unowned self] in
-                self.gotoMore()
+                self.gotoMore(cCagegory)
             }
             
             return cell
         }
         
+        let cDial = cCagegory.items[indexPath.item - 1]
         let cell = collectionView.dequeueReusableCell(withClass: XWHDialCTCell.self, for: indexPath)
         
-        cell.imageView.image = R.image.devicePlaceholder()
-        cell.textLb.text = "index \(indexPath.item)"
+        cell.update(cDial)
         
         return cell
     }
@@ -62,7 +72,10 @@ class XWHDialMarketVC: XWHDialContentBaseVC {
         if indexPath.item == 0 {
             return
         }
-        gotoDialDetail()
+        
+        let cCagegory = categories[indexPath.section]
+        let cDial = cCagegory.items[indexPath.item - 1]
+        gotoDialDetail(cDial)
     }
     
 }
@@ -77,6 +90,14 @@ extension XWHDialMarketVC {
             self.view.makeInsetToast(error.message)
         } successHandler: { [unowned self] response in
             XWHProgressHUD.hide()
+            
+            guard let cCategories = response.data as? [XWHDialCategoryModel] else {
+                self.view.makeInsetToast("数据解析错误")
+                return
+            }
+            
+            self.categories = cCategories
+            self.collectionView.reloadData()
         }
     }
     
@@ -86,13 +107,15 @@ extension XWHDialMarketVC {
 // MARK: - Jump
 extension XWHDialMarketVC {
     
-    private func gotoDialDetail() {
+    private func gotoDialDetail(_ dial: XWHDialModel) {
         let vc = XWHDialDetailVC()
+        vc.dial = dial
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    private func gotoMore() {
+    private func gotoMore(_ category: XWHDialCategoryModel) {
         let vc = XWHDialMoreVC()
+        vc.category = category
         navigationController?.pushViewController(vc, animated: true)
     }
     

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class XWHDialCTCell: XWHBaseCTCell {
     
@@ -32,6 +33,11 @@ class XWHDialCTCell: XWHBaseCTCell {
             make.centerX.equalToSuperview()
             make.width.lessThanOrEqualToSuperview()
         }
+    }
+    
+    func update(_ dial: XWHDialModel) {
+        textLb.text = dial.name
+        imageView.kf.setImage(with: dial.image.url)
     }
     
 }

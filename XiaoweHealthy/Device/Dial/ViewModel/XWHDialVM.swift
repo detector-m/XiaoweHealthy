@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HandyJSON
 
 
 class XWHDialVM {
@@ -47,7 +48,7 @@ class XWHDialVM {
         dialProvider.request(.getMyDial(deviceSn, page, pageSize)) { result in
             let cId = "Dial.GetMyDial"
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
-//                response.data =
+                response.data = [XWHDialModel].deserialize(from: json.arrayObject)
                 
                 return nil
             }
@@ -62,8 +63,7 @@ class XWHDialVM {
         dialProvider.request(.getMarketDialCategory) { result in
             let cId = "Dial.GetMarketDialCategory"
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
-//                response.data =
-                
+                response.data = [XWHDialCategoryModel].deserialize(from: json.arrayObject)
                 return nil
             }
         }
@@ -81,7 +81,7 @@ class XWHDialVM {
         dialProvider.request(.getMarketCategoryDial(categoryId, deviceSn, page, pageSize)) { result in
             let cId = "Dial.GetMarketCategoryDial"
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
-//                response.data =
+                response.data = [XWHDialModel].deserialize(from: json.arrayObject)
                 
                 return nil
             }

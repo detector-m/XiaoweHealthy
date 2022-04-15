@@ -6,11 +6,19 @@
 //
 
 import UIKit
+import Kingfisher
 
 class XWHDialDetailVC: XWHDeviceBaseVC {
 
     lazy var devImageView = XWHDeviceFaceView()
     lazy var button = XWHProgressButton()
+    
+    lazy var dial = XWHDialModel() {
+        didSet {
+            titleLb.text = dial.name
+            devImageView.imageView.kf.setImage(with: dial.image.url, placeholder: R.image.devicePlacehodlerCover())
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +30,7 @@ class XWHDialDetailVC: XWHDeviceBaseVC {
         devImageView.bgImageView.contentMode = .scaleAspectFit
         devImageView.imageView.contentMode = .scaleAspectFit
         devImageView.bgImageView.image = R.image.devicePlacehodlerBg()
-        devImageView.imageView.image = R.image.devicePlacehodlerCover()
+//        devImageView.imageView.image = R.image.devicePlacehodlerCover()
         view.addSubview(devImageView)
         
         button.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 16, weight: .medium)
@@ -38,17 +46,16 @@ class XWHDialDetailVC: XWHDeviceBaseVC {
         detailLb.isHidden = true
         titleLb.font = XWHFont.harmonyOSSans(ofSize: 16, weight: .medium)
         titleLb.textAlignment = .center
-        titleLb.text = "经典商务蓝"
     }
     
     override func relayoutSubViews() {
         devImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.width.equalTo(240).priority(.low)
-            make.left.right.equalToSuperview().inset(43).priority(.high)
-
+//            make.width.equalTo(240).priority(.low)
+//            make.left.right.equalToSuperview().inset(43).priority(.high)
+            make.width.height.equalTo(240)
             make.top.equalTo(112)
-            make.height.equalTo(devImageView.snp.width)
+//            make.height.equalTo(devImageView.snp.width)
         }
         
         titleLb.snp.makeConstraints { make in
