@@ -164,6 +164,8 @@
 		96DC42A427FD88A2009BF300 /* XWHFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DC42A327FD88A2009BF300 /* XWHFileManager.swift */; };
 		96DC42A727FD9F8A009BF300 /* XWHDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DC42A627FD9F8A009BF300 /* XWHDownloader.swift */; };
 		96DC42A927FDA3C7009BF300 /* XWHTimeoutHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DC42A827FDA3C7009BF300 /* XWHTimeoutHandler.swift */; };
+		96DEA2162809B11800723D11 /* XWHDialApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DEA2152809B11800723D11 /* XWHDialApi.swift */; };
+		96DEA2182809B6F100723D11 /* XWHDialVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DEA2172809B6F100723D11 /* XWHDialVM.swift */; };
 		96E23C0A27E1898C009EF208 /* XWHTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */; };
 		96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */; };
 		96E23C1427E18D19009EF208 /* XWHDisplayText.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96E23C1627E18D19009EF208 /* XWHDisplayText.strings */; };
@@ -408,6 +410,8 @@
 		96DC42A327FD88A2009BF300 /* XWHFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHFileManager.swift; sourceTree = "<group>"; };
 		96DC42A627FD9F8A009BF300 /* XWHDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDownloader.swift; sourceTree = "<group>"; };
 		96DC42A827FDA3C7009BF300 /* XWHTimeoutHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTimeoutHandler.swift; sourceTree = "<group>"; };
+		96DEA2152809B11800723D11 /* XWHDialApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDialApi.swift; sourceTree = "<group>"; };
+		96DEA2172809B6F100723D11 /* XWHDialVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDialVM.swift; sourceTree = "<group>"; };
 		96E23C0927E1898C009EF208 /* XWHTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTabBarVC.swift; sourceTree = "<group>"; };
 		96E23C0B27E18A19009EF208 /* XWHRootVCProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHRootVCProvider.swift; sourceTree = "<group>"; };
 		96E23C1727E18D9C009EF208 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/XWHDisplayText.strings"; sourceTree = "<group>"; };
@@ -1420,6 +1424,22 @@
 			path = DownloadManager;
 			sourceTree = "<group>";
 		};
+		96DEA2132809B06E00723D11 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				96DEA2172809B6F100723D11 /* XWHDialVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		96DEA2142809B08900723D11 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				96DEA2152809B11800723D11 /* XWHDialApi.swift */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
 		96E23C0627E18003009EF208 /* AppEntry */ = {
 			isa = PBXGroup;
 			children = (
@@ -1510,6 +1530,8 @@
 		96F1D65E28067BE80067DBFD /* Dial */ = {
 			isa = PBXGroup;
 			children = (
+				96DEA2142809B08900723D11 /* Api */,
+				96DEA2132809B06E00723D11 /* ViewModel */,
 				96F1D679280919E40067DBFD /* Model */,
 				96F1D67A280919E90067DBFD /* View */,
 				96F1D678280919DC0067DBFD /* VC */,
@@ -1974,6 +1996,7 @@
 				96F1D67628082B510067DBFD /* XWHLocation.swift in Sources */,
 				968CB8AC27F4570A00E549AC /* XWHDialMarketTBCell.swift in Sources */,
 				9678257C27F2F44D004F66FB /* RLRadarIndicatorView.swift in Sources */,
+				96DEA2182809B6F100723D11 /* XWHDialVM.swift in Sources */,
 				967AF4C327EF545800235E08 /* XWHDeviceVM.swift in Sources */,
 				9653E49027F552E300EE55FF /* XWHDevSetBaseVC.swift in Sources */,
 				96F1D6662806BE960067DBFD /* XWHDevContactModel.swift in Sources */,
@@ -1987,6 +2010,7 @@
 				96617AAF27E3457100139B03 /* XWHRegisterFillInfoBaseVC.swift in Sources */,
 				96F3588527FE7F1800783614 /* XWHDeviceManagerEnum.swift in Sources */,
 				9653E4A827F5B1F800EE55FF /* XWHComLineBaseTBCell.swift in Sources */,
+				96DEA2162809B11800723D11 /* XWHDialApi.swift in Sources */,
 				967AF4C127EF544200235E08 /* XWHDevicePagerViewCell.swift in Sources */,
 				96617A7627E1EE3000139B03 /* XWHBaseNavigationVC.swift in Sources */,
 				9651EE0A27EAFB0B0043FE52 /* XWHLoginRegisterApi.swift in Sources */,

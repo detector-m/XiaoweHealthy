@@ -11,6 +11,8 @@ class XWHDialMarketVC: XWHDialContentBaseVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getMarketCategoryDial()
     }
     
     override func registerViews() {
@@ -61,6 +63,21 @@ class XWHDialMarketVC: XWHDialContentBaseVC {
             return
         }
         gotoDialDetail()
+    }
+    
+}
+
+// MARK: - Api
+extension XWHDialMarketVC {
+    
+    private func getMarketCategoryDial() {
+        XWHProgressHUD.show(title: nil)
+        XWHDialVM().getMarketDialCategory { [unowned self] error in
+            XWHProgressHUD.hide()
+            self.view.makeInsetToast(error.message)
+        } successHandler: { [unowned self] response in
+            XWHProgressHUD.hide()
+        }
     }
     
 }

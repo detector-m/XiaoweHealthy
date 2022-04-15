@@ -8,13 +8,22 @@
 import UIKit
 
 class XWHMyDialVC: XWHDialContentBaseVC {
+    
+    lazy var page = 1
+    lazy var pageSize = 20
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getDialsFromServer()
     }
     
     override func registerViews() {
         collectionView.register(cellWithClass: XWHDialCTCell.self)
+    }
+    
+    func getDialsFromServer() {
+        getMyDialFromServer()
     }
     
     // MARK: - UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate
@@ -46,11 +55,26 @@ class XWHMyDialVC: XWHDialContentBaseVC {
 
 }
 
+// MARK: - Api
+extension XWHMyDialVC {
+    
+    private func getMyDialFromServer() {
+        XWHProgressHUD.show(title: nil)
+        XWHDialVM().getMyDial(deviceSn: "1923190012204123456", page: page, pageSize: pageSize) { [unowned self] error in
+            XWHProgressHUD.hide()
+            self.view.makeInsetToast(error.message)
+        } successHandler: { [unowned self] response in
+            XWHProgressHUD.hide()
+        }
+    }
+    
+}
+
 
 // MARK: - Jump
 extension XWHMyDialVC {
     
-    private func gotoDialDetail() {
+    func gotoDialDetail() {
         let vc = XWHDialDetailVC()
         navigationController?.pushViewController(vc, animated: true)
     }

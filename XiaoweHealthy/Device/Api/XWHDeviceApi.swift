@@ -11,6 +11,7 @@ import Moya
 let deviceProvider = MoyaProvider<XWHDeviceApi>()
 
 enum XWHDeviceApi {
+    
     // 获取设备产品列表
     case list
     
