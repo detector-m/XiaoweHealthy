@@ -140,7 +140,7 @@ class XWHUserVM {
     }
 
     // 查询用户设备列表
-    func devices(deviceSn: String, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+    func devices(failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
         userProvider.request(.devices) { result in
             let cId = "User.Devices"
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler)
