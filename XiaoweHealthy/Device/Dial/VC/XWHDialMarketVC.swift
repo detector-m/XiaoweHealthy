@@ -24,6 +24,9 @@ class XWHDialMarketVC: XWHDialContentBaseVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.item == 0 {
+            return CGSize(width: collectionView.width - 32, height: 48)
+        }
         let cWidth = (collectionView.width - 32 - 4) / 3
         return CGSize(width: cWidth.int, height: 154)
     }
@@ -33,6 +36,18 @@ class XWHDialMarketVC: XWHDialContentBaseVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if indexPath.item == 0 {
+            let cell = collectionView.dequeueReusableCell(withClass:XWHDialTitleCTCell.self, for: indexPath)
+            
+            cell.textLb.text = "最新上传 \(indexPath.item)"
+            
+            cell.clickAction = { [unowned self] in
+                self.gotoMore()
+            }
+            
+            return cell
+        }
+        
         let cell = collectionView.dequeueReusableCell(withClass: XWHDialCTCell.self, for: indexPath)
         
         cell.imageView.image = R.image.devicePlaceholder()
@@ -42,6 +57,9 @@ class XWHDialMarketVC: XWHDialContentBaseVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.item == 0 {
+            return
+        }
         gotoDialDetail()
     }
     
@@ -53,6 +71,11 @@ extension XWHDialMarketVC {
     
     private func gotoDialDetail() {
         let vc = XWHDialDetailVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func gotoMore() {
+        let vc = XWHDialMoreVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     
