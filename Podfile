@@ -67,6 +67,9 @@ target 'XiaoweHealthy' do
   # 轮播图
   pod 'FSPagerView'
   
+  # 分页控制器
+  pod 'Tabman'
+  
   # 下载进度条
   pod 'LinearProgressBar'
   

@@ -61,7 +61,9 @@ class XWHHealthyMainVC: XWHBaseVC {
 //        testScan()
         
 //        testDatabase()
-        testUTEWeatherApi()
+//        testUTEWeatherApi()
+        
+        testDailVC()
     }
     
     @objc func clickLoginBtn2() {
@@ -135,6 +137,11 @@ extension XWHHealthyMainVC {
                 self?.view.makeInsetToast(error.message)
             }
         }
+    }
+    
+    private func testDailVC() {
+        let vc = XWHDialVC()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }

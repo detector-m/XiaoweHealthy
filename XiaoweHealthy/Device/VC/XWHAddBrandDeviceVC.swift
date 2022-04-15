@@ -58,7 +58,7 @@ class XWHAddBrandDeviceVC: XWHDeviceBaseVC, UICollectionViewDataSource, UICollec
         }
     }
     
-    // MARK: - UICollectionViewDataSource, UICollectionViewFlowLayout, UICollectionViewDelegate
+    // MARK: - UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }

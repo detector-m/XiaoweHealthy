@@ -39,7 +39,7 @@ enum XWHDeployCellType: Int {
     case nomal = 0
     case `switch` = 1
     case explanation = 2
-    case dail = 3
+    case dial = 3
     case info = 4
     
 }
@@ -142,9 +142,9 @@ class XWHDeviceDeploy {
             
             
         case .dialMarket:
-            item.title = R.string.xwhDeviceText.表盘市场()
+            item.title = R.string.xwhDialText.表盘市场()
             item.subTitle = R.string.xwhDeviceText.更多()
-            item.cellType = .dail
+            item.cellType = .dial
 //            item.iconBgColor = UIColor(hex: 0x6AACF7)
 //            item.iconImageName = "DeviceUpdate"
             

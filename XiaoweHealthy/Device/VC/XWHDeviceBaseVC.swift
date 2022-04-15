@@ -26,11 +26,11 @@ class XWHDeviceBaseVC: XWHBaseVC {
         super.addSubViews()
         
         titleLb.font = XWHFont.harmonyOSSans(ofSize: 30, weight: .bold)
-        titleLb.textColor = UIColor(hex: 0x000000, transparency: 0.9)
+        titleLb.textColor = fontDarkColor
         view.addSubview(titleLb)
         
         detailLb.font = XWHFont.harmonyOSSans(ofSize: 14)
-        detailLb.textColor = UIColor(hex: 0x000000, transparency: 0.9)
+        detailLb.textColor = fontDarkColor
         view.addSubview(detailLb)
     }
     

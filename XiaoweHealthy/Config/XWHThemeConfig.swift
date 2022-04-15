@@ -96,6 +96,28 @@ var btnBgColor: UIColor {
     }
 }
 
-//struct XWHThemeConfig {
-//
-//}
+
+// MARK: - 表盘市场（Dial）
+
+let lightDialBarBgColor = UIColor(hex: 0x000000, transparency: 0.03)!
+let darkDialBarBgColor = lightDialBarBgColor
+
+var dialBarBgColor: UIColor {
+    if #available(iOS 13.0, *) {
+        return UIColor(light: lightDialBarBgColor, dark: darkDialBarBgColor)
+    } else {
+        return lightDialBarBgColor
+    }
+}
+
+let lightDialBarHighlightColor = UIColor.white
+let darkDialBarHighlightColor = lightDialBarHighlightColor
+
+var dialBarHighlightColor: UIColor {
+    if #available(iOS 13.0, *) {
+        return UIColor(light: lightDialBarHighlightColor, dark: darkDialBarHighlightColor)
+    } else {
+        return lightDialBarHighlightColor
+    }
+}
+

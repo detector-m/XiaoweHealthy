@@ -155,7 +155,7 @@ extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableVi
             return 209
         }
         
-        if item.cellType == .dail {
+        if item.cellType == .dial {
             return 184
         }
             
@@ -179,7 +179,7 @@ extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableVi
             }
             
             return cell
-        } else if item.cellType == .dail {
+        } else if item.cellType == .dial {
             let cell = tableView.dequeueReusableCell(withClass: XWHDialMarketTBCell.self)
             
             cell.titleLb.text = item.title
@@ -234,7 +234,7 @@ extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableVi
         
         switch item.type {
         case .dialMarket:
-            gotoDevSetDailMarket()
+            gotoDevSetDialMarket()
             
         case .chat:
             gotoDevSetChat()
@@ -359,30 +359,34 @@ extension XWHDeviceMainVC {
 extension XWHDeviceMainVC {
     
     // 表盘市场
-    private func gotoDevSetDailMarket() {
-//        view.makeInsetToast("功能开发中...")
-        let fileName = "D391901_pix360x360_rgb565"
+    private func gotoDevSetDialMarket() {
+        let vc = XWHDialVC()
+        navigationController?.pushViewController(vc, animated: true)
         
-        guard let dialUrl = Bundle.main.url(forResource: fileName, withExtension: "bin") else {
-            return
-        }
-        
-        XWHProgressHUD.show(title: "表盘安装中...")
-        XWHDDMShared.sendDialFile(dialUrl) { progress in
+        func testInstallDial() {
+            let fileName = "D391901_pix360x360_rgb565"
             
-        } handler: { [weak self] result in
-            guard let self = self else {
+            guard let dialUrl = Bundle.main.url(forResource: fileName, withExtension: "bin") else {
                 return
             }
             
-            XWHProgressHUD.hide()
-            
-            switch result {
-            case .success(_):
-                self.view.makeInsetToast("安装成功")
+            XWHProgressHUD.show(title: "表盘安装中...")
+            XWHDDMShared.sendDialFile(dialUrl) { progress in
                 
-            case .failure(let error):
-                self.view.makeInsetToast(error.message)
+            } handler: { [weak self] result in
+                guard let self = self else {
+                    return
+                }
+                
+                XWHProgressHUD.hide()
+                
+                switch result {
+                case .success(_):
+                    self.view.makeInsetToast("安装成功")
+                    
+                case .failure(let error):
+                    self.view.makeInsetToast(error.message)
+                }
             }
         }
     }
