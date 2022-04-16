@@ -362,33 +362,6 @@ extension XWHDeviceMainVC {
     private func gotoDevSetDialMarket() {
         let vc = XWHDialVC()
         navigationController?.pushViewController(vc, animated: true)
-        
-        func testInstallDial() {
-            let fileName = "D391901_pix360x360_rgb565"
-            
-            guard let dialUrl = Bundle.main.url(forResource: fileName, withExtension: "bin") else {
-                return
-            }
-            
-            XWHProgressHUD.show(title: "表盘安装中...")
-            XWHDDMShared.sendDialFile(dialUrl) { progress in
-                
-            } handler: { [weak self] result in
-                guard let self = self else {
-                    return
-                }
-                
-                XWHProgressHUD.hide()
-                
-                switch result {
-                case .success(_):
-                    self.view.makeInsetToast("安装成功")
-                    
-                case .failure(let error):
-                    self.view.makeInsetToast(error.message)
-                }
-            }
-        }
     }
     
     // 消息通知

@@ -19,6 +19,12 @@ class XWHDialDetailVC: XWHDeviceBaseVC {
             devImageView.imageView.kf.setImage(with: dial.image.url, placeholder: R.image.devicePlacehodlerCover())
         }
     }
+    
+    private var isInstalling = false {
+        didSet {
+            rt_disableInteractivePop = isInstalling
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +43,7 @@ class XWHDialDetailVC: XWHDeviceBaseVC {
         button.setTitleColor(fontLightLightColor, for: .normal)
         button.addTarget(self, action: #selector(clickButton), for: .touchUpInside)
         button.progressView.capType = 1
-        button.progressView.trackColor = btnBgColor.withAlphaComponent(0.35)
+        button.progressView.trackColor = btnBgColor
         button.progressView.barColor = btnBgColor
         view.addSubview(button)
 
@@ -71,8 +77,128 @@ class XWHDialDetailVC: XWHDeviceBaseVC {
         }
     }
     
-    @objc private func clickButton() {
+    override func clickNavGlobalBackBtn() {
+        if isInstalling {
+            view.makeInsetToast(R.string.xwhDialText.表盘安装中())
+            return
+        }
         
+        super.clickNavGlobalBackBtn()
+    }
+    
+    @objc private func clickButton() {
+        installingUI()
+        downloadInstall()
     }
 
+}
+
+// MARK: - 下载安装UI
+extension XWHDialDetailVC {
+    
+    private func allowInstallUI() {
+        button.isEnabled = true
+
+        button.progressView.progressValue = 0
+        button.progressView.trackColor = btnBgColor
+        button.progressView.barColor = btnBgColor
+        
+        button.setTitle(R.string.xwhDialText.设置为当前表盘(), for: .normal)
+    }
+    
+    private func installingUI() {
+        button.isEnabled = false
+        button.progressView.progressValue = 1
+        button.progressView.trackColor = btnBgColor.withAlphaComponent(0.35)
+        button.progressView.barColor = btnBgColor
+        
+        button.setTitle(R.string.xwhDialText.安装中(), for: .normal)
+    }
+    
+    private func installedUI () {
+        button.isEnabled = false
+        
+        button.progressView.progressValue = 0
+        button.progressView.trackColor = btnBgColor.withAlphaComponent(0.35)
+        button.progressView.barColor = btnBgColor
+        
+        button.setTitle(R.string.xwhDialText.已设置(), for: .normal)
+    }
+    
+}
+    
+
+
+// MARK: - Api
+extension XWHDialDetailVC {
+    
+    private func downloadInstall() {
+        isInstalling = true
+        XWHDialDownloadInstallManager.download(url: dial.file) { [weak self] pRes in
+            guard let self = self else {
+                return
+            }
+            
+            let cProgress = pRes.progress / 2
+            self.button.progressView.progressValue = cProgress.cgFloat
+        } failureHandler: { [weak self] error in
+            guard let self = self else {
+                return
+            }
+            
+            self.isInstalling = false
+            self.allowInstallUI()
+            self.view.makeInsetToast(error.message)
+        } successHandler: { [weak self] sRes in
+            guard let self = self else {
+                return
+            }
+//            self.installedUI()
+            if let fileUrl = sRes.data as? URL {
+                self.install(fileUrl)
+            } else {
+                self.isInstalling = false
+
+                self.allowInstallUI()
+                self.view.makeInsetToast("下载失败")
+            }
+        }
+    }
+    
+    private func install(_ dialUrl: URL) {
+//        let fileName = "D391901_pix360x360_rgb565"
+//
+//        guard let dialUrl = Bundle.main.url(forResource: fileName, withExtension: "bin") else {
+//            return
+//        }
+        
+//        XWHProgressHUD.show(title: "表盘安装中...")
+        log.debug("安装表盘的文件路径 = \(dialUrl.path)")
+        XWHDDMShared.sendDialFile(dialUrl) { [weak self] progress in
+            guard let self = self else {
+                return
+            }
+            
+            let cProgress = progress / 2 + 50
+            self.button.progressView.progressValue = cProgress.cgFloat
+        } handler: { [weak self] result in
+            guard let self = self else {
+                return
+            }
+//            XWHProgressHUD.hide()
+            
+            switch result {
+            case .success(_):
+                self.isInstalling = false
+                self.installedUI()
+                self.view.makeInsetToast("安装成功")
+                
+            case .failure(let error):
+                self.isInstalling = false
+                self.allowInstallUI()
+                self.view.makeInsetToast(error.message)
+            }
+        }
+    }
+    
 }

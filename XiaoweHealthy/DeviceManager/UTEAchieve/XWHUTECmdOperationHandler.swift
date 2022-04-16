@@ -8,6 +8,7 @@
 import UIKit
 import UTESmartBandApi
 import Alamofire
+import SwiftUI
 
 class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
     
@@ -438,12 +439,18 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
         
         log.info("UTE 发送表盘数据")
         manager.sendUTEDisplayData(toDevice: data) { cp in
-            progressHandler?(cp.int)
+            DispatchQueue.main.async {
+                progressHandler?((cp * 100) .int)
+            }
         } success: {
-            handler?(.success(nil))
+            DispatchQueue.main.async {
+                handler?(.success(nil))
+            }
         } failure: { cErr in
             log.error(cErr)
-            handler?(.failure(error))
+            DispatchQueue.main.async {
+                handler?(.failure(error))
+            }
         }
     }
     
@@ -453,14 +460,14 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
         error.message = "发送表盘文件失败"
         error.data = XWHDevDataTransferState.failed
         
-        if !fileUrl.isFileURL {
-            error.message = "发送表盘文件路径错误"
-            
-            log.error("\(error), \(fileUrl)")
-            
-            handler?(.failure(error))
-            return
-        }
+//        if !fileUrl.isFileURL {
+//            error.message = "发送表盘文件路径错误"
+//
+//            log.error("\(error), \(fileUrl)")
+//
+//            handler?(.failure(error))
+//            return
+//        }
         
         guard let dailData = try? Data(contentsOf: fileUrl) else {
             error.message = "发送表盘文件路径错误"
@@ -472,7 +479,7 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
             return
         }
         
-        log.info("UTE 发送表盘文件")
+        log.info("UTE 发送表盘文件 fileUrl = \(fileUrl.path)")
         sendDialData(dailData, progressHandler: progressHandler, handler: handler)
     }
     

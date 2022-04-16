@@ -10,7 +10,7 @@ import LinearProgressBar
 
 class XWHProgressButton: UIButton {
 
-    lazy var progressView: LinearProgressBar = LinearProgressBar()
+    lazy var progressView = LinearProgressBar()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

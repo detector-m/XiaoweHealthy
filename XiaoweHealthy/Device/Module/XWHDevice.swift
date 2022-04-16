@@ -15,7 +15,7 @@ class XWHDevice {
     }
     
     class func getRootVC() -> UIViewController {
-        if let _ = XWHDataDeviceManager.getCurrentWatch() {
+        if XWHUser.isLogined(), let _ = XWHDataDeviceManager.getCurrentWatch() {
             return XWHDeviceMainVC()
         }
         

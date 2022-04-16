@@ -126,6 +126,7 @@
 		968CB8AC27F4570A00E549AC /* XWHDialMarketTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8AB27F4570A00E549AC /* XWHDialMarketTBCell.swift */; };
 		968CB8AE27F45DB100E549AC /* XWHDeviceInfoTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8AD27F45DB100E549AC /* XWHDeviceInfoTBCell.swift */; };
 		968CB8B027F4661700E549AC /* XWHDeviceMainFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8AF27F4661700E549AC /* XWHDeviceMainFooter.swift */; };
+		969E7118280AB51F00BDA401 /* XWHDialDownloadInstallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E7117280AB51F00BDA401 /* XWHDialDownloadInstallManager.swift */; };
 		969F01B827F692AE00CA4DA4 /* RLPopupContentBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F01B727F692AE00CA4DA4 /* RLPopupContentBaseView.swift */; };
 		969F01BA27F693B100CA4DA4 /* RLPopupBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F01B927F693B100CA4DA4 /* RLPopupBaseView.swift */; };
 		969F01BD27F69D8B00CA4DA4 /* XWHPopupPick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F01BC27F69D8B00CA4DA4 /* XWHPopupPick.swift */; };
@@ -374,6 +375,7 @@
 		968CB8AB27F4570A00E549AC /* XWHDialMarketTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDialMarketTBCell.swift; sourceTree = "<group>"; };
 		968CB8AD27F45DB100E549AC /* XWHDeviceInfoTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceInfoTBCell.swift; sourceTree = "<group>"; };
 		968CB8AF27F4661700E549AC /* XWHDeviceMainFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceMainFooter.swift; sourceTree = "<group>"; };
+		969E7117280AB51F00BDA401 /* XWHDialDownloadInstallManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDialDownloadInstallManager.swift; sourceTree = "<group>"; };
 		969F01B727F692AE00CA4DA4 /* RLPopupContentBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLPopupContentBaseView.swift; sourceTree = "<group>"; };
 		969F01B927F693B100CA4DA4 /* RLPopupBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLPopupBaseView.swift; sourceTree = "<group>"; };
 		969F01BC27F69D8B00CA4DA4 /* XWHPopupPick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPopupPick.swift; sourceTree = "<group>"; };
@@ -1168,6 +1170,14 @@
 			path = DeviceDeploy;
 			sourceTree = "<group>";
 		};
+		969E7116280AB2D400BDA401 /* DownloadInstall */ = {
+			isa = PBXGroup;
+			children = (
+				969E7117280AB51F00BDA401 /* XWHDialDownloadInstallManager.swift */,
+			);
+			path = DownloadInstall;
+			sourceTree = "<group>";
+		};
 		969F01B627F6924100CA4DA4 /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -1534,6 +1544,7 @@
 		96F1D65E28067BE80067DBFD /* Dial */ = {
 			isa = PBXGroup;
 			children = (
+				969E7116280AB2D400BDA401 /* DownloadInstall */,
 				96DEA2142809B08900723D11 /* Api */,
 				96DEA2132809B06E00723D11 /* ViewModel */,
 				96F1D679280919E40067DBFD /* Model */,
@@ -2038,6 +2049,7 @@
 				96C67AF428047249001ACA81 /* XWHBloodPressureSetModel.swift in Sources */,
 				96AD285A280144F40092B843 /* XWHLog.swift in Sources */,
 				9653E49427F5556300EE55FF /* XWHDevSetCallVC.swift in Sources */,
+				969E7118280AB51F00BDA401 /* XWHDialDownloadInstallManager.swift in Sources */,
 				96C67AE02803D79E001ACA81 /* XWHDataNoticeSetManager.swift in Sources */,
 				9651EE1A27EBFBEA0043FE52 /* XWHError.swift in Sources */,
 				96F1D68628096B400067DBFD /* XWHCollectionBaseVC.swift in Sources */,

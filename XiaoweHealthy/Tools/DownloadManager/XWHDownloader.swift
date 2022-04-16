@@ -20,7 +20,11 @@ class XWHDownloader {
         return _sManager
     }()
     
-    func download(url: URLConvertible, headers: [String: String]? = ["Accept-Encoding": ""], fileName: String? = nil, onMainQueue: Bool = true, progressHandler: ProgressHandler? = nil, failureHandler: FailureHandler?, successHandler: SuccessHandler? = nil) {
+    init() {
+        downloader.totalRemove(completely: true)
+    }
+    
+    func download(url: URLConvertible, headers: [String: String]? = ["Accept-Encoding": ""], fileName: String? = nil, onMainQueue: Bool = true, progressHandler: ProgressHandler? = nil, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
         let timeoutTask = XWHTimeoutHandler.delay(by: XWHTimeoutHandler.kTimeoutTS) {
             self.downloader.cancel(url)
             
@@ -42,6 +46,9 @@ class XWHDownloader {
             
             let res = XWHResponse()
             res.progress = 100
+            
+            let fileUrl = URL(fileURLWithPath: task.filePath)
+            res.data = fileUrl
             
             successHandler?(res)
         })
