@@ -224,14 +224,18 @@ extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let section = indexPath.section
         let row = indexPath.row
+        
+        let item = deviceItems[section][row]
+        
+        if item.cellType == .info {
+            return
+        }
 
         if !isConnected {
             view.makeInsetToast(R.string.xwhDeviceText.设备未连接())
             return
         }
-        
-        let item = deviceItems[section][row]
-        
+                
         switch item.type {
         case .dialMarket:
             gotoDevSetDialMarket()

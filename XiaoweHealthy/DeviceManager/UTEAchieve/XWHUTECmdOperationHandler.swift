@@ -414,6 +414,10 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
     
     /// 同步联系人
     func sendContact(_ contacts: [XWHDevContactModel], handler: XWHDevCmdOperationHandler?) {
+        if !checkUTEConnectBind(handler: handler) {
+            return
+        }
+        
         let uteContacts = getUTEContacts(contacts)
         manager.sendUTEContactInfo(uteContacts) {
             handler?(.success(nil))
@@ -423,6 +427,10 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
     // MARK: - 表盘（Dial）
     /// 发送表盘数据
     func sendDialData(_ data: Data, progressHandler: DevTransferProgressHandler?, handler: XWHDevCmdOperationHandler?) {
+        if !checkUTEConnectBind(handler: handler) {
+            return
+        }
+        
         var error = XWHError()
         error.message = "发送表盘数据失败"
         error.data = XWHDevDataTransferState.failed
@@ -456,6 +464,10 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
     
     /// 发送表盘文件
     func sendDialFile(_ fileUrl: URL, progressHandler: DevTransferProgressHandler?, handler: XWHDevCmdOperationHandler?) {
+        if !checkUTEConnectBind(handler: handler) {
+            return
+        }
+        
         var error = XWHError()
         error.message = "发送表盘文件失败"
         error.data = XWHDevDataTransferState.failed
@@ -609,6 +621,26 @@ extension XWHUTECmdOperationHandler {
         }
         
         return uteContacts
+    }
+    
+    private func isUTEConnectBind() -> Bool {
+        if let _ = manager.connectedDevicesModel {
+            return true
+        }
+        
+        return false
+    }
+    
+    private func checkUTEConnectBind(handler: XWHDevCmdOperationHandler?) -> Bool {
+        if isUTEConnectBind() {
+            return true
+        }
+        
+        let error = XWHError(message: "未连接绑定")
+        log.error(error)
+        handler?(.failure(error))
+        
+        return false
     }
     
 }

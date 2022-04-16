@@ -9,7 +9,7 @@ import Foundation
 
 class XWHTimeoutHandler {
     
-    static let kTimeoutTS: TimeInterval = 120
+    static let kTimeoutTS: TimeInterval = 90
     
     typealias TimeoutTask = (_ cancel: Bool) -> Void
     

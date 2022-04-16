@@ -134,7 +134,7 @@ extension XWHDialDetailVC {
     
     private func downloadInstall() {
         isInstalling = true
-        XWHDialDownloadInstallManager.download(url: dial.file) { [weak self] pRes in
+        XWHDialManager.download(url: dial.file) { [weak self] pRes in
             guard let self = self else {
                 return
             }
@@ -165,16 +165,8 @@ extension XWHDialDetailVC {
         }
     }
     
-    private func install(_ dialUrl: URL) {
-//        let fileName = "D391901_pix360x360_rgb565"
-//
-//        guard let dialUrl = Bundle.main.url(forResource: fileName, withExtension: "bin") else {
-//            return
-//        }
-        
-//        XWHProgressHUD.show(title: "表盘安装中...")
-        log.debug("安装表盘的文件路径 = \(dialUrl.path)")
-        XWHDDMShared.sendDialFile(dialUrl) { [weak self] progress in
+    private func install(_ dialUrl: URL ) {
+        XWHDialManager.install(url: dialUrl) { [weak self] progress in
             guard let self = self else {
                 return
             }
@@ -185,7 +177,6 @@ extension XWHDialDetailVC {
             guard let self = self else {
                 return
             }
-//            XWHProgressHUD.hide()
             
             switch result {
             case .success(_):

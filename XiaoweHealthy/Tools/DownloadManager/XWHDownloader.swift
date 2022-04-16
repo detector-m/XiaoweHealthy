@@ -11,6 +11,10 @@ import Tiercel
 
 class XWHDownloader {
     
+    deinit {
+        log.debug("xxxx")
+    }
+    
     private(set) lazy var downloader: SessionManager = {
         var sessionConfiguration = SessionConfiguration()
         sessionConfiguration.allowsCellularAccess = true
@@ -20,15 +24,13 @@ class XWHDownloader {
         return _sManager
     }()
     
-    init() {
-        downloader.totalRemove(completely: true)
-    }
-    
     func download(url: URLConvertible, headers: [String: String]? = ["Accept-Encoding": ""], fileName: String? = nil, onMainQueue: Bool = true, progressHandler: ProgressHandler? = nil, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
         let timeoutTask = XWHTimeoutHandler.delay(by: XWHTimeoutHandler.kTimeoutTS) {
             self.downloader.cancel(url)
             
+            let error = XWHError(message: "下载失败")
             log.error("下载文件超时 url = \(url)")
+            failureHandler?(error)
         }
         
         let cTask = downloader.download(url, headers: headers, fileName: fileName, onMainQueue: onMainQueue)?.progress(handler: { task in
@@ -42,21 +44,38 @@ class XWHDownloader {
             res.progress = cPrgress
             progressHandler?(res)
         }).completion(handler: { task in
+            if task.status == .removed {
+                return
+            }
+            
             XWHTimeoutHandler.delayCancel(timeoutTask)
+
+            if task.status == .failed {
+                let error = XWHError(message: "下载失败")
+                log.error("下载文件失败 url = \(url)")
+                failureHandler?(error)
+                
+                return
+            }
             
-            let res = XWHResponse()
-            res.progress = 100
-            
-            let fileUrl = URL(fileURLWithPath: task.filePath)
-            res.data = fileUrl
-            
-            successHandler?(res)
+            if task.status == .succeeded {
+                let res = XWHResponse()
+                res.progress = 100
+                
+                let fileUrl = URL(fileURLWithPath: task.filePath)
+                res.data = fileUrl
+                
+                successHandler?(res)
+                return
+            }
         })
         
         if cTask == nil {
             XWHTimeoutHandler.delayCancel(timeoutTask)
 
+            let error = XWHError(message: "下载失败")
             log.error("创建下载文件任务失败 url = \(url)")
+            failureHandler?(error)
         }
     }
     
