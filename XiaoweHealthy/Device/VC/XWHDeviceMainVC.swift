@@ -365,6 +365,8 @@ extension XWHDeviceMainVC {
     // 表盘市场
     private func gotoDevSetDialMarket() {
         let vc = XWHDialVC()
+        // Test
+        vc.deviceSn = "1923190012204123456"
         navigationController?.pushViewController(vc, animated: true)
     }
     

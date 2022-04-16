@@ -121,8 +121,8 @@ class XWHUserVM {
     }
     
     // 绑定设备
-    func bindDevice(deviceInfo: [String: String], failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
-        let reqParam = ["deviceName": "", "deviceMode": "deviceSn", "macAddr": ""]
+    func bindDevice(deviceSn: String, deviceMode: String, deviceName: String, macAddr: String, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        let reqParam = ["deviceSn": deviceSn, "deviceName": deviceName, "deviceMode": deviceMode, "macAddr": macAddr]
         userProvider.request(.bindDevice(parameters: reqParam)) { result in
             let cId = "User.BindDevice"
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in

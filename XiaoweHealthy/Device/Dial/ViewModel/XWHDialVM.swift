@@ -59,8 +59,8 @@ class XWHDialVM {
     /// - Parameters:
     ///     - failureHandler: 失败回调
     ///     - successHandler: 成功回调
-    func getMarketDialCategory(failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
-        dialProvider.request(.getMarketDialCategory) { result in
+    func getMarketDialCategory(deviceSn: String, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        dialProvider.request(.getMarketDialCategory(deviceSn)) { result in
             let cId = "Dial.GetMarketDialCategory"
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
                 response.data = [XWHDialCategoryModel].deserialize(from: json.arrayObject)

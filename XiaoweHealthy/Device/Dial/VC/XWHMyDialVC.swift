@@ -77,7 +77,7 @@ extension XWHMyDialVC {
     
     private func getMyDialFromServer() {
         XWHProgressHUD.show(title: nil)
-        XWHDialVM().getMyDial(deviceSn: "1923190012204123456", page: page, pageSize: pageSize) { [unowned self] error in
+        XWHDialVM().getMyDial(deviceSn: deviceSn, page: page, pageSize: pageSize) { [unowned self] error in
             XWHProgressHUD.hide()
             self.view.makeInsetToast(error.message)
         } successHandler: { [unowned self] response in
@@ -106,6 +106,7 @@ extension XWHMyDialVC {
     func gotoDialDetail(_ dial: XWHDialModel) {
         let vc = XWHDialDetailVC()
         vc.dial = dial
+        vc.deviceSn = deviceSn
         navigationController?.pushViewController(vc, animated: true)
     }
     

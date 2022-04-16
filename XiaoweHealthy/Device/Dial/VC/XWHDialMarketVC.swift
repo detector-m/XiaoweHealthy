@@ -85,7 +85,7 @@ extension XWHDialMarketVC {
     
     private func getMarketCategoryDial() {
         XWHProgressHUD.show(title: nil)
-        XWHDialVM().getMarketDialCategory { [unowned self] error in
+        XWHDialVM().getMarketDialCategory(deviceSn: deviceSn) { [unowned self] error in
             XWHProgressHUD.hide()
             self.view.makeInsetToast(error.message)
         } successHandler: { [unowned self] response in
@@ -110,12 +110,14 @@ extension XWHDialMarketVC {
     private func gotoDialDetail(_ dial: XWHDialModel) {
         let vc = XWHDialDetailVC()
         vc.dial = dial
+        vc.deviceSn = deviceSn
         navigationController?.pushViewController(vc, animated: true)
     }
     
     private func gotoMore(_ category: XWHDialCategoryModel) {
         let vc = XWHDialMoreVC()
         vc.category = category
+        vc.deviceSn = deviceSn
         navigationController?.pushViewController(vc, animated: true)
     }
     

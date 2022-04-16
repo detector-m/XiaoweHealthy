@@ -20,6 +20,8 @@ class XWHDialDetailVC: XWHDeviceBaseVC {
         }
     }
     
+    lazy var deviceSn = ""
+    
     private var isInstalling = false {
         didSet {
             rt_disableInteractivePop = isInstalling
@@ -184,11 +186,26 @@ extension XWHDialDetailVC {
                 self.installedUI()
                 self.view.makeInsetToast("安装成功")
                 
+                self.addInstallDial()
+                
             case .failure(let error):
                 self.isInstalling = false
                 self.allowInstallUI()
                 self.view.makeInsetToast(error.message)
             }
+        }
+    }
+    
+    // 添加安装的表盘
+    private func addInstallDial() {
+        if dial.dialNo.isEmpty {
+            return
+        }
+        
+        XWHDialVM().add(dialNo: dial.dialNo, deviceSn: deviceSn) { error in
+            log.error(error)
+        } successHandler: { _ in
+            
         }
     }
     

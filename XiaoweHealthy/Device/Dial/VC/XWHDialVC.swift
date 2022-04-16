@@ -49,10 +49,23 @@ class XWHDialVC: TabmanViewController {
     }
     
     // MARK: Properties
-    private lazy var pageItems: [(String, UIViewController)] = [
-        (R.string.xwhDialText.我的表盘(), XWHMyDialVC()),
-        (R.string.xwhDialText.表盘市场(), XWHDialMarketVC())
-    ]
+    // 设备标识
+    lazy var deviceSn: String = "" {
+        didSet {
+            pageItems.forEach { item in
+                let vc = item.1 as? XWHDialContentBaseVC
+                vc?.deviceSn = deviceSn
+            }
+        }
+    }
+    
+    private lazy var pageItems: [(String, UIViewController)] = {
+        let myDialVC = XWHMyDialVC()
+        let dialMarketVC = XWHDialMarketVC()
+        
+        return [(R.string.xwhDialText.我的表盘(), myDialVC),
+                (R.string.xwhDialText.表盘市场(), dialMarketVC)]
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()

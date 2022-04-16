@@ -141,7 +141,25 @@ extension XWHHealthyMainVC {
     
     private func testDailVC() {
         let vc = XWHDialVC()
+        // Test
+        vc.deviceSn = "1923190012204123456"
         navigationController?.pushViewController(vc, animated: true)
+        
+        // Test
+//        let deviceSn = "1923190012204123456"
+//        XWHDialVM().add(dialNo: "D3919001", deviceSn: deviceSn) { error in
+//
+//        } successHandler: { response in
+//
+//        }
+        
+        // Test
+//        XWHUserVM().bindDevice(deviceSn: deviceSn, deviceMode: "S1", deviceName: "ABCE", macAddr: "12345678900988765") { error in
+//            log.error(error)
+//        } successHandler: { res in
+//
+//        }
+
     }
     
 }

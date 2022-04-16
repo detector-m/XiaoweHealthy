@@ -114,6 +114,8 @@ extension XWHBindDeviceVC {
         bindDeviceSuccessUI()
         
         updateDeviceInfo()
+        
+        uploadBindDevice(bindDevice)
     }
     
 }
@@ -221,6 +223,17 @@ extension XWHBindDeviceVC {
             case .failure(let error):
                 self.view.makeInsetToast(error.message)
             }
+        }
+    }
+    
+    // 绑定设备上报
+    func uploadBindDevice(_ device: XWHDevWatchModel) {
+        // Test
+        let deviceSn = "1923190012204123456"
+        XWHUserVM().bindDevice(deviceSn: deviceSn, deviceMode: "S1", deviceName: "ABCE", macAddr: "12345678900988765432") { error in
+            log.error(error)
+        } successHandler: { res in
+            
         }
     }
     

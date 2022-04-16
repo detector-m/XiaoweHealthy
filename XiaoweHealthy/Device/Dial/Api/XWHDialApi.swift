@@ -23,7 +23,7 @@ enum XWHDialApi {
     case getMyDial(_ deviceSn: String, _ page: Int, _ pageSize: Int)
     
     // 表盘市场列表页数据
-    case getMarketDialCategory
+    case getMarketDialCategory(_ deviceSn: String)
     
     // 表盘市场分类页数据
     case getMarketCategoryDial(_ categoryId: Int, _ deviceSn: String, _ page: Int, _ pageSize: Int)
@@ -71,8 +71,8 @@ extension XWHDialApi: XWHServiceTargetType {
         case .getMyDial(let deviceSn, let page, let pageSize):
             param = ["deviceSn": deviceSn, "page": page, "pageSize": pageSize]
             
-        case .getMarketDialCategory:
-            break
+        case .getMarketDialCategory(let deviceSn):
+            param = ["deviceSn": deviceSn]
             
         case .getMarketCategoryDial(let categoryId, let deviceSn, let page, let pageSize):
             param = ["categoryId": categoryId, "deviceSn": deviceSn, "page": page, "pageSize": pageSize]

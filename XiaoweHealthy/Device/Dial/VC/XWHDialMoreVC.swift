@@ -34,7 +34,7 @@ extension XWHDialMoreVC {
     
     private func getMarketCategoryDial() {
         XWHProgressHUD.show(title: nil)
-        XWHDialVM().getMarketCategoryDial(categoryId: category.categoryId, deviceSn: "1923190012204123456", page: page, pageSize: pageSize) { [unowned self] error in
+        XWHDialVM().getMarketCategoryDial(categoryId: category.categoryId, deviceSn: deviceSn, page: page, pageSize: pageSize) { [unowned self] error in
             XWHProgressHUD.hide()
             self.view.makeInsetToast(error.message)
         } successHandler: { [unowned self] response in

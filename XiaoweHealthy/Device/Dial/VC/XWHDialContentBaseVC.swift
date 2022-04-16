@@ -9,6 +9,9 @@ import UIKit
 
 class XWHDialContentBaseVC: XWHCollectionBaseVC {
     
+    // 设备标识
+    lazy var deviceSn: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
