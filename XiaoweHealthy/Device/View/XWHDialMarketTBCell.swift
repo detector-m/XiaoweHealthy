@@ -9,22 +9,25 @@ import UIKit
 
 class XWHDialMarketTBCell: XWHCommonBaseTBCell {
     
-    lazy var dailImageView1 = UIImageView()
-    lazy var dailImageView2 = UIImageView()
-    lazy var dailImageView3 = UIImageView()
+    lazy var dialImageView1 = UIImageView()
+    lazy var dialImageView2 = UIImageView()
+    lazy var dialImageView3 = UIImageView()
 
     override func addSubViews() {
         super.addSubViews()
         
-        contentView.addSubview(dailImageView1)
-        contentView.addSubview(dailImageView2)
-        contentView.addSubview(dailImageView3)
+        contentView.addSubview(dialImageView1)
+        contentView.addSubview(dialImageView2)
+        contentView.addSubview(dialImageView3)
         
-        dailImageView1.image = UIImage(named: "1.jpg")
-        dailImageView2.image = UIImage(named: "2.jpg")
-        dailImageView3.image = UIImage(named: "3.jpg")
+//        dialImageView1.image = UIImage(named: "1.jpg")
+//        dialImageView2.image = UIImage(named: "2.jpg")
+//        dialImageView3.image = UIImage(named: "3.jpg")
         
         iconView.isHidden = true
+        dialImageView1.isHidden = true
+        dialImageView2.isHidden = true
+        dialImageView3.isHidden = true
     }
     
     override func relayoutSubViews() {
@@ -47,19 +50,19 @@ class XWHDialMarketTBCell: XWHCommonBaseTBCell {
             make.height.equalTo(22)
         }
         
-        dailImageView1.snp.makeConstraints { make in
+        dialImageView1.snp.makeConstraints { make in
             make.size.equalTo(90)
             make.bottom.equalToSuperview().offset(-24)
             make.left.equalToSuperview().offset(20)
         }
         
-        dailImageView2.snp.makeConstraints { make in
-            make.size.centerY.equalTo(dailImageView1)
+        dialImageView2.snp.makeConstraints { make in
+            make.size.centerY.equalTo(dialImageView1)
             make.centerX.equalToSuperview()
         }
         
-        dailImageView3.snp.makeConstraints { make in
-            make.size.centerY.equalTo(dailImageView1)
+        dialImageView3.snp.makeConstraints { make in
+            make.size.centerY.equalTo(dialImageView1)
             make.right.equalToSuperview().offset(-20)
         }
     }

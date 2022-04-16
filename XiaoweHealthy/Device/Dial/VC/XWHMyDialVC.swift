@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import EmptyDataSet_Swift
 
 class XWHMyDialVC: XWHDialContentBaseVC {
     
@@ -18,6 +19,19 @@ class XWHMyDialVC: XWHDialContentBaseVC {
         super.viewDidLoad()
         
         getDialsFromServer()
+    }
+    
+    override func addSubViews() {
+        super.addSubViews()
+        
+        collectionView.emptyDataSetView { [weak self] emptyView in
+            guard let _ = self else {
+                return
+            }
+            
+            let detailText = R.string.xwhDialText.暂无表盘您可以到表盘市场添加()
+            emptyView.detailLabelString(detailText.colored(with: fontDarkColor).applying(attributes: [.font: XWHFont.harmonyOSSans(ofSize: 16)], toOccurrencesOf: detailText))
+        }
     }
     
     override func registerViews() {
@@ -76,6 +90,10 @@ extension XWHMyDialVC {
             
             self.dials = cDials
             self.collectionView.reloadData()
+            
+            if cDials.isEmpty {
+                self.collectionView.reloadEmptyDataSet()
+            }
         }
     }
     

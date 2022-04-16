@@ -64,6 +64,9 @@ target 'XiaoweHealthy' do
   pod "ESTabBarController-swift"
   pod "RTRootNavigationController"
   
+  # 空页面
+  pod 'EmptyDataSet-Swift'
+  
   # 轮播图
   pod 'FSPagerView'
   

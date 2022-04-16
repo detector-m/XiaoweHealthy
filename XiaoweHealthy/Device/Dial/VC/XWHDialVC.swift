@@ -56,7 +56,7 @@ class XWHDialVC: TabmanViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         view.backgroundColor = bgColor
         
         setNav(color: bgColor)
