@@ -387,7 +387,7 @@ extension XWHDeviceMainVC {
     
     // 联系人
     private func gotoDevSetContact() {
-        let vc = XWHContactEntryVC()
+        let vc = XWHContactVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     

@@ -166,20 +166,9 @@ extension XWHHealthyMainVC {
     }
     
     private func testContact() {
-        let vc = XWHContactEntryVC()
+        let vc = XWHContactVC()
         navigationController?.pushViewController(vc, animated: true)
         
-//        requestAccess { result in
-//            switch result {
-//            case let .success(bool):
-//                print(bool)
-//            case let .failure(error):
-//                print(error.localizedDescription)
-//            }
-//        }
-//
-//        let status = authorizationStatus()
-//        print(status == CNAuthorizationStatus.authorized)
 //
 //        fetchContacts { result in
 //            switch result {

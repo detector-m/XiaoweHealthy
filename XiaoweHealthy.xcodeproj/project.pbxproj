@@ -128,8 +128,9 @@
 		968CB8B027F4661700E549AC /* XWHDeviceMainFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8AF27F4661700E549AC /* XWHDeviceMainFooter.swift */; };
 		969E7118280AB51F00BDA401 /* XWHDialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E7117280AB51F00BDA401 /* XWHDialManager.swift */; };
 		969E711B280BE09F00BDA401 /* XWHTableViewBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E711A280BE09F00BDA401 /* XWHTableViewBaseVC.swift */; };
-		969E7121280BE34A00BDA401 /* XWHContactEntryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E7120280BE34A00BDA401 /* XWHContactEntryVC.swift */; };
+		969E7121280BE34A00BDA401 /* XWHContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E7120280BE34A00BDA401 /* XWHContactVC.swift */; };
 		969E7123280BE3D800BDA401 /* XWHContactText.strings in Resources */ = {isa = PBXBuildFile; fileRef = 969E7122280BE3D800BDA401 /* XWHContactText.strings */; };
+		969E7128280BF12000BDA401 /* XWHSelectContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E7127280BF12000BDA401 /* XWHSelectContactVC.swift */; };
 		969F01B827F692AE00CA4DA4 /* RLPopupContentBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F01B727F692AE00CA4DA4 /* RLPopupContentBaseView.swift */; };
 		969F01BA27F693B100CA4DA4 /* RLPopupBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F01B927F693B100CA4DA4 /* RLPopupBaseView.swift */; };
 		969F01BD27F69D8B00CA4DA4 /* XWHPopupPick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F01BC27F69D8B00CA4DA4 /* XWHPopupPick.swift */; };
@@ -380,8 +381,9 @@
 		968CB8AF27F4661700E549AC /* XWHDeviceMainFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceMainFooter.swift; sourceTree = "<group>"; };
 		969E7117280AB51F00BDA401 /* XWHDialManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDialManager.swift; sourceTree = "<group>"; };
 		969E711A280BE09F00BDA401 /* XWHTableViewBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTableViewBaseVC.swift; sourceTree = "<group>"; };
-		969E7120280BE34A00BDA401 /* XWHContactEntryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHContactEntryVC.swift; sourceTree = "<group>"; };
+		969E7120280BE34A00BDA401 /* XWHContactVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHContactVC.swift; sourceTree = "<group>"; };
 		969E7122280BE3D800BDA401 /* XWHContactText.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = XWHContactText.strings; sourceTree = "<group>"; };
+		969E7127280BF12000BDA401 /* XWHSelectContactVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSelectContactVC.swift; sourceTree = "<group>"; };
 		969F01B727F692AE00CA4DA4 /* RLPopupContentBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLPopupContentBaseView.swift; sourceTree = "<group>"; };
 		969F01B927F693B100CA4DA4 /* RLPopupBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLPopupBaseView.swift; sourceTree = "<group>"; };
 		969F01BC27F69D8B00CA4DA4 /* XWHPopupPick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPopupPick.swift; sourceTree = "<group>"; };
@@ -1199,7 +1201,8 @@
 		969E711C280BE29400BDA401 /* VC */ = {
 			isa = PBXGroup;
 			children = (
-				969E7120280BE34A00BDA401 /* XWHContactEntryVC.swift */,
+				969E7120280BE34A00BDA401 /* XWHContactVC.swift */,
+				969E7127280BF12000BDA401 /* XWHSelectContactVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -2058,6 +2061,7 @@
 				9651EDF427E8C3870043FE52 /* XWHUIViewExtension.swift in Sources */,
 				966F53C727F1E71800411D38 /* XWHSearchBindDevBaseVC.swift in Sources */,
 				96FC407F27EDA19300D64B64 /* XWHFont.swift in Sources */,
+				969E7128280BF12000BDA401 /* XWHSelectContactVC.swift in Sources */,
 				96C67AE52804166B001ACA81 /* XWHWeatherSetModel.swift in Sources */,
 				9651EE2027EBFE390043FE52 /* XWHNetwork.swift in Sources */,
 				96F1D66E2807F7CC0067DBFD /* XWHWeatherServiceProtocol.swift in Sources */,
@@ -2132,7 +2136,7 @@
 				96E8A6BD27F1738200F5C75C /* XWHUINavigationControllerExtension.swift in Sources */,
 				96F3588327FE7CE000783614 /* XWHBLEDispatchProtocol.swift in Sources */,
 				9651EE0E27EB06F20043FE52 /* XWHLoginRegisterVM.swift in Sources */,
-				969E7121280BE34A00BDA401 /* XWHContactEntryVC.swift in Sources */,
+				969E7121280BE34A00BDA401 /* XWHContactVC.swift in Sources */,
 				96DC42A727FD9F8A009BF300 /* XWHDownloader.swift in Sources */,
 				9648E61327E0796D0077180D /* ViewController.swift in Sources */,
 				9648E60F27E0796D0077180D /* AppDelegate.swift in Sources */,

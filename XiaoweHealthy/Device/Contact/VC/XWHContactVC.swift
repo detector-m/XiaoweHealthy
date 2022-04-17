@@ -1,13 +1,14 @@
 //
-//  XWHContactEntryVC.swift
+//  XWHContactVC.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/4/17.
 //
 
 import UIKit
+import SwiftyContacts
 
-class XWHContactEntryVC: XWHSearchBindDevBaseVC {
+class XWHContactVC: XWHSearchBindDevBaseVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +42,42 @@ class XWHContactEntryVC: XWHSearchBindDevBaseVC {
     }
     
     @objc override func clickButton() {
-        
+        requestAccess { [unowned self] result in
+            switch result {
+            case let .success(isOk):
+                if isOk {
+                    self.gotoSelectContact()
+                } else {
+                    self.gotoShowContactPermission()
+                }
+                
+            case let .failure(error):
+                log.error(error.localizedDescription)
+                
+//                let status = authorizationStatus()
+//                log.debug(status == CNAuthorizationStatus.authorized)
+                self.gotoShowContactPermission()
+            }
+        }
     }
 
+}
+
+
+// MARK: - Jump VC
+extension XWHContactVC {
+    
+    private func gotoShowContactPermission() {
+        XWHAlert.show(title: nil, message: R.string.xwhContactText.需要联系人权限以获取联系人()) { aType in
+            if aType == .confirm {
+                RLBLEPermissions.openAppSettings()
+            }
+        }
+    }
+    
+    private func gotoSelectContact() {
+        let vc = XWHSelectContactVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
