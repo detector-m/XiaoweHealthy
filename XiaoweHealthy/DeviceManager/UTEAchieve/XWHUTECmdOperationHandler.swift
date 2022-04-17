@@ -420,7 +420,9 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
         
         let uteContacts = getUTEContacts(contacts)
         manager.sendUTEContactInfo(uteContacts) {
-            handler?(.success(nil))
+            DispatchQueue.main.async {
+                handler?(.success(nil))
+            }
         }
     }
     

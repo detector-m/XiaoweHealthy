@@ -37,6 +37,9 @@ class XWHComLineBaseTBCell: XWHCommonBaseTBCell {
             make.left.equalToSuperview().offset(28)
             make.right.equalToSuperview().offset(-16)
         }
+        
+        contentView.bringSubviewToFront(topLine)
+        contentView.bringSubviewToFront(bottomLine)
     }
     
 }

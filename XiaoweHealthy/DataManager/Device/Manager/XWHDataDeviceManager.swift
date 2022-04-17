@@ -33,6 +33,8 @@ class XWHDataDeviceManager {
         try createDisturbSetTable(db)
                 
         try createWeatherSetTable(db)
+        
+        try createContactTable(db)
     }
     
     class func test() {
@@ -226,7 +228,7 @@ extension XWHDataDeviceManager {
             return nil
         }
         
-       return disturbSet
+        return disturbSet
     }
     
     // WeatherSet
@@ -242,7 +244,34 @@ extension XWHDataDeviceManager {
             return nil
         }
         
-       return weatherSet
+        return weatherSet
+    }
+    
+    // Contact
+    class func getCurrentContacts() -> [XWHDevContactModel]? {
+        guard let cId = getCurrentDeviceIdentifier() else {
+            log.error("当前不存在设备")
+            return nil
+        }
+        
+        guard let contacts = getContacts(identifier: cId) else {
+            log.error("当前不存在 contacts")
+
+            return nil
+        }
+        
+        return contacts
+    }
+    
+    class func saveCurrentContacts(_ contacts: [XWHDevContactModel]) {
+        guard let cId = getCurrentDeviceIdentifier() else {
+            log.error("当前不存在设备")
+            return
+        }
+        
+        contacts.forEach({ $0.identifier = cId })
+        
+        saveContacts(contacts)
     }
     
 }
@@ -532,5 +561,41 @@ extension XWHDataDeviceManager {
     class func deleteWeatherSet(identifier: String) {
         XWHDataWeatherSetManager.deleteWeatherSet(identifier: identifier)
     }
+    
+}
+
+
+// MARK: - Contact
+extension XWHDataDeviceManager {
+    
+    /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
+    ///  - Parameter db: 数据库handler
+    class func createContactTable(_ db: Database) throws {
+        try XWHDataContactManager.createContactTable(db)
+    }
+    
+    class func saveContacts(_ contacts: [XWHDevContactModel]) {
+        XWHDataContactManager.saveContacts(contacts)
+    }
+
+    class func getContacts(identifier: String) -> [XWHDevContactModel]? {
+        XWHDataContactManager.getContacts(identifier: identifier)
+    }
+    
+    class func deleteContacts(identifier: String) {
+        XWHDataContactManager.deleteContacts(identifier: identifier)
+    }
+    
+    class func saveContact(_ contact: XWHDevContactModel) {
+        XWHDataContactManager.saveContact(contact)
+    }
+    
+    class func deleteContact(_ contact: XWHDevContactModel) {
+        XWHDataContactManager.deleteContact(contact)
+    }
+    
+//    class func deleteAllContacts() {
+//        XWHDataContactManager.deleteAllContacts()
+//    }
     
 }

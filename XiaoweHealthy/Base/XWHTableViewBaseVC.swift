@@ -13,6 +13,8 @@ class XWHTableViewBaseVC: XWHBaseVC, UITableViewDataSource, UITableViewDelegate 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        registerViews()
     }
     
     override func addSubViews() {
@@ -46,8 +48,9 @@ class XWHTableViewBaseVC: XWHBaseVC, UITableViewDataSource, UITableViewDelegate 
         return 0
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 44
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()

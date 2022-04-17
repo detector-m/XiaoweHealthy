@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftyContacts
 
 class XWHHealthyMainVC: XWHBaseVC {
     
@@ -168,16 +167,6 @@ extension XWHHealthyMainVC {
     private func testContact() {
         let vc = XWHContactVC()
         navigationController?.pushViewController(vc, animated: true)
-        
-//
-//        fetchContacts { result in
-//            switch result {
-//            case let .success(contacts):
-//                print(contacts)
-//            case let .failure(error):
-//                print(error.localizedDescription)
-//            }
-//        }
     }
     
 }

@@ -8,37 +8,28 @@
 import UIKit
 import SwiftyContacts
 
-class XWHContactVC: XWHSearchBindDevBaseVC {
+class XWHContactVC: XWHContactBaseVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        loadContacts()
     }
     
     override func addSubViews() {
         super.addSubViews()
         
         titleLb.text = R.string.xwhContactText.联系人()
-        detailLb.isHidden = true
-        
-        button.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 12)
-        button.setTitleColor(fontDarkColor.withAlphaComponent(0.3), for: .normal)
-        button.layer.backgroundColor = dialBarBgColor.cgColor
-        button.layer.cornerRadius = 16
-        let iconImage = UIImage.iconFont(text: XWHIconFontOcticons.addBg.rawValue, size: 36, color: dialBarBgColor)
-        button.setImage(iconImage, for: .normal)
-        button.setTitle(R.string.xwhContactText.添加联系人(), for: .normal)
-        button.centerTextAndImage(imageAboveText: true, spacing: 6)
+        titleLb.font = XWHFont.harmonyOSSans(ofSize: 30, weight: .bold)
+        titleLb.textColor = fontDarkColor
     }
     
     override func relayoutSubViews() {
-        relayoutTitleLb()
-        
-        button.snp.makeConstraints { make in
-            make.left.right.equalTo(titleLb)
-            make.top.equalTo(titleLb.snp.bottom).offset(16)
-            make.height.equalTo(118)
-        }
+        relayoutNoContact()
+    }
+    
+    override func registerViews() {
+        tableView.register(cellWithClass: XWHContactTBCell.self)
     }
     
     @objc override func clickButton() {
@@ -60,7 +51,107 @@ class XWHContactVC: XWHSearchBindDevBaseVC {
             }
         }
     }
+    
+    // MARK: - UITableViewDataSource & UITableViewDelegate
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return contacts.count
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 52
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withClass: XWHContactTBCell.self, for: indexPath)
+        
+        cell.subIconView.isHidden = true
+        
+        cell.bottomLine.isHidden = false
+        if indexPath.row == self.tableView(tableView, numberOfRowsInSection: 0) - 1 {
+            cell.bottomLine.isHidden = true
+        }
+        
+        cell.update(contact: contacts[indexPath.row])
 
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+    }
+
+}
+
+// MARK: - Data
+extension XWHContactVC {
+    
+    private func loadContacts() {
+        contacts = ddManager.getCurrentContacts() ?? []
+        if contacts.isEmpty {
+            noContactUI()
+            relayoutNoContact()
+        } else {
+            contactUI()
+            relayoutContact()
+            tableView.reloadData()
+        }
+    }
+    
+}
+
+// MARK: - UI
+extension XWHContactVC {
+    
+    private func noContactUI() {
+        button.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 12)
+        button.setTitleColor(fontDarkColor.withAlphaComponent(0.3), for: .normal)
+        button.layer.backgroundColor = dialBarBgColor.cgColor
+        button.layer.cornerRadius = 16
+        let iconImage = UIImage.iconFont(text: XWHIconFontOcticons.addBg.rawValue, size: 36, color: dialBarBgColor)
+        button.setImage(iconImage, for: .normal)
+        button.setTitle(R.string.xwhContactText.添加联系人(), for: .normal)
+        button.centerTextAndImage(imageAboveText: true, spacing: 6)
+    }
+    
+    private func relayoutNoContact() {
+        textField.isHidden = true
+        allSelectBtn.isHidden = true
+        tableView.isHidden = true
+        
+        relayoutTitleLb()
+        
+        button.snp.remakeConstraints { make in
+            make.left.right.equalTo(titleLb)
+            make.top.equalTo(titleLb.snp.bottom).offset(16)
+            make.height.equalTo(118)
+        }
+    }
+    
+    private func contactUI() {
+        button.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 16, weight: .medium)
+        button.setTitleColor(fontLightLightColor, for: .normal)
+        button.layer.backgroundColor = btnBgColor.cgColor
+        button.layer.cornerRadius = 24
+        button.setTitle(R.string.xwhContactText.添加联系人(), for: .normal)
+    }
+    
+    private func relayoutContact() {
+        button.isHidden = false
+        tableView.isHidden = false
+        
+        button.snp.remakeConstraints { make in
+            make.left.right.equalToSuperview().inset(28)
+            make.height.equalTo(48)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-12)
+        }
+        
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(titleLb.snp.bottom).offset(16)
+            make.bottom.equalTo(button.snp.top)
+            make.left.right.equalToSuperview()
+        }
+    }
+    
 }
 
 
