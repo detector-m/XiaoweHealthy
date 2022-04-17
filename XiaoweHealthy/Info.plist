@@ -105,6 +105,8 @@
 	<string>需要定位权限以测试校准。</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>需要定位权限以测试校准。</string>
+	<key>NSContactsUsageDescription</key>
+	<string>需要联系人权限以获取联系人。</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

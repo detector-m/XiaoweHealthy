@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftyContacts
 
 class XWHHealthyMainVC: XWHBaseVC {
     
@@ -63,7 +64,9 @@ class XWHHealthyMainVC: XWHBaseVC {
 //        testDatabase()
 //        testUTEWeatherApi()
         
-        testDailVC()
+//        testDailVC()
+        
+        testContact()
     }
     
     @objc func clickLoginBtn2() {
@@ -160,6 +163,32 @@ extension XWHHealthyMainVC {
 //
 //        }
 
+    }
+    
+    private func testContact() {
+        let vc = XWHContactEntryVC()
+        navigationController?.pushViewController(vc, animated: true)
+        
+//        requestAccess { result in
+//            switch result {
+//            case let .success(bool):
+//                print(bool)
+//            case let .failure(error):
+//                print(error.localizedDescription)
+//            }
+//        }
+//
+//        let status = authorizationStatus()
+//        print(status == CNAuthorizationStatus.authorized)
+//
+//        fetchContacts { result in
+//            switch result {
+//            case let .success(contacts):
+//                print(contacts)
+//            case let .failure(error):
+//                print(error.localizedDescription)
+//            }
+//        }
     }
     
 }

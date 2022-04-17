@@ -1,5 +1,5 @@
 //
-//  XWHCollectionBaseVC.swift
+//  XWHCollectionViewBaseVC.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/4/15.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class XWHCollectionBaseVC: XWHBaseVC, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+class XWHCollectionViewBaseVC: XWHBaseVC, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     
     lazy var flowLayout = UICollectionViewFlowLayout()
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)

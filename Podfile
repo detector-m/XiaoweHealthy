@@ -82,6 +82,9 @@ target 'XiaoweHealthy' do
   # 网络图片处理
   pod 'Kingfisher'
   
+  # 联系人
+  pod 'SwiftyContacts'
+  
   # 文件管理
 #  pod 'Files'
 #  pod "FilesProvider"

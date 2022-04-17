@@ -246,6 +246,9 @@ extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableVi
         case .call:
             gotoDevSetCall()
             
+        case .contact:
+            gotoDevSetContact()
+            
         case .heart:
             gotoDevSetHeart()
             
@@ -379,6 +382,12 @@ extension XWHDeviceMainVC {
     // 来电提醒
     private func gotoDevSetCall() {
         let vc = XWHDevSetCallVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // 联系人
+    private func gotoDevSetContact() {
+        let vc = XWHContactEntryVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     

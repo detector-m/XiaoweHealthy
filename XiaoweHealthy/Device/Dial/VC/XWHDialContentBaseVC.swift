@@ -7,7 +7,7 @@
 
 import UIKit
 
-class XWHDialContentBaseVC: XWHCollectionBaseVC {
+class XWHDialContentBaseVC: XWHCollectionViewBaseVC {
     
     // 设备标识
     lazy var deviceSn: String = ""

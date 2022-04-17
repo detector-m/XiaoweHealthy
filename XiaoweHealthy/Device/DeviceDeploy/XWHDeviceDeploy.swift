@@ -21,7 +21,7 @@ enum XWHDeviceDeployType: Int {
     
     case chat = 300 // 消息通知
     case call = 301 // 来电提醒
-    case user = 302 // 通讯录（联系人）
+    case contact = 302 // 通讯录（联系人）
     case heart = 303 // 心率设置
     case oxygen = 304 // 血氧饱和度设置
     case pressure = 305 // 压力设置
@@ -67,7 +67,7 @@ class XWHDeviceDeploy {
     // 各系列产品功能配置
     lazy var deviceInfoDeploy: [XWHDeviceDeployType] = [.info]
     
-    lazy var commonDeploy1: [XWHDeviceDeployType] = [.chat, .call, .user]
+    lazy var commonDeploy1: [XWHDeviceDeployType] = [.chat, .call, .contact]
     lazy var commonDeploy2: [XWHDeviceDeployType] = [.heart, .oxygen, .pressure, .stand]
     lazy var commonDeploy3: [XWHDeviceDeployType] = [.weather, .wrist, .disturb]
 
@@ -165,10 +165,10 @@ class XWHDeviceDeploy {
             item.iconBgColor = UIColor(hex: 0x6AACF7)
             item.iconImageName = "DeviceCall"
             
-        case .user: // 通讯录（联系人）
+        case .contact: // 通讯录（联系人）
             item.title = R.string.xwhDeviceText.通讯录()
             item.iconBgColor = UIColor(hex: 0x49CE64)
-            item.iconImageName = "DeviceUser"
+            item.iconImageName = "DeviceContact"
 
             
         case .heart: // 心率设置
