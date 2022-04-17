@@ -274,6 +274,15 @@ extension XWHDataDeviceManager {
         saveContacts(contacts)
     }
     
+    class func deleteCurrentContacts() {
+        guard let cId = getCurrentDeviceIdentifier() else {
+            log.error("当前不存在设备")
+            return
+        }
+        
+        deleteContacts(identifier: cId)
+    }
+    
 }
 
 // MARK: - 手表 （Watch）

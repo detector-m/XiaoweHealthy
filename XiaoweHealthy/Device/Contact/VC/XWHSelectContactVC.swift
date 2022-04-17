@@ -208,6 +208,7 @@ extension XWHSelectContactVC {
             
             switch result {
             case .success(_):
+                ddManager.deleteCurrentContacts()
                 ddManager.saveCurrentContacts(selectedContacts)
                 self.updateAfterSyncUI()
                 
