@@ -32,6 +32,10 @@ enum XWHIconFontOcticons: String {
     case addBg = "\u{e66c}"
     case addCircle = "\u{e66d}"
     
+    case delete = "\u{e675}"
+    
+    case finish = "\u{e66a}"
+    
     case cellArrowRight = "\u{e670}"
     
     case update = "\u{e678}"

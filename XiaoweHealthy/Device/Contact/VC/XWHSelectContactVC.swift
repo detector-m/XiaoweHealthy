@@ -17,6 +17,8 @@ class XWHSelectContactVC: XWHContactBaseVC {
         }
     }
     
+    lazy var savedContacts = [XWHDevContactModel]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -127,6 +129,9 @@ class XWHSelectContactVC: XWHContactBaseVC {
     }
     @objc override func clickFilterConfirm() {
         super.clickFilterConfirm()
+        textField.text = nil
+        
+        updateTextFieldRightBtn(textField)
         
         let selecteds = filterView.selectedContacts
         if selecteds.isEmpty {
@@ -145,6 +150,7 @@ class XWHSelectContactVC: XWHContactBaseVC {
         }
         
         tableView.reloadData()
+        updateBeforeSyncUI()
     }
     
     // MARK: - UITableViewDataSource & UITableViewDelegate
@@ -193,6 +199,7 @@ extension XWHSelectContactVC {
             switch result {
             case let .success(contacts):
                 self.parseCNContacts(contacts)
+                updateBeforeSyncUI()
                 self.tableView.reloadData()
                 
             case let .failure(error):
@@ -211,6 +218,14 @@ extension XWHSelectContactVC {
             }
             
             return con
+        }
+        
+        for aModel in contacts {
+            for bModel in savedContacts {
+                if aModel.name == bModel.name, aModel.number == bModel.number {
+                    aModel.isSelected = true
+                }
+            }
         }
     }
     

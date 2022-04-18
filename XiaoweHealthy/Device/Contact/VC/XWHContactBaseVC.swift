@@ -83,7 +83,6 @@ class XWHContactBaseVC: XWHTableViewBaseVC {
         allSelectBtn.setTitle(XWHIconFontOcticons.uncheck.rawValue, for: .normal)
         allSelectBtn.setTitle(XWHIconFontOcticons.checkBg.rawValue, for: .selected)
         allSelectBtn.setTitleColor(fontLightColor.withAlphaComponent(0.2), for: .normal)
-        allSelectBtn.setTitleColor(btnBgColor, for: .selected)
         allSelectBtn.addTarget(self, action: #selector(clickAllSelectBtn), for: .touchUpInside)
         view.addSubview(allSelectBtn)
         
@@ -187,6 +186,7 @@ class XWHContactBaseVC: XWHTableViewBaseVC {
     
     @objc func clickFilterConfirm() {
         isSearchMode = false
+        view.endEditing(true)
     }
     
     // MARK: - Keyboard
@@ -199,7 +199,8 @@ class XWHContactBaseVC: XWHTableViewBaseVC {
 //        if filterView.isHidden {
 //            return
 //        }
-        if let userInfo = notification.userInfo, let value = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue, let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double, let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt {
+//        if let userInfo = notification.userInfo, let value = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue, let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double, let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt {
+        if let userInfo = notification.userInfo, let value = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let cFrame = value.cgRectValue
             let intersection = cFrame.intersection(view.frame)
             bottomConstraint?.update(offset: -intersection.height)

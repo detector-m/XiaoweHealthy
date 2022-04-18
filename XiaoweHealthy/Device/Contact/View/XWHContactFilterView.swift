@@ -13,6 +13,17 @@ class XWHContactFilterView: XWHBaseView, UITableViewDataSource, UITableViewDeleg
     lazy var button = UIButton()
     lazy var tipLb = UILabel()
     
+    lazy var isCanSelected = true {
+        didSet {
+            if !isCanSelected {
+                button.setTitle(R.string.xwhDisplayText.确定(), for: .normal)
+            } else {
+                button.setTitle(R.string.xwhContactText.确定选择(), for: .normal)
+            }
+        }
+    }
+    lazy var isDelete = false
+    
     lazy var filterContacts = [XWHDevContactModel]()
     var selectedContacts: [XWHDevContactModel] {
         filterContacts.filter({ $0.isSelected })
@@ -100,7 +111,8 @@ class XWHContactFilterView: XWHBaseView, UITableViewDataSource, UITableViewDeleg
             cell.bottomLine.isHidden = true
         }
         
-        cell.update(contact: filterContacts[indexPath.row])
+        cell.subIconView.isHidden = !isCanSelected
+        cell.update(contact: filterContacts[indexPath.row], isDelete: isDelete)
 
         return cell
     }
@@ -129,7 +141,7 @@ class XWHContactFilterView: XWHBaseView, UITableViewDataSource, UITableViewDeleg
         let cModel = filterContacts[indexPath.row]
         cModel.isSelected = !cModel.isSelected
         if let cell = tableView.cellForRow(at: indexPath) as? XWHContactTBCell {
-            cell.update(contact: cModel)
+            cell.update(contact: cModel, isDelete: isDelete)
         }
     }
 

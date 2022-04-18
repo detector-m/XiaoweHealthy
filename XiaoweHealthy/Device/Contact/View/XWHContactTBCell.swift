@@ -18,6 +18,10 @@ class XWHContactTBCell: XWHComLineBaseTBCell {
     private lazy var checkImage: UIImage = {
         UIImage.iconFont(text: XWHIconFontOcticons.checkBg.rawValue, size: 24, color: btnBgColor)
     }()
+    
+    private lazy var deleteCheckImage: UIImage = {
+        UIImage.iconFont(text: XWHIconFontOcticons.checkBg.rawValue, size: 24, color: UIColor.red)
+    }()
 
     override func addSubViews() {
         super.addSubViews()
@@ -63,11 +67,16 @@ class XWHContactTBCell: XWHComLineBaseTBCell {
         relayoutTopBottomLine()
     }
     
-    func update(contact: XWHDevContactModel) {
+    func update(contact: XWHDevContactModel, isDelete: Bool = false) {
         titleLb.text = contact.name
         subTitleLb.text = contact.number
         textIcon.text = contact.name.last?.string ?? ""
-        subIconView.image = contact.isSelected ? checkImage : uncheckImage
+        
+        if isDelete {
+            subIconView.image = contact.isSelected ? deleteCheckImage : uncheckImage
+        } else {
+            subIconView.image = contact.isSelected ? checkImage : uncheckImage
+        }
     }
 
 }
