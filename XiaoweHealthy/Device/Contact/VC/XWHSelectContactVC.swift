@@ -101,6 +101,19 @@ class XWHSelectContactVC: XWHContactBaseVC {
         
     }
     
+    @objc override func textFiledChanged(sender: UITextField) {
+        super.textFiledChanged(sender: sender)
+        
+        searchContacts = filterContacts(sender.text ?? "")
+        tableView.reloadData()
+    }
+    
+    @objc override func clickTFRightBtn() {
+        super.clickTFRightBtn()
+        
+        tableView.reloadData()
+    }
+    
     // MARK: - UITableViewDataSource & UITableViewDelegate
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return contacts.count

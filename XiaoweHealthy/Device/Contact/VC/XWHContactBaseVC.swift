@@ -16,6 +16,12 @@ class XWHContactBaseVC: XWHTableViewBaseVC {
     lazy var allSelectBtn = UIButton()
     
     lazy var contacts = [XWHDevContactModel]()
+    
+    // 是否是搜索模式
+    lazy var isSearchMode = false
+    lazy var searchContacts = [XWHDevContactModel]()
+    
+    lazy var uiEditState = XWHUIEditState.normal
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +38,22 @@ class XWHContactBaseVC: XWHTableViewBaseVC {
         textField.layer.cornerRadius = 12
         textField.layer.backgroundColor = UIColor(hex: 0x000000, transparency: 0.03)?.cgColor
         textField.placeholder = R.string.xwhContactText.搜索联系人()
-        textField.leftView = UIView()
+        let leftView = UIView(frame: CGRect(center: .zero, size: CGSize(width: 16, height: 16)))
+        textField.leftViewMode = .always
+        textField.leftView = leftView
+//        textField.clearButtonMode = .never
+        let rightBtn = UIButton(frame: CGRect(center: .zero, size: CGSize(width: 56, height: 22)))
+        rightBtn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        rightBtn.addTarget(self, action: #selector(clickTFRightBtn), for: .touchUpInside)
+        textField.rightView = rightBtn
+        textField.rightViewMode = .always
+        updateTextFieldRightBtn(textField)
+        
+        textField.addTarget(self, action: #selector(textFiledChanged(sender:)), for: .editingChanged)
+        
+        textField.addTarget(self, action: #selector(textFiledBegin(sender:)), for: .editingDidBegin)
+        textField.addTarget(self, action: #selector(textFiledEnd(sender:)), for: .editingDidEnd)
+
         view.addSubview(textField)
         
         titleLb.font = XWHFont.harmonyOSSans(ofSize: 16, weight: .medium)
@@ -78,8 +99,76 @@ class XWHContactBaseVC: XWHTableViewBaseVC {
         
     }
     
+    @objc func textFiledBegin(sender: UITextField) {
+        sender.layer.borderColor = btnBgColor.cgColor
+        sender.layer.borderWidth = 1
+    }
+    
+    @objc func textFiledEnd(sender: UITextField) {
+        sender.layer.borderColor = nil
+        sender.layer.borderWidth = 0
+    }
+    
+    @objc func textFiledChanged(sender: UITextField) {
+        updateTextFieldRightBtn(sender)
+        
+        guard let cText = sender.text else {
+            isSearchMode = false
+            return
+        }
+        
+        if cText.isEmpty {
+            isSearchMode = false
+        } else {
+            isSearchMode = true
+        }
+    }
+    
+    @objc func clickTFRightBtn() {
+        isSearchMode = false
+        guard let cText = textField.text else {
+            return
+        }
+        
+        if cText.isEmpty {
+            return
+        }
+        
+        textField.text = nil
+        updateTextFieldRightBtn(textField)
+    }
+    
     @objc func clickAllSelectBtn() {
         
     }
+    
+    func updateTextFieldRightBtn(_ tf: UITextField) {
+        guard let clearBtn = tf.rightView as? UIButton else {
+            return
+        }
+        
+        let clearBtnColor = fontLightColor
+        let size: CGFloat = 16
+        guard let cText = tf.text else {
+            clearBtn.setImage(UIImage.iconFont(text: XWHIconFontOcticons.search.rawValue, size: size, color: clearBtnColor), for: .normal)
+            return
+        }
+        
+        if cText.isEmpty {
+            clearBtn.setImage(UIImage.iconFont(text: XWHIconFontOcticons.search.rawValue, size: size, color: clearBtnColor), for: .normal)
+        } else {
+            clearBtn.setImage(UIImage.iconFont(text: XWHIconFontOcticons.closeNoBg.rawValue, size: size, color: clearBtnColor), for: .normal)
+        }
+    }
 
+}
+
+extension XWHContactBaseVC {
+    
+    func filterContacts(_ text: String) -> [XWHDevContactModel] {
+        let filterContacts = contacts.filter { $0.name.contains(text) }
+        
+        return filterContacts
+    }
+    
 }

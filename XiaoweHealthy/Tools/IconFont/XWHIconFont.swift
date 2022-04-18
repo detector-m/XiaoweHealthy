@@ -36,4 +36,6 @@ enum XWHIconFontOcticons: String {
     
     case update = "\u{e678}"
     
+    case search = "\u{e67e}"
+    
 }
