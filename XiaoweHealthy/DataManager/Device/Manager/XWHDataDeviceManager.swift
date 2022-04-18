@@ -116,6 +116,7 @@ extension XWHDataDeviceManager {
         }
     
         deinitDeviceSets(identifier: watch.identifier)
+        deleteContacts(identifier: watch.identifier)
         deleteWatch(identifier: watch.identifier)
     }
     

@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         configCache()
         
+        configDeviceManager()
+        
         configUM()
         
         configIQKeyboard()
@@ -103,6 +105,11 @@ extension AppDelegate {
     // 配置缓存
     fileprivate func configCache() {
         XWHCache.config()
+    }
+    
+    // 配置设备管理器
+    fileprivate func configDeviceManager() {
+        XWHDDMShared.configCurrentDevice()
     }
     
     fileprivate func configIQKeyboard() {

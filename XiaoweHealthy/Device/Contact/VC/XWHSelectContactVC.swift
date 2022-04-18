@@ -174,12 +174,19 @@ extension XWHSelectContactVC {
 extension XWHSelectContactVC {
     
     private func updateBeforeSyncUI() {
-        button.isEnabled = true
         curCount = contacts.count(where: { $0.isSelected })
         
         let cText = "\(curCount)/\(maxCount)"
         let bTitle = R.string.xwhContactText.同步到设备N().replacingOccurrences(of: "N", with: cText)
         button.setTitle(bTitle, for: .normal)
+        
+        if curCount == 0 {
+            button.isEnabled = false
+            button.layer.backgroundColor = lightBtnDisableBgColor.cgColor
+        } else {
+            button.isEnabled = true
+            button.layer.backgroundColor = btnBgColor.cgColor
+        }
     }
     
     private func updateSyncUI() {

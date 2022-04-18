@@ -43,6 +43,14 @@ class XWHDevWatchDispatchManager {
     private lazy var _uteWSHandler = XWHUTEWeatherInfoHandler()
     
     // MARK: - 方法
+    func configCurrentDevice() {
+        if let cDevice = ddManager.getCurrentDevice() {
+            config(device: cDevice)
+        } else {
+            config(device: XWHDevWatchModel())
+        }
+    }
+    
     @discardableResult
     func config(device: XWHDevWatchModel) -> Self {
         switch device.type {

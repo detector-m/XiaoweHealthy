@@ -96,6 +96,17 @@ var btnBgColor: UIColor {
     }
 }
 
+let lightBtnDisableBgColor = UIColor(hex: 0x000000)!.withAlphaComponent(0.15)
+let darkBtnDisableBgColor = lightBtnDisableBgColor
+
+var btnDisableBgColor: UIColor {
+    if #available(iOS 13.0, *) {
+        return UIColor(light: lightBtnDisableBgColor, dark: darkBtnDisableBgColor)
+    } else {
+        return lightBtnDisableBgColor
+    }
+}
+
 
 // MARK: - 表盘市场（Dial）
 
