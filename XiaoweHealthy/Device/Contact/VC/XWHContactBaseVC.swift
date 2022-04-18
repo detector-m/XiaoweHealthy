@@ -15,18 +15,28 @@ class XWHContactBaseVC: XWHTableViewBaseVC {
     
     lazy var allSelectBtn = UIButton()
     
+    lazy var filterView = XWHContactFilterView()
+    
     lazy var contacts = [XWHDevContactModel]()
     
     // 是否是搜索模式
     lazy var isSearchMode = false
-    lazy var searchContacts = [XWHDevContactModel]()
+//    lazy var searchContacts = [XWHDevContactModel]()
     
     lazy var uiEditState = XWHUIEditState.normal
+    
+    // filterView 底部约束
+    var bottomConstraint: Constraint?
+    
+    let maxCount = 100
+    lazy var curCount = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setNavTransparent()
+        
+        addKeyboardNotification()
     }
     
     override func addSubViews() {
@@ -77,9 +87,15 @@ class XWHContactBaseVC: XWHTableViewBaseVC {
         allSelectBtn.addTarget(self, action: #selector(clickAllSelectBtn), for: .touchUpInside)
         view.addSubview(allSelectBtn)
         
+        filterView.isHidden = true
+        filterView.button.addTarget(self, action: #selector(clickFilterConfirm), for: .touchUpInside)
+        view.addSubview(filterView)
+        
         tableView.separatorStyle = .none
         
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
+        
+        relayoutFilterView()
     }
     
     override func relayoutSubViews() {
@@ -92,6 +108,14 @@ class XWHContactBaseVC: XWHTableViewBaseVC {
             make.height.equalTo(40)
 
             make.left.right.equalToSuperview().inset(28)
+        }
+    }
+    
+    func relayoutFilterView() {
+        filterView.snp.makeConstraints { make in
+            make.top.equalTo(textField.snp.bottom).offset(10)
+            make.left.right.equalToSuperview()
+            self.bottomConstraint = make.bottom.equalToSuperview().constraint
         }
     }
     
@@ -160,15 +184,68 @@ class XWHContactBaseVC: XWHTableViewBaseVC {
             clearBtn.setImage(UIImage.iconFont(text: XWHIconFontOcticons.closeNoBg.rawValue, size: size, color: clearBtnColor), for: .normal)
         }
     }
+    
+    @objc func clickFilterConfirm() {
+        isSearchMode = false
+    }
+    
+    // MARK: - Keyboard
+    func addKeyboardNotification() {
+        // 监听键盘通知
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    @objc func keyboardWillChangeFrame(_ notification: Notification) {
+//        if filterView.isHidden {
+//            return
+//        }
+        if let userInfo = notification.userInfo, let value = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue, let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double, let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt {
+            let cFrame = value.cgRectValue
+            let intersection = cFrame.intersection(view.frame)
+            bottomConstraint?.update(offset: -intersection.height)
+        }
+    }
 
 }
 
 extension XWHContactBaseVC {
     
     func filterContacts(_ text: String) -> [XWHDevContactModel] {
-        let filterContacts = contacts.filter { $0.name.contains(text) }
+//        let filterContacts = contacts.filter {
+//            $0.name.contains(text) }
+//        return filterContacts
         
-        return filterContacts
+        let filters: [XWHDevContactModel] = contacts.compactMap({ cModel in
+            if cModel.name.contains(text, caseSensitive: false) {
+                let rModel = cModel.clone()
+                rModel.isSelected = false
+                
+                return rModel
+            }
+            return nil
+        })
+        
+        return filters
+    }
+    
+    func allSelect() {
+        if curCount == maxCount {
+            return
+        }
+        
+        let unselects = contacts.filter({ !$0.isSelected })
+        for cModel in unselects {
+            cModel.isSelected = true
+            curCount += 1
+            
+            if curCount == maxCount {
+                return
+            }
+        }
+    }
+    
+    func allUnselect() {
+        contacts.forEach({ $0.isSelected = false })
     }
     
 }

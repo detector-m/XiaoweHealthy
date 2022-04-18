@@ -11,8 +11,11 @@ import SwiftyContacts
 
 class XWHSelectContactVC: XWHContactBaseVC {
     
-    private let maxCount = 100
-    private lazy var curCount = 0
+    override var isSearchMode: Bool {
+        didSet {
+            filterView.isHidden = !isSearchMode
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,18 +101,48 @@ class XWHSelectContactVC: XWHContactBaseVC {
     }
     
     @objc override func clickAllSelectBtn() {
+        if allSelectBtn.isSelected {
+            allUnselect()
+        } else {
+            allSelect()
+        }
         
+        allSelectBtn.isSelected = !allSelectBtn.isSelected
+        updateBeforeSyncUI()
+        tableView.reloadData()
     }
     
     @objc override func textFiledChanged(sender: UITextField) {
         super.textFiledChanged(sender: sender)
         
-        searchContacts = filterContacts(sender.text ?? "")
-        tableView.reloadData()
+        let text = sender.text ?? ""
+        let searchContacts = filterContacts(text)
+        filterView.update(searchContacts, text)
     }
     
     @objc override func clickTFRightBtn() {
         super.clickTFRightBtn()
+        
+        tableView.reloadData()
+    }
+    @objc override func clickFilterConfirm() {
+        super.clickFilterConfirm()
+        
+        let selecteds = filterView.selectedContacts
+        if selecteds.isEmpty {
+            return
+        }
+        
+        outBreak: for aModel in contacts {
+            if contacts.count(where: { $0.isSelected }) == maxCount {
+                break outBreak
+            }
+            for bModel in selecteds {
+                if aModel.name == bModel.name, aModel.number == bModel.number {
+                    aModel.isSelected = true
+                }
+            }
+        }
         
         tableView.reloadData()
     }
@@ -199,6 +232,12 @@ extension XWHSelectContactVC {
         } else {
             button.isEnabled = true
             button.layer.backgroundColor = btnBgColor.cgColor
+        }
+        
+        if curCount == maxCount {
+            allSelectBtn.isSelected = true
+        } else {
+            allSelectBtn.isSelected = false
         }
     }
     

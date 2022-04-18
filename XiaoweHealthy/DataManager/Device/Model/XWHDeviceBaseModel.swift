@@ -64,16 +64,16 @@ class XWHDeviceBaseModel: XWHDataBaseModel {
         "deviceBaseModel"
     }
     
+    override var debugDescription: String {
+        return "identifier = \(identifier), name = \(name), type = \(type), mac = \(mac), version = \(version)"
+    }
+    
     override init() {
         super.init()
     }
     
     required init(row: Row) {
         super.init(row: row)
-    }
-    
-    override var debugDescription: String {
-        return "identifier = \(identifier), name = \(name), type = \(type), mac = \(mac), version = \(version)"
     }
     
 }

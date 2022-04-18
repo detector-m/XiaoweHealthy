@@ -135,6 +135,7 @@
 		969E712D280C383D00BDA401 /* XWHContactBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E712C280C383D00BDA401 /* XWHContactBaseVC.swift */; };
 		969E712F280C3CDB00BDA401 /* XWHContactTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E712E280C3CDB00BDA401 /* XWHContactTBCell.swift */; };
 		969E7134280D107C00BDA401 /* XWHConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E7133280D107B00BDA401 /* XWHConstant.swift */; };
+		969E7136280D30FE00BDA401 /* XWHContactFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E7135280D30FE00BDA401 /* XWHContactFilterView.swift */; };
 		969F01B827F692AE00CA4DA4 /* RLPopupContentBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F01B727F692AE00CA4DA4 /* RLPopupContentBaseView.swift */; };
 		969F01BA27F693B100CA4DA4 /* RLPopupBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F01B927F693B100CA4DA4 /* RLPopupBaseView.swift */; };
 		969F01BD27F69D8B00CA4DA4 /* XWHPopupPick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F01BC27F69D8B00CA4DA4 /* XWHPopupPick.swift */; };
@@ -392,6 +393,7 @@
 		969E712C280C383D00BDA401 /* XWHContactBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHContactBaseVC.swift; sourceTree = "<group>"; };
 		969E712E280C3CDB00BDA401 /* XWHContactTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHContactTBCell.swift; sourceTree = "<group>"; };
 		969E7133280D107B00BDA401 /* XWHConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHConstant.swift; sourceTree = "<group>"; };
+		969E7135280D30FE00BDA401 /* XWHContactFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHContactFilterView.swift; sourceTree = "<group>"; };
 		969F01B727F692AE00CA4DA4 /* RLPopupContentBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLPopupContentBaseView.swift; sourceTree = "<group>"; };
 		969F01B927F693B100CA4DA4 /* RLPopupBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLPopupBaseView.swift; sourceTree = "<group>"; };
 		969F01BC27F69D8B00CA4DA4 /* XWHPopupPick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPopupPick.swift; sourceTree = "<group>"; };
@@ -1221,6 +1223,7 @@
 			isa = PBXGroup;
 			children = (
 				969E712E280C3CDB00BDA401 /* XWHContactTBCell.swift */,
+				969E7135280D30FE00BDA401 /* XWHContactFilterView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2101,6 +2104,7 @@
 				9653E49027F552E300EE55FF /* XWHDevSetBaseVC.swift in Sources */,
 				96F1D6662806BE960067DBFD /* XWHDevContactModel.swift in Sources */,
 				96F3588E27FE92C900783614 /* XWHBLEUTEDispatchHandler.swift in Sources */,
+				969E7136280D30FE00BDA401 /* XWHContactFilterView.swift in Sources */,
 				9651EE0427EAF3100043FE52 /* XWHApiConfig.swift in Sources */,
 				96F1D680280947580067DBFD /* XWHDialContentBaseVC.swift in Sources */,
 				966A60F627FFD5DE00CBE915 /* XWHDeviceProductModel.swift in Sources */,

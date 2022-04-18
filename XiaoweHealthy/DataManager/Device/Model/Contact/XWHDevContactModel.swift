@@ -9,7 +9,15 @@ import Foundation
 import GRDB
 
 
-class XWHDevContactModel: XWHDataBaseModel {
+class XWHDevContactModel: XWHDataBaseModel, Codable {
+    
+    enum CodingKeys: String, CodingKey {
+        case identifier
+        case pid
+        case name
+        case number
+        case isSelected
+    }
     
     enum Columns: String, ColumnExpression {
         case pid, identifier, name, number
@@ -61,4 +69,42 @@ class XWHDevContactModel: XWHDataBaseModel {
         pid = rowID
     }
     
+    // MARK: - Encodable
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(identifier, forKey: .identifier)
+        try container.encodeIfPresent(pid, forKey: .pid)
+        try container.encode(name, forKey: .name)
+        try container.encode(number, forKey: .number)
+        try container.encode(isSelected, forKey: .isSelected)
+    }
+
+    // MARK: - Decodable
+    required init(from decoder: Decoder) throws {
+        super.init()
+        
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        identifier = try container.decode(String.self, forKey: .identifier)
+        pid = try container.decodeIfPresent(Int64.self, forKey: .pid)
+        name = try container.decode(String.self, forKey: .name)
+        number = try container.decode(String.self, forKey: .number)
+        isSelected = try container.decode(Bool.self, forKey: .isSelected)
+    }
+    
+    func clone() -> Self {
+        let encoder = JSONEncoder()
+        guard let data = try? encoder.encode(self) else {
+            fatalError("encode failed")
+        }
+        let decoder = JSONDecoder()
+        guard let target = try? decoder.decode(Self.self, from: data) else {
+            fatalError("decode failed")
+        }
+        
+        return target
+    }
+    
 }
+
