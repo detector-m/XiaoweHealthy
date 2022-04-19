@@ -19,7 +19,7 @@ class XWHUserVM {
                 response.data = userModel
                 
                 if var cUser = userModel {
-                    XWHDataUserManager.deleteAll()
+                    XWHDataUserManager.deleteUser(cUser)
                     XWHDataUserManager.saveUser(&cUser)
                 }
                 
@@ -112,6 +112,8 @@ class XWHUserVM {
                     failureHandler?(retError)
                     return
                 }
+                
+                XWHUserVM().profile()
                 
                 let retResponse = XWHResponse()
                 retResponse.identifier = cId

@@ -29,7 +29,7 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
         setTime(handler: handler)
         setUnit(handler: handler)
         
-        if let user = XWHDataUserManager.getUser() {
+        if let user = XWHDataUserManager.getCurrentUser() {
             setUserInfo(user, raiseWristSet, handler: handler)
         } else {
             log.error("UTE 获取用户信息失败")

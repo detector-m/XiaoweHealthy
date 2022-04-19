@@ -106,7 +106,7 @@ class XWHDevSetHeartVC: XWHDevSetBaseVC {
                 } else {
                     heartSet.optionType = .highWarn
                     heartSet.isHighWarn = isOn
-                    let user = XWHDataUserManager.getUser()
+                    let user = XWHDataUserManager.getCurrentUser()
                     self.setHeartSet(heartSet, user) {
                         XWHDataDeviceManager.saveHeartSet(heartSet)
                         
@@ -157,7 +157,7 @@ extension XWHDevSetHeartVC {
             heartSet.optionType = .highWarn
             heartSet.highWarnValue = valueItems[index]
             
-            let user = XWHDataUserManager.getUser()
+            let user = XWHDataUserManager.getCurrentUser()
             self.setHeartSet(heartSet, user) {
                 XWHDataDeviceManager.saveHeartSet(heartSet)
                 

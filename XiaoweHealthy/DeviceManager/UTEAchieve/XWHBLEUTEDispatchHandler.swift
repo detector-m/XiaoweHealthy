@@ -35,8 +35,8 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
         
         // 设置过滤服务（可以搜索包含设置服务的设备）
         // 默认情况下，SDK只会扫描其中某个设备，请开发者再次设置过滤
-        manager.filerServers = ["5533"]
-//        manager.isScanAllDevice = true
+//        manager.filerServers = ["5533"]
+        manager.isScanAllDevice = true
         
         manager.delegate = self
         
@@ -153,7 +153,12 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
         
         if !sameDevices {
             log.debug("UTE 扫描到的设备: name = \(String(describing: modelDevices.name)), id = \(String(describing: modelDevices.identifier))")
-            if modelDevices.name.isEmpty {
+            
+            guard let name = modelDevices.name, !name.isEmpty else {
+                return
+            }
+            
+            guard let cId = modelDevices.identifier, !cId.isEmpty else {
                 return
             }
             

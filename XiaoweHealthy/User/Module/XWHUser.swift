@@ -11,19 +11,15 @@ import Foundation
 class XWHUser {
     
     class func isLogined() -> Bool {
-        guard let _ = getToken() else {
-            return false
-        }
-        
-        return true
+        return XWHDataUserManager.isLogined()
     }
     
     class func getToken() -> String? {
-        return UserDefaults.standard[kToken] as? String
+        return XWHDataUserManager.getToken()
     }
     
     class func setToken(token: String?) {
-        UserDefaults.standard[kToken] = token
+        XWHDataUserManager.setToken(token: token)
     }
     
 }

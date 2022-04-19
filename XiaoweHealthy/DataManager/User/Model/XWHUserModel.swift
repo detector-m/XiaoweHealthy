@@ -66,7 +66,7 @@ struct XWHUserModel: Codable, FetchableRecord, TableRecord, PersistableRecord, H
     }
     
     var debugDescription: String {
-        return "gender = \(gender), height = \(height), height = \(weight), birthday = \(birthday), goal"
+        return "{ mobile = \(mobile), nickname = \(nickname), gender = \(gender), height = \(height), height = \(weight), birthday = \(birthday) }"
     }
     
 //    func toDic() -> [String: Any] {

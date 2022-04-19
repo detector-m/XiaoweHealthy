@@ -12,6 +12,19 @@ import GRDB
 // MARK: - 用户数据管理
 class XWHDataUserManager {
     
+    class func getCurrentUser() -> XWHUserModel? {
+        return getUser()
+    }
+    
+    class func deleteCurrentUser() {
+        guard let cUser = getCurrentUser() else {
+            log.error("当前不存在用户")
+            return
+        }
+        
+        deleteUser(cUser)
+    }
+    
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
     ///  - Parameter db: 数据库handler
     class func createUserTable(_ db: Database) throws {
@@ -38,22 +51,49 @@ class XWHDataUserManager {
         }
     }
     
-    class func getUser() -> XWHUserModel? {
+    private class func getUser() -> XWHUserModel? {
         return appDB.read { db in
             try XWHUserModel.fetchOne(db)
         }
     }
     
     class func deleteUser(_ user: XWHUserModel) {
+        log.info("删除用户 user = \(user)")
+        
         appDB.write { db in
             try user.delete(db)
         }
     }
     
     class func deleteAll() {
+        log.info("删除所有用户")
+        
         appDB.write { db in
             try XWHUserModel.deleteAll(db)
         }
+    }
+    
+}
+
+// Login
+extension XWHDataUserManager {
+    
+    private static let kToken = "kToken"
+    
+    class func isLogined() -> Bool {
+        guard let _ = getToken() else {
+            return false
+        }
+        
+        return true
+    }
+    
+    class func getToken() -> String? {
+        return UserDefaults.standard[kToken] as? String
+    }
+    
+    class func setToken(token: String?) {
+        UserDefaults.standard[kToken] = token
     }
     
 }
