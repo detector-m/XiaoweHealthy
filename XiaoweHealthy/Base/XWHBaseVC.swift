@@ -8,6 +8,8 @@
 import UIKit
 
 class XWHBaseVC: UIViewController {
+    
+    lazy var largeTitleView = XWHLargeTitleView()
 
     override func viewDidLoad() {
         super.viewDidLoad()

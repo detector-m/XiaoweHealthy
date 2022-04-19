@@ -126,6 +126,7 @@
 		968CB8AC27F4570A00E549AC /* XWHDialMarketTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8AB27F4570A00E549AC /* XWHDialMarketTBCell.swift */; };
 		968CB8AE27F45DB100E549AC /* XWHDeviceInfoTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8AD27F45DB100E549AC /* XWHDeviceInfoTBCell.swift */; };
 		968CB8B027F4661700E549AC /* XWHDeviceMainFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8AF27F4661700E549AC /* XWHDeviceMainFooter.swift */; };
+		969A4CF8280E8A630049BC07 /* XWHLargeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */; };
 		969E7118280AB51F00BDA401 /* XWHDialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E7117280AB51F00BDA401 /* XWHDialManager.swift */; };
 		969E711B280BE09F00BDA401 /* XWHTableViewBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E711A280BE09F00BDA401 /* XWHTableViewBaseVC.swift */; };
 		969E7121280BE34A00BDA401 /* XWHContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E7120280BE34A00BDA401 /* XWHContactVC.swift */; };
@@ -384,6 +385,7 @@
 		968CB8AB27F4570A00E549AC /* XWHDialMarketTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDialMarketTBCell.swift; sourceTree = "<group>"; };
 		968CB8AD27F45DB100E549AC /* XWHDeviceInfoTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceInfoTBCell.swift; sourceTree = "<group>"; };
 		968CB8AF27F4661700E549AC /* XWHDeviceMainFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceMainFooter.swift; sourceTree = "<group>"; };
+		969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLargeTitleView.swift; sourceTree = "<group>"; };
 		969E7117280AB51F00BDA401 /* XWHDialManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDialManager.swift; sourceTree = "<group>"; };
 		969E711A280BE09F00BDA401 /* XWHTableViewBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTableViewBaseVC.swift; sourceTree = "<group>"; };
 		969E7120280BE34A00BDA401 /* XWHContactVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHContactVC.swift; sourceTree = "<group>"; };
@@ -917,6 +919,7 @@
 		96617A6A27E1DFC000139B03 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				969A4CF6280E88A20049BC07 /* LargeTitleView */,
 				96617A6B27E1DFE100139B03 /* XWHBaseView.swift */,
 				96617A7527E1EE3000139B03 /* XWHBaseNavigationVC.swift */,
 				96617A6D27E1E00E00139B03 /* XWHBaseVC.swift */,
@@ -1188,6 +1191,14 @@
 				968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */,
 			);
 			path = DeviceDeploy;
+			sourceTree = "<group>";
+		};
+		969A4CF6280E88A20049BC07 /* LargeTitleView */ = {
+			isa = PBXGroup;
+			children = (
+				969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */,
+			);
+			path = LargeTitleView;
 			sourceTree = "<group>";
 		};
 		969E7116280AB2D400BDA401 /* Manager */ = {
@@ -2216,6 +2227,7 @@
 				96F1D68E280988080067DBFD /* XWHDialMoreVC.swift in Sources */,
 				9613E78527F4A0BC007A1589 /* XWHThemeConfig.swift in Sources */,
 				9653E49627F55D1B00EE55FF /* XWHDevSetSwitchTBCell.swift in Sources */,
+				969A4CF8280E8A630049BC07 /* XWHLargeTitleView.swift in Sources */,
 				96617A9D27E2FEE200139B03 /* XWHTextFieldBaseView.swift in Sources */,
 				96C67AEC28043315001ACA81 /* XWHDataLongSitSetManager.swift in Sources */,
 				96617AA127E30EF600139B03 /* XWHPasswordView.swift in Sources */,
