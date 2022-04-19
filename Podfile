@@ -43,7 +43,7 @@ target 'XiaoweHealthy' do
   pod 'Cache'
   
   # 图表
-#  pod 'Charts'
+  pod 'Charts'
   
   # 异步编程
 #  pod 'RxSwift'
