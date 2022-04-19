@@ -7,7 +7,7 @@
 
 import UIKit
 
-class XWHTableViewBaseVC: XWHBaseVC, UITableViewDataSource, UITableViewDelegate {
+class XWHTableViewBaseVC: XWHBaseVC, UITableViewDataSource, UITableViewDelegate, UITableViewRoundedProtocol {
     
     lazy var tableView = UITableView(frame: .zero, style: .grouped)
 
@@ -56,9 +56,9 @@ class XWHTableViewBaseVC: XWHBaseVC, UITableViewDataSource, UITableViewDelegate 
         return UITableViewCell()
     }
     
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 //        rounded(tableView, willDisplay: cell, forRowAt: indexPath)
-//    }
+    }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.001

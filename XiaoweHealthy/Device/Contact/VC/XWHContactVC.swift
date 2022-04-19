@@ -44,8 +44,6 @@ class XWHContactVC: XWHContactBaseVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        loadContacts()
     }
     
     override func setupNavigationItems() {
@@ -244,20 +242,22 @@ class XWHContactVC: XWHContactBaseVC {
     @objc override func clickButton() {
         if uiEditState == .normal {
             requestAccess { [unowned self] result in
-                switch result {
-                case let .success(isOk):
-                    if isOk {
-                        self.gotoSelectContact()
-                    } else {
+                DispatchQueue.main.async {
+                    switch result {
+                    case let .success(isOk):
+                        if isOk {
+                            self.gotoSelectContact()
+                        } else {
+                            self.gotoShowContactPermission()
+                        }
+                        
+                    case let .failure(error):
+                        log.error(error.localizedDescription)
+                        
+                        //                let status = authorizationStatus()
+                        //                log.debug(status == CNAuthorizationStatus.authorized)
                         self.gotoShowContactPermission()
                     }
-                    
-                case let .failure(error):
-                    log.error(error.localizedDescription)
-                    
-                    //                let status = authorizationStatus()
-                    //                log.debug(status == CNAuthorizationStatus.authorized)
-                    self.gotoShowContactPermission()
                 }
             }
         } else {
@@ -325,6 +325,13 @@ class XWHContactVC: XWHContactBaseVC {
         
         updateContactDeleteUI()
         tableView.reloadData()
+    }
+    
+    // MARK: - View
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        loadContacts()
     }
     
     // MARK: - UITableViewDataSource & UITableViewDelegate

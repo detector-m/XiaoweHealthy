@@ -10,11 +10,19 @@ import UIKit
 class XWHBaseVC: UIViewController {
     
     lazy var largeTitleView = XWHLargeTitleView()
+    
+    // largeTitleView 顶部约束
+    var topConstraint: Constraint?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        edgesForExtendedLayout = .all
+        extendedLayoutIncludesOpaqueBars = true
+        
         view.backgroundColor = bgColor
+        
+        setNavTransparent()
         
         setupNavigationItems()
         addSubViews()
@@ -22,8 +30,17 @@ class XWHBaseVC: UIViewController {
     }
     
     func setupNavigationItems() {
-        navigationItem.leftBarButtonItem = getNavGlobalBackItem()
-        rt_disableInteractivePop = false
+        setNavGlobalBackItem()
+    }
+    
+    // 设置带有LargeTitle的nav items
+    func setNavigationBarWithLargeTitle() {
+        
+    }
+    
+    // 还原没有LargeTitle的 nav itmes
+    func resetNavigationBarWithoutLargeTitle() {
+        
     }
     
     func addSubViews() {
@@ -32,6 +49,11 @@ class XWHBaseVC: UIViewController {
     
     func relayoutSubViews() {
         
+    }
+    
+    func setNavGlobalBackItem() {
+        navigationItem.leftBarButtonItem = getNavGlobalBackItem()
+        rt_disableInteractivePop = false
     }
     
     func getNavGlobalBackItem() -> UIBarButtonItem {
@@ -46,19 +68,98 @@ class XWHBaseVC: UIViewController {
         return getNavItem(text: nil, image: R.image.globalBack(), target: target, action: action)
     }
     
-    func getNavItem(text: String? = nil, image: UIImage? = nil, target: UIViewController, action: Selector) -> UIBarButtonItem {
+    func getNavItem(text: String? = nil, font: UIFont? = nil, color: UIColor? = nil, image: UIImage? = nil, target: UIViewController, action: Selector) -> UIBarButtonItem {
         let button = UIButton(type: .custom)
         if let cImage = image {
             button.setImage(cImage, for: .normal)
         } else if let cText = text {
             button.setTitle(cText, for: .normal)
-            button.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 14)
-            button.setTitleColor(UIColor(hex: 0x000000, transparency: 0.9), for: .normal)
+            if let font = font {
+                button.titleLabel?.font = font
+            } else {
+                button.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 14)
+            }
+            if let color = color {
+                button.setTitleColor(color, for: .normal)
+            } else {
+                button.setTitleColor(UIColor(hex: 0x000000, transparency: 0.9), for: .normal)
+            }
         }
         button.sizeToFit()
         button.addTarget(target, action: action, for: .touchUpInside)
         
         return UIBarButtonItem(customView: button)
+    }
+    
+}
+
+@objc extension XWHBaseVC: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        handleScrollLargeTitle(atTop: scrollView)
+    }
+    
+}
+
+// MARK: - 处理大标题滚动的方式
+@objc extension XWHBaseVC {
+    
+    /// 通过在scrollview 的上部控制滚动大标题 （topConstraint 控制）
+    /// - Parameters:
+    ///     - scrollView: 滚动的view
+    func handleScrollLargeTitle(atTop scrollView: UIScrollView) {
+        guard let cTopConstraint = topConstraint else {
+            return
+        }
+        
+        guard let _ = navigationController else {
+            return
+        }
+        
+        let topInsetMax: CGFloat = 66
+        let topInsetMin: CGFloat = -40
+        let sContentOffset = scrollView.contentOffset.y
+        var curInset: CGFloat = topInsetMax - sContentOffset
+        
+        if curInset >= topInsetMax {
+            curInset = topInsetMax
+        } else if curInset <= topInsetMin {
+            curInset = topInsetMin
+        }
+        
+        if sContentOffset >= 40 {
+            setNavigationBarWithLargeTitle()
+        } else {
+            resetNavigationBarWithoutLargeTitle()
+        }
+        
+        cTopConstraint.update(inset: curInset)
+    }
+    
+    /// 通过添加到 scrollview 中控制滚动大标题
+    /// - Parameters:
+    ///     - scrollView: 滚动的view
+    func handleScrollLargeTitle(in scrollView: UIScrollView) {
+        guard let _ = navigationController else {
+            return
+        }
+        
+//        let topInsetMax: CGFloat = 66
+//        let topInsetMin: CGFloat = -40
+        let sContentOffset = scrollView.contentOffset.y
+//        var curInset: CGFloat = topInsetMax - sContentOffset
+        
+//        if curInset >= topInsetMax {
+//            curInset = topInsetMax
+//        } else if curInset <= topInsetMin {
+//            curInset = topInsetMin
+//        }
+        
+        if sContentOffset >= 40 {
+            setNavigationBarWithLargeTitle()
+        } else {
+            resetNavigationBarWithoutLargeTitle()
+        }
     }
     
 }

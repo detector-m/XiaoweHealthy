@@ -8,9 +8,10 @@
 import UIKit
 import SwiftyJSON
 
-class XWHDeviceMainVC: XWHSearchBindDevBaseVC {
+class XWHDeviceMainVC: XWHTableViewBaseVC {
     
-    lazy var tableView = UITableView(frame: .zero, style: .grouped)
+//    lazy var tableView = UITableView(frame: .zero, style: .grouped)
+    
     lazy var tableFooter = XWHDeviceMainFooter(frame: CGRect(origin: .zero, size: CGSize(width: UIScreen.main.bounds.width - 32, height: 120)))
     
     private lazy var deviceItems = [[XWHDeployItemModel]]()
@@ -34,118 +35,99 @@ class XWHDeviceMainVC: XWHSearchBindDevBaseVC {
         
     }
     
+    override func setNavigationBarWithLargeTitle() {
+        setNav(color: .white)
+        
+        let leftItem = getNavItem(text: R.string.xwhDeviceText.我的设备(), font: XWHFont.harmonyOSSans(ofSize: 16, weight: .medium), image: nil, target: self, action: #selector(clickNavLeftItem))
+        navigationItem.leftBarButtonItem = leftItem
+        
+        let rightImage = UIImage.iconFont(text: XWHIconFontOcticons.addCircle.rawValue, size: 24, color: fontDarkColor)
+        let rightItem = getNavItem(text: nil, image: rightImage, target: self, action: #selector(clickNavRightItem))
+        navigationItem.rightBarButtonItem = rightItem
+    }
+    
+    @objc private func clickNavLeftItem() {
+        
+    }
+    
+    @objc private func clickNavRightItem() {
+        
+    }
+    
+    override func resetNavigationBarWithoutLargeTitle() {
+        setNavTransparent()
+        navigationItem.leftBarButtonItem = nil
+        navigationItem.rightBarButtonItem = nil
+    }
+    
     override func addSubViews() {
         super.addSubViews()
         
         view.backgroundColor = collectionBgColor
+        view.addSubview(largeTitleView)
         
+        configLargeTitleView()
         configTableView()
-        view.addSubview(tableView)
-        
-        detailLb.isHidden = true
-        
-        titleLb.text = R.string.xwhDeviceText.我的设备()
-        
-        button.titleLabel?.font = UIFont.iconFont(size: 24)
-        button.setTitleColor(UIColor.black, for: .normal)
-        button.setTitle(XWHIconFontOcticons.addCircle.rawValue, for: .normal)
-        button.layer.backgroundColor = nil
-        button.layer.cornerRadius = 0
     }
     
     override func relayoutSubViews() {
-        button.snp.makeConstraints { make in
-            make.right.equalToSuperview().offset(-28)
-            make.size.equalTo(24)
-            make.top.equalToSuperview().offset(74)
-        }
-        
-        titleLb.snp.makeConstraints { make in
-            make.centerY.equalTo(button)
+        relayoutLargeTitleView()
+        largeTitleView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
+            topConstraint = make.top.equalTo(66).constraint
             make.height.equalTo(40)
-            make.left.equalToSuperview().offset(28)
-            make.right.equalTo(button.snp.left)
         }
-        
         tableView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(16)
-            make.top.equalTo(titleLb.snp.bottom).offset(10)
+            make.top.equalTo(largeTitleView.snp.bottom).offset(16)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
     
-    // MARK: -
+    func configLargeTitleView() {
+        largeTitleView.titleLb.text = R.string.xwhDeviceText.我的设备()
+        largeTitleView.backgroundColor = collectionBgColor
+        
+        largeTitleView.button.titleLabel?.font = UIFont.iconFont(size: 24)
+        largeTitleView.button.setTitleColor(UIColor.black, for: .normal)
+        largeTitleView.button.setTitle(XWHIconFontOcticons.addCircle.rawValue, for: .normal)
+        largeTitleView.button.layer.backgroundColor = nil
+        largeTitleView.button.layer.cornerRadius = 0
+    }
+    
+    func relayoutLargeTitleView() {
+        largeTitleView.relayout { ltView in
+            ltView.titleLb.snp.remakeConstraints { make in
+                make.top.equalToSuperview()
+                make.height.equalTo(40)
+                make.left.equalToSuperview().inset(28)
+                make.right.lessThanOrEqualTo(ltView.button.snp.left).offset(-10)
+            }
+            
+            ltView.button.snp.remakeConstraints { make in
+                make.right.equalToSuperview().offset(-28)
+                make.size.equalTo(24)
+                make.centerY.equalTo(ltView.titleLb)
+            }
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         tableView.reloadData()
     }
-
-}
-
-// MARK: - Config Data
-extension XWHDeviceMainVC {
     
-    private func configDeviceItems() {
-        deviceItems = XWHDeviceDeploy().loadDeploys()
-    }
-    
-}
-
-// MARK: - ConfigUI
-extension XWHDeviceMainVC {
-    
-    private func configTableView() {
-        tableView.showsVerticalScrollIndicator = false
-        tableView.showsHorizontalScrollIndicator = false
-//        tableView.tableHeaderView = UIView()
-//        tableView.tableFooterView = UIView()
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.backgroundColor = view.backgroundColor
-        tableView.separatorStyle = .none
-//        tableView.isExclusiveTouch = true
-        
-        tableView.tableFooterView = tableFooter
-        
-        tableFooter.clickCallback = { [unowned self] in
-            self.gotoDevSetUnbind()
-        }
-        
-        registerTableViewCell()
-    }
-    
-    private func registerTableViewCell() {
-        tableView.register(cellWithClass: XWHDeviceInfoTBCell.self)
-        
-        tableView.register(cellWithClass: XWHDeviceNormallTBCell.self)
-        tableView.register(cellWithClass: XWHDialMarketTBCell.self)
-    }
-    
-}
-
-// MARK: - UI
-extension XWHDeviceMainVC {
-    
-    private func reloadAll() {
-        configDeviceItems()
-        tableView.reloadData()
-    }
-    
-}
-
-// MARK: - UITableViewDataSource,
-extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableViewRoundedProtocol {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
+    // MARK: - UITableViewDataSource, UITableViewDelegate, UITableViewRoundedProtocol
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return deviceItems.count
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return deviceItems[section].count
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let section = indexPath.section
         let row = indexPath.row
         
@@ -162,7 +144,7 @@ extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableVi
         return 52
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = indexPath.section
         let row = indexPath.row
         
@@ -198,23 +180,23 @@ extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableVi
         }
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         rounded(tableView, willDisplay: cell, forRowAt: indexPath)
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.001
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return UIView()
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 12
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let cView = UIView()
         cView.backgroundColor = UIColor(hex: 0xF8F8F8)
         
@@ -285,6 +267,62 @@ extension XWHDeviceMainVC: UITableViewDataSource, UITableViewDelegate, UITableVi
         default:
             return
         }
+    }
+    
+    // MARK: - UIScorllViewDelegate
+//    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        
+//    }
+
+}
+
+// MARK: - Config Data
+extension XWHDeviceMainVC {
+    
+    private func configDeviceItems() {
+        deviceItems = XWHDeviceDeploy().loadDeploys()
+    }
+    
+}
+
+// MARK: - ConfigUI
+extension XWHDeviceMainVC {
+    
+    private func configTableView() {
+        tableView.showsVerticalScrollIndicator = false
+        tableView.showsHorizontalScrollIndicator = false
+//        tableView.tableHeaderView = UIView()
+//        tableView.tableFooterView = UIView()
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.backgroundColor = view.backgroundColor
+        tableView.separatorStyle = .none
+//        tableView.isExclusiveTouch = true
+        
+        tableView.tableFooterView = tableFooter
+        
+        tableFooter.clickCallback = { [unowned self] in
+            self.gotoDevSetUnbind()
+        }
+        
+        registerTableViewCell()
+    }
+    
+    private func registerTableViewCell() {
+        tableView.register(cellWithClass: XWHDeviceInfoTBCell.self)
+        
+        tableView.register(cellWithClass: XWHDeviceNormallTBCell.self)
+        tableView.register(cellWithClass: XWHDialMarketTBCell.self)
+    }
+    
+}
+
+// MARK: - UI
+extension XWHDeviceMainVC {
+    
+    private func reloadAll() {
+        configDeviceItems()
+        tableView.reloadData()
     }
     
 }
