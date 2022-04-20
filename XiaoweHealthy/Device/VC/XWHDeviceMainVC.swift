@@ -18,7 +18,7 @@ class XWHDeviceMainVC: XWHTableViewBaseVC {
     
     lazy var tableFooter = XWHDeviceMainFooter(frame: CGRect(origin: .zero, size: CGSize(width: UIScreen.main.bounds.width - 32, height: 120)))
     
-    private lazy var deviceItems = [[XWHDeployItemModel]]()
+    private lazy var deviceItems = [[XWHDeviceDeployItemModel]]()
     
     private var connWatchModel: XWHDevWatchModel? {
         XWHDataDeviceManager.getCurrentWatch()

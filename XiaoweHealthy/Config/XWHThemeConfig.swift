@@ -132,3 +132,26 @@ var dialBarHighlightColor: UIColor {
     }
 }
 
+// MARK: - 健康 (Health)
+let lightHealthBarBgColor = UIColor(hex: 0x000000, transparency: 0.03)!
+let darkHealthBarBgColor = lightHealthBarBgColor
+
+var healthBarBgColor: UIColor {
+    if #available(iOS 13.0, *) {
+        return UIColor(light: lightHealthBarBgColor, dark: darkHealthBarBgColor)
+    } else {
+        return lightHealthBarBgColor
+    }
+}
+
+let lightHealthBarHighlightColor = UIColor.white
+let darkHealthBarHighlightColor = lightHealthBarHighlightColor
+
+var healthBarHighlightColor: UIColor {
+    if #available(iOS 13.0, *) {
+        return UIColor(light: lightHealthBarHighlightColor, dark: darkHealthBarHighlightColor)
+    } else {
+        return lightHealthBarHighlightColor
+    }
+}
+

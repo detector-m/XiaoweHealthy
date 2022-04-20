@@ -34,7 +34,7 @@ enum XWHDeviceDeployType: Int {
 }
 
 // MARK: - cell 的类型
-enum XWHDeployCellType: Int {
+enum XWHDeviceDeployCellType: Int {
     
     case nomal = 0
     case `switch` = 1
@@ -45,7 +45,7 @@ enum XWHDeployCellType: Int {
 }
 
 // MARK: - 设备部署的模型
-struct XWHDeployItemModel {
+struct XWHDeviceDeployItemModel {
     
     var title = ""
     var subTitle = ""
@@ -54,7 +54,7 @@ struct XWHDeployItemModel {
     var iconImageName = ""
     
     var type: XWHDeviceDeployType
-    var cellType: XWHDeployCellType = .nomal
+    var cellType: XWHDeviceDeployCellType = .nomal
     
     init(type: XWHDeviceDeployType) {
         self.type = type
@@ -77,7 +77,7 @@ class XWHDeviceDeploy {
     lazy var deviceCommonDeploy: [XWHDeviceDeployType] = [.guide, .recover, .update]
     
     // 获取配置数据
-    func loadDeploys() -> [[XWHDeployItemModel]] {
+    func loadDeploys() -> [[XWHDeviceDeployItemModel]] {
         let deployTypes = loadDeployTypes()
 
         return loadDeployItems(deployTypes: deployTypes)
@@ -101,11 +101,11 @@ class XWHDeviceDeploy {
     }
     
     // 通过配置项获取DeviceDeploys数组
-    private func loadDeployItems(deployTypes: [[XWHDeviceDeployType]]) -> [[XWHDeployItemModel]] {
-        var dataArr = [[XWHDeployItemModel]]()
+    private func loadDeployItems(deployTypes: [[XWHDeviceDeployType]]) -> [[XWHDeviceDeployItemModel]] {
+        var dataArr = [[XWHDeviceDeployItemModel]]()
         
         for item in deployTypes {
-            var source = [XWHDeployItemModel]()
+            var source = [XWHDeviceDeployItemModel]()
             
             item.forEach { deployType in
                 source.append(getDeployItem(deployType))
@@ -117,9 +117,9 @@ class XWHDeviceDeploy {
         return dataArr
     }
     
-    private func getDeployItem(_ type: XWHDeviceDeployType) -> XWHDeployItemModel {
+    private func getDeployItem(_ type: XWHDeviceDeployType) -> XWHDeviceDeployItemModel {
         
-        var item = XWHDeployItemModel(type: type)
+        var item = XWHDeviceDeployItemModel(type: type)
         
         switch type {
         case .info:

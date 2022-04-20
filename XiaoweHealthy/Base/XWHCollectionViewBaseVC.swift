@@ -26,6 +26,7 @@ class XWHCollectionViewBaseVC: XWHBaseVC {
         collectionView.backgroundColor = bgColor
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.contentInsetAdjustmentBehavior = .never
                 
         view.addSubview(collectionView)
     }

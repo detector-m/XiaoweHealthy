@@ -20,11 +20,11 @@ class XWHBaseView: UIView {
         super.init(coder: coder)
     }
     
-    func addSubViews() {
+    @objc func addSubViews() {
         
     }
     
-    func relayoutSubViews() {
+    @objc func relayoutSubViews() {
         
     }
 

@@ -131,6 +131,9 @@
 		969B8816280FE11A009952E7 /* XWHHealthyBaseCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */; };
 		969B881A280FE182009952E7 /* XWHHealthyHeartCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8819280FE182009952E7 /* XWHHealthyHeartCTVC.swift */; };
 		969B881D280FE2B7009952E7 /* XWHHealthyConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B881C280FE2B7009952E7 /* XWHHealthyConstant.swift */; };
+		969B8821280FE670009952E7 /* XWHHealthyBloodOxygenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8820280FE670009952E7 /* XWHHealthyBloodOxygenVC.swift */; };
+		969B8824280FE7BB009952E7 /* XWHDateSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8823280FE7BB009952E7 /* XWHDateSegmentView.swift */; };
+		969B8826280FEA5D009952E7 /* XWHHealthyText.strings in Resources */ = {isa = PBXBuildFile; fileRef = 969B8825280FEA5D009952E7 /* XWHHealthyText.strings */; };
 		969E7118280AB51F00BDA401 /* XWHDialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E7117280AB51F00BDA401 /* XWHDialManager.swift */; };
 		969E711B280BE09F00BDA401 /* XWHTableViewBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E711A280BE09F00BDA401 /* XWHTableViewBaseVC.swift */; };
 		969E7121280BE34A00BDA401 /* XWHContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E7120280BE34A00BDA401 /* XWHContactVC.swift */; };
@@ -394,6 +397,9 @@
 		969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyBaseCTVC.swift; sourceTree = "<group>"; };
 		969B8819280FE182009952E7 /* XWHHealthyHeartCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyHeartCTVC.swift; sourceTree = "<group>"; };
 		969B881C280FE2B7009952E7 /* XWHHealthyConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyConstant.swift; sourceTree = "<group>"; };
+		969B8820280FE670009952E7 /* XWHHealthyBloodOxygenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyBloodOxygenVC.swift; sourceTree = "<group>"; };
+		969B8823280FE7BB009952E7 /* XWHDateSegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDateSegmentView.swift; sourceTree = "<group>"; };
+		969B8825280FEA5D009952E7 /* XWHHealthyText.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = XWHHealthyText.strings; sourceTree = "<group>"; };
 		969E7117280AB51F00BDA401 /* XWHDialManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDialManager.swift; sourceTree = "<group>"; };
 		969E711A280BE09F00BDA401 /* XWHTableViewBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTableViewBaseVC.swift; sourceTree = "<group>"; };
 		969E7120280BE34A00BDA401 /* XWHContactVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHContactVC.swift; sourceTree = "<group>"; };
@@ -1133,6 +1139,7 @@
 		967790B6280FAF4300C78327 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				969B8822280FE749009952E7 /* View */,
 				96617A9827E2BFD600139B03 /* VC */,
 			);
 			path = Common;
@@ -1256,6 +1263,30 @@
 				969B881C280FE2B7009952E7 /* XWHHealthyConstant.swift */,
 			);
 			path = Constant;
+			sourceTree = "<group>";
+		};
+		969B881E280FE634009952E7 /* BloodOxygen */ = {
+			isa = PBXGroup;
+			children = (
+				969B881F280FE64C009952E7 /* VC */,
+			);
+			path = BloodOxygen;
+			sourceTree = "<group>";
+		};
+		969B881F280FE64C009952E7 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				969B8820280FE670009952E7 /* XWHHealthyBloodOxygenVC.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		969B8822280FE749009952E7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				969B8823280FE7BB009952E7 /* XWHDateSegmentView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		969E7116280AB2D400BDA401 /* Manager */ = {
@@ -1647,6 +1678,7 @@
 				96FC408927EDBB3B00D64B64 /* XWHDeviceText.strings */,
 				96F1D67D280945780067DBFD /* XWHDialText.strings */,
 				969E7122280BE3D800BDA401 /* XWHContactText.strings */,
+				969B8825280FEA5D009952E7 /* XWHHealthyText.strings */,
 			);
 			path = LocalString;
 			sourceTree = "<group>";
@@ -1654,8 +1686,9 @@
 		96E23C2127E1A311009EF208 /* Healthy */ = {
 			isa = PBXGroup;
 			children = (
-				967790B5280FAF2800C78327 /* Home */,
+				969B881E280FE634009952E7 /* BloodOxygen */,
 				967790B4280FAF1200C78327 /* Heart */,
+				967790B5280FAF2800C78327 /* Home */,
 				969B881B280FE29E009952E7 /* Constant */,
 				967790B6280FAF4300C78327 /* Common */,
 			);
@@ -1969,6 +2002,7 @@
 				96FC408A27EDBB3B00D64B64 /* XWHDeviceText.strings in Resources */,
 				96FC408427EDA4F400D64B64 /* SKSans-Bold.otf in Resources */,
 				9648E61627E0796D0077180D /* Main.storyboard in Resources */,
+				969B8826280FEA5D009952E7 /* XWHHealthyText.strings in Resources */,
 				96617A6327E1D1B300139B03 /* XWHLaunchImg@3x.png in Resources */,
 				96617A6827E1D31700139B03 /* XWHLaunchBg@2x.png in Resources */,
 				96617A6427E1D1B300139B03 /* XWHLaunchImg@2x.png in Resources */,
@@ -2182,6 +2216,7 @@
 				9653E48927F54D5900EE55FF /* XWHDataExtension.swift in Sources */,
 				96DC42A427FD88A2009BF300 /* XWHFileManager.swift in Sources */,
 				960E768027F00BB700A0DA25 /* XWHAddBrandDeviceCTCell.swift in Sources */,
+				969B8824280FE7BB009952E7 /* XWHDateSegmentView.swift in Sources */,
 				96617AAF27E3457100139B03 /* XWHRegisterFillInfoBaseVC.swift in Sources */,
 				96F3588527FE7F1800783614 /* XWHDeviceManagerEnum.swift in Sources */,
 				9653E4A827F5B1F800EE55FF /* XWHComLineBaseTBCell.swift in Sources */,
@@ -2318,6 +2353,7 @@
 				9644928827F7EB2F001CA321 /* XWHProgressButton.swift in Sources */,
 				9661D35827F5FD830062B2B8 /* XWHDevSetWristVC.swift in Sources */,
 				968CB8A627F40B5A00E549AC /* XWHDeviceDeploy.swift in Sources */,
+				969B8821280FE670009952E7 /* XWHHealthyBloodOxygenVC.swift in Sources */,
 				9651EE0C27EB024B0043FE52 /* XWHNetworkHelper.swift in Sources */,
 				9653E4A027F5A32000EE55FF /* XWHDevSetPressureVC.swift in Sources */,
 				968CB8AE27F45DB100E549AC /* XWHDeviceInfoTBCell.swift in Sources */,

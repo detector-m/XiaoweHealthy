@@ -25,6 +25,7 @@ class XWHTableViewBaseVC: XWHBaseVC {
         tableView.backgroundColor = bgColor
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
+        tableView.contentInsetAdjustmentBehavior = .never
                 
         view.addSubview(tableView)
     }

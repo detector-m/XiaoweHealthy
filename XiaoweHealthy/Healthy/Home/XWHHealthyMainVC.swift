@@ -10,7 +10,7 @@ import UIKit
 /// 运动健康首页
 class XWHHealthyMainVC: XWHTableViewBaseVC {
     
-    private lazy var testItems = [XWHHealthType.heart, XWHHealthType.login, XWHHealthType.test]
+    private lazy var testItems: [XWHHealthType] = [.heart, .bloodOxygen, .login, .test]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,6 +118,9 @@ class XWHHealthyMainVC: XWHTableViewBaseVC {
         case .heart:
             gotoHeart()
             
+        case .bloodOxygen:
+            gotoBloodOxygen()
+            
         case .login:
             gotoTestLogin()
             
@@ -139,6 +142,12 @@ extension XWHHealthyMainVC {
     // 跳转到心率
     private func gotoHeart() {
         let vc = XWHHealthyHeartCTVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // 跳转到血氧
+    private func gotoBloodOxygen() {
+        let vc = XWHHealthyBloodOxygenVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     
