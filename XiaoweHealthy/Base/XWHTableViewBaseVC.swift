@@ -29,9 +29,33 @@ class XWHTableViewBaseVC: XWHBaseVC, UITableViewDataSource, UITableViewDelegate,
         view.addSubview(tableView)
     }
     
+    override func setLargeTitleMode() {
+        // 大标题方式2
+        setLargeTitleModeSecond()
+    }
+    
+    /// 设置第二种方式
+    final func setLargeTitleModeSecond() {
+        tableView.addSubview(largeTitleView)
+        setTopInsetForLargeTitle(in: tableView)
+    }
+    
     override func relayoutSubViews() {
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+    }
+    
+    override func relayoutLargeTitle() {
+        relayoutLargeTitleSecond()
+    }
+    
+    final func relayoutLargeTitleSecond() {
+        largeTitleView.snp.remakeConstraints { make in
+            make.left.equalToSuperview()
+            make.width.equalTo(largeTitleWidth)
+            make.top.equalToSuperview().inset(-largeTitleHeight)
+            make.height.equalTo(largeTitleHeight)
         }
     }
     
@@ -79,5 +103,10 @@ class XWHTableViewBaseVC: XWHBaseVC, UITableViewDataSource, UITableViewDelegate,
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //
 //    }
+    
+    // MARK: - UIScrollViewDeletate
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        handleScrollLargeTitle(in: scrollView)
+    }
 
 }

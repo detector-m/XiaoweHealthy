@@ -12,6 +12,10 @@ class XWHDeviceMainVC: XWHTableViewBaseVC {
     
 //    lazy var tableView = UITableView(frame: .zero, style: .grouped)
     
+    override var largeTitleWidth: CGFloat {
+        UIScreen.main.bounds.width - 32
+    }
+    
     lazy var tableFooter = XWHDeviceMainFooter(frame: CGRect(origin: .zero, size: CGSize(width: UIScreen.main.bounds.width - 32, height: 120)))
     
     private lazy var deviceItems = [[XWHDeployItemModel]]()
@@ -64,24 +68,23 @@ class XWHDeviceMainVC: XWHTableViewBaseVC {
         super.addSubViews()
         
         view.backgroundColor = collectionBgColor
-        view.addSubview(largeTitleView)
+        // 大标题方式1
+        setLargeTitleMode()
+        
+        // 大标题方式2
+//        tableView.addSubview(largeTitleView)
+//        setTopInsetForLargeTitle(in: tableView)
+//        setLargeTitleMode()
         
         configLargeTitleView()
         configTableView()
     }
     
     override func relayoutSubViews() {
-        relayoutLargeTitleView()
-        largeTitleView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
-            topConstraint = make.top.equalTo(66).constraint
-            make.height.equalTo(40)
-        }
-        tableView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(16)
-            make.top.equalTo(largeTitleView.snp.bottom).offset(16)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-        }
+        // 大标题方式1
+//         relayoutSubViewsOne()
+        // 大标题方式2
+        relayoutSubViewsTwo()
     }
     
     func configLargeTitleView() {
@@ -95,19 +98,58 @@ class XWHDeviceMainVC: XWHTableViewBaseVC {
         largeTitleView.button.layer.cornerRadius = 0
     }
     
-    func relayoutLargeTitleView() {
+    func relayoutSubViewsOne() {
+        relayoutLargeTitle()
+        tableView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(16)
+            make.top.equalTo(largeTitleView.snp.bottom).offset(16)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        relayoutLargeTitleContentViewOne()
+    }
+    func relayoutSubViewsTwo() {
+        tableView.snp.remakeConstraints { make in
+            make.left.right.equalToSuperview().inset(16)
+            make.top.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        relayoutLargeTitle()
+        
+        relayoutLargeTitleContentViewTwo()
+    }
+    
+    func relayoutLargeTitleContentViewOne() {
         largeTitleView.relayout { ltView in
             ltView.titleLb.snp.remakeConstraints { make in
                 make.top.equalToSuperview()
                 make.height.equalTo(40)
-                make.left.equalToSuperview().inset(28)
+                make.left.equalToSuperview().offset(16)
                 make.right.lessThanOrEqualTo(ltView.button.snp.left).offset(-10)
             }
             
             ltView.button.snp.remakeConstraints { make in
-                make.right.equalToSuperview().offset(-28)
+                make.right.equalToSuperview().offset(-16)
                 make.size.equalTo(24)
                 make.centerY.equalTo(ltView.titleLb)
+            }
+        }
+    }
+    
+    func relayoutLargeTitleContentViewTwo() {
+        largeTitleView.relayout { ltView in
+            ltView.button.snp.remakeConstraints { make in
+                make.right.equalToSuperview()
+                make.size.equalTo(24)
+                make.centerY.equalTo(ltView.titleLb)
+            }
+
+            ltView.titleLb.snp.remakeConstraints { make in
+                make.top.equalToSuperview()
+                make.height.equalTo(40)
+                make.left.equalToSuperview()
+                make.right.lessThanOrEqualTo(ltView.button.snp.left).offset(-10)
             }
         }
     }
@@ -271,7 +313,7 @@ class XWHDeviceMainVC: XWHTableViewBaseVC {
     
     // MARK: - UIScorllViewDelegate
 //    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        
+//        handleScrollLargeTitle(in: scrollView)
 //    }
 
 }

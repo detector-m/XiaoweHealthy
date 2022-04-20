@@ -10,9 +10,21 @@ import UIKit
 class XWHBaseVC: UIViewController {
     
     lazy var largeTitleView = XWHLargeTitleView()
+    var largeTitleWidth: CGFloat {
+        UIScreen.main.bounds.width
+    }
+    var largeTitleHeight: CGFloat {
+        64
+    }
     
+    // 大标题处理方式 方式1
     // largeTitleView 顶部约束
     var topConstraint: Constraint?
+    
+    // 大标题处理方式 方式2
+    var topContentInset: CGFloat {
+        66
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +45,16 @@ class XWHBaseVC: UIViewController {
         setNavGlobalBackItem()
     }
     
+    // 设置大标题模式
+    func setLargeTitleMode() {
+        setLargeTitleModeFirst()
+    }
+    
+    /// 设置第一种方式 默认
+    final func setLargeTitleModeFirst() {
+        view.addSubview(largeTitleView)
+    }
+    
     // 设置带有LargeTitle的nav items
     func setNavigationBarWithLargeTitle() {
         
@@ -49,6 +71,19 @@ class XWHBaseVC: UIViewController {
     
     func relayoutSubViews() {
         
+    }
+    
+    func relayoutLargeTitle() {
+        relayoutLargeTitleFirst()
+    }
+    
+    final func relayoutLargeTitleFirst() {
+        // 大标题方式1
+        largeTitleView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
+            topConstraint = make.top.equalTo(topContentInset).constraint
+            make.height.equalTo(largeTitleHeight)
+        }
     }
     
     func setNavGlobalBackItem() {
@@ -104,6 +139,7 @@ class XWHBaseVC: UIViewController {
 // MARK: - 处理大标题滚动的方式
 @objc extension XWHBaseVC {
     
+    // MARK: - 方式1
     /// 通过在scrollview 的上部控制滚动大标题 （topConstraint 控制）
     /// - Parameters:
     ///     - scrollView: 滚动的view
@@ -127,13 +163,29 @@ class XWHBaseVC: UIViewController {
             curInset = topInsetMin
         }
         
-        if sContentOffset >= 40 {
+        if sContentOffset >= largeTitleHeight {
             setNavigationBarWithLargeTitle()
         } else {
             resetNavigationBarWithoutLargeTitle()
         }
         
         cTopConstraint.update(inset: curInset)
+    }
+    
+    // MARK: - 方式2
+    /// 设置 scrollview的上部内嵌
+    func setTopInsetForLargeTitle(in scrollView: UIScrollView) {
+        if largeTitleView.superview != scrollView {
+            largeTitleView.removeFromSuperview()
+            scrollView.addSubview(largeTitleView)
+        }
+        
+        var oInset = scrollView.contentInset
+        oInset.top += topContentInset + largeTitleHeight
+        scrollView.contentInset = oInset
+        scrollView.contentInsetAdjustmentBehavior = .never
+        
+        scrollView.contentOffset = CGPoint(x: 0, y: -oInset.top)
     }
     
     /// 通过添加到 scrollview 中控制滚动大标题
@@ -155,7 +207,7 @@ class XWHBaseVC: UIViewController {
 //            curInset = topInsetMin
 //        }
         
-        if sContentOffset >= 40 {
+        if sContentOffset >= -topContentInset {
             setNavigationBarWithLargeTitle()
         } else {
             resetNavigationBarWithoutLargeTitle()
