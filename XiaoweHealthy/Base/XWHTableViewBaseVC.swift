@@ -7,7 +7,7 @@
 
 import UIKit
 
-class XWHTableViewBaseVC: XWHBaseVC, UITableViewDataSource, UITableViewDelegate, UITableViewRoundedProtocol {
+class XWHTableViewBaseVC: XWHBaseVC {
     
     lazy var tableView = UITableView(frame: .zero, style: .grouped)
 
@@ -59,11 +59,15 @@ class XWHTableViewBaseVC: XWHBaseVC, UITableViewDataSource, UITableViewDelegate,
         }
     }
     
-    func registerViews() {
+    @objc func registerViews() {
         
     }
     
-    // MARK: - UITableViewDataSource & UITableViewDelegate
+}
+
+// MARK: - UITableViewDataSource & UITableViewDelegate & UITableViewRoundedProtocol
+@objc extension XWHTableViewBaseVC : UITableViewDataSource, UITableViewDelegate, UITableViewRoundedProtocol {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -109,4 +113,5 @@ class XWHTableViewBaseVC: XWHBaseVC, UITableViewDataSource, UITableViewDelegate,
         handleScrollLargeTitle(in: scrollView)
     }
 
+    
 }

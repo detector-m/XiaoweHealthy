@@ -41,12 +41,12 @@ class XWHBaseVC: UIViewController {
         relayoutSubViews()
     }
     
-    func setupNavigationItems() {
+    @objc func setupNavigationItems() {
         setNavGlobalBackItem()
     }
     
     // 设置大标题模式
-    func setLargeTitleMode() {
+    @objc func setLargeTitleMode() {
         setLargeTitleModeFirst()
     }
     
@@ -56,24 +56,24 @@ class XWHBaseVC: UIViewController {
     }
     
     // 设置带有LargeTitle的nav items
-    func setNavigationBarWithLargeTitle() {
-        
+    @objc func setNavigationBarWithLargeTitle() {
+        setNav(color: bgColor)
     }
     
     // 还原没有LargeTitle的 nav itmes
-    func resetNavigationBarWithoutLargeTitle() {
+    @objc func resetNavigationBarWithoutLargeTitle() {
+        setNavTransparent()
+    }
+    
+    @objc func addSubViews() {
         
     }
     
-    func addSubViews() {
+    @objc func relayoutSubViews() {
         
     }
     
-    func relayoutSubViews() {
-        
-    }
-    
-    func relayoutLargeTitle() {
+    @objc func relayoutLargeTitle() {
         relayoutLargeTitleFirst()
     }
     
@@ -86,12 +86,12 @@ class XWHBaseVC: UIViewController {
         }
     }
     
-    func setNavGlobalBackItem() {
+    @objc func setNavGlobalBackItem() {
         navigationItem.leftBarButtonItem = getNavGlobalBackItem()
         rt_disableInteractivePop = false
     }
     
-    func getNavGlobalBackItem() -> UIBarButtonItem {
+    @objc func getNavGlobalBackItem() -> UIBarButtonItem {
         return getNavGlobalBackItem(target: self, action: #selector(clickNavGlobalBackBtn))
     }
     
@@ -99,11 +99,11 @@ class XWHBaseVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    func getNavGlobalBackItem(target: UIViewController, action: Selector) -> UIBarButtonItem {
+    @objc func getNavGlobalBackItem(target: UIViewController, action: Selector) -> UIBarButtonItem {
         return getNavItem(text: nil, image: R.image.globalBack(), target: target, action: action)
     }
     
-    func getNavItem(text: String? = nil, font: UIFont? = nil, color: UIColor? = nil, image: UIImage? = nil, target: UIViewController, action: Selector) -> UIBarButtonItem {
+    @objc func getNavItem(text: String? = nil, font: UIFont? = nil, color: UIColor? = nil, image: UIImage? = nil, target: UIViewController, action: Selector) -> UIBarButtonItem {
         let button = UIButton(type: .custom)
         if let cImage = image {
             button.setImage(cImage, for: .normal)

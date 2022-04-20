@@ -35,7 +35,7 @@ class XWHBaseTBCell: UITableViewCell {
     }
     
     func relayoutSubViews() {
-        
+        relayoutOnlyTitleLb()
     }
     
     func relayoutOnlyTitleLb() {
