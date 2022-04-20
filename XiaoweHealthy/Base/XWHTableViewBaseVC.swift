@@ -30,6 +30,8 @@ class XWHTableViewBaseVC: XWHBaseVC {
     }
     
     override func setLargeTitleMode() {
+        isUseLargeTitleMode = true
+        
         // 大标题方式2
         setLargeTitleModeSecond()
     }

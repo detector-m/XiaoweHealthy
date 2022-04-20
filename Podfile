@@ -73,6 +73,9 @@ target 'XiaoweHealthy' do
   # 分页控制器
   pod 'Tabman'
   
+  # 分段控件
+  pod 'BetterSegmentedControl'
+  
   # 下载进度条
   pod 'LinearProgressBar'
   

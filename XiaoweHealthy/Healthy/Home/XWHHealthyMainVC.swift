@@ -7,15 +7,10 @@
 
 import UIKit
 
+/// 运动健康首页
 class XWHHealthyMainVC: XWHTableViewBaseVC {
     
-    private enum TestType: String {
-        case heart = "心率"
-        case login = "登录"
-        case pwdLogin = "密码登录"
-    }
-    
-    private lazy var testItems = [TestType.heart, TestType.login, TestType.pwdLogin]
+    private lazy var testItems = [XWHHealthType.heart, XWHHealthType.login, XWHHealthType.test]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,8 +121,8 @@ class XWHHealthyMainVC: XWHTableViewBaseVC {
         case .login:
             gotoTestLogin()
             
-        case .pwdLogin:
-            gotoTestPwdLogin()
+        case .test:
+            gotoTestTest()
         }
     }
     
@@ -143,7 +138,8 @@ extension XWHHealthyMainVC {
     
     // 跳转到心率
     private func gotoHeart() {
-        
+        let vc = XWHHealthyHeartCTVC()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }
@@ -153,30 +149,30 @@ extension XWHHealthyMainVC {
 extension XWHHealthyMainVC {
     
     private func gotoTestLogin() {
-//        XWHLogin.present(at: self)
-        
-//        testBridge()
-        
-//        testFirmwareUpdate()
-        
-//        testCache()
-        
-//        testScan()
-        
-//        testDatabase()
-//        testUTEWeatherApi()
-        
-//        testDailVC()
-        
-        testContact()
-    }
-    
-    private func gotoTestPwdLogin() {
         XWHLogin.presentPasswordLogin(at: self)
         
 //        XWHCryptoAES.test()
         
 //        testUserProfile()
+    }
+    
+    private func gotoTestTest() {
+        //        XWHLogin.present(at: self)
+                
+        //        testBridge()
+                
+        //        testFirmwareUpdate()
+                
+        //        testCache()
+                
+        //        testScan()
+                
+        //        testDatabase()
+        //        testUTEWeatherApi()
+                
+        //        testDailVC()
+                
+                testContact()
     }
     
     fileprivate func testBridge() {

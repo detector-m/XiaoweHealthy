@@ -9,6 +9,7 @@ import UIKit
 
 class XWHBaseVC: UIViewController {
     
+    var isUseLargeTitleMode = false
     lazy var largeTitleView = XWHLargeTitleView()
     var largeTitleWidth: CGFloat {
         UIScreen.main.bounds.width
@@ -47,6 +48,8 @@ class XWHBaseVC: UIViewController {
     
     // 设置大标题模式
     @objc func setLargeTitleMode() {
+        isUseLargeTitleMode = true
+        
         setLargeTitleModeFirst()
     }
     
@@ -144,6 +147,10 @@ class XWHBaseVC: UIViewController {
     /// - Parameters:
     ///     - scrollView: 滚动的view
     func handleScrollLargeTitle(atTop scrollView: UIScrollView) {
+        guard isUseLargeTitleMode else {
+            return
+        }
+        
         guard let cTopConstraint = topConstraint else {
             return
         }
@@ -192,6 +199,10 @@ class XWHBaseVC: UIViewController {
     /// - Parameters:
     ///     - scrollView: 滚动的view
     func handleScrollLargeTitle(in scrollView: UIScrollView) {
+        guard isUseLargeTitleMode else {
+            return
+        }
+        
         guard let _ = navigationController else {
             return
         }

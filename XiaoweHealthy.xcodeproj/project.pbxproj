@@ -128,6 +128,9 @@
 		968CB8AE27F45DB100E549AC /* XWHDeviceInfoTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8AD27F45DB100E549AC /* XWHDeviceInfoTBCell.swift */; };
 		968CB8B027F4661700E549AC /* XWHDeviceMainFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8AF27F4661700E549AC /* XWHDeviceMainFooter.swift */; };
 		969A4CF8280E8A630049BC07 /* XWHLargeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */; };
+		969B8816280FE11A009952E7 /* XWHHealthyBaseCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */; };
+		969B881A280FE182009952E7 /* XWHHealthyHeartCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8819280FE182009952E7 /* XWHHealthyHeartCTVC.swift */; };
+		969B881D280FE2B7009952E7 /* XWHHealthyConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B881C280FE2B7009952E7 /* XWHHealthyConstant.swift */; };
 		969E7118280AB51F00BDA401 /* XWHDialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E7117280AB51F00BDA401 /* XWHDialManager.swift */; };
 		969E711B280BE09F00BDA401 /* XWHTableViewBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E711A280BE09F00BDA401 /* XWHTableViewBaseVC.swift */; };
 		969E7121280BE34A00BDA401 /* XWHContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E7120280BE34A00BDA401 /* XWHContactVC.swift */; };
@@ -388,6 +391,9 @@
 		968CB8AD27F45DB100E549AC /* XWHDeviceInfoTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceInfoTBCell.swift; sourceTree = "<group>"; };
 		968CB8AF27F4661700E549AC /* XWHDeviceMainFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceMainFooter.swift; sourceTree = "<group>"; };
 		969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLargeTitleView.swift; sourceTree = "<group>"; };
+		969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyBaseCTVC.swift; sourceTree = "<group>"; };
+		969B8819280FE182009952E7 /* XWHHealthyHeartCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyHeartCTVC.swift; sourceTree = "<group>"; };
+		969B881C280FE2B7009952E7 /* XWHHealthyConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyConstant.swift; sourceTree = "<group>"; };
 		969E7117280AB51F00BDA401 /* XWHDialManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDialManager.swift; sourceTree = "<group>"; };
 		969E711A280BE09F00BDA401 /* XWHTableViewBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTableViewBaseVC.swift; sourceTree = "<group>"; };
 		969E7120280BE34A00BDA401 /* XWHContactVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHContactVC.swift; sourceTree = "<group>"; };
@@ -1048,6 +1054,7 @@
 		96617A9827E2BFD600139B03 /* VC */ = {
 			isa = PBXGroup;
 			children = (
+				969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -1109,6 +1116,8 @@
 		967790B4280FAF1200C78327 /* Heart */ = {
 			isa = PBXGroup;
 			children = (
+				969B8818280FE13C009952E7 /* View */,
+				969B8817280FE134009952E7 /* VC */,
 			);
 			path = Heart;
 			sourceTree = "<group>";
@@ -1224,6 +1233,29 @@
 				969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */,
 			);
 			path = LargeTitleView;
+			sourceTree = "<group>";
+		};
+		969B8817280FE134009952E7 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				969B8819280FE182009952E7 /* XWHHealthyHeartCTVC.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		969B8818280FE13C009952E7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		969B881B280FE29E009952E7 /* Constant */ = {
+			isa = PBXGroup;
+			children = (
+				969B881C280FE2B7009952E7 /* XWHHealthyConstant.swift */,
+			);
+			path = Constant;
 			sourceTree = "<group>";
 		};
 		969E7116280AB2D400BDA401 /* Manager */ = {
@@ -1624,6 +1656,7 @@
 			children = (
 				967790B5280FAF2800C78327 /* Home */,
 				967790B4280FAF1200C78327 /* Heart */,
+				969B881B280FE29E009952E7 /* Constant */,
 				967790B6280FAF4300C78327 /* Common */,
 			);
 			path = Healthy;
@@ -2188,6 +2221,7 @@
 				968CB8A327F3FB8800E549AC /* UITableViewRoundedProtocol.swift in Sources */,
 				96C67AF628047278001ACA81 /* XWHBloodOxygenSetModel.swift in Sources */,
 				96617A9227E23EAD00139B03 /* XWHColorExtension.swift in Sources */,
+				969B881D280FE2B7009952E7 /* XWHHealthyConstant.swift in Sources */,
 				96C67AE3280415DD001ACA81 /* XWHLongSitSetModel.swift in Sources */,
 				96AD285C28016BB30092B843 /* XWHTestModel.swift in Sources */,
 				9672B25E27EEA48900DC80D6 /* XWHUser.swift in Sources */,
@@ -2252,6 +2286,7 @@
 				9651EDFF27EAC2560043FE52 /* Repeater.swift in Sources */,
 				9653E4AA27F5B3B800EE55FF /* XWHDevSetCommonTBCell.swift in Sources */,
 				96E23C2827E1A53F009EF208 /* XWHSportMainVC.swift in Sources */,
+				969B881A280FE182009952E7 /* XWHHealthyHeartCTVC.swift in Sources */,
 				96F1D68E280988080067DBFD /* XWHDialMoreVC.swift in Sources */,
 				9613E78527F4A0BC007A1589 /* XWHThemeConfig.swift in Sources */,
 				9653E49627F55D1B00EE55FF /* XWHDevSetSwitchTBCell.swift in Sources */,
@@ -2277,6 +2312,7 @@
 				96F1D68428094A5E0067DBFD /* XWHDialMarketVC.swift in Sources */,
 				9651EE1527EB6CF50043FE52 /* XWHUserApi.swift in Sources */,
 				9653E4A427F5A60900EE55FF /* XWHDevSetHeartVC.swift in Sources */,
+				969B8816280FE11A009952E7 /* XWHHealthyBaseCTVC.swift in Sources */,
 				96617AA327E3110E00139B03 /* XWHPasswordLoginVC.swift in Sources */,
 				96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */,
 				9644928827F7EB2F001CA321 /* XWHProgressButton.swift in Sources */,

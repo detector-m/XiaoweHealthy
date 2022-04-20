@@ -7,7 +7,7 @@
 
 import UIKit
 
-class XWHCollectionViewBaseVC: XWHBaseVC, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+class XWHCollectionViewBaseVC: XWHBaseVC {
     
     lazy var flowLayout = UICollectionViewFlowLayout()
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
@@ -24,8 +24,23 @@ class XWHCollectionViewBaseVC: XWHBaseVC, UICollectionViewDataSource, UICollecti
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = bgColor
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
                 
         view.addSubview(collectionView)
+    }
+    
+    override func setLargeTitleMode() {
+        isUseLargeTitleMode = true
+        
+        // 大标题方式2
+        setLargeTitleModeSecond()
+    }
+    
+    /// 设置第二种方式
+    final func setLargeTitleModeSecond() {
+        collectionView.addSubview(largeTitleView)
+        setTopInsetForLargeTitle(in: collectionView)
     }
     
     override func relayoutSubViews() {
@@ -34,9 +49,27 @@ class XWHCollectionViewBaseVC: XWHBaseVC, UICollectionViewDataSource, UICollecti
         }
     }
     
-    func registerViews() {
+    override func relayoutLargeTitle() {
+        relayoutLargeTitleSecond()
+    }
+    
+    final func relayoutLargeTitleSecond() {
+        largeTitleView.snp.remakeConstraints { make in
+            make.left.equalToSuperview()
+            make.width.equalTo(largeTitleWidth)
+            make.top.equalToSuperview().inset(-largeTitleHeight)
+            make.height.equalTo(largeTitleHeight)
+        }
+    }
+    
+    @objc func registerViews() {
         
     }
+
+}
+
+// MARK: - UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate
+@objc extension XWHCollectionViewBaseVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     
     // MARK: - UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -87,6 +120,6 @@ class XWHCollectionViewBaseVC: XWHBaseVC, UICollectionViewDataSource, UICollecti
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
     }
-
+    
 }
 
