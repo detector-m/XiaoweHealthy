@@ -12,8 +12,6 @@ class XWHHeartRangeCTCell: XWHHeartCommonCTCell {
     override func addSubViews() {
         super.addSubViews()
         
-        contentView.addSubview(imageView)
-        
         textLb.font = XWHFont.harmonyOSSans(ofSize: 20, weight: .bold)
         detailLb.font = XWHFont.harmonyOSSans(ofSize: 12)
         detailLb.textColor = fontDarkColor.withAlphaComponent(0.3)

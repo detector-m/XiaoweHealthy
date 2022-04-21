@@ -13,6 +13,7 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
     lazy var dateSegment = XWHDateSegmentView()
     
     lazy var uiManager = XWHHealthyUIManager()
+    lazy var isHasLastCurDataItem = true
 
     override func viewDidLoad() {
         super.viewDidLoad()

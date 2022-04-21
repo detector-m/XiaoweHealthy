@@ -10,7 +10,7 @@ import UIKit
 
 /// 运动健康 - 心率
 class XWHHealthyHeartCTVC: XWHHealthyBaseCTVC {
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = R.string.xwhHealthyText.心率()
@@ -18,7 +18,6 @@ class XWHHealthyHeartCTVC: XWHHealthyBaseCTVC {
         loadUIItems()
     }
     
-//    XWHHeartCommonCTCell
     override func registerViews() {
         collectionView.register(cellWithClass: XWHHeartCommonCTCell.self)
         collectionView.register(cellWithClass: XWHHeartGradientCTCell.self)
@@ -44,7 +43,7 @@ extension XWHHealthyHeartCTVC {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let item = uiManager.items[section]
         if item.uiCardType == .curDatas {
-            return uiManager.heartCurDataItems.count
+            return uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem).count
         }
         
         if item.uiCardType == .heartRange {
@@ -102,17 +101,17 @@ extension XWHHealthyHeartCTVC {
         let item = uiManager.items[indexPath.section]
         
         if item.uiCardType == .curDatas {
-            if indexPath.item == 0 {
+            if indexPath.item == 0, isHasLastCurDataItem {
                 let cell = collectionView.dequeueReusableCell(withClass: XWHHeartGradientCTCell.self, for: indexPath)
                 
-                cell.update(uiManager.heartCurDataItems[indexPath.row], "123", Date().dateString(ofStyle: .short))
+                cell.update(uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item], "123", Date().dateString(ofStyle: .short))
                 
                 return cell
             }
             
             let cell = collectionView.dequeueReusableCell(withClass: XWHHeartCommonCTCell.self, for: indexPath)
             
-            cell.update(uiManager.heartCurDataItems[indexPath.row], "123")
+            cell.update(uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item], "123")
 
             return cell
         }

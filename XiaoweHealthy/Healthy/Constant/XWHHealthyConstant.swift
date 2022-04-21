@@ -63,4 +63,7 @@ enum XWHHealthyDetailUICardType {
     /// 心率区间
     case heartRange
     
+    /// 血氧饱和度 （提示信息）
+    case boTip
+    
 }

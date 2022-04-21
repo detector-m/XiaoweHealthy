@@ -15,6 +15,7 @@ class XWHHealthyCommonCTCell: XWHCommonBaseCTCell {
         contentView.layer.cornerRadius = 12
         contentView.layer.backgroundColor = healthContentBgColor.cgColor
         
+        contentView.addSubview(imageView)
         imageView.isHidden = true
     }
     

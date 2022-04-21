@@ -12,10 +12,20 @@ class XWHHealthyUIManager: XWHHealthyUIItemModel {
     
     lazy var items: [XWHHealthyUIItemModel] = []
     
+//    lazy var isHasLastItem: Bool = true {
+//        didSet {
+//
+//        }
+//    }
+    
     // MARK: - 心率(Heart)
 //    lazy var heartCardTypes: [XWHHealthyDetailUICardType] = [.chart, .curDatas, .heartRange]
-    lazy var heartCardTypes: [XWHHealthyDetailUICardType] = [.curDatas, .heartRange]
-    lazy var heartCurDataItems: [String] = [R.string.xwhHealthyText.最近一次心率(), R.string.xwhHealthyText.心率范围(), R.string.xwhHealthyText.静息心率(), R.string.xwhHealthyText.平均心率()]
+    private lazy var heartCardTypes: [XWHHealthyDetailUICardType] = [.curDatas, .heartRange]
+    private lazy var heartCurDataItems: [String] = [R.string.xwhHealthyText.最近一次心率(), R.string.xwhHealthyText.心率范围(), R.string.xwhHealthyText.静息心率(), R.string.xwhHealthyText.平均心率()]
+    
+    // MARK: - 血氧饱和度（BloodOxygen）
+    private lazy var boCardTypes: [XWHHealthyDetailUICardType] = [.curDatas, .boTip]
+    private lazy var boCurDataItems: [String] = [R.string.xwhHealthyText.最近一次血氧饱和度(), R.string.xwhHealthyText.血氧饱和度范围(), R.string.xwhHealthyText.平均血氧饱和度()]
     
     func loadItems(_ type: XWHHealthyType) {
         switch type {
@@ -23,7 +33,7 @@ class XWHHealthyUIManager: XWHHealthyUIItemModel {
             items = getUICardItems(heartCardTypes, healthyType: type)
             
         case .bloodOxygen:
-            break
+            items = getUICardItems(boCardTypes, healthyType: type)
             
         default:
             break
@@ -98,10 +108,11 @@ extension XWHHealthyUIManager {
                 return R.string.xwhHealthyText.本年数据()
             }
             
-            return ""
-            
         case .heartRange:
             return R.string.xwhHealthyText.心率区间()
+            
+        case .boTip:
+            return R.string.xwhHealthyText.血氧饱和度()
             
         default:
             return ""
@@ -116,8 +127,32 @@ extension XWHHealthyUIManager {
         case .heartRange:
             return R.string.xwhHealthyText.了解心率()
             
+        case .boTip:
+            return R.string.xwhHealthyText.了解血氧()
+            
         default:
             return nil
+        }
+    }
+    
+    func getCurDataItems(_ item: XWHHealthyUIItemModel, isHasLastItem: Bool) -> [String] {
+        switch item.healthyType {
+        case .heart:
+            var ret = heartCurDataItems
+            if !isHasLastItem {
+                ret.remove(at: 0)
+            }
+            return ret
+            
+        case .bloodOxygen:
+            var ret = boCurDataItems
+            if !isHasLastItem {
+                ret.remove(at: 0)
+            }
+            return ret
+            
+        default:
+            return []
         }
     }
 

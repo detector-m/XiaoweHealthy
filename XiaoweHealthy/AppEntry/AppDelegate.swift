@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        configAppearance()
         
         configLog()
         
@@ -91,6 +92,11 @@ extension AppDelegate {
         let rVC = XWHRootVCProvider.getTabBarVC()
         
         win.rootViewController = rVC
+    }
+    
+    // 配置App UI
+    fileprivate func configAppearance() {
+        UINavigationBar.appearance().setTitleFont(XWHFont.harmonyOSSans(ofSize: 17, weight: .medium), color: fontDarkColor)
     }
     
     fileprivate func configLog() {

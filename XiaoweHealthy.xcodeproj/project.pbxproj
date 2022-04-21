@@ -144,6 +144,9 @@
 		969B883828111CCD009952E7 /* XWHHealthyCTReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B883728111CCD009952E7 /* XWHHealthyCTReusableView.swift */; };
 		969B883A2811320B009952E7 /* XWHHealthyUIItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B88392811320B009952E7 /* XWHHealthyUIItemModel.swift */; };
 		969B883C2811522A009952E7 /* XWHHeartRangeCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B883B2811522A009952E7 /* XWHHeartRangeCTCell.swift */; };
+		969B883F2811A050009952E7 /* XWHBOCommonCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B883E2811A050009952E7 /* XWHBOCommonCTCell.swift */; };
+		969B88412811A0A6009952E7 /* XWHBOGradientCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B88402811A0A6009952E7 /* XWHBOGradientCTCell.swift */; };
+		969B88432811A1A0009952E7 /* XWHBOTipCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B88422811A1A0009952E7 /* XWHBOTipCTCell.swift */; };
 		969E7118280AB51F00BDA401 /* XWHDialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E7117280AB51F00BDA401 /* XWHDialManager.swift */; };
 		969E711B280BE09F00BDA401 /* XWHTableViewBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E711A280BE09F00BDA401 /* XWHTableViewBaseVC.swift */; };
 		969E7121280BE34A00BDA401 /* XWHContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E7120280BE34A00BDA401 /* XWHContactVC.swift */; };
@@ -420,6 +423,9 @@
 		969B883728111CCD009952E7 /* XWHHealthyCTReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyCTReusableView.swift; sourceTree = "<group>"; };
 		969B88392811320B009952E7 /* XWHHealthyUIItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyUIItemModel.swift; sourceTree = "<group>"; };
 		969B883B2811522A009952E7 /* XWHHeartRangeCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHeartRangeCTCell.swift; sourceTree = "<group>"; };
+		969B883E2811A050009952E7 /* XWHBOCommonCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBOCommonCTCell.swift; sourceTree = "<group>"; };
+		969B88402811A0A6009952E7 /* XWHBOGradientCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBOGradientCTCell.swift; sourceTree = "<group>"; };
+		969B88422811A1A0009952E7 /* XWHBOTipCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBOTipCTCell.swift; sourceTree = "<group>"; };
 		969E7117280AB51F00BDA401 /* XWHDialManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDialManager.swift; sourceTree = "<group>"; };
 		969E711A280BE09F00BDA401 /* XWHTableViewBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTableViewBaseVC.swift; sourceTree = "<group>"; };
 		969E7120280BE34A00BDA401 /* XWHContactVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHContactVC.swift; sourceTree = "<group>"; };
@@ -1293,6 +1299,7 @@
 		969B881E280FE634009952E7 /* BloodOxygen */ = {
 			isa = PBXGroup;
 			children = (
+				969B883D2811A012009952E7 /* View */,
 				969B881F280FE64C009952E7 /* VC */,
 			);
 			path = BloodOxygen;
@@ -1332,6 +1339,16 @@
 				969B88392811320B009952E7 /* XWHHealthyUIItemModel.swift */,
 			);
 			path = UIManager;
+			sourceTree = "<group>";
+		};
+		969B883D2811A012009952E7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				969B883E2811A050009952E7 /* XWHBOCommonCTCell.swift */,
+				969B88402811A0A6009952E7 /* XWHBOGradientCTCell.swift */,
+				969B88422811A1A0009952E7 /* XWHBOTipCTCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		969E7116280AB2D400BDA401 /* Manager */ = {
@@ -2249,6 +2266,7 @@
 				96F1D66E2807F7CC0067DBFD /* XWHWeatherServiceProtocol.swift in Sources */,
 				96F1D67628082B510067DBFD /* XWHLocation.swift in Sources */,
 				968CB8AC27F4570A00E549AC /* XWHDialMarketTBCell.swift in Sources */,
+				969B88412811A0A6009952E7 /* XWHBOGradientCTCell.swift in Sources */,
 				9678257C27F2F44D004F66FB /* RLRadarIndicatorView.swift in Sources */,
 				96DEA2182809B6F100723D11 /* XWHDialVM.swift in Sources */,
 				967AF4C327EF545800235E08 /* XWHDeviceVM.swift in Sources */,
@@ -2408,8 +2426,10 @@
 				9661D35827F5FD830062B2B8 /* XWHDevSetWristVC.swift in Sources */,
 				968CB8A627F40B5A00E549AC /* XWHDeviceDeploy.swift in Sources */,
 				969B8821280FE670009952E7 /* XWHHealthyBloodOxygenVC.swift in Sources */,
+				969B88432811A1A0009952E7 /* XWHBOTipCTCell.swift in Sources */,
 				9651EE0C27EB024B0043FE52 /* XWHNetworkHelper.swift in Sources */,
 				9653E4A027F5A32000EE55FF /* XWHDevSetPressureVC.swift in Sources */,
+				969B883F2811A050009952E7 /* XWHBOCommonCTCell.swift in Sources */,
 				968CB8AE27F45DB100E549AC /* XWHDeviceInfoTBCell.swift in Sources */,
 				96759D8427F34D2E0098CA92 /* XWHBaseTBCell.swift in Sources */,
 				9651EE2527EC15290043FE52 /* XWHTextDescriptionConfig.swift in Sources */,
