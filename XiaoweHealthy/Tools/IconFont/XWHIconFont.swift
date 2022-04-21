@@ -45,4 +45,7 @@ enum XWHIconFontOcticons: String {
     // MARK: - Healthy
     case more = "\u{e68b}"
     
+    case infoBg = "\u{e68d}"
+    case infoCircle = "\u{e68c}"
+    
 }

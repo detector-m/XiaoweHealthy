@@ -166,3 +166,14 @@ var healthBarHighlightColor: UIColor {
     }
 }
 
+let lightHealthContentBgColor = UIColor(hex: 0xF8F8F8)!
+let darkHealthContentBgColor = lightHealthContentBgColor
+
+var healthContentBgColor: UIColor {
+    if #available(iOS 13.0, *) {
+        return UIColor(light: lightHealthContentBgColor, dark: darkHealthContentBgColor)
+    } else {
+        return lightHealthContentBgColor
+    }
+}
+

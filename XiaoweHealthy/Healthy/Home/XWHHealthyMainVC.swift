@@ -126,6 +126,9 @@ class XWHHealthyMainVC: XWHTableViewBaseVC {
             
         case .test:
             gotoTestTest()
+            
+        case .none:
+            break
         }
     }
     

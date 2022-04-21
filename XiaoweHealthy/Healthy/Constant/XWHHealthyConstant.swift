@@ -12,6 +12,8 @@ import Foundation
 /// 运动健康的类型
 enum XWHHealthyType: String {
     
+    case none = ""
+    
     // Test
     case test = "测试"
     case login = "登录"
@@ -48,8 +50,17 @@ enum XWHHealthyDateSegmentType {
 }
 
 /// 运动健康详情 的UI 段落卡片类型
-//enum XWHHealthyDetailUICardType {
-//    
-//    case chart
-//    
-//}
+enum XWHHealthyDetailUICardType {
+
+    case none
+    
+    /// 图表
+    case chart
+    
+    /// 当前数据
+    case curDatas
+    
+    /// 心率区间
+    case heartRange
+    
+}

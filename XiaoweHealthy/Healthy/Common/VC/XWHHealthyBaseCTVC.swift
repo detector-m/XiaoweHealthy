@@ -11,6 +11,8 @@ import FTPopOverMenu_Swift
 class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
     
     lazy var dateSegment = XWHDateSegmentView()
+    
+    lazy var uiManager = XWHHealthyUIManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +44,7 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
     
     override func relayoutSubViews() {
         relayoutDateSegment()
+        relayoutCollectionView()
     }
     
     @objc final func relayoutDateSegment() {
@@ -49,6 +52,14 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
             make.left.right.equalToSuperview().inset(18)
             make.top.equalToSuperview().offset(120)
             make.height.equalTo(32)
+        }
+    }
+    
+    @objc func relayoutCollectionView() {
+        collectionView.snp.makeConstraints { make in
+            make.left.right.equalTo(dateSegment)
+            make.top.equalTo(dateSegment.snp.bottom).offset(12)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
     
