@@ -57,6 +57,9 @@ target 'XiaoweHealthy' do
   # 富文本标签
   pod 'ActiveLabel'
   
+  # 弹出菜单
+  pod 'FTPopOverMenu_Swift'
+  
   # 键盘管理
   pod 'IQKeyboardManagerSwift'
   

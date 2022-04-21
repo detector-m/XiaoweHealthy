@@ -10,7 +10,7 @@ import Foundation
 
 // MARK: - 运动健康的类型
 /// 运动健康的类型
-enum XWHHealthType: String {
+enum XWHHealthyType: String {
     
     // Test
     case test = "测试"
@@ -22,7 +22,7 @@ enum XWHHealthType: String {
 }
 
 /// 日期分段控件 分段的类型
-enum XWHHealthDateSegmentType {
+enum XWHHealthyDateSegmentType {
     
     case day
     case week
@@ -47,4 +47,9 @@ enum XWHHealthDateSegmentType {
     
 }
 
-
+/// 运动健康详情 的UI 段落卡片类型
+//enum XWHHealthyDetailUICardType {
+//    
+//    case chart
+//    
+//}

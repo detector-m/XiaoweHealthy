@@ -42,4 +42,7 @@ enum XWHIconFontOcticons: String {
     
     case search = "\u{e67e}"
     
+    // MARK: - Healthy
+    case more = "\u{e68b}"
+    
 }

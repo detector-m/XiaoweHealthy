@@ -10,7 +10,7 @@ import UIKit
 /// 运动健康首页
 class XWHHealthyMainVC: XWHTableViewBaseVC {
     
-    private lazy var testItems: [XWHHealthType] = [.heart, .bloodOxygen, .login, .test]
+    private lazy var testItems: [XWHHealthyType] = [.heart, .bloodOxygen, .login, .test]
 
     override func viewDidLoad() {
         super.viewDidLoad()

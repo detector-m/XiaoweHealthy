@@ -19,6 +19,17 @@ var bgColor: UIColor {
     }
 }
 
+let lightCoverBgColor = UIColor(hex: 0x000000, transparency: 0.2)!
+let darkCoverBgColor = lightCoverBgColor
+
+var coverBgColor: UIColor {
+    if #available(iOS 13.0, *) {
+        return UIColor(light: lightCoverBgColor, dark: darkCoverBgColor)
+    } else {
+        return lightCoverBgColor
+    }
+}
+
 let lightCollectionBgColor = UIColor(hex: 0xF8F8F8)!
 let darkCollectionBgColor = lightCollectionBgColor
 

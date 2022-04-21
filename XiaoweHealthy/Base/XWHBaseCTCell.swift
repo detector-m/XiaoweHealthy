@@ -23,11 +23,11 @@ class XWHBaseCTCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func addSubViews() {
+    @objc func addSubViews() {
         
     }
     
-    func relayoutSubViews() {
+    @objc func relayoutSubViews() {
         
     }
     
@@ -37,7 +37,7 @@ class XWHBaseCTCell: UICollectionViewCell {
     }
     
     final func addRelayoutTextLb(inset: UIEdgeInsets) {
-        textLb.textColor = UIColor(hex: 0x000000, transparency: 0.45)
+        textLb.textColor = fontLightColor
         textLb.font = XWHFont.harmonyOSSans(ofSize: 12)
         
         contentView.addSubview(textLb)

@@ -12,15 +12,15 @@ import BetterSegmentedControl
 /// 日期分段控件
 class XWHDateSegmentView: XWHBaseView {
 
-    var slectedType: XWHHealthDateSegmentType {
+    var slectedType: XWHHealthyDateSegmentType {
         dateSegments[segment.index]
     }
     
-    var segmentValueChangedHandler: ((XWHHealthDateSegmentType) -> Void)?
+    var segmentValueChangedHandler: ((XWHHealthyDateSegmentType) -> Void)?
     
     private(set) lazy var segment = BetterSegmentedControl()
     
-    private lazy var dateSegments: [XWHHealthDateSegmentType] = [.day, .week, .month, .year]
+    private lazy var dateSegments: [XWHHealthyDateSegmentType] = [.day, .week, .month, .year]
     private var titles: [String] {
         dateSegments.map({ $0.name })
     }
