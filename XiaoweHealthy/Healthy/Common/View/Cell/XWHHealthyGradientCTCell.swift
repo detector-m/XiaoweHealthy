@@ -11,9 +11,15 @@ import SwifterSwift
 class XWHHealthyGradientCTCell: XWHHealthyCommonCTCell {
     
     lazy var tipLb = UILabel()
-    private let gradientLayer: CAGradientLayer = {
+    lazy var gradientColors: [UIColor] = [UIColor(hex: 0xFFE0E2)!, UIColor(hex: 0xFFFFFF)!] {
+        didSet {
+            gradientLayer.colors = gradientColors.map({ $0.cgColor })
+        }
+    }
+    
+    private lazy var gradientLayer: CAGradientLayer = {
         let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [UIColor(hex: 0xFFE0E2)!.cgColor, UIColor(hex: 0xFFFFFF)!.cgColor]
+        gradientLayer.colors = gradientColors.map({ $0.cgColor })
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 1)
         gradientLayer.endPoint = CGPoint(x: 1.0, y: 1)
         gradientLayer.type = .axial
