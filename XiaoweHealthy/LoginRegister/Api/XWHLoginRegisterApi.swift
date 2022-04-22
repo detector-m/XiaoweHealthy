@@ -47,7 +47,12 @@ extension XWHLoginRegisterApi: XWHServiceTargetType {
         }
         
         log.debug("url: \(baseURL.absoluteString + path) param: \(param)")
-        return .requestParameters(parameters: param, encoding: JSONEncoding.default)
+        
+        if param.isEmpty {
+            return .requestPlain
+        }
+        
+        return .requestParameters(parameters: param, encoding: parameterEncoding)
     }
     
 }

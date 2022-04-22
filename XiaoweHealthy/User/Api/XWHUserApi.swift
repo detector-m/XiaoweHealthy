@@ -92,7 +92,7 @@ extension XWHUserApi: XWHServiceTargetType {
         if param.isEmpty {
             return .requestPlain
         }
-        return .requestParameters(parameters: param, encoding: JSONEncoding.default)
+        return .requestParameters(parameters: param, encoding: parameterEncoding)
     }
     
 }

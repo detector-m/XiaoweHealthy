@@ -24,7 +24,7 @@ enum XWHHealthyType: String {
 }
 
 /// 日期分段控件 分段的类型
-enum XWHHealthyDateSegmentType {
+enum XWHHealthyDateSegmentType: String {
     
     case day
     case week

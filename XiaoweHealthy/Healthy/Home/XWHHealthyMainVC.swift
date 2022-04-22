@@ -184,7 +184,9 @@ extension XWHHealthyMainVC {
                 
         //        testDailVC()
                 
-                testContact()
+//                testContact()
+        
+        testGetHeartRate()
     }
     
     fileprivate func testBridge() {
@@ -272,6 +274,24 @@ extension XWHHealthyMainVC {
     private func testContact() {
         let vc = XWHContactVC()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func testGetHeartRate() {
+        var date = Date()
+        date.day = 18
+        date.month = 1
+        let dateType = XWHHealthyDateSegmentType.year
+//        XWHHealthyVM().getHeart(date: date, dateType: dateType) { error in
+//            log.error(error)
+//        } successHandler: { response in
+//
+//        }
+
+        XWHHealthyVM().getBloodOxygen(date: date, dateType: dateType) { error in
+            log.error(error)
+        } successHandler: { response in
+
+        }
     }
     
 }
