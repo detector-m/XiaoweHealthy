@@ -9,6 +9,10 @@ import UIKit
 
 /// 运动健康血氧
 class XWHHealthyBloodOxygenVC: XWHHealthyBaseCTVC {
+    
+    override var popMenuItems: [String] {
+        [R.string.xwhHealthyText.血氧饱和度(), R.string.xwhHealthyText.所有数据()]
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -138,8 +142,8 @@ extension XWHHealthyBloodOxygenVC {
             }
             
             header.setDetailButton(title: btnTitle)
-            header.clickAction = {
-                
+            header.clickAction = { [unowned self] in
+                self.gotoBOIntroduction()
             }
             
             return header
@@ -154,3 +158,23 @@ extension XWHHealthyBloodOxygenVC {
     
 }
 
+
+// MARK: - DidSelectPopMenuItem
+extension XWHHealthyBloodOxygenVC {
+    
+    override func didSelectPopMenuItem(at index: Int) {
+        
+    }
+    
+}
+
+
+// MARK: - Jump UI
+extension XWHHealthyBloodOxygenVC {
+    
+    private func gotoBOIntroduction() {
+        let vc = XWHBOIntroductionTXVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+}

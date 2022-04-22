@@ -34,6 +34,11 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
     
     lazy var uiManager = XWHHealthyUIManager()
     lazy var isHasLastCurDataItem = true
+    
+    var popMenuItems: [String] {
+//        [R.string.xwhHealthyText.心率设置(), R.string.xwhHealthyText.所有数据()]
+        []
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,9 +56,8 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
     }
     
     @objc func clickNavRightItem(_ sender: UIButton) {
-        let menuItems: [String] = [R.string.xwhHealthyText.心率设置(), R.string.xwhHealthyText.所有数据()]
-        showPopMenu(sender, menuItems) { sIndex in
-            
+        showPopMenu(sender, popMenuItems) { [unowned self] sIndex in
+            self.didSelectPopMenuItem(at: sIndex)
         }
     }
     
@@ -141,6 +145,10 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
 //        } cancel: {
 //
 //        }
+    }
+    
+    func didSelectPopMenuItem(at index: Int) {
+        
     }
     
     func getPopMenuConfig() -> FTConfiguration {

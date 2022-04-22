@@ -34,15 +34,19 @@ class XWHLargeTitleView: XWHBaseView {
         relayoutNormal()
     }
     
-    func relayoutNormal() {
+    @objc func relayoutNormal() {
+        relayout(leftRightInset: 28)
+    }
+    
+    @objc func relayout(leftRightInset: CGFloat) {
         titleLb.snp.remakeConstraints { make in
             make.top.equalToSuperview()
             make.height.equalTo(40)
-            make.left.right.equalToSuperview().inset(28)
+            make.left.right.equalToSuperview().inset(leftRightInset)
         }
     }
     
-    func relayout(_ layoutHandler: LayoutHandler) {
+    @objc func relayout(_ layoutHandler: LayoutHandler) {
         layoutHandler(self)
     }
 

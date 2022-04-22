@@ -10,6 +10,10 @@ import UIKit
 
 /// 运动健康 - 心率
 class XWHHealthyHeartCTVC: XWHHealthyBaseCTVC {
+    
+    override var popMenuItems: [String] {
+        [R.string.xwhHealthyText.心率设置(), R.string.xwhHealthyText.所有数据()]
+    }
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -141,8 +145,8 @@ extension XWHHealthyHeartCTVC {
             }
             
             header.setDetailButton(title: btnTitle)
-            header.clickAction = {
-                
+            header.clickAction = { [unowned self] in
+                self.gotoHeartIntroduction()
             }
             
             return header
@@ -153,6 +157,25 @@ extension XWHHealthyHeartCTVC {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        let item = uiManager.items[indexPath.section]
+    }
+    
+}
+
+// MARK: - DidSelectPopMenuItem
+extension XWHHealthyHeartCTVC {
+    
+    override func didSelectPopMenuItem(at index: Int) {
+        
+    }
+    
+}
+
+// MARK: - Jump UI
+extension XWHHealthyHeartCTVC {
+    
+    private func gotoHeartIntroduction() {
+        let vc = XWHHeartIntroductionTXVC()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }
