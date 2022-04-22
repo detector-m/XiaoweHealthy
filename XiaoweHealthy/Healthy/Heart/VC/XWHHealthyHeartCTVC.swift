@@ -132,7 +132,7 @@ extension XWHHealthyHeartCTVC {
 
         if kind == UICollectionView.elementKindSectionHeader {
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withClass: XWHHealthyCTReusableView.self, for: indexPath)
-            header.textLb.text = uiManager.getItemTitle(item, dateSegmentType: .day)
+            header.textLb.text = uiManager.getItemTitle(item, dateSegmentType: dateType)
             
             header.clickAction = nil
             

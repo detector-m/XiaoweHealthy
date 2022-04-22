@@ -11,6 +11,9 @@ import FTPopOverMenu_Swift
 class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
     
     lazy var dateSegment = XWHDateSegmentView()
+    var dateType: XWHHealthyDateSegmentType {
+        dateSegment.selectedType
+    }
     
     lazy var uiManager = XWHHealthyUIManager()
     lazy var isHasLastCurDataItem = true
@@ -65,7 +68,7 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
     }
     
     func dateSegmentValueChanged(_ segmentType: XWHHealthyDateSegmentType) {
-        
+        collectionView.reloadData()
     }
 
 }

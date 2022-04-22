@@ -12,7 +12,7 @@ import BetterSegmentedControl
 /// 日期分段控件
 class XWHDateSegmentView: XWHBaseView {
 
-    var slectedType: XWHHealthyDateSegmentType {
+    var selectedType: XWHHealthyDateSegmentType {
         dateSegments[segment.index]
     }
     
@@ -51,7 +51,7 @@ class XWHDateSegmentView: XWHBaseView {
     
     
     @objc private func segmentValueChanged(_ sender: BetterSegmentedControl) {
-        segmentValueChangedHandler?(slectedType)
+        segmentValueChangedHandler?(selectedType)
     }
 
 }
