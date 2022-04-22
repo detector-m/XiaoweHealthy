@@ -26,7 +26,7 @@ class XWHDialTitleCTCell: XWHBaseCTCell {
         button.addTarget(self, action: #selector(clickButton), for: .touchUpInside)
         contentView.addSubview(button)
         
-        imageView.image = UIImage.iconFont(text: XWHIconFontOcticons.cellArrowRight.rawValue, size: 18, color: fontLightColor)
+        imageView.image = UIImage.iconFont(text: XWHIconFontOcticons.arrowRight.rawValue, size: 18, color: fontLightColor)
         contentView.addSubview(imageView)
     }
     

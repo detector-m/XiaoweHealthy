@@ -10,9 +10,26 @@ import FTPopOverMenu_Swift
 
 class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
     
+    lazy var dateBtn = UIButton()
+    lazy var arrowDownImage: UIImage = UIImage.iconFont(text: XWHIconFontOcticons.arrowDown.rawValue, size: 12, color: fontDarkColor)
+    
     lazy var dateSegment = XWHDateSegmentView()
     var dateType: XWHHealthyDateSegmentType {
         dateSegment.selectedType
+    }
+    var dateFormat: String {
+        switch dateType {
+        case .day:
+            return XWHDate.yearMonthDayFormat
+        case .week:
+            return XWHDate.yearMonthDayFormat
+            
+        case .month:
+            return XWHDate.yearMonthFormat
+            
+        case .year:
+            return XWHDate.yearFormat
+        }
     }
     
     lazy var uiManager = XWHHealthyUIManager()
@@ -21,9 +38,9 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dateSegment.segmentValueChangedHandler = { [unowned self] dateSegmentType in
-            self.dateSegmentValueChanged(dateSegmentType)
-        }
+        configEventAction()
+        
+        dateBtn.set(image: arrowDownImage, title: Date().localizedString(withFormat: dateFormat), titlePosition: .left, additionalSpacing: 3, state: .normal)
     }
     
     override func setupNavigationItems() {
@@ -43,12 +60,25 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
     override func addSubViews() {
         super.addSubViews()
         
+        dateBtn.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 14)
+        dateBtn.setTitleColor(fontDarkColor, for: .normal)
+        view.addSubview(dateBtn)
+        
         view.addSubview(dateSegment)
     }
     
     override func relayoutSubViews() {
+        relayoutDateBtn()
         relayoutDateSegment()
         relayoutCollectionView()
+    }
+    
+    @objc final func relayoutDateBtn() {
+        dateBtn.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(18)
+            make.top.equalToSuperview().offset(79)
+            make.height.equalTo(19)
+        }
     }
     
     @objc final func relayoutDateSegment() {
@@ -67,7 +97,19 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
         }
     }
     
+    @objc func configEventAction() {
+        dateBtn.addTarget(self, action: #selector(clickDateBtn), for: .touchUpInside)
+        dateSegment.segmentValueChangedHandler = { [unowned self] dateSegmentType in
+            self.dateSegmentValueChanged(dateSegmentType)
+        }
+    }
+    
+    @objc func clickDateBtn() {
+        
+    }
+    
     func dateSegmentValueChanged(_ segmentType: XWHHealthyDateSegmentType) {
+        dateBtn.set(image: arrowDownImage, title: Date().localizedString(withFormat: dateFormat), titlePosition: .left, additionalSpacing: 3, state: .normal)
         collectionView.reloadData()
     }
 

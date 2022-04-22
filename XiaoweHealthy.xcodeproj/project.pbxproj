@@ -147,6 +147,8 @@
 		969B883F2811A050009952E7 /* XWHBOCommonCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B883E2811A050009952E7 /* XWHBOCommonCTCell.swift */; };
 		969B88412811A0A6009952E7 /* XWHBOGradientCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B88402811A0A6009952E7 /* XWHBOGradientCTCell.swift */; };
 		969B88432811A1A0009952E7 /* XWHBOTipCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B88422811A1A0009952E7 /* XWHBOTipCTCell.swift */; };
+		969B88452812A6B1009952E7 /* XWHDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B88442812A6B1009952E7 /* XWHDateExtension.swift */; };
+		969B88482812A91C009952E7 /* XWHDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B88472812A91C009952E7 /* XWHDate.swift */; };
 		969E7118280AB51F00BDA401 /* XWHDialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E7117280AB51F00BDA401 /* XWHDialManager.swift */; };
 		969E711B280BE09F00BDA401 /* XWHTableViewBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E711A280BE09F00BDA401 /* XWHTableViewBaseVC.swift */; };
 		969E7121280BE34A00BDA401 /* XWHContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E7120280BE34A00BDA401 /* XWHContactVC.swift */; };
@@ -426,6 +428,8 @@
 		969B883E2811A050009952E7 /* XWHBOCommonCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBOCommonCTCell.swift; sourceTree = "<group>"; };
 		969B88402811A0A6009952E7 /* XWHBOGradientCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBOGradientCTCell.swift; sourceTree = "<group>"; };
 		969B88422811A1A0009952E7 /* XWHBOTipCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBOTipCTCell.swift; sourceTree = "<group>"; };
+		969B88442812A6B1009952E7 /* XWHDateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDateExtension.swift; sourceTree = "<group>"; };
+		969B88472812A91C009952E7 /* XWHDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDate.swift; sourceTree = "<group>"; };
 		969E7117280AB51F00BDA401 /* XWHDialManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDialManager.swift; sourceTree = "<group>"; };
 		969E711A280BE09F00BDA401 /* XWHTableViewBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTableViewBaseVC.swift; sourceTree = "<group>"; };
 		969E7120280BE34A00BDA401 /* XWHContactVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHContactVC.swift; sourceTree = "<group>"; };
@@ -979,6 +983,7 @@
 		96617A6F27E1E06700139B03 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				969B88462812A8F7009952E7 /* Date */,
 				96F1D67428082B270067DBFD /* Location */,
 				96AD2858280144E40092B843 /* Log */,
 				9651EE0527EAF5980043FE52 /* Network */,
@@ -1051,6 +1056,7 @@
 				967823AA27F2C9B5004F66FB /* XWHUIImageExtension.swift */,
 				9653E48827F54D5900EE55FF /* XWHDataExtension.swift */,
 				967790B2280FADFA00C78327 /* XWHUIButtonExtension.swift */,
+				969B88442812A6B1009952E7 /* XWHDateExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1349,6 +1355,14 @@
 				969B88422811A1A0009952E7 /* XWHBOTipCTCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		969B88462812A8F7009952E7 /* Date */ = {
+			isa = PBXGroup;
+			children = (
+				969B88472812A91C009952E7 /* XWHDate.swift */,
+			);
+			path = Date;
 			sourceTree = "<group>";
 		};
 		969E7116280AB2D400BDA401 /* Manager */ = {
@@ -2302,9 +2316,11 @@
 				969B8832281102FD009952E7 /* XWHHeartGradientCTCell.swift in Sources */,
 				96AD28662801C5AA0092B843 /* XWHDataUserManager.swift in Sources */,
 				9653E49827F58C4D00EE55FF /* XWHDevSetChatDeploy.swift in Sources */,
+				969B88452812A6B1009952E7 /* XWHDateExtension.swift in Sources */,
 				96DC429A27FD34C7009BF300 /* RLBLEPermissions.swift in Sources */,
 				96F1D67C28091A8E0067DBFD /* XWHDialVC.swift in Sources */,
 				96C67AF228043362001ACA81 /* XWHDataHeartSetManager.swift in Sources */,
+				969B88482812A91C009952E7 /* XWHDate.swift in Sources */,
 				96C67AFE2804743D001ACA81 /* XWHDataRaiseWristSetManager.swift in Sources */,
 				96C67AF428047249001ACA81 /* XWHBloodPressureSetModel.swift in Sources */,
 				96AD285A280144F40092B843 /* XWHLog.swift in Sources */,
