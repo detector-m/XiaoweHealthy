@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import Alamofire
 
 /// 运动健康首页
 class XWHHealthyMainVC: XWHTableViewBaseVC {
     
-    private lazy var testItems: [XWHHealthyType] = [.heart, .bloodOxygen, .login, .test]
+    private lazy var testItems: [XWHHealthyType] = [.heart, .bloodOxygen, .login, .test, .post, .get]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,6 +128,12 @@ class XWHHealthyMainVC: XWHTableViewBaseVC {
         case .test:
             gotoTestTest()
             
+        case .post:
+            gotoTestPost()
+            
+        case .get:
+            gotoTestGet()
+            
         case .none:
             break
         }
@@ -186,7 +193,16 @@ extension XWHHealthyMainVC {
                 
 //                testContact()
         
-        testGetHeartRate()
+//        testGetHeart()
+    }
+    
+    private func gotoTestPost() {
+        testPostHeart()
+        testPostBloodOxygen()
+    }
+    
+    private func gotoTestGet() {
+        testGetHeart()
     }
     
     fileprivate func testBridge() {
@@ -200,11 +216,10 @@ extension XWHHealthyMainVC {
         } successHandler: { response in
             self.view.makeInsetToast(response.data.debugDescription)
         }
-
     }
     
     fileprivate func testFirmwareUpdate() {
-        XWHDeviceVM().firmwareUpdate(deviceSn: "1923190012204123456", version: "v1.2.32") { error in
+        XWHDeviceVM().firmwareUpdate(deviceSn: Self.testDeviceSn(), version: "v1.2.32") { error in
             self.view.makeInsetToast(error.message)
         } successHandler: { response in
             self.view.makeInsetToast(response.data.debugDescription)
@@ -251,11 +266,11 @@ extension XWHHealthyMainVC {
     private func testDailVC() {
         let vc = XWHDialVC()
         // Test
-        vc.deviceSn = "1923190012204123456"
+        vc.deviceSn = Self.testDeviceSn()
         navigationController?.pushViewController(vc, animated: true)
         
         // Test
-//        let deviceSn = "1923190012204123456"
+//        let deviceSn = testDeviceSn()
 //        XWHDialVM().add(dialNo: "D3919001", deviceSn: deviceSn) { error in
 //
 //        } successHandler: { response in
@@ -276,22 +291,75 @@ extension XWHHealthyMainVC {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    private func testGetHeartRate() {
-        var date = Date()
-        date.day = 18
-        date.month = 1
+    private func testPostHeart() {
+        let date = Date()
+        var ts = (date.timeIntervalSince1970 / 600).int * 600
+        ts -= 600 * 20
+        
+        var hData = [XWHHeartModel]()
+        
+        for i in 0 ..< 20 {
+            ts += 600 * i
+            let iModel = XWHHeartModel()
+            iModel.value = Int(40 + arc4random() % 160)
+            let iDate = Date(timeIntervalSince1970: ts.double)
+            iModel.time = iDate.string(withFormat: "yyyy-MM-dd HH:mm:ss")
+            hData.append(iModel)
+        }
+        
+        XWHHealthyVM().postHeart(deviceSn: Self.testDeviceSn(), data: hData) { error in
+            log.error(error)
+        } successHandler: { response in
+            
+        }
+    }
+    
+    private func testGetHeart() {
+        let date = Date()
         let dateType = XWHHealthyDateSegmentType.year
-//        XWHHealthyVM().getHeart(date: date, dateType: dateType) { error in
-//            log.error(error)
-//        } successHandler: { response in
-//
-//        }
+        XWHHealthyVM().getHeart(date: date, dateType: dateType) { error in
+            log.error(error)
+        } successHandler: { response in
 
+        }
+    }
+    
+    private func testPostBloodOxygen() {
+        let date = Date()
+        var ts = (date.timeIntervalSince1970 / 600).int * 600
+        ts -= 600 * 20
+        
+        var boData = [XWHBloodOxygenModel]()
+        
+        for i in 0 ..< 20 {
+            ts += 600 * i
+            let iModel = XWHBloodOxygenModel()
+            iModel.value = Int(40 + arc4random() % 160)
+            let iDate = Date(timeIntervalSince1970: ts.double)
+            iModel.time = iDate.string(withFormat: "yyyy-MM-dd HH:mm:ss")
+            boData.append(iModel)
+        }
+        
+        XWHHealthyVM().postBloodOxygen(deviceSn: Self.testDeviceSn(), data: boData) { error in
+            log.error(error)
+        } successHandler: { response in
+            
+        }
+    }
+    
+    private func testGetBloodOxygen() {
+        let date = Date()
+        let dateType = XWHHealthyDateSegmentType.year
         XWHHealthyVM().getBloodOxygen(date: date, dateType: dateType) { error in
             log.error(error)
         } successHandler: { response in
 
         }
+    }
+    
+    
+    class func testDeviceSn() -> String {
+        "1923190012204123456"
     }
     
 }

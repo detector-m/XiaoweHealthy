@@ -16,6 +16,10 @@ enum XWHHealthyType: String {
     
     // Test
     case test = "测试"
+    
+    case post = "上传"
+    case `get` = "获取"
+    
     case login = "登录"
     
     case heart = "心率"

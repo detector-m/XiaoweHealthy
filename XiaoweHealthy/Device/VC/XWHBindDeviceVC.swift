@@ -229,7 +229,7 @@ extension XWHBindDeviceVC {
     // 绑定设备上报
     func uploadBindDevice(_ device: XWHDevWatchModel) {
         // Test
-        let deviceSn = "1923190012204123456"
+        let deviceSn = XWHHealthyMainVC.testDeviceSn()
         XWHUserVM().bindDevice(deviceSn: deviceSn, deviceMode: "S1", deviceName: "ABCE", macAddr: "12345678900988765432") { error in
             log.error(error)
         } successHandler: { res in

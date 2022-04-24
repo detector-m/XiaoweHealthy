@@ -449,7 +449,7 @@ extension XWHDeviceMainVC {
     private func gotoDevSetDialMarket() {
         let vc = XWHDialVC()
         // Test
-        vc.deviceSn = "1923190012204123456"
+        vc.deviceSn = XWHHealthyMainVC.testDeviceSn()
         navigationController?.pushViewController(vc, animated: true)
     }
     

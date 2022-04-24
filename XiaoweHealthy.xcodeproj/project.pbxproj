@@ -144,6 +144,8 @@
 		9690725128152CC50056CE4F /* XWHHeartDataDetailTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690725028152CC50056CE4F /* XWHHeartDataDetailTBVC.swift */; };
 		9690725328152D990056CE4F /* XWHHealthyDataDetailTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690725228152D990056CE4F /* XWHHealthyDataDetailTBCell.swift */; };
 		96907255281530820056CE4F /* XWHBODataDetailTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96907254281530820056CE4F /* XWHBODataDetailTBVC.swift */; };
+		9690725928153B360056CE4F /* XWHHeartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690725828153B360056CE4F /* XWHHeartModel.swift */; };
+		9690725B28153C100056CE4F /* XWHBloodOxygenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690725A28153C100056CE4F /* XWHBloodOxygenModel.swift */; };
 		969A4CF8280E8A630049BC07 /* XWHLargeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */; };
 		969B8816280FE11A009952E7 /* XWHHealthyBaseCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */; };
 		969B881A280FE182009952E7 /* XWHHealthyHeartCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8819280FE182009952E7 /* XWHHealthyHeartCTVC.swift */; };
@@ -444,6 +446,8 @@
 		9690725028152CC50056CE4F /* XWHHeartDataDetailTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHeartDataDetailTBVC.swift; sourceTree = "<group>"; };
 		9690725228152D990056CE4F /* XWHHealthyDataDetailTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyDataDetailTBCell.swift; sourceTree = "<group>"; };
 		96907254281530820056CE4F /* XWHBODataDetailTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBODataDetailTBVC.swift; sourceTree = "<group>"; };
+		9690725828153B360056CE4F /* XWHHeartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHeartModel.swift; sourceTree = "<group>"; };
+		9690725A28153C100056CE4F /* XWHBloodOxygenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBloodOxygenModel.swift; sourceTree = "<group>"; };
 		969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLargeTitleView.swift; sourceTree = "<group>"; };
 		969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyBaseCTVC.swift; sourceTree = "<group>"; };
 		969B8819280FE182009952E7 /* XWHHealthyHeartCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyHeartCTVC.swift; sourceTree = "<group>"; };
@@ -1311,6 +1315,23 @@
 			path = DeviceDeploy;
 			sourceTree = "<group>";
 		};
+		9690725628153ACF0056CE4F /* Health */ = {
+			isa = PBXGroup;
+			children = (
+				9690725C28153C660056CE4F /* Model */,
+			);
+			path = Health;
+			sourceTree = "<group>";
+		};
+		9690725C28153C660056CE4F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9690725828153B360056CE4F /* XWHHeartModel.swift */,
+				9690725A28153C100056CE4F /* XWHBloodOxygenModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		969A4CF6280E88A20049BC07 /* LargeTitleView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1549,6 +1570,7 @@
 		96AD285D280183A30092B843 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				96C67ADB2803D27A001ACA81 /* XWHDataBaseModel.swift */,
 				96AD285B28016BB30092B843 /* XWHTestModel.swift */,
 			);
 			path = Model;
@@ -1566,7 +1588,6 @@
 		96AD28602801C5590092B843 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				96C67ADB2803D27A001ACA81 /* XWHDataBaseModel.swift */,
 				96F3588627FE815B00783614 /* XWHDeviceBaseModel.swift */,
 				96F3588827FE858900783614 /* XWHDevWatchModel.swift */,
 				96F1D6642806BE530067DBFD /* Contact */,
@@ -1731,6 +1752,7 @@
 			isa = PBXGroup;
 			children = (
 				96F1D66A2806D6A80067DBFD /* Constant */,
+				9690725628153ACF0056CE4F /* Health */,
 				96AD28622801C57D0092B843 /* User */,
 				96AD285E280183DD0092B843 /* Device */,
 				96AD285D280183A30092B843 /* Model */,
@@ -2442,6 +2464,7 @@
 				96C67AF8280473AE001ACA81 /* XWHRaiseWristSetModel.swift in Sources */,
 				96F1D68C28097DF10067DBFD /* XWHDialDetailVC.swift in Sources */,
 				967790B3280FADFA00C78327 /* XWHUIButtonExtension.swift in Sources */,
+				9690725B28153C100056CE4F /* XWHBloodOxygenModel.swift in Sources */,
 				96E8A6BD27F1738200F5C75C /* XWHUINavigationControllerExtension.swift in Sources */,
 				96F3588327FE7CE000783614 /* XWHBLEDispatchProtocol.swift in Sources */,
 				9651EE0E27EB06F20043FE52 /* XWHLoginRegisterVM.swift in Sources */,
@@ -2502,6 +2525,7 @@
 				9653E49627F55D1B00EE55FF /* XWHDevSetSwitchTBCell.swift in Sources */,
 				969A4CF8280E8A630049BC07 /* XWHLargeTitleView.swift in Sources */,
 				9690723D2814E9A90056CE4F /* XWHHealthyAllDataBaseTBVC.swift in Sources */,
+				9690725928153B360056CE4F /* XWHHeartModel.swift in Sources */,
 				96617A9D27E2FEE200139B03 /* XWHTextFieldBaseView.swift in Sources */,
 				96C67AEC28043315001ACA81 /* XWHDataLongSitSetManager.swift in Sources */,
 				96617AA127E30EF600139B03 /* XWHPasswordView.swift in Sources */,
