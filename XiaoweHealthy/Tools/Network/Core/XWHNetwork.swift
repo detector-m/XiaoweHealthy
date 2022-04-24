@@ -52,10 +52,14 @@ class XWHNetwork {
                 failureHandler?(retError)
                 return
             }
+    
+            let retRawString = json["data"].rawString() ?? ""
+            log.debug(retRawString)
             
             let retResponse = XWHResponse()
             retResponse.identifier = cId
             let _ = parseDataHandler?(json["data"], retResponse)
+            
             
             successHandler?(retResponse)
         }

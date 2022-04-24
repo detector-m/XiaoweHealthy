@@ -146,6 +146,8 @@
 		96907255281530820056CE4F /* XWHBODataDetailTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96907254281530820056CE4F /* XWHBODataDetailTBVC.swift */; };
 		9690725928153B360056CE4F /* XWHHeartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690725828153B360056CE4F /* XWHHeartModel.swift */; };
 		9690725B28153C100056CE4F /* XWHBloodOxygenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690725A28153C100056CE4F /* XWHBloodOxygenModel.swift */; };
+		9690725F2815589F0056CE4F /* XWHHeartUIHeartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690725E2815589F0056CE4F /* XWHHeartUIHeartModel.swift */; };
+		96907262281564C90056CE4F /* XWHBOUIBloodOxygenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96907261281564C90056CE4F /* XWHBOUIBloodOxygenModel.swift */; };
 		969A4CF8280E8A630049BC07 /* XWHLargeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */; };
 		969B8816280FE11A009952E7 /* XWHHealthyBaseCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */; };
 		969B881A280FE182009952E7 /* XWHHealthyHeartCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8819280FE182009952E7 /* XWHHealthyHeartCTVC.swift */; };
@@ -448,6 +450,8 @@
 		96907254281530820056CE4F /* XWHBODataDetailTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBODataDetailTBVC.swift; sourceTree = "<group>"; };
 		9690725828153B360056CE4F /* XWHHeartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHeartModel.swift; sourceTree = "<group>"; };
 		9690725A28153C100056CE4F /* XWHBloodOxygenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBloodOxygenModel.swift; sourceTree = "<group>"; };
+		9690725E2815589F0056CE4F /* XWHHeartUIHeartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHeartUIHeartModel.swift; sourceTree = "<group>"; };
+		96907261281564C90056CE4F /* XWHBOUIBloodOxygenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBOUIBloodOxygenModel.swift; sourceTree = "<group>"; };
 		969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLargeTitleView.swift; sourceTree = "<group>"; };
 		969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyBaseCTVC.swift; sourceTree = "<group>"; };
 		969B8819280FE182009952E7 /* XWHHealthyHeartCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyHeartCTVC.swift; sourceTree = "<group>"; };
@@ -1203,6 +1207,7 @@
 		967790B4280FAF1200C78327 /* Heart */ = {
 			isa = PBXGroup;
 			children = (
+				9690725D281557FD0056CE4F /* Model */,
 				969B8818280FE13C009952E7 /* View */,
 				969B8817280FE134009952E7 /* VC */,
 			);
@@ -1332,6 +1337,22 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		9690725D281557FD0056CE4F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9690725E2815589F0056CE4F /* XWHHeartUIHeartModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		96907260281564A30056CE4F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				96907261281564C90056CE4F /* XWHBOUIBloodOxygenModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		969A4CF6280E88A20049BC07 /* LargeTitleView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1373,6 +1394,7 @@
 		969B881E280FE634009952E7 /* BloodOxygen */ = {
 			isa = PBXGroup;
 			children = (
+				96907260281564A30056CE4F /* Model */,
 				969B883D2811A012009952E7 /* View */,
 				969B881F280FE64C009952E7 /* VC */,
 			);
@@ -2507,6 +2529,7 @@
 				969F01BA27F693B100CA4DA4 /* RLPopupBaseView.swift in Sources */,
 				96617A6E27E1E00E00139B03 /* XWHBaseVC.swift in Sources */,
 				96C67ADC2803D27A001ACA81 /* XWHDataBaseModel.swift in Sources */,
+				9690725F2815589F0056CE4F /* XWHHeartUIHeartModel.swift in Sources */,
 				966A60FA2800206400CBE915 /* XWHProgressHUDViews.swift in Sources */,
 				9678257927F2EF3B004F66FB /* XWHDeviceFaceView.swift in Sources */,
 				96C67ADE2803D5E7001ACA81 /* XWHNoticeSetModel.swift in Sources */,
@@ -2552,6 +2575,7 @@
 				969B8816280FE11A009952E7 /* XWHHealthyBaseCTVC.swift in Sources */,
 				96617AA327E3110E00139B03 /* XWHPasswordLoginVC.swift in Sources */,
 				96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */,
+				96907262281564C90056CE4F /* XWHBOUIBloodOxygenModel.swift in Sources */,
 				9644928827F7EB2F001CA321 /* XWHProgressButton.swift in Sources */,
 				9661D35827F5FD830062B2B8 /* XWHDevSetWristVC.swift in Sources */,
 				968CB8A627F40B5A00E549AC /* XWHDeviceDeploy.swift in Sources */,

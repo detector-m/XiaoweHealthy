@@ -10,8 +10,16 @@ import UIKit
 class XWHBOCommonCTCell: XWHHealthyCommonCTCell {
     
     func update(_ title: String, _ value: String) {
+        var cValue = ""
+        if value.isEmpty {
+            cValue = "--"
+        } else {
+            cValue = value.replacingOccurrences(of: "-", with: "%-")
+            cValue += "%"
+        }
+        
         textLb.text = title
-        detailLb.text = value
+        detailLb.text = cValue
     }
     
 }

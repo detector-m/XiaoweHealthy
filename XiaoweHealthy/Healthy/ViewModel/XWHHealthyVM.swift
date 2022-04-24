@@ -34,8 +34,8 @@ class XWHHealthyVM {
         healthyProvider.request(.getHeart(date.year, date.month, date.day, dateType.rawValue)) { result in
             let cId = "Healthy.GetHeart"
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
-//                response.data = [XWHDeviceProductModel].deserialize(from: json.arrayObject)
                 
+                response.data = XWHHeartUIHeartModel.deserialize(from: json.dictionaryObject)
                 return nil
             }
         }
@@ -65,7 +65,7 @@ class XWHHealthyVM {
         healthyProvider.request(.getBloodOxygen(date.year, date.month, date.day, dateType.rawValue)) { result in
             let cId = "Healthy.GetBloodOxygen"
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
-//                response.data = [XWHDeviceProductModel].deserialize(from: json.arrayObject)
+                response.data = XWHBOUIBloodOxygenModel.deserialize(from: json.dictionaryObject)
                 
                 return nil
             }

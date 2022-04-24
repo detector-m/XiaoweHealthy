@@ -13,12 +13,15 @@ class XWHHealthyBloodOxygenCTVC: XWHHealthyBaseCTVC {
     override var popMenuItems: [String] {
         [R.string.xwhHealthyText.血氧饱和度(), R.string.xwhHealthyText.所有数据()]
     }
+    
+    private lazy var boUIModel = XWHBOUIBloodOxygenModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.title = R.string.xwhHealthyText.血氧饱和度()
         
+        getBloodOxygen()
         loadUIItems()
     }
     
@@ -28,6 +31,11 @@ class XWHHealthyBloodOxygenCTVC: XWHHealthyBaseCTVC {
         collectionView.register(cellWithClass: XWHBOTipCTCell.self)
         
         collectionView.register(supplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withClass: XWHHealthyCTReusableView.self)
+    }
+    
+    override func dateSegmentValueChanged(_ segmentType: XWHHealthyDateSegmentType) {
+        dateBtn.set(image: arrowDownImage, title: Date().localizedString(withFormat: dateFormat), titlePosition: .left, additionalSpacing: 3, state: .normal)
+        getBloodOxygen()
     }
     
     func loadUIItems() {
@@ -107,14 +115,23 @@ extension XWHHealthyBloodOxygenCTVC {
             if indexPath.item == 0, isHasLastCurDataItem {
                 let cell = collectionView.dequeueReusableCell(withClass: XWHBOGradientCTCell.self, for: indexPath)
                 
-                cell.update(uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item], "123", Date().dateString(ofStyle: .short))
+                cell.update(uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item], "96%", Date().dateString(ofStyle: .short))
                 
                 return cell
             }
             
             let cell = collectionView.dequeueReusableCell(withClass: XWHBOCommonCTCell.self, for: indexPath)
             
-            cell.update(uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item], "123")
+            let titleStr = uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item]
+            var valueStr = ""
+            
+            if titleStr == R.string.xwhHealthyText.血氧饱和度范围() {
+                valueStr = boUIModel.bloodOxygenRange
+            } else if titleStr == R.string.xwhHealthyText.平均血氧饱和度() {
+                valueStr = boUIModel.avgBloodOxygen.string
+            }
+            
+            cell.update(titleStr, valueStr)
 
             return cell
         }
@@ -135,12 +152,15 @@ extension XWHHealthyBloodOxygenCTVC {
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withClass: XWHHealthyCTReusableView.self, for: indexPath)
             header.textLb.text = uiManager.getItemTitle(item, dateSegmentType: dateType)
             
+            header.button.isHidden = true
+
             header.clickAction = nil
             
             guard let btnTitle = uiManager.getItemDetailText(item) else {
                 return header
             }
             
+            header.button.isHidden = false
             header.setDetailButton(title: btnTitle)
             header.clickAction = { [unowned self] in
                 self.gotoBOIntroduction()
@@ -188,3 +208,29 @@ extension XWHHealthyBloodOxygenCTVC {
     }
     
 }
+
+
+// MARK: - Api
+extension XWHHealthyBloodOxygenCTVC {
+    
+    private func getBloodOxygen() {
+        let date = Date()
+        XWHProgressHUD.show()
+        XWHHealthyVM().getBloodOxygen(date: date, dateType: dateType) { error in
+            XWHProgressHUD.hide()
+            log.error(error)
+        } successHandler: { [unowned self] response in
+            XWHProgressHUD.hide()
+            
+            guard let retModel = response.data as? XWHBOUIBloodOxygenModel else {
+                log.error("心率 - 获取数据错误")
+                return
+            }
+            
+            self.boUIModel = retModel
+            self.collectionView.reloadData()
+        }
+    }
+    
+}
+

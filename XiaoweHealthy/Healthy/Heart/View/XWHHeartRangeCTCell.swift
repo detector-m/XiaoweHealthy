@@ -44,12 +44,8 @@ class XWHHeartRangeCTCell: XWHHeartCommonCTCell {
         }
     }
     
-    func update(_ index: Int, _ value: String) {
-        var cValue = value
-        if cValue.isEmpty {
-            cValue = "--"
-        }
-        cValue += " "
+    func update(_ index: Int, _ rateSection: XWHHeartUIHeartSectionModel) {
+        var cValue = ""
         
         var cColor = UIColor.white
         
@@ -57,25 +53,35 @@ class XWHHeartRangeCTCell: XWHHeartCommonCTCell {
         case 0:
             cColor = UIColor(hex: 0x49CE64)!
             detailLb.text = R.string.xwhHealthyText.燃脂心率()
+            cValue = rateSection.burnRate
             
         case 1:
             cColor = UIColor(hex: 0x76D4EA)!
             detailLb.text = R.string.xwhHealthyText.减压心率()
             
+            cValue = rateSection.relaxRate
+            
         case 2:
             cColor = UIColor(hex: 0xF0B36D)!
             detailLb.text = R.string.xwhHealthyText.无氧心率()
+            cValue = rateSection.anaerobicRate
             
         case 3:
             cColor = UIColor(hex: 0xED7135)!
             detailLb.text = R.string.xwhHealthyText.心肺心率()
+            cValue = rateSection.lungRate
 
             
         default:
             cColor = UIColor(hex: 0xEB5763)!
             detailLb.text = R.string.xwhHealthyText.极限心率()
-
+            cValue = rateSection.limitRate
         }
+        
+        if cValue.isEmpty {
+            cValue = "--"
+        }
+        cValue += " "
         
         let unit = R.string.xwhDeviceText.次分钟()
         let cText = cValue + unit

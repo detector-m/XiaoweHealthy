@@ -334,7 +334,7 @@ extension XWHHealthyMainVC {
         for i in 0 ..< 20 {
             ts += 600 * i
             let iModel = XWHBloodOxygenModel()
-            iModel.value = Int(40 + arc4random() % 160)
+            iModel.value = Int(70 + arc4random() % 30)
             let iDate = Date(timeIntervalSince1970: ts.double)
             iModel.time = iDate.string(withFormat: "yyyy-MM-dd HH:mm:ss")
             boData.append(iModel)
