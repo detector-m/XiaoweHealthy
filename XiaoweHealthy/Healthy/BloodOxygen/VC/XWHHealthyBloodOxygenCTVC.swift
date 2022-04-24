@@ -1,5 +1,5 @@
 //
-//  XWHHealthyBloodOxygenVC.swift
+//  XWHHealthyBloodOxygenCTVC.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/4/20.
@@ -8,7 +8,7 @@
 import UIKit
 
 /// 运动健康血氧
-class XWHHealthyBloodOxygenVC: XWHHealthyBaseCTVC {
+class XWHHealthyBloodOxygenCTVC: XWHHealthyBaseCTVC {
     
     override var popMenuItems: [String] {
         [R.string.xwhHealthyText.血氧饱和度(), R.string.xwhHealthyText.所有数据()]
@@ -38,7 +38,7 @@ class XWHHealthyBloodOxygenVC: XWHHealthyBaseCTVC {
 }
 
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate
-extension XWHHealthyBloodOxygenVC {
+extension XWHHealthyBloodOxygenCTVC {
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return uiManager.items.count
@@ -160,18 +160,28 @@ extension XWHHealthyBloodOxygenVC {
 
 
 // MARK: - DidSelectPopMenuItem
-extension XWHHealthyBloodOxygenVC {
+extension XWHHealthyBloodOxygenCTVC {
     
     override func didSelectPopMenuItem(at index: Int) {
-        
+        if index == 1 {
+            gotoAllData()
+            return
+        }
     }
     
 }
 
 
 // MARK: - Jump UI
-extension XWHHealthyBloodOxygenVC {
+extension XWHHealthyBloodOxygenCTVC {
     
+    /// 跳转到所有数据
+    private func gotoAllData() {
+        let vc = XWHBOAllDataTBVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    /// 跳转到详细说明
     private func gotoBOIntroduction() {
         let vc = XWHBOIntroductionTXVC()
         navigationController?.pushViewController(vc, animated: true)

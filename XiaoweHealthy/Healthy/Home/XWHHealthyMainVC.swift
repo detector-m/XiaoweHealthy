@@ -150,7 +150,7 @@ extension XWHHealthyMainVC {
     
     // 跳转到血氧
     private func gotoBloodOxygen() {
-        let vc = XWHHealthyBloodOxygenVC()
+        let vc = XWHHealthyBloodOxygenCTVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     

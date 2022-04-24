@@ -165,7 +165,10 @@ extension XWHHealthyHeartCTVC {
 extension XWHHealthyHeartCTVC {
     
     override func didSelectPopMenuItem(at index: Int) {
-        
+        if index == 1 {
+            gotoAllData()
+            return
+        }
     }
     
 }
@@ -173,6 +176,13 @@ extension XWHHealthyHeartCTVC {
 // MARK: - Jump UI
 extension XWHHealthyHeartCTVC {
     
+    /// 跳转到所有数据
+    private func gotoAllData() {
+        let vc = XWHHeartAllDataTBVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    /// 跳转到详细说明
     private func gotoHeartIntroduction() {
         let vc = XWHHeartIntroductionTXVC()
         navigationController?.pushViewController(vc, animated: true)
