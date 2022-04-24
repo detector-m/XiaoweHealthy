@@ -12,11 +12,17 @@ class XWHBloodOxygenModel: XWHHeartModel {
     // MARK: - HandyJSON
     override func mapping(mapper: HelpingMapper) {
         mapper <<<
+            srId <-- "id"
+        
+        mapper <<<
             time <-- "collectTime"
         mapper <<<
             value <-- "oxygenVal"
         
-        mapper >>> identifier
+        mapper <<<
+            identifier <-- "deviceName"
+        
+//        mapper >>> identifier
     }
 
 }

@@ -10,11 +10,15 @@ import UIKit
 class XWHBODataDetailListTBVC: XWHHealthyDataDetailListBaseTBVC {
     
     override var titleText: String {
-        return "2022年4月22日数据"
+        return sDate.localizedString(withFormat: XWHDate.yearMonthDayFormat) + R.string.xwhHealthyText.数据()
     }
+    
+    lazy var allDataUIItems: [XWHBloodOxygenModel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getDayBloodOxygenHistory()
     }
 
 }
@@ -23,20 +27,25 @@ class XWHBODataDetailListTBVC: XWHHealthyDataDetailListBaseTBVC {
 extension XWHBODataDetailListTBVC {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 8
+        return allDataUIItems.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: XWHHealthyDataDetailListTBCell.self, for: indexPath)
-        cell.titleLb.text = "14:26"
-        let text = "98%"
+        
+        let cItem = allDataUIItems[indexPath.section]
+        
+        let cDate = cItem.time.date(withFormat: XWHDate.dateTimeAllFormat) ?? Date()
+        cell.titleLb.text = cDate.string(withFormat: XWHDate.hourMinuteFormat)
+        let text = cItem.value.string + "%"
         cell.subTitleLb.attributedText = text.colored(with: fontDarkColor).applying(attributes: [.font: valueFont], toOccurrencesOf: text)
         
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        gotoDataDetail()
+        let cItem = allDataUIItems[indexPath.section]
+        gotoDataDetail(cItem)
     }
 
 }
@@ -44,9 +53,33 @@ extension XWHBODataDetailListTBVC {
 // MARK: - Jump UI
 extension XWHBODataDetailListTBVC {
     
-    private func gotoDataDetail() {
+    private func gotoDataDetail(_ boModel: XWHBloodOxygenModel) {
         let vc = XWHBODataDetailTBVC()
+        vc.detailId = boModel.srId
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+}
+
+// MARK: - Api
+extension XWHBODataDetailListTBVC {
+    
+    private func getDayBloodOxygenHistory() {
+        XWHProgressHUD.show()
+        XWHHealthyVM().getDayBloodOxygenHistory(date: sDate, failureHandler: { error in
+            XWHProgressHUD.hide()
+            log.error(error)
+        }, successHandler: { [unowned self] response in
+            XWHProgressHUD.hide()
+            
+            guard let retModel = response.data as? [XWHBloodOxygenModel] else {
+                log.error("血氧 - 获取所有数据错误")
+                return
+            }
+            
+            self.allDataUIItems = retModel
+            self.tableView.reloadData()
+        })
     }
     
 }

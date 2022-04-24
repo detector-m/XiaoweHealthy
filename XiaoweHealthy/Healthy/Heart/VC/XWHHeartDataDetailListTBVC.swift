@@ -10,11 +10,15 @@ import UIKit
 class XWHHeartDataDetailListTBVC: XWHHealthyDataDetailListBaseTBVC {
 
     override var titleText: String {
-        return "2022年4月24日数据"
+        return sDate.localizedString(withFormat: XWHDate.yearMonthDayFormat) + R.string.xwhHealthyText.数据()
     }
+    
+    lazy var allDataUIItems: [XWHHeartModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getDayHeartHistory()
     }
 
 }
@@ -23,13 +27,18 @@ class XWHHeartDataDetailListTBVC: XWHHealthyDataDetailListBaseTBVC {
 extension XWHHeartDataDetailListTBVC {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 12
+        return allDataUIItems.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: XWHHealthyDataDetailListTBCell.self, for: indexPath)
-        cell.titleLb.text = "14:26"
-        let value = "98"
+        
+        let cItem = allDataUIItems[indexPath.section]
+        
+        let cDate = cItem.time.date(withFormat: XWHDate.dateTimeAllFormat) ?? Date()
+        cell.titleLb.text = cDate.string(withFormat: XWHDate.hourMinuteFormat)
+        
+        let value = cItem.value.string
         let unit = R.string.xwhDeviceText.次分钟()
         let text = value + unit
         cell.subTitleLb.attributedText = text.colored(with: fontDarkColor).applying(attributes: [.font: valueFont], toOccurrencesOf: value).applying(attributes: [.font: normalFont], toOccurrencesOf: unit)
@@ -38,7 +47,8 @@ extension XWHHeartDataDetailListTBVC {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        gotoDataDetail()
+        let cItem = allDataUIItems[indexPath.section]
+        gotoDataDetail(cItem)
     }
 
 }
@@ -46,9 +56,33 @@ extension XWHHeartDataDetailListTBVC {
 // MARK: - Jump UI
 extension XWHHeartDataDetailListTBVC {
     
-    private func gotoDataDetail() {
+    private func gotoDataDetail(_ heartModel: XWHHeartModel) {
         let vc = XWHHeartDataDetailTBVC()
+        vc.detailId = heartModel.srId
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+}
+
+// MARK: - Api
+extension XWHHeartDataDetailListTBVC {
+    
+    private func getDayHeartHistory() {
+        XWHProgressHUD.show()
+        XWHHealthyVM().getDayHeartHistory(date: sDate, failureHandler: { error in
+            XWHProgressHUD.hide()
+            log.error(error)
+        }, successHandler: { [unowned self] response in
+            XWHProgressHUD.hide()
+            
+            guard let retModel = response.data as? [XWHHeartModel] else {
+                log.error("心率 - 获取所有数据错误")
+                return
+            }
+            
+            self.allDataUIItems = retModel
+            self.tableView.reloadData()
+        })
     }
     
 }

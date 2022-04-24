@@ -114,6 +114,8 @@
 		9678257927F2EF3B004F66FB /* XWHDeviceFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9678257827F2EF3B004F66FB /* XWHDeviceFaceView.swift */; };
 		9678257C27F2F44D004F66FB /* RLRadarIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9678257B27F2F44D004F66FB /* RLRadarIndicatorView.swift */; };
 		9678257E27F2F495004F66FB /* RLRadarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9678257D27F2F495004F66FB /* RLRadarView.swift */; };
+		9679E9CF28159105003C6351 /* XWHHeartUIAllDataItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9CE28159105003C6351 /* XWHHeartUIAllDataItemModel.swift */; };
+		9679E9D12815946A003C6351 /* XWHBOUIBloodOxygenAllDataItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9D02815946A003C6351 /* XWHBOUIBloodOxygenAllDataItemModel.swift */; };
 		967AF4C127EF544200235E08 /* XWHDevicePagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C027EF544200235E08 /* XWHDevicePagerViewCell.swift */; };
 		967AF4C327EF545800235E08 /* XWHDeviceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C227EF545800235E08 /* XWHDeviceVM.swift */; };
 		967AF4C527EF547B00235E08 /* XWHDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C427EF547B00235E08 /* XWHDevice.swift */; };
@@ -418,6 +420,8 @@
 		9678257827F2EF3B004F66FB /* XWHDeviceFaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceFaceView.swift; sourceTree = "<group>"; };
 		9678257B27F2F44D004F66FB /* RLRadarIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLRadarIndicatorView.swift; sourceTree = "<group>"; };
 		9678257D27F2F495004F66FB /* RLRadarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLRadarView.swift; sourceTree = "<group>"; };
+		9679E9CE28159105003C6351 /* XWHHeartUIAllDataItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHeartUIAllDataItemModel.swift; sourceTree = "<group>"; };
+		9679E9D02815946A003C6351 /* XWHBOUIBloodOxygenAllDataItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBOUIBloodOxygenAllDataItemModel.swift; sourceTree = "<group>"; };
 		967AF4C027EF544200235E08 /* XWHDevicePagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevicePagerViewCell.swift; sourceTree = "<group>"; };
 		967AF4C227EF545800235E08 /* XWHDeviceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceVM.swift; sourceTree = "<group>"; };
 		967AF4C427EF547B00235E08 /* XWHDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevice.swift; sourceTree = "<group>"; };
@@ -1341,6 +1345,7 @@
 			isa = PBXGroup;
 			children = (
 				9690725E2815589F0056CE4F /* XWHHeartUIHeartModel.swift */,
+				9679E9CE28159105003C6351 /* XWHHeartUIAllDataItemModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1349,6 +1354,7 @@
 			isa = PBXGroup;
 			children = (
 				96907261281564C90056CE4F /* XWHBOUIBloodOxygenModel.swift */,
+				9679E9D02815946A003C6351 /* XWHBOUIBloodOxygenAllDataItemModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2424,6 +2430,7 @@
 				96617A7627E1EE3000139B03 /* XWHBaseNavigationVC.swift in Sources */,
 				9651EE0A27EAFB0B0043FE52 /* XWHLoginRegisterApi.swift in Sources */,
 				9651EE2327EC0EC60043FE52 /* XWHUserModel.swift in Sources */,
+				9679E9D12815946A003C6351 /* XWHBOUIBloodOxygenAllDataItemModel.swift in Sources */,
 				96617A6C27E1DFE100139B03 /* XWHBaseView.swift in Sources */,
 				96C67AFA28047416001ACA81 /* XWHDataBloodPressureSetManager.swift in Sources */,
 				969B883628110DA4009952E7 /* XWHBaseCTReusableView.swift in Sources */,
@@ -2471,6 +2478,7 @@
 				96C67AFC2804742D001ACA81 /* XWHDataBloodOxygenSetManager.swift in Sources */,
 				9651EE2E27EC5BD30043FE52 /* UMShareSwiftInterface.swift in Sources */,
 				96F1D68A28096F370067DBFD /* XWHDialTitleCTCell.swift in Sources */,
+				9679E9CF28159105003C6351 /* XWHHeartUIAllDataItemModel.swift in Sources */,
 				969E712D280C383D00BDA401 /* XWHContactBaseVC.swift in Sources */,
 				969E712F280C3CDB00BDA401 /* XWHContactTBCell.swift in Sources */,
 				96617A7827E1FCF600139B03 /* XWHLoginRegisterBaseVC.swift in Sources */,

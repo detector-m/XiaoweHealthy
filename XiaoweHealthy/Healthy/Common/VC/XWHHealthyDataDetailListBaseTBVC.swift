@@ -14,6 +14,9 @@ class XWHHealthyDataDetailListBaseTBVC: XWHHealthyDataDetailBaseTBVC {
         ""
     }
     
+    /// 所选的日期
+    lazy var sDate = Date()
+    
     lazy var valueFont = XWHFont.harmonyOSSans(ofSize: 24, weight: .bold)
     lazy var normalFont = XWHFont.harmonyOSSans(ofSize: 14)
 

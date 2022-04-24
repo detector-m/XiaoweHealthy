@@ -12,6 +12,8 @@ class XWHHealthyDataDetailBaseTBVC: XWHTableViewBaseVC {
     var titleText: String {
         R.string.xwhHealthyText.数据详情()
     }
+    
+    lazy var detailId = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()

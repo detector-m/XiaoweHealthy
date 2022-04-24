@@ -8,9 +8,13 @@
 import UIKit
 
 class XWHBODataDetailTBVC: XWHHealthyDataDetailBaseTBVC {
+    
+    lazy var boModel = XWHBloodOxygenModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getBloodOxygenDetail()
     }
 
 }
@@ -28,13 +32,13 @@ extension XWHBODataDetailTBVC {
         cell.bottomLine.isHidden = false
         if indexPath.row == 0 {
             cell.titleLb.text = R.string.xwhHealthyText.血氧饱和度()
-            cell.subTitleLb.text = "98%"
+            cell.subTitleLb.text = "\(boModel.value)%"
         } else if indexPath.row == 1 {
             cell.titleLb.text = R.string.xwhHealthyText.测量时间()
-            cell.subTitleLb.text = Date().localizedString()
+            cell.subTitleLb.text = boModel.time
         } else {
             cell.titleLb.text = R.string.xwhHealthyText.来源()
-            cell.subTitleLb.text = "XXX"
+            cell.subTitleLb.text = boModel.identifier
             cell.bottomLine.isHidden = true
         }
         
@@ -42,3 +46,27 @@ extension XWHBODataDetailTBVC {
     }
     
 }
+
+// MARK: - Api
+extension XWHBODataDetailTBVC {
+    
+    private func getBloodOxygenDetail() {
+        XWHProgressHUD.show()
+        XWHHealthyVM().getBloodOxygenDetail(rId: detailId, failureHandler: { error in
+            XWHProgressHUD.hide()
+            log.error(error)
+        }, successHandler: { [unowned self] response in
+            XWHProgressHUD.hide()
+            
+            guard let retModel = response.data as? XWHBloodOxygenModel else {
+                log.error("血氧 - 获取详情数据错误")
+                return
+            }
+            
+            self.boModel = retModel
+            self.tableView.reloadData()
+        })
+    }
+    
+}
+

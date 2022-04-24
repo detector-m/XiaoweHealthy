@@ -41,6 +41,42 @@ class XWHHealthyVM {
         }
     }
     
+    /// 获取心率年的历史数据
+    func getYearHeartHistory(date: Date, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        healthyProvider.request(.getHeartHistory(date.year, date.month, date.day, XWHHealthyDateSegmentType.year.rawValue)) { result in
+            let cId = "Healthy.GetYearHeartHistory"
+            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
+                
+                response.data = [XWHHeartUIAllDataItemModel].deserialize(from: json.arrayObject)
+                return nil
+            }
+        }
+    }
+    
+    /// 获取心率日的历史数据
+    func getDayHeartHistory(date: Date, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        healthyProvider.request(.getHeartHistory(date.year, date.month, date.day, XWHHealthyDateSegmentType.day.rawValue)) { result in
+            let cId = "Healthy.GetYearHeartHistory"
+            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
+                
+                response.data = [XWHHeartModel].deserialize(from: json.arrayObject)
+                return nil
+            }
+        }
+    }
+    
+    /// 获取心率记录的详情数据
+    func getHeartDetail(rId: Int, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        healthyProvider.request(.getHeartDetail(rId)) { result in
+            let cId = "Healthy.GetHeartDetail"
+            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
+                
+                response.data = XWHHeartModel.deserialize(from: json.dictionaryObject)
+                return nil
+            }
+        }
+    }
+    
     
     // MARK: - 血氧(心率)
     /// 上传血氧数据
@@ -67,6 +103,42 @@ class XWHHealthyVM {
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
                 response.data = XWHBOUIBloodOxygenModel.deserialize(from: json.dictionaryObject)
                 
+                return nil
+            }
+        }
+    }
+    
+    /// 获取血氧年的历史数据
+    func getYearBloodOxygenHistory(date: Date, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        healthyProvider.request(.getBloodOxygenHistory(date.year, date.month, date.day, XWHHealthyDateSegmentType.year.rawValue)) { result in
+            let cId = "Healthy.GetYearBloodOxygenHistory"
+            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
+
+                response.data = [XWHBOUIBloodOxygenAllDataItemModel].deserialize(from: json.arrayObject)
+                return nil
+            }
+        }
+    }
+    
+    /// 获取血氧日的历史数据
+    func getDayBloodOxygenHistory(date: Date, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        healthyProvider.request(.getBloodOxygenHistory(date.year, date.month, date.day, XWHHealthyDateSegmentType.day.rawValue)) { result in
+            let cId = "Healthy.GetDayBloodOxygenHistory"
+            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
+                
+                response.data = [XWHBloodOxygenModel].deserialize(from: json.arrayObject)
+                return nil
+            }
+        }
+    }
+    
+    /// 获取血氧记录的详情数据
+    func getBloodOxygenDetail(rId: Int, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        healthyProvider.request(.getBloodOxygenDetail(rId)) { result in
+            let cId = "Healthy.GetBloodOxygenDetail"
+            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
+                
+                response.data = XWHBloodOxygenModel.deserialize(from: json.dictionaryObject)
                 return nil
             }
         }

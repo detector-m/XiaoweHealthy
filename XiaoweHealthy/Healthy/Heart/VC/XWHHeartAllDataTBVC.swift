@@ -9,12 +9,16 @@ import UIKit
 
 class XWHHeartAllDataTBVC: XWHHealthyAllDataBaseTBVC {
     
-    lazy var items: [[String]] = [["2022年4月", "4月6日", "4月5日", "4月3日"], ["2022年3月", "3月6日", "3月5日", "3月3日"], ["2022年2月", "2月6日", "2月5日", "2月3日"], ["2022年1月", "1月6日", "1月5日", "1月3日"]]
+    lazy var allDataUIItems: [XWHHeartUIAllDataItemModel] = [] {
+        didSet {
+            expandStates = allDataUIItems.map({ _ in false })
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        expandStates = items.map({ _ in false })
+        getYearHeartHistory()
     }
 
 }
@@ -27,10 +31,10 @@ extension XWHHeartAllDataTBVC {
 //    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let item = items[section]
+        let item = allDataUIItems[section]
         let isOpen = expandStates[section]
         if isOpen {
-            return item.count
+            return item.items.count + 1
         }
         return 1
     }
@@ -45,23 +49,24 @@ extension XWHHeartAllDataTBVC {
 //    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = items[indexPath.section]
+        let item = allDataUIItems[indexPath.section]
 
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withClass: XWHHealthyAllDataCommonTBCell.self, for: indexPath)
             
-            cell.titleLb.text = item[indexPath.row]
+            cell.titleLb.text = item.month
             cell.isOpen = expandStates[indexPath.section]
             
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withClass: XWHHealthyDataDetailCommonTBCell.self, for: indexPath)
             
-            cell.titleLb.text = item[indexPath.row]
-            cell.subTitleLb.text = "110-120次/分钟"
+            let cItem = item.items[indexPath.row - 1]
+            cell.titleLb.text = cItem.collectTime
+            cell.subTitleLb.text = cItem.rateRange + R.string.xwhDeviceText.次分钟()
             
             cell.bottomLine.isHidden = false
-            if item.count == (indexPath.row + 1) {
+            if item.items.count == indexPath.row {
                 cell.bottomLine.isHidden = true
             }
             
@@ -86,6 +91,30 @@ extension XWHHeartAllDataTBVC {
     private func gotoDataDetailList() {
         let vc = XWHHeartDataDetailListTBVC()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+}
+
+
+// MARK: - Api
+extension XWHHeartAllDataTBVC {
+    
+    private func getYearHeartHistory() {
+        XWHProgressHUD.show()
+        XWHHealthyVM().getYearHeartHistory(date: Date(), failureHandler: { error in
+            XWHProgressHUD.hide()
+            log.error(error)
+        }, successHandler: { [unowned self] response in
+            XWHProgressHUD.hide()
+            
+            guard let retModel = response.data as? [XWHHeartUIAllDataItemModel] else {
+                log.error("心率 - 获取所有数据错误")
+                return
+            }
+            
+            self.allDataUIItems = retModel
+            self.tableView.reloadData()
+        })
     }
     
 }

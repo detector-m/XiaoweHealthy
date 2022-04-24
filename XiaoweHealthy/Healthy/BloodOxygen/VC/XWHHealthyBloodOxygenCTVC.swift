@@ -214,16 +214,15 @@ extension XWHHealthyBloodOxygenCTVC {
 extension XWHHealthyBloodOxygenCTVC {
     
     private func getBloodOxygen() {
-        let date = Date()
         XWHProgressHUD.show()
-        XWHHealthyVM().getBloodOxygen(date: date, dateType: dateType) { error in
+        XWHHealthyVM().getBloodOxygen(date: curDate, dateType: dateType) { error in
             XWHProgressHUD.hide()
             log.error(error)
         } successHandler: { [unowned self] response in
             XWHProgressHUD.hide()
             
             guard let retModel = response.data as? XWHBOUIBloodOxygenModel else {
-                log.error("心率 - 获取数据错误")
+                log.error("血氧 - 获取数据错误")
                 return
             }
             

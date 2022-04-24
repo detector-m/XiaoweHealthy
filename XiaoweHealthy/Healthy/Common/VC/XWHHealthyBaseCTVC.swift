@@ -13,6 +13,8 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
     lazy var dateBtn = UIButton()
     lazy var arrowDownImage: UIImage = UIImage.iconFont(text: XWHIconFontOcticons.arrowDown.rawValue, size: 12, color: fontDarkColor)
     
+    lazy var curDate = Date()
+    
     lazy var dateSegment = XWHDateSegmentView()
     var dateType: XWHHealthyDateSegmentType {
         dateSegment.selectedType

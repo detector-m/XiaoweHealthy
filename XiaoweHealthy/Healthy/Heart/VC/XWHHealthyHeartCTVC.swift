@@ -214,9 +214,8 @@ extension XWHHealthyHeartCTVC {
 extension XWHHealthyHeartCTVC {
     
     private func getHeart() {
-        let date = Date()
         XWHProgressHUD.show()
-        XWHHealthyVM().getHeart(date: date, dateType: dateType) { error in
+        XWHHealthyVM().getHeart(date: curDate, dateType: dateType) { error in
             XWHProgressHUD.hide()
             log.error(error)
         } successHandler: { [unowned self] response in

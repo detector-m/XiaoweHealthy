@@ -9,13 +9,16 @@ import UIKit
 
 class XWHBOAllDataTBVC: XWHHealthyAllDataBaseTBVC {
     
-    lazy var items: [[String]] = [["2022年4月", "4月6日", "4月5日", "4月3日"], ["2022年3月", "3月6日", "3月5日", "3月3日"], ["2022年2月", "2月6日", "2月5日", "2月3日"], ["2022年1月", "1月6日", "1月5日", "1月3日"]]
-
+    lazy var allDataUIItems: [XWHBOUIBloodOxygenAllDataItemModel] = [] {
+        didSet {
+            expandStates = allDataUIItems.map({ _ in false })
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        expandStates = items.map({ _ in false })
+        getYearBloodOxygenHistory()
     }
 
 }
@@ -24,32 +27,38 @@ class XWHBOAllDataTBVC: XWHHealthyAllDataBaseTBVC {
 extension XWHBOAllDataTBVC {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let item = items[section]
+        let item = allDataUIItems[section]
         let isOpen = expandStates[section]
         if isOpen {
-            return item.count
+            return item.items.count + 1
         }
         return 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = items[indexPath.section]
+        let item = allDataUIItems[indexPath.section]
 
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withClass: XWHHealthyAllDataCommonTBCell.self, for: indexPath)
             
-            cell.titleLb.text = item[indexPath.row]
+            cell.titleLb.text = item.month
             cell.isOpen = expandStates[indexPath.section]
             
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withClass: XWHHealthyDataDetailCommonTBCell.self, for: indexPath)
             
-            cell.titleLb.text = item[indexPath.row]
-            cell.subTitleLb.text = "80%-98%"
+            let cItem = item.items[indexPath.row - 1]
+            cell.titleLb.text = cItem.collectTime
+            var cText = cItem.oxygenRange
+            if !cText.isEmpty {
+                cText = cText.replacingOccurrences(of: "-", with: "%-")
+                cText += "%"
+            }
+            cell.subTitleLb.text = cText
             
             cell.bottomLine.isHidden = false
-            if item.count == (indexPath.row + 1) {
+            if item.items.count == indexPath.row {
                 cell.bottomLine.isHidden = true
             }
             
@@ -74,6 +83,30 @@ extension XWHBOAllDataTBVC {
     private func gotoDataDetailList() {
         let vc = XWHBODataDetailListTBVC()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+}
+
+
+// MARK: - Api
+extension XWHBOAllDataTBVC {
+    
+    private func getYearBloodOxygenHistory() {
+        XWHProgressHUD.show()
+        XWHHealthyVM().getYearBloodOxygenHistory(date: Date(), failureHandler: { error in
+            XWHProgressHUD.hide()
+            log.error(error)
+        }, successHandler: { [unowned self] response in
+            XWHProgressHUD.hide()
+            
+            guard let retModel = response.data as? [XWHBOUIBloodOxygenAllDataItemModel] else {
+                log.error("血氧 - 获取所有血氧错误")
+                return
+            }
+            
+            self.allDataUIItems = retModel
+            self.tableView.reloadData()
+        })
     }
     
 }

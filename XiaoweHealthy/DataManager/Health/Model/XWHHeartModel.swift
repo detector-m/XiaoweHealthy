@@ -13,6 +13,8 @@ import GRDB
 /// 心率数据模型
 class XWHHeartModel: XWHDataBaseModel, HandyJSON {
     
+    /// 服务记录id
+    var srId = 0
     var time = ""
     var value = 0
     
@@ -31,11 +33,17 @@ class XWHHeartModel: XWHDataBaseModel, HandyJSON {
     // MARK: - HandyJSON
     func mapping(mapper: HelpingMapper) {
         mapper <<<
+            srId <-- "id"
+        
+        mapper <<<
             time <-- "collectTime"
         mapper <<<
             value <-- "rateVal"
         
-        mapper >>> identifier
+        mapper <<<
+            identifier <-- "deviceName"
+        
+//        mapper >>> identifier
     }
     
 }
