@@ -34,7 +34,7 @@ class RLPopupContentBaseView: UIView {
         super.init(coder: coder)
     }
     
-    func addSubViews() {
+    @objc func addSubViews() {
         titleLb.textColor = UIColor(hex: 0x000000, transparency: 0.9)
         titleLb.font = XWHFont.harmonyOSSans(ofSize: 20, weight: .bold)
         titleLb.textAlignment = .center
@@ -64,7 +64,7 @@ class RLPopupContentBaseView: UIView {
         detailLb.isHidden = true
     }
     
-    func relayoutSubViews() {
+    @objc func relayoutSubViews() {
 //        relayoutForNormal()
         
 //        relayoutForNoTitle()

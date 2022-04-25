@@ -112,6 +112,9 @@ target 'XiaoweHealthy' do
   # 联系人
   pod 'SwiftyContacts'
   
+  # 日历
+  pod 'JTAppleCalendar'
+  
   # 文件管理
 #  pod 'Files'
 #  pod "FilesProvider"

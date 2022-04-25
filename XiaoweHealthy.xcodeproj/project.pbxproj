@@ -116,6 +116,9 @@
 		9678257E27F2F495004F66FB /* RLRadarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9678257D27F2F495004F66FB /* RLRadarView.swift */; };
 		9679E9CF28159105003C6351 /* XWHHeartUIAllDataItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9CE28159105003C6351 /* XWHHeartUIAllDataItemModel.swift */; };
 		9679E9D12815946A003C6351 /* XWHBOUIBloodOxygenAllDataItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9D02815946A003C6351 /* XWHBOUIBloodOxygenAllDataItemModel.swift */; };
+		9679E9D428169338003C6351 /* XWHCalendarPopupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9D328169338003C6351 /* XWHCalendarPopupContainer.swift */; };
+		9679E9D628169BC1003C6351 /* XWHCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9D528169BC1003C6351 /* XWHCalendarView.swift */; };
+		9679E9D82816AA03003C6351 /* XWHCalendarWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9D72816AA03003C6351 /* XWHCalendarWeekView.swift */; };
 		967AF4C127EF544200235E08 /* XWHDevicePagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C027EF544200235E08 /* XWHDevicePagerViewCell.swift */; };
 		967AF4C327EF545800235E08 /* XWHDeviceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C227EF545800235E08 /* XWHDeviceVM.swift */; };
 		967AF4C527EF547B00235E08 /* XWHDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C427EF547B00235E08 /* XWHDevice.swift */; };
@@ -422,6 +425,9 @@
 		9678257D27F2F495004F66FB /* RLRadarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLRadarView.swift; sourceTree = "<group>"; };
 		9679E9CE28159105003C6351 /* XWHHeartUIAllDataItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHeartUIAllDataItemModel.swift; sourceTree = "<group>"; };
 		9679E9D02815946A003C6351 /* XWHBOUIBloodOxygenAllDataItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBOUIBloodOxygenAllDataItemModel.swift; sourceTree = "<group>"; };
+		9679E9D328169338003C6351 /* XWHCalendarPopupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCalendarPopupContainer.swift; sourceTree = "<group>"; };
+		9679E9D528169BC1003C6351 /* XWHCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCalendarView.swift; sourceTree = "<group>"; };
+		9679E9D72816AA03003C6351 /* XWHCalendarWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCalendarWeekView.swift; sourceTree = "<group>"; };
 		967AF4C027EF544200235E08 /* XWHDevicePagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevicePagerViewCell.swift; sourceTree = "<group>"; };
 		967AF4C227EF545800235E08 /* XWHDeviceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceVM.swift; sourceTree = "<group>"; };
 		967AF4C427EF547B00235E08 /* XWHDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevice.swift; sourceTree = "<group>"; };
@@ -1054,6 +1060,7 @@
 		96617A7027E1E07B00139B03 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				9679E9D228168930003C6351 /* Calendar */,
 				9644928627F7EAC9001CA321 /* ProgressButton */,
 				968CB8A127F3FB3700E549AC /* UITableViewRoundedProtocol */,
 				9678257A27F2F40A004F66FB /* RadarView */,
@@ -1260,6 +1267,17 @@
 			path = RadarView;
 			sourceTree = "<group>";
 		};
+		9679E9D228168930003C6351 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				969B8823280FE7BB009952E7 /* XWHDateSegmentView.swift */,
+				9679E9D328169338003C6351 /* XWHCalendarPopupContainer.swift */,
+				9679E9D528169BC1003C6351 /* XWHCalendarView.swift */,
+				9679E9D72816AA03003C6351 /* XWHCalendarWeekView.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
 		967AF4BC27EF535600235E08 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1422,7 +1440,6 @@
 		969B8822280FE749009952E7 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				969B8823280FE7BB009952E7 /* XWHDateSegmentView.swift */,
 				969B8829281011C1009952E7 /* Cell */,
 			);
 			path = View;
@@ -2546,6 +2563,7 @@
 				96617AA927E328C800139B03 /* XWHResetPasswordVC.swift in Sources */,
 				9651EE3027EC5C7E0043FE52 /* XWHUMManager.swift in Sources */,
 				9672B26027EF05F700DC80D6 /* XWHAddDeviceEntryVC.swift in Sources */,
+				9679E9D628169BC1003C6351 /* XWHCalendarView.swift in Sources */,
 				960E768227F0574200A0DA25 /* XWHBaseCTCell.swift in Sources */,
 				9651EDFF27EAC2560043FE52 /* Repeater.swift in Sources */,
 				9653E4AA27F5B3B800EE55FF /* XWHDevSetCommonTBCell.swift in Sources */,
@@ -2577,6 +2595,7 @@
 				969B882828100F6C009952E7 /* XWHCommonBaseCTCell.swift in Sources */,
 				9690723B2814E6B00056CE4F /* XWHExpandBaseTBCell.swift in Sources */,
 				96DC42A127FD7382009BF300 /* XWHCache.swift in Sources */,
+				9679E9D82816AA03003C6351 /* XWHCalendarWeekView.swift in Sources */,
 				96F1D68428094A5E0067DBFD /* XWHDialMarketVC.swift in Sources */,
 				9651EE1527EB6CF50043FE52 /* XWHUserApi.swift in Sources */,
 				9653E4A427F5A60900EE55FF /* XWHDevSetHeartVC.swift in Sources */,
@@ -2596,6 +2615,7 @@
 				96759D8427F34D2E0098CA92 /* XWHBaseTBCell.swift in Sources */,
 				9651EE2527EC15290043FE52 /* XWHTextDescriptionConfig.swift in Sources */,
 				966A60F828001F6100CBE915 /* XWHLoginProgressHUDContentView.swift in Sources */,
+				9679E9D428169338003C6351 /* XWHCalendarPopupContainer.swift in Sources */,
 				9651EE0727EAF6CE0043FE52 /* XWHServiceTargetType.swift in Sources */,
 				969F01C027F6DBB600CA4DA4 /* XWHDevSetUpdateVC.swift in Sources */,
 				969072432814EC320056CE4F /* XWHHeartDataDetailListTBVC.swift in Sources */,

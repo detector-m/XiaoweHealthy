@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import SwiftUI
 
 /// 运动健康首页
 class XWHHealthyMainVC: XWHTableViewBaseVC {
@@ -194,6 +195,8 @@ extension XWHHealthyMainVC {
 //                testContact()
         
 //        testGetHeart()
+        
+        testCalendar()
     }
     
     private func gotoTestPost() {
@@ -355,6 +358,13 @@ extension XWHHealthyMainVC {
         } successHandler: { response in
 
         }
+    }
+    
+    private func testCalendar() {
+        let calendarView = XWHCalendarView()
+        calendarView.backgroundColor = .white
+        calendarView.size = CGSize(width: view.width - 16, height: 469)
+        XWHCalendarPopupContainer.generatePopupWithView(calendarView).show()
     }
     
     

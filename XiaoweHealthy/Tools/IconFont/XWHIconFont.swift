@@ -27,7 +27,9 @@ enum XWHIconFontOcticons: String {
     case eyeOff = "\u{e666}"
     case eyeOn = "\u{e665}"
     
-    case arrowLeft = "\u{e667}"
+    case arrowBackLeft = "\u{e667}"
+    
+    case arrowLeft = "\u{e690}"
     case arrowRight = "\u{e670}"
     case arrowUp = "\u{e691}"
     case arrowDown = "\u{e66b}"
