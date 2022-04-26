@@ -9,7 +9,7 @@ import UIKit
 
 class XWHCalendarDayView: UIView {
     
-    lazy var preNextView = XWHCalendarPreNextBtnView()
+    lazy var preNextView = XWHCalendarPreNextBtnView(dateType: .day)
     lazy var weekIndicatiorView = XWHCalendarWeekIndicatorView(config: .init())
 
     override init(frame: CGRect) {

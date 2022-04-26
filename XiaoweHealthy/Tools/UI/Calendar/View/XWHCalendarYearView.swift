@@ -17,12 +17,19 @@ class XWHCalendarYearView: UIView {
     /// 选择的日期
     lazy var sDate = Date() {
         didSet {
-            beginDate = sDate.beginning(of: .year) ?? Date()
+            curBeginDate = sDate.beginning(of: .year) ?? Date()
         }
     }
     
-    /// 当前日期
-    lazy var beginDate = Date()
+    /// 选择日期 年的开始时间
+    var sBeginDate: Date {
+        sDate.beginning(of: .year) ?? sDate
+    }
+    
+    /// 当前的开始日期
+    lazy var curBeginDate = Date()
+    
+    var selectHandler: XWHCalendarSelectDateHandler?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -144,6 +151,10 @@ class XWHCalendarYearView: UIView {
                 return
             }
             
+            var iDate = curBeginDate
+            iDate.year = iYear
+            sDate = iDate.beginning(of: .year) ?? iDate
+            selectHandler?(sDate)
         } else {
             return
         }

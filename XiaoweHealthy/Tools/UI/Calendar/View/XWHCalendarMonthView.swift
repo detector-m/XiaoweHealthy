@@ -11,10 +11,16 @@ class XWHCalendarMonthView: XWHCalendarYearView {
 
     override var sDate: Date {
         didSet {
-            beginDate = sDate.beginning(of: .month) ?? Date()
+            curBeginDate = sDate.beginning(of: .year) ?? Date()
         }
     }
-    lazy var preNextView = XWHCalendarPreNextBtnView()
+    
+    /// 选择日期 月的开始时间
+    override var sBeginDate: Date {
+        sDate.beginning(of: .month) ?? sDate
+    }
+    
+    lazy var preNextView = XWHCalendarPreNextBtnView(dateType: .month)
 
     override func addSubViews() {
         super.addSubViews()
@@ -62,44 +68,65 @@ extension XWHCalendarMonthView {
         let cell = collectionView.dequeueReusableCell(withClass: XWHCalendarMonthCTCell.self, for: indexPath)
         
         let iMonth = items[indexPath.item]
+        let mbDate = getMonthBeginDate(iMonth)
+
         cell.textLb.text = iMonth.string + R.string.xwhHealthyText.月()
         
         let now = Date()
-//        if iYear <= cDate.year {
-//            if iYear == cDate.year {
-//                cell.curIndicator.isHidden = false
-//                cell.textLb.textColor = btnBgColor
-//            } else {
-//                cell.curIndicator.isHidden = true
-//                cell.textLb.textColor = fontDarkColor
-//            }
-//            cell.dotIndicator.isHidden = false
-//        } else {
-//            cell.curIndicator.isHidden = true
-//            cell.textLb.textColor = fontDarkColor.withAlphaComponent(0.17)
-//            cell.dotIndicator.isHidden = true
-//        }
-//
-//        if sDate.year == iYear {
-//            cell.selectedIndicator.isHidden = false
-//        } else {
-//            cell.selectedIndicator.isHidden = true
-//        }
+        let nowBeginDate = now.beginning(of: .month) ?? now
+
+        if nowBeginDate >= mbDate { // 过去或当前的月份
+            if nowBeginDate == mbDate {
+                cell.curIndicator.isHidden = false
+                cell.textLb.textColor = btnBgColor
+            } else {
+                cell.curIndicator.isHidden = true
+                cell.textLb.textColor = fontDarkColor
+            }
+            cell.dotIndicator.isHidden = false
+        } else { // 未来的月份
+            cell.curIndicator.isHidden = true
+            cell.textLb.textColor = fontDarkColor.withAlphaComponent(0.17)
+            cell.dotIndicator.isHidden = true
+        }
+        
+        if sBeginDate == mbDate {
+            cell.selectedIndicator.isHidden = false
+        } else {
+            cell.selectedIndicator.isHidden = true
+        }
         
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let iYear = items[indexPath.item]
-//        let cDate = Date()
-//        if iYear <= cDate.year {
-//            if sDate.year == iYear {
-//                return
-//            }
-//
-//        } else {
-//            return
-//        }
+        let iMonth = items[indexPath.item]
+        let mbDate = getMonthBeginDate(iMonth)
+        
+        let now = Date()
+        if now >= mbDate { // 过去或当前的月份
+            if sBeginDate == mbDate {
+                return
+            }
+            
+            sDate = mbDate
+            selectHandler?(sDate)
+        } else { // 未来的月份
+            return
+        }
+    }
+    
+}
+
+extension XWHCalendarMonthView {
+    
+    private func getMonthBeginDate(_ month: Int) -> Date {
+        var tDate = curBeginDate
+        tDate.month = month
+        
+        let retDate = tDate.beginning(of: .month) ?? tDate
+        
+        return retDate
     }
     
 }

@@ -7,6 +7,8 @@
 
 import UIKit
 
+typealias XWHCalendarSelectDateHandler = (Date) -> Void
+
 class XWHCalendarView: RLPopupContentBaseView {
     
     lazy var dateSegment = XWHDateSegmentView()
