@@ -1,5 +1,5 @@
 //
-//  XWHCalendarWeekView.swift
+//  XWHCalendarWeekIndicatorView.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/4/25.
@@ -8,7 +8,7 @@
 import UIKit
 import JTAppleCalendar
 
-class XWHCalendarWeekView: UIView {
+class XWHCalendarWeekIndicatorView: UIView {
     
     // MARK: - Outlets
 
@@ -24,11 +24,11 @@ class XWHCalendarWeekView: UIView {
 
     // MARK: - Variables
 
-    private let config: XWHCalendarWeekView.WeekViewConfig
+    private let config: XWHCalendarWeekIndicatorView.WeekIndicatorConfig
 
     // MARK: - Lifecycle
 
-    init(config: XWHCalendarWeekView.WeekViewConfig) {
+    init(config: XWHCalendarWeekIndicatorView.WeekIndicatorConfig) {
         self.config = config
         super.init(frame: .zero)
         self.configureUI()
@@ -69,9 +69,6 @@ class XWHCalendarWeekView: UIView {
             maker.top.bottom.equalToSuperview()
             maker.left.right.equalToSuperview()
         }
-//        self.snp.makeConstraints { (maker) in
-//            maker.height.equalTo(self.config.height)
-//        }
     }
     
     private func getWeekDays() -> [String] {
@@ -88,9 +85,9 @@ class XWHCalendarWeekView: UIView {
 }
 
 
-extension XWHCalendarWeekView {
+extension XWHCalendarWeekIndicatorView {
     
-    public struct WeekViewConfig {
+    public struct WeekIndicatorConfig {
         public var firstDayOfWeek: DaysOfWeek = .sunday
         public var backgroundColor: UIColor = bgColor
         public var textColor: UIColor = fontLightColor
