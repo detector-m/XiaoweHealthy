@@ -8,15 +8,22 @@
 import UIKit
 import JTAppleCalendar
 
-class XWHCalendarDayView: UIView {
+class XWHCalendarDayView: UIView, JTACMonthViewDataSource & JTACMonthViewDelegate {
     
-    lazy var preNextView = XWHCalendarPreNextBtnView(dateType: .day)
+    var dateType: XWHHealthyDateSegmentType {
+        .day
+    }
+
+    lazy var preNextView = XWHCalendarPreNextBtnView(dateType: dateType)
     lazy var weekIndicatiorView = XWHCalendarWeekIndicatorView(config: .init())
     
     /// 日历选择的view
     lazy var monthView = JTACMonthView()
     
-    lazy var dateType: XWHHealthyDateSegmentType = .day
+    /// 日历开始的时间
+    lazy var startDate = XWHCalendarHelper.startDate
+    /// 日历的结束时间
+    lazy var endDate = Date()
     
     /// 选择的日期
     lazy var sDate = Date() {
@@ -24,12 +31,12 @@ class XWHCalendarDayView: UIView {
             curBeginDate = sDate.monthBegin
         }
     }
-    /// 选择日期 年的开始时间
+    /// 选择日期 日的开始时间
     var sBeginDate: Date {
         sDate.dayBegin
     }
     
-    /// 当前的开始日期
+    /// 当前的年月开始日期
     lazy var curBeginDate = Date().monthBegin
 
     override init(frame: CGRect) {
@@ -39,12 +46,6 @@ class XWHCalendarDayView: UIView {
         relayoutSubViews()
         
         configEventAction()
-        
-//        monthView.isScrollEnabled = false
-        let now = Date()
-        monthView.scrollToDate(now, triggerScrollToDateDelegate: false, animateScroll: false)
-        monthView.selectDates([sDate], triggerSelectionDelegate: true)
-        preNextView.curBeginDate = now
     }
     
     required init?(coder: NSCoder) {
@@ -59,6 +60,33 @@ class XWHCalendarDayView: UIView {
         addSubview(monthView)
         
         configMonthView()
+        
+        registerViews()
+    }
+    
+    
+    // MARK: - 日历配置
+    @objc func configMonthView() {
+        monthView.calendarDataSource = self
+        monthView.calendarDelegate = self
+        
+        monthView.minimumLineSpacing = 1
+        monthView.minimumInteritemSpacing = 1
+        monthView.showsVerticalScrollIndicator = false
+        monthView.showsHorizontalScrollIndicator = false
+        monthView.cellSize = 0
+        monthView.scrollingMode = .stopAtEachSection
+        monthView.scrollDirection = .horizontal
+        
+//        monthView.isScrollEnabled = false
+        let now = Date()
+        monthView.scrollToDate(now, triggerScrollToDateDelegate: false, animateScroll: false)
+        monthView.selectDates([sDate], triggerSelectionDelegate: true)
+        preNextView.curBeginDate = now
+    }
+    
+    @objc func registerViews() {
+        monthView.register(cellWithClass: XWHCalendarDayCTCell.self)
     }
     
     @objc func relayoutSubViews() {
@@ -79,63 +107,10 @@ class XWHCalendarDayView: UIView {
             make.left.right.equalTo(weekIndicatiorView)
         }
     }
-
-}
-
-// MARK: - 日历配置
-@objc extension XWHCalendarDayView {
     
-    private func configMonthView() {
-        monthView.calendarDataSource = self
-        monthView.calendarDelegate = self
-        
-        monthView.minimumLineSpacing = 1
-        monthView.minimumInteritemSpacing = 1
-        monthView.showsVerticalScrollIndicator = false
-        monthView.showsHorizontalScrollIndicator = false
-        monthView.cellSize = 0
-        monthView.allowsMultipleSelection = false
-        monthView.allowsRangedSelection = true
-        monthView.rangeSelectionMode = .continuous
-        monthView.scrollingMode = .stopAtEachSection
-        monthView.scrollDirection = .horizontal
-        
-        registerViews()
-    }
-    
-    private func registerViews() {
-        monthView.register(cellWithClass: XWHCalendarDayCTCell.self)
-    }
-    
-}
-
-// MARK: - ConfigEventAction
-extension XWHCalendarDayView {
-    
-    private func configEventAction() {
-        preNextView.selectHandler = { [unowned self] cbDate, aType in
-            self.curBeginDate = cbDate
-            if aType == .pre {
-                self.monthView.scrollToSegment(.previous)
-            } else {
-                self.monthView.scrollToSegment(.next)
-            }
-        }
-    }
-    
-}
-
-
-// MARK: - JTACMonthViewDataSource & JTACMonthViewDelegate
-extension XWHCalendarDayView: JTACMonthViewDataSource & JTACMonthViewDelegate {
-    
+    // MARK: - JTACMonthViewDataSource & JTACMonthViewDelegate
     func configureCalendar(_ calendar: JTACMonthView) -> ConfigurationParameters {
-        let formatter = DateFormatter()
-        formatter.dateFormat = XWHDate.localizedFormat(XWHDate.yearMonthDayFormat)
-        let startDate = Date().adding(.year, value: -2)
-        let endDate = Date()
-
-        let parameters = ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: 6, calendar: Calendar.current, generateInDates: .forAllMonths, generateOutDates: .tillEndOfRow, firstDayOfWeek: DaysOfWeek.monday, hasStrictBoundaries: true)
+        let parameters = ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: 6, calendar: Calendar.current, generateInDates: .forAllMonths, generateOutDates: .tillEndOfRow, firstDayOfWeek: XWHCalendarHelper.firstDayOfWeek, hasStrictBoundaries: true)
 
         return parameters
     }
@@ -193,7 +168,7 @@ extension XWHCalendarDayView: JTACMonthViewDataSource & JTACMonthViewDelegate {
     }
     
     func calendar(_ calendar: JTACMonthView, didSelectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) {
-        sDate = date.dayBegin
+        sDate = cellState.date.dayBegin
         
         guard let cell = cell as? XWHCalendarDayCTCell else {
             return
@@ -213,7 +188,7 @@ extension XWHCalendarDayView: JTACMonthViewDataSource & JTACMonthViewDelegate {
             return false
         }
         
-        if cellState.date.dayBegin == sBeginDate {
+        if cellState.date.dayBegin == sBeginDate, !cellState.isSelected {
             return false
         }
         
@@ -231,11 +206,32 @@ extension XWHCalendarDayView: JTACMonthViewDataSource & JTACMonthViewDelegate {
     }
 
     func calendar(_ calendar: JTACMonthView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
-        guard let startDate = visibleDates.monthDates.first?.date else {
+        guard let fDate = visibleDates.monthDates.first?.date else {
             return
         }
         
-        preNextView.curBeginDate = startDate.monthBegin
+        preNextView.curBeginDate = fDate.monthBegin
+    }
+    
+//    func sizeOfDecorationView(indexPath: IndexPath) -> CGRect {
+//        let stride = monthView.frame.width * CGFloat(indexPath.section)
+//        return CGRect(x: stride + 5, y: 5, width: monthView.frame.width - 10, height: monthView.frame.height - 10)
+//    }
+
+}
+
+// MARK: - ConfigEventAction
+extension XWHCalendarDayView {
+    
+    private func configEventAction() {
+        preNextView.selectHandler = { [unowned self] cbDate, aType in
+            self.curBeginDate = cbDate
+            if aType == .pre {
+                self.monthView.scrollToSegment(.previous)
+            } else {
+                self.monthView.scrollToSegment(.next)
+            }
+        }
     }
     
 }

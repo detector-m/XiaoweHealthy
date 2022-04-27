@@ -23,7 +23,7 @@ class XWHCalendarDayCTCell: JTACDayCell {
             nowIndicator.layer.cornerRadius = (selectedIndicatorSize - 4) / 2
             selectedIndicator.snp.remakeConstraints { make in
                 make.center.equalToSuperview()
-                make.size.equalTo(selectedIndicator)
+                make.size.equalTo(selectedIndicatorSize)
             }
         }
     }

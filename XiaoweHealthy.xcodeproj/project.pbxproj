@@ -128,6 +128,8 @@
 		9679E9E82817C49B003C6351 /* XWHCalendarMonthCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9E72817C49B003C6351 /* XWHCalendarMonthCTCell.swift */; };
 		9679E9EF2817FFB4003C6351 /* XWHCalendarDayCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9EE2817FFB4003C6351 /* XWHCalendarDayCTCell.swift */; };
 		9679E9F22818DDAD003C6351 /* XWHCalendarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9F12818DDAD003C6351 /* XWHCalendarHelper.swift */; };
+		9679E9F4281910C5003C6351 /* XWHCalendarWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9F3281910C5003C6351 /* XWHCalendarWeekView.swift */; };
+		9679E9F628191337003C6351 /* XWHCalendarWeekCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9F528191337003C6351 /* XWHCalendarWeekCTCell.swift */; };
 		967AF4C127EF544200235E08 /* XWHDevicePagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C027EF544200235E08 /* XWHDevicePagerViewCell.swift */; };
 		967AF4C327EF545800235E08 /* XWHDeviceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C227EF545800235E08 /* XWHDeviceVM.swift */; };
 		967AF4C527EF547B00235E08 /* XWHDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C427EF547B00235E08 /* XWHDevice.swift */; };
@@ -446,6 +448,8 @@
 		9679E9E72817C49B003C6351 /* XWHCalendarMonthCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCalendarMonthCTCell.swift; sourceTree = "<group>"; };
 		9679E9EE2817FFB4003C6351 /* XWHCalendarDayCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCalendarDayCTCell.swift; sourceTree = "<group>"; };
 		9679E9F12818DDAD003C6351 /* XWHCalendarHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCalendarHelper.swift; sourceTree = "<group>"; };
+		9679E9F3281910C5003C6351 /* XWHCalendarWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCalendarWeekView.swift; sourceTree = "<group>"; };
+		9679E9F528191337003C6351 /* XWHCalendarWeekCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCalendarWeekCTCell.swift; sourceTree = "<group>"; };
 		967AF4C027EF544200235E08 /* XWHDevicePagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevicePagerViewCell.swift; sourceTree = "<group>"; };
 		967AF4C227EF545800235E08 /* XWHDeviceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceVM.swift; sourceTree = "<group>"; };
 		967AF4C427EF547B00235E08 /* XWHDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevice.swift; sourceTree = "<group>"; };
@@ -1302,6 +1306,7 @@
 				9679E9E32817A09B003C6351 /* XWHCalendarYearCTCell.swift */,
 				9679E9E72817C49B003C6351 /* XWHCalendarMonthCTCell.swift */,
 				9679E9EE2817FFB4003C6351 /* XWHCalendarDayCTCell.swift */,
+				9679E9F528191337003C6351 /* XWHCalendarWeekCTCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1316,6 +1321,7 @@
 				9679E9D9281783CE003C6351 /* XWHCalendarYearView.swift */,
 				9679E9E1281798E1003C6351 /* XWHCalendarMonthView.swift */,
 				9679E9E52817BC79003C6351 /* XWHCalendarDayView.swift */,
+				9679E9F3281910C5003C6351 /* XWHCalendarWeekView.swift */,
 				9679E9D72816AA03003C6351 /* XWHCalendarWeekIndicatorView.swift */,
 			);
 			path = View;
@@ -2562,6 +2568,7 @@
 				96DC429D27FD42B7009BF300 /* XWHDeviceApi.swift in Sources */,
 				968CB8A827F42A8C00E549AC /* XWHCommonBaseTBCell.swift in Sources */,
 				969E7134280D107C00BDA401 /* XWHConstant.swift in Sources */,
+				9679E9F4281910C5003C6351 /* XWHCalendarWeekView.swift in Sources */,
 				969072452814EDBA0056CE4F /* XWHHealthyAllDataCommonTBCell.swift in Sources */,
 				96FC408627EDB78F00D64B64 /* XWHDeviceBaseVC.swift in Sources */,
 				96907247281501DE0056CE4F /* XWHHealthyDataDetailCommonTBCell.swift in Sources */,
@@ -2641,6 +2648,7 @@
 				96E23C2E27E1A586009EF208 /* XWHMeMainVC.swift in Sources */,
 				96C67AE728041732001ACA81 /* XWHDisturbSetModel.swift in Sources */,
 				968CB8B027F4661700E549AC /* XWHDeviceMainFooter.swift in Sources */,
+				9679E9F628191337003C6351 /* XWHCalendarWeekCTCell.swift in Sources */,
 				966F53C927F1E8B200411D38 /* XWHBindDeviceVC.swift in Sources */,
 				96617A7227E1E12E00139B03 /* XWHExported.swift in Sources */,
 				9661D35A27F5FD970062B2B8 /* XWHDevSetDisturbVC.swift in Sources */,

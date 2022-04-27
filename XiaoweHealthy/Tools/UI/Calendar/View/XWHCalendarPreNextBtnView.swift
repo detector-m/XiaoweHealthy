@@ -45,14 +45,7 @@ class XWHCalendarPreNextBtnView: UIView {
         }
     }
     
-    private lazy var _minBeginDate: Date = {
-        var now = Date()
-        var retDate = now
-        retDate.year = 1970
-        retDate = retDate.yearBegin
-        
-        return retDate
-    }()
+    private lazy var _minBeginDate = XWHCalendarHelper.startDate
     var minBeginDate: Date {
         get {
             _minBeginDate

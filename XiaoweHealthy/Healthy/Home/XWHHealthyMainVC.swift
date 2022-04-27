@@ -363,7 +363,7 @@ extension XWHHealthyMainVC {
     private func testCalendar() {
         let calendarView = XWHCalendarView()
         calendarView.backgroundColor = .white
-        calendarView.size = CGSize(width: view.width - 16, height: 469)
+        calendarView.size = CGSize(width: XWHCalendarHelper.calendarWidth, height: 469)
         XWHCalendarPopupContainer.generatePopupWithView(calendarView).show()
     }
     

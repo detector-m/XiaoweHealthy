@@ -32,6 +32,7 @@ class XWHCalendarView: RLPopupContentBaseView {
     
     lazy var yearView = XWHCalendarYearView()
     lazy var monthView = XWHCalendarMonthView()
+    lazy var weekView = XWHCalendarWeekView()
     lazy var dayView = XWHCalendarDayView()
         
     override func addSubViews() {
@@ -45,6 +46,7 @@ class XWHCalendarView: RLPopupContentBaseView {
         
         addSubview(yearView)
         addSubview(monthView)
+        addSubview(weekView)
         addSubview(dayView)
         
         configEventAction()
@@ -57,6 +59,7 @@ class XWHCalendarView: RLPopupContentBaseView {
         
         relayoutYearView()
         relayoutMonthView()
+        relayoutWeekView()
         relayoutDayView()
     }
     
@@ -84,6 +87,14 @@ class XWHCalendarView: RLPopupContentBaseView {
         }
     }
     
+    @objc final func relayoutWeekView() {
+        weekView.snp.makeConstraints { make in
+            make.left.right.equalTo(dateSegment)
+            make.top.equalTo(dateSegment.snp.bottom).offset(31)
+            make.bottom.equalToSuperview()
+        }
+    }
+    
     @objc final func relayoutDayView() {
         dayView.snp.makeConstraints { make in
             make.left.right.equalTo(dateSegment)
@@ -105,13 +116,15 @@ extension XWHCalendarView {
     func dateSegmentValueChanged(_ segmentType: XWHHealthyDateSegmentType) {
         yearView.isHidden = true
         monthView.isHidden = true
+        weekView.isHidden = true
         dayView.isHidden = true
+        
         switch segmentType {
         case .day:
             dayView.isHidden = false
             
         case .week:
-            dayView.isHidden = false
+            weekView.isHidden = false
             
         case .month:
             monthView.isHidden = false

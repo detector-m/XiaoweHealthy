@@ -8,7 +8,7 @@
 import UIKit
 
 
-private let kDialogViewCornerRadius : CGFloat = 3
+private let kDialogViewCornerRadius : CGFloat = 20
 
 class XWHCalendarPopupContainer: UIView {
     
