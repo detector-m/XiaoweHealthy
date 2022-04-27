@@ -9,6 +9,11 @@ import UIKit
 
 class XWHCalendarPreNextBtnView: UIView {
     
+    enum PreNextBtnActionType {
+        case pre
+        case next
+    }
+    
     lazy var preBtn = UIButton()
     lazy var nextBtn = UIButton()
     
@@ -27,10 +32,10 @@ class XWHCalendarPreNextBtnView: UIView {
         var tDate: Date
         switch dateType {
         case .day, .week:
-            tDate = now.beginning(of: .month) ?? now
+            tDate = now.monthBegin
         
         case .month, .year:
-            tDate = now.beginning(of: .year) ?? now
+            tDate = now.yearBegin
         }
         
         return tDate
@@ -40,58 +45,67 @@ class XWHCalendarPreNextBtnView: UIView {
         }
     }
     
-    lazy var minBeginDate: Date = {
+    private lazy var _minBeginDate: Date = {
         var now = Date()
         var retDate = now
         retDate.year = 1970
-        retDate = retDate.beginning(of: .year) ?? retDate
+        retDate = retDate.yearBegin
         
         return retDate
-    }() {
-        didSet {
+    }()
+    var minBeginDate: Date {
+        get {
+            _minBeginDate
+        }
+        set {
             var tDate: Date
 
             switch dateType {
             case .day, .week:
-                tDate = minBeginDate.beginning(of: .month) ?? minBeginDate
+                tDate = newValue.monthBegin
             
             case .month, .year:
-                tDate = minBeginDate.beginning(of: .year) ?? minBeginDate
+                tDate = newValue.yearBegin
             }
             
-            minBeginDate = tDate
+            _minBeginDate = tDate
         }
     }
     
-    lazy var maxBeginDate: Date = {
+    private lazy var _maxBeginDate: Date = {
         var now = Date()
         var tDate: Date
         switch dateType {
         case .day, .week:
-            tDate = now.beginning(of: .month) ?? now
+            tDate = now.monthBegin
         
         case .month, .year:
-            tDate = now.beginning(of: .year) ?? now
+            tDate = now.yearBegin
         }
         
         return tDate
-    }() {
-        didSet {
+    }()
+    
+    var maxBeginDate: Date {
+        get {
+            _maxBeginDate
+        }
+        set {
             var tDate: Date
 
             switch dateType {
             case .day, .week:
-                tDate = maxBeginDate.beginning(of: .month) ?? maxBeginDate
+                tDate = newValue.monthBegin
             
             case .month, .year:
-                tDate = maxBeginDate.beginning(of: .year) ?? maxBeginDate
+                tDate = newValue.yearBegin
             }
             
-            maxBeginDate = tDate
+            _maxBeginDate = tDate
         }
     }
     
-    var selectHandler: XWHCalendarSelectDateHandler?
+    var selectHandler: ((Date, PreNextBtnActionType) -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -103,7 +117,7 @@ class XWHCalendarPreNextBtnView: UIView {
     convenience init(dateType: XWHHealthyDateSegmentType) {
         self.init(frame: .zero)
         self.dateType = dateType
-        
+        maxBeginDate = Date()
         updateUI()
     }
     
@@ -163,7 +177,10 @@ class XWHCalendarPreNextBtnView: UIView {
 extension XWHCalendarPreNextBtnView {
     
     @objc private func clickPreNextAction(_ sender: UIButton) {
+        var actionType: PreNextBtnActionType = .pre
         if sender == preBtn {
+            actionType = .pre
+        
             switch dateType {
             case .day, .week:
                 curBeginDate.add(.month, value: -1)
@@ -171,6 +188,8 @@ extension XWHCalendarPreNextBtnView {
                 curBeginDate.add(.year, value: -1)
             }
         } else {
+            actionType = .next
+            
             switch dateType {
             case .day, .week:
                 curBeginDate.add(.month, value: 1)
@@ -180,7 +199,7 @@ extension XWHCalendarPreNextBtnView {
         }
         updateUI()
         
-        selectHandler?(curBeginDate)
+        selectHandler?(curBeginDate, actionType)
     }
 
 }

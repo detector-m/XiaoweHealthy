@@ -17,4 +17,20 @@ extension Date {
         return string(withFormat: lFormat)
     }
     
+    var dayBegin: Self {
+        return beginning(of: .day) ?? self
+    }
+    
+    var weakBegin: Self {
+        return beginning(of: .weekOfMonth) ?? self
+    }
+    
+    var monthBegin: Self {
+        return beginning(of: .month) ?? self
+    }
+    
+    var yearBegin: Self {
+        return beginning(of: .year) ?? self
+    }
+    
 }

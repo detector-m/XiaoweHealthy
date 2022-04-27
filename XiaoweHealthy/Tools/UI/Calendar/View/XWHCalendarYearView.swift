@@ -27,7 +27,7 @@ class XWHCalendarYearView: UIView {
     }
     
     /// 当前的开始日期
-    lazy var curBeginDate = Date()
+    lazy var curBeginDate = Date().yearBegin
     
     var selectHandler: XWHCalendarSelectDateHandler?
     
@@ -113,15 +113,15 @@ class XWHCalendarYearView: UIView {
         let now = Date()
         if iYear <= now.year {
             if iYear == now.year {
-                cell.curIndicator.isHidden = false
+                cell.nowIndicator.isHidden = false
                 cell.textLb.textColor = btnBgColor
             } else {
-                cell.curIndicator.isHidden = true
+                cell.nowIndicator.isHidden = true
                 cell.textLb.textColor = fontDarkColor
             }
             cell.dotIndicator.isHidden = false
         } else {
-            cell.curIndicator.isHidden = true
+            cell.nowIndicator.isHidden = true
             cell.textLb.textColor = fontDarkColor.withAlphaComponent(0.17)
             cell.dotIndicator.isHidden = true
         }
@@ -153,7 +153,8 @@ class XWHCalendarYearView: UIView {
             
             var iDate = curBeginDate
             iDate.year = iYear
-            sDate = iDate.beginning(of: .year) ?? iDate
+            sDate = iDate.yearBegin
+            collectionView.reloadData()
             selectHandler?(sDate)
         } else {
             return

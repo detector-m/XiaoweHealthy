@@ -1,13 +1,14 @@
 //
-//  XWHCalendarItemCTCell.swift
+//  XWHCalendarDayCTCell.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/4/26.
 //
 
 import UIKit
+import JTAppleCalendar
 
-class XWHCalendarItemCTCell: UICollectionViewCell {
+class XWHCalendarDayCTCell: JTACDayCell {
     
     lazy var textLb = UILabel()
     
@@ -16,7 +17,7 @@ class XWHCalendarItemCTCell: UICollectionViewCell {
     
     lazy var nowIndicator = UIView()
     
-    var selectedIndicatorSize: CGFloat = 66 {
+    var selectedIndicatorSize: CGFloat = 40 {
         didSet {
             selectedIndicator.layer.cornerRadius = selectedIndicatorSize / 2
             nowIndicator.layer.cornerRadius = (selectedIndicatorSize - 4) / 2
@@ -49,7 +50,7 @@ class XWHCalendarItemCTCell: UICollectionViewCell {
         contentView.addSubview(selectedIndicator)
         
         textLb.textColor = fontDarkColor
-        textLb.font = XWHFont.harmonyOSSans(ofSize: 24)
+        textLb.font = XWHFont.harmonyOSSans(ofSize: 17)
         textLb.textAlignment = .center
         contentView.addSubview(textLb)
         
@@ -69,7 +70,7 @@ class XWHCalendarItemCTCell: UICollectionViewCell {
         }
         
         textLb.snp.makeConstraints { make in
-            make.height.equalTo(30)
+            make.height.equalTo(22)
             make.center.equalToSuperview()
             make.width.lessThanOrEqualToSuperview()
         }

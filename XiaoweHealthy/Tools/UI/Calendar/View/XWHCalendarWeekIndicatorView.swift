@@ -88,7 +88,7 @@ class XWHCalendarWeekIndicatorView: UIView {
 extension XWHCalendarWeekIndicatorView {
     
     public struct WeekIndicatorConfig {
-        public var firstDayOfWeek: DaysOfWeek = .sunday
+        public var firstDayOfWeek: DaysOfWeek = .monday
         public var backgroundColor: UIColor = bgColor
         public var textColor: UIColor = fontLightColor
         public var textFont: UIFont = XWHFont.harmonyOSSans(ofSize: 13, weight: .regular)

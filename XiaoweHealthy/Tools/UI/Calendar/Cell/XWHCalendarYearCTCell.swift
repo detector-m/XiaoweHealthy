@@ -15,7 +15,7 @@ class XWHCalendarYearCTCell: XWHCalendarItemCTCell {
             make.size.equalTo(selectedIndicatorSize)
         }
         
-        curIndicator.snp.makeConstraints { make in
+        nowIndicator.snp.makeConstraints { make in
             make.edges.equalTo(selectedIndicator).inset(2)
         }
         

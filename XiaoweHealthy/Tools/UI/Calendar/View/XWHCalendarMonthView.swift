@@ -17,7 +17,16 @@ class XWHCalendarMonthView: XWHCalendarYearView {
     
     /// 选择日期 月的开始时间
     override var sBeginDate: Date {
-        sDate.beginning(of: .month) ?? sDate
+        sDate.monthBegin
+    }
+    
+    override var curBeginDate: Date {
+        get {
+            super.curBeginDate
+        }
+        set {
+            super.curBeginDate = newValue.monthBegin
+        }
     }
     
     lazy var preNextView = XWHCalendarPreNextBtnView(dateType: .month)
@@ -29,6 +38,8 @@ class XWHCalendarMonthView: XWHCalendarYearView {
         
         items = stride(from: 1, through: 12, by: 1).map({ $0 })
         collectionView.reloadData()
+        
+        configEventAction()
     }
     
     override func relayoutSubViews() {
@@ -46,6 +57,19 @@ class XWHCalendarMonthView: XWHCalendarYearView {
     
     override func registerViews() {
         collectionView.register(cellWithClass: XWHCalendarMonthCTCell.self)
+    }
+    
+}
+
+
+// MARK: - ConfigEventAction
+extension XWHCalendarMonthView {
+    
+    @objc private func configEventAction() {
+        preNextView.selectHandler = { [unowned self] cbDate, aType in
+            self.curBeginDate = cbDate
+            self.collectionView.reloadData()
+        }
     }
     
 }
@@ -73,19 +97,19 @@ extension XWHCalendarMonthView {
         cell.textLb.text = iMonth.string + R.string.xwhHealthyText.月()
         
         let now = Date()
-        let nowBeginDate = now.beginning(of: .month) ?? now
+        let nowBeginDate = now.monthBegin
 
         if nowBeginDate >= mbDate { // 过去或当前的月份
             if nowBeginDate == mbDate {
-                cell.curIndicator.isHidden = false
+                cell.nowIndicator.isHidden = false
                 cell.textLb.textColor = btnBgColor
             } else {
-                cell.curIndicator.isHidden = true
+                cell.nowIndicator.isHidden = true
                 cell.textLb.textColor = fontDarkColor
             }
             cell.dotIndicator.isHidden = false
         } else { // 未来的月份
-            cell.curIndicator.isHidden = true
+            cell.nowIndicator.isHidden = true
             cell.textLb.textColor = fontDarkColor.withAlphaComponent(0.17)
             cell.dotIndicator.isHidden = true
         }
@@ -110,6 +134,7 @@ extension XWHCalendarMonthView {
             }
             
             sDate = mbDate
+            collectionView.reloadData()
             selectHandler?(sDate)
         } else { // 未来的月份
             return
@@ -124,9 +149,7 @@ extension XWHCalendarMonthView {
         var tDate = curBeginDate
         tDate.month = month
         
-        let retDate = tDate.beginning(of: .month) ?? tDate
-        
-        return retDate
+        return tDate.monthBegin
     }
     
 }
