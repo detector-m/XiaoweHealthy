@@ -218,6 +218,30 @@ extension XWHHealthyBaseCTVC {
 // MARK: - Calendar
 extension XWHHealthyBaseCTVC {
     
+    func showCalendar(_ calendarHandler: XWHCalendarHandler? = nil) {
+        var cHandler: XWHCalendarHandler
+        
+        if let tHandler = calendarHandler {
+            cHandler = tHandler
+        } else {
+            cHandler = { [unowned self] sDate, sDateType in
+                self.handleSelectedCalendar(sDate, sDateType)
+            }
+        }
+
+        XWHCalendar.show(dayDate: sDayDate, weekDate: sWeekDate, monthDate: sMonthDate, yearDate: sYearDate, dateType: dateType, calendarHandler: cHandler)
+    }
+    
+    func handleSelectedCalendar(_ sDate: Date, _ sDateType: XWHHealthyDateSegmentType) {
+        setSelectedDate(sDateType, sDate)
+        if dateSegment.sType == sDateType {
+            dateSegmentValueChanged(sDateType)
+        } else {
+            dateSegment.sType = sDateType
+        }
+    }
+    
+    
     func setSelectedDate(_ sDateType: XWHHealthyDateSegmentType, _ date: Date) {
         switch sDateType {
         case .day:

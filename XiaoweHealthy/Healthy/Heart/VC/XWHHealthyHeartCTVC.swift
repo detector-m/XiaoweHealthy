@@ -34,14 +34,7 @@ class XWHHealthyHeartCTVC: XWHHealthyBaseCTVC {
     }
     
     override func clickDateBtn() {
-        XWHCalendar.show(dayDate: sDayDate, weekDate: sWeekDate, monthDate: sMonthDate, yearDate: sYearDate, dateType) { [unowned self] sDate, sDateType in
-            self.setSelectedDate(sDateType, sDate)
-            if self.dateSegment.sType == sDateType {
-                self.dateSegmentValueChanged(sDateType)
-            } else {
-                self.dateSegment.sType = sDateType
-            }
-        }
+        showCalendar()
     }
     
     override func dateSegmentValueChanged(_ segmentType: XWHHealthyDateSegmentType) {
