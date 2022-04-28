@@ -9,9 +9,14 @@ import UIKit
 
 class XWHCalendarMonthView: XWHCalendarYearView {
 
+    private lazy var _sDate: Date = Date()
     override var sDate: Date {
-        didSet {
-            curBeginDate = sDate.beginning(of: .year) ?? Date()
+        get {
+            _sDate
+        }
+        set {
+            _sDate = newValue
+            curBeginDate = newValue.beginning(of: .year) ?? Date()
         }
     }
     

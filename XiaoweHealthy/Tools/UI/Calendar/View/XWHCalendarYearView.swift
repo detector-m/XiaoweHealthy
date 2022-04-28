@@ -17,13 +17,13 @@ class XWHCalendarYearView: UIView {
     /// 选择的日期
     lazy var sDate = Date() {
         didSet {
-            curBeginDate = sDate.beginning(of: .year) ?? Date()
+            curBeginDate = sDate.yearBegin
         }
     }
     
     /// 选择日期 年的开始时间
     var sBeginDate: Date {
-        sDate.beginning(of: .year) ?? sDate
+        sDate.yearBegin
     }
     
     /// 当前的开始日期

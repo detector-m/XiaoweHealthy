@@ -10,7 +10,7 @@ import Foundation
 
 class XWHCalendar {
     
-    class func show(_ date: Date, _ dateType: XWHHealthyDateSegmentType, _ calendarHandler: XWHCalendarHandler?) {
+    class func show(dayDate: Date, weekDate: Date, monthDate: Date, yearDate: Date, _ dateType: XWHHealthyDateSegmentType, _ calendarHandler: XWHCalendarHandler?) {
         let calendarView = XWHCalendarView()
         calendarView.calendarHandler = calendarHandler
         calendarView.backgroundColor = .white
@@ -19,7 +19,10 @@ class XWHCalendar {
         calendarView.containerView = calendarContainer
         calendarContainer.show()
         
-        calendarView.sDate = date
+        calendarView.sDayDate = dayDate
+        calendarView.sWeekDate = weekDate
+        calendarView.sMonthDate = monthDate
+        calendarView.sYearDate = yearDate
         calendarView.dateType = dateType
     }
     

@@ -15,9 +15,14 @@ class XWHCalendarWeekView: XWHCalendarDayView {
     }
     
     /// 选择的日期
+    private lazy var _sDate: Date = Date()
     override var sDate: Date {
-        didSet {
-            curBeginDate = sDate.weekBegin
+        get {
+            _sDate
+        }
+        set {
+            _sDate = newValue
+            curBeginDate = newValue.weekBegin
         }
     }
     /// 选择日期 周的开始时间

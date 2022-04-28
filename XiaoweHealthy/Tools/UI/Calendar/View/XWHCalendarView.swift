@@ -24,7 +24,7 @@ class XWHCalendarView: RLPopupContentBaseView {
     }
     
     /// 选择的日期
-    lazy var sDate = Date()
+//    lazy var sDate = Date()
     
 //    var dateFormat: String {
 //        switch dateType {
@@ -45,6 +45,27 @@ class XWHCalendarView: RLPopupContentBaseView {
     lazy var monthView = XWHCalendarMonthView()
     lazy var weekView = XWHCalendarWeekView()
     lazy var dayView = XWHCalendarDayView()
+    
+    lazy var sYearDate = Date() {
+        didSet {
+            yearView.sDate = sYearDate
+        }
+    }
+    lazy var sMonthDate = Date() {
+        didSet {
+            monthView.sDate = sMonthDate
+        }
+    }
+    lazy var sWeekDate = Date() {
+        didSet {
+            weekView.sDate = sWeekDate
+        }
+    }
+    lazy var sDayDate = Date() {
+        didSet {
+            dayView.sDate = sDayDate
+        }
+    }
     
     var calendarHandler: XWHCalendarHandler?
     weak var containerView: XWHCalendarPopupContainer?
@@ -163,19 +184,19 @@ extension XWHCalendarView {
         switch segmentType {
         case .day:
             dayView.isHidden = false
-            dayView.sDate = sDate
+//            dayView.sDate = sDate
             
         case .week:
             weekView.isHidden = false
-            weekView.sDate = sDate
+//            weekView.sDate = sDate
             
         case .month:
             monthView.isHidden = false
-            monthView.sDate = sDate
+//            monthView.sDate = sDate
             
         case .year:
             yearView.isHidden = false
-            yearView.sDate = sDate
+//            yearView.sDate = sDate
         }
     }
     

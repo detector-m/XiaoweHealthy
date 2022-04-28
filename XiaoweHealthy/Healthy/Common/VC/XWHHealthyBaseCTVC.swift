@@ -22,20 +22,20 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
     var dateType: XWHHealthyDateSegmentType {
         dateSegment.sType
     }
-    var dateFormat: String {
-        switch dateType {
-        case .day:
-            return XWHDate.yearMonthDayFormat
-        case .week:
-            return XWHDate.yearMonthDayFormat
-            
-        case .month:
-            return XWHDate.yearMonthFormat
-            
-        case .year:
-            return XWHDate.yearFormat
-        }
-    }
+//    var dateFormat: String {
+//        switch dateType {
+//        case .day:
+//            return XWHDate.yearMonthDayFormat
+//        case .week:
+//            return XWHDate.yearMonthDayFormat
+//
+//        case .month:
+//            return XWHDate.yearMonthFormat
+//
+//        case .year:
+//            return XWHDate.yearFormat
+//        }
+//    }
     
     lazy var uiManager = XWHHealthyUIManager()
     lazy var isHasLastCurDataItem = true
@@ -50,7 +50,7 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
         
         configEventAction()
         
-        dateBtn.set(image: arrowDownImage, title: Date().localizedString(withFormat: dateFormat), titlePosition: .left, additionalSpacing: 3, state: .normal)
+        updateUI(false)
     }
     
     override func setupNavigationItems() {
@@ -118,10 +118,46 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
     }
     
     func dateSegmentValueChanged(_ segmentType: XWHHealthyDateSegmentType) {
-        dateBtn.set(image: arrowDownImage, title: Date().localizedString(withFormat: dateFormat), titlePosition: .left, additionalSpacing: 3, state: .normal)
-        collectionView.reloadData()
+        updateUI(true)
     }
 
+}
+
+// MARK: - UI
+extension XWHHealthyBaseCTVC {
+    
+    @objc func updateUI(_ isReloadCollectionView: Bool) {
+        var btnTitle: String
+        switch dateType {
+        case .day:
+            btnTitle = sDayDate.localizedString(withFormat: XWHDate.yearMonthDayFormat)
+            
+        case .week:
+            let bWeekDate = sWeekDate.weekBegin
+            let eWeekDate = sWeekDate.weekEnd
+            
+            if bWeekDate.year == eWeekDate.year, bWeekDate.month == eWeekDate.month { // 同年同月
+                btnTitle = bWeekDate.localizedString(withFormat: XWHDate.yearMonthDayFormat) + R.string.xwhHealthyText.至() + eWeekDate.localizedString(withFormat: "d")
+            } else if bWeekDate.year == eWeekDate.year { // 同年
+                btnTitle = bWeekDate.localizedString(withFormat: XWHDate.yearMonthDayFormat) + R.string.xwhHealthyText.至() + eWeekDate.localizedString(withFormat: "MMMd")
+            } else {
+                btnTitle = bWeekDate.localizedString(withFormat: XWHDate.yearMonthDayFormat) + R.string.xwhHealthyText.至() + eWeekDate.localizedString(withFormat: XWHDate.yearMonthDayFormat)
+            }
+            
+        case .month:
+            btnTitle = sMonthDate.localizedString(withFormat: XWHDate.yearMonthFormat)
+            
+        case .year:
+            btnTitle = sYearDate.localizedString(withFormat: XWHDate.yearFormat)
+        }
+        
+        dateBtn.set(image: arrowDownImage, title: btnTitle, titlePosition: .left, additionalSpacing: 3, state: .normal)
+        
+        if isReloadCollectionView {
+            collectionView.reloadData()
+        }
+    }
+    
 }
 
 
@@ -199,7 +235,11 @@ extension XWHHealthyBaseCTVC {
     }
     
     func getSelectedDate() -> Date {
-        switch dateType {
+        getSelectedDate(dateType)
+    }
+    
+    func getSelectedDate(_ sDateType: XWHHealthyDateSegmentType) -> Date {
+        switch sDateType {
         case .day:
             return sDayDate
             

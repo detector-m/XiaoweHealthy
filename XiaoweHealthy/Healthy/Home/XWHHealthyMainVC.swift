@@ -366,7 +366,7 @@ extension XWHHealthyMainVC {
         calendarView.size = CGSize(width: XWHCalendarHelper.calendarWidth, height: 469)
         XWHCalendarPopupContainer.generatePopupWithView(calendarView).show()
         
-        calendarView.sDate = Date()
+//        calendarView.sDate = Date()
         calendarView.dateType = .day
         
 //        XWHCalendar.show(Date(), .year, nil)

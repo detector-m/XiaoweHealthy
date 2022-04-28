@@ -34,15 +34,14 @@ class XWHHealthyBloodOxygenCTVC: XWHHealthyBaseCTVC {
     }
     
     override func clickDateBtn() {
-        let cDate: Date = getSelectedDate()
-        XWHCalendar.show(cDate, dateType)  { [unowned self] sDate, sDateType in
+        XWHCalendar.show(dayDate: sDayDate, weekDate: sWeekDate, monthDate: sMonthDate, yearDate: sYearDate, dateType) { [unowned self] sDate, sDateType in
             self.setSelectedDate(sDateType, sDate)
             self.dateSegment.sType = sDateType
         }
     }
     
     override func dateSegmentValueChanged(_ segmentType: XWHHealthyDateSegmentType) {
-        dateBtn.set(image: arrowDownImage, title: Date().localizedString(withFormat: dateFormat), titlePosition: .left, additionalSpacing: 3, state: .normal)
+        updateUI(false)
         getBloodOxygen()
     }
     
