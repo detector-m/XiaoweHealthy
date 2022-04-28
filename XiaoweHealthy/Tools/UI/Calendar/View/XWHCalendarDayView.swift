@@ -40,6 +40,13 @@ class XWHCalendarDayView: UIView, JTACMonthViewDataSource & JTACMonthViewDelegat
     lazy var curBeginDate = Date().monthBegin
     
     var selectHandler: XWHCalendarSelectDateHandler?
+    var scrollDateHandler: XWHCalendarSelectDateHandler?
+
+    lazy var existDataDateItems: [XWHHealthyExistDataDateModel] = [] {
+        didSet {
+            monthView.reloadData(withAnchor: curBeginDate, completionHandler: nil)
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -130,21 +137,32 @@ class XWHCalendarDayView: UIView, JTACMonthViewDataSource & JTACMonthViewDelegat
         cell.dotIndicator.isHidden = true
         cell.selectedIndicator.isHidden = true
 
-        if cellState.date.isInToday {
-            cell.nowIndicator.isHidden = false
-            cell.textLb.textColor = XWHCalendarHelper.curColor
-        } else {
-            if cellState.dateBelongsTo != .thisMonth {
-                cell.textLb.textColor = XWHCalendarHelper.disableColor
+        let cellBeginDate = cellState.date.dayBegin
+        let nowBeginDate = Date().dayBegin
+        
+        if nowBeginDate >= cellBeginDate { // 过去或当前的月份
+            if nowBeginDate == cellBeginDate { // 今天
+                cell.nowIndicator.isHidden = false
+                cell.textLb.textColor = XWHCalendarHelper.curColor
+            } else { // 过去
+                if cellState.dateBelongsTo != .thisMonth {
+                    cell.textLb.textColor = XWHCalendarHelper.disableColor
+                }
             }
             
-            if cellState.date.isInFuture {
-                cell.dotIndicator.isHidden = true
-                cell.textLb.textColor = XWHCalendarHelper.disableColor
+            for iItem in existDataDateItems {
+                for jItem in iItem.items {
+                    if jItem.dayBegin == cellBeginDate {
+                        cell.dotIndicator.isHidden = false
+                    }
+                }
             }
+        } else { // 未来的日子
+            cell.dotIndicator.isHidden = true
+            cell.textLb.textColor = XWHCalendarHelper.disableColor
         }
         
-        if cellState.date.dayBegin == sBeginDate {
+        if cellBeginDate == sBeginDate {
             cell.selectedIndicator.isHidden = false
         }
         
@@ -227,7 +245,9 @@ class XWHCalendarDayView: UIView, JTACMonthViewDataSource & JTACMonthViewDelegat
             return
         }
         
+        self.curBeginDate = fDate.monthBegin
         preNextView.curBeginDate = fDate.monthBegin
+        scrollDateHandler?(fDate)
     }
     
 //    func sizeOfDecorationView(indexPath: IndexPath) -> CGRect {

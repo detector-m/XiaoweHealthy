@@ -19,6 +19,8 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
     lazy var sMonthDate = Date()
     lazy var sYearDate = Date()
     
+    lazy var existDataDateItems: [XWHHealthyExistDataDateModel] = []
+    
     lazy var dateSegment = XWHDateSegmentView()
     var dateType: XWHHealthyDateSegmentType {
         dateSegment.sType
@@ -45,6 +47,8 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
 //        [R.string.xwhHealthyText.心率设置(), R.string.xwhHealthyText.所有数据()]
         []
     }
+    
+    weak var calendarView: XWHCalendarView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -220,7 +224,7 @@ extension XWHHealthyBaseCTVC {
 // MARK: - Calendar
 extension XWHHealthyBaseCTVC {
     
-    func showCalendar(_ calendarHandler: XWHCalendarHandler? = nil) {
+    func showCalendar(_ calendarHandler: XWHCalendarHandler? = nil, scrollDateHandler: XWHCalendarScrollDateHandler?) {
         var cHandler: XWHCalendarHandler
         
         if let tHandler = calendarHandler {
@@ -231,7 +235,8 @@ extension XWHHealthyBaseCTVC {
             }
         }
 
-        XWHCalendar.show(dayDate: sDayDate, weekDate: sWeekDate, monthDate: sMonthDate, yearDate: sYearDate, dateType: dateType, calendarHandler: cHandler)
+        calendarView = XWHCalendar.show(dayDate: sDayDate, weekDate: sWeekDate, monthDate: sMonthDate, yearDate: sYearDate, dateType: dateType, calendarHandler: cHandler, scrollDateHandler: scrollDateHandler)
+        calendarView?.existDataDateItems = existDataDateItems
     }
     
     func handleSelectedCalendar(_ sDate: Date, _ sDateType: XWHHealthyDateSegmentType) {

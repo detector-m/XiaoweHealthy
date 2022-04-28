@@ -16,6 +16,9 @@ enum XWHHealthyApi {
     /// 上传心率数据到服务
     case postHeart(_ deviceSn: String, _ data: [[String: Any]])
     
+    /// 用户心率数据存在的日期
+    case getHeartExistDate(_ year: Int, _ month: Int, _ queryType: String)
+    
     /// 获取心率数据
     case getHeart(_ year: Int, _ month: Int, _ day: Int, _ queryType: String)
     
@@ -29,6 +32,9 @@ enum XWHHealthyApi {
     // MARK: - BloodOxygen(血氧)
     /// 上传血氧数据到服务
     case postBloodOxygen(_ deviceSn: String, _ data: [[String: Any]])
+    
+    /// 用户血氧数据存在的日期
+    case getBloodOxygenExistDate(_ year: Int, _ month: Int, _ queryType: String)
 
     /// 获取血氧
     case getBloodOxygen(_ year: Int, _ month: Int, _ day: Int, _ queryType: String)
@@ -49,6 +55,9 @@ extension XWHHealthyApi: XWHServiceTargetType {
         case .postHeart:
             return "/device/post_heart_rate"
             
+        case .getHeartExistDate:
+            return "/device/heart_rate_exist"
+            
         case .getHeart:
             return "/device/query_heart_rate"
             
@@ -60,6 +69,9 @@ extension XWHHealthyApi: XWHServiceTargetType {
             
         case .postBloodOxygen:
             return "/device/post_blood_oxygen"
+            
+        case .getBloodOxygenExistDate:
+            return "/device/blood_oxygen_exist"
             
         case .getBloodOxygen:
             return "/device/query_blood_oxygen"
@@ -77,7 +89,7 @@ extension XWHHealthyApi: XWHServiceTargetType {
         case .postHeart, .postBloodOxygen:
             return .post
             
-        case .getHeart, .getBloodOxygen, .getHeartHistory, .getBloodOxygenHistory, .getHeartDetail, .getBloodOxygenDetail:
+        case .getHeartExistDate, .getBloodOxygenExistDate, .getHeart, .getBloodOxygen, .getHeartHistory, .getBloodOxygenHistory, .getHeartDetail, .getBloodOxygenDetail:
             return .get
         }
     }
@@ -88,6 +100,9 @@ extension XWHHealthyApi: XWHServiceTargetType {
         switch self {
         case .postHeart(let deviceSn, let data), .postBloodOxygen(let deviceSn, let data):
             param = ["deviceSn": deviceSn, "data": data]
+            
+        case .getHeartExistDate(let year, let month, let queryType), .getBloodOxygenExistDate(let year, let month, let queryType):
+            param = ["year": year, "month": month, "queryType": queryType]
             
         case .getHeart(let year, let month, let day, let queryType), .getBloodOxygen(let year, let month, let day, let queryType):
             param = ["year": year, "month": month, "day": day, "queryType": queryType]

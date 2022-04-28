@@ -30,6 +30,13 @@ class XWHCalendarYearView: UIView {
     lazy var curBeginDate = Date().yearBegin
     
     var selectHandler: XWHCalendarSelectDateHandler?
+    var scrollDateHandler: XWHCalendarSelectDateHandler?
+    
+    lazy var existDataDateItems: [XWHHealthyExistDataDateModel] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -110,6 +117,8 @@ class XWHCalendarYearView: UIView {
         let iYear = items[indexPath.item]
         cell.textLb.text = iYear.string
         
+        cell.dotIndicator.isHidden = true
+
         let now = Date()
         if iYear <= now.year {
             if iYear == now.year {
@@ -119,7 +128,10 @@ class XWHCalendarYearView: UIView {
                 cell.nowIndicator.isHidden = true
                 cell.textLb.textColor = fontDarkColor
             }
-            cell.dotIndicator.isHidden = false
+            
+            if existDataDateItems.contains(where: { $0.identifier == iYear.string }) {
+                cell.dotIndicator.isHidden = false
+            }
         } else {
             cell.nowIndicator.isHidden = true
             cell.textLb.textColor = fontDarkColor.withAlphaComponent(0.17)

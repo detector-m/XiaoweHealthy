@@ -73,6 +73,7 @@ extension XWHCalendarMonthView {
     @objc private func configEventAction() {
         preNextView.selectHandler = { [unowned self] cbDate, aType in
             self.curBeginDate = cbDate
+            self.scrollDateHandler?(cbDate)
             self.collectionView.reloadData()
         }
     }
@@ -104,6 +105,8 @@ extension XWHCalendarMonthView {
         let now = Date()
         let nowBeginDate = now.monthBegin
 
+        cell.dotIndicator.isHidden = true
+
         if nowBeginDate >= mbDate { // 过去或当前的月份
             if nowBeginDate == mbDate {
                 cell.nowIndicator.isHidden = false
@@ -112,11 +115,18 @@ extension XWHCalendarMonthView {
                 cell.nowIndicator.isHidden = true
                 cell.textLb.textColor = fontDarkColor
             }
-            cell.dotIndicator.isHidden = false
+            
+            outLabel: for iItem in existDataDateItems {
+                for jItem in iItem.items {
+                    if jItem.monthBegin == mbDate {
+                        cell.dotIndicator.isHidden = false
+                        break outLabel
+                    }
+                }
+            }
         } else { // 未来的月份
             cell.nowIndicator.isHidden = true
             cell.textLb.textColor = fontDarkColor.withAlphaComponent(0.17)
-            cell.dotIndicator.isHidden = true
         }
         
         if sBeginDate == mbDate {

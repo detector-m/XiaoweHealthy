@@ -21,6 +21,7 @@ class XWHHealthyBloodOxygenCTVC: XWHHealthyBaseCTVC {
         
         navigationItem.title = R.string.xwhHealthyText.血氧饱和度()
         
+        getBloodOxygenExistDate()
         getBloodOxygen()
     }
     
@@ -33,11 +34,18 @@ class XWHHealthyBloodOxygenCTVC: XWHHealthyBaseCTVC {
     }
     
     override func clickDateBtn() {
-        showCalendar()
+        showCalendar() { [unowned self] scrollDate, cDateType in
+            self._getBloodOxygenExistDate(scrollDate, sDateType: cDateType) { isExist in
+                if !isExist {
+                    self.calendarView?.existDataDateItems = self.existDataDateItems
+                }
+            }
+        }
     }
     
     override func dateSegmentValueChanged(_ segmentType: XWHHealthyDateSegmentType) {
         updateUI(false)
+        getBloodOxygenExistDate()
         getBloodOxygen()
     }
     
@@ -220,6 +228,45 @@ extension XWHHealthyBloodOxygenCTVC {
 
 // MARK: - Api
 extension XWHHealthyBloodOxygenCTVC {
+    
+    private func getBloodOxygenExistDate() {
+        let cDate = getSelectedDate()
+//        XWHProgressHUD.show()
+        _getBloodOxygenExistDate(cDate, sDateType: .year) { isExist in
+//            if isExist {
+//                XWHProgressHUD.hide()
+//            }
+        }
+    }
+    
+    private func _getBloodOxygenExistDate(_ sDate: Date, sDateType: XWHHealthyDateSegmentType, _ completion: ((Bool) -> Void)?) {
+        if existDataDateItems.contains(where: { $0.identifier == sDate.year.string }) {
+            completion?(true)
+            return
+        }
+        
+        XWHHealthyVM().getBloodOxygenExistDate(date: sDate, dateType: sDateType) { [unowned self] error in
+            XWHProgressHUD.hide()
+            log.error(error)
+            
+            if error.isExpiredUserToken {
+                XWHUser.handleExpiredUserTokenUI(self, nil)
+                return
+            }
+        } successHandler: { [unowned self] response in
+            XWHProgressHUD.hide()
+            
+            guard let retModel = response.data as? XWHHealthyExistDataDateModel else {
+                log.error("心率 - 获取存在数据日期错误")
+                return
+            }
+            
+            self.existDataDateItems.removeAll(where: { retModel.identifier == $0.identifier })
+            self.existDataDateItems.append(retModel)
+            
+            completion?(false)
+        }
+    }
     
     private func getBloodOxygen() {
         XWHProgressHUD.show()

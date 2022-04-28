@@ -131,6 +131,7 @@
 		9679E9F4281910C5003C6351 /* XWHCalendarWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9F3281910C5003C6351 /* XWHCalendarWeekView.swift */; };
 		9679E9F628191337003C6351 /* XWHCalendarWeekCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9F528191337003C6351 /* XWHCalendarWeekCTCell.swift */; };
 		9679E9F828198A1E003C6351 /* XWHCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9F728198A1E003C6351 /* XWHCalendar.swift */; };
+		9679E9FB281A7918003C6351 /* XWHHealthyExistDataDateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9FA281A7918003C6351 /* XWHHealthyExistDataDateModel.swift */; };
 		967AF4C127EF544200235E08 /* XWHDevicePagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C027EF544200235E08 /* XWHDevicePagerViewCell.swift */; };
 		967AF4C327EF545800235E08 /* XWHDeviceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C227EF545800235E08 /* XWHDeviceVM.swift */; };
 		967AF4C527EF547B00235E08 /* XWHDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C427EF547B00235E08 /* XWHDevice.swift */; };
@@ -452,6 +453,7 @@
 		9679E9F3281910C5003C6351 /* XWHCalendarWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCalendarWeekView.swift; sourceTree = "<group>"; };
 		9679E9F528191337003C6351 /* XWHCalendarWeekCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCalendarWeekCTCell.swift; sourceTree = "<group>"; };
 		9679E9F728198A1E003C6351 /* XWHCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCalendar.swift; sourceTree = "<group>"; };
+		9679E9FA281A7918003C6351 /* XWHHealthyExistDataDateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyExistDataDateModel.swift; sourceTree = "<group>"; };
 		967AF4C027EF544200235E08 /* XWHDevicePagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevicePagerViewCell.swift; sourceTree = "<group>"; };
 		967AF4C227EF545800235E08 /* XWHDeviceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceVM.swift; sourceTree = "<group>"; };
 		967AF4C427EF547B00235E08 /* XWHDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevice.swift; sourceTree = "<group>"; };
@@ -1260,6 +1262,7 @@
 		967790B6280FAF4300C78327 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				9679E9F9281A787A003C6351 /* Model */,
 				969B8822280FE749009952E7 /* View */,
 				96617A9827E2BFD600139B03 /* VC */,
 			);
@@ -1336,6 +1339,14 @@
 				9679E9F12818DDAD003C6351 /* XWHCalendarHelper.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		9679E9F9281A787A003C6351 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9679E9FA281A7918003C6351 /* XWHHealthyExistDataDateModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		967AF4BC27EF535600235E08 /* View */ = {
@@ -2526,6 +2537,7 @@
 				9653E49827F58C4D00EE55FF /* XWHDevSetChatDeploy.swift in Sources */,
 				969B88452812A6B1009952E7 /* XWHDateExtension.swift in Sources */,
 				969072372812F3980056CE4F /* XWHBOIntroductionTXVC.swift in Sources */,
+				9679E9FB281A7918003C6351 /* XWHHealthyExistDataDateModel.swift in Sources */,
 				96DC429A27FD34C7009BF300 /* RLBLEPermissions.swift in Sources */,
 				96F1D67C28091A8E0067DBFD /* XWHDialVC.swift in Sources */,
 				96C67AF228043362001ACA81 /* XWHDataHeartSetManager.swift in Sources */,

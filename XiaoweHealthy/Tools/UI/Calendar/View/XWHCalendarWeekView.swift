@@ -70,19 +70,30 @@ class XWHCalendarWeekView: XWHCalendarDayView {
         cell.nowIndicator.isHidden = true
         cell.dotIndicator.isHidden = true
         cell.selectedIndicator.isHidden = true
-
-        if cellState.date.isInToday {
-            cell.nowIndicator.isHidden = false
-            cell.textLb.textColor = XWHCalendarHelper.curColor
-        } else {
-            if cellState.dateBelongsTo != .thisMonth {
-                cell.textLb.textColor = XWHCalendarHelper.disableColor
+        
+        let cellBeginDate = cellState.date.dayBegin
+        let nowBeginDate = Date().dayBegin
+        
+        if nowBeginDate >= cellBeginDate { // 过去或当前的月份
+            if nowBeginDate == cellBeginDate { // 今天
+                cell.nowIndicator.isHidden = false
+                cell.textLb.textColor = XWHCalendarHelper.curColor
+            } else { // 过去
+                if cellState.dateBelongsTo != .thisMonth {
+                    cell.textLb.textColor = XWHCalendarHelper.disableColor
+                }
             }
             
-            if cellState.date.isInFuture {
-                cell.dotIndicator.isHidden = true
-                cell.textLb.textColor = XWHCalendarHelper.disableColor
+            for iItem in existDataDateItems {
+                for jItem in iItem.items {
+                    if jItem.dayBegin == cellBeginDate {
+                        cell.dotIndicator.isHidden = false
+                    }
+                }
             }
+        } else { // 未来的日子
+            cell.dotIndicator.isHidden = true
+            cell.textLb.textColor = XWHCalendarHelper.disableColor
         }
         
         if cellState.date.weekBegin == sBeginDate {

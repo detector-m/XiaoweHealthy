@@ -29,6 +29,24 @@ class XWHHealthyVM {
         }
     }
     
+    /// 用户心率数据是否存在查询
+    func getHeartExistDate(date: Date, dateType: XWHHealthyDateSegmentType, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        healthyProvider.request(.getHeartExistDate(date.year, date.month, dateType.rawValue)) { result in
+            let cId = "Healthy.GetHeartExistDate"
+            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
+                response.code = dateType.rawValue
+                
+                guard let items = json.arrayObject as? [String] else {
+                    return nil
+                }
+                
+                response.data = self.getExistDataDateModel(date.year.string, dateType.rawValue, items)
+                
+                return nil
+            }
+        }
+    }
+    
     /// 获取心率数据
     func getHeart(date: Date, dateType: XWHHealthyDateSegmentType, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
         healthyProvider.request(.getHeart(date.year, date.month, date.day, dateType.rawValue)) { result in
@@ -40,6 +58,7 @@ class XWHHealthyVM {
             }
         }
     }
+
     
     /// 获取心率年的历史数据
     func getYearHeartHistory(date: Date, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
@@ -96,6 +115,22 @@ class XWHHealthyVM {
         }
     }
     
+    /// 用户心率数据是否存在查询
+    func getBloodOxygenExistDate(date: Date, dateType: XWHHealthyDateSegmentType, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        healthyProvider.request(.getBloodOxygenExistDate(date.year, date.month, dateType.rawValue)) { result in
+            let cId = "Healthy.GetBloodOxygenExistDate"
+            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
+                response.code = dateType.rawValue
+                guard let items = json.arrayObject as? [String] else {
+                    return nil
+                }
+                
+                response.data = self.getExistDataDateModel(date.year.string, dateType.rawValue, items)
+                return nil
+            }
+        }
+    }
+    
     /// 获取血氧数据
     func getBloodOxygen(date: Date, dateType: XWHHealthyDateSegmentType, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
         healthyProvider.request(.getBloodOxygen(date.year, date.month, date.day, dateType.rawValue)) { result in
@@ -142,6 +177,30 @@ class XWHHealthyVM {
                 return nil
             }
         }
+    }
+    
+}
+
+// MARK: - Private
+extension XWHHealthyVM {
+    
+    private func getExistDataDateModel(_ cId: String, _ code: String, _ items: [String]) -> XWHHealthyExistDataDateModel? {
+        if items.isEmpty {
+            return nil
+        }
+        
+        var tItems = items.compactMap({ $0.date(withFormat: "yyyy-MM-dd") })
+        tItems = tItems.filter({ $0.year.string == cId })
+        if tItems.isEmpty {
+            return nil
+        }
+        
+        let cModel = XWHHealthyExistDataDateModel()
+        cModel.identifier = cId
+        cModel.code = code
+        cModel.items = tItems
+        
+        return cModel
     }
     
 }

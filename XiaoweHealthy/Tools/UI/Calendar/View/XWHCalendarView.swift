@@ -11,6 +11,9 @@ typealias XWHCalendarSelectDateHandler = (Date) -> Void
 
 typealias XWHCalendarHandler = (Date, XWHHealthyDateSegmentType) -> Void
 
+typealias XWHCalendarScrollDateHandler = XWHCalendarHandler
+
+
 class XWHCalendarView: RLPopupContentBaseView {
     
     lazy var dateSegment = XWHDateSegmentView()
@@ -67,6 +70,16 @@ class XWHCalendarView: RLPopupContentBaseView {
         }
     }
     
+    lazy var existDataDateItems: [XWHHealthyExistDataDateModel] = [] {
+        didSet {
+            dayView.existDataDateItems = existDataDateItems
+            weekView.existDataDateItems = existDataDateItems
+            monthView.existDataDateItems = existDataDateItems
+            yearView.existDataDateItems = existDataDateItems
+        }
+    }
+    
+    var scrollDateHandler: XWHCalendarScrollDateHandler?
     var calendarHandler: XWHCalendarHandler?
     weak var containerView: XWHCalendarPopupContainer?
         
@@ -154,6 +167,11 @@ extension XWHCalendarView {
             self.dateSegmentValueChanged(dateSegmentType)
         }
         
+        yearView.selectHandler = { [unowned self] cDate in
+            self.calendarHandler?(cDate, .year)
+            self.containerView?.close()
+        }
+
         yearView.selectHandler = { [unowned self] cDate in
             self.calendarHandler?(cDate, .year)
             self.containerView?.close()
