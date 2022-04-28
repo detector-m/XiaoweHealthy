@@ -13,6 +13,10 @@ import GRDB
 /// 心率数据模型
 class XWHHeartModel: XWHDataBaseModel, HandyJSON {
     
+    public enum Columns: String, ColumnExpression {
+        case identifier, time, value
+    }
+    
     /// 服务记录id
     var srId = 0
     var time = ""
@@ -28,7 +32,18 @@ class XWHHeartModel: XWHDataBaseModel, HandyJSON {
     
     required init(row: Row) {
         super.init(row: row)
+        
+        identifier = row[Columns.identifier]
+        time = row[Columns.time]
+        value = row[Columns.value]
     }
+    
+    override func encode(to container: inout PersistenceContainer) {
+        container[Columns.identifier] = identifier
+        container[Columns.time] = time
+        container[Columns.value] = value
+    }
+
     
     // MARK: - HandyJSON
     func mapping(mapper: HelpingMapper) {

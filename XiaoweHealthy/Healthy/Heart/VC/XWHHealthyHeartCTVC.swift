@@ -35,7 +35,7 @@ class XWHHealthyHeartCTVC: XWHHealthyBaseCTVC {
     
     override func clickDateBtn() {
         showCalendar() { [unowned self] scrollDate, cDateType in
-            self._getHeartExistDate(scrollDate, sDateType: cDateType) { isExist in
+            self._getHeartExistDate(scrollDate, sDateType: .year) { isExist in
                 if !isExist {
                     self.calendarView?.existDataDateItems = self.existDataDateItems
                 }
