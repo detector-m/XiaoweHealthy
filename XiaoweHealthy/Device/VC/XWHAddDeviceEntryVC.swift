@@ -110,7 +110,16 @@ class XWHAddDeviceEntryVC: XWHSearchBindDevBaseVC, FSPagerViewDataSource, FSPage
         addBrandDevice()
     }
     
-    // MARK:- FSPagerView DataSource
+    // MARK: -
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if XWHUser.isLogined(), let _ = XWHDataDeviceManager.getCurrentWatch() {
+            gotoDeviceMainVC()
+        }
+    }
+    
+    // MARK: - FSPagerView DataSource
     public func numberOfItems(in pagerView: FSPagerView) -> Int {
         return dataSource.count
     }
@@ -219,6 +228,11 @@ extension XWHAddDeviceEntryVC {
         let vc = XWHAddBrandDeviceVC()
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    fileprivate func gotoDeviceMainVC() {
+        let vc = XWHDeviceMainVC()
+        navigationController?.setViewControllers([vc], animated: true)
     }
     
 }

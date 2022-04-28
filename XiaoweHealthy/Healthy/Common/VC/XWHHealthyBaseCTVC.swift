@@ -7,6 +7,7 @@
 
 import UIKit
 import FTPopOverMenu_Swift
+import EmptyDataSet_Swift
 
 class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
     
@@ -49,6 +50,7 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
         super.viewDidLoad()
         
         configEventAction()
+        configEmptyView()
         
         updateUI(false)
     }
@@ -275,6 +277,22 @@ extension XWHHealthyBaseCTVC {
             
         case .year:
             return sYearDate
+        }
+    }
+    
+}
+
+// MARK: - EmptySet
+@objc extension XWHHealthyBaseCTVC {
+    
+    func configEmptyView() {
+        collectionView.emptyDataSetView { [weak self] emptyView in
+            guard let _ = self else {
+                return
+            }
+            
+            let text = R.string.xwhHealthyText.暂无数据()
+            emptyView.titleLabelString(text.colored(with: fontDarkColor).applying(attributes: [.font: XWHFont.harmonyOSSans(ofSize: 30, weight: .bold)], toOccurrencesOf: text))
         }
     }
     

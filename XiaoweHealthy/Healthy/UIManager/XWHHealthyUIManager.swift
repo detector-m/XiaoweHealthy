@@ -40,6 +40,10 @@ class XWHHealthyUIManager: XWHHealthyUIItemModel {
         }
     }
     
+    func cleanItems(without keepTypes: [XWHHealthyDetailUICardType] = []) {
+        items.removeAll(where: { !keepTypes.contains($0.uiCardType) })
+    }
+    
     private func getUICardItems(_ cardTypes: [XWHHealthyDetailUICardType], healthyType: XWHHealthyType) -> [XWHHealthyUIItemModel] {
         let items: [XWHHealthyUIItemModel] = cardTypes.map { cardType in
             let item = getUICardItem(cardType)

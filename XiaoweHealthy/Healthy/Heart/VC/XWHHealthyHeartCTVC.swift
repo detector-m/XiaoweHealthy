@@ -15,13 +15,12 @@ class XWHHealthyHeartCTVC: XWHHealthyBaseCTVC {
         [R.string.xwhHealthyText.心率设置(), R.string.xwhHealthyText.所有数据()]
     }
     
-    lazy var heartUIModel = XWHHeartUIHeartModel()
+    var heartUIModel: XWHHeartUIHeartModel?
         
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = R.string.xwhHealthyText.心率()
         
-        loadUIItems()
         getHeart()
     }
     
@@ -44,6 +43,11 @@ class XWHHealthyHeartCTVC: XWHHealthyBaseCTVC {
     
     func loadUIItems() {
         uiManager.loadItems(.heart)
+        collectionView.reloadData()
+    }
+    
+    func cleanUIItems() {
+        uiManager.cleanItems(without: [.chart])
         collectionView.reloadData()
     }
     
@@ -130,11 +134,11 @@ extension XWHHealthyHeartCTVC {
             let titleStr = uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item]
             var valueStr = ""
             if titleStr == R.string.xwhHealthyText.心率范围() {
-                valueStr = heartUIModel.rateRange
+                valueStr = heartUIModel?.rateRange ?? "0"
             } else if titleStr == R.string.xwhHealthyText.静息心率() {
-                valueStr = heartUIModel.restRate.string
+                valueStr = heartUIModel?.restRate.string ?? ""
             } else if titleStr == R.string.xwhHealthyText.平均心率() {
-                valueStr = heartUIModel.avgRate.string
+                valueStr = heartUIModel?.avgRate.string ?? ""
             }
         
             cell.update(titleStr, valueStr)
@@ -145,7 +149,7 @@ extension XWHHealthyHeartCTVC {
         if item.uiCardType == .heartRange {
             let cell = collectionView.dequeueReusableCell(withClass: XWHHeartRangeCTCell.self, for: indexPath)
             
-            cell.update(indexPath.item, heartUIModel.rateSection)
+            cell.update(indexPath.item, heartUIModel?.rateSection ?? XWHHeartUIHeartSectionModel())
 
             return cell
         }
@@ -220,19 +224,30 @@ extension XWHHealthyHeartCTVC {
     private func getHeart() {
         XWHProgressHUD.show()
         let cDate = getSelectedDate()
-        XWHHealthyVM().getHeart(date: cDate, dateType: dateType) { error in
+        XWHHealthyVM().getHeart(date: cDate, dateType: dateType) { [unowned self] error in
             XWHProgressHUD.hide()
             log.error(error)
+            
+            if error.isExpiredUserToken {
+                XWHUser.handleExpiredUserTokenUI(self, nil)
+                return
+            }
         } successHandler: { [unowned self] response in
             XWHProgressHUD.hide()
             
             guard let retModel = response.data as? XWHHeartUIHeartModel else {
                 log.error("心率 - 获取数据错误")
+                
+                self.heartUIModel = nil
+                self.cleanUIItems()
+                
+                self.collectionView.reloadEmptyDataSet()
+                
                 return
             }
             
             self.heartUIModel = retModel
-            self.collectionView.reloadData()
+            self.loadUIItems()
         }
     }
     

@@ -14,7 +14,7 @@ class XWHHealthyBloodOxygenCTVC: XWHHealthyBaseCTVC {
         [R.string.xwhHealthyText.血氧饱和度(), R.string.xwhHealthyText.所有数据()]
     }
     
-    private lazy var boUIModel = XWHBOUIBloodOxygenModel()
+    private var boUIModel: XWHBOUIBloodOxygenModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +22,6 @@ class XWHHealthyBloodOxygenCTVC: XWHHealthyBaseCTVC {
         navigationItem.title = R.string.xwhHealthyText.血氧饱和度()
         
         getBloodOxygen()
-        loadUIItems()
     }
     
     override func registerViews() {
@@ -44,6 +43,11 @@ class XWHHealthyBloodOxygenCTVC: XWHHealthyBaseCTVC {
     
     func loadUIItems() {
         uiManager.loadItems(.bloodOxygen)
+        collectionView.reloadData()
+    }
+    
+    func cleanUIItems() {
+        uiManager.cleanItems(without: [.chart])
         collectionView.reloadData()
     }
 
@@ -130,9 +134,9 @@ extension XWHHealthyBloodOxygenCTVC {
             var valueStr = ""
             
             if titleStr == R.string.xwhHealthyText.血氧饱和度范围() {
-                valueStr = boUIModel.bloodOxygenRange
+                valueStr = boUIModel?.bloodOxygenRange ?? ""
             } else if titleStr == R.string.xwhHealthyText.平均血氧饱和度() {
-                valueStr = boUIModel.avgBloodOxygen.string
+                valueStr = boUIModel?.avgBloodOxygen.string ?? "0"
             }
             
             cell.update(titleStr, valueStr)
@@ -220,19 +224,29 @@ extension XWHHealthyBloodOxygenCTVC {
     private func getBloodOxygen() {
         XWHProgressHUD.show()
         let cDate = getSelectedDate()
-        XWHHealthyVM().getBloodOxygen(date: cDate, dateType: dateType) { error in
+        XWHHealthyVM().getBloodOxygen(date: cDate, dateType: dateType) { [unowned self] error in
             XWHProgressHUD.hide()
             log.error(error)
+            
+            if error.isExpiredUserToken {
+                XWHUser.handleExpiredUserTokenUI(self, nil)
+                return
+            }
         } successHandler: { [unowned self] response in
             XWHProgressHUD.hide()
             
             guard let retModel = response.data as? XWHBOUIBloodOxygenModel else {
                 log.error("血氧 - 获取数据错误")
+                self.boUIModel = nil
+                self.cleanUIItems()
+                
+                self.collectionView.reloadEmptyDataSet()
+                
                 return
             }
             
             self.boUIModel = retModel
-            self.collectionView.reloadData()
+            self.loadUIItems()
         }
     }
     

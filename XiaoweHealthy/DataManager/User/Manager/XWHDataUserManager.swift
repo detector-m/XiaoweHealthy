@@ -94,6 +94,9 @@ extension XWHDataUserManager {
     
     class func setToken(token: String?) {
         UserDefaults.standard[kToken] = token
+        if token == nil {
+            deleteCurrentUser()
+        }
     }
     
 }

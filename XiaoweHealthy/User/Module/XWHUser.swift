@@ -22,6 +22,19 @@ class XWHUser {
         XWHDataUserManager.setToken(token: token)
     }
     
+    /// 用户Token 过期处理
+    class func handleExpiredUserToken(_ completion: (() -> Void)? = nil) {
+        setToken(token: nil)
+        completion?()
+    }
+    
+    class func handleExpiredUserTokenUI(_ targetVC: UIViewController?, _ completion: (() -> Void)? = nil) {
+        let nextTopVC = targetVC?.navTopPreviousVC()
+        targetVC?.navigationController?.popViewController(animated: true)
+        nextTopVC?.view.makeInsetToast("用户登录信息失效, 请重新登录")
+        completion?()
+    }
+    
 }
 
 // MARK: - UI

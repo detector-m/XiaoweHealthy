@@ -150,14 +150,31 @@ class XWHHealthyMainVC: XWHTableViewBaseVC {
 // MARK: - Jump UI
 extension XWHHealthyMainVC {
     
+    // 去登录
+    private func gotoLogin() {
+        XWHLogin.present(at: self)
+    }
+    
     // 跳转到心率
     private func gotoHeart() {
+        if !XWHUser.isLogined() {
+            gotoLogin()
+            
+            return
+        }
+        
         let vc = XWHHealthyHeartCTVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     
     // 跳转到血氧
     private func gotoBloodOxygen() {
+        if !XWHUser.isLogined() {
+            gotoLogin()
+            
+            return
+        }
+        
         let vc = XWHHealthyBloodOxygenCTVC()
         navigationController?.pushViewController(vc, animated: true)
     }

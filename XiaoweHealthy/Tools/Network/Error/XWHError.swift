@@ -18,16 +18,13 @@ struct XWHError: Error, CustomDebugStringConvertible {
     
     var data: Any?
     
+    // token 过期
+    var isExpiredUserToken: Bool {
+        return code.int == 10010
+    }
+    
     var debugDescription: String {
         return "identifier = \(identifier), code = \(code), message = \(message), tag = \(tag)"
-    }
-    
-    init() {
-
-    }
-    
-    init(message: String) {
-        self.message = message
     }
     
     static func handleSysError(_ sysError: Error?) -> String {
@@ -36,6 +33,14 @@ struct XWHError: Error, CustomDebugStringConvertible {
         }
         
         return nsError.localizedDescription
+    }
+    
+    init() {
+
+    }
+    
+    init(message: String) {
+        self.message = message
     }
     
 }

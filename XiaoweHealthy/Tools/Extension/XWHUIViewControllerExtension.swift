@@ -33,6 +33,14 @@ extension UIViewController {
 //    public func removeNavInteractivePopGestureRecognizerDelegate() {
 //        navigationController?.removeInteractivePopGestureRecognizerDelegate()
 //    }
+    
+    /// navigationController 倒数第二个 VC
+    public func navTopPreviousVC() -> UIViewController? {
+        var vcArray = navigationController?.viewControllers
+        vcArray?.removeLast()
+        
+        return vcArray?.last
+    }
 
 }
 
