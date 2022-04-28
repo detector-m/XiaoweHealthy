@@ -35,10 +35,7 @@ class XWHHealthyHeartCTVC: XWHHealthyBaseCTVC {
     
     override func clickDateBtn() {
         showCalendar() { [unowned self] scrollDate, cDateType in
-            self._getHeartExistDate(scrollDate, sDateType: .year) { isExist in
-                if !isExist {
-                    self.calendarView?.existDataDateItems = self.existDataDateItems
-                }
+            self._getHeartExistDate(scrollDate, sDateType: cDateType) { isExist in
             }
         }
     }
@@ -232,7 +229,7 @@ extension XWHHealthyHeartCTVC {
     private func getHeartExistDate() {
         let cDate = getSelectedDate()
 //        XWHProgressHUD.show()
-        _getHeartExistDate(cDate, sDateType: .year) { isExist in
+        _getHeartExistDate(cDate, sDateType: dateType) { isExist in
 //            if isExist {
 //                XWHProgressHUD.hide()
 //            }
@@ -240,12 +237,16 @@ extension XWHHealthyHeartCTVC {
     }
     
     private func _getHeartExistDate(_ sDate: Date, sDateType: XWHHealthyDateSegmentType, _ completion: ((Bool) -> Void)?) {
-        if existDataDateItems.contains(where: { $0.identifier == sDate.year.string }) {
+        if existDataDateItemsContains(sDate, sDateType: sDateType) {
             completion?(true)
             return
         }
         
-        XWHHealthyVM().getHeartExistDate(date: sDate, dateType: sDateType) { [unowned self] error in
+        var rDateType = sDateType
+        if sDateType == .week {
+            rDateType = .day
+        }
+        XWHHealthyVM().getHeartExistDate(date: sDate, dateType: rDateType) { [unowned self] error in
             XWHProgressHUD.hide()
             log.error(error)
             
@@ -261,8 +262,7 @@ extension XWHHealthyHeartCTVC {
                 return
             }
             
-            self.existDataDateItems.removeAll(where: { retModel.identifier == $0.identifier })
-            self.existDataDateItems.append(retModel)
+            updateExistDataDateItem(retModel)
             
             completion?(false)
         }

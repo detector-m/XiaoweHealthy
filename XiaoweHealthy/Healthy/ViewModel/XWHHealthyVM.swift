@@ -40,7 +40,7 @@ class XWHHealthyVM {
                     return nil
                 }
                 
-                response.data = self.getExistDataDateModel(date.year.string, dateType.rawValue, items)
+                response.data = self.getExistDataDateModel(date, dateType, items)
                 
                 return nil
             }
@@ -125,7 +125,7 @@ class XWHHealthyVM {
                     return nil
                 }
                 
-                response.data = self.getExistDataDateModel(date.year.string, dateType.rawValue, items)
+                response.data = self.getExistDataDateModel(date, dateType, items)
                 return nil
             }
         }
@@ -184,20 +184,31 @@ class XWHHealthyVM {
 // MARK: - Private
 extension XWHHealthyVM {
     
-    private func getExistDataDateModel(_ cId: String, _ code: String, _ items: [String]) -> XWHHealthyExistDataDateModel? {
+    private func getExistDataDateModel(_ sDate: Date, _ sDateType: XWHHealthyDateSegmentType, _ items: [String]) -> XWHHealthyExistDataDateModel? {
         if items.isEmpty {
             return nil
         }
+
+        var cId: String = ""
+        switch sDateType {
+        case .day, .week:
+            cId = sDate.string(withFormat: "yyyy-MM")
+            
+        case .month, .year:
+            cId = sDate.year.string
+        }
         
         var tItems = items.compactMap({ $0.date(withFormat: "yyyy-MM-dd") })
-        tItems = tItems.filter({ $0.year.string == cId })
+        if sDateType == .year {
+            tItems = tItems.filter({ $0.year.string == cId })
+        }
         if tItems.isEmpty {
             return nil
         }
         
         let cModel = XWHHealthyExistDataDateModel()
         cModel.identifier = cId
-        cModel.code = code
+        cModel.code = sDateType.rawValue
         cModel.items = tItems
         
         return cModel

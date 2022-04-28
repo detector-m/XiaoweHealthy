@@ -19,8 +19,10 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
     lazy var sMonthDate = Date()
     lazy var sYearDate = Date()
     
-    lazy var existDataDateItems: [XWHHealthyExistDataDateModel] = []
-    
+    lazy var existDayWeekDataDateItems: [XWHHealthyExistDataDateModel] = []
+    lazy var existMonthDataDateItems: [XWHHealthyExistDataDateModel] = []
+    lazy var existYearDataDateItems: [XWHHealthyExistDataDateModel] = []
+
     lazy var dateSegment = XWHDateSegmentView()
     var dateType: XWHHealthyDateSegmentType {
         dateSegment.sType
@@ -236,7 +238,9 @@ extension XWHHealthyBaseCTVC {
         }
 
         calendarView = XWHCalendar.show(dayDate: sDayDate, weekDate: sWeekDate, monthDate: sMonthDate, yearDate: sYearDate, dateType: dateType, calendarHandler: cHandler, scrollDateHandler: scrollDateHandler)
-        calendarView?.existDataDateItems = existDataDateItems
+        calendarView?.existYearDataDateItems = existYearDataDateItems
+        calendarView?.existMonthDataDateItems = existMonthDataDateItems
+        calendarView?.existDayWeekDataDateItems = existDayWeekDataDateItems
     }
     
     func handleSelectedCalendar(_ sDate: Date, _ sDateType: XWHHealthyDateSegmentType) {
@@ -284,6 +288,67 @@ extension XWHHealthyBaseCTVC {
             return sYearDate
         }
     }
+    
+//    func setExistDataDateItems(_ sDateType: XWHHealthyDateSegmentType, _ items: [XWHHealthyExistDataDateModel]) {
+//        switch sDateType {
+//        case .day, .week:
+//            existDayWeekDataDateItems = items
+//            calendarView?.existDayWeekDataDateItems = existDayWeekDataDateItems
+//            
+//        case .month:
+//            existMonthDataDateItems = items
+//            calendarView?.existMonthDataDateItems = existMonthDataDateItems
+//            
+//        case .year:
+//            existYearDataDateItems = items
+//            calendarView?.existYearDataDateItems = existYearDataDateItems
+//        }
+//    }
+    
+    func existDataDateItemsContains(_ sDate: Date, sDateType: XWHHealthyDateSegmentType) -> Bool {
+        switch sDateType {
+        case .day, .week:
+            return existDayWeekDataDateItems.contains(where: { $0.identifier == sDate.string(withFormat: "yyyy-MM") })
+            
+        case .month:
+            return existMonthDataDateItems.contains(where: { $0.identifier == sDate.year.string })
+            
+        case .year:
+            return existYearDataDateItems.contains(where: { $0.identifier == sDate.year.string })
+        }
+    }
+    
+    func updateExistDataDateItem(_ item: XWHHealthyExistDataDateModel) {
+        let type = XWHHealthyDateSegmentType(rawValue: item.code) ?? .day
+        
+        switch type {
+        case .day, .week:
+            existDayWeekDataDateItems.removeAll(where: { item.identifier == $0.identifier })
+            existDayWeekDataDateItems.append(item)
+            calendarView?.existDayWeekDataDateItems = existDayWeekDataDateItems
+            
+        case .month:
+            existMonthDataDateItems.removeAll(where: { item.identifier == $0.identifier })
+            existMonthDataDateItems.append(item)
+            calendarView?.existMonthDataDateItems = existMonthDataDateItems
+            
+        case .year:
+            existYearDataDateItems.removeAll(where: { item.identifier == $0.identifier })
+            existYearDataDateItems.append(item)
+            calendarView?.existYearDataDateItems = existYearDataDateItems
+        }
+    }
+    
+//    func getExistDataDateItems(_ sDateType: XWHHealthyDateSegmentType) -> [XWHHealthyExistDataDateModel] {
+//        switch sDateType {
+//        case .day, .week:
+//            
+//            
+//        case .month:
+//            
+//        case .year:
+//        }
+//    }
     
 }
 

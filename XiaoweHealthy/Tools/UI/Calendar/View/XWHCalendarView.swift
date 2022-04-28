@@ -70,12 +70,20 @@ class XWHCalendarView: RLPopupContentBaseView {
         }
     }
     
-    lazy var existDataDateItems: [XWHHealthyExistDataDateModel] = [] {
+    lazy var existDayWeekDataDateItems: [XWHHealthyExistDataDateModel] = [] {
         didSet {
-            dayView.existDataDateItems = existDataDateItems
-            weekView.existDataDateItems = existDataDateItems
-            monthView.existDataDateItems = existDataDateItems
-            yearView.existDataDateItems = existDataDateItems
+            dayView.existDataDateItems = existDayWeekDataDateItems
+            weekView.existDataDateItems = existDayWeekDataDateItems
+        }
+    }
+    lazy var existMonthDataDateItems: [XWHHealthyExistDataDateModel] = [] {
+        didSet {
+            monthView.existDataDateItems = existMonthDataDateItems
+        }
+    }
+    lazy var existYearDataDateItems: [XWHHealthyExistDataDateModel] = [] {
+        didSet {
+            yearView.existDataDateItems = existYearDataDateItems
         }
     }
     
@@ -172,9 +180,8 @@ extension XWHCalendarView {
             self.containerView?.close()
         }
 
-        yearView.selectHandler = { [unowned self] cDate in
-            self.calendarHandler?(cDate, .year)
-            self.containerView?.close()
+        yearView.scrollDateHandler  = { [unowned self] cDate in
+            self.scrollDateHandler?(cDate, .year)
         }
         
         monthView.selectHandler = { [unowned self] cDate in
@@ -182,14 +189,26 @@ extension XWHCalendarView {
             self.containerView?.close()
         }
         
+        monthView.scrollDateHandler = { [unowned self] cDate in
+            self.scrollDateHandler?(cDate, .month)
+        }
+        
         weekView.selectHandler = { [unowned self] cDate in
             self.calendarHandler?(cDate, .week)
             self.containerView?.close()
         }
         
+        weekView.scrollDateHandler = { [unowned self] cDate in
+            self.scrollDateHandler?(cDate, .week)
+        }
+        
         dayView.selectHandler = { [unowned self] cDate in
             self.calendarHandler?(cDate, .day)
             self.containerView?.close()
+        }
+        
+        dayView.scrollDateHandler = { [unowned self] cDate in
+            self.scrollDateHandler?(cDate, .day)
         }
     }
     
@@ -202,18 +221,22 @@ extension XWHCalendarView {
         switch segmentType {
         case .day:
             dayView.isHidden = false
+            scrollDateHandler?(sDayDate, segmentType)
 //            dayView.sDate = sDate
             
         case .week:
             weekView.isHidden = false
+            scrollDateHandler?(sWeekDate, segmentType)
 //            weekView.sDate = sDate
             
         case .month:
             monthView.isHidden = false
+            scrollDateHandler?(sMonthDate, segmentType)
 //            monthView.sDate = sDate
             
         case .year:
             yearView.isHidden = false
+            scrollDateHandler?(sYearDate, segmentType)
 //            yearView.sDate = sDate
         }
     }

@@ -35,10 +35,7 @@ class XWHHealthyBloodOxygenCTVC: XWHHealthyBaseCTVC {
     
     override func clickDateBtn() {
         showCalendar() { [unowned self] scrollDate, cDateType in
-            self._getBloodOxygenExistDate(scrollDate, sDateType: .year) { isExist in
-                if !isExist {
-                    self.calendarView?.existDataDateItems = self.existDataDateItems
-                }
+            self._getBloodOxygenExistDate(scrollDate, sDateType: cDateType) { isExist in
             }
         }
     }
@@ -232,7 +229,7 @@ extension XWHHealthyBloodOxygenCTVC {
     private func getBloodOxygenExistDate() {
         let cDate = getSelectedDate()
 //        XWHProgressHUD.show()
-        _getBloodOxygenExistDate(cDate, sDateType: .year) { isExist in
+        _getBloodOxygenExistDate(cDate, sDateType: dateType) { isExist in
 //            if isExist {
 //                XWHProgressHUD.hide()
 //            }
@@ -240,12 +237,16 @@ extension XWHHealthyBloodOxygenCTVC {
     }
     
     private func _getBloodOxygenExistDate(_ sDate: Date, sDateType: XWHHealthyDateSegmentType, _ completion: ((Bool) -> Void)?) {
-        if existDataDateItems.contains(where: { $0.identifier == sDate.year.string }) {
+        if existDataDateItemsContains(sDate, sDateType: sDateType) {
             completion?(true)
             return
         }
         
-        XWHHealthyVM().getBloodOxygenExistDate(date: sDate, dateType: sDateType) { [unowned self] error in
+        var rDateType = sDateType
+        if sDateType == .week {
+            rDateType = .day
+        }
+        XWHHealthyVM().getBloodOxygenExistDate(date: sDate, dateType: rDateType) { [unowned self] error in
             XWHProgressHUD.hide()
             log.error(error)
             
@@ -261,8 +262,7 @@ extension XWHHealthyBloodOxygenCTVC {
                 return
             }
             
-            self.existDataDateItems.removeAll(where: { retModel.identifier == $0.identifier })
-            self.existDataDateItems.append(retModel)
+            updateExistDataDateItem(retModel)
             
             completion?(false)
         }
