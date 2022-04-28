@@ -33,8 +33,20 @@ class XWHHealthyHeartCTVC: XWHHealthyBaseCTVC {
         collectionView.register(supplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withClass: XWHHealthyCTReusableView.self)
     }
     
+    override func clickDateBtn() {
+        let cDate: Date = getSelectedDate()
+        XWHCalendar.show(cDate, dateType)  { [unowned self] sDate, sDateType in
+            self.setSelectedDate(sDateType, sDate)
+            if self.dateSegment.sType == sDateType {
+                self.dateSegmentValueChanged(sDateType)
+            } else {
+                self.dateSegment.sType = sDateType
+            }
+        }
+    }
+    
     override func dateSegmentValueChanged(_ segmentType: XWHHealthyDateSegmentType) {
-        dateBtn.set(image: arrowDownImage, title: Date().localizedString(withFormat: dateFormat), titlePosition: .left, additionalSpacing: 3, state: .normal)
+        dateBtn.set(image: arrowDownImage, title: getSelectedDate().localizedString(withFormat: dateFormat), titlePosition: .left, additionalSpacing: 3, state: .normal)
         getHeart()
     }
     
@@ -215,7 +227,8 @@ extension XWHHealthyHeartCTVC {
     
     private func getHeart() {
         XWHProgressHUD.show()
-        XWHHealthyVM().getHeart(date: curDate, dateType: dateType) { error in
+        let cDate = getSelectedDate()
+        XWHHealthyVM().getHeart(date: cDate, dateType: dateType) { error in
             XWHProgressHUD.hide()
             log.error(error)
         } successHandler: { [unowned self] response in

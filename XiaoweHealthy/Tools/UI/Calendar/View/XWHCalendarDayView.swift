@@ -38,6 +38,8 @@ class XWHCalendarDayView: UIView, JTACMonthViewDataSource & JTACMonthViewDelegat
     
     /// 当前的年月开始日期
     lazy var curBeginDate = Date().monthBegin
+    
+    var selectHandler: XWHCalendarSelectDateHandler?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -81,7 +83,7 @@ class XWHCalendarDayView: UIView, JTACMonthViewDataSource & JTACMonthViewDelegat
 //        monthView.isScrollEnabled = false
         let now = Date()
         monthView.scrollToDate(now, triggerScrollToDateDelegate: false, animateScroll: false)
-        monthView.selectDates([sDate], triggerSelectionDelegate: true)
+        monthView.selectDates([sDate], triggerSelectionDelegate: false)
         preNextView.curBeginDate = now
     }
     
@@ -150,59 +152,74 @@ class XWHCalendarDayView: UIView, JTACMonthViewDataSource & JTACMonthViewDelegat
     }
     
     func calendar(_ calendar: JTACMonthView, shouldSelectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) -> Bool {
-        if cellState.dateBelongsTo != .thisMonth {
-            return false
-        }
-        
-        if cellState.date.isInFuture {
-            return false
-        }
-        
-        if cellState.date.dayBegin == sBeginDate {
-            if cellState.isSelected {
-                return false
-            }
-        }
+//        if cellState.dateBelongsTo != .thisMonth {
+//            return false
+//        }
+//
+//        if cellState.date.isInFuture {
+//            return false
+//        }
+//
+//        if cellState.date.dayBegin == sBeginDate {
+//            if cellState.isSelected {
+//                return false
+//            }
+//        }
         
         return true
     }
     
     func calendar(_ calendar: JTACMonthView, didSelectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) {
-        sDate = cellState.date.dayBegin
+        if cellState.dateBelongsTo != .thisMonth {
+            return
+        }
         
-        guard let cell = cell as? XWHCalendarDayCTCell else {
+        if cellState.date.isInFuture {
             return
         }
         
         if cellState.date.dayBegin == sBeginDate {
-            cell.selectedIndicator.isHidden = false
+            return
         }
+        
+        sDate = cellState.date.dayBegin
+        calendar.reloadData(withAnchor: sDate, completionHandler: nil)
+        
+//        guard let cell = cell as? XWHCalendarDayCTCell else {
+//            return
+//        }
+//
+//        if cellState.date.dayBegin == sBeginDate {
+//            cell.selectedIndicator.isHidden = false
+//        }
+        
+        selectHandler?(sDate)
     }
     
     func calendar(_ calendar: JTACMonthView, shouldDeselectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) -> Bool {
-        if cellState.dateBelongsTo != .thisMonth {
-            return false
-        }
-        
-        if cellState.date.isInFuture {
-            return false
-        }
-        
-        if cellState.date.dayBegin == sBeginDate, !cellState.isSelected {
-            return false
-        }
+//        if cellState.dateBelongsTo != .thisMonth {
+//            return false
+//        }
+//
+//        if cellState.date.isInFuture {
+//            return false
+//        }
+//
+//        if cellState.date.dayBegin == sBeginDate, !cellState.isSelected {
+//            return false
+//        }
         
         return true
     }
     
     func calendar(_ calendar: JTACMonthView, didDeselectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) {
-        guard let cell = cell as? XWHCalendarDayCTCell else {
-            return
-        }
-        
-        if cellState.date.dayBegin == sBeginDate {
-            cell.selectedIndicator.isHidden = true
-        }
+//        guard let cell = cell as? XWHCalendarDayCTCell else {
+//            return
+//        }
+//
+//        if cellState.date.dayBegin == sBeginDate {
+//            cell.selectedIndicator.isHidden = true
+//        }
     }
 
     func calendar(_ calendar: JTACMonthView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {

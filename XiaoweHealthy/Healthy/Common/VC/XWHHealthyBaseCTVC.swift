@@ -13,11 +13,14 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
     lazy var dateBtn = UIButton()
     lazy var arrowDownImage: UIImage = UIImage.iconFont(text: XWHIconFontOcticons.arrowDown.rawValue, size: 12, color: fontDarkColor)
     
-    lazy var curDate = Date()
+    lazy var sDayDate = Date()
+    lazy var sWeekDate = Date()
+    lazy var sMonthDate = Date()
+    lazy var sYearDate = Date()
     
     lazy var dateSegment = XWHDateSegmentView()
     var dateType: XWHHealthyDateSegmentType {
-        dateSegment.selectedType
+        dateSegment.sType
     }
     var dateFormat: String {
         switch dateType {
@@ -172,6 +175,43 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
         // set 'ignoreImageOriginalColor' to YES, images color will be same as textColor
         
         return configuration
+    }
+    
+}
+
+// MARK: - Calendar
+extension XWHHealthyBaseCTVC {
+    
+    func setSelectedDate(_ sDateType: XWHHealthyDateSegmentType, _ date: Date) {
+        switch sDateType {
+        case .day:
+            sDayDate = date
+            
+        case .week:
+            sWeekDate = date
+            
+        case .month:
+            sMonthDate = date
+            
+        case .year:
+            sYearDate = date
+        }
+    }
+    
+    func getSelectedDate() -> Date {
+        switch dateType {
+        case .day:
+            return sDayDate
+            
+        case .week:
+            return sWeekDate
+            
+        case .month:
+            return sMonthDate
+            
+        case .year:
+            return sYearDate
+        }
     }
     
 }

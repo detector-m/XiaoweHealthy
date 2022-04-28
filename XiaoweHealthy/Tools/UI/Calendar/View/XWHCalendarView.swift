@@ -9,12 +9,23 @@ import UIKit
 
 typealias XWHCalendarSelectDateHandler = (Date) -> Void
 
+typealias XWHCalendarHandler = (Date, XWHHealthyDateSegmentType) -> Void
+
 class XWHCalendarView: RLPopupContentBaseView {
     
     lazy var dateSegment = XWHDateSegmentView()
     var dateType: XWHHealthyDateSegmentType {
-        dateSegment.selectedType
+        get {
+            dateSegment.sType
+        }
+        set {
+            dateSegment.sType = newValue
+        }
     }
+    
+    /// 选择的日期
+    lazy var sDate = Date()
+    
 //    var dateFormat: String {
 //        switch dateType {
 //        case .day:
@@ -34,6 +45,9 @@ class XWHCalendarView: RLPopupContentBaseView {
     lazy var monthView = XWHCalendarMonthView()
     lazy var weekView = XWHCalendarWeekView()
     lazy var dayView = XWHCalendarDayView()
+    
+    var calendarHandler: XWHCalendarHandler?
+    weak var containerView: XWHCalendarPopupContainer?
         
     override func addSubViews() {
         super.addSubViews()
@@ -81,26 +95,33 @@ class XWHCalendarView: RLPopupContentBaseView {
     
     @objc final func relayoutMonthView() {
         monthView.snp.makeConstraints { make in
-            make.left.right.equalTo(dateSegment)
-            make.top.equalTo(dateSegment.snp.bottom).offset(31)
-            make.bottom.equalToSuperview()
+//            make.left.right.equalTo(dateSegment)
+//            make.top.equalTo(dateSegment.snp.bottom).offset(31)
+//            make.bottom.equalToSuperview()
+            make.edges.equalTo(yearView)
         }
     }
     
     @objc final func relayoutWeekView() {
         weekView.snp.makeConstraints { make in
-            make.left.right.equalTo(dateSegment)
-            make.top.equalTo(dateSegment.snp.bottom).offset(31)
-            make.bottom.equalToSuperview()
+//            make.left.right.equalTo(dateSegment)
+//            make.top.equalTo(dateSegment.snp.bottom).offset(31)
+//            make.bottom.equalToSuperview()
+            make.edges.equalTo(yearView)
         }
     }
     
     @objc final func relayoutDayView() {
         dayView.snp.makeConstraints { make in
-            make.left.right.equalTo(dateSegment)
-            make.top.equalTo(dateSegment.snp.bottom).offset(31)
-            make.bottom.equalToSuperview()
+//            make.left.right.equalTo(dateSegment)
+//            make.top.equalTo(dateSegment.snp.bottom).offset(31)
+//            make.bottom.equalToSuperview()
+            make.edges.equalTo(yearView)
         }
+    }
+    
+    func setSegmentType(_ sType: XWHHealthyDateSegmentType, animated: Bool = true, shouldSendValueChangedEvent: Bool = false) {
+        dateSegment.setSegmentType(sType, animated: animated, shouldSendValueChangedEvent: shouldSendValueChangedEvent)
     }
     
 }
@@ -110,6 +131,26 @@ extension XWHCalendarView {
     func configEventAction() {
         dateSegment.segmentValueChangedHandler = { [unowned self] dateSegmentType in
             self.dateSegmentValueChanged(dateSegmentType)
+        }
+        
+        yearView.selectHandler = { [unowned self] cDate in
+            self.calendarHandler?(cDate, .year)
+            self.containerView?.close()
+        }
+        
+        monthView.selectHandler = { [unowned self] cDate in
+            self.calendarHandler?(cDate, .month)
+            self.containerView?.close()
+        }
+        
+        weekView.selectHandler = { [unowned self] cDate in
+            self.calendarHandler?(cDate, .week)
+            self.containerView?.close()
+        }
+        
+        dayView.selectHandler = { [unowned self] cDate in
+            self.calendarHandler?(cDate, .day)
+            self.containerView?.close()
         }
     }
     
@@ -122,15 +163,19 @@ extension XWHCalendarView {
         switch segmentType {
         case .day:
             dayView.isHidden = false
+            dayView.sDate = sDate
             
         case .week:
             weekView.isHidden = false
+            weekView.sDate = sDate
             
         case .month:
             monthView.isHidden = false
+            monthView.sDate = sDate
             
         case .year:
             yearView.isHidden = false
+            yearView.sDate = sDate
         }
     }
     

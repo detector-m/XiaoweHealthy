@@ -33,6 +33,14 @@ class XWHHealthyBloodOxygenCTVC: XWHHealthyBaseCTVC {
         collectionView.register(supplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withClass: XWHHealthyCTReusableView.self)
     }
     
+    override func clickDateBtn() {
+        let cDate: Date = getSelectedDate()
+        XWHCalendar.show(cDate, dateType)  { [unowned self] sDate, sDateType in
+            self.setSelectedDate(sDateType, sDate)
+            self.dateSegment.sType = sDateType
+        }
+    }
+    
     override func dateSegmentValueChanged(_ segmentType: XWHHealthyDateSegmentType) {
         dateBtn.set(image: arrowDownImage, title: Date().localizedString(withFormat: dateFormat), titlePosition: .left, additionalSpacing: 3, state: .normal)
         getBloodOxygen()
@@ -215,7 +223,8 @@ extension XWHHealthyBloodOxygenCTVC {
     
     private func getBloodOxygen() {
         XWHProgressHUD.show()
-        XWHHealthyVM().getBloodOxygen(date: curDate, dateType: dateType) { error in
+        let cDate = getSelectedDate()
+        XWHHealthyVM().getBloodOxygen(date: cDate, dateType: dateType) { error in
             XWHProgressHUD.hide()
             log.error(error)
         } successHandler: { [unowned self] response in

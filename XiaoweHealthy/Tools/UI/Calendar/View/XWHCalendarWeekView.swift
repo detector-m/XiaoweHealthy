@@ -117,6 +117,8 @@ class XWHCalendarWeekView: XWHCalendarDayView {
         calendar.selectDates(from: sBeginDate, to: sDate.weekEnd, triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: false)
         
         calendar.reloadData(withAnchor: nil, completionHandler: nil)
+        
+        selectHandler?(sDate)
     }
     
     override func calendar(_ calendar: JTACMonthView, shouldDeselectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) -> Bool {

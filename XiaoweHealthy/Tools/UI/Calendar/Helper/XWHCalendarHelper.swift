@@ -54,6 +54,10 @@ class XWHCalendarHelper {
         return maxWidth + calendarContentInset * 2
     }
     
+    static var calendarHeight: CGFloat {
+        469
+    }
+    
 }
 
 extension Date {

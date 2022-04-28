@@ -12,13 +12,19 @@ import BetterSegmentedControl
 /// 日期分段控件
 class XWHDateSegmentView: XWHBaseView {
 
-    var selectedType: XWHHealthyDateSegmentType {
-        dateSegments[segment.index]
+    /// 选中的类型 (分段类型)
+    var sType: XWHHealthyDateSegmentType {
+        get {
+            dateSegments[segment.index]
+        }
+        set {
+            setSegmentType(newValue, animated: true, shouldSendValueChangedEvent: true)
+        }
     }
     
     var segmentValueChangedHandler: ((XWHHealthyDateSegmentType) -> Void)?
     
-    private(set) lazy var segment = BetterSegmentedControl()
+    private lazy var segment = BetterSegmentedControl()
     
     private lazy var dateSegments: [XWHHealthyDateSegmentType] = [.day, .week, .month, .year]
     private var titles: [String] {
@@ -51,7 +57,11 @@ class XWHDateSegmentView: XWHBaseView {
     
     
     @objc private func segmentValueChanged(_ sender: BetterSegmentedControl) {
-        segmentValueChangedHandler?(selectedType)
+        segmentValueChangedHandler?(sType)
+    }
+    
+    func setSegmentType(_ sType: XWHHealthyDateSegmentType, animated: Bool = true, shouldSendValueChangedEvent: Bool = false) {
+        segment.setIndex(dateSegments.firstIndex(of: sType) ?? 0, animated: animated, shouldSendValueChangedEvent: true)
     }
 
 }

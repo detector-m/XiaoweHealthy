@@ -154,13 +154,13 @@ class XWHCalendarPreNextBtnView: UIView {
         preBtn.snp.makeConstraints { make in
             make.centerY.equalTo(textLb)
             make.size.equalTo(17)
-            make.left.greaterThanOrEqualToSuperview()
+//            make.left.greaterThanOrEqualToSuperview()
             make.right.equalTo(textLb.snp.left).offset(-11)
         }
         nextBtn.snp.makeConstraints { make in
             make.centerY.size.equalTo(preBtn)
             make.left.equalTo(textLb.snp.right).offset(11)
-            make.right.lessThanOrEqualToSuperview()
+//            make.right.lessThanOrEqualToSuperview()
         }
     }
 
