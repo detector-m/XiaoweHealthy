@@ -258,7 +258,8 @@ extension XWHHealthyHeartCTVC {
             XWHProgressHUD.hide()
             
             guard let retModel = response.data as? XWHHealthyExistDataDateModel else {
-                log.error("心率 - 获取存在数据日期错误")
+                log.debug("心率 - 获取存在数据日期为空")
+
                 return
             }
             

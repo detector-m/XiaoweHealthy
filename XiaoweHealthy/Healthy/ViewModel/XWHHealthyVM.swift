@@ -37,6 +37,7 @@ class XWHHealthyVM {
                 response.code = dateType.rawValue
                 
                 guard let items = json.arrayObject as? [String] else {
+                    log.error("\(cId) 获取用户心率数据是否存在错误")
                     return nil
                 }
                 
@@ -115,13 +116,14 @@ class XWHHealthyVM {
         }
     }
     
-    /// 用户心率数据是否存在查询
+    /// 用户血氧数据是否存在查询
     func getBloodOxygenExistDate(date: Date, dateType: XWHHealthyDateSegmentType, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
         healthyProvider.request(.getBloodOxygenExistDate(date.year, date.month, dateType.rawValue)) { result in
             let cId = "Healthy.GetBloodOxygenExistDate"
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
                 response.code = dateType.rawValue
                 guard let items = json.arrayObject as? [String] else {
+                    log.error("\(cId) 获取用户血氧数据是否存在错误")
                     return nil
                 }
                 

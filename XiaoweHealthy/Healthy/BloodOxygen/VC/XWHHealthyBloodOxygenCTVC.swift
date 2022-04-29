@@ -258,7 +258,7 @@ extension XWHHealthyBloodOxygenCTVC {
             XWHProgressHUD.hide()
             
             guard let retModel = response.data as? XWHHealthyExistDataDateModel else {
-                log.error("心率 - 获取存在数据日期错误")
+                log.debug("血氧 - 获取存在数据日期为空")
                 return
             }
             
@@ -283,7 +283,7 @@ extension XWHHealthyBloodOxygenCTVC {
             XWHProgressHUD.hide()
             
             guard let retModel = response.data as? XWHBOUIBloodOxygenModel else {
-                log.error("血氧 - 获取数据错误")
+                log.debug("血氧 - 获取数据为空")
                 self.boUIModel = nil
                 self.cleanUIItems()
                 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct XWHError: Error, CustomDebugStringConvertible {
+struct XWHError: Error, CustomDebugStringConvertible, CustomStringConvertible {
     
     var identifier: String = ""
     
@@ -23,8 +23,12 @@ struct XWHError: Error, CustomDebugStringConvertible {
         return code.int == 10010
     }
     
-    var debugDescription: String {
+    var description: String {
         return "identifier = \(identifier), code = \(code), message = \(message), tag = \(tag)"
+    }
+    
+    var debugDescription: String {
+        return description
     }
     
     static func handleSysError(_ sysError: Error?) -> String {
