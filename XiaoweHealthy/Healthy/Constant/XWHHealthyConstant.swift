@@ -14,16 +14,16 @@ enum XWHHealthyType: String {
     
     case none = ""
     
+    case heart = "心率"
+    case bloodOxygen = "血氧饱和度"
+    
     // Test
     case test = "测试"
     
-    case post = "上传"
+    case post = "上传心率血氧测试数据"
     case `get` = "获取"
     
     case login = "登录"
-    
-    case heart = "心率"
-    case bloodOxygen = "血氧饱和度"
     
 }
 

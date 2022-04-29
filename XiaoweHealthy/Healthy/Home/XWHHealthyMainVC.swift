@@ -12,7 +12,7 @@ import SwiftUI
 /// 运动健康首页
 class XWHHealthyMainVC: XWHTableViewBaseVC {
     
-    private lazy var testItems: [XWHHealthyType] = [.heart, .bloodOxygen, .login, .test, .post, .get]
+    private lazy var testItems: [XWHHealthyType] = [.heart, .bloodOxygen, .login, .test, .post]
 
     override func viewDidLoad() {
         super.viewDidLoad()

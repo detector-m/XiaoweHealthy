@@ -150,7 +150,8 @@ extension XWHHealthyBloodOxygenCTVC {
             if indexPath.item == 0, isHasLastCurDataItem {
                 let cell = collectionView.dequeueReusableCell(withClass: XWHBOGradientCTCell.self, for: indexPath)
                 
-                cell.update(uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item], lastBoModel?.value.string ?? "0", lastBoModel?.formatDate()?.localizedString(withFormat: XWHDate.monthDayHourMinute) ?? "")
+                let valueStr = (lastBoModel?.value.string ?? "0") + "%"
+                cell.update(uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item], valueStr, lastBoModel?.formatDate()?.localizedString(withFormat: XWHDate.monthDayHourMinute) ?? "")
                 
                 return cell
             }
