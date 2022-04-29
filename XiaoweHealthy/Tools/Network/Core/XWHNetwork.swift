@@ -50,7 +50,7 @@ class XWHNetwork {
                 log.error(retError)
                 
                 // Token 过期
-                if retError.code.int == 10010 {
+                if retError.code.int == 10010, retError.message.lowercased().contains("token") {
                     XWHUser.handleExpiredUserToken()
                 }
                 

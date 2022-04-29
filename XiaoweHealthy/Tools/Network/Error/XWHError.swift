@@ -20,7 +20,11 @@ struct XWHError: Error, CustomDebugStringConvertible, CustomStringConvertible {
     
     // token 过期
     var isExpiredUserToken: Bool {
-        return code.int == 10010
+        if code.int == 10010, message.lowercased().contains("token") {
+            return true
+        }
+        
+        return false
     }
     
     var description: String {

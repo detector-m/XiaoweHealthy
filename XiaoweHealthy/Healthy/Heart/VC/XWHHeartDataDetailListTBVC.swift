@@ -10,7 +10,9 @@ import UIKit
 class XWHHeartDataDetailListTBVC: XWHHealthyDataDetailListBaseTBVC {
 
     override var titleText: String {
-        return sDate.localizedString(withFormat: XWHDate.yearMonthDayFormat) + R.string.xwhHealthyText.数据()
+        let tString = sDate.localizedString(withFormat: XWHDate.yearMonthDayFormat)
+
+        return tString + R.string.xwhHealthyText.数据()
     }
     
     lazy var allDataUIItems: [XWHHeartModel] = []
@@ -35,8 +37,7 @@ extension XWHHeartDataDetailListTBVC {
         
         let cItem = allDataUIItems[indexPath.section]
         
-        let cDate = cItem.time.date(withFormat: XWHDate.dateTimeAllFormat) ?? Date()
-        cell.titleLb.text = cDate.string(withFormat: XWHDate.hourMinuteFormat)
+        cell.titleLb.text = cItem.formatDate()?.string(withFormat: XWHDate.hourMinuteFormat)
         
         let value = cItem.value.string
         let unit = R.string.xwhDeviceText.次分钟()

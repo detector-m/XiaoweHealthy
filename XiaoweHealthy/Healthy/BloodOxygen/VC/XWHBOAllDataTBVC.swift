@@ -71,7 +71,10 @@ extension XWHBOAllDataTBVC {
             expandStates[indexPath.section] = !expandStates[indexPath.section]
             tableView.reloadData()
         } else {
-            gotoDataDetailList()
+            let item = allDataUIItems[indexPath.section]
+            let cItem = item.items[indexPath.row - 1]
+
+            gotoDataDetailList(cItem)
         }
     }
     
@@ -80,8 +83,9 @@ extension XWHBOAllDataTBVC {
 // MARK: - Jump UI
 extension XWHBOAllDataTBVC {
     
-    private func gotoDataDetailList() {
+    private func gotoDataDetailList(_ item: XWHBOUIAllDataBORangeModel) {
         let vc = XWHBODataDetailListTBVC()
+        vc.sDate = item.collectTime.date(withFormat: XWHDate.standardYearMonthDayFormat) ?? Date()
         navigationController?.pushViewController(vc, animated: true)
     }
     

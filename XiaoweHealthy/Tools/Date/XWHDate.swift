@@ -14,10 +14,16 @@ class XWHDate {
     static let yearMonthDayFormat = "yyyyMMMd"
     static let yearMonthDayWeekFormat = "yyyyMMMdEEE"
     
+    static let standardYearMonthFormat = "yyyy-MM"
+    static let standardYearMonthDayFormat = "yyyy-MM-dd"
+    static let standardYearMonthDayWeekFormat = "yyyy-MM-dd EEE"
+    
     static let hourMinuteFormat = "HH:mm"
     static let timeAllFormat = "HH:mm:ss"
     
     static let dateTimeAllFormat = "\(yearMonthDayFormat) \(timeAllFormat)"
+    
+    static let standardTimeAllFormat = "\(standardYearMonthDayFormat) \(timeAllFormat)"
     
     static let monthDayHourMinute = "MMMd HH:mm"
     
