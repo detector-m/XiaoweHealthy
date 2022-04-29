@@ -19,8 +19,12 @@ class XWHDevWatchModel: XWHDeviceBaseModel {
         "device_watch_model"
     }
     
-    override init() {
+    required init() {
         super.init()
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     required init(row: Row) {

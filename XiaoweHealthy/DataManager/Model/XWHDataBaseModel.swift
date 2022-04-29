@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import HandyJSON
 import GRDB
 
 
-class XWHDataBaseModel: Record, CustomStringConvertible, CustomDebugStringConvertible {
+class XWHDataBaseModel: Record, HandyJSON, Codable, CustomStringConvertible, CustomDebugStringConvertible {
     
     /// 标准的时间格式
     static let standardTimeFormat = "yyyy-MM-dd HH:mm:ss"
@@ -29,17 +30,46 @@ class XWHDataBaseModel: Record, CustomStringConvertible, CustomDebugStringConver
         return description
     }
     
-    override init() {
-        super.init()
-    }
-    
     convenience init(_ identifier: String) {
         self.init()
         self.identifier = identifier
     }
     
+    // MARK: GRDB
     required init(row: Row) {
         super.init(row: row)
+    }
+    
+    // MARK: - HandyJSON
+    required override init() {
+        super.init()
+    }
+    
+    func mapping(mapper: HelpingMapper) {
+        
+    }
+    
+    // MARK: - Encodable
+    func encode(to encoder: Encoder) throws {
+        
+    }
+
+    // MARK: - Decodable
+    required init(from decoder: Decoder) throws {
+        super.init()
+    }
+    
+    func clone() -> Self {
+        let encoder = JSONEncoder()
+        guard let data = try? encoder.encode(self) else {
+            fatalError("encode failed")
+        }
+        let decoder = JSONDecoder()
+        guard let target = try? decoder.decode(Self.self, from: data) else {
+            fatalError("decode failed")
+        }
+        
+        return target
     }
     
 }

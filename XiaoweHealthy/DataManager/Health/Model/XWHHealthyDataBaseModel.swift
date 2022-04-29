@@ -9,48 +9,24 @@ import Foundation
 import HandyJSON
 import GRDB
 
-class XWHHealthyDataBaseModel: XWHDataBaseModel, HandyJSON, Codable {
+class XWHHealthyDataBaseModel: XWHDataBaseModel {
     
     var time = ""
     
 //    var formatDate: Date? {
 //        time.date(withFormat: standardTimeFormat)
 //    }
-        
-    required override init() {
-        super.init()
-    }
     
     required init(row: Row) {
         super.init(row: row)
     }
     
-    // MARK: - HandyJSON
-    func mapping(mapper: HelpingMapper) {
-        
-    }
-    
-    // MARK: - Encodable
-    func encode(to encoder: Encoder) throws {
-        
-    }
-
-    // MARK: - Decodable
-    required init(from decoder: Decoder) throws {
+    required init() {
         super.init()
     }
     
-    func clone() -> Self {
-        let encoder = JSONEncoder()
-        guard let data = try? encoder.encode(self) else {
-            fatalError("encode failed")
-        }
-        let decoder = JSONDecoder()
-        guard let target = try? decoder.decode(Self.self, from: data) else {
-            fatalError("decode failed")
-        }
-        
-        return target
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     

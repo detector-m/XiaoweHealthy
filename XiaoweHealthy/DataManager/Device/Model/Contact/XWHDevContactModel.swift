@@ -9,7 +9,7 @@ import Foundation
 import GRDB
 
 
-class XWHDevContactModel: XWHDataBaseModel, Codable {
+class XWHDevContactModel: XWHDataBaseModel {
     
     enum CodingKeys: String, CodingKey {
         case identifier
@@ -43,7 +43,7 @@ class XWHDevContactModel: XWHDataBaseModel, Codable {
         return "{ identifier = \(identifier), name = \(name), number = \(number) }"
     }
     
-    override init() {
+    required init() {
         super.init()
     }
     
@@ -70,7 +70,7 @@ class XWHDevContactModel: XWHDataBaseModel, Codable {
     }
     
     // MARK: - Encodable
-    func encode(to encoder: Encoder) throws {
+    override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         try container.encode(identifier, forKey: .identifier)
@@ -93,7 +93,7 @@ class XWHDevContactModel: XWHDataBaseModel, Codable {
         isSelected = try container.decode(Bool.self, forKey: .isSelected)
     }
     
-    func clone() -> Self {
+    override func clone() -> Self {
         let encoder = JSONEncoder()
         guard let data = try? encoder.encode(self) else {
             fatalError("encode failed")

@@ -37,8 +37,12 @@ class XWHHeartSetModel: XWHDataBaseModel {
     /// 设置类型
     var optionType = HeartSetOptionType.none
     
-    override init() {
+    required init() {
         super.init()
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     required init(row: Row) {

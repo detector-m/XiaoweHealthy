@@ -32,8 +32,12 @@ class XWHLongSitSetModel: XWHDataBaseModel {
     /// 午休免打扰
     var isSiestaOn = true
     
-    override init() {
+    required init() {
         super.init()
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     required init(row: Row) {
