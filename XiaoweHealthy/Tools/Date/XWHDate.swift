@@ -19,6 +19,8 @@ class XWHDate {
     
     static let dateTimeAllFormat = "\(yearMonthDayFormat) \(timeAllFormat)"
     
+    static let monthDayHourMinute = "MMMd HH:mm"
+    
     class func localizedFormat(_ format: String) -> String {
         let lFormat =  DateFormatter.dateFormat(fromTemplate: format, options: 0, locale: Locale.current) ?? format
 

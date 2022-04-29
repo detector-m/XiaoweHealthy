@@ -157,6 +157,12 @@ class XWHDeviceMainVC: XWHTableViewBaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        if !XWHUser.isLogined() {
+            gotoAddDeviceEntry()
+            
+            return
+        }
+        
         tableView.reloadData()
     }
     

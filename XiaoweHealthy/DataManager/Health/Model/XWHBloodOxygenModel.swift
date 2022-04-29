@@ -9,6 +9,10 @@ import UIKit
 
 class XWHBloodOxygenModel: XWHHeartModel {
     
+    class override var databaseTableName: String {
+        "blood_oxygen_model"
+    }
+    
     // MARK: - HandyJSON
     override func mapping(mapper: HelpingMapper) {
         mapper <<<

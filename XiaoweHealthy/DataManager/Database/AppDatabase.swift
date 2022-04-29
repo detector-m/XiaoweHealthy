@@ -135,6 +135,7 @@ extension AppDatabase {
             // See https://github.com/groue/GRDB.swift#create-tables
             try XWHDataUserManager.createUserTable(db)
             try XWHDataDeviceManager.createTables(db)
+            try XWHHealthyDataManager.createTables(db)
         }
         
 //        migrator.registerMigration("1.0.1") { db in

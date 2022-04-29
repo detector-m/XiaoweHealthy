@@ -9,13 +9,24 @@ import Foundation
 import GRDB
 
 
-class XWHDataBaseModel: Record, CustomDebugStringConvertible {
+class XWHDataBaseModel: Record, CustomStringConvertible, CustomDebugStringConvertible {
+    
+    /// 标准的时间格式
+    static let standardTimeFormat = "yyyy-MM-dd HH:mm:ss"
+    
+    var standardTimeFormat: String {
+        return Self.standardTimeFormat
+    }
     
     /// 主键
     var identifier = ""
     
+    var description: String {
+        "identifier = \(identifier)"
+    }
+    
     var debugDescription: String {
-        return "identifier = \(identifier)"
+        return description
     }
     
     override init() {

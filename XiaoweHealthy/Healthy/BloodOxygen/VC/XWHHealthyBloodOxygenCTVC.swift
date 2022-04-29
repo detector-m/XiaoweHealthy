@@ -14,7 +14,29 @@ class XWHHealthyBloodOxygenCTVC: XWHHealthyBaseCTVC {
         [R.string.xwhHealthyText.血氧饱和度(), R.string.xwhHealthyText.所有数据()]
     }
     
+    override var isHasLastCurDataItem: Bool {
+        guard let lModel = lastBoModel, let lDate = lModel.formatDate() else {
+            return false
+        }
+        
+        switch dateType {
+        case .day:
+            return lDate.isInToday
+            
+        case .week:
+            let nowWeekBegin = Date().weekBegin
+            return nowWeekBegin == lDate.weekBegin
+            
+        case .month:
+            return lDate.isInCurrentMonth
+            
+        case .year:
+            return lDate.isInCurrentYear
+        }
+    }
+    
     private var boUIModel: XWHBOUIBloodOxygenModel?
+    private lazy var lastBoModel = XWHHealthyDataManager.getCurrentBloodOxygen()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -128,7 +150,7 @@ extension XWHHealthyBloodOxygenCTVC {
             if indexPath.item == 0, isHasLastCurDataItem {
                 let cell = collectionView.dequeueReusableCell(withClass: XWHBOGradientCTCell.self, for: indexPath)
                 
-                cell.update(uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item], "96%", Date().dateString(ofStyle: .short))
+                cell.update(uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item], lastBoModel?.value.string ?? "0", lastBoModel?.formatDate()?.localizedString(withFormat: XWHDate.monthDayHourMinute) ?? "")
                 
                 return cell
             }

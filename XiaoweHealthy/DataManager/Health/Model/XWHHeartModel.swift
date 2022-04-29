@@ -11,22 +11,25 @@ import GRDB
 
 
 /// 心率数据模型
-class XWHHeartModel: XWHDataBaseModel, HandyJSON {
+class XWHHeartModel: XWHHealthyDataBaseModel {
     
-    public enum Columns: String, ColumnExpression {
+    public enum Columns: String, ColumnExpression, CodingKey {
         case identifier, time, value
+    }
+    
+    class override var databaseTableName: String {
+        "heart_model"
     }
     
     /// 服务记录id
     var srId = 0
-    var time = ""
     var value = 0
     
     override var debugDescription: String {
-        "{identifier = \(identifier), time = \(time), value = \(value)}"
+        "{ identifier = \(identifier), time = \(time), value = \(value) }"
     }
     
-    required override init() {
+    required init() {
         super.init()
     }
     
@@ -46,7 +49,7 @@ class XWHHeartModel: XWHDataBaseModel, HandyJSON {
 
     
     // MARK: - HandyJSON
-    func mapping(mapper: HelpingMapper) {
+    override func mapping(mapper: HelpingMapper) {
         mapper <<<
             srId <-- "id"
         
@@ -60,5 +63,38 @@ class XWHHeartModel: XWHDataBaseModel, HandyJSON {
         
 //        mapper >>> identifier
     }
+    
+    // MARK: - Encodable
+    override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: Columns.self)
+        
+        try container.encode(identifier, forKey: .identifier)
+        try container.encode(time, forKey: .time)
+        try container.encode(value, forKey: .value)
+    }
+
+    // MARK: - Decodable
+    required init(from decoder: Decoder) throws {
+        super.init()
+        
+        let container = try decoder.container(keyedBy: Columns.self)
+        
+        identifier = try container.decode(String.self, forKey: .identifier)
+        time = try container.decode(String.self, forKey: .time)
+        value = try container.decode(Int.self, forKey: .value)
+    }
+    
+//    func clone() -> Self {
+//        let encoder = JSONEncoder()
+//        guard let data = try? encoder.encode(self) else {
+//            fatalError("encode failed")
+//        }
+//        let decoder = JSONDecoder()
+//        guard let target = try? decoder.decode(Self.self, from: data) else {
+//            fatalError("decode failed")
+//        }
+//        
+//        return target
+//    }
     
 }

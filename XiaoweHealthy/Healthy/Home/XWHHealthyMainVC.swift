@@ -319,12 +319,18 @@ extension XWHHealthyMainVC {
         var hData = [XWHHeartModel]()
         
         for i in 0 ..< 20 {
-            ts += 600 * i
+            let iTs = 600 * i + ts
             let iModel = XWHHeartModel()
+            iModel.identifier = Self.testDeviceSn()
             iModel.value = Int(40 + arc4random() % 160)
-            let iDate = Date(timeIntervalSince1970: ts.double)
-            iModel.time = iDate.string(withFormat: "yyyy-MM-dd HH:mm:ss")
+            let iDate = Date(timeIntervalSince1970: iTs.double)
+            iModel.time = iDate.string(withFormat: iModel.standardTimeFormat)
             hData.append(iModel)
+        }
+        
+        if let lastHeart = hData.last {
+            let cHeart = lastHeart.clone()
+            XWHHealthyDataManager.saveHeart(cHeart)
         }
         
         XWHHealthyVM().postHeart(deviceSn: Self.testDeviceSn(), data: hData) { error in
@@ -352,12 +358,18 @@ extension XWHHealthyMainVC {
         var boData = [XWHBloodOxygenModel]()
         
         for i in 0 ..< 20 {
-            ts += 600 * i
+            let iTs = 600 * i + ts
             let iModel = XWHBloodOxygenModel()
+            iModel.identifier = Self.testDeviceSn()
             iModel.value = Int(70 + arc4random() % 30)
-            let iDate = Date(timeIntervalSince1970: ts.double)
-            iModel.time = iDate.string(withFormat: "yyyy-MM-dd HH:mm:ss")
+            let iDate = Date(timeIntervalSince1970: iTs.double)
+            iModel.time = iDate.string(withFormat: iModel.standardTimeFormat)
             boData.append(iModel)
+        }
+        
+        if let lastBo = boData.last {
+            let cBo = lastBo.clone()
+            XWHHealthyDataManager.saveBloodOxygen(cBo)
         }
         
         XWHHealthyVM().postBloodOxygen(deviceSn: Self.testDeviceSn(), data: boData) { error in

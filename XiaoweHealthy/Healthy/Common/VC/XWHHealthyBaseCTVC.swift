@@ -43,7 +43,9 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
 //    }
     
     lazy var uiManager = XWHHealthyUIManager()
-    lazy var isHasLastCurDataItem = true
+    var isHasLastCurDataItem: Bool {
+        true
+    }
     
     var popMenuItems: [String] {
 //        [R.string.xwhHealthyText.心率设置(), R.string.xwhHealthyText.所有数据()]

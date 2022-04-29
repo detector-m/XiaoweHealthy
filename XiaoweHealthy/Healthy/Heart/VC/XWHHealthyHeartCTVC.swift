@@ -15,7 +15,30 @@ class XWHHealthyHeartCTVC: XWHHealthyBaseCTVC {
         [R.string.xwhHealthyText.心率设置(), R.string.xwhHealthyText.所有数据()]
     }
     
+    override var isHasLastCurDataItem: Bool {
+        guard let lModel = lastHeartModel, let lDate = lModel.formatDate() else {
+            return false
+        }
+        
+        switch dateType {
+        case .day:
+            return lDate.isInToday
+            
+        case .week:
+            let nowWeekBegin = Date().weekBegin
+            return nowWeekBegin == lDate.weekBegin
+            
+        case .month:
+            return lDate.isInCurrentMonth
+            
+        case .year:
+            return lDate.isInCurrentYear
+        }
+    }
+    
+    
     var heartUIModel: XWHHeartUIHeartModel?
+    private lazy var lastHeartModel = XWHHealthyDataManager.getCurrentHeart()
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,7 +152,7 @@ extension XWHHealthyHeartCTVC {
             if indexPath.item == 0, isHasLastCurDataItem {
                 let cell = collectionView.dequeueReusableCell(withClass: XWHHeartGradientCTCell.self, for: indexPath)
                 
-                cell.update(uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item], "123", Date().dateString(ofStyle: .short))
+                cell.update(uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item], lastHeartModel?.value.string ?? "0", lastHeartModel?.formatDate()?.localizedString(withFormat: XWHDate.monthDayHourMinute) ?? "")
                 
                 return cell
             }
