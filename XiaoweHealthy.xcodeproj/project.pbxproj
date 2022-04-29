@@ -16,6 +16,7 @@
 		960E768227F0574200A0DA25 /* XWHBaseCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960E768127F0574200A0DA25 /* XWHBaseCTCell.swift */; };
 		960E768527F0B17D00A0DA25 /* XWHSafari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960E768427F0B17D00A0DA25 /* XWHSafari.swift */; };
 		9613E78527F4A0BC007A1589 /* XWHThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613E78427F4A0BC007A1589 /* XWHThemeConfig.swift */; };
+		96168CB5281BED5300F79C2A /* XWHUTEDataOperationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96168CB4281BED5300F79C2A /* XWHUTEDataOperationHandler.swift */; };
 		9628F85027EE9EF300221C5E /* XWHLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9628F84F27EE9EF300221C5E /* XWHLogin.swift */; };
 		9644928827F7EB2F001CA321 /* XWHProgressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9644928727F7EB2F001CA321 /* XWHProgressButton.swift */; };
 		9648E60F27E0796D0077180D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648E60E27E0796D0077180D /* AppDelegate.swift */; };
@@ -336,6 +337,7 @@
 		960E768127F0574200A0DA25 /* XWHBaseCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBaseCTCell.swift; sourceTree = "<group>"; };
 		960E768427F0B17D00A0DA25 /* XWHSafari.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSafari.swift; sourceTree = "<group>"; };
 		9613E78427F4A0BC007A1589 /* XWHThemeConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHThemeConfig.swift; sourceTree = "<group>"; };
+		96168CB4281BED5300F79C2A /* XWHUTEDataOperationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUTEDataOperationHandler.swift; sourceTree = "<group>"; };
 		9628F84F27EE9EF300221C5E /* XWHLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLogin.swift; sourceTree = "<group>"; };
 		9644928727F7EB2F001CA321 /* XWHProgressButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHProgressButton.swift; sourceTree = "<group>"; };
 		9648E60B27E0796D0077180D /* XiaoweHealthy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XiaoweHealthy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2130,6 +2132,7 @@
 				96F3588D27FE92C900783614 /* XWHBLEUTEDispatchHandler.swift */,
 				960A836B2802635C00FC1B5F /* XWHUTECmdOperationHandler.swift */,
 				96E3F2DC2805656800D9BF11 /* XWHUTEWeatherInfoHandler.swift */,
+				96168CB4281BED5300F79C2A /* XWHUTEDataOperationHandler.swift */,
 			);
 			path = UTEAchieve;
 			sourceTree = "<group>";
@@ -2559,6 +2562,7 @@
 				9679E9E62817BC79003C6351 /* XWHCalendarDayView.swift in Sources */,
 				969B88482812A91C009952E7 /* XWHDate.swift in Sources */,
 				96C67AFE2804743D001ACA81 /* XWHDataRaiseWristSetManager.swift in Sources */,
+				96168CB5281BED5300F79C2A /* XWHUTEDataOperationHandler.swift in Sources */,
 				96C67AF428047249001ACA81 /* XWHBloodPressureSetModel.swift in Sources */,
 				96AD285A280144F40092B843 /* XWHLog.swift in Sources */,
 				9653E49427F5556300EE55FF /* XWHDevSetCallVC.swift in Sources */,

@@ -36,11 +36,17 @@ class XWHDevWatchDispatchManager {
     // 天气服务数据处理
     internal var wsHandler: XWHWeatherServiceProtocol?
     
+    // 数据处理
+    private var dataHandler: XWHDevDataOperationProtocol?
+
+    
     // MARK: - handlers
     /* 简单粗暴，为了减少设备init导致delegate变化 */
     private lazy var _uteBLEHandler = XWHBLEUTEDispatchHandler()
     private lazy var _uteCmdHandler = XWHUTECmdOperationHandler()
     private lazy var _uteWSHandler = XWHUTEWeatherInfoHandler()
+    private lazy var _uteDataHandler = XWHUTEDataOperationHandler()
+    
     
     // MARK: - 方法
     func configCurrentDevice() {
@@ -63,6 +69,8 @@ class XWHDevWatchDispatchManager {
             
             wsHandler = nil
             
+            dataHandler = nil
+            
         case .skyworthWatchS1, .skyworthWatchS2:
             bleHandler = _uteBLEHandler
             
@@ -71,6 +79,8 @@ class XWHDevWatchDispatchManager {
             
             wsHandler = _uteWSHandler
             cmdHandler?.wsHandler = wsHandler
+            
+            dataHandler = _uteDataHandler
             
         }
         return self

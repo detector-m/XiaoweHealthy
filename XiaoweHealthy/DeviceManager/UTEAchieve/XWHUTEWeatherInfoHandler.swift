@@ -9,6 +9,7 @@ import Foundation
 import UTESmartBandApi
 import CoreLocation
 
+/// UTE 处理天气数据
 class XWHUTEWeatherInfoHandler: XWHWeatherServiceProtocol {
     
     static let kUTEWeatherApiKey = "017f5b7d60003890229c3bdccf9548e1"
