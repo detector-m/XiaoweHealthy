@@ -12,7 +12,7 @@ import SwiftUI
 /// 运动健康首页
 class XWHHealthyMainVC: XWHTableViewBaseVC {
     
-    private lazy var testItems: [XWHHealthyType] = [.heart, .bloodOxygen, .login, .test, .post]
+    private lazy var testItems: [XWHHealthyType] = [.heart, .bloodOxygen, .login, .test, .post, .sync]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,8 +132,8 @@ class XWHHealthyMainVC: XWHTableViewBaseVC {
         case .post:
             gotoTestPost()
             
-        case .get:
-            gotoTestGet()
+        case .sync:
+            gotoSync()
             
         case .none:
             break
@@ -221,8 +221,30 @@ extension XWHHealthyMainVC {
         testPostBloodOxygen()
     }
     
-    private func gotoTestGet() {
-        testGetHeart()
+    private func gotoSync() {
+        let devModel = XWHDevWatchModel()
+        devModel.category = .watch
+        devModel.type = .skyworthWatchS1
+        XWHDDMShared.config(device: devModel)
+        
+        XWHDDMShared.setDataOperation { cp in
+            log.debug("同步进度 = \(cp)")
+        } resultHandler: { [weak self] (syncType, syncState, result: Result<XWHResponse?, XWHError>) in
+            if syncState == .succeed {
+                log.debug("数据同步成功")
+            } else if syncState == .failed {
+                switch result {
+                case .success(_):
+                    return
+                    
+                case .failure(let error):
+                    log.error("数据同步失败 error = \(error)")
+                    self?.view.makeInsetToast(error.message)
+                }
+            }
+        }
+
+        XWHDDMShared.syncData()
     }
     
     fileprivate func testBridge() {

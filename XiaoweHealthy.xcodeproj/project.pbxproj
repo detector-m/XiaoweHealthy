@@ -168,6 +168,7 @@
 		9690725B28153C100056CE4F /* XWHBloodOxygenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690725A28153C100056CE4F /* XWHBloodOxygenModel.swift */; };
 		9690725F2815589F0056CE4F /* XWHHeartUIHeartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690725E2815589F0056CE4F /* XWHHeartUIHeartModel.swift */; };
 		96907262281564C90056CE4F /* XWHBOUIBloodOxygenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96907261281564C90056CE4F /* XWHBOUIBloodOxygenModel.swift */; };
+		9693103D2822282F00133626 /* XWHInnerDataHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693103C2822282F00133626 /* XWHInnerDataHandlerProtocol.swift */; };
 		969A4CF8280E8A630049BC07 /* XWHLargeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */; };
 		969B8816280FE11A009952E7 /* XWHHealthyBaseCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */; };
 		969B881A280FE182009952E7 /* XWHHealthyHeartCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8819280FE182009952E7 /* XWHHealthyHeartCTVC.swift */; };
@@ -493,6 +494,7 @@
 		9690725A28153C100056CE4F /* XWHBloodOxygenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBloodOxygenModel.swift; sourceTree = "<group>"; };
 		9690725E2815589F0056CE4F /* XWHHeartUIHeartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHeartUIHeartModel.swift; sourceTree = "<group>"; };
 		96907261281564C90056CE4F /* XWHBOUIBloodOxygenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBOUIBloodOxygenModel.swift; sourceTree = "<group>"; };
+		9693103C2822282F00133626 /* XWHInnerDataHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHInnerDataHandlerProtocol.swift; sourceTree = "<group>"; };
 		969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLargeTitleView.swift; sourceTree = "<group>"; };
 		969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyBaseCTVC.swift; sourceTree = "<group>"; };
 		969B8819280FE182009952E7 /* XWHHealthyHeartCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyHeartCTVC.swift; sourceTree = "<group>"; };
@@ -1456,6 +1458,21 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		9693103A28221D9700133626 /* DataSync */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DataSync;
+			sourceTree = "<group>";
+		};
+		9693103B282227B900133626 /* InnerDataHandler */ = {
+			isa = PBXGroup;
+			children = (
+				9693103C2822282F00133626 /* XWHInnerDataHandlerProtocol.swift */,
+			);
+			path = InnerDataHandler;
+			sourceTree = "<group>";
+		};
 		969A4CF6280E88A20049BC07 /* LargeTitleView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1827,6 +1844,7 @@
 				96DC429727FD3330009BF300 /* Protocol */,
 				96DC429827FD3469009BF300 /* Common */,
 				96DC429627FD3310009BF300 /* Manager */,
+				9693103B282227B900133626 /* InnerDataHandler */,
 				96DC429527FD3307009BF300 /* Model */,
 				96F3588C27FE926C00783614 /* UTEAchieve */,
 			);
@@ -1836,6 +1854,7 @@
 		96DC429527FD3307009BF300 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9693103A28221D9700133626 /* DataSync */,
 				96F1D66F2807FB2C0067DBFD /* WeatherInfo */,
 			);
 			path = Model;
@@ -2594,6 +2613,7 @@
 				9651EE2E27EC5BD30043FE52 /* UMShareSwiftInterface.swift in Sources */,
 				96F1D68A28096F370067DBFD /* XWHDialTitleCTCell.swift in Sources */,
 				9679E9CF28159105003C6351 /* XWHHeartUIAllDataItemModel.swift in Sources */,
+				9693103D2822282F00133626 /* XWHInnerDataHandlerProtocol.swift in Sources */,
 				969E712D280C383D00BDA401 /* XWHContactBaseVC.swift in Sources */,
 				969E712F280C3CDB00BDA401 /* XWHContactTBCell.swift in Sources */,
 				96617A7827E1FCF600139B03 /* XWHLoginRegisterBaseVC.swift in Sources */,

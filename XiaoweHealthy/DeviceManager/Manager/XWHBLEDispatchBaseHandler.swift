@@ -27,6 +27,9 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
     
     var cmdHandler: XWHDevCmdOperationProtocol?
     
+    /// 数据处理handler
+    var dataHandler: XWHDevDataOperationProtocol?
+    
     var bleDevModel: XWHDevWatchModel?
 //    var connectDevModel: XWHDevWatchModel?
     

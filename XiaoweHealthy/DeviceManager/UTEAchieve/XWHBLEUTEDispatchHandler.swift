@@ -17,6 +17,14 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
     
     var uteDevices: [UTEModelDevices] = []
     
+    var uteDataHandler: XWHUTEDataOperationHandler? {
+        guard let cHandler = dataHandler as? XWHUTEDataOperationHandler else {
+            return nil
+        }
+        
+        return cHandler
+    }
+    
     override init() {
         super.init()
         
@@ -173,6 +181,8 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
             case none
             case connect
             case firmware
+            
+            case syncData
         }
         
         
@@ -234,7 +244,23 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
             uteStateType = .firmware
             transferState = .failed
             
+        // MARK: - SyncData
+        case .syncBegin:
+            break
             
+        case .syncSuccess:
+            uteDataHandler?.handleRawData(info, uteSyncState: devicesState)
+            
+        case .syncError:
+            uteDataHandler?.handleError(error)
+            
+        case .heartDetectingError:
+            uteDataHandler?.handleError(error)
+            
+        case .bloodOxygenDetectingError:
+            uteDataHandler?.handleError(error)
+            
+        // MARK: - ---------
         default:
             break
         }
@@ -297,6 +323,9 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
             } else {
                 uteCmdHandler.handleTransferResult(.success(transferState))
             }
+            
+        case .syncData:
+            break
         }
     }
     

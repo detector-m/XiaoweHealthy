@@ -21,7 +21,7 @@ enum XWHHealthyType: String {
     case test = "测试"
     
     case post = "上传心率血氧测试数据"
-    case `get` = "获取"
+    case sync = "同步"
     
     case login = "登录"
     

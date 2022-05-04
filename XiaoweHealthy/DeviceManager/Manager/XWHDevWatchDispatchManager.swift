@@ -81,6 +81,7 @@ class XWHDevWatchDispatchManager {
             cmdHandler?.wsHandler = wsHandler
             
             dataHandler = _uteDataHandler
+            bleHandler?.dataHandler = dataHandler
             
         }
         return self
@@ -306,3 +307,25 @@ extension XWHDevWatchDispatchManager: XWHWeatherServiceProtocol {
     
     
 }
+
+// MARK: - 同步数据
+extension XWHDevWatchDispatchManager: XWHDevDataOperationProtocol {
+    
+    var state: XWHDevDataTransferState {
+        return dataHandler?.state ?? .failed
+    }
+    
+    func setDataOperation(progressHandler: DevSyncDataProgressHandler?, resultHandler: XWHDevDataOperationHandler?) {
+        dataHandler?.setDataOperation(progressHandler: progressHandler, resultHandler: resultHandler)
+    }
+    
+    func resetDataOperation() {
+        dataHandler?.resetDataOperation()
+    }
+    
+    func syncData() {
+        dataHandler?.syncData()
+    }
+    
+}
+

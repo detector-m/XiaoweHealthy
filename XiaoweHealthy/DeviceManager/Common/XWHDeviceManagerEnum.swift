@@ -65,3 +65,18 @@ enum XWHDevDataTransferState: Error {
     case inTransit
     
 }
+
+// MARK: - 数据同步
+/// 设备同步数据的类型
+enum XWHDevSyncDataType: String {
+    
+    /// none
+    case none
+    
+    /// 心率
+    case heart
+    
+    /// 血氧
+    case bloodOxygen
+    
+}

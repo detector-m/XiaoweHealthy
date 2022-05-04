@@ -22,6 +22,7 @@ typealias XWHDeviceMonitorHandler = (XWHDevWatchModel, XWHDeviceConnectBindState
 
 
 protocol XWHBLEDispatchProtocol {
+    
     // MARK: - 基础属性相关
     
     /// 配对方式
@@ -31,6 +32,13 @@ protocol XWHBLEDispatchProtocol {
     
     /// 连接绑定状态
     var connectBindState: XWHDeviceConnectBindState { get }
+    
+    /// 指令处理handler
+//    var cmdHandler: XWHDevCmdOperationProtocol? { get set }
+    
+    /// 数据处理handler
+//    var dataHandler: XWHDevDataOperationProtocol? { get set }
+
     
     /// 设置设备连接状态监听回调
     /// - Parameters:
