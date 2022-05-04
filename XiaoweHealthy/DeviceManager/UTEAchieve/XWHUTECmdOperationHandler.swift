@@ -287,7 +287,7 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
             
             manager.setBloodOxygenAutoTest(bloodOxygenSet.isOn, time: boTimeInterval)
         } else {
-            manager.setBloodOxygenAutoTestDuration(true, startTime: bloodOxygenSet.beginTime, endTime: bloodOxygenSet.endTime)
+            manager.setBloodOxygenAutoTestDuration(bloodOxygenSet.isOn, startTime: bloodOxygenSet.beginTime, endTime: bloodOxygenSet.endTime)
         }
         
         handler?(.success(nil))

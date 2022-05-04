@@ -14,10 +14,19 @@ class XWHDialContentBaseVC: XWHCollectionViewBaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setNav(color: bgColor)
     }
     
     override func setupNavigationItems() {
         
+    }
+    
+    override func relayoutSubViews() {
+        collectionView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
+            make.top.equalToSuperview().offset(50)
+            make.bottom.equalToSuperview()
+        }
     }
 
 }
