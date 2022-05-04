@@ -25,7 +25,7 @@ class XWHHeartModel: XWHHealthyDataBaseModel {
     var srId = 0
     var value = 0
     
-    override var debugDescription: String {
+    override var description: String {
         "{ identifier = \(identifier), time = \(time), value = \(value) }"
     }
     

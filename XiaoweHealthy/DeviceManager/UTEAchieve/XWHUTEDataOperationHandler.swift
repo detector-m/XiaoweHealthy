@@ -129,30 +129,49 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
         guard let rawDic = rawData as? [AnyHashable: Any] else {
             return nil
         }
-        
-        log.info("心率原始数据: \(rawDic)")
 
         guard let heartArray = rawDic[kUTEQuery24HRMData] as? [UTEModelHRMData] else {
             return nil
         }
-        log.debug(heartArray)
-       return heartArray
+        let parsedHeartArray: [XWHHeartModel] = heartArray.compactMap { cModel in
+            guard let cTime = cModel.heartTime, let cValue = cModel.heartCount?.int, let cDate = cTime.date(withFormat: "yyyy-MM-dd-HH-mm") else {
+                return nil
+            }
+            
+            let rModel = XWHHeartModel()
+            rModel.time = cDate.string(withFormat: "yyyy-MM-dd HH:mm:ss")
+            rModel.value = cValue
+            
+            return rModel
+        }
+        log.info("同步心率的原始数据 \(parsedHeartArray)")
+       return parsedHeartArray
     }
     
     /// 处理血氧数据
     func handleBloodOxygenData(_ rawData: Any?) -> Any? {
-       
         guard let rawDic = rawData as? [AnyHashable: Any] else {
             return nil
         }
         
-        log.info("血氧原始数据: \(rawDic)")
         guard let boArray = rawDic[kUTEQueryBloodOxygenData] as? [UTEModelBloodOxygenData] else {
             return nil
         }
         
-        log.debug(boArray)
-       return boArray
+        let parsedboArray: [XWHBloodOxygenModel] = boArray.compactMap { cModel in
+            guard let cTime = cModel.time, let cDate = cTime.date(withFormat: "yyyy-MM-dd-HH-mm") else {
+                return nil
+            }
+            
+            let rModel = XWHBloodOxygenModel()
+            rModel.time = cDate.string(withFormat: "yyyy-MM-dd HH:mm:ss")
+            rModel.value = cModel.value
+            
+            return rModel
+        }
+        
+        log.info("同步血氧的原始数据 \(parsedboArray)")
+       return parsedboArray
     }
     
     private func handleProgress(_ cp: Int) {
