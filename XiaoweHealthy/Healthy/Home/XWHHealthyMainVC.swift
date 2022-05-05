@@ -364,13 +364,18 @@ extension XWHHealthyMainVC {
     }
     
     private func testGetHeart() {
+//        let date = Date()
+//        let dateType = XWHHealthyDateSegmentType.year
+//        XWHHealthyVM().getHeart(date: date, dateType: dateType) { error in
+//            log.error(error)
+//        } successHandler: { response in
+//
+//        }
+        
         let date = Date()
-        let dateType = XWHHealthyDateSegmentType.year
-        XWHHealthyVM().getHeart(date: date, dateType: dateType) { error in
-            log.error(error)
-        } successHandler: { response in
-
-        }
+        let hearts = XWHHealthyDataManager.getHearts(identifier: Self.testDeviceSn(), bDate: date.dayBegin, eDate: date.dayEnd)
+        
+        log.info(hearts)
     }
     
     private func testPostBloodOxygen() {

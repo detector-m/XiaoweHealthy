@@ -73,6 +73,10 @@ extension Date {
         return beginning(of: .day) ?? self
     }
     
+    var dayEnd: Self {
+        return end(of: .day) ?? self
+    }
+    
     var weekBegin: Self {
 //        return beginning(of: .weekOfMonth) ?? self
         var cd = Calendar.current

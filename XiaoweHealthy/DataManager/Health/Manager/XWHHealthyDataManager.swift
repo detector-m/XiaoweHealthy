@@ -11,6 +11,8 @@ import GRDB
 
 class XWHHealthyDataManager {
     
+    private static let dateFormat: String = "yyyy-MM-dd HH:mm:ss"
+    
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
     ///  - Parameter db: 数据库handler
     class func createTables(_ db: Database) throws {
@@ -43,7 +45,7 @@ class XWHHealthyDataManager {
         
         let cId = XWHHealthyMainVC.testDeviceSn()
         
-        return getHeart(identifier: cId)
+        return getLastHeart(identifier: cId)
     }
     
     class func getCurrentBloodOxygen() -> XWHHeartModel? {
@@ -55,7 +57,7 @@ class XWHHealthyDataManager {
         
         let cId = XWHHealthyMainVC.testDeviceSn()
         
-        return getBloodOxygen(identifier: cId)
+        return getLastBloodOxygen(identifier: cId)
     }
     
 }
@@ -87,15 +89,23 @@ extension XWHHealthyDataManager {
         saveHearts([heart])
     }
     
-    class func getHeart(identifier: String) -> XWHHeartModel? {
+    class func getHearts(identifier: String, bDate: Date, eDate: Date) -> [XWHHeartModel]? {
         appDB.read { db in
-            try XWHHeartModel.fetchOne(db, key: identifier)
+            let sDateString = bDate.string(withFormat: dateFormat)
+            let eDateString = eDate.string(withFormat: dateFormat)
+            return try XWHHeartModel.filter(XWHBloodOxygenModel.Columns.identifier == identifier && XWHHeartModel.Columns.time >= sDateString && XWHHeartModel.Columns.time <= eDateString).fetchAll(db)
+        }
+    }
+    
+    class func getLastHeart(identifier: String) -> XWHHeartModel? {
+        appDB.read { db in
+            try XWHHeartModel.filter(XWHHeartModel.Columns.identifier == identifier).order(XWHHeartModel.Columns.time.desc).fetchOne(db)
         }
     }
     
     class func deleteHeart(identifier: String) {
         appDB.write { db in
-            try XWHHeartModel.deleteOne(db, key: identifier)
+            try XWHHeartModel.filter(XWHHeartModel.Columns.identifier == identifier).deleteAll(db)
         }
     }
     
@@ -140,15 +150,23 @@ extension XWHHealthyDataManager {
         saveBloodOxygens([bloodOxygen])
     }
     
-    class func getBloodOxygen(identifier: String) -> XWHBloodOxygenModel? {
+    class func getBloodOxygens(identifier: String, bDate: Date, eDate: Date) -> [XWHBloodOxygenModel]? {
         appDB.read { db in
-            try XWHBloodOxygenModel.fetchOne(db, key: identifier)
+            let sDateString = bDate.string(withFormat: dateFormat)
+            let eDateString = eDate.string(withFormat: dateFormat)
+            return try XWHBloodOxygenModel.filter(XWHBloodOxygenModel.Columns.identifier == identifier && XWHBloodOxygenModel.Columns.time >= sDateString && XWHBloodOxygenModel.Columns.time <= eDateString).fetchAll(db)
+        }
+    }
+    
+    class func getLastBloodOxygen(identifier: String) -> XWHBloodOxygenModel? {
+        appDB.read { db in
+            try XWHBloodOxygenModel.filter(XWHBloodOxygenModel.Columns.identifier == identifier).order(XWHBloodOxygenModel.Columns.time.desc).fetchOne(db)
         }
     }
     
     class func deleteBloodOxygen(identifier: String) {
         appDB.write { db in
-            try XWHBloodOxygenModel.deleteOne(db, key: identifier)
+            try XWHBloodOxygenModel.filter(XWHBloodOxygenModel.Columns.identifier == identifier).deleteAll(db)
         }
     }
     
