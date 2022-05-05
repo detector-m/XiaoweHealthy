@@ -68,17 +68,23 @@ extension XWHHealthyDataManager {
     ///  - Parameter db: 数据库handler
     class func createHeartTable(_ db: Database) throws {
         try db.create(table: XWHHeartModel.databaseTableName, body: { t in
-            t.column(XWHHeartModel.Columns.identifier.name, .text).primaryKey()
+            t.column(XWHHeartModel.Columns.identifier.name, .text)
 
             t.column(XWHHeartModel.Columns.time.name, .text)
             t.column(XWHHeartModel.Columns.value.name, .integer)
+            
+            t.primaryKey([XWHBloodOxygenModel.Columns.identifier.name, XWHBloodOxygenModel.Columns.time.name])
         })
+    }
+    
+    class func saveHearts(_ hearts: [XWHHeartModel]) {
+        appDB.write { db in
+            try hearts.forEach({ try $0.save(db) })
+        }
     }
    
     class func saveHeart(_ heart: XWHHeartModel) {
-        appDB.write { db in
-            try heart.save(db)
-        }
+        saveHearts([heart])
     }
     
     class func getHeart(identifier: String) -> XWHHeartModel? {
@@ -115,17 +121,23 @@ extension XWHHealthyDataManager {
     ///  - Parameter db: 数据库handler
     class func createBloodOxygenTable(_ db: Database) throws {
         try db.create(table: XWHBloodOxygenModel.databaseTableName, body: { t in
-            t.column(XWHBloodOxygenModel.Columns.identifier.name, .text).primaryKey()
+            t.column(XWHBloodOxygenModel.Columns.identifier.name, .text)
 
             t.column(XWHBloodOxygenModel.Columns.time.name, .text)
             t.column(XWHBloodOxygenModel.Columns.value.name, .integer)
+            
+            t.primaryKey([XWHBloodOxygenModel.Columns.identifier.name, XWHBloodOxygenModel.Columns.time.name])
         })
+    }
+    
+    class func saveBloodOxygens(_ bloodOxygens: [XWHBloodOxygenModel]) {
+        appDB.write { db in
+            try bloodOxygens.forEach({ try $0.save(db) })
+        }
     }
    
     class func saveBloodOxygen(_ bloodOxygen: XWHBloodOxygenModel) {
-        appDB.write { db in
-            try bloodOxygen.save(db)
-        }
+        saveBloodOxygens([bloodOxygen])
     }
     
     class func getBloodOxygen(identifier: String) -> XWHBloodOxygenModel? {

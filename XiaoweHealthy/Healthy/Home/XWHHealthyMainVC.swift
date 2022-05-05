@@ -352,7 +352,8 @@ extension XWHHealthyMainVC {
         
         if let lastHeart = hData.last {
             let cHeart = lastHeart.clone()
-            XWHHealthyDataManager.saveHeart(cHeart)
+//            XWHHealthyDataManager.saveHeart(cHeart)
+            XWHHealthyDataManager.saveHearts([cHeart])
         }
         
         XWHHealthyVM().postHeart(deviceSn: Self.testDeviceSn(), data: hData) { error in
