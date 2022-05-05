@@ -84,17 +84,25 @@ extension Date {
         return cd.date(from: cd.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)) ?? self
     }
     
+    var weekEnd: Self {
+//        return end(of: .weekOfMonth) ?? self
+        return weekBegin.adding(.day, value: 7).adding(.second, value: -1)
+    }
+    
     var monthBegin: Self {
         return beginning(of: .month) ?? self
+    }
+    
+    var monthEnd: Self {
+        return end(of: .month) ?? self
     }
     
     var yearBegin: Self {
         return beginning(of: .year) ?? self
     }
     
-    var weekEnd: Self {
-//        return end(of: .weekOfMonth) ?? self
-        return weekBegin.adding(.day, value: 7).adding(.second, value: -1)
+    var yearEnd: Self {
+        return end(of: .year) ?? self
     }
     
 }
