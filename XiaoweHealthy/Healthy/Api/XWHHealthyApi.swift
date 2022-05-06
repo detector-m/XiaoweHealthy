@@ -14,7 +14,7 @@ enum XWHHealthyApi {
     
     // MARK: - Heart(心率)
     /// 上传心率数据到服务
-    case postHeart(_ deviceSn: String, _ data: [[String: Any]])
+//    case postHeart(_ deviceSn: String, _ data: [[String: Any]])
     
     /// 用户心率数据存在的日期
     case getHeartExistDate(_ year: Int, _ month: Int, _ queryType: String)
@@ -31,7 +31,7 @@ enum XWHHealthyApi {
 
     // MARK: - BloodOxygen(血氧)
     /// 上传血氧数据到服务
-    case postBloodOxygen(_ deviceSn: String, _ data: [[String: Any]])
+//    case postBloodOxygen(_ deviceSn: String, _ data: [[String: Any]])
     
     /// 用户血氧数据存在的日期
     case getBloodOxygenExistDate(_ year: Int, _ month: Int, _ queryType: String)
@@ -52,8 +52,8 @@ extension XWHHealthyApi: XWHServiceTargetType {
     
     var path: String {
         switch self {
-        case .postHeart:
-            return "/device/post_heart_rate"
+//        case .postHeart:
+//            return "/device/post_heart_rate"
             
         case .getHeartExistDate:
             return "/device/heart_rate_exist"
@@ -67,8 +67,8 @@ extension XWHHealthyApi: XWHServiceTargetType {
         case .getHeartDetail:
             return "/device/specify_heart_rate"
             
-        case .postBloodOxygen:
-            return "/device/post_blood_oxygen"
+//        case .postBloodOxygen:
+//            return "/device/post_blood_oxygen"
             
         case .getBloodOxygenExistDate:
             return "/device/blood_oxygen_exist"
@@ -86,8 +86,8 @@ extension XWHHealthyApi: XWHServiceTargetType {
     
     var method: Moya.Method {
         switch self {
-        case .postHeart, .postBloodOxygen:
-            return .post
+//        case .postHeart, .postBloodOxygen:
+//            return .post
             
         case .getHeartExistDate, .getBloodOxygenExistDate, .getHeart, .getBloodOxygen, .getHeartHistory, .getBloodOxygenHistory, .getHeartDetail, .getBloodOxygenDetail:
             return .get
@@ -98,8 +98,8 @@ extension XWHHealthyApi: XWHServiceTargetType {
         var param: [String: Any] = [:]
         
         switch self {
-        case .postHeart(let deviceSn, let data), .postBloodOxygen(let deviceSn, let data):
-            param = ["deviceSn": deviceSn, "data": data]
+//        case .postHeart(let deviceSn, let data), .postBloodOxygen(let deviceSn, let data):
+//            param = ["deviceSn": deviceSn, "data": data]
             
         case .getHeartExistDate(let year, let month, let queryType), .getBloodOxygenExistDate(let year, let month, let queryType):
             param = ["year": year, "month": month, "queryType": queryType]

@@ -169,6 +169,8 @@
 		9690725F2815589F0056CE4F /* XWHHeartUIHeartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690725E2815589F0056CE4F /* XWHHeartUIHeartModel.swift */; };
 		96907262281564C90056CE4F /* XWHBOUIBloodOxygenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96907261281564C90056CE4F /* XWHBOUIBloodOxygenModel.swift */; };
 		9693103D2822282F00133626 /* XWHInnerDataHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693103C2822282F00133626 /* XWHInnerDataHandlerProtocol.swift */; };
+		969310442824AF9C00133626 /* XWHServerDataApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969310432824AF9C00133626 /* XWHServerDataApi.swift */; };
+		969310472824B15500133626 /* XWHServerDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969310462824B15500133626 /* XWHServerDataManager.swift */; };
 		969A4CF8280E8A630049BC07 /* XWHLargeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */; };
 		969B8816280FE11A009952E7 /* XWHHealthyBaseCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */; };
 		969B881A280FE182009952E7 /* XWHHealthyHeartCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8819280FE182009952E7 /* XWHHealthyHeartCTVC.swift */; };
@@ -495,6 +497,8 @@
 		9690725E2815589F0056CE4F /* XWHHeartUIHeartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHeartUIHeartModel.swift; sourceTree = "<group>"; };
 		96907261281564C90056CE4F /* XWHBOUIBloodOxygenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBOUIBloodOxygenModel.swift; sourceTree = "<group>"; };
 		9693103C2822282F00133626 /* XWHInnerDataHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHInnerDataHandlerProtocol.swift; sourceTree = "<group>"; };
+		969310432824AF9C00133626 /* XWHServerDataApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHServerDataApi.swift; sourceTree = "<group>"; };
+		969310462824B15500133626 /* XWHServerDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHServerDataManager.swift; sourceTree = "<group>"; };
 		969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLargeTitleView.swift; sourceTree = "<group>"; };
 		969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyBaseCTVC.swift; sourceTree = "<group>"; };
 		969B8819280FE182009952E7 /* XWHHealthyHeartCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyHeartCTVC.swift; sourceTree = "<group>"; };
@@ -1473,6 +1477,31 @@
 			path = InnerDataHandler;
 			sourceTree = "<group>";
 		};
+		969310402824AA5B00133626 /* ServerData */ = {
+			isa = PBXGroup;
+			children = (
+				969310422824AF1D00133626 /* Api */,
+				969310412824AA7E00133626 /* Manager */,
+			);
+			path = ServerData;
+			sourceTree = "<group>";
+		};
+		969310412824AA7E00133626 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				969310462824B15500133626 /* XWHServerDataManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		969310422824AF1D00133626 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				969310432824AF9C00133626 /* XWHServerDataApi.swift */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
 		969A4CF6280E88A20049BC07 /* LargeTitleView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1908,6 +1937,7 @@
 				96AD285E280183DD0092B843 /* Device */,
 				96AD285D280183A30092B843 /* Model */,
 				96AD28552801393B0092B843 /* Database */,
+				969310402824AA5B00133626 /* ServerData */,
 				96DC429F27FD734B009BF300 /* Cache */,
 			);
 			path = DataManager;
@@ -2536,6 +2566,7 @@
 				967AF4C327EF545800235E08 /* XWHDeviceVM.swift in Sources */,
 				9653E49027F552E300EE55FF /* XWHDevSetBaseVC.swift in Sources */,
 				96F1D6662806BE960067DBFD /* XWHDevContactModel.swift in Sources */,
+				969310472824B15500133626 /* XWHServerDataManager.swift in Sources */,
 				96F3588E27FE92C900783614 /* XWHBLEUTEDispatchHandler.swift in Sources */,
 				9690724D281524610056CE4F /* XWHBODataDetailListTBVC.swift in Sources */,
 				969B882E28110153009952E7 /* XWHHealthyGradientCTCell.swift in Sources */,
@@ -2664,6 +2695,7 @@
 				9690725128152CC50056CE4F /* XWHHeartDataDetailTBVC.swift in Sources */,
 				969B884B2812B769009952E7 /* XWHHealthyApi.swift in Sources */,
 				96C67AE92804174B001ACA81 /* XWHHeartSetModel.swift in Sources */,
+				969310442824AF9C00133626 /* XWHServerDataApi.swift in Sources */,
 				9651EDFA27E9A3130043FE52 /* RLOverlayerBgView.swift in Sources */,
 				9690724F2815291C0056CE4F /* XWHHealthyDataDetailBaseTBVC.swift in Sources */,
 				96617AA527E3169200139B03 /* XWHCodeView.swift in Sources */,

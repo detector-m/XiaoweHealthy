@@ -126,6 +126,10 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
     
     /// 处理心率数据
     func handleHeartData(_ rawData: Any?) -> Any? {
+        guard let deviceSn = manager.connectedDevicesModel?.identifier else {
+            log.error("未获取到设备标识符")
+            return nil
+        }
         guard let rawDic = rawData as? [AnyHashable: Any] else {
             return nil
         }
@@ -133,6 +137,7 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
         guard let heartArray = rawDic[kUTEQuery24HRMData] as? [UTEModelHRMData] else {
             return nil
         }
+        
         let parsedHeartArray: [XWHHeartModel] = heartArray.compactMap { cModel in
             guard let cTime = cModel.heartTime, let cValue = cModel.heartCount?.int, let cDate = cTime.date(withFormat: "yyyy-MM-dd-HH-mm") else {
                 return nil
@@ -141,15 +146,28 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             let rModel = XWHHeartModel()
             rModel.time = cDate.string(withFormat: "yyyy-MM-dd HH:mm:ss")
             rModel.value = cValue
+            rModel.identifier = deviceSn
             
             return rModel
         }
         log.info("同步心率的原始数据 \(parsedHeartArray)")
+        if !parsedHeartArray.isEmpty {
+            if let last = parsedHeartArray.last?.clone() {
+                XWHHealthyDataManager.saveHeart(last)
+            }
+            
+            XWHServerDataManager.postHeart(deviceSn: deviceSn, data: parsedHeartArray, failureHandler: nil, successHandler: nil)
+        }
        return parsedHeartArray
     }
     
     /// 处理血氧数据
     func handleBloodOxygenData(_ rawData: Any?) -> Any? {
+        guard let deviceSn = manager.connectedDevicesModel?.identifier else {
+            log.error("未获取到设备标识符")
+            return nil
+        }
+        
         guard let rawDic = rawData as? [AnyHashable: Any] else {
             return nil
         }
@@ -166,11 +184,20 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             let rModel = XWHBloodOxygenModel()
             rModel.time = cDate.string(withFormat: "yyyy-MM-dd HH:mm:ss")
             rModel.value = cModel.value
+            rModel.identifier = deviceSn
             
             return rModel
         }
         
         log.info("同步血氧的原始数据 \(parsedboArray)")
+        if !parsedboArray.isEmpty {
+            if let last = parsedboArray.last?.clone() {
+                XWHHealthyDataManager.saveBloodOxygen(last)
+            }
+            
+            XWHServerDataManager.postBloodOxygen(deviceSn: deviceSn, data: parsedboArray, failureHandler: nil, successHandler: nil)
+        }
+        
        return parsedboArray
     }
     

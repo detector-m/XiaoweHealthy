@@ -13,21 +13,21 @@ class XWHHealthyVM {
     
     // MARK: - Heart(心率)
     /// 上传心率数据
-    func postHeart(deviceSn: String, data: [XWHHeartModel], failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
-        let reqData = data.toJSON()
-        guard let reqData = reqData as? [[String: Any]] else {
-            log.error(tdParseFailed)
-            return
-        }
-
-        healthyProvider.request(.postHeart(deviceSn, reqData)) { result in
-            let cId = "Healthy.PostHeart"
-            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
-                
-                return nil
-            }
-        }
-    }
+//    func postHeart(deviceSn: String, data: [XWHHeartModel], failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+//        let reqData = data.toJSON()
+//        guard let reqData = reqData as? [[String: Any]] else {
+//            log.error(tdParseFailed)
+//            return
+//        }
+//
+//        healthyProvider.request(.postHeart(deviceSn, reqData)) { result in
+//            let cId = "Healthy.PostHeart"
+//            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
+//                
+//                return nil
+//            }
+//        }
+//    }
     
     /// 用户心率数据是否存在查询
     func getHeartExistDate(date: Date, dateType: XWHHealthyDateSegmentType, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
@@ -100,21 +100,21 @@ class XWHHealthyVM {
     
     // MARK: - 血氧(心率)
     /// 上传血氧数据
-    func postBloodOxygen(deviceSn: String, data: [XWHBloodOxygenModel], failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
-        let reqData = data.toJSON()
-        guard let reqData = reqData as? [[String: Any]] else {
-            log.error(tdParseFailed)
-            return
-        }
-        
-        healthyProvider.request(.postBloodOxygen(deviceSn, reqData)) { result in
-            let cId = "Healthy.PostBloodOxygen"
-            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
-                
-                return nil
-            }
-        }
-    }
+//    func postBloodOxygen(deviceSn: String, data: [XWHBloodOxygenModel], failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+//        let reqData = data.toJSON()
+//        guard let reqData = reqData as? [[String: Any]] else {
+//            log.error(tdParseFailed)
+//            return
+//        }
+//
+//        healthyProvider.request(.postBloodOxygen(deviceSn, reqData)) { result in
+//            let cId = "Healthy.PostBloodOxygen"
+//            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
+//
+//                return nil
+//            }
+//        }
+//    }
     
     /// 用户血氧数据是否存在查询
     func getBloodOxygenExistDate(date: Date, dateType: XWHHealthyDateSegmentType, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {

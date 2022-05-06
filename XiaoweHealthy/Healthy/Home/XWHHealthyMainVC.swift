@@ -356,7 +356,7 @@ extension XWHHealthyMainVC {
             XWHHealthyDataManager.saveHearts([cHeart])
         }
         
-        XWHHealthyVM().postHeart(deviceSn: Self.testDeviceSn(), data: hData) { error in
+        XWHServerDataManager.postHeart(deviceSn: Self.testDeviceSn(), data: hData) { error in
             log.error(error)
         } successHandler: { response in
             
@@ -400,7 +400,7 @@ extension XWHHealthyMainVC {
             XWHHealthyDataManager.saveBloodOxygen(cBo)
         }
         
-        XWHHealthyVM().postBloodOxygen(deviceSn: Self.testDeviceSn(), data: boData) { error in
+        XWHServerDataManager.postBloodOxygen(deviceSn: Self.testDeviceSn(), data: boData) { error in
             log.error(error)
         } successHandler: { response in
             
