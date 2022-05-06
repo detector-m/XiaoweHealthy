@@ -171,6 +171,15 @@
 		9693103D2822282F00133626 /* XWHInnerDataHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693103C2822282F00133626 /* XWHInnerDataHandlerProtocol.swift */; };
 		969310442824AF9C00133626 /* XWHServerDataApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969310432824AF9C00133626 /* XWHServerDataApi.swift */; };
 		969310472824B15500133626 /* XWHServerDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969310462824B15500133626 /* XWHServerDataManager.swift */; };
+		9693104D2824C01700133626 /* XWHHealthyPressureCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693104C2824C01700133626 /* XWHHealthyPressureCTVC.swift */; };
+		9693104F2824C53300133626 /* XWHPressureCommonCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693104E2824C53300133626 /* XWHPressureCommonCTCell.swift */; };
+		969310512824C54B00133626 /* XWHPressureGradiendtCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969310502824C54B00133626 /* XWHPressureGradiendtCTCell.swift */; };
+		969310532824C68D00133626 /* XWHPressureRangeCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969310522824C68D00133626 /* XWHPressureRangeCTCell.swift */; };
+		969310552824D59400133626 /* XWHPressureIntroductionTXVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969310542824D59400133626 /* XWHPressureIntroductionTXVC.swift */; };
+		969310572824ED6700133626 /* XWHPressureAllDataTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969310562824ED6700133626 /* XWHPressureAllDataTBVC.swift */; };
+		969310592824ED8B00133626 /* XWHPressureDataDetailListTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969310582824ED8B00133626 /* XWHPressureDataDetailListTBVC.swift */; };
+		9693105B2824EDAA00133626 /* XWHPressureDataDetailTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693105A2824EDAA00133626 /* XWHPressureDataDetailTBVC.swift */; };
+		9693105F2824F13B00133626 /* XWHHealthyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693105E2824F13B00133626 /* XWHHealthyHelper.swift */; };
 		969A4CF8280E8A630049BC07 /* XWHLargeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */; };
 		969B8816280FE11A009952E7 /* XWHHealthyBaseCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */; };
 		969B881A280FE182009952E7 /* XWHHealthyHeartCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8819280FE182009952E7 /* XWHHealthyHeartCTVC.swift */; };
@@ -499,6 +508,15 @@
 		9693103C2822282F00133626 /* XWHInnerDataHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHInnerDataHandlerProtocol.swift; sourceTree = "<group>"; };
 		969310432824AF9C00133626 /* XWHServerDataApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHServerDataApi.swift; sourceTree = "<group>"; };
 		969310462824B15500133626 /* XWHServerDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHServerDataManager.swift; sourceTree = "<group>"; };
+		9693104C2824C01700133626 /* XWHHealthyPressureCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyPressureCTVC.swift; sourceTree = "<group>"; };
+		9693104E2824C53300133626 /* XWHPressureCommonCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPressureCommonCTCell.swift; sourceTree = "<group>"; };
+		969310502824C54B00133626 /* XWHPressureGradiendtCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPressureGradiendtCTCell.swift; sourceTree = "<group>"; };
+		969310522824C68D00133626 /* XWHPressureRangeCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPressureRangeCTCell.swift; sourceTree = "<group>"; };
+		969310542824D59400133626 /* XWHPressureIntroductionTXVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPressureIntroductionTXVC.swift; sourceTree = "<group>"; };
+		969310562824ED6700133626 /* XWHPressureAllDataTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPressureAllDataTBVC.swift; sourceTree = "<group>"; };
+		969310582824ED8B00133626 /* XWHPressureDataDetailListTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPressureDataDetailListTBVC.swift; sourceTree = "<group>"; };
+		9693105A2824EDAA00133626 /* XWHPressureDataDetailTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPressureDataDetailTBVC.swift; sourceTree = "<group>"; };
+		9693105E2824F13B00133626 /* XWHHealthyHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyHelper.swift; sourceTree = "<group>"; };
 		969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLargeTitleView.swift; sourceTree = "<group>"; };
 		969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyBaseCTVC.swift; sourceTree = "<group>"; };
 		969B8819280FE182009952E7 /* XWHHealthyHeartCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyHeartCTVC.swift; sourceTree = "<group>"; };
@@ -1274,6 +1292,7 @@
 		967790B6280FAF4300C78327 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				9693105D2824F11400133626 /* Helper */,
 				9679E9F9281A787A003C6351 /* Model */,
 				969B8822280FE749009952E7 /* View */,
 				96617A9827E2BFD600139B03 /* VC */,
@@ -1500,6 +1519,52 @@
 				969310432824AF9C00133626 /* XWHServerDataApi.swift */,
 			);
 			path = Api;
+			sourceTree = "<group>";
+		};
+		969310482824BD6900133626 /* Pressure */ = {
+			isa = PBXGroup;
+			children = (
+				9693104B2824BFFD00133626 /* View */,
+				9693104A2824BF7F00133626 /* VC */,
+			);
+			path = Pressure;
+			sourceTree = "<group>";
+		};
+		969310492824BF6B00133626 /* Sleep */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Sleep;
+			sourceTree = "<group>";
+		};
+		9693104A2824BF7F00133626 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				9693104C2824C01700133626 /* XWHHealthyPressureCTVC.swift */,
+				969310542824D59400133626 /* XWHPressureIntroductionTXVC.swift */,
+				969310562824ED6700133626 /* XWHPressureAllDataTBVC.swift */,
+				969310582824ED8B00133626 /* XWHPressureDataDetailListTBVC.swift */,
+				9693105A2824EDAA00133626 /* XWHPressureDataDetailTBVC.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		9693104B2824BFFD00133626 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9693104E2824C53300133626 /* XWHPressureCommonCTCell.swift */,
+				969310502824C54B00133626 /* XWHPressureGradiendtCTCell.swift */,
+				969310522824C68D00133626 /* XWHPressureRangeCTCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9693105D2824F11400133626 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				9693105E2824F13B00133626 /* XWHHealthyHelper.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		969A4CF6280E88A20049BC07 /* LargeTitleView */ = {
@@ -2038,6 +2103,8 @@
 			children = (
 				969B884C2812B950009952E7 /* ViewModel */,
 				969B88492812B677009952E7 /* Api */,
+				969310492824BF6B00133626 /* Sleep */,
+				969310482824BD6900133626 /* Pressure */,
 				969B881E280FE634009952E7 /* BloodOxygen */,
 				967790B4280FAF1200C78327 /* Heart */,
 				967790B5280FAF2800C78327 /* Home */,
@@ -2576,6 +2643,7 @@
 				966A60F627FFD5DE00CBE915 /* XWHDeviceProductModel.swift in Sources */,
 				9653E48927F54D5900EE55FF /* XWHDataExtension.swift in Sources */,
 				96DC42A427FD88A2009BF300 /* XWHFileManager.swift in Sources */,
+				969310552824D59400133626 /* XWHPressureIntroductionTXVC.swift in Sources */,
 				9679E9E82817C49B003C6351 /* XWHCalendarMonthCTCell.swift in Sources */,
 				960E768027F00BB700A0DA25 /* XWHAddBrandDeviceCTCell.swift in Sources */,
 				969B8824280FE7BB009952E7 /* XWHDateSegmentView.swift in Sources */,
@@ -2597,6 +2665,7 @@
 				96759D8627F3533C0098CA92 /* XWHSearchDeviceTBCell.swift in Sources */,
 				9651EE1E27EBFDAA0043FE52 /* XWHResponse.swift in Sources */,
 				969B88302811028C009952E7 /* XWHHeartCommonCTCell.swift in Sources */,
+				969310592824ED8B00133626 /* XWHPressureDataDetailListTBVC.swift in Sources */,
 				96F1D65D28066CC30067DBFD /* XWHDevDialOperationProtocol.swift in Sources */,
 				96E23C2C27E1A579009EF208 /* XWHDeviceMainVC.swift in Sources */,
 				96C67AEE28043328001ACA81 /* XWHDataWeatherSetManager.swift in Sources */,
@@ -2609,6 +2678,7 @@
 				96DC429A27FD34C7009BF300 /* RLBLEPermissions.swift in Sources */,
 				96F1D67C28091A8E0067DBFD /* XWHDialVC.swift in Sources */,
 				96C67AF228043362001ACA81 /* XWHDataHeartSetManager.swift in Sources */,
+				969310512824C54B00133626 /* XWHPressureGradiendtCTCell.swift in Sources */,
 				9679E9E62817BC79003C6351 /* XWHCalendarDayView.swift in Sources */,
 				969B88482812A91C009952E7 /* XWHDate.swift in Sources */,
 				96C67AFE2804743D001ACA81 /* XWHDataRaiseWristSetManager.swift in Sources */,
@@ -2621,6 +2691,7 @@
 				969072332812E4A90056CE4F /* XWHTextBaseVC.swift in Sources */,
 				9651EE1A27EBFBEA0043FE52 /* XWHError.swift in Sources */,
 				969E711B280BE09F00BDA401 /* XWHTableViewBaseVC.swift in Sources */,
+				969310572824ED6700133626 /* XWHPressureAllDataTBVC.swift in Sources */,
 				96F1D68628096B400067DBFD /* XWHCollectionViewBaseVC.swift in Sources */,
 				96617A9F27E302C900139B03 /* XWHPhoneNumView.swift in Sources */,
 				96617A7A27E1FE6B00139B03 /* XWHLoginVC.swift in Sources */,
@@ -2636,9 +2707,11 @@
 				969B881D280FE2B7009952E7 /* XWHHealthyConstant.swift in Sources */,
 				96C67AE3280415DD001ACA81 /* XWHLongSitSetModel.swift in Sources */,
 				9679E9F828198A1E003C6351 /* XWHCalendar.swift in Sources */,
+				9693104F2824C53300133626 /* XWHPressureCommonCTCell.swift in Sources */,
 				96AD285C28016BB30092B843 /* XWHTestModel.swift in Sources */,
 				9690725328152D990056CE4F /* XWHHealthyDataDetailTBCell.swift in Sources */,
 				9679E9EF2817FFB4003C6351 /* XWHCalendarDayCTCell.swift in Sources */,
+				969310532824C68D00133626 /* XWHPressureRangeCTCell.swift in Sources */,
 				9672B25E27EEA48900DC80D6 /* XWHUser.swift in Sources */,
 				96C67AFC2804742D001ACA81 /* XWHDataBloodOxygenSetManager.swift in Sources */,
 				9651EE2E27EC5BD30043FE52 /* UMShareSwiftInterface.swift in Sources */,
@@ -2694,6 +2767,7 @@
 				96F1D68828096E6B0067DBFD /* XWHDialCTCell.swift in Sources */,
 				9690725128152CC50056CE4F /* XWHHeartDataDetailTBVC.swift in Sources */,
 				969B884B2812B769009952E7 /* XWHHealthyApi.swift in Sources */,
+				9693105B2824EDAA00133626 /* XWHPressureDataDetailTBVC.swift in Sources */,
 				96C67AE92804174B001ACA81 /* XWHHeartSetModel.swift in Sources */,
 				969310442824AF9C00133626 /* XWHServerDataApi.swift in Sources */,
 				9651EDFA27E9A3130043FE52 /* RLOverlayerBgView.swift in Sources */,
@@ -2707,6 +2781,7 @@
 				96617A6E27E1E00E00139B03 /* XWHBaseVC.swift in Sources */,
 				96C67ADC2803D27A001ACA81 /* XWHDataBaseModel.swift in Sources */,
 				9690725F2815589F0056CE4F /* XWHHeartUIHeartModel.swift in Sources */,
+				9693105F2824F13B00133626 /* XWHHealthyHelper.swift in Sources */,
 				966A60FA2800206400CBE915 /* XWHProgressHUDViews.swift in Sources */,
 				9678257927F2EF3B004F66FB /* XWHDeviceFaceView.swift in Sources */,
 				96C67ADE2803D5E7001ACA81 /* XWHNoticeSetModel.swift in Sources */,
@@ -2755,6 +2830,7 @@
 				9679E9FD281A9D79003C6351 /* XWHHealthyDataManager.swift in Sources */,
 				969B8816280FE11A009952E7 /* XWHHealthyBaseCTVC.swift in Sources */,
 				96617AA327E3110E00139B03 /* XWHPasswordLoginVC.swift in Sources */,
+				9693104D2824C01700133626 /* XWHHealthyPressureCTVC.swift in Sources */,
 				96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */,
 				96907262281564C90056CE4F /* XWHBOUIBloodOxygenModel.swift in Sources */,
 				9644928827F7EB2F001CA321 /* XWHProgressButton.swift in Sources */,

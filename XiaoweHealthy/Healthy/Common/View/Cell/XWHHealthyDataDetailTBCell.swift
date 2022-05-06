@@ -17,6 +17,8 @@ class XWHHealthyDataDetailTBCell: XWHComLineBaseTBCell {
         
         subTitleLb.textColor = fontDarkColor
         subTitleLb.font = XWHFont.harmonyOSSans(ofSize: 16)
+        subTitleLb.numberOfLines = 2
+        subTitleLb.adjustsFontSizeToFitWidth = true
         
         subIconView.isHidden = true
         iconView.isHidden = true
@@ -30,7 +32,7 @@ class XWHHealthyDataDetailTBCell: XWHComLineBaseTBCell {
         titleLb.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(2)
             make.left.equalToSuperview().offset(16)
-            make.width.equalTo(126)
+            make.width.lessThanOrEqualTo(120)
         }
         
         subTitleLb.snp.makeConstraints { make in

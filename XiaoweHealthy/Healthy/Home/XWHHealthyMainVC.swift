@@ -12,7 +12,7 @@ import SwiftUI
 /// 运动健康首页
 class XWHHealthyMainVC: XWHTableViewBaseVC {
     
-    private lazy var testItems: [XWHHealthyType] = [.heart, .bloodOxygen, .login, .test, .post, .sync]
+    private lazy var testItems: [XWHHealthyType] = [.heart, .bloodOxygen, .pressure, .sleep, .login, .test, .post, .sync]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,6 +123,12 @@ class XWHHealthyMainVC: XWHTableViewBaseVC {
         case .bloodOxygen:
             gotoBloodOxygen()
             
+        case .pressure:
+            gotoPressure()
+            
+        case .sleep:
+            gotoSleep()
+            
         case .login:
             gotoTestLogin()
             
@@ -169,6 +175,30 @@ extension XWHHealthyMainVC {
     
     // 跳转到血氧
     private func gotoBloodOxygen() {
+        if !XWHUser.isLogined() {
+            gotoLogin()
+            
+            return
+        }
+        
+        let vc = XWHHealthyBloodOxygenCTVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // 跳转到压力
+    private func gotoPressure() {
+        if !XWHUser.isLogined() {
+            gotoLogin()
+            
+            return
+        }
+        
+        let vc = XWHHealthyPressureCTVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // 跳转到睡眠
+    private func gotoSleep() {
         if !XWHUser.isLogined() {
             gotoLogin()
             

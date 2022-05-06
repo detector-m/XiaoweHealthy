@@ -27,6 +27,10 @@ class XWHHealthyUIManager: XWHHealthyUIItemModel {
     private lazy var boCardTypes: [XWHHealthyDetailUICardType] = [.curDatas, .boTip]
     private lazy var boCurDataItems: [String] = [R.string.xwhHealthyText.最近一次血氧饱和度(), R.string.xwhHealthyText.血氧饱和度范围(), R.string.xwhHealthyText.平均血氧饱和度()]
     
+    // MARK: - 压力 （Pressure）
+    private lazy var pressureCardTypes: [XWHHealthyDetailUICardType] = [.curDatas, .pressureRange]
+    private lazy var pressureCurDataItems: [String] = [R.string.xwhHealthyText.最近一次压力值(), R.string.xwhHealthyText.压力范围(), R.string.xwhHealthyText.平均压力值()]
+
     func loadItems(_ type: XWHHealthyType) {
         switch type {
         case .heart:
@@ -35,6 +39,9 @@ class XWHHealthyUIManager: XWHHealthyUIItemModel {
         case .bloodOxygen:
             items = getUICardItems(boCardTypes, healthyType: type)
             
+        case .pressure:
+            items = getUICardItems(pressureCardTypes, healthyType: type)
+
         default:
             break
         }
@@ -72,7 +79,7 @@ extension XWHHealthyUIManager {
             switch dateSegmentType {
             case .day:
                 switch item.healthyType {
-                case .heart, .bloodOxygen:
+                case .heart, .bloodOxygen, .pressure:
                     break
                     
                 default:
@@ -82,7 +89,7 @@ extension XWHHealthyUIManager {
                 
             case .week:
                 switch item.healthyType {
-                case .heart, .bloodOxygen:
+                case .heart, .bloodOxygen, .pressure:
                     break
                     
                 default:
@@ -92,7 +99,7 @@ extension XWHHealthyUIManager {
                 
             case .month:
                 switch item.healthyType {
-                case .heart, .bloodOxygen:
+                case .heart, .bloodOxygen, .pressure:
                     break
                     
                 default:
@@ -103,7 +110,7 @@ extension XWHHealthyUIManager {
                 
             case .year:
                 switch item.healthyType {
-                case .heart, .bloodOxygen:
+                case .heart, .bloodOxygen, .pressure:
                     break
                     
                 default:
@@ -117,6 +124,9 @@ extension XWHHealthyUIManager {
             
         case .boTip:
             return R.string.xwhHealthyText.血氧饱和度()
+            
+        case .pressureRange:
+            return R.string.xwhHealthyText.压力分布()
             
         default:
             return ""
@@ -134,6 +144,9 @@ extension XWHHealthyUIManager {
         case .boTip:
             return R.string.xwhHealthyText.了解血氧()
             
+        case .pressureRange:
+            return R.string.xwhHealthyText.了解压力()
+            
         default:
             return nil
         }
@@ -150,6 +163,13 @@ extension XWHHealthyUIManager {
             
         case .bloodOxygen:
             var ret = boCurDataItems
+            if !isHasLastItem {
+                ret.remove(at: 0)
+            }
+            return ret
+            
+        case .pressure:
+            var ret = pressureCurDataItems
             if !isHasLastItem {
                 ret.remove(at: 0)
             }

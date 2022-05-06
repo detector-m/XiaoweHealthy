@@ -40,6 +40,7 @@ class XWHTextBaseVC: XWHBaseVC {
         textView.showsVerticalScrollIndicator = false
         textView.showsHorizontalScrollIndicator = false
         textView.contentInsetAdjustmentBehavior = .never
+        textView.isEditable = false
         
         textView.textColor = fontDarkColor
         textView.font = XWHFont.harmonyOSSans(ofSize: 14)

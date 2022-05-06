@@ -75,4 +75,14 @@ class XWHHealthyGradientCTCell: XWHHealthyCommonCTCell {
         tipLb.text = tipText
     }
     
+    @objc func update(_ title: String, _ value: String, _ unit: String, _ tipText: String) {
+        textLb.text = title
+        tipLb.text = tipText
+        
+        let cValue = value + " "
+        let cText = cValue + unit
+        
+        detailLb.attributedText = cText.colored(with: fontDarkColor).applying(attributes: [.font: XWHFont.harmonyOSSans(ofSize: 24, weight: .bold)], toOccurrencesOf: cValue).applying(attributes: [.font: XWHFont.harmonyOSSans(ofSize: 12)], toOccurrencesOf: unit)
+    }
+    
 }
