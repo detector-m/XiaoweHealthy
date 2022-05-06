@@ -48,23 +48,9 @@ class XWHPressureRangeCTCell: XWHPressureCommonCTCell {
         var cValue = ""
         
         var cColor = UIColor.white
-        
-        switch index {
-        case 0:
-            cColor = UIColor(hex: 0x49CE64)!
-            detailLb.text = R.string.xwhHealthyText.放松129()
-            
-        case 1:
-            cColor = UIColor(hex: 0x76D4EA)!
-            detailLb.text = R.string.xwhHealthyText.正常3059()
-            
-        case 2:
-            cColor = UIColor(hex: 0xF0B36D)!
-            detailLb.text = R.string.xwhHealthyText.中等6079()
-            
-        default:
-            cColor = UIColor(hex: 0xED7135)!
-            detailLb.text = R.string.xwhHealthyText.偏高80100()
+        let colors = XWHHealthyHelper.getPressureRangeColors()
+        if !colors.isEmpty, index < colors.count {
+            cColor = colors[index]
         }
         
         if rate != 0 {

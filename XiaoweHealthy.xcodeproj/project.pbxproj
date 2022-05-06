@@ -180,6 +180,8 @@
 		969310592824ED8B00133626 /* XWHPressureDataDetailListTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969310582824ED8B00133626 /* XWHPressureDataDetailListTBVC.swift */; };
 		9693105B2824EDAA00133626 /* XWHPressureDataDetailTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693105A2824EDAA00133626 /* XWHPressureDataDetailTBVC.swift */; };
 		9693105F2824F13B00133626 /* XWHHealthyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693105E2824F13B00133626 /* XWHHealthyHelper.swift */; };
+		969310622825011600133626 /* XWHMultiColorLinearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969310612825011600133626 /* XWHMultiColorLinearView.swift */; };
+		969310642825034A00133626 /* XWHMultiColorLinearCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969310632825034A00133626 /* XWHMultiColorLinearCTCell.swift */; };
 		969A4CF8280E8A630049BC07 /* XWHLargeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */; };
 		969B8816280FE11A009952E7 /* XWHHealthyBaseCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */; };
 		969B881A280FE182009952E7 /* XWHHealthyHeartCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8819280FE182009952E7 /* XWHHealthyHeartCTVC.swift */; };
@@ -517,6 +519,8 @@
 		969310582824ED8B00133626 /* XWHPressureDataDetailListTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPressureDataDetailListTBVC.swift; sourceTree = "<group>"; };
 		9693105A2824EDAA00133626 /* XWHPressureDataDetailTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPressureDataDetailTBVC.swift; sourceTree = "<group>"; };
 		9693105E2824F13B00133626 /* XWHHealthyHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyHelper.swift; sourceTree = "<group>"; };
+		969310612825011600133626 /* XWHMultiColorLinearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMultiColorLinearView.swift; sourceTree = "<group>"; };
+		969310632825034A00133626 /* XWHMultiColorLinearCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMultiColorLinearCTCell.swift; sourceTree = "<group>"; };
 		969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLargeTitleView.swift; sourceTree = "<group>"; };
 		969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyBaseCTVC.swift; sourceTree = "<group>"; };
 		969B8819280FE182009952E7 /* XWHHealthyHeartCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyHeartCTVC.swift; sourceTree = "<group>"; };
@@ -1116,6 +1120,7 @@
 		96617A7027E1E07B00139B03 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				96931060282500E500133626 /* MultiColorLinearView */,
 				9679E9D228168930003C6351 /* Calendar */,
 				9644928627F7EAC9001CA321 /* ProgressButton */,
 				968CB8A127F3FB3700E549AC /* UITableViewRoundedProtocol */,
@@ -1567,6 +1572,14 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		96931060282500E500133626 /* MultiColorLinearView */ = {
+			isa = PBXGroup;
+			children = (
+				969310612825011600133626 /* XWHMultiColorLinearView.swift */,
+			);
+			path = MultiColorLinearView;
+			sourceTree = "<group>";
+		};
 		969A4CF6280E88A20049BC07 /* LargeTitleView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1645,6 +1658,7 @@
 				96907246281501DE0056CE4F /* XWHHealthyDataDetailCommonTBCell.swift */,
 				9690725228152D990056CE4F /* XWHHealthyDataDetailTBCell.swift */,
 				9690724828151A670056CE4F /* XWHHealthyDataDetailListTBCell.swift */,
+				969310632825034A00133626 /* XWHMultiColorLinearCTCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2612,6 +2626,7 @@
 				96D0041C27F8328B00E569C7 /* XWHCryptoAES.swift in Sources */,
 				96DEA21C2809C93100723D11 /* XWHDialCategoryModel.swift in Sources */,
 				9651EE0127EAC6730043FE52 /* RLCountDownTimer.swift in Sources */,
+				969310622825011600133626 /* XWHMultiColorLinearView.swift in Sources */,
 				96617AB527E34F8B00139B03 /* XWHWeightSelectVC.swift in Sources */,
 				969F01B827F692AE00CA4DA4 /* RLPopupContentBaseView.swift in Sources */,
 				96E23C0A27E1898C009EF208 /* XWHTabBarVC.swift in Sources */,
@@ -2789,6 +2804,7 @@
 				96D0041727F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift in Sources */,
 				96617AA927E328C800139B03 /* XWHResetPasswordVC.swift in Sources */,
 				9651EE3027EC5C7E0043FE52 /* XWHUMManager.swift in Sources */,
+				969310642825034A00133626 /* XWHMultiColorLinearCTCell.swift in Sources */,
 				9672B26027EF05F700DC80D6 /* XWHAddDeviceEntryVC.swift in Sources */,
 				9679E9D628169BC1003C6351 /* XWHCalendarView.swift in Sources */,
 				960E768227F0574200A0DA25 /* XWHBaseCTCell.swift in Sources */,

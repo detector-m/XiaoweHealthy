@@ -24,6 +24,9 @@ class XWHHealthyPressureCTVC: XWHHealthyBaseCTVC {
     override func registerViews() {
         collectionView.register(cellWithClass: XWHPressureCommonCTCell.self)
         collectionView.register(cellWithClass: XWHPressureGradiendtCTCell.self)
+        
+        collectionView.register(cellWithClass: XWHMultiColorLinearCTCell.self)
+
         collectionView.register(cellWithClass: XWHPressureRangeCTCell.self)
         
         collectionView.register(supplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withClass: XWHHealthyCTReusableView.self)
@@ -70,7 +73,7 @@ extension XWHHealthyPressureCTVC {
         }
         
         if item.uiCardType == .pressureRange {
-            return 4
+            return 5
         }
         
         return 0
@@ -84,6 +87,10 @@ extension XWHHealthyPressureCTVC {
         }
         
         if item.uiCardType == .pressureRange {
+            if indexPath.item == 0 {
+                return CGSize(width: collectionView.width, height: 30)
+            }
+            
             let cWidth = (collectionView.width - 12) / 2
             return CGSize(width: cWidth.int, height: 71)
         }
@@ -155,9 +162,15 @@ extension XWHHealthyPressureCTVC {
         }
         
         if item.uiCardType == .pressureRange {
+            if indexPath.item == 0 {
+                let cell = collectionView.dequeueReusableCell(withClass: XWHMultiColorLinearCTCell.self, for: indexPath)
+                cell.update(values: [20, 50, 10, 20], colors: XWHHealthyHelper.getPressureRangeColors())
+                return cell
+            }
+            
             let cell = collectionView.dequeueReusableCell(withClass: XWHPressureRangeCTCell.self, for: indexPath)
             
-            cell.update(indexPath.item, 10)
+            cell.update(indexPath.item - 1, 10)
 
             return cell
         }

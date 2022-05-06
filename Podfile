@@ -103,6 +103,9 @@ target 'XiaoweHealthy' do
   # 下载进度条
   pod 'LinearProgressBar'
   
+  # 圆形进度
+#  pod 'KDCircularProgress'
+  
   # 文件下载管理
   pod 'Tiercel'
   
