@@ -205,7 +205,7 @@ extension XWHHealthyMainVC {
             return
         }
         
-        let vc = XWHHealthyBloodOxygenCTVC()
+        let vc = XWHHealthySleepCTVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     

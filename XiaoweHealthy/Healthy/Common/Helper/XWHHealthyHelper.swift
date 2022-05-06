@@ -42,4 +42,23 @@ class XWHHealthyHelper {
         return [UIColor(hex: 0x49CE64)!, UIColor(hex: 0x76D4EA)!, UIColor(hex: 0xF0B36D)!, UIColor(hex: 0xED7135)!]
     }
     
+    /// 获取睡眠分布的颜色
+    class func getSleepRangeColors() -> [UIColor] {
+        return [UIColor(hex: 0x5047C4)!, UIColor(hex: 0x8389F3)!, UIColor(hex: 0xFACA79)!]
+    }
+    
+    /// 获取睡眠分钟转换的数据
+    class func getSleepDurationString(_ value: Int) -> String {
+        let h = value / 60
+        let m = value % 60
+        
+        if h == 0 {
+            return m.string + " " + R.string.xwhDeviceText.分钟()
+        } else if m == 0 {
+            return h.string + " " + R.string.xwhDeviceText.小时()
+        } else {
+            return h.string + " " + R.string.xwhDeviceText.小时() + " " + m.string + " " + R.string.xwhDeviceText.分钟()
+        }
+    }
+    
 }

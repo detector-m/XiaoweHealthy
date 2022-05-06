@@ -23,6 +23,8 @@ class XWHDate {
     static let hourMinuteFormat = "HH:mm"
     static let timeAllFormat = "HH:mm:ss"
     
+    static let YearMonthDayHourMinuteFormat = "\(yearMonthDayFormat) \(hourMinuteFormat)"
+    
     static let dateTimeAllFormat = "\(yearMonthDayFormat) \(timeAllFormat)"
     
     static let standardTimeAllFormat = "\(standardYearMonthDayFormat) \(timeAllFormat)"

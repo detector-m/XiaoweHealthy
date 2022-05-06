@@ -30,6 +30,9 @@ class XWHHealthyUIManager: XWHHealthyUIItemModel {
     // MARK: - 压力 （Pressure）
     private lazy var pressureCardTypes: [XWHHealthyDetailUICardType] = [.curDatas, .pressureRange]
     private lazy var pressureCurDataItems: [String] = [R.string.xwhHealthyText.最近一次压力值(), R.string.xwhHealthyText.压力范围(), R.string.xwhHealthyText.平均压力值()]
+    
+    // MARK: - 睡眠 （Sleep）
+    private lazy var sleepCardTypes: [XWHHealthyDetailUICardType] = [.curDatas, .sleepRange]
 
     func loadItems(_ type: XWHHealthyType) {
         switch type {
@@ -41,6 +44,9 @@ class XWHHealthyUIManager: XWHHealthyUIItemModel {
             
         case .pressure:
             items = getUICardItems(pressureCardTypes, healthyType: type)
+            
+        case .sleep:
+            items = getUICardItems(sleepCardTypes, healthyType: type)
 
         default:
             break
@@ -82,6 +88,9 @@ extension XWHHealthyUIManager {
                 case .heart, .bloodOxygen, .pressure:
                     break
                     
+                case .sleep:
+                    return R.string.xwhHealthyText.今日睡眠()
+                    
                 default:
                     return ""
                 }
@@ -91,6 +100,9 @@ extension XWHHealthyUIManager {
                 switch item.healthyType {
                 case .heart, .bloodOxygen, .pressure:
                     break
+                    
+                case .sleep:
+                    return R.string.xwhHealthyText.本周平均睡眠()
                     
                 default:
                     return ""
@@ -102,6 +114,9 @@ extension XWHHealthyUIManager {
                 case .heart, .bloodOxygen, .pressure:
                     break
                     
+                case .sleep:
+                    return R.string.xwhHealthyText.本月平均睡眠()
+                    
                 default:
                     return ""
                 }
@@ -112,6 +127,9 @@ extension XWHHealthyUIManager {
                 switch item.healthyType {
                 case .heart, .bloodOxygen, .pressure:
                     break
+                    
+                case .sleep:
+                    return R.string.xwhHealthyText.今年平均睡眠()
                     
                 default:
                     return ""
@@ -127,6 +145,9 @@ extension XWHHealthyUIManager {
             
         case .pressureRange:
             return R.string.xwhHealthyText.压力分布()
+            
+        case .sleepRange:
+            return R.string.xwhHealthyText.睡眠分布()
             
         default:
             return ""
@@ -146,6 +167,9 @@ extension XWHHealthyUIManager {
             
         case .pressureRange:
             return R.string.xwhHealthyText.了解压力()
+            
+        case .sleepRange:
+            return R.string.xwhHealthyText.了解睡眠()
             
         default:
             return nil

@@ -76,4 +76,7 @@ enum XWHHealthyDetailUICardType {
     
     /// 压力区间
     case pressureRange
+    
+    /// 睡眠分布 (睡眠区间)
+    case sleepRange
 }

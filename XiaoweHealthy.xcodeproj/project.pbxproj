@@ -182,6 +182,12 @@
 		9693105F2824F13B00133626 /* XWHHealthyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693105E2824F13B00133626 /* XWHHealthyHelper.swift */; };
 		969310622825011600133626 /* XWHMultiColorLinearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969310612825011600133626 /* XWHMultiColorLinearView.swift */; };
 		969310642825034A00133626 /* XWHMultiColorLinearCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969310632825034A00133626 /* XWHMultiColorLinearCTCell.swift */; };
+		969310682825285200133626 /* XWHHealthySleepCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969310672825285200133626 /* XWHHealthySleepCTVC.swift */; };
+		9693106A28252BA500133626 /* XWHSleepCommonCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693106928252BA500133626 /* XWHSleepCommonCTCell.swift */; };
+		9693106C28252CA600133626 /* XWHSleepScoreCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693106B28252CA600133626 /* XWHSleepScoreCTCell.swift */; };
+		9693106E28253B4A00133626 /* XWHSleepIntroductionTXVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693106D28253B4A00133626 /* XWHSleepIntroductionTXVC.swift */; };
+		9693107028253CB900133626 /* XWHSleepAllDataTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693106F28253CB900133626 /* XWHSleepAllDataTBVC.swift */; };
+		9693107428253CF100133626 /* XWHSleepDataDetailTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693107328253CF100133626 /* XWHSleepDataDetailTBVC.swift */; };
 		969A4CF8280E8A630049BC07 /* XWHLargeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */; };
 		969B8816280FE11A009952E7 /* XWHHealthyBaseCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */; };
 		969B881A280FE182009952E7 /* XWHHealthyHeartCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8819280FE182009952E7 /* XWHHealthyHeartCTVC.swift */; };
@@ -521,6 +527,12 @@
 		9693105E2824F13B00133626 /* XWHHealthyHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyHelper.swift; sourceTree = "<group>"; };
 		969310612825011600133626 /* XWHMultiColorLinearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMultiColorLinearView.swift; sourceTree = "<group>"; };
 		969310632825034A00133626 /* XWHMultiColorLinearCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMultiColorLinearCTCell.swift; sourceTree = "<group>"; };
+		969310672825285200133626 /* XWHHealthySleepCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthySleepCTVC.swift; sourceTree = "<group>"; };
+		9693106928252BA500133626 /* XWHSleepCommonCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSleepCommonCTCell.swift; sourceTree = "<group>"; };
+		9693106B28252CA600133626 /* XWHSleepScoreCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSleepScoreCTCell.swift; sourceTree = "<group>"; };
+		9693106D28253B4A00133626 /* XWHSleepIntroductionTXVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSleepIntroductionTXVC.swift; sourceTree = "<group>"; };
+		9693106F28253CB900133626 /* XWHSleepAllDataTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSleepAllDataTBVC.swift; sourceTree = "<group>"; };
+		9693107328253CF100133626 /* XWHSleepDataDetailTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSleepDataDetailTBVC.swift; sourceTree = "<group>"; };
 		969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLargeTitleView.swift; sourceTree = "<group>"; };
 		969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyBaseCTVC.swift; sourceTree = "<group>"; };
 		969B8819280FE182009952E7 /* XWHHealthyHeartCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyHeartCTVC.swift; sourceTree = "<group>"; };
@@ -1538,6 +1550,8 @@
 		969310492824BF6B00133626 /* Sleep */ = {
 			isa = PBXGroup;
 			children = (
+				969310662825281600133626 /* View */,
+				969310652825280D00133626 /* VC */,
 			);
 			path = Sleep;
 			sourceTree = "<group>";
@@ -1578,6 +1592,26 @@
 				969310612825011600133626 /* XWHMultiColorLinearView.swift */,
 			);
 			path = MultiColorLinearView;
+			sourceTree = "<group>";
+		};
+		969310652825280D00133626 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				969310672825285200133626 /* XWHHealthySleepCTVC.swift */,
+				9693106D28253B4A00133626 /* XWHSleepIntroductionTXVC.swift */,
+				9693106F28253CB900133626 /* XWHSleepAllDataTBVC.swift */,
+				9693107328253CF100133626 /* XWHSleepDataDetailTBVC.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		969310662825281600133626 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9693106928252BA500133626 /* XWHSleepCommonCTCell.swift */,
+				9693106B28252CA600133626 /* XWHSleepScoreCTCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		969A4CF6280E88A20049BC07 /* LargeTitleView */ = {
@@ -2720,6 +2754,7 @@
 				9679E9E42817A09B003C6351 /* XWHCalendarYearCTCell.swift in Sources */,
 				96617A9227E23EAD00139B03 /* XWHColorExtension.swift in Sources */,
 				969B881D280FE2B7009952E7 /* XWHHealthyConstant.swift in Sources */,
+				9693106C28252CA600133626 /* XWHSleepScoreCTCell.swift in Sources */,
 				96C67AE3280415DD001ACA81 /* XWHLongSitSetModel.swift in Sources */,
 				9679E9F828198A1E003C6351 /* XWHCalendar.swift in Sources */,
 				9693104F2824C53300133626 /* XWHPressureCommonCTCell.swift in Sources */,
@@ -2738,6 +2773,7 @@
 				96617A7827E1FCF600139B03 /* XWHLoginRegisterBaseVC.swift in Sources */,
 				9679E9E02817965F003C6351 /* XWHCalendarPreNextBtnView.swift in Sources */,
 				96E8A6BF27F1B2A700F5C75C /* XWHSearchDeviceVC.swift in Sources */,
+				969310682825285200133626 /* XWHHealthySleepCTVC.swift in Sources */,
 				960E768527F0B17D00A0DA25 /* XWHSafari.swift in Sources */,
 				96DC429D27FD42B7009BF300 /* XWHDeviceApi.swift in Sources */,
 				968CB8A827F42A8C00E549AC /* XWHCommonBaseTBCell.swift in Sources */,
@@ -2751,9 +2787,11 @@
 				96F1D68C28097DF10067DBFD /* XWHDialDetailVC.swift in Sources */,
 				967790B3280FADFA00C78327 /* XWHUIButtonExtension.swift in Sources */,
 				9690725B28153C100056CE4F /* XWHBloodOxygenModel.swift in Sources */,
+				9693106A28252BA500133626 /* XWHSleepCommonCTCell.swift in Sources */,
 				96E8A6BD27F1738200F5C75C /* XWHUINavigationControllerExtension.swift in Sources */,
 				96F3588327FE7CE000783614 /* XWHBLEDispatchProtocol.swift in Sources */,
 				9651EE0E27EB06F20043FE52 /* XWHLoginRegisterVM.swift in Sources */,
+				9693107028253CB900133626 /* XWHSleepAllDataTBVC.swift in Sources */,
 				969E7121280BE34A00BDA401 /* XWHContactVC.swift in Sources */,
 				9690724B2815223A0056CE4F /* XWHBOAllDataTBVC.swift in Sources */,
 				96DC42A727FD9F8A009BF300 /* XWHDownloader.swift in Sources */,
@@ -2823,12 +2861,14 @@
 				96617AA127E30EF600139B03 /* XWHPasswordView.swift in Sources */,
 				96617A9727E2BFB600139B03 /* XWHOtherLoginView.swift in Sources */,
 				96617AB127E3496000139B03 /* XWHGenderSelectVC.swift in Sources */,
+				9693107428253CF100133626 /* XWHSleepDataDetailTBVC.swift in Sources */,
 				96E23C2E27E1A586009EF208 /* XWHMeMainVC.swift in Sources */,
 				96C67AE728041732001ACA81 /* XWHDisturbSetModel.swift in Sources */,
 				968CB8B027F4661700E549AC /* XWHDeviceMainFooter.swift in Sources */,
 				9679E9F628191337003C6351 /* XWHCalendarWeekCTCell.swift in Sources */,
 				966F53C927F1E8B200411D38 /* XWHBindDeviceVC.swift in Sources */,
 				96617A7227E1E12E00139B03 /* XWHExported.swift in Sources */,
+				9693106E28253B4A00133626 /* XWHSleepIntroductionTXVC.swift in Sources */,
 				9661D35A27F5FD970062B2B8 /* XWHDevSetDisturbVC.swift in Sources */,
 				96F1D6692806D2010067DBFD /* XWHDataWatchManager.swift in Sources */,
 				9651EDF727E961740043FE52 /* XWHAlert.swift in Sources */,
