@@ -33,9 +33,11 @@ extension XWHSleepDataDetailTBVC {
         var titleStr = ""
         var valueStr = ""
         
+        let sleepRateStrs = XWHUIDisplayHandler.getSleepRateStrings(120, 310, 50, 480)
+        
         if indexPath.row == 0 {
             titleStr = R.string.xwhHealthyText.睡眠总时长()
-            valueStr = XWHUIDisplayHandler.getSleepDurationString(500)
+            valueStr = XWHUIDisplayHandler.getSleepDurationString(480)
             cell.bottomLine.isHidden = false
         } else if indexPath.row == 1 {
             titleStr = R.string.xwhHealthyText.入睡时间()
@@ -46,13 +48,13 @@ extension XWHSleepDataDetailTBVC {
             valueStr = Date().localizedString(withFormat: XWHDate.YearMonthDayHourMinuteFormat)
         } else if indexPath.row == 3 {
             titleStr = R.string.xwhHealthyText.深睡比例()
-            valueStr = "27% 充足"
+            valueStr = sleepRateStrs[0] + " " + XWHUIDisplayHandler.getDeepSleepRangeString(120)
         } else if indexPath.row == 4 {
             titleStr = R.string.xwhHealthyText.浅睡比例()
-            valueStr = "27% 充足"
+            valueStr = sleepRateStrs[1] + " " + XWHUIDisplayHandler.getLightSleepRangeString(310, 480)
         } else if indexPath.row == 5 {
             titleStr = R.string.xwhHealthyText.清醒时长()
-            valueStr = "45 较长"
+            valueStr = XWHUIDisplayHandler.getSleepDurationString(50) + " " + XWHUIDisplayHandler.getAwakeSleepRangeString(50)
         } else if indexPath.row == 6 {
             titleStr = R.string.xwhHealthyText.来源()
             valueStr = "xxx"

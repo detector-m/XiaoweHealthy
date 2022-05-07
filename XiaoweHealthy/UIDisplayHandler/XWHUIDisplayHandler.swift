@@ -134,11 +134,11 @@ class XWHUIDisplayHandler {
         let m = value % 60
         
         if h == 0 {
-            return m.string + " " + R.string.xwhDeviceText.分钟()
+            return m.string + " " + R.string.xwhHealthyText.分()
         } else if m == 0 {
             return h.string + " " + R.string.xwhDeviceText.小时()
         } else {
-            return h.string + " " + R.string.xwhDeviceText.小时() + " " + m.string + " " + R.string.xwhDeviceText.分钟()
+            return h.string + " " + R.string.xwhDeviceText.小时() + " " + m.string + " " + R.string.xwhHealthyText.分()
         }
     }
     
