@@ -125,6 +125,75 @@ extension XWHHealthySleepCTVC {
         
         if item.uiCardType == .curDatas {
             let cell = collectionView.dequeueReusableCell(withClass: XWHSleepScoreCTCell.self, for: indexPath)
+            var score = 0
+            var sQuality = ""
+            var tip = ""
+            var bTime = ""
+            var eTime = ""
+            
+            if dateType == .day {
+                bTime = Date().string(withFormat: XWHDate.hourMinuteFormat)
+                eTime = Date().string(withFormat: XWHDate.hourMinuteFormat)
+                
+                var scoreArray = [Int]()
+                var tipArray = [String]()
+                
+                // 睡眠总时长得分
+                var tmpScore = XWHUIDisplayHandler.getDaySleepTotalDurationScore(480)
+                scoreArray.append(tmpScore)
+                
+                // 睡眠总时长提示
+                var tmpTip = XWHUIDisplayHandler.getDaySleepTotalDurationTip(480)
+                tipArray.append(tmpTip)
+                
+                // 入睡时间评分
+                tmpScore = XWHUIDisplayHandler.getDayBeginSleepTimeScore(bTime)
+                scoreArray.append(tmpScore)
+
+                // 入睡时间提示
+                tmpTip = XWHUIDisplayHandler.getDayBeginSleepTimeTip(tmpScore)
+                tipArray.append(tmpTip)
+
+                
+                // 入睡时长评分
+                tmpScore = XWHUIDisplayHandler.getDayBeginSleepDurationScore(55)
+                scoreArray.append(tmpScore)
+
+                // 入睡时长提示
+                tmpTip = XWHUIDisplayHandler.getDayBeginSleepDurationTip(tmpScore)
+                tipArray.append(tmpTip)
+                
+                // 深睡时长评分
+                tmpScore = XWHUIDisplayHandler.getDayDeepSleepDurationScore(125)
+                scoreArray.append(tmpScore)
+
+                // 深睡时长提示
+                tmpTip = XWHUIDisplayHandler.getDayDeepSleepDurationTip(tmpScore)
+                tipArray.append(tmpTip)
+                
+                // 夜醒时长评分
+                tmpScore = XWHUIDisplayHandler.getDayAwakeInNightScore(20)
+                scoreArray.append(tmpScore)
+
+                // 夜醒时长提示
+                tmpTip = XWHUIDisplayHandler.getDayAwakeInNightTip(tmpScore)
+                tipArray.append(tmpTip)
+                
+                // 起床稳定性评分
+                tmpScore = XWHUIDisplayHandler.getDayWakeupStabilityScore(10)
+                scoreArray.append(tmpScore)
+                
+                tipArray.append(R.string.xwhHealthyText.好的睡眠是身体健康最基本的保障())
+                
+                score = scoreArray.sum()
+                tip = tipArray.joined(separator: R.string.xwhHealthyText.分割逗号())
+            } else {
+                score = XWHUIDisplayHandler.getWeekMonthYearSleepTotalDurationScore(480)
+                tip = XWHUIDisplayHandler.getWeekMonthYearSleepTipString(480)
+            }
+    
+            sQuality = XWHUIDisplayHandler.getSleepQualityString(score)
+            cell.update(score: score, sleepQuality: sQuality, sleepTip: tip, bTime: bTime, eTime: eTime, dateType: dateType)
 
             return cell
         }

@@ -134,11 +134,11 @@ class XWHUIDisplayHandler {
         let m = value % 60
         
         if h == 0 {
-            return m.string + " " + R.string.xwhHealthyText.分()
+            return m.string + " " + R.string.xwhHealthyText.time分()
         } else if m == 0 {
             return h.string + " " + R.string.xwhDeviceText.小时()
         } else {
-            return h.string + " " + R.string.xwhDeviceText.小时() + " " + m.string + " " + R.string.xwhHealthyText.分()
+            return h.string + " " + R.string.xwhDeviceText.小时() + " " + m.string + " " + R.string.xwhHealthyText.time分()
         }
     }
     
@@ -159,6 +159,303 @@ class XWHUIDisplayHandler {
             let aRate = 100 - lRate - dRate
             return [dRate.string + pStr, lRate.string + pStr, aRate.string + pStr]
         }
+    }
+    
+    /// 获取天睡眠总时长得分
+    class func getDaySleepTotalDurationScore(_ total: Int) -> Int {
+        if total <= 0 {
+            return 0
+        }
+        
+        if total <= 60 {
+            return 7
+        }
+        
+        if total < 120 {
+            return 7 * 2
+        }
+        
+        if total < 60 * 3 {
+            return 7 * 3
+        }
+        
+        if  total < 60 * 4 {
+            return 7 * 4
+        }
+        
+        if  total < 60 * 5 {
+            return 7 * 5
+        }
+        
+        if  total < 60 * 6 {
+            return 7 * 6
+        }
+        
+        if  total <= 60 * 10 {
+            return 50
+        }
+        
+        if  total < 60 * 11 {
+            return 7 * 6
+        }
+        
+        if  total < 60 * 12 {
+            return 7 * 5
+        }
+        if  total < 60 * 13 {
+            return 7 * 4
+        }
+        if  total < 60 * 14 {
+            return 7 * 3
+        }
+        if  total < 60 * 15 {
+            return 7 * 2
+        }
+        
+        if  total <= 60 * 16 {
+            return 7
+        }
+        
+        return 0
+    }
+    
+    /// 获取天睡眠总时长提示(描述)文案
+    class func getDaySleepTotalDurationTip(_ total: Int) -> String {
+        if total < 60 * 6 {
+            return R.string.xwhHealthyText.您的睡眠时长不足()
+        }
+        
+        if total <= 60 * 10 {
+            return R.string.xwhHealthyText.您的睡眠时长非常标准()
+        }
+        
+        return R.string.xwhHealthyText.您的睡眠时长超过了推荐时长的标准()
+    }
+    
+    /// 获取天的入睡时间得分
+    class func getDayBeginSleepTimeScore(_ bTime: String) -> Int {
+        guard let bDate = bTime.date(withFormat: XWHDate.standardTimeAllFormat) else {
+            return 1
+        }
+
+        let h = bDate.hour
+        if h > 12 {
+            return 5
+        } else {
+            if h > 3 {
+                return 1
+            }
+            
+            if h > 1 {
+                return 2
+            }
+            
+            return 4
+        }
+    }
+    
+    /// 获取天入睡时间提示(描述)文案
+    class func getDayBeginSleepTimeTip(_ bsScore: Int) -> String {
+        if bsScore >= 5 {
+            return R.string.xwhHealthyText.入睡时间合理()
+        }
+        
+        if bsScore >= 4 {
+            return R.string.xwhHealthyText.入睡时间较晚()
+        }
+        
+        return R.string.xwhHealthyText.入睡时间过晚()
+    }
+    
+    /// 获取天的入睡时长得分
+    class func getDayBeginSleepDurationScore(_ bDuration: Int) -> Int {
+        if bDuration <= 5 {
+            return 15
+        }
+        if bDuration <= 10 {
+            return 14
+        }
+        if bDuration <= 15 {
+            return 13
+        }
+        if bDuration <= 20 {
+            return 12
+        }
+        if bDuration <= 30 {
+            return 11
+        }
+        
+        if bDuration <= 60 {
+            return 10
+        }
+        if bDuration <= 60 * 2 {
+            return 8
+        }
+        
+        if bDuration <= 60 * 3 {
+            return 6
+        }
+        if bDuration <= 60 * 4 {
+            return 4
+        }
+        if bDuration <= 60 * 5 {
+            return 3
+        }
+        return 0
+    }
+    
+    /// 获取天入睡时长提示(描述)文案
+    class func getDayBeginSleepDurationTip(_ bsDurationScore: Int) -> String {
+        if bsDurationScore >= 11 {
+            return R.string.xwhHealthyText.入睡速度正常()
+        }
+        
+        if bsDurationScore >= 8 {
+            return R.string.xwhHealthyText.入睡速度较慢()
+        }
+        
+        return R.string.xwhHealthyText.入睡速度困难()
+    }
+    
+    /// 获取天深睡时长得分
+    class func getDayDeepSleepDurationScore(_ value: Int) -> Int {
+        if value <= 0 {
+            return 0
+        }
+        
+        if value < 15 {
+            return 1
+        }
+        
+        if value < 30 {
+            return 2
+        }
+        
+        if value < 40 {
+            return 3
+        }
+        
+        if value < 60 {
+            return 4
+        }
+        
+        return 5
+    }
+    
+    /// 获取天深睡时长提示(描述)文案
+    class func getDayDeepSleepDurationTip(_ dsDurationScore: Int) -> String {
+        if dsDurationScore >= 5 {
+            return R.string.xwhHealthyText.深睡充足()
+        }
+        
+        return R.string.xwhHealthyText.深睡不足()
+    }
+    
+    /// 获取天的夜醒时长评分
+    class func getDayAwakeInNightScore(_ awakeDuration: Int) -> Int {
+        if awakeDuration <= 5 {
+            return 15
+        }
+        if awakeDuration <= 15 {
+            return 14
+        }
+        if awakeDuration <= 30{
+            return 13
+        }
+        
+        if awakeDuration <= 60 {
+            return 12
+        }
+        if awakeDuration <= 60 * 2 {
+            return 9
+        }
+        if awakeDuration <= 60 * 3 {
+            return 6
+        }
+        
+        if awakeDuration <= 60 * 5 {
+            return 3
+        }
+        
+        return 0
+    }
+    
+    /// 获取天的夜醒时长提示(描述)文案
+    class func getDayAwakeInNightTip(_ dsDurationScore: Int) -> String {
+        if dsDurationScore >= 13 {
+            return R.string.xwhHealthyText.睡眠很稳定()
+        }
+        
+        if dsDurationScore >= 6 {
+            return R.string.xwhHealthyText.夜里醒来时间较多()
+        }
+        
+        return R.string.xwhHealthyText.夜里醒来时间过多()
+    }
+    
+    /// 获取天的起床稳定性评分
+    class func getDayWakeupStabilityScore(_ wakeupDuration: Int) -> Int {
+        if wakeupDuration < 5 {
+            return 10
+        }
+        
+        if wakeupDuration < 15 {
+            return 8
+        }
+        
+        if wakeupDuration < 30 {
+            return 6
+        }
+        
+        if wakeupDuration < 60 {
+            return 4
+        }
+        
+        if wakeupDuration <= 60 * 5 {
+            return 2
+        }
+        
+        return 0
+    }
+    
+    /// 获取周月年睡眠总时长得分
+    class func getWeekMonthYearSleepTotalDurationScore(_ total: Int) -> Int {
+        return getDaySleepTotalDurationScore(total) * 2
+    }
+    
+
+    /// 获取睡眠质量文案
+    class func getSleepQualityString(_ score: Int) -> String {
+        if score <= 39 {
+            return R.string.xwhHealthyText.很差()
+        }
+        
+        if score <= 59 {
+            return R.string.xwhHealthyText.较差()
+        }
+        
+        if score <= 79 {
+            return R.string.xwhHealthyText.一般()
+        }
+        
+        if score <= 89 {
+            return R.string.xwhHealthyText.较好()
+        }
+        
+        return R.string.xwhHealthyText.很好()
+    }
+    
+    /// 获取周月年的睡眠提示描述文案
+    class func getWeekMonthYearSleepTipString(_ total: Int) -> String {
+        if total < 60 * 6 {
+            return R.string.xwhHealthyText.您的睡眠时长不足睡眠充足是最基本的健康保障()
+        }
+        
+        if total <= 60 * 10 {
+            return R.string.xwhHealthyText.您的睡眠时长非常标准睡眠充足是最基本的健康保障()
+        }
+        
+        return R.string.xwhHealthyText.您的睡眠时长超过了推荐时长的标准睡眠充足是最基本的健康保障()
     }
     
 }
