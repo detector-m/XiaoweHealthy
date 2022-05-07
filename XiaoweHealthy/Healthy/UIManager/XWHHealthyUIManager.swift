@@ -147,7 +147,13 @@ extension XWHHealthyUIManager {
             return R.string.xwhHealthyText.压力分布()
             
         case .sleepRange:
-            return R.string.xwhHealthyText.睡眠分布()
+            switch dateSegmentType {
+            case .day:
+                return R.string.xwhHealthyText.睡眠分布()
+                
+            case .week, .month, .year:
+                return R.string.xwhHealthyText.平均睡眠分布()
+            }
             
         default:
             return ""

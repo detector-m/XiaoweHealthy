@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 // MARK: - 运动健康的类型
@@ -79,4 +80,40 @@ enum XWHHealthyDetailUICardType {
     
     /// 睡眠分布 (睡眠区间)
     case sleepRange
+}
+
+
+/// 睡眠状态
+enum XWHHealthySleepState {
+    
+    case deep
+    case light
+    case awake
+    
+    var name: String {
+        switch self {
+        case .deep:
+            return R.string.xwhHealthyText.深睡()
+            
+        case .light:
+            return R.string.xwhHealthyText.浅睡()
+            
+        case .awake:
+            return R.string.xwhHealthyText.清醒()
+        }
+    }
+    
+    var color: UIColor {
+        switch self {
+        case .deep:
+            return UIColor(hex: 0x5047C4)!
+            
+        case .light:
+            return UIColor(hex: 0x8389F3)!
+            
+        case .awake:
+            return UIColor(hex: 0xFACA79)!
+        }
+    }
+    
 }

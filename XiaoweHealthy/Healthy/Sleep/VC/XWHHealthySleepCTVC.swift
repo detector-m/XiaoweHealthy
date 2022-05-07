@@ -132,13 +132,30 @@ extension XWHHealthySleepCTVC {
         if item.uiCardType == .sleepRange {
             if indexPath.item == 0 {
                 let cell = collectionView.dequeueReusableCell(withClass: XWHMultiColorLinearCTCell.self, for: indexPath)
-                cell.update(values: [20, 50, 30], colors: XWHUIDisplayHandler.getSleepRangeColors())
+                cell.update(values: [20, 50, 30], colors: XWHUIDisplayHandler.getSleepStateColors())
                 return cell
             }
             
             let cell = collectionView.dequeueReusableCell(withClass: XWHSleepCommonCTCell.self, for: indexPath)
+            let titleStr = XWHUIDisplayHandler.getSleepRangeStrings(dateType)[indexPath.item - 1]
+            var valueStr = ""
+            var tipStr = ""
             
-            cell.update("123", "12345", "很好", XWHUIDisplayHandler.getSleepRangeColors()[0])
+            let sleepRateStrs = XWHUIDisplayHandler.getSleepRateStrings(120, 310, 50, 480)
+            if indexPath.item == 1 {
+                valueStr = XWHUIDisplayHandler.getSleepDurationString(120)
+                tipStr = sleepRateStrs[indexPath.item - 1] + " " + XWHUIDisplayHandler.getDeepSleepRangeString(120)
+            } else if indexPath.item == 2 {
+                valueStr = XWHUIDisplayHandler.getSleepDurationString(310)
+                tipStr = sleepRateStrs[indexPath.item - 1] + " " + XWHUIDisplayHandler.getDeepSleepRangeString(310)
+            } else if indexPath.item == 3 {
+                valueStr = XWHUIDisplayHandler.getSleepDurationString(50)
+                tipStr = sleepRateStrs[indexPath.item - 1] + " " + XWHUIDisplayHandler.getDeepSleepRangeString(50)
+            } else if indexPath.item == 4 {
+                valueStr = "\(2) " + R.string.xwhHealthyText.次()
+                tipStr = XWHUIDisplayHandler.getAwakeTimesRangeString(2)
+            }
+            cell.update(titleStr, valueStr, tipStr, XWHUIDisplayHandler.getSleepRangeColors()[0])
 
             return cell
         }

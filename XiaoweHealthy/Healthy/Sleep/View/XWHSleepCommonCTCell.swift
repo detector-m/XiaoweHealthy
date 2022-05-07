@@ -29,13 +29,13 @@ class XWHSleepCommonCTCell: XWHHealthyCommonCTCell {
     
     override func relayoutSubViews() {
         textLb.textAlignment = .left
-        detailLb.textAlignment = .right
+        detailLb.textAlignment = .left
         
         textLb.snp.remakeConstraints { make in
             make.height.equalTo(27)
             make.top.equalTo(16)
             make.left.equalToSuperview().offset(13)
-            make.width.lessThanOrEqualTo(120)
+            make.right.lessThanOrEqualTo(tipLb.snp.left).offset(-4)
         }
         
         imageView.snp.makeConstraints { make in
@@ -44,26 +44,27 @@ class XWHSleepCommonCTCell: XWHHealthyCommonCTCell {
             make.top.equalTo(textLb.snp.bottom).offset(5)
         }
         
-        tipLb.snp.makeConstraints { make in
+        detailLb.snp.makeConstraints { make in
             make.left.equalTo(imageView.snp.right).offset(3)
             make.right.equalTo(textLb)
             make.top.equalTo(textLb.snp.bottom).offset(2)
             make.height.equalTo(16)
         }
         
-        detailLb.snp.remakeConstraints { make in
+        tipLb.snp.remakeConstraints { make in
             make.height.equalTo(32)
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().inset(16)
-            make.left.equalTo(textLb.snp.right).offset(6)
+            make.width.lessThanOrEqualTo(120)
+//            make.left.equalTo(textLb.snp.right).offset(6)
         }
     }
     
-    func update(_ title: String, _ value: String, _ tip: String, _ tipColor: UIColor) {
+    func update(_ title: String, _ value: String, _ tip: String, _ titleTagColor: UIColor) {
         textLb.text = value
         detailLb.text = title
         tipLb.text = tip
-        imageView.layer.backgroundColor = tipColor.cgColor
+        imageView.layer.backgroundColor = titleTagColor.cgColor
     }
     
 }
