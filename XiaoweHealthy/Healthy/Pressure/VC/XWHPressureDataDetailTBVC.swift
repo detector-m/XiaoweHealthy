@@ -31,7 +31,7 @@ extension XWHPressureDataDetailTBVC {
         cell.bottomLine.isHidden = false
         if indexPath.row == 0 {
             cell.titleLb.text = R.string.xwhHealthyText.心率()
-            cell.subTitleLb.text = heartModel.value.string + " " +  XWHHealthyHelper.getPressureRangeString(heartModel.value)
+            cell.subTitleLb.text = heartModel.value.string + " " +  XWHUIDisplayHandler.getPressureRangeString(heartModel.value)
         } else if indexPath.row == 1 {
             cell.titleLb.text = R.string.xwhHealthyText.测量时间()
             cell.subTitleLb.text = heartModel.time

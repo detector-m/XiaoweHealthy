@@ -48,7 +48,7 @@ class XWHPressureRangeCTCell: XWHPressureCommonCTCell {
         var cValue = ""
         
         var cColor = UIColor.white
-        let colors = XWHHealthyHelper.getPressureRangeColors()
+        let colors = XWHUIDisplayHandler.getPressureRangeColors()
         if !colors.isEmpty, index < colors.count {
             cColor = colors[index]
         }

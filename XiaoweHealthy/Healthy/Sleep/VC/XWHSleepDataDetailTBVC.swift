@@ -35,7 +35,7 @@ extension XWHSleepDataDetailTBVC {
         
         if indexPath.row == 0 {
             titleStr = R.string.xwhHealthyText.睡眠总时长()
-            valueStr = XWHHealthyHelper.getSleepDurationString(500)
+            valueStr = XWHUIDisplayHandler.getSleepDurationString(500)
             cell.bottomLine.isHidden = false
         } else if indexPath.row == 1 {
             titleStr = R.string.xwhHealthyText.入睡时间()

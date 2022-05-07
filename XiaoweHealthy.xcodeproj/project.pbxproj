@@ -188,6 +188,7 @@
 		9693106E28253B4A00133626 /* XWHSleepIntroductionTXVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693106D28253B4A00133626 /* XWHSleepIntroductionTXVC.swift */; };
 		9693107028253CB900133626 /* XWHSleepAllDataTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693106F28253CB900133626 /* XWHSleepAllDataTBVC.swift */; };
 		9693107428253CF100133626 /* XWHSleepDataDetailTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693107328253CF100133626 /* XWHSleepDataDetailTBVC.swift */; };
+		96931077282600FA00133626 /* XWHUIDisplayHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96931076282600FA00133626 /* XWHUIDisplayHandler.swift */; };
 		969A4CF8280E8A630049BC07 /* XWHLargeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */; };
 		969B8816280FE11A009952E7 /* XWHHealthyBaseCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */; };
 		969B881A280FE182009952E7 /* XWHHealthyHeartCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8819280FE182009952E7 /* XWHHealthyHeartCTVC.swift */; };
@@ -533,6 +534,7 @@
 		9693106D28253B4A00133626 /* XWHSleepIntroductionTXVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSleepIntroductionTXVC.swift; sourceTree = "<group>"; };
 		9693106F28253CB900133626 /* XWHSleepAllDataTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSleepAllDataTBVC.swift; sourceTree = "<group>"; };
 		9693107328253CF100133626 /* XWHSleepDataDetailTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSleepDataDetailTBVC.swift; sourceTree = "<group>"; };
+		96931076282600FA00133626 /* XWHUIDisplayHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUIDisplayHandler.swift; sourceTree = "<group>"; };
 		969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLargeTitleView.swift; sourceTree = "<group>"; };
 		969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyBaseCTVC.swift; sourceTree = "<group>"; };
 		969B8819280FE182009952E7 /* XWHHealthyHeartCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyHeartCTVC.swift; sourceTree = "<group>"; };
@@ -764,6 +766,7 @@
 				96E23C2227E1A322009EF208 /* Sport */,
 				96E23C2327E1A32F009EF208 /* Device */,
 				96E23C2427E1A33E009EF208 /* Me */,
+				96931075282600B800133626 /* UIDisplayHandler */,
 				96DC429427FD303A009BF300 /* DeviceManager */,
 				96DC429E27FD7323009BF300 /* DataManager */,
 				96D0041127F8212400E569C7 /* WebViewBridge */,
@@ -1612,6 +1615,14 @@
 				9693106B28252CA600133626 /* XWHSleepScoreCTCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		96931075282600B800133626 /* UIDisplayHandler */ = {
+			isa = PBXGroup;
+			children = (
+				96931076282600FA00133626 /* XWHUIDisplayHandler.swift */,
+			);
+			path = UIDisplayHandler;
 			sourceTree = "<group>";
 		};
 		969A4CF6280E88A20049BC07 /* LargeTitleView */ = {
@@ -2778,6 +2789,7 @@
 				96DC429D27FD42B7009BF300 /* XWHDeviceApi.swift in Sources */,
 				968CB8A827F42A8C00E549AC /* XWHCommonBaseTBCell.swift in Sources */,
 				969E7134280D107C00BDA401 /* XWHConstant.swift in Sources */,
+				96931077282600FA00133626 /* XWHUIDisplayHandler.swift in Sources */,
 				9679E9F4281910C5003C6351 /* XWHCalendarWeekView.swift in Sources */,
 				969072452814EDBA0056CE4F /* XWHHealthyAllDataCommonTBCell.swift in Sources */,
 				96FC408627EDB78F00D64B64 /* XWHDeviceBaseVC.swift in Sources */,

@@ -62,7 +62,7 @@ extension XWHPressureAllDataTBVC {
             
             let cItem = item.items[indexPath.row - 1]
             cell.titleLb.text = cItem.collectTime
-            cell.subTitleLb.text = "日均 \(50) \(XWHHealthyHelper.getPressureRangeString(50))"
+            cell.subTitleLb.text = "日均 \(50) \(XWHUIDisplayHandler.getPressureRangeString(50))"
             
             cell.bottomLine.isHidden = false
             if item.items.count == indexPath.row {

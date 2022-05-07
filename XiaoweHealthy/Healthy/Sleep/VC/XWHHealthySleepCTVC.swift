@@ -132,13 +132,13 @@ extension XWHHealthySleepCTVC {
         if item.uiCardType == .sleepRange {
             if indexPath.item == 0 {
                 let cell = collectionView.dequeueReusableCell(withClass: XWHMultiColorLinearCTCell.self, for: indexPath)
-                cell.update(values: [20, 50, 30], colors: XWHHealthyHelper.getSleepRangeColors())
+                cell.update(values: [20, 50, 30], colors: XWHUIDisplayHandler.getSleepRangeColors())
                 return cell
             }
             
             let cell = collectionView.dequeueReusableCell(withClass: XWHSleepCommonCTCell.self, for: indexPath)
             
-            cell.update("123", "12345", "很好", XWHHealthyHelper.getSleepRangeColors()[0])
+            cell.update("123", "12345", "很好", XWHUIDisplayHandler.getSleepRangeColors()[0])
 
             return cell
         }

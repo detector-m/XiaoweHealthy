@@ -63,7 +63,7 @@ extension XWHSleepAllDataTBVC {
             
             let cItem = item.items[indexPath.row - 1]
             cell.titleLb.text = cItem.collectTime
-            cell.subTitleLb.text = XWHHealthyHelper.getSleepDurationString(500)
+            cell.subTitleLb.text = XWHUIDisplayHandler.getSleepDurationString(500)
             
             cell.bottomLine.isHidden = false
             if item.items.count == indexPath.row {

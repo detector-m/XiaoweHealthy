@@ -137,7 +137,7 @@ extension XWHHealthyPressureCTVC {
                 let titleStr = uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item]
 //                let valueStr = (lastBoModel?.value.string ?? "0") + "%"
                 let valueStr = "50"
-                let unit = XWHHealthyHelper.getPressureRangeString(50)
+                let unit = XWHUIDisplayHandler.getPressureRangeString(50)
                 let tipText = Date().localizedString(withFormat: XWHDate.monthDayHourMinute)
                 cell.update(titleStr, valueStr, unit, tipText)
                 
@@ -153,7 +153,7 @@ extension XWHHealthyPressureCTVC {
                 valueStr = "50-100"
             } else if titleStr == R.string.xwhHealthyText.平均压力值() {
                 valueStr = 50.string
-                unit = XWHHealthyHelper.getPressureRangeString(50)
+                unit = XWHUIDisplayHandler.getPressureRangeString(50)
             }
             
             cell.update(titleStr, valueStr, unit)
@@ -164,7 +164,7 @@ extension XWHHealthyPressureCTVC {
         if item.uiCardType == .pressureRange {
             if indexPath.item == 0 {
                 let cell = collectionView.dequeueReusableCell(withClass: XWHMultiColorLinearCTCell.self, for: indexPath)
-                cell.update(values: [20, 50, 10, 20], colors: XWHHealthyHelper.getPressureRangeColors())
+                cell.update(values: [20, 50, 10, 20], colors: XWHUIDisplayHandler.getPressureRangeColors())
                 return cell
             }
             

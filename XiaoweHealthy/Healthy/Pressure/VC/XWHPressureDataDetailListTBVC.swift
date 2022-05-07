@@ -40,7 +40,7 @@ extension XWHPressureDataDetailListTBVC {
         cell.titleLb.text = cItem.formatDate()?.string(withFormat: XWHDate.hourMinuteFormat)
         
         let value = cItem.value.string
-        let unit = XWHHealthyHelper.getPressureRangeString(cItem.value)
+        let unit = XWHUIDisplayHandler.getPressureRangeString(cItem.value)
         let text = value + unit
         cell.subTitleLb.attributedText = text.colored(with: fontDarkColor).applying(attributes: [.font: valueFont], toOccurrencesOf: value).applying(attributes: [.font: normalFont], toOccurrencesOf: unit)
         
