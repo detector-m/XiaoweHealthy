@@ -34,7 +34,7 @@ class XWHServerDataManager {
         }
     }
     
-    // MARK: - 血氧(心率)
+    // MARK: - BloodOxygen(血氧)
     /// 上传血氧数据
     class func postBloodOxygen(deviceSn: String, data: [XWHBloodOxygenModel], failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
         XWHServerDataManager().postBloodOxygen(deviceSn: deviceSn, data: data, failureHandler: failureHandler, successHandler: successHandler)
@@ -50,6 +50,28 @@ class XWHServerDataManager {
         }
         
         serverDataProvider.request(.postBloodOxygen(deviceSn, reqData)) { result in
+            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
+                
+                return nil
+            }
+        }
+    }
+    
+    // MARK: - Sleep(睡眠)
+    /// 上传睡眠
+    class func postSleep(deviceSn: String, data: [XWHSleepModel], failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        XWHServerDataManager().postSleep(deviceSn: deviceSn, data: data, failureHandler: failureHandler, successHandler: successHandler)
+    }
+    func postSleep(deviceSn: String, data: [XWHSleepModel], failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        let cId = "XWHServerDataManager.PostSleep"
+
+        let reqData = data.toJSON()
+        guard let reqData = reqData as? [[String: Any]] else {
+            handleDataParseError(cId, failureHandler)
+            return
+        }
+        
+        serverDataProvider.request(.postSleep(deviceSn, reqData)) { result in
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
                 
                 return nil

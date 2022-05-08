@@ -79,4 +79,7 @@ enum XWHDevSyncDataType: String {
     /// 血氧
     case bloodOxygen
     
+    /// 睡眠
+    case sleep
+    
 }

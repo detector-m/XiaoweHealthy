@@ -12,6 +12,8 @@ import UTESmartBandApi
 /// UTE 同步数据处理
 class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandlerProtocol {
     
+    let uteTimeFormat = "yyyy-MM-dd-HH-mm"
+    
     private var progressHandler: DevSyncDataProgressHandler?
     private var resultHandler: XWHDevDataOperationHandler?
     
@@ -58,7 +60,7 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             self._state = .inTransit
             
             var cp = 0
-            let itemMax: CGFloat = 2
+            let itemMax: CGFloat = 3
 
             // 1
             if !self.syncHeart() {
@@ -82,6 +84,17 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             cp = ((2 / itemMax) * 100).int
             self.handleProgress(cp)
             
+            // 3
+            if !self.syncSleep() {
+                return
+            }
+            if self.semaphoreWait() {
+                self.handleTimeoutError()
+                return
+            }
+            cp = ((3 / itemMax) * 100).int
+            self.handleProgress(cp)
+            
             self._state = .succeed
         }
     }
@@ -95,6 +108,9 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             
         case .bloodOxygen:
             return handleBloodOxygenData(rawData)
+            
+        case .sleep:
+            return handleSleepData(rawData)
             
         case .none:
             return nil
@@ -139,12 +155,12 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
         }
         
         let parsedHeartArray: [XWHHeartModel] = heartArray.compactMap { cModel in
-            guard let cTime = cModel.heartTime, let cValue = cModel.heartCount?.int, let cDate = cTime.date(withFormat: "yyyy-MM-dd-HH-mm") else {
+            guard let cTime = cModel.heartTime, let cValue = cModel.heartCount?.int, let cDate = cTime.date(withFormat: uteTimeFormat) else {
                 return nil
             }
             
             let rModel = XWHHeartModel()
-            rModel.time = cDate.string(withFormat: "yyyy-MM-dd HH:mm:ss")
+            rModel.time = cDate.string(withFormat: XWHDeviceHelper.standardTimeFormat)
             rModel.value = cValue
             rModel.identifier = deviceSn
             
@@ -177,12 +193,12 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
         }
         
         let parsedboArray: [XWHBloodOxygenModel] = boArray.compactMap { cModel in
-            guard let cTime = cModel.time, let cDate = cTime.date(withFormat: "yyyy-MM-dd-HH-mm") else {
+            guard let cTime = cModel.time, let cDate = cTime.date(withFormat: uteTimeFormat) else {
                 return nil
             }
             
             let rModel = XWHBloodOxygenModel()
-            rModel.time = cDate.string(withFormat: "yyyy-MM-dd HH:mm:ss")
+            rModel.time = cDate.string(withFormat: XWHDeviceHelper.standardTimeFormat)
             rModel.value = cModel.value
             rModel.identifier = deviceSn
             
@@ -199,6 +215,114 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
         }
         
        return parsedboArray
+    }
+    
+    /// 处理睡眠数据
+    func handleSleepData(_ rawData: Any?) -> Any? {
+        guard let deviceSn = manager.connectedDevicesModel?.identifier else {
+            log.error("未获取到设备标识符")
+            return nil
+        }
+        
+        guard let rawDic = rawData as? [AnyHashable: Any] else {
+            return nil
+        }
+        
+        guard let sleepArray = rawDic[kUTEQuerySleepDataDayByDay] as? [[UTEModelSleepData]] else {
+            return nil
+        }
+        
+//        guard let sleepArray = rawDic[kUTEQuerySleepData] as? [UTEModelSleepData] else {
+//            return nil
+//        }
+        
+        var parsedSleepArray: [XWHSleepModel] = []
+        for iArray in sleepArray {
+            if iArray.isEmpty {
+                continue
+            }
+            
+            guard let uteETime = iArray.last?.endTime, let eDate = uteETime.date(withFormat: uteTimeFormat) else {
+                log.error("解析睡眠数据错误 uteETime")
+                continue
+            }
+            guard let uteBTime = iArray.first?.startTime, let bDate = uteBTime.date(withFormat: uteTimeFormat) else {
+                log.error("解析睡眠数据错误 uteBTime")
+
+                continue
+            }
+            
+            let items: [XWHSleepItemModel] = iArray.compactMap { cModel in
+                guard let rETime = cModel.endTime, let rEDate = rETime.date(withFormat: uteTimeFormat) else {
+                    log.error("解析睡眠数据错误 rETime")
+                    return nil
+                }
+                guard let rBTime = cModel.startTime, let rBDate = rBTime.date(withFormat: uteTimeFormat) else {
+                    log.error("解析睡眠数据错误 rBTime")
+                    return nil
+                }
+                
+                let cDuration = rEDate.minutesSince(rBDate).int
+//                if cDuration == 0 {
+//                    log.error("解析睡眠数据错误 cDuration")
+//                }
+                
+                let rModel = XWHSleepItemModel()
+                
+                rModel.duration = cDuration
+                rModel.bTime = rBDate.string(withFormat: XWHDeviceHelper.standardTimeFormat)
+                rModel.eTime = rEDate.string(withFormat: XWHDeviceHelper.standardTimeFormat)
+                rModel.identifier = deviceSn
+                if cModel.sleepType == .awake {
+                    rModel.type = 2
+                } else if cModel.sleepType == .lightSleep {
+                    rModel.type = 1
+                } else {
+                    rModel.type = 0
+                }
+                return rModel
+            }
+            
+            if items.isEmpty {
+                continue
+            }
+            
+            let eTime = eDate.string(withFormat: XWHDeviceHelper.standardTimeFormat)
+            let bTime = bDate.string(withFormat: XWHDeviceHelper.standardTimeFormat)
+            
+            let sModel = XWHSleepModel()
+
+            sModel.time = eDate.string(withFormat: XWHDeviceHelper.sleepCollectionTimeFormat)
+            sModel.bTime = bTime
+            sModel.eTime = eTime
+            sModel.identifier = deviceSn
+            
+            sModel.duration = items.sum(for: \.duration)
+            sModel.deepSleepDuration = items.filter({ $0.type == 0 }).sum(for: \.duration)
+            sModel.lightSleepDuration = items.filter({ $0.type == 1 }).sum(for: \.duration)
+            
+            let cAwakeItems = items.filter({ $0.type == 2 })
+            sModel.awakeTimes = cAwakeItems.count
+            sModel.awakeDuration = cAwakeItems.sum(for: \.duration)
+            
+            sModel.items = items
+            
+            // 晚睡
+            sModel.type = 1
+            
+            parsedSleepArray.append(sModel)
+        }
+        
+        log.info("同步睡眠的原始数据 \(parsedSleepArray)")
+        if !parsedSleepArray.isEmpty {
+//            if let last = parsedSleepArray.last?.clone() {
+//                XWHHealthyDataManager.saveBloodOxygen(last)
+//            }
+
+            XWHServerDataManager.postSleep(deviceSn: deviceSn, data: parsedSleepArray, failureHandler: nil, successHandler: nil)
+        }
+        
+       return parsedSleepArray
     }
     
     private func handleProgress(_ cp: Int) {
@@ -232,6 +356,9 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             
         case .bloodOxygen:
             msg = "同步血氧超时"
+            
+        case .sleep:
+            msg = "同步睡眠超时"
         }
         
         let error = XWHError(message: msg)
@@ -277,7 +404,8 @@ extension XWHUTEDataOperationHandler {
         }
         
         if conDev.isHasDataStatus {
-            let cTime = Date().string(withFormat: "yyyy-MM-dd-HH-mm")
+//            let cTime = Date().string(withFormat: "yyyy-MM-dd-HH-mm")
+            let cTime = "2020-06-06-06-06"
             manager.syncDataCustomTime(cTime, type: .HRM24)
         } else {
             manager.setUTEOption(.syncAllHRMData)
@@ -309,7 +437,25 @@ extension XWHUTEDataOperationHandler {
         return true
     }
     
-    ///
+    /// 同步睡眠
+    private func syncSleep() -> Bool {
+        dataType = .sleep
+        guard let conDev = manager.connectedDevicesModel else {
+            handleUTENotConnectBindError(type: dataType)
+            
+            dataType = .none
+            return false
+        }
+        
+        if conDev.isHasDataStatus {
+            let cTime = "2020-06-06-06-06"
+            manager.syncDataCustomTime(cTime, type: .sleep)
+        } else {
+            manager.setUTEOption(.syncAllSleepData)
+        }
+                
+        return true
+    }
     
     
     private func isUTEConnectBind() -> Bool {

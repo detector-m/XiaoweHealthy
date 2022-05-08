@@ -33,6 +33,7 @@ class XWHHeartModel: XWHHealthyDataBaseModel {
         super.init()
     }
     
+    // MARK: - GRDB
     required init(row: Row) {
         super.init(row: row)
         

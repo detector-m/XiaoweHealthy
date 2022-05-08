@@ -21,6 +21,11 @@ enum XWHServerDataApi {
     /// 上传血氧数据到服务
     case postBloodOxygen(_ deviceSn: String, _ data: [[String: Any]])
     
+
+    // MARK: - Sleep(睡眠)
+    /// 上传睡眠数据
+    case postSleep(_ deviceSn: String, _ data: [[String: Any]])
+    
 }
 
 
@@ -33,12 +38,15 @@ extension XWHServerDataApi: XWHServiceTargetType {
             
         case .postBloodOxygen:
             return "/device/post_blood_oxygen"
+            
+        case .postSleep:
+            return "/device/post_sleep_data"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .postHeart, .postBloodOxygen:
+        case .postHeart, .postBloodOxygen, .postSleep:
             return .post
         }
     }
@@ -49,6 +57,9 @@ extension XWHServerDataApi: XWHServiceTargetType {
         switch self {
         case .postHeart(let deviceSn, let data), .postBloodOxygen(let deviceSn, let data):
             param = ["deviceSn": deviceSn, "data": data]
+            
+        case .postSleep(let deviceSn, let data):
+            param = data.first ?? [:]
         }
         
         log.debug("url: \(baseURL.absoluteString + path) param: \(param)")
