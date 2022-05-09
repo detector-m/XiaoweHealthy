@@ -432,7 +432,12 @@ extension XWHUTEDataOperationHandler {
             return false
         }
         
-        manager.setUTEOption(.syncAllBloodOxygenData)
+        if conDev.isHasDataStatus {
+            let cTime = "2020-06-06-06-06"
+            manager.syncDataCustomTime(cTime, type: .bloodOxygen)
+        } else {
+            manager.setUTEOption(.syncAllBloodOxygenData)
+        }
         
         return true
     }

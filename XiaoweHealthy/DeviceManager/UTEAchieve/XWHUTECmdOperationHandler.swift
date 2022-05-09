@@ -264,28 +264,32 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
     
     /// 设置血氧设置
     func setBloodOxygenSet(_ bloodOxygenSet: XWHBloodOxygenSetModel, handler: XWHDevCmdOperationHandler?) {
+        var boTimeInterval = UTECommonTestTime.time30Mins
+        if bloodOxygenSet.duration <= 10 {
+            boTimeInterval = .time10Mins
+        } else if bloodOxygenSet.duration <= 30 {
+            boTimeInterval = .time30Mins
+        } else if bloodOxygenSet.duration <= 60 {
+            boTimeInterval = .time1Hour
+        } else if bloodOxygenSet.duration <= 120 {
+            boTimeInterval = .time2Hours
+        } else if bloodOxygenSet.duration <= 180 {
+            boTimeInterval = .time3Hours
+        } else if bloodOxygenSet.duration <= 240 {
+            boTimeInterval = .time4Hours
+        } else if bloodOxygenSet.duration <= 360 {
+            boTimeInterval = .time6Hours
+        } else if bloodOxygenSet.duration <= 420 {
+            boTimeInterval = .timeAt_8_14_20
+        } else {
+            boTimeInterval = .timeAt_8_20
+        }
+        
+        manager.setBloodOxygenAutoTest(bloodOxygenSet.isOn, time: boTimeInterval)
+        
         // 设置血氧开关
         if bloodOxygenSet.isSetBeginEndTime {
-            var boTimeInterval = UTECommonTestTime.time30Mins
-            if bloodOxygenSet.duration <= 30 {
-                boTimeInterval = .time30Mins
-            } else if bloodOxygenSet.duration <= 60 {
-                boTimeInterval = .time1Hour
-            } else if bloodOxygenSet.duration <= 120 {
-                boTimeInterval = .time2Hours
-            } else if bloodOxygenSet.duration <= 180 {
-                boTimeInterval = .time3Hours
-            } else if bloodOxygenSet.duration <= 240 {
-                boTimeInterval = .time4Hours
-            } else if bloodOxygenSet.duration <= 360 {
-                boTimeInterval = .time6Hours
-            } else if bloodOxygenSet.duration <= 420 {
-                boTimeInterval = .timeAt_8_14_20
-            } else {
-                boTimeInterval = .timeAt_8_20
-            }
-            
-            manager.setBloodOxygenAutoTest(bloodOxygenSet.isOn, time: boTimeInterval)
+            manager.setBloodOxygenAutoTestDuration(false, startTime: bloodOxygenSet.beginTime, endTime: bloodOxygenSet.endTime)
         } else {
             manager.setBloodOxygenAutoTestDuration(bloodOxygenSet.isOn, startTime: bloodOxygenSet.beginTime, endTime: bloodOxygenSet.endTime)
         }
