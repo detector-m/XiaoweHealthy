@@ -18,7 +18,8 @@ class XWHHealthyMentalStressCTVC: XWHHealthyBaseCTVC {
 
         navigationItem.title = R.string.xwhHealthyText.压力()
         
-        loadUIItems()
+        getMentalStressExistDate()
+        getMentalStress()
     }
     
     override func registerViews() {
@@ -34,17 +35,15 @@ class XWHHealthyMentalStressCTVC: XWHHealthyBaseCTVC {
     
     override func clickDateBtn() {
         showCalendar() { [unowned self] scrollDate, cDateType in
-//            self._getBloodOxygenExistDate(scrollDate, sDateType: cDateType) { isExist in
-//            }
+            self._getMentalStressExistDate(scrollDate, sDateType: cDateType) { isExist in
+            }
         }
     }
     
     override func dateSegmentValueChanged(_ segmentType: XWHHealthyDateSegmentType) {
         updateUI(false)
-//        getBloodOxygenExistDate()
-//        getBloodOxygen()
-        
-        collectionView.reloadData()
+        getMentalStressExistDate()
+        getMentalStress()
     }
     
     func loadUIItems() {
@@ -236,6 +235,82 @@ extension XWHHealthyMentalStressCTVC {
     private func gotoMentalStressIntroduction() {
         let vc = XWHMentalStressIntroductionTXVC()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+}
+
+// MARK: - Api
+extension XWHHealthyMentalStressCTVC {
+    
+    private func getMentalStressExistDate() {
+        let cDate = getSelectedDate()
+//        XWHProgressHUD.show()
+        _getMentalStressExistDate(cDate, sDateType: dateType) { isExist in
+//            if isExist {
+//                XWHProgressHUD.hide()
+//            }
+        }
+    }
+    
+    private func _getMentalStressExistDate(_ sDate: Date, sDateType: XWHHealthyDateSegmentType, _ completion: ((Bool) -> Void)?) {
+        if existDataDateItemsContains(sDate, sDateType: sDateType) {
+            completion?(true)
+            return
+        }
+        
+        var rDateType = sDateType
+        if sDateType == .week {
+            rDateType = .day
+        }
+        XWHHealthyVM().getMentalStressExistDate(date: sDate, dateType: rDateType) { [unowned self] error in
+            XWHProgressHUD.hide()
+            log.error(error)
+            
+            if error.isExpiredUserToken {
+                XWHUser.handleExpiredUserTokenUI(self, nil)
+                return
+            }
+        } successHandler: { [unowned self] response in
+            XWHProgressHUD.hide()
+            
+            guard let retModel = response.data as? XWHHealthyExistDataDateModel else {
+                log.debug("精神压力 - 获取存在数据日期为空")
+                return
+            }
+            
+            updateExistDataDateItem(retModel)
+            
+            completion?(false)
+        }
+    }
+    
+    private func getMentalStress() {
+        XWHProgressHUD.show()
+        let cDate = getSelectedDate()
+        XWHHealthyVM().getMentalStress(date: cDate, dateType: dateType) { [unowned self] error in
+            XWHProgressHUD.hide()
+            log.error(error)
+            
+            if error.isExpiredUserToken {
+                XWHUser.handleExpiredUserTokenUI(self, nil)
+                return
+            }
+        } successHandler: { [unowned self] response in
+            XWHProgressHUD.hide()
+            
+            guard let retModel = response.data as? XWHBOUIBloodOxygenModel else {
+                log.debug("精神压力 - 获取数据为空")
+//                self.boUIModel = nil
+                self.cleanUIItems()
+                
+                self.collectionView.reloadEmptyDataSet()
+                
+                return
+            }
+            
+//            self.boUIModel = retModel
+            self.loadUIItems()
+        }
     }
     
 }
