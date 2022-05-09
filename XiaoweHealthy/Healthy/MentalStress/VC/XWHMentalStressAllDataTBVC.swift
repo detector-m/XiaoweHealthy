@@ -1,5 +1,5 @@
 //
-//  XWHPressureAllDataTBVC.swift
+//  XWHMentalStressAllDataTBVC.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/5/6.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class XWHPressureAllDataTBVC: XWHHealthyAllDataBaseTBVC {
+class XWHMentalStressAllDataTBVC: XWHHealthyAllDataBaseTBVC {
 
-    lazy var allDataUIItems: [XWHHeartUIAllDataItemModel] = [] {
+    lazy var allDataUIItems: [XWHMentalStressUIAllDataItemModel] = [] {
         didSet {
             expandStates = allDataUIItems.map({ _ in false })
         }
@@ -18,12 +18,12 @@ class XWHPressureAllDataTBVC: XWHHealthyAllDataBaseTBVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getYearPressureHistory()
+        getYearMentalStressHistory()
     }
 }
 
 // MARK: - UITableViewDataSource & UITableViewDelegate & UITableViewRoundedProtocol
-extension XWHPressureAllDataTBVC {
+extension XWHMentalStressAllDataTBVC {
     
 //    override func numberOfSections(in tableView: UITableView) -> Int {
 //        return expandStates.count
@@ -62,7 +62,7 @@ extension XWHPressureAllDataTBVC {
             
             let cItem = item.items[indexPath.row - 1]
             cell.titleLb.text = cItem.collectTime
-            cell.subTitleLb.text = "日均 \(50) \(XWHUIDisplayHandler.getPressureRangeString(50))"
+            cell.subTitleLb.text = R.string.xwhHealthyText.日均() + " \(cItem.avgPressureVal) \(XWHUIDisplayHandler.getMentalStressRangeString(cItem.avgPressureVal))"
             
             cell.bottomLine.isHidden = false
             if item.items.count == indexPath.row {
@@ -88,10 +88,10 @@ extension XWHPressureAllDataTBVC {
 }
 
 // MARK: - Jump UI
-extension XWHPressureAllDataTBVC {
+extension XWHMentalStressAllDataTBVC {
     
-    private func gotoDataDetailList(_ item: XWHHeartUIAllDataRateRangeModel) {
-        let vc = XWHPressureDataDetailListTBVC()
+    private func gotoDataDetailList(_ item: XWHMentalStressUIAllDataItemStressModel) {
+        let vc = XWHMentalStressDataDetailListTBVC()
         vc.sDate = item.collectTime.date(withFormat: XWHDate.standardYearMonthDayFormat) ?? Date()
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -100,17 +100,17 @@ extension XWHPressureAllDataTBVC {
 
 
 // MARK: - Api
-extension XWHPressureAllDataTBVC {
+extension XWHMentalStressAllDataTBVC {
     
-    private func getYearPressureHistory() {
+    private func getYearMentalStressHistory() {
         XWHProgressHUD.show()
-        XWHHealthyVM().getYearHeartHistory(date: Date(), failureHandler: { error in
+        XWHHealthyVM().getYearMentalStressHistory(date: Date(), failureHandler: { error in
             XWHProgressHUD.hide()
             log.error(error)
         }, successHandler: { [unowned self] response in
             XWHProgressHUD.hide()
             
-            guard let retModel = response.data as? [XWHHeartUIAllDataItemModel] else {
+            guard let retModel = response.data as? [XWHMentalStressUIAllDataItemModel] else {
                 log.error("心率 - 获取所有数据错误")
                 return
             }

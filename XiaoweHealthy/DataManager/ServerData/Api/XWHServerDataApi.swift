@@ -26,6 +26,9 @@ enum XWHServerDataApi {
     /// 上传睡眠数据
     case postSleep(_ deviceSn: String, _ data: [[String: Any]])
     
+    // MARK: - MentalState(精神状态)
+    /// 上传精神状态数据 （压力、情绪、疲劳度数据）
+    case postMentalState(_ deviceSn: String, _ data: [[String: Any]])
 }
 
 
@@ -41,12 +44,15 @@ extension XWHServerDataApi: XWHServiceTargetType {
             
         case .postSleep:
             return "/device/post_sleep_data"
+            
+        case .postMentalState:
+            return "/device/post_spirit_data"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .postHeart, .postBloodOxygen, .postSleep:
+        case .postHeart, .postBloodOxygen, .postSleep, .postMentalState:
             return .post
         }
     }
@@ -55,7 +61,7 @@ extension XWHServerDataApi: XWHServiceTargetType {
         var param: [String: Any] = [:]
         
         switch self {
-        case .postHeart(let deviceSn, let data), .postBloodOxygen(let deviceSn, let data):
+        case .postHeart(let deviceSn, let data), .postBloodOxygen(let deviceSn, let data), .postMentalState(let deviceSn, let data):
             param = ["deviceSn": deviceSn, "data": data]
             
         case .postSleep(let deviceSn, let data):

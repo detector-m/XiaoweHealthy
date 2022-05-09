@@ -1,5 +1,5 @@
 //
-//  XWHHealthyPressureCTVC.swift
+//  XWHHealthyMentalStressCTVC.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/5/6.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class XWHHealthyPressureCTVC: XWHHealthyBaseCTVC {
+class XWHHealthyMentalStressCTVC: XWHHealthyBaseCTVC {
     
     override var popMenuItems: [String] {
         [R.string.xwhDeviceText.压力设置(), R.string.xwhHealthyText.所有数据()]
@@ -22,12 +22,12 @@ class XWHHealthyPressureCTVC: XWHHealthyBaseCTVC {
     }
     
     override func registerViews() {
-        collectionView.register(cellWithClass: XWHPressureCommonCTCell.self)
-        collectionView.register(cellWithClass: XWHPressureGradiendtCTCell.self)
+        collectionView.register(cellWithClass: XWHMentalStressCommonCTCell.self)
+        collectionView.register(cellWithClass: XWHMentalStressGradiendtCTCell.self)
         
         collectionView.register(cellWithClass: XWHMultiColorLinearCTCell.self)
 
-        collectionView.register(cellWithClass: XWHPressureRangeCTCell.self)
+        collectionView.register(cellWithClass: XWHMentalStressRangeCTCell.self)
         
         collectionView.register(supplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withClass: XWHHealthyCTReusableView.self)
     }
@@ -48,7 +48,7 @@ class XWHHealthyPressureCTVC: XWHHealthyBaseCTVC {
     }
     
     func loadUIItems() {
-        uiManager.loadItems(.pressure)
+        uiManager.loadItems(.mentalStress)
         collectionView.reloadData()
     }
     
@@ -60,7 +60,7 @@ class XWHHealthyPressureCTVC: XWHHealthyBaseCTVC {
 }
 
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate
-extension XWHHealthyPressureCTVC {
+extension XWHHealthyMentalStressCTVC {
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return uiManager.items.count
@@ -72,7 +72,7 @@ extension XWHHealthyPressureCTVC {
             return uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem).count
         }
         
-        if item.uiCardType == .pressureRange {
+        if item.uiCardType == .mentalStressRange {
             return 5
         }
         
@@ -86,7 +86,7 @@ extension XWHHealthyPressureCTVC {
             return CGSize(width: collectionView.width, height: 71)
         }
         
-        if item.uiCardType == .pressureRange {
+        if item.uiCardType == .mentalStressRange {
             if indexPath.item == 0 {
                 return CGSize(width: collectionView.width, height: 30)
             }
@@ -108,7 +108,7 @@ extension XWHHealthyPressureCTVC {
             return 12
         }
         
-        if item.uiCardType == .pressureRange {
+        if item.uiCardType == .mentalStressRange {
             return 12
         }
         
@@ -132,19 +132,19 @@ extension XWHHealthyPressureCTVC {
         
         if item.uiCardType == .curDatas {
             if indexPath.item == 0, isHasLastCurDataItem {
-                let cell = collectionView.dequeueReusableCell(withClass: XWHPressureGradiendtCTCell.self, for: indexPath)
+                let cell = collectionView.dequeueReusableCell(withClass: XWHMentalStressGradiendtCTCell.self, for: indexPath)
                 
                 let titleStr = uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item]
 //                let valueStr = (lastBoModel?.value.string ?? "0") + "%"
                 let valueStr = "50"
-                let unit = XWHUIDisplayHandler.getPressureRangeString(50)
+                let unit = XWHUIDisplayHandler.getMentalStressRangeString(50)
                 let tipText = Date().localizedString(withFormat: XWHDate.monthDayHourMinute)
                 cell.update(titleStr, valueStr, unit, tipText)
                 
                 return cell
             }
             
-            let cell = collectionView.dequeueReusableCell(withClass: XWHPressureCommonCTCell.self, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withClass: XWHMentalStressCommonCTCell.self, for: indexPath)
             
             let titleStr = uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item]
             var valueStr = ""
@@ -153,7 +153,7 @@ extension XWHHealthyPressureCTVC {
                 valueStr = "50-100"
             } else if titleStr == R.string.xwhHealthyText.平均压力值() {
                 valueStr = 50.string
-                unit = XWHUIDisplayHandler.getPressureRangeString(50)
+                unit = XWHUIDisplayHandler.getMentalStressRangeString(50)
             }
             
             cell.update(titleStr, valueStr, unit)
@@ -161,14 +161,14 @@ extension XWHHealthyPressureCTVC {
             return cell
         }
         
-        if item.uiCardType == .pressureRange {
+        if item.uiCardType == .mentalStressRange {
             if indexPath.item == 0 {
                 let cell = collectionView.dequeueReusableCell(withClass: XWHMultiColorLinearCTCell.self, for: indexPath)
-                cell.update(values: [20, 50, 10, 20], colors: XWHUIDisplayHandler.getPressureRangeColors())
+                cell.update(values: [20, 50, 10, 20], colors: XWHUIDisplayHandler.getMentalStressRangeColors())
                 return cell
             }
             
-            let cell = collectionView.dequeueReusableCell(withClass: XWHPressureRangeCTCell.self, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withClass: XWHMentalStressRangeCTCell.self, for: indexPath)
             
             cell.update(indexPath.item - 1, 10)
 
@@ -196,7 +196,7 @@ extension XWHHealthyPressureCTVC {
             header.button.isHidden = false
             header.setDetailButton(title: btnTitle)
             header.clickAction = { [unowned self] in
-                self.gotoPressureIntroduction()
+                self.gotoMentalStressIntroduction()
             }
             
             return header
@@ -213,7 +213,7 @@ extension XWHHealthyPressureCTVC {
 
 
 // MARK: - DidSelectPopMenuItem
-extension XWHHealthyPressureCTVC {
+extension XWHHealthyMentalStressCTVC {
     
     override func didSelectPopMenuItem(at index: Int) {
         if index == 1 {
@@ -224,17 +224,17 @@ extension XWHHealthyPressureCTVC {
 }
 
 // MARK: - Jump UI
-extension XWHHealthyPressureCTVC {
+extension XWHHealthyMentalStressCTVC {
     
     /// 跳转到所有数据
     private func gotoAllData() {
-        let vc = XWHPressureAllDataTBVC()
+        let vc = XWHMentalStressAllDataTBVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     
     /// 跳转到详细说明
-    private func gotoPressureIntroduction() {
-        let vc = XWHPressureIntroductionTXVC()
+    private func gotoMentalStressIntroduction() {
+        let vc = XWHMentalStressIntroductionTXVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     

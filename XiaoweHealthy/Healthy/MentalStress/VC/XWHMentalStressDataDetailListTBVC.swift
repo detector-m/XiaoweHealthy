@@ -1,5 +1,5 @@
 //
-//  XWHPressureDataDetailListTBVC.swift
+//  XWHMentalStressDataDetailListTBVC.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/5/6.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class XWHPressureDataDetailListTBVC: XWHHealthyDataDetailListBaseTBVC {
+class XWHMentalStressDataDetailListTBVC: XWHHealthyDataDetailListBaseTBVC {
 
     override var titleText: String {
         let tString = sDate.localizedString(withFormat: XWHDate.yearMonthDayFormat)
@@ -15,18 +15,18 @@ class XWHPressureDataDetailListTBVC: XWHHealthyDataDetailListBaseTBVC {
         return tString + R.string.xwhHealthyText.数据()
     }
     
-    lazy var allDataUIItems: [XWHHeartModel] = []
+    lazy var allDataUIItems: [XWHMentalStressModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getDayPressureHistory()
+        getDayMentalStressHistory()
     }
 
 }
 
 // MARK: - UITableViewDataSource & UITableViewDelegate & UITableViewRoundedProtocol
-extension XWHPressureDataDetailListTBVC {
+extension XWHMentalStressDataDetailListTBVC {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return allDataUIItems.count
@@ -40,7 +40,7 @@ extension XWHPressureDataDetailListTBVC {
         cell.titleLb.text = cItem.formatDate()?.string(withFormat: XWHDate.hourMinuteFormat)
         
         let value = cItem.value.string
-        let unit = XWHUIDisplayHandler.getPressureRangeString(cItem.value)
+        let unit = XWHUIDisplayHandler.getMentalStressRangeString(cItem.value)
         let text = value + unit
         cell.subTitleLb.attributedText = text.colored(with: fontDarkColor).applying(attributes: [.font: valueFont], toOccurrencesOf: value).applying(attributes: [.font: normalFont], toOccurrencesOf: unit)
         
@@ -55,28 +55,28 @@ extension XWHPressureDataDetailListTBVC {
 }
 
 // MARK: - Jump UI
-extension XWHPressureDataDetailListTBVC {
+extension XWHMentalStressDataDetailListTBVC {
     
-    private func gotoDataDetail(_ heartModel: XWHHeartModel) {
-        let vc = XWHPressureDataDetailTBVC()
-        vc.detailId = heartModel.srId
+    private func gotoDataDetail(_ stressModel: XWHMentalStressModel) {
+        let vc = XWHMentalStressDataDetailTBVC()
+        vc.detailId = stressModel.srId
         navigationController?.pushViewController(vc, animated: true)
     }
     
 }
 
 // MARK: - Api
-extension XWHPressureDataDetailListTBVC {
+extension XWHMentalStressDataDetailListTBVC {
     
-    private func getDayPressureHistory() {
+    private func getDayMentalStressHistory() {
         XWHProgressHUD.show()
-        XWHHealthyVM().getDayHeartHistory(date: sDate, failureHandler: { error in
+        XWHHealthyVM().getDayMentalStressHistory(date: sDate, failureHandler: { error in
             XWHProgressHUD.hide()
             log.error(error)
         }, successHandler: { [unowned self] response in
             XWHProgressHUD.hide()
             
-            guard let retModel = response.data as? [XWHHeartModel] else {
+            guard let retModel = response.data as? [XWHMentalStressModel] else {
                 log.error("心率 - 获取所有数据错误")
                 return
             }

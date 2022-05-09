@@ -12,7 +12,7 @@ import SwiftUI
 /// 运动健康首页
 class XWHHealthyMainVC: XWHTableViewBaseVC {
     
-    private lazy var testItems: [XWHHealthyType] = [.heart, .bloodOxygen, .pressure, .sleep, .login, .test, .post, .sync]
+    private lazy var testItems: [XWHHealthyType] = [.heart, .bloodOxygen, .mentalStress, .sleep, .login, .test, .post, .sync]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,8 +123,8 @@ class XWHHealthyMainVC: XWHTableViewBaseVC {
         case .bloodOxygen:
             gotoBloodOxygen()
             
-        case .pressure:
-            gotoPressure()
+        case .mentalStress:
+            gotoMentalStress()
             
         case .sleep:
             gotoSleep()
@@ -186,14 +186,14 @@ extension XWHHealthyMainVC {
     }
     
     // 跳转到压力
-    private func gotoPressure() {
+    private func gotoMentalStress() {
         if !XWHUser.isLogined() {
             gotoLogin()
             
             return
         }
         
-        let vc = XWHHealthyPressureCTVC()
+        let vc = XWHHealthyMentalStressCTVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -243,12 +243,14 @@ extension XWHHealthyMainVC {
         
 //        testGetHeart()
         
-        testCalendar()        
+        testCalendar()
     }
     
     private func gotoTestPost() {
-        testPostHeart()
-        testPostBloodOxygen()
+//        testPostHeart()
+//        testPostBloodOxygen()
+        
+        testPostMentalState()
     }
     
     private func gotoSync() {
@@ -434,6 +436,42 @@ extension XWHHealthyMainVC {
             log.error(error)
         } successHandler: { response in
             
+        }
+    }
+    
+    private func testPostMentalState() {
+        guard let devSn = ddManager.getCurrentDeviceIdentifier() else {
+            return
+        }
+
+        let date = Date()
+        var ts = (date.timeIntervalSince1970 / 600).int * 600
+        ts -= 600 * 20
+        
+        var postData = [XWHMentalStateModel]()
+        
+        for i in 0 ..< 20 {
+            let iTs = 600 * i + ts
+            let iModel = XWHMentalStateModel()
+            iModel.identifier = devSn
+            iModel.mood = Int(arc4random() % 3)
+            iModel.fatigue = Int(arc4random() % 101)
+            iModel.stress = Int(arc4random() % 101)
+            let iDate = Date(timeIntervalSince1970: iTs.double)
+            iModel.time = iDate.string(withFormat: iModel.standardTimeFormat)
+            postData.append(iModel)
+        }
+        
+        if let last = postData.last {
+            let sItem = last.clone()
+            XWHHealthyDataManager.saveMentalState(sItem)
+        }
+        
+        XWHServerDataManager.postMentalState(deviceSn: devSn, data: postData) { error in
+            log.error(error)
+            self.view.makeInsetToast("testPostMentalState 上传失败")
+        } successHandler: { [unowned self] response in
+            self.view.makeInsetToast("testPostMentalState 上传成功")
         }
     }
     

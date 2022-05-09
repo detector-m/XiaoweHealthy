@@ -1,5 +1,5 @@
 //
-//  XWHPressureCommonCTCell.swift
+//  XWHMentalStressCommonCTCell.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/5/6.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class XWHPressureCommonCTCell: XWHHealthyCommonCTCell {
+class XWHMentalStressCommonCTCell: XWHHealthyCommonCTCell {
     
     func update(_ title: String, _ value: String, _ unit: String) {
         textLb.text = title

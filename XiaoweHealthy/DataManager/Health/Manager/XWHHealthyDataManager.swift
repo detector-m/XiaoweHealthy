@@ -18,6 +18,8 @@ class XWHHealthyDataManager {
     class func createTables(_ db: Database) throws {
         try createHeartTable(db)
         try createBloodOxygenTable(db)
+        
+        try createMentalStateTable(db)
     }
     
     class func removeCurrent() {
@@ -54,6 +56,16 @@ class XWHHealthyDataManager {
         }
         
         return getLastBloodOxygen(identifier: cId)
+    }
+    
+    class func getCurrentMentalState() -> XWHMentalStateModel? {
+        guard let cId = XWHDataDeviceManager.getCurrentDeviceIdentifier() else {
+            log.error("当前不存在设备")
+
+            return nil
+        }
+        
+        return getLastMentalState(identifier: cId)
     }
     
 }
@@ -175,6 +187,68 @@ extension XWHHealthyDataManager {
     class func deleteAllBloodOxygen() {
         appDB.write { db in
             try XWHBloodOxygenModel.deleteAll(db)
+        }
+    }
+    
+}
+
+// MARK: - MentalState(精神状态 - 压力、情绪、疲劳度数据)
+extension XWHHealthyDataManager {
+    
+    /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
+    ///  - Parameter db: 数据库handler
+    class func createMentalStateTable(_ db: Database) throws {
+        try db.create(table: XWHMentalStateModel.databaseTableName, body: { t in
+            t.column(XWHMentalStateModel.Columns.identifier.name, .text)
+
+            t.column(XWHMentalStateModel.Columns.time.name, .text)
+            t.column(XWHMentalStateModel.Columns.mood.name, .integer)
+            t.column(XWHMentalStateModel.Columns.fatigue.name, .integer)
+            t.column(XWHMentalStateModel.Columns.stress.name, .integer)
+            
+            t.primaryKey([XWHMentalStateModel.Columns.identifier.name, XWHMentalStateModel.Columns.time.name])
+        })
+    }
+    
+    class func saveMentalStates(_ mentalStates: [XWHMentalStateModel]) {
+        appDB.write { db in
+            try mentalStates.forEach({ try $0.save(db) })
+        }
+    }
+   
+    class func saveMentalState(_ mentalState: XWHMentalStateModel) {
+        saveMentalStates([mentalState])
+    }
+    
+    class func getMentalStates(identifier: String, bDate: Date, eDate: Date) -> [XWHMentalStateModel]? {
+        appDB.read { db in
+            let sDateString = bDate.string(withFormat: dateFormat)
+            let eDateString = eDate.string(withFormat: dateFormat)
+            return try XWHMentalStateModel.filter(XWHMentalStateModel.Columns.identifier == identifier && XWHMentalStateModel.Columns.time >= sDateString && XWHMentalStateModel.Columns.time <= eDateString).fetchAll(db)
+        }
+    }
+    
+    class func getLastMentalState(identifier: String) -> XWHMentalStateModel? {
+        appDB.read { db in
+            try XWHMentalStateModel.filter(XWHMentalStateModel.Columns.identifier == identifier).order(XWHMentalStateModel.Columns.time.desc).fetchOne(db)
+        }
+    }
+    
+    class func deleteMentalState(identifier: String) {
+        appDB.write { db in
+            try XWHMentalStateModel.filter(XWHMentalStateModel.Columns.identifier == identifier).deleteAll(db)
+        }
+    }
+    
+    class func deleteMentalState(_ mentalState: XWHMentalStateModel) {
+        appDB.write { db in
+            try mentalState.delete(db)
+        }
+    }
+    
+    class func deleteAllMentalState() {
+        appDB.write { db in
+            try XWHMentalStateModel.deleteAll(db)
         }
     }
     

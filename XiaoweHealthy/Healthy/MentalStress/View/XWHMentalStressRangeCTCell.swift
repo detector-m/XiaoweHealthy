@@ -1,5 +1,5 @@
 //
-//  XWHPressureRangeCTCell.swift
+//  XWHMentalStressRangeCTCell.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/5/6.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class XWHPressureRangeCTCell: XWHPressureCommonCTCell {
+class XWHMentalStressRangeCTCell: XWHMentalStressCommonCTCell {
     
     override func addSubViews() {
         super.addSubViews()
@@ -48,7 +48,7 @@ class XWHPressureRangeCTCell: XWHPressureCommonCTCell {
         var cValue = ""
         
         var cColor = UIColor.white
-        let colors = XWHUIDisplayHandler.getPressureRangeColors()
+        let colors = XWHUIDisplayHandler.getMentalStressRangeColors()
         if !colors.isEmpty, index < colors.count {
             cColor = colors[index]
         }

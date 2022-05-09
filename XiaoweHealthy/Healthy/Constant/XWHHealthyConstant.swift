@@ -18,7 +18,7 @@ enum XWHHealthyType: String {
     case heart = "心率"
     case bloodOxygen = "血氧饱和度"
     
-    case pressure = "压力"
+    case mentalStress = "压力"
     
     case sleep = "睡眠"
     
@@ -76,7 +76,7 @@ enum XWHHealthyDetailUICardType {
     case boTip
     
     /// 压力区间
-    case pressureRange
+    case mentalStressRange
     
     /// 睡眠分布 (睡眠区间)
     case sleepRange

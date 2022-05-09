@@ -12,9 +12,9 @@ import Foundation
 class XWHUIDisplayHandler {
     
     // MARK: - 健康
-    /// 获取压力区间
-    class func getPressureRangeString(_ value: Int) -> String {
-        let strings = getPressureRangeStrings()
+    /// 获取精神压力区间
+    class func getMentalStressRangeString(_ value: Int) -> String {
+        let strings = getMentalStressRangeStrings()
         switch value {
         case 0...29:
             return strings[0]
@@ -30,16 +30,16 @@ class XWHUIDisplayHandler {
         }
     }
     
-    class func getPressureRangeStrings() -> [String] {
+    class func getMentalStressRangeStrings() -> [String] {
         return [R.string.xwhHealthyText.放松(), R.string.xwhHealthyText.正常(), R.string.xwhHealthyText.中等(), R.string.xwhHealthyText.偏高()]
     }
     
-    class func getPressureRangeFullStrings() -> [String] {
+    class func getMentalStressRangeFullStrings() -> [String] {
         return [R.string.xwhHealthyText.放松129(), R.string.xwhHealthyText.正常3059(), R.string.xwhHealthyText.中等6079(), R.string.xwhHealthyText.偏高80100()]
     }
     
     /// 获取压力区间颜色
-    class func getPressureRangeColors() -> [UIColor] {
+    class func getMentalStressRangeColors() -> [UIColor] {
         return [UIColor(hex: 0x49CE64)!, UIColor(hex: 0x76D4EA)!, UIColor(hex: 0xF0B36D)!, UIColor(hex: 0xED7135)!]
     }
     

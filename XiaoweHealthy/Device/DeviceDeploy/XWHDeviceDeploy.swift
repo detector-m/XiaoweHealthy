@@ -24,7 +24,6 @@ enum XWHDeviceDeployType: Int {
     case contact = 302 // 通讯录（联系人）
     case heart = 303 // 心率设置
     case bloodOxygen = 304 // 血氧饱和度设置
-//    case pressure = 305 // 压力设置
     case mentalStress = 305 // 精神压力
     case stand = 306 // 久坐提醒
     case weather = 307 // 天气推送

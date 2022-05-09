@@ -79,6 +79,28 @@ class XWHServerDataManager {
         }
     }
     
+    // MARK: - MentalState(精神状态)
+    /// 上传精神状态数据 （压力、情绪、疲劳度数据）
+    class func postMentalState(deviceSn: String, data: [XWHMentalStateModel], failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        XWHServerDataManager().postMentalState(deviceSn: deviceSn, data: data, failureHandler: failureHandler, successHandler: successHandler)
+    }
+    func postMentalState(deviceSn: String, data: [XWHMentalStateModel], failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        let cId = "XWHServerDataManager.postMentalState"
+
+        let reqData = data.toJSON()
+        guard let reqData = reqData as? [[String: Any]] else {
+            handleDataParseError(cId, failureHandler)
+            return
+        }
+        
+        serverDataProvider.request(.postMentalState(deviceSn, reqData)) { result in
+            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
+                
+                return nil
+            }
+        }
+    }
+    
 }
 
 extension XWHServerDataManager {

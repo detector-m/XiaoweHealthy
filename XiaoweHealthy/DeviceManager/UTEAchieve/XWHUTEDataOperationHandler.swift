@@ -462,6 +462,26 @@ extension XWHUTEDataOperationHandler {
         return true
     }
     
+    /// 同步精神状态数据 （压力、情绪、疲劳度数据）
+//    private func syncMentalState() -> Bool {
+//        dataType = .sleep
+//        guard let conDev = manager.connectedDevicesModel else {
+//            handleUTENotConnectBindError(type: dataType)
+//
+//            dataType = .none
+//            return false
+//        }
+//
+//        if conDev.isHasDataStatus {
+//            let cTime = "2020-06-06-06-06"
+//            manager.syncDataCustomTime(cTime, type: .sleep)
+//        } else {
+//            manager.setUTEOption(.syncAllSleepData)
+//        }
+//
+//        return true
+//    }
+    
     
     private func isUTEConnectBind() -> Bool {
         if let _ = manager.connectedDevicesModel {

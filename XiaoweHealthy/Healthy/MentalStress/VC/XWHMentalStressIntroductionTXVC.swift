@@ -1,5 +1,5 @@
 //
-//  XWHPressureIntroductionTXVC.swift
+//  XWHMentalStressIntroductionTXVC.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/5/6.
@@ -8,7 +8,7 @@
 import UIKit
 import SwiftRichString
 
-class XWHPressureIntroductionTXVC: XWHTextBaseVC {
+class XWHMentalStressIntroductionTXVC: XWHTextBaseVC {
 
     override var titleText: String {
         R.string.xwhHealthyText.压力()
