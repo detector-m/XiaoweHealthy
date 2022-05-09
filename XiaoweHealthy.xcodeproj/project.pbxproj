@@ -231,6 +231,8 @@
 		969F01BD27F69D8B00CA4DA4 /* XWHPopupPick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F01BC27F69D8B00CA4DA4 /* XWHPopupPick.swift */; };
 		969F01C027F6DBB600CA4DA4 /* XWHDevSetUpdateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F01BF27F6DBB600CA4DA4 /* XWHDevSetUpdateVC.swift */; };
 		969F01C227F6DDF800CA4DA4 /* XWHDevSetUpdateHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F01C127F6DDF800CA4DA4 /* XWHDevSetUpdateHeaderView.swift */; };
+		96A10CA92828E45300C1E18F /* XWHHealthySleepUISleepModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A10CA82828E45300C1E18F /* XWHHealthySleepUISleepModel.swift */; };
+		96A10CAB2828EF1A00C1E18F /* XWHSleepUIAllDataItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A10CAA2828EF1A00C1E18F /* XWHSleepUIAllDataItemModel.swift */; };
 		96A5EC0D281B955B0048125A /* XWHHealthyDataBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A5EC0C281B955B0048125A /* XWHHealthyDataBaseModel.swift */; };
 		96AD2857280139670092B843 /* AppDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD2856280139670092B843 /* AppDatabase.swift */; };
 		96AD285A280144F40092B843 /* XWHLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD2859280144F40092B843 /* XWHLog.swift */; };
@@ -580,6 +582,8 @@
 		969F01BC27F69D8B00CA4DA4 /* XWHPopupPick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPopupPick.swift; sourceTree = "<group>"; };
 		969F01BF27F6DBB600CA4DA4 /* XWHDevSetUpdateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetUpdateVC.swift; sourceTree = "<group>"; };
 		969F01C127F6DDF800CA4DA4 /* XWHDevSetUpdateHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetUpdateHeaderView.swift; sourceTree = "<group>"; };
+		96A10CA82828E45300C1E18F /* XWHHealthySleepUISleepModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthySleepUISleepModel.swift; sourceTree = "<group>"; };
+		96A10CAA2828EF1A00C1E18F /* XWHSleepUIAllDataItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSleepUIAllDataItemModel.swift; sourceTree = "<group>"; };
 		96A5EC0C281B955B0048125A /* XWHHealthyDataBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyDataBaseModel.swift; sourceTree = "<group>"; };
 		96AD2856280139670092B843 /* AppDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDatabase.swift; sourceTree = "<group>"; };
 		96AD2859280144F40092B843 /* XWHLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLog.swift; sourceTree = "<group>"; };
@@ -1569,6 +1573,7 @@
 		969310492824BF6B00133626 /* Sleep */ = {
 			isa = PBXGroup;
 			children = (
+				96A10CA72828E38500C1E18F /* Model */,
 				969310662825281600133626 /* View */,
 				969310652825280D00133626 /* VC */,
 			);
@@ -1859,6 +1864,15 @@
 				969F01BF27F6DBB600CA4DA4 /* XWHDevSetUpdateVC.swift */,
 			);
 			path = Update;
+			sourceTree = "<group>";
+		};
+		96A10CA72828E38500C1E18F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				96A10CA82828E45300C1E18F /* XWHHealthySleepUISleepModel.swift */,
+				96A10CAA2828EF1A00C1E18F /* XWHSleepUIAllDataItemModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		96A5EC0B281B8D140048125A /* Manager */ = {
@@ -2720,6 +2734,7 @@
 				966A60F627FFD5DE00CBE915 /* XWHDeviceProductModel.swift in Sources */,
 				9653E48927F54D5900EE55FF /* XWHDataExtension.swift in Sources */,
 				96DC42A427FD88A2009BF300 /* XWHFileManager.swift in Sources */,
+				96A10CA92828E45300C1E18F /* XWHHealthySleepUISleepModel.swift in Sources */,
 				969310552824D59400133626 /* XWHPressureIntroductionTXVC.swift in Sources */,
 				9679E9E82817C49B003C6351 /* XWHCalendarMonthCTCell.swift in Sources */,
 				960E768027F00BB700A0DA25 /* XWHAddBrandDeviceCTCell.swift in Sources */,
@@ -2795,6 +2810,7 @@
 				96C67AFC2804742D001ACA81 /* XWHDataBloodOxygenSetManager.swift in Sources */,
 				9651EE2E27EC5BD30043FE52 /* UMShareSwiftInterface.swift in Sources */,
 				96F1D68A28096F370067DBFD /* XWHDialTitleCTCell.swift in Sources */,
+				96A10CAB2828EF1A00C1E18F /* XWHSleepUIAllDataItemModel.swift in Sources */,
 				9679E9CF28159105003C6351 /* XWHHeartUIAllDataItemModel.swift in Sources */,
 				9693103D2822282F00133626 /* XWHInnerDataHandlerProtocol.swift in Sources */,
 				969E712D280C383D00BDA401 /* XWHContactBaseVC.swift in Sources */,

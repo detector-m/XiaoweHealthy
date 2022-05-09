@@ -9,7 +9,7 @@ import UIKit
 
 class XWHSleepAllDataTBVC: XWHHealthyAllDataBaseTBVC {
 
-    lazy var allDataUIItems: [XWHHeartUIAllDataItemModel] = [] {
+    lazy var allDataUIItems: [XWHSleepUIAllDataItemModel] = [] {
         didSet {
             expandStates = allDataUIItems.map({ _ in false })
         }
@@ -63,7 +63,7 @@ extension XWHSleepAllDataTBVC {
             
             let cItem = item.items[indexPath.row - 1]
             cell.titleLb.text = cItem.collectTime
-            cell.subTitleLb.text = XWHUIDisplayHandler.getSleepDurationString(500)
+            cell.subTitleLb.text = XWHUIDisplayHandler.getSleepDurationString(cItem.totalSleepDuration)
             
             cell.bottomLine.isHidden = false
             if item.items.count == indexPath.row {
@@ -82,7 +82,7 @@ extension XWHSleepAllDataTBVC {
             let item = allDataUIItems[indexPath.section]
             let cItem = item.items[indexPath.row - 1]
 
-            gotoDataDetailList(cItem)
+            gotoDataDetail(cItem)
         }
     }
     
@@ -91,9 +91,10 @@ extension XWHSleepAllDataTBVC {
 // MARK: - Jump UI
 extension XWHSleepAllDataTBVC {
     
-    private func gotoDataDetailList(_ item: XWHHeartUIAllDataRateRangeModel) {
+    private func gotoDataDetail(_ item: XWHSleepUIAllDataItemSleepModel) {
         let vc = XWHSleepDataDetailTBVC()
-        vc.sDate = item.collectTime.date(withFormat: XWHDate.standardYearMonthDayFormat) ?? Date()
+//        vc.sDate = item.collectTime.date(withFormat: XWHDate.standardYearMonthDayFormat) ?? Date()
+        vc.uiAllDataItemSleepModel = item
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -105,14 +106,14 @@ extension XWHSleepAllDataTBVC {
     
     private func getYearSleepHistory() {
         XWHProgressHUD.show()
-        XWHHealthyVM().getYearHeartHistory(date: Date(), failureHandler: { error in
+        XWHHealthyVM().getYearSleepHistory(date: Date(), failureHandler: { error in
             XWHProgressHUD.hide()
             log.error(error)
         }, successHandler: { [unowned self] response in
             XWHProgressHUD.hide()
             
-            guard let retModel = response.data as? [XWHHeartUIAllDataItemModel] else {
-                log.error("心率 - 获取所有数据错误")
+            guard let retModel = response.data as? [XWHSleepUIAllDataItemModel] else {
+                log.error("睡眠 - 获取所有数据错误")
                 return
             }
             

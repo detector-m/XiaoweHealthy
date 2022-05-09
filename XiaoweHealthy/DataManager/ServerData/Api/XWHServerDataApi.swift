@@ -59,7 +59,7 @@ extension XWHServerDataApi: XWHServiceTargetType {
             param = ["deviceSn": deviceSn, "data": data]
             
         case .postSleep(let deviceSn, let data):
-            param = data.first ?? [:]
+            param = data.last ?? [:]
         }
         
         log.debug("url: \(baseURL.absoluteString + path) param: \(param)")

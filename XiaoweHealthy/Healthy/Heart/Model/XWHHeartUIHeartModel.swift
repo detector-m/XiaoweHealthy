@@ -12,10 +12,14 @@ import HandyJSON
 /// 心率界面的心率模型
 class XWHHeartUIHeartModel: HandyJSON {
     
+    /// 心率范围
     var rateRange = ""
+    /// 静息心率
     var restRate = 0
+    /// 平均心率
     var avgRate = 0
     
+    /// 心率区间
     var rateSection = XWHHeartUIHeartSectionModel()
     
     var items = [XWHHeartUIHeartChartModel]()

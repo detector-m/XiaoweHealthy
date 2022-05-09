@@ -98,7 +98,7 @@ class XWHHealthyVM {
     }
     
     
-    // MARK: - 血氧(心率)
+    // MARK: - BloodOxygen(血氧)
     /// 上传血氧数据
 //    func postBloodOxygen(deviceSn: String, data: [XWHBloodOxygenModel], failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
 //        let reqData = data.toJSON()
@@ -176,6 +176,49 @@ class XWHHealthyVM {
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
                 
                 response.data = XWHBloodOxygenModel.deserialize(from: json.dictionaryObject)
+                return nil
+            }
+        }
+    }
+    
+    
+    // MARK: - Sleep(睡眠)
+    /// 用户睡眠数据是否存在查询
+    func getSleepExistDate(date: Date, dateType: XWHHealthyDateSegmentType, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        healthyProvider.request(.getSleepExistDate(date.year, date.month, dateType.rawValue)) { result in
+            let cId = "Healthy.GetSleepExistDate"
+            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
+                response.code = dateType.rawValue
+                guard let items = json.arrayObject as? [String] else {
+                    log.error("\(cId) 获取用户睡眠数据是否存在错误")
+                    return nil
+                }
+                
+                response.data = self.getExistDataDateModel(date, dateType, items)
+                return nil
+            }
+        }
+    }
+    
+    /// 获取睡眠数据
+    func getSleep(date: Date, dateType: XWHHealthyDateSegmentType, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        healthyProvider.request(.getSleep(date.year, date.month, date.day, dateType.rawValue)) { result in
+            let cId = "Healthy.GetSleep"
+            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
+                response.data = XWHHealthySleepUISleepModel.deserialize(from: json.dictionaryObject)
+                
+                return nil
+            }
+        }
+    }
+    
+    /// 获取年睡眠的历史数据
+    func getYearSleepHistory(date: Date, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        healthyProvider.request(.getSleepHistory(date.year, date.month, date.day, XWHHealthyDateSegmentType.year.rawValue)) { result in
+            let cId = "Healthy.GetSleepHistory"
+            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
+
+                response.data = [XWHSleepUIAllDataItemModel].deserialize(from: json.arrayObject)
                 return nil
             }
         }

@@ -37,25 +37,21 @@ class XWHHealthyDataManager {
     }
     
     class func getCurrentHeart() -> XWHHeartModel? {
-//        guard let cId = XWHDataDeviceManager.getCurrentDeviceIdentifier() else {
-//            log.error("当前不存在设备")
-//
-//            return nil
-//        }
-        
-        let cId = XWHHealthyMainVC.testDeviceSn()
+        guard let cId = XWHDataDeviceManager.getCurrentDeviceIdentifier() else {
+            log.error("当前不存在设备")
+
+            return nil
+        }
         
         return getLastHeart(identifier: cId)
     }
     
     class func getCurrentBloodOxygen() -> XWHHeartModel? {
-//        guard let cId = XWHDataDeviceManager.getCurrentDeviceIdentifier() else {
-//            log.error("当前不存在设备")
-//
-//            return nil
-//        }
-        
-        let cId = XWHHealthyMainVC.testDeviceSn()
+        guard let cId = XWHDataDeviceManager.getCurrentDeviceIdentifier() else {
+            log.error("当前不存在设备")
+
+            return nil
+        }
         
         return getLastBloodOxygen(identifier: cId)
     }

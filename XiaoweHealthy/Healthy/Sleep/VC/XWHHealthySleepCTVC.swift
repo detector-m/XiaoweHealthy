@@ -12,13 +12,16 @@ class XWHHealthySleepCTVC: XWHHealthyBaseCTVC {
     override var popMenuItems: [String] {
         [R.string.xwhDeviceText.压力设置(), R.string.xwhHealthyText.所有数据()]
     }
+    
+    var sleepUIModel: XWHHealthySleepUISleepModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.title = R.string.xwhHealthyText.睡眠()
         
-        loadUIItems()
+        getSleepExistDate()
+        getSleep()
     }
     
     override func registerViews() {
@@ -32,15 +35,15 @@ class XWHHealthySleepCTVC: XWHHealthyBaseCTVC {
     
     override func clickDateBtn() {
         showCalendar() { [unowned self] scrollDate, cDateType in
-//            self._getBloodOxygenExistDate(scrollDate, sDateType: cDateType) { isExist in
-//            }
+            self._getSleepExistDate(scrollDate, sDateType: cDateType) { isExist in
+            }
         }
     }
     
     override func dateSegmentValueChanged(_ segmentType: XWHHealthyDateSegmentType) {
         updateUI(false)
-//        getBloodOxygenExistDate()
-//        getBloodOxygen()
+        getSleepExistDate()
+        getSleep()
         
         collectionView.reloadData()
     }
@@ -123,6 +126,11 @@ extension XWHHealthySleepCTVC {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let item = uiManager.items[indexPath.section]
         
+        let totalDuration = sleepUIModel?.totalSleepDuration ?? 0
+        let deepDuration = sleepUIModel?.deepSleepDuration ?? 0
+        let lightDuration = sleepUIModel?.lightSleepDuration ?? 0
+        let awakeDuration = sleepUIModel?.awakeDuration ?? 0
+        
         if item.uiCardType == .curDatas {
             let cell = collectionView.dequeueReusableCell(withClass: XWHSleepScoreCTCell.self, for: indexPath)
             var score = 0
@@ -132,18 +140,18 @@ extension XWHHealthySleepCTVC {
             var eTime = ""
             
             if dateType == .day {
-                bTime = Date().string(withFormat: XWHDate.hourMinuteFormat)
-                eTime = Date().string(withFormat: XWHDate.hourMinuteFormat)
+                bTime = sleepUIModel?.bedTime.date(withFormat: XWHDate.standardTimeAllFormat)?.string(withFormat: XWHDate.hourMinuteFormat) ?? ""
+                eTime = sleepUIModel?.riseTime.date(withFormat: XWHDate.standardTimeAllFormat)?.string(withFormat: XWHDate.hourMinuteFormat) ?? ""
                 
                 var scoreArray = [Int]()
                 var tipArray = [String]()
                 
                 // 睡眠总时长得分
-                var tmpScore = XWHUIDisplayHandler.getDaySleepTotalDurationScore(480)
+                var tmpScore = XWHUIDisplayHandler.getDaySleepTotalDurationScore(totalDuration)
                 scoreArray.append(tmpScore)
                 
                 // 睡眠总时长提示
-                var tmpTip = XWHUIDisplayHandler.getDaySleepTotalDurationTip(480)
+                var tmpTip = XWHUIDisplayHandler.getDaySleepTotalDurationTip(totalDuration)
                 tipArray.append(tmpTip)
                 
                 // 入睡时间评分
@@ -156,7 +164,7 @@ extension XWHHealthySleepCTVC {
 
                 
                 // 入睡时长评分
-                tmpScore = XWHUIDisplayHandler.getDayBeginSleepDurationScore(55)
+                tmpScore = XWHUIDisplayHandler.getDayBeginSleepDurationScore(0)
                 scoreArray.append(tmpScore)
 
                 // 入睡时长提示
@@ -164,7 +172,7 @@ extension XWHHealthySleepCTVC {
                 tipArray.append(tmpTip)
                 
                 // 深睡时长评分
-                tmpScore = XWHUIDisplayHandler.getDayDeepSleepDurationScore(125)
+                tmpScore = XWHUIDisplayHandler.getDayDeepSleepDurationScore(deepDuration)
                 scoreArray.append(tmpScore)
 
                 // 深睡时长提示
@@ -172,7 +180,7 @@ extension XWHHealthySleepCTVC {
                 tipArray.append(tmpTip)
                 
                 // 夜醒时长评分
-                tmpScore = XWHUIDisplayHandler.getDayAwakeInNightScore(20)
+                tmpScore = XWHUIDisplayHandler.getDayAwakeInNightScore(0)
                 scoreArray.append(tmpScore)
 
                 // 夜醒时长提示
@@ -180,7 +188,7 @@ extension XWHHealthySleepCTVC {
                 tipArray.append(tmpTip)
                 
                 // 起床稳定性评分
-                tmpScore = XWHUIDisplayHandler.getDayWakeupStabilityScore(10)
+                tmpScore = XWHUIDisplayHandler.getDayWakeupStabilityScore(awakeDuration)
                 scoreArray.append(tmpScore)
                 
                 tipArray.append(R.string.xwhHealthyText.好的睡眠是身体健康最基本的保障())
@@ -188,8 +196,8 @@ extension XWHHealthySleepCTVC {
                 score = scoreArray.sum()
                 tip = tipArray.joined(separator: R.string.xwhHealthyText.分割逗号())
             } else {
-                score = XWHUIDisplayHandler.getWeekMonthYearSleepTotalDurationScore(480)
-                tip = XWHUIDisplayHandler.getWeekMonthYearSleepTipString(480)
+                score = XWHUIDisplayHandler.getWeekMonthYearSleepTotalDurationScore(totalDuration)
+                tip = XWHUIDisplayHandler.getWeekMonthYearSleepTipString(totalDuration)
             }
     
             sQuality = XWHUIDisplayHandler.getSleepQualityString(score)
@@ -201,7 +209,7 @@ extension XWHHealthySleepCTVC {
         if item.uiCardType == .sleepRange {
             if indexPath.item == 0 {
                 let cell = collectionView.dequeueReusableCell(withClass: XWHMultiColorLinearCTCell.self, for: indexPath)
-                cell.update(values: [20, 50, 30], colors: XWHUIDisplayHandler.getSleepStateColors())
+                cell.update(values: [deepDuration, lightDuration, awakeDuration], colors: XWHUIDisplayHandler.getSleepStateColors())
                 return cell
             }
             
@@ -210,19 +218,20 @@ extension XWHHealthySleepCTVC {
             var valueStr = ""
             var tipStr = ""
             
-            let sleepRateStrs = XWHUIDisplayHandler.getSleepRateStrings(120, 310, 50, 480)
+            let sleepRateStrs = XWHUIDisplayHandler.getSleepRateStrings(deepDuration, lightDuration, awakeDuration, totalDuration)
             if indexPath.item == 1 {
-                valueStr = XWHUIDisplayHandler.getSleepDurationString(120)
-                tipStr = sleepRateStrs[indexPath.item - 1] + " " + XWHUIDisplayHandler.getDeepSleepRangeString(120)
+                valueStr = XWHUIDisplayHandler.getSleepDurationString(deepDuration)
+                tipStr = sleepRateStrs[indexPath.item - 1] + " " + XWHUIDisplayHandler.getDeepSleepRangeString(deepDuration)
             } else if indexPath.item == 2 {
-                valueStr = XWHUIDisplayHandler.getSleepDurationString(310)
-                tipStr = sleepRateStrs[indexPath.item - 1] + " " + XWHUIDisplayHandler.getDeepSleepRangeString(310)
+                valueStr = XWHUIDisplayHandler.getSleepDurationString(lightDuration)
+                tipStr = sleepRateStrs[indexPath.item - 1] + " " + XWHUIDisplayHandler.getDeepSleepRangeString(lightDuration)
             } else if indexPath.item == 3 {
-                valueStr = XWHUIDisplayHandler.getSleepDurationString(50)
-                tipStr = sleepRateStrs[indexPath.item - 1] + " " + XWHUIDisplayHandler.getDeepSleepRangeString(50)
+                valueStr = XWHUIDisplayHandler.getSleepDurationString(awakeDuration)
+                tipStr = sleepRateStrs[indexPath.item - 1] + " " + XWHUIDisplayHandler.getDeepSleepRangeString(awakeDuration)
             } else if indexPath.item == 4 {
-                valueStr = "\(2) " + R.string.xwhHealthyText.次()
-                tipStr = XWHUIDisplayHandler.getAwakeTimesRangeString(2)
+                let awakeTimes = sleepUIModel?.awakeCount ?? 0
+                valueStr = "\(awakeTimes) " + R.string.xwhHealthyText.次()
+                tipStr = XWHUIDisplayHandler.getAwakeTimesRangeString(awakeTimes)
             }
             cell.update(titleStr, valueStr, tipStr, XWHUIDisplayHandler.getSleepRangeColors()[0])
 
@@ -290,6 +299,85 @@ extension XWHHealthySleepCTVC {
     private func gotoSleepIntroduction() {
         let vc = XWHSleepIntroductionTXVC()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+}
+
+
+// MARK: - Api
+extension XWHHealthySleepCTVC {
+    
+    private func getSleepExistDate() {
+        let cDate = getSelectedDate()
+//        XWHProgressHUD.show()
+        _getSleepExistDate(cDate, sDateType: dateType) { isExist in
+//            if isExist {
+//                XWHProgressHUD.hide()
+//            }
+        }
+    }
+    
+    private func _getSleepExistDate(_ sDate: Date, sDateType: XWHHealthyDateSegmentType, _ completion: ((Bool) -> Void)?) {
+        if existDataDateItemsContains(sDate, sDateType: sDateType) {
+            completion?(true)
+            return
+        }
+        
+        var rDateType = sDateType
+        if sDateType == .week {
+            rDateType = .day
+        }
+        XWHHealthyVM().getSleepExistDate(date: sDate, dateType: rDateType) { [unowned self] error in
+            XWHProgressHUD.hide()
+            log.error(error)
+            
+            if error.isExpiredUserToken {
+                XWHUser.handleExpiredUserTokenUI(self, nil)
+                return
+            }
+        } successHandler: { [unowned self] response in
+            XWHProgressHUD.hide()
+            
+            guard let retModel = response.data as? XWHHealthyExistDataDateModel else {
+                log.debug("心率 - 获取存在数据日期为空")
+
+                return
+            }
+            
+            updateExistDataDateItem(retModel)
+            
+            completion?(false)
+        }
+    }
+    
+    private func getSleep() {
+        XWHProgressHUD.show()
+        let cDate = getSelectedDate()
+        XWHHealthyVM().getSleep(date: cDate, dateType: dateType) { [unowned self] error in
+            XWHProgressHUD.hide()
+            log.error(error)
+            
+            if error.isExpiredUserToken {
+                XWHUser.handleExpiredUserTokenUI(self, nil)
+                return
+            }
+        } successHandler: { [unowned self] response in
+            XWHProgressHUD.hide()
+            
+            guard let retModel = response.data as? XWHHealthySleepUISleepModel else {
+                log.error("睡眠 - 获取数据错误")
+                
+                self.sleepUIModel = nil
+                self.cleanUIItems()
+                
+                self.collectionView.reloadEmptyDataSet()
+                
+                return
+            }
+            
+            self.sleepUIModel = retModel
+            self.loadUIItems()
+        }
     }
     
 }
