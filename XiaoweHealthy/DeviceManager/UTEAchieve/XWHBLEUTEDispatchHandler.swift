@@ -380,12 +380,17 @@ extension XWHBLEUTEDispatchHandler {
     private func getDeviceInfo(with uteDevice: UTEModelDevices) -> XWHDevWatchModel {
         let device = XWHDevWatchModel()
 
-        device.identifier = uteDevice.identifier
+        let devId = uteDevice.identifier ?? ""
+//        device.identifier = XWHDeviceHelper.getStandardDeviceSn(devId)
+        device.identifier = devId
+        
+        let devMac = (uteDevice.addressStr ?? (uteDevice.advertisementAddress ?? ""))
+        device.mac = XWHDeviceHelper.getStandardFormatMac(devMac)
+        
         device.name = uteDevice.name
         device.category = .watch
         device.type = bleDevModel?.type ?? .skyworthWatchS1
         
-        device.mac = (uteDevice.addressStr ?? (uteDevice.advertisementAddress ?? ""))
         device.rssi = uteDevice.rssi
         
         return device

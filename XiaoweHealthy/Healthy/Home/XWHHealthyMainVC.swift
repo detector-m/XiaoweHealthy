@@ -243,7 +243,7 @@ extension XWHHealthyMainVC {
         
 //        testGetHeart()
         
-        testCalendar()
+        testCalendar()        
     }
     
     private func gotoTestPost() {

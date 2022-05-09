@@ -86,11 +86,18 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
             response.identifier = retIdStr
             
             let retWatchModel = XWHDevWatchModel()
-            retWatchModel.identifier = connDevice.identifier
+            
+            let devId = connDevice.identifier ?? ""
+//            retWatchModel.identifier = XWHDeviceHelper.getStandardDeviceSn(devId)
+            retWatchModel.identifier = devId
+
+            let devMac = connDevice.addressStr ?? ""
+            retWatchModel.mac = XWHDeviceHelper.getStandardFormatMac(devMac)
+
             retWatchModel.battery = connDevice.battery
             retWatchModel.name = connDevice.name
-            retWatchModel.mac = connDevice.addressStr ?? ""
             retWatchModel.version = connDevice.version ?? ""
+            
             retWatchModel.isCurrent = true
             
             response.data = retWatchModel

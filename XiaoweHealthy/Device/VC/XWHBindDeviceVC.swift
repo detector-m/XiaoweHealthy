@@ -111,11 +111,11 @@ extension XWHBindDeviceVC {
         isBindSuccess = true
         XWHDataDeviceManager.setCurrent(device: bindDevice)
         
-        bindDeviceSuccessUI()
-        
-        updateDeviceInfo()
-        
-        uploadBindDevice(bindDevice)
+        updateDeviceInfo { [unowned self] connDev in
+            self.bindDeviceSuccessUI()
+            
+            self.uploadBindDevice(connDev)
+        }
     }
     
 }
@@ -209,16 +209,21 @@ extension XWHBindDeviceVC {
         }
     }
     
-    private func updateDeviceInfo() {
+    private func updateDeviceInfo(_ completion: ((XWHDevWatchModel) -> Void)? = nil) {
         XWHDDMShared.getDeviceInfo { [unowned self] result in
             switch result {
             case .success(let cModel):
-                if let connModel = cModel?.data as? XWHDevWatchModel, let curModel = XWHDataDeviceManager.getCurrentWatch() {
+                guard let connModel = cModel?.data as? XWHDevWatchModel else {
+                    return
+                }
+                if let curModel = XWHDataDeviceManager.getCurrentWatch() {
                     connModel.isCurrent = curModel.isCurrent
                     connModel.type = curModel.type
                     connModel.category = curModel.category
-                    XWHDataDeviceManager.setCurrent(device: connModel)
                 }
+                
+                XWHDataDeviceManager.setCurrent(device: connModel)
+                completion?(connModel)
                 
             case .failure(let error):
                 self.view.makeInsetToast(error.message)
@@ -229,8 +234,8 @@ extension XWHBindDeviceVC {
     // 绑定设备上报
     func uploadBindDevice(_ device: XWHDevWatchModel) {
         // Test
-        let deviceSn = XWHHealthyMainVC.testDeviceSn()
-        XWHUserVM().bindDevice(deviceSn: deviceSn, deviceMode: "S1", deviceName: "ABCE", macAddr: "12345678900988765432") { error in
+        let deviceSn = XWHDeviceHelper.getStandardDeviceSn(device.identifier)
+        XWHUserVM().bindDevice(deviceSn: deviceSn, deviceMode: device.type.rawValue, deviceName: device.name, macAddr: device.mac) { error in
             log.error(error)
         } successHandler: { res in
             
