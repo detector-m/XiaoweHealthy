@@ -1,15 +1,15 @@
 //
-//  XWHDevSetPressureVC.swift
+//  XWHDevSetMentalStressVC.swift
 //  XiaoweHealthy
 //
-//  Created by Riven on 2022/3/31.
+//  Created by Riven on 2022/5/9.
 //
 
 import UIKit
 
-class XWHDevSetPressureVC: XWHDevSetBaseVC {
+class XWHDevSetMentalStressVC: XWHDevSetBaseVC {
     
-    private lazy var isBpOn = ddManager.getCurrentBloodPressureSet()?.isOn ?? false
+    private lazy var isMsOn = ddManager.getCurrentMentalStressSet()?.isOn ?? false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,18 +40,18 @@ class XWHDevSetPressureVC: XWHDevSetBaseVC {
         cell.titleLb.text = R.string.xwhDeviceText.压力自动监测()
         cell.subTitleLb.text = R.string.xwhDeviceText.开启后设备将根据HRV等生理指标测量你的压力情况()
         
-        cell.button.isSelected = isBpOn
+        cell.button.isSelected = isMsOn
         
         cell.clickAction = { [unowned cell, unowned self] isOn in
-            guard let bpSet = ddManager.getCurrentBloodPressureSet() else {
+            guard let msSet = ddManager.getCurrentMentalStressSet() else {
                 return
             }
-            bpSet.isOn = isOn
-            self.setBloodPressureSet(bpSet) {
-                ddManager.saveBloodPressureSet(bpSet)
+            msSet.isOn = isOn
+            self.setMentalStressSet(msSet) {
+                ddManager.saveMentalStressSet(msSet)
                 
-                isBpOn = isOn
-                cell.button.isSelected = isBpOn
+                isMsOn = isOn
+                cell.button.isSelected = isMsOn
             }
         }
         
@@ -60,20 +60,20 @@ class XWHDevSetPressureVC: XWHDevSetBaseVC {
 
 }
 
-extension XWHDevSetPressureVC {
+extension XWHDevSetMentalStressVC {
     
-    private func setBloodPressureSet(_ bloodPressureSet: XWHBloodPressureSetModel, _ completion: (() -> Void)?) {
-        XWHDDMShared.setBloodPressureSet(bloodPressureSet) { [weak self] result in
+    private func setMentalStressSet(_ mentalStressSet: XWHMentalStressSetModel, _ completion: (() -> Void)?) {
+        XWHDDMShared.setMentalStressSet(mentalStressSet) { [weak self] result in
             guard let self = self else {
                 return
             }
-            
+
             switch result {
             case .success(_):
                 completion?()
-                
+
             case .failure(_):
-                self.view.makeInsetToast("血压设置失败")
+                self.view.makeInsetToast("精神压力设置失败")
             }
         }
     }

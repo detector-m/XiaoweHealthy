@@ -234,6 +234,11 @@ extension XWHDevWatchDispatchManager: XWHDevCmdOperationProtocol {
         cmdHandler?.setBloodPressureSet(bloodPressureSet, handler: handler)
     }
     
+    /// 设置精神压力设置
+    func setMentalStressSet(_ mentalStressSet: XWHMentalStressSetModel, handler: XWHDevCmdOperationHandler?) {
+        cmdHandler?.setMentalStressSet(mentalStressSet, handler: handler)
+    }
+    
     /// 设置血氧设置
     func setBloodOxygenSet(_ bloodOxygenSet: XWHBloodOxygenSetModel, handler: XWHDevCmdOperationHandler?) {
         cmdHandler?.setBloodOxygenSet(bloodOxygenSet, handler: handler)

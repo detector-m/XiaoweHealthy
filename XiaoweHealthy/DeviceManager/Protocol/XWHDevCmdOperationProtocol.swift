@@ -87,6 +87,12 @@ protocol XWHDevCmdOperationProtocol: XWHDevDialOperationProtocol, XWHDevFirmware
     ///   - handler: 操作回调结果
     func setBloodPressureSet(_ bloodPressureSet: XWHBloodPressureSetModel, handler: XWHDevCmdOperationHandler?)
     
+    /// 设置精神压力设置
+    /// - Parameters:
+    ///   - mentalStressSet: 精神压力设置模型
+    ///   - handler: 操作回调结果
+    func setMentalStressSet(_ mentalStressSet: XWHMentalStressSetModel, handler: XWHDevCmdOperationHandler?)
+    
     /// 设置血氧设置
     /// - Parameters:
     ///   - bloodOxygenSet: 血氧设置模型

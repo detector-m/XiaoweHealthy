@@ -26,6 +26,7 @@ class XWHDataDeviceManager {
         try createLongSitSetTable(db)
         
         try createBloodPressureSetTable(db)
+        try createMentalStressSetTable(db)
         try createBloodOxygenSetTable(db)
         
         try createHeartSetTable(db)
@@ -184,6 +185,21 @@ extension XWHDataDeviceManager {
        return bpSet
     }
     
+    // MentalStressSet
+    class func getCurrentMentalStressSet() -> XWHMentalStressSetModel? {
+        guard let cId = getCurrentDeviceIdentifier() else {
+            log.error("当前不存在设备")
+            return nil
+        }
+        
+        guard let msSet = getMentalStressSet(identifier: cId) else {
+            log.error("当前不存在 MentalStressSet")
+            return nil
+        }
+        
+       return msSet
+    }
+    
     // BloodOxygenSet
     class func getCurrentBloodOxygenSet() -> XWHBloodOxygenSetModel? {
         guard let cId = getCurrentDeviceIdentifier() else {
@@ -340,6 +356,10 @@ extension XWHDataDeviceManager {
         let bloodPressureSet = XWHBloodPressureSetModel(identifier)
         saveBloodPressureSet(bloodPressureSet)
         
+        // MentalStressSet
+        let mentalStressSet = XWHMentalStressSetModel(identifier)
+        saveMentalStressSet(mentalStressSet)
+        
         // BloodOxygenSet
         let bloodOxygenSet = XWHBloodOxygenSetModel(identifier)
         saveBloodOxygenSet(bloodOxygenSet)
@@ -372,6 +392,9 @@ extension XWHDataDeviceManager {
         
         // BloodPressureSet
         deleteBloodPressureSet(identifier: identifier)
+        
+        // MentalStressSet
+        deleteMentalStressSet(identifier: identifier)
         
         // BloodOxygenSet
         deleteBloodOxygenSet(identifier: identifier)
@@ -479,6 +502,30 @@ extension XWHDataDeviceManager {
     }
     
 }
+
+// MARK: - MentalStressSet
+extension XWHDataDeviceManager {
+    
+    /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
+    ///  - Parameter db: 数据库handler
+    class func createMentalStressSetTable(_ db: Database) throws {
+        try XWHDataMentalStressSetManager.createMentalStressSetTable(db)
+    }
+    
+    class func saveMentalStressSet(_ msSet: XWHMentalStressSetModel) {
+        XWHDataMentalStressSetManager.saveMentalStressSet(msSet)
+    }
+    
+    class func getMentalStressSet(identifier: String) -> XWHMentalStressSetModel? {
+        XWHDataMentalStressSetManager.getMentalStressSet(identifier: identifier)
+    }
+    
+    class func deleteMentalStressSet(identifier: String) {
+        XWHDataMentalStressSetManager.deleteMentalStressSet(identifier: identifier)
+    }
+    
+}
+
 
 // MARK: - BloodOxygenSet
 extension XWHDataDeviceManager {

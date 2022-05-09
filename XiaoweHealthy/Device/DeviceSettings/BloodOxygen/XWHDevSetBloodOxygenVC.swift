@@ -1,5 +1,5 @@
 //
-//  XWHDevSetOxygenVC.swift
+//  XWHDevSetBloodOxygenVC.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/3/31.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class XWHDevSetOxygenVC: XWHDevSetBaseVC {
+class XWHDevSetBloodOxygenVC: XWHDevSetBaseVC {
     
     lazy var isOxygenOn = ddManager.getCurrentBloodOxygenSet()?.isOn ?? false
     
@@ -110,7 +110,7 @@ class XWHDevSetOxygenVC: XWHDevSetBaseVC {
 
 }
 
-extension XWHDevSetOxygenVC {
+extension XWHDevSetBloodOxygenVC {
     
     // 选取监测频率
     fileprivate func gotoPickMonitorTime() {
@@ -136,7 +136,7 @@ extension XWHDevSetOxygenVC {
 }
 
 // MARK: - Api
-extension XWHDevSetOxygenVC {
+extension XWHDevSetBloodOxygenVC {
     
     private func setBloodOxygen(_ bloodOxygenSet: XWHBloodOxygenSetModel, _ completion: (() -> Void)?) {
         XWHDDMShared.setBloodOxygenSet(bloodOxygenSet) { [weak self] result in

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class XWHDevSetWeatherVC: XWHDevSetPressureVC {
+class XWHDevSetWeatherVC: XWHDevSetBloodPressureVC {
     
     private lazy var isOnWeather = ddManager.getCurrentWeatherSet()?.isOn ?? false
 

@@ -282,14 +282,14 @@ class XWHDeviceMainVC: XWHTableViewBaseVC {
         case .heart:
             gotoDevSetHeart()
             
-        case .oxygen:
-            gotoDevSetOxygen()
+        case .bloodOxygen:
+            gotoDevSetBloodOxygen()
             
         case .stand:
             gotoDevSetStand()
             
-        case .pressure:
-            gotoDevSetPressure()
+        case .mentalStress:
+            gotoDevSetMentalStress()
             
         case .weather:
             gotoDevSetWeather()
@@ -484,8 +484,8 @@ extension XWHDeviceMainVC {
     }
     
     // 血氧饱和度设置
-    private func gotoDevSetOxygen() {
-        let vc = XWHDevSetOxygenVC()
+    private func gotoDevSetBloodOxygen() {
+        let vc = XWHDevSetBloodOxygenVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -495,9 +495,15 @@ extension XWHDeviceMainVC {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    // 压力设置
-    private func gotoDevSetPressure() {
-        let vc = XWHDevSetPressureVC()
+    // 血压设置
+    private func gotoDevSetBloodPressure() {
+        let vc = XWHDevSetBloodPressureVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // 精神压力设置
+    private func gotoDevSetMentalStress() {
+        let vc = XWHDevSetMentalStressVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     

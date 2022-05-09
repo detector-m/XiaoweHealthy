@@ -23,8 +23,9 @@ enum XWHDeviceDeployType: Int {
     case call = 301 // 来电提醒
     case contact = 302 // 通讯录（联系人）
     case heart = 303 // 心率设置
-    case oxygen = 304 // 血氧饱和度设置
-    case pressure = 305 // 压力设置
+    case bloodOxygen = 304 // 血氧饱和度设置
+//    case pressure = 305 // 压力设置
+    case mentalStress = 305 // 精神压力
     case stand = 306 // 久坐提醒
     case weather = 307 // 天气推送
     case schedule = 308 // 日程设置
@@ -68,7 +69,7 @@ class XWHDeviceDeploy {
     lazy var deviceInfoDeploy: [XWHDeviceDeployType] = [.info]
     
     lazy var commonDeploy1: [XWHDeviceDeployType] = [.chat, .call, .contact]
-    lazy var commonDeploy2: [XWHDeviceDeployType] = [.heart, .oxygen, .pressure, .stand]
+    lazy var commonDeploy2: [XWHDeviceDeployType] = [.heart, .bloodOxygen, .mentalStress, .stand]
     lazy var commonDeploy3: [XWHDeviceDeployType] = [.weather, .wrist, .disturb]
 
     // 表盘市场
@@ -176,12 +177,12 @@ class XWHDeviceDeploy {
             item.iconBgColor = UIColor(hex: 0xEB5763)
             item.iconImageName = "DeviceHeart"
 
-        case .oxygen: // 血氧饱和度设置
+        case .bloodOxygen: // 血氧饱和度设置
             item.title = R.string.xwhDeviceText.血氧饱和度设置()
             item.iconBgColor = UIColor(hex: 0x6CD267)
             item.iconImageName = "DeviceOxygen"
 
-        case .pressure: // 压力设置
+        case .mentalStress: // 压力设置
             item.title = R.string.xwhDeviceText.压力设置()
             item.iconBgColor = UIColor(hex: 0x76D4EA)
             item.iconImageName = "DevicePressure"

@@ -269,6 +269,11 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
         handler?(.success(nil))
     }
     
+    /// 设置精神压力设置
+    func setMentalStressSet(_ mentalStressSet: XWHMentalStressSetModel, handler: XWHDevCmdOperationHandler?) {
+        handler?(.success(nil))
+    }
+    
     /// 设置血氧设置
     func setBloodOxygenSet(_ bloodOxygenSet: XWHBloodOxygenSetModel, handler: XWHDevCmdOperationHandler?) {
         var boTimeInterval = UTECommonTestTime.time30Mins

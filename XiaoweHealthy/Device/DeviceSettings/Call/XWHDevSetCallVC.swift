@@ -7,7 +7,7 @@
 
 import UIKit
 
-class XWHDevSetCallVC: XWHDevSetPressureVC {
+class XWHDevSetCallVC: XWHDevSetBloodPressureVC {
     
     private static var isShowAuthorize = true
     
