@@ -16,29 +16,11 @@ class XWHHealthyHeartCTVC: XWHHealthyBaseCTVC {
     }
     
     override var isHasLastCurDataItem: Bool {
-        guard let lModel = lastHeartModel, let lDate = lModel.formatDate() else {
-            return false
-        }
-        
-        switch dateType {
-        case .day:
-            return lDate.isInToday
-            
-        case .week:
-            let nowWeekBegin = Date().weekBegin
-            return nowWeekBegin == lDate.weekBegin
-            
-        case .month:
-            return lDate.isInCurrentMonth
-            
-        case .year:
-            return lDate.isInCurrentYear
-        }
+        return isLast(lastItem)
     }
     
-    
     var heartUIModel: XWHHeartUIHeartModel?
-    private lazy var lastHeartModel = XWHHealthyDataManager.getCurrentHeart()
+    private lazy var lastItem = XWHHealthyDataManager.getCurrentHeart()
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -152,7 +134,7 @@ extension XWHHealthyHeartCTVC {
             if indexPath.item == 0, isHasLastCurDataItem {
                 let cell = collectionView.dequeueReusableCell(withClass: XWHHeartGradientCTCell.self, for: indexPath)
                 
-                cell.update(uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item], lastHeartModel?.value.string ?? "0", lastHeartModel?.formatDate()?.localizedString(withFormat: XWHDate.monthDayHourMinute) ?? "")
+                cell.update(uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item], lastItem?.value.string ?? "0", lastItem?.formatDate()?.localizedString(withFormat: XWHDate.monthDayHourMinute) ?? "")
                 
                 return cell
             }

@@ -14,7 +14,7 @@ class XWHBOUIBloodOxygenModel: HandyJSON {
     var avgBloodOxygen = 0
     var bloodOxygenRange = ""
     
-    var items = [XWHHeartUIHeartChartModel]()
+    var items = [XWHChartUIChartItemModel]()
     
     required init() {
         

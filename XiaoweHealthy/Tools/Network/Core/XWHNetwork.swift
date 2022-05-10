@@ -59,7 +59,7 @@ class XWHNetwork {
             }
     
             let retRawString = json["data"].rawString() ?? ""
-            log.debug(retRawString)
+            log.debug("handleResult -> retRawString = \(retRawString)")
             
             let retResponse = XWHResponse()
             retResponse.identifier = cId

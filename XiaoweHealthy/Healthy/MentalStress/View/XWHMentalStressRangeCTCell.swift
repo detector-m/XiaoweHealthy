@@ -66,10 +66,8 @@ class XWHMentalStressRangeCTCell: XWHMentalStressCommonCTCell {
         imageView.layer.backgroundColor = cColor.cgColor
         textLb.text = cValue
         
-//        let unit = ""
-//        let cText = cValue + unit
-//        imageView.layer.backgroundColor = cColor.cgColor
-//        textLb.attributedText = cText.colored(with: fontDarkColor).applying(attributes: [.font: XWHFont.harmonyOSSans(ofSize: 20, weight: .bold)], toOccurrencesOf: cValue).applying(attributes: [.font: XWHFont.harmonyOSSans(ofSize: 12)], toOccurrencesOf: unit)
+        detailLb.text = XWHUIDisplayHandler.getMentalStressRangeFullStrings()[index]
+        
     }
     
 }

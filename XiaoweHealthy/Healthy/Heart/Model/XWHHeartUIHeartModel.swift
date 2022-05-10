@@ -22,7 +22,7 @@ class XWHHeartUIHeartModel: HandyJSON {
     /// 心率区间
     var rateSection = XWHHeartUIHeartSectionModel()
     
-    var items = [XWHHeartUIHeartChartModel]()
+    var items = [XWHChartUIChartItemModel]()
     
     required init() {
         
@@ -50,16 +50,8 @@ class XWHHeartUIHeartSectionModel: HandyJSON {
     
 }
 
+
 /// 心率界面心率图表模型
-class XWHHeartUIHeartChartModel: HandyJSON {
-    
-    var highest = 0
-    var average = 0
-    var lowest = 0
-    var timeAxis = ""
-    
-    required init() {
-        
-    }
-    
-}
+//class XWHHeartUIHeartChartModel: XWHChartUIChartItemModel {
+//
+//}

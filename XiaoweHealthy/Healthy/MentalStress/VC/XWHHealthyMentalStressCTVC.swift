@@ -12,6 +12,13 @@ class XWHHealthyMentalStressCTVC: XWHHealthyBaseCTVC {
     override var popMenuItems: [String] {
         [R.string.xwhDeviceText.压力设置(), R.string.xwhHealthyText.所有数据()]
     }
+    
+    override var isHasLastCurDataItem: Bool {
+        return isLast(lastItem)
+    }
+    
+    var msUIModel: XWHMentalStressUIStressModel?
+    private lazy var lastItem = XWHHealthyDataManager.getCurrentMentalState()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,14 +137,19 @@ extension XWHHealthyMentalStressCTVC {
         let item = uiManager.items[indexPath.section]
         
         if item.uiCardType == .curDatas {
+            var titleStr = uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item]
+            var valueStr = ""
+            var unit = ""
+            
             if indexPath.item == 0, isHasLastCurDataItem {
                 let cell = collectionView.dequeueReusableCell(withClass: XWHMentalStressGradiendtCTCell.self, for: indexPath)
                 
-                let titleStr = uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item]
-//                let valueStr = (lastBoModel?.value.string ?? "0") + "%"
-                let valueStr = "50"
-                let unit = XWHUIDisplayHandler.getMentalStressRangeString(50)
-                let tipText = Date().localizedString(withFormat: XWHDate.monthDayHourMinute)
+                titleStr = uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item]
+                
+                let value = lastItem?.stress ?? 0
+                valueStr = value.string
+                unit = XWHUIDisplayHandler.getMentalStressRangeString(value)
+                let tipText = lastItem?.formatDate()?.localizedString(withFormat: XWHDate.monthDayHourMinute) ?? ""
                 cell.update(titleStr, valueStr, unit, tipText)
                 
                 return cell
@@ -145,14 +157,16 @@ extension XWHHealthyMentalStressCTVC {
             
             let cell = collectionView.dequeueReusableCell(withClass: XWHMentalStressCommonCTCell.self, for: indexPath)
             
-            let titleStr = uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item]
-            var valueStr = ""
-            var unit = ""
+            titleStr = uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item]
+            valueStr = ""
+            unit = ""
+            
             if titleStr == R.string.xwhHealthyText.压力范围() {
-                valueStr = "50-100"
+                valueStr = msUIModel?.range.map({ $0.string }).joined(separator: "-") ?? ""
             } else if titleStr == R.string.xwhHealthyText.平均压力值() {
-                valueStr = 50.string
-                unit = XWHUIDisplayHandler.getMentalStressRangeString(50)
+                let value = msUIModel?.averageVal ?? 0
+                valueStr = value.string
+                unit = XWHUIDisplayHandler.getMentalStressRangeString(value)
             }
             
             cell.update(titleStr, valueStr, unit)
@@ -161,15 +175,34 @@ extension XWHHealthyMentalStressCTVC {
         }
         
         if item.uiCardType == .mentalStressRange {
+            /// 放松状态频次
+            let relaxNumber = msUIModel?.relaxNumber ?? 0
+            /// 正常状态频次
+            let normalNumber = msUIModel?.normalNumber ?? 0
+            /// 中等状态频次
+            let mediumNumber = msUIModel?.mediumNumber ?? 0
+            /// 高等状态频次
+            let highNumber = msUIModel?.highNumber ?? 0
+            /// 所有状态频次
+            var totalNumber = msUIModel?.totalNumber ?? 0
+            
+            if totalNumber <= 0 {
+                totalNumber = 100
+            }
+            
+            let values = [relaxNumber, normalNumber, mediumNumber, highNumber]
             if indexPath.item == 0 {
                 let cell = collectionView.dequeueReusableCell(withClass: XWHMultiColorLinearCTCell.self, for: indexPath)
-                cell.update(values: [20, 50, 10, 20], colors: XWHUIDisplayHandler.getMentalStressRangeColors())
+                
+                cell.update(values: values, colors: XWHUIDisplayHandler.getMentalStressRangeColors())
                 return cell
             }
             
             let cell = collectionView.dequeueReusableCell(withClass: XWHMentalStressRangeCTCell.self, for: indexPath)
             
-            cell.update(indexPath.item - 1, 10)
+            let cIndex = indexPath.item - 1
+            let rate = (values[cIndex].cgFloat / totalNumber.cgFloat) * 100
+            cell.update(cIndex, rate.int)
 
             return cell
         }
@@ -220,6 +253,7 @@ extension XWHHealthyMentalStressCTVC {
             return
         }
     }
+    
 }
 
 // MARK: - Jump UI
@@ -298,9 +332,9 @@ extension XWHHealthyMentalStressCTVC {
         } successHandler: { [unowned self] response in
             XWHProgressHUD.hide()
             
-            guard let retModel = response.data as? XWHBOUIBloodOxygenModel else {
+            guard let retModel = response.data as? XWHMentalStressUIStressModel else {
                 log.debug("精神压力 - 获取数据为空")
-//                self.boUIModel = nil
+                self.msUIModel = nil
                 self.cleanUIItems()
                 
                 self.collectionView.reloadEmptyDataSet()
@@ -308,7 +342,7 @@ extension XWHHealthyMentalStressCTVC {
                 return
             }
             
-//            self.boUIModel = retModel
+            self.msUIModel = retModel
             self.loadUIItems()
         }
     }

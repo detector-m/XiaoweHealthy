@@ -369,3 +369,30 @@ extension XWHHealthyBaseCTVC {
     }
     
 }
+
+// MARK: - Methods
+extension XWHHealthyBaseCTVC {
+    
+    /// 是否是最好一个
+    func isLast(_ item: XWHHealthyDataBaseModel?) -> Bool {
+        guard let lModel = item, let lDate = lModel.formatDate() else {
+            return false
+        }
+        
+        switch dateType {
+        case .day:
+            return lDate.isInToday
+            
+        case .week:
+            let nowWeekBegin = Date().weekBegin
+            return nowWeekBegin == lDate.weekBegin
+            
+        case .month:
+            return lDate.isInCurrentMonth
+            
+        case .year:
+            return lDate.isInCurrentYear
+        }
+    }
+    
+}

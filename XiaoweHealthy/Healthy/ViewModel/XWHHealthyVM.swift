@@ -249,7 +249,7 @@ class XWHHealthyVM {
         healthyProvider.request(.getMentalStress(date.year, date.month, date.day, dateType.rawValue)) { result in
             let cId = "Healthy.getMentalStress"
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
-//                response.data = XWHBOUIBloodOxygenModel.deserialize(from: json.dictionaryObject)
+                response.data = XWHMentalStressUIStressModel.deserialize(from: json.dictionaryObject)
                 
                 return nil
             }

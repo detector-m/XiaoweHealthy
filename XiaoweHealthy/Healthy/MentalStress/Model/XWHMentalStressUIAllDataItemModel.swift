@@ -23,6 +23,7 @@ class XWHMentalStressUIAllDataItemModel: HandyJSON {
 }
 
 
+///  精神压力所有数据界面的压力模型
 class XWHMentalStressUIAllDataItemStressModel: HandyJSON {
 
     /// 数据采集日期

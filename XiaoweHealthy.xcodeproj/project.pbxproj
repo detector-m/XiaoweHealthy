@@ -239,6 +239,8 @@
 		96A10CB428290AEB00C1E18F /* XWHMentalStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A10CB328290AEB00C1E18F /* XWHMentalStateModel.swift */; };
 		96A10CB7282919FE00C1E18F /* XWHMentalStressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A10CB6282919FE00C1E18F /* XWHMentalStressModel.swift */; };
 		96A10CB928291B7200C1E18F /* XWHMentalStressUIAllDataItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A10CB828291B7200C1E18F /* XWHMentalStressUIAllDataItemModel.swift */; };
+		96A10CBB2829F8CD00C1E18F /* XWHMentalStressUIStressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A10CBA2829F8CD00C1E18F /* XWHMentalStressUIStressModel.swift */; };
+		96A10CBD2829FA9300C1E18F /* XWHChartUIChartItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A10CBC2829FA9300C1E18F /* XWHChartUIChartItemModel.swift */; };
 		96A5EC0D281B955B0048125A /* XWHHealthyDataBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A5EC0C281B955B0048125A /* XWHHealthyDataBaseModel.swift */; };
 		96AD2857280139670092B843 /* AppDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD2856280139670092B843 /* AppDatabase.swift */; };
 		96AD285A280144F40092B843 /* XWHLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD2859280144F40092B843 /* XWHLog.swift */; };
@@ -596,6 +598,8 @@
 		96A10CB328290AEB00C1E18F /* XWHMentalStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMentalStateModel.swift; sourceTree = "<group>"; };
 		96A10CB6282919FE00C1E18F /* XWHMentalStressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMentalStressModel.swift; sourceTree = "<group>"; };
 		96A10CB828291B7200C1E18F /* XWHMentalStressUIAllDataItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMentalStressUIAllDataItemModel.swift; sourceTree = "<group>"; };
+		96A10CBA2829F8CD00C1E18F /* XWHMentalStressUIStressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMentalStressUIStressModel.swift; sourceTree = "<group>"; };
+		96A10CBC2829FA9300C1E18F /* XWHChartUIChartItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHChartUIChartItemModel.swift; sourceTree = "<group>"; };
 		96A5EC0C281B955B0048125A /* XWHHealthyDataBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyDataBaseModel.swift; sourceTree = "<group>"; };
 		96AD2856280139670092B843 /* AppDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDatabase.swift; sourceTree = "<group>"; };
 		96AD2859280144F40092B843 /* XWHLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLog.swift; sourceTree = "<group>"; };
@@ -1427,6 +1431,7 @@
 			isa = PBXGroup;
 			children = (
 				9679E9FA281A7918003C6351 /* XWHHealthyExistDataDateModel.swift */,
+				96A10CBC2829FA9300C1E18F /* XWHChartUIChartItemModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1902,6 +1907,7 @@
 		96A10CB52829199E00C1E18F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				96A10CBA2829F8CD00C1E18F /* XWHMentalStressUIStressModel.swift */,
 				96A10CB828291B7200C1E18F /* XWHMentalStressUIAllDataItemModel.swift */,
 			);
 			path = Model;
@@ -2841,6 +2847,7 @@
 				9693104F2824C53300133626 /* XWHMentalStressCommonCTCell.swift in Sources */,
 				96AD285C28016BB30092B843 /* XWHTestModel.swift in Sources */,
 				9690725328152D990056CE4F /* XWHHealthyDataDetailTBCell.swift in Sources */,
+				96A10CBD2829FA9300C1E18F /* XWHChartUIChartItemModel.swift in Sources */,
 				9679E9EF2817FFB4003C6351 /* XWHCalendarDayCTCell.swift in Sources */,
 				969310532824C68D00133626 /* XWHMentalStressRangeCTCell.swift in Sources */,
 				9672B25E27EEA48900DC80D6 /* XWHUser.swift in Sources */,
@@ -2909,6 +2916,7 @@
 				96C67AE92804174B001ACA81 /* XWHHeartSetModel.swift in Sources */,
 				969310442824AF9C00133626 /* XWHServerDataApi.swift in Sources */,
 				9651EDFA27E9A3130043FE52 /* RLOverlayerBgView.swift in Sources */,
+				96A10CBB2829F8CD00C1E18F /* XWHMentalStressUIStressModel.swift in Sources */,
 				9690724F2815291C0056CE4F /* XWHHealthyDataDetailBaseTBVC.swift in Sources */,
 				96617AA527E3169200139B03 /* XWHCodeView.swift in Sources */,
 				9676489F2827B90600DE9AFF /* XWHDeviceHelper.swift in Sources */,
