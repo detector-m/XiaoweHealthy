@@ -140,9 +140,6 @@
 		967AF4C127EF544200235E08 /* XWHDevicePagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C027EF544200235E08 /* XWHDevicePagerViewCell.swift */; };
 		967AF4C327EF545800235E08 /* XWHDeviceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C227EF545800235E08 /* XWHDeviceVM.swift */; };
 		967AF4C527EF547B00235E08 /* XWHDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C427EF547B00235E08 /* XWHDevice.swift */; };
-		967AF4CA27EF568A00235E08 /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 967AF4C727EF568A00235E08 /* 1.jpg */; };
-		967AF4CB27EF568A00235E08 /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 967AF4C827EF568A00235E08 /* 3.jpg */; };
-		967AF4CC27EF568A00235E08 /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 967AF4C927EF568A00235E08 /* 2.jpg */; };
 		968CB8A327F3FB8800E549AC /* UITableViewRoundedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */; };
 		968CB8A627F40B5A00E549AC /* XWHDeviceDeploy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */; };
 		968CB8A827F42A8C00E549AC /* XWHCommonBaseTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A727F42A8C00E549AC /* XWHCommonBaseTBCell.swift */; };
@@ -241,6 +238,10 @@
 		96A10CB928291B7200C1E18F /* XWHMentalStressUIAllDataItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A10CB828291B7200C1E18F /* XWHMentalStressUIAllDataItemModel.swift */; };
 		96A10CBB2829F8CD00C1E18F /* XWHMentalStressUIStressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A10CBA2829F8CD00C1E18F /* XWHMentalStressUIStressModel.swift */; };
 		96A10CBD2829FA9300C1E18F /* XWHChartUIChartItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A10CBC2829FA9300C1E18F /* XWHChartUIChartItemModel.swift */; };
+		96A10CC0282A67B500C1E18F /* XWHChartLegendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A10CBF282A67B500C1E18F /* XWHChartLegendView.swift */; };
+		96A10CC2282A69A500C1E18F /* XWHSleepDayChartCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A10CC1282A69A500C1E18F /* XWHSleepDayChartCTCell.swift */; };
+		96A10CC4282A6D4200C1E18F /* XWHHealthyGradientBaseCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A10CC3282A6D4200C1E18F /* XWHHealthyGradientBaseCTCell.swift */; };
+		96A10CC6282A6DC600C1E18F /* XWHHealthyChartBaseCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A10CC5282A6DC500C1E18F /* XWHHealthyChartBaseCTCell.swift */; };
 		96A5EC0D281B955B0048125A /* XWHHealthyDataBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A5EC0C281B955B0048125A /* XWHHealthyDataBaseModel.swift */; };
 		96AD2857280139670092B843 /* AppDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD2856280139670092B843 /* AppDatabase.swift */; };
 		96AD285A280144F40092B843 /* XWHLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD2859280144F40092B843 /* XWHLog.swift */; };
@@ -499,9 +500,6 @@
 		967AF4C027EF544200235E08 /* XWHDevicePagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevicePagerViewCell.swift; sourceTree = "<group>"; };
 		967AF4C227EF545800235E08 /* XWHDeviceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceVM.swift; sourceTree = "<group>"; };
 		967AF4C427EF547B00235E08 /* XWHDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevice.swift; sourceTree = "<group>"; };
-		967AF4C727EF568A00235E08 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
-		967AF4C827EF568A00235E08 /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
-		967AF4C927EF568A00235E08 /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
 		968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewRoundedProtocol.swift; sourceTree = "<group>"; };
 		968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceDeploy.swift; sourceTree = "<group>"; };
 		968CB8A727F42A8C00E549AC /* XWHCommonBaseTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCommonBaseTBCell.swift; sourceTree = "<group>"; };
@@ -600,6 +598,10 @@
 		96A10CB828291B7200C1E18F /* XWHMentalStressUIAllDataItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMentalStressUIAllDataItemModel.swift; sourceTree = "<group>"; };
 		96A10CBA2829F8CD00C1E18F /* XWHMentalStressUIStressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMentalStressUIStressModel.swift; sourceTree = "<group>"; };
 		96A10CBC2829FA9300C1E18F /* XWHChartUIChartItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHChartUIChartItemModel.swift; sourceTree = "<group>"; };
+		96A10CBF282A67B500C1E18F /* XWHChartLegendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHChartLegendView.swift; sourceTree = "<group>"; };
+		96A10CC1282A69A500C1E18F /* XWHSleepDayChartCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSleepDayChartCTCell.swift; sourceTree = "<group>"; };
+		96A10CC3282A6D4200C1E18F /* XWHHealthyGradientBaseCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyGradientBaseCTCell.swift; sourceTree = "<group>"; };
+		96A10CC5282A6DC500C1E18F /* XWHHealthyChartBaseCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyChartBaseCTCell.swift; sourceTree = "<group>"; };
 		96A5EC0C281B955B0048125A /* XWHHealthyDataBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyDataBaseModel.swift; sourceTree = "<group>"; };
 		96AD2856280139670092B843 /* AppDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDatabase.swift; sourceTree = "<group>"; };
 		96AD2859280144F40092B843 /* XWHLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLog.swift; sourceTree = "<group>"; };
@@ -793,6 +795,7 @@
 				96E23C2327E1A32F009EF208 /* Device */,
 				96E23C2427E1A33E009EF208 /* Me */,
 				96931075282600B800133626 /* UIDisplayHandler */,
+				96A10CBE282A55B200C1E18F /* Charts */,
 				96DC429427FD303A009BF300 /* DeviceManager */,
 				96DC429E27FD7323009BF300 /* DataManager */,
 				96D0041127F8212400E569C7 /* WebViewBridge */,
@@ -1092,7 +1095,6 @@
 		96617A5C27E1D19C00139B03 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				967AF4C627EF567E00235E08 /* Test */,
 				96617A6627E1D31700139B03 /* XWHLaunchBg@2x.png */,
 				96617A6527E1D31700139B03 /* XWHLaunchBg@3x.png */,
 				96617A6227E1D1B300139B03 /* XWHLaunchImg@2x.png */,
@@ -1474,16 +1476,6 @@
 			path = Module;
 			sourceTree = "<group>";
 		};
-		967AF4C627EF567E00235E08 /* Test */ = {
-			isa = PBXGroup;
-			children = (
-				967AF4C727EF568A00235E08 /* 1.jpg */,
-				967AF4C927EF568A00235E08 /* 2.jpg */,
-				967AF4C827EF568A00235E08 /* 3.jpg */,
-			);
-			path = Test;
-			sourceTree = "<group>";
-		};
 		968CB8A127F3FB3700E549AC /* UITableViewRoundedProtocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -1655,6 +1647,7 @@
 			children = (
 				9693106928252BA500133626 /* XWHSleepCommonCTCell.swift */,
 				9693106B28252CA600133626 /* XWHSleepScoreCTCell.swift */,
+				96A10CC1282A69A500C1E18F /* XWHSleepDayChartCTCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1730,6 +1723,7 @@
 		969B8822280FE749009952E7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				96A10CBF282A67B500C1E18F /* XWHChartLegendView.swift */,
 				969B8829281011C1009952E7 /* Cell */,
 			);
 			path = View;
@@ -1739,6 +1733,7 @@
 			isa = PBXGroup;
 			children = (
 				969B882A2810122A009952E7 /* XWHHealthyCommonCTCell.swift */,
+				96A10CC3282A6D4200C1E18F /* XWHHealthyGradientBaseCTCell.swift */,
 				969B882D28110153009952E7 /* XWHHealthyGradientCTCell.swift */,
 				969B883728111CCD009952E7 /* XWHHealthyCTReusableView.swift */,
 				969072442814EDBA0056CE4F /* XWHHealthyAllDataCommonTBCell.swift */,
@@ -1746,6 +1741,7 @@
 				9690725228152D990056CE4F /* XWHHealthyDataDetailTBCell.swift */,
 				9690724828151A670056CE4F /* XWHHealthyDataDetailListTBCell.swift */,
 				969310632825034A00133626 /* XWHMultiColorLinearCTCell.swift */,
+				96A10CC5282A6DC500C1E18F /* XWHHealthyChartBaseCTCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1911,6 +1907,13 @@
 				96A10CB828291B7200C1E18F /* XWHMentalStressUIAllDataItemModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		96A10CBE282A55B200C1E18F /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Charts;
 			sourceTree = "<group>";
 		};
 		96A5EC0B281B8D140048125A /* Manager */ = {
@@ -2538,7 +2541,6 @@
 				9648E61B27E0796E0077180D /* LaunchScreen.storyboard in Resources */,
 				96FC407D27EDA16800D64B64 /* HarmonyOS_Sans_SC_Medium.ttf in Resources */,
 				96617A6727E1D31700139B03 /* XWHLaunchBg@3x.png in Resources */,
-				967AF4CA27EF568A00235E08 /* 1.jpg in Resources */,
 				96FC408327EDA4F400D64B64 /* SKSans-Regular.otf in Resources */,
 				96FC407727EDA16800D64B64 /* HarmonyOS_Sans_SC_Regular.ttf in Resources */,
 				96F1D66128067CF40067DBFD /* D391901_pix360x360_rgb565.bin in Resources */,
@@ -2546,8 +2548,6 @@
 				96D0041427F821D100E569C7 /* XWHTestWebViewBridge.html in Resources */,
 				967823AF27F2CA42004F66FB /* iconfont.ttf in Resources */,
 				96617A6027E1D1A600139B03 /* XWHLaunchLogoS@3x.png in Resources */,
-				967AF4CC27EF568A00235E08 /* 2.jpg in Resources */,
-				967AF4CB27EF568A00235E08 /* 3.jpg in Resources */,
 				96F1D67E280945780067DBFD /* XWHDialText.strings in Resources */,
 				96617A5F27E1D1A600139B03 /* XWHLaunchLogoS@2x.png in Resources */,
 				96FC408A27EDBB3B00D64B64 /* XWHDeviceText.strings in Resources */,
@@ -2925,6 +2925,7 @@
 				9653E49A27F5978800EE55FF /* XWHTBHeaderFooterBaseView.swift in Sources */,
 				967823AD27F2C9DC004F66FB /* XWHUIFontExtension.swift in Sources */,
 				969F01BA27F693B100CA4DA4 /* RLPopupBaseView.swift in Sources */,
+				96A10CC2282A69A500C1E18F /* XWHSleepDayChartCTCell.swift in Sources */,
 				96617A6E27E1E00E00139B03 /* XWHBaseVC.swift in Sources */,
 				96C67ADC2803D27A001ACA81 /* XWHDataBaseModel.swift in Sources */,
 				9690725F2815589F0056CE4F /* XWHHeartUIHeartModel.swift in Sources */,
@@ -2959,6 +2960,7 @@
 				96617AB127E3496000139B03 /* XWHGenderSelectVC.swift in Sources */,
 				9693107428253CF100133626 /* XWHSleepDataDetailTBVC.swift in Sources */,
 				96E23C2E27E1A586009EF208 /* XWHMeMainVC.swift in Sources */,
+				96A10CC6282A6DC600C1E18F /* XWHHealthyChartBaseCTCell.swift in Sources */,
 				96C67AE728041732001ACA81 /* XWHDisturbSetModel.swift in Sources */,
 				968CB8B027F4661700E549AC /* XWHDeviceMainFooter.swift in Sources */,
 				9679E9F628191337003C6351 /* XWHCalendarWeekCTCell.swift in Sources */,
@@ -2999,8 +3001,10 @@
 				9651EE2527EC15290043FE52 /* XWHTextDescriptionConfig.swift in Sources */,
 				966A60F828001F6100CBE915 /* XWHLoginProgressHUDContentView.swift in Sources */,
 				9679E9D428169338003C6351 /* XWHCalendarPopupContainer.swift in Sources */,
+				96A10CC4282A6D4200C1E18F /* XWHHealthyGradientBaseCTCell.swift in Sources */,
 				9651EE0727EAF6CE0043FE52 /* XWHServiceTargetType.swift in Sources */,
 				969F01C027F6DBB600CA4DA4 /* XWHDevSetUpdateVC.swift in Sources */,
+				96A10CC0282A67B500C1E18F /* XWHChartLegendView.swift in Sources */,
 				969072432814EC320056CE4F /* XWHHeartDataDetailListTBVC.swift in Sources */,
 				96E23C2027E1A22C009EF208 /* R.generated.swift in Sources */,
 				9653E4A627F5A6D700EE55FF /* XWHDevSetBloodOxygenVC.swift in Sources */,

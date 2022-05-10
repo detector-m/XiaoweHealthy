@@ -32,7 +32,7 @@ class XWHHealthyUIManager: XWHHealthyUIItemModel {
     private lazy var mentalStressCurDataItems: [String] = [R.string.xwhHealthyText.最近一次压力值(), R.string.xwhHealthyText.压力范围(), R.string.xwhHealthyText.平均压力值()]
     
     // MARK: - 睡眠 （Sleep）
-    private lazy var sleepCardTypes: [XWHHealthyDetailUICardType] = [.curDatas, .sleepRange]
+    private lazy var sleepCardTypes: [XWHHealthyDetailUICardType] = [.chart, .curDatas, .sleepRange]
 
     func loadItems(_ type: XWHHealthyType) {
         switch type {

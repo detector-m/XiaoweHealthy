@@ -126,6 +126,11 @@ extension XWHHealthyMentalStressCTVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let item = uiManager.items[section]
+        if item.uiCardType == .chart {
+            return .zero
+        }
+        
         return CGSize(width: collectionView.width, height: 46)
     }
     

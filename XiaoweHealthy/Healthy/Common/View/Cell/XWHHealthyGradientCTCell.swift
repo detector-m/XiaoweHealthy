@@ -8,30 +8,13 @@
 import UIKit
 import SwifterSwift
 
-class XWHHealthyGradientCTCell: XWHHealthyCommonCTCell {
+class XWHHealthyGradientCTCell: XWHHealthyGradientBaseCTCell {
     
     lazy var tipLb = UILabel()
-    lazy var gradientColors: [UIColor] = [UIColor(hex: 0xFFE0E2)!, UIColor(hex: 0xFFFFFF)!] {
-        didSet {
-            gradientLayer.colors = gradientColors.map({ $0.cgColor })
-        }
-    }
-    
-    private lazy var gradientLayer: CAGradientLayer = {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = gradientColors.map({ $0.cgColor })
-        gradientLayer.startPoint = CGPoint(x: 0.0, y: 1)
-        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1)
-        gradientLayer.type = .axial
-        gradientLayer.cornerRadius = 12
-        return gradientLayer
-    }()
     
     override func addSubViews() {
         super.addSubViews()
-    
-        contentView.layer.insertSublayer(gradientLayer, at: 0)
-        
+            
         tipLb.font = XWHFont.harmonyOSSans(ofSize: 12)
         tipLb.textColor = fontDarkColor.withAlphaComponent(0.5)
         tipLb.textAlignment = .left
@@ -61,12 +44,6 @@ class XWHHealthyGradientCTCell: XWHHealthyCommonCTCell {
             make.right.equalToSuperview().inset(16)
             make.left.equalTo(textLb.snp.right).offset(6)
         }
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        gradientLayer.frame = bounds
     }
     
     @objc func update(_ title: String, _ value: String, _ tipText: String) {

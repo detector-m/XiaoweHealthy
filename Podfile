@@ -62,6 +62,7 @@ target 'XiaoweHealthy' do
   
   # 图表
   pod 'Charts'
+  pod 'AAInfographics'
   
   # 异步编程
 #  pod 'RxSwift'

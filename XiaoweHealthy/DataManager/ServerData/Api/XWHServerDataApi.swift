@@ -64,8 +64,8 @@ extension XWHServerDataApi: XWHServiceTargetType {
         case .postHeart(let deviceSn, let data), .postBloodOxygen(let deviceSn, let data), .postMentalState(let deviceSn, let data):
             param = ["deviceSn": deviceSn, "data": data]
             
-        case .postSleep(let deviceSn, let data):
-            param = data.last ?? [:]
+        case .postSleep(_, let data):
+            param = ["itemList": data]
         }
         
         log.debug("url: \(baseURL.absoluteString + path) param: \(param)")

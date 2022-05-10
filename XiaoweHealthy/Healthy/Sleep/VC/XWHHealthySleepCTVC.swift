@@ -25,6 +25,8 @@ class XWHHealthySleepCTVC: XWHHealthyBaseCTVC {
     }
     
     override func registerViews() {
+        collectionView.register(cellWithClass: XWHSleepDayChartCTCell.self)
+        
         collectionView.register(cellWithClass: XWHSleepCommonCTCell.self)
         collectionView.register(cellWithClass: XWHSleepScoreCTCell.self)
         
@@ -69,6 +71,9 @@ extension XWHHealthySleepCTVC {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let item = uiManager.items[section]
+        if item.uiCardType == .chart {
+            return 1
+        }
         if item.uiCardType == .curDatas {
             return 1
         }
@@ -83,6 +88,11 @@ extension XWHHealthySleepCTVC {
     // - UICollectionViewDelegateFlowLayout
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let item = uiManager.items[indexPath.section]
+        
+        if item.uiCardType == .chart {
+            return CGSize(width: collectionView.width, height: 370)
+        }
+        
         if item.uiCardType == .curDatas {
             return CGSize(width: collectionView.width, height: 232)
         }
@@ -116,6 +126,11 @@ extension XWHHealthySleepCTVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let item = uiManager.items[section]
+        if item.uiCardType == .chart {
+            return .zero
+        }
+        
         return CGSize(width: collectionView.width, height: 46)
     }
     
@@ -130,6 +145,13 @@ extension XWHHealthySleepCTVC {
         let deepDuration = sleepUIModel?.deepSleepDuration ?? 0
         let lightDuration = sleepUIModel?.lightSleepDuration ?? 0
         let awakeDuration = sleepUIModel?.awakeDuration ?? 0
+        
+        if item.uiCardType == .chart {
+            let cell = collectionView.dequeueReusableCell(withClass: XWHSleepDayChartCTCell.self, for: indexPath)
+            
+            cell.update(legendTitles: XWHUIDisplayHandler.getSleepStateStrings(), legendColors: XWHUIDisplayHandler.getSleepStateColors())
+            return cell
+        }
         
         if item.uiCardType == .curDatas {
             let cell = collectionView.dequeueReusableCell(withClass: XWHSleepScoreCTCell.self, for: indexPath)

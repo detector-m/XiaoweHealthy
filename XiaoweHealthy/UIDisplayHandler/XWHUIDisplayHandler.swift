@@ -49,6 +49,12 @@ class XWHUIDisplayHandler {
         return sStates.map({ $0.color })
     }
     
+    /// 获取睡眠状态的文案
+    class func getSleepStateStrings() -> [String] {
+        let sStates: [XWHHealthySleepState] = [.deep, .light, .awake]
+        return sStates.map({ $0.name })
+    }
+    
     /// 获取睡眠分布的文案
     class func getSleepRangeStrings(_ dateType: XWHHealthyDateSegmentType) -> [String] {
         switch dateType {
