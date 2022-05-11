@@ -149,7 +149,7 @@ extension XWHHealthySleepCTVC {
         if item.uiCardType == .chart {
             let cell = collectionView.dequeueReusableCell(withClass: XWHSleepDayChartCTCell.self, for: indexPath)
             
-            cell.update(legendTitles: XWHUIDisplayHandler.getSleepStateStrings(), legendColors: XWHUIDisplayHandler.getSleepStateColors())
+            cell.update(legendTitles: XWHUIDisplayHandler.getSleepStateStrings(), legendColors: XWHUIDisplayHandler.getSleepStateColors(), sleepUIModel: sleepUIModel)
             return cell
         }
         

@@ -56,7 +56,7 @@ class XWHChartLegendView: XWHBaseView {
             make.centerY.equalToSuperview()
         }
         lb1.snp.makeConstraints { make in
-            make.left.equalTo(icon1.snp.right)
+            make.left.equalTo(icon1.snp.right).offset(2)
             make.width.lessThanOrEqualTo(80)
             make.centerY.equalTo(icon1)
             make.height.equalTo(14)
@@ -64,11 +64,11 @@ class XWHChartLegendView: XWHBaseView {
         
         lb2.snp.makeConstraints { make in
             make.height.centerY.width.equalTo(lb1)
-            make.centerX.equalToSuperview().offset(5)
+            make.centerX.equalToSuperview().offset(6)
         }
         icon2.snp.makeConstraints { make in
             make.size.centerY.equalTo(icon1)
-            make.right.equalTo(lb2.snp.left)
+            make.right.equalTo(lb2.snp.left).offset(-2)
         }
         
         lb3.snp.makeConstraints { make in
@@ -77,7 +77,7 @@ class XWHChartLegendView: XWHBaseView {
         }
         icon3.snp.makeConstraints { make in
             make.size.centerY.equalTo(icon1)
-            make.right.equalTo(lb3.snp.left)
+            make.right.equalTo(lb3.snp.left).offset(-2)
         }
     }
     

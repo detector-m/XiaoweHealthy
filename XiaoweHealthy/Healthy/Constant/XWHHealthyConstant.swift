@@ -116,4 +116,14 @@ enum XWHHealthySleepState {
         }
     }
     
+    init(_ rawValue: Int) {
+        if rawValue == 0 {
+            self = .deep
+        } else if rawValue == 1 {
+            self = .light
+        } else {
+            self = .awake
+        }
+    }
+    
 }
