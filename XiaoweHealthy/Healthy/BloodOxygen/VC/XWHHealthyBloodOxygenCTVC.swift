@@ -207,9 +207,10 @@ extension XWHHealthyBloodOxygenCTVC {
 extension XWHHealthyBloodOxygenCTVC {
     
     override func didSelectPopMenuItem(at index: Int) {
-        if index == 1 {
+        if index == 0 {
+            XWHDevice.gotoDevSetBloodOxygen(at: self)
+        } else if index == 1 {
             gotoAllData()
-            return
         }
     }
     

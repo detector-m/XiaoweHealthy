@@ -208,9 +208,10 @@ extension XWHHealthyHeartCTVC {
 extension XWHHealthyHeartCTVC {
     
     override func didSelectPopMenuItem(at index: Int) {
-        if index == 1 {
+        if index == 0 {
+            XWHDevice.gotoDevSetHeart(at: self)
+        } else if index == 1 {
             gotoAllData()
-            return
         }
     }
     

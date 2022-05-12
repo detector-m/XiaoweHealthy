@@ -10,7 +10,8 @@ import UIKit
 class XWHHealthySleepCTVC: XWHHealthyBaseCTVC {
     
     override var popMenuItems: [String] {
-        [R.string.xwhDeviceText.压力设置(), R.string.xwhHealthyText.所有数据()]
+//        [R.string.xwhDeviceText.压力设置(), R.string.xwhHealthyText.所有数据()]
+        [R.string.xwhHealthyText.所有数据()]
     }
     
     var sleepUIModel: XWHHealthySleepUISleepModel?
@@ -301,9 +302,8 @@ extension XWHHealthySleepCTVC {
 extension XWHHealthySleepCTVC {
     
     override func didSelectPopMenuItem(at index: Int) {
-        if index == 1 {
+        if index == 0 {
             gotoAllData()
-            return
         }
     }
 }
