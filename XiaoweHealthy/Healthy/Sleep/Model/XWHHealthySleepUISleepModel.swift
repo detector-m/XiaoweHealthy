@@ -71,4 +71,8 @@ class XWHHealthySleepUISleepItemModel: XWHHealthySleepUISleepBaseModel {
     /// 清醒时长 仅在非按天查询时才会返回
 //    var awakeDuration = 0
     
+    ///
+    /// 睡眠偏移
+    var sleepOffset = 0
+    
 }
