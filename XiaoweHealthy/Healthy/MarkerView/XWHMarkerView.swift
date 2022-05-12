@@ -27,12 +27,12 @@ class XWHMarkerView: XWHBaseView {
         
         textLb.textColor = fontDarkColor
         textLb.font = XWHFont.harmonyOSSans(ofSize: 20, weight: .bold)
-        textLb.textAlignment = .center
+        textLb.textAlignment = .left
         addSubview(textLb)
         
         detailLb.textColor = fontDarkColor.withAlphaComponent(0.5)
         detailLb.font = XWHFont.harmonyOSSans(ofSize: 12)
-        detailLb.textAlignment = .center
+        detailLb.textAlignment = .left
         addSubview(detailLb)
     }
     
