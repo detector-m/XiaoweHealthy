@@ -291,6 +291,31 @@ extension XWHHealthyBaseCTVC {
         }
     }
     
+    func getSelectedDateRangeString() -> String {
+        switch dateType {
+        case .day:
+            return sDayDate.localizedString(withFormat: XWHDate.yearMonthDayFormat)
+            
+        case .week:
+            let bWeekDate = sWeekDate.weekBegin
+            let eWeekDate = sWeekDate.weekEnd
+            
+            if bWeekDate.year == eWeekDate.year, bWeekDate.month == eWeekDate.month { // 同年同月
+                return bWeekDate.localizedString(withFormat: XWHDate.yearMonthDayFormat) + R.string.xwhHealthyText.至() + eWeekDate.localizedString(withFormat: "d")
+            } else if bWeekDate.year == eWeekDate.year { // 同年
+                return bWeekDate.localizedString(withFormat: XWHDate.yearMonthDayFormat) + R.string.xwhHealthyText.至() + eWeekDate.localizedString(withFormat: "MMMd")
+            } else {
+                return bWeekDate.localizedString(withFormat: XWHDate.yearMonthDayFormat) + R.string.xwhHealthyText.至() + eWeekDate.localizedString(withFormat: XWHDate.yearMonthDayFormat)
+            }
+            
+        case .month:
+            return sMonthDate.localizedString(withFormat: XWHDate.yearMonthFormat)
+            
+        case .year:
+            return sYearDate.localizedString(withFormat: XWHDate.yearFormat)
+        }
+    }
+    
 //    func setExistDataDateItems(_ sDateType: XWHHealthyDateSegmentType, _ items: [XWHHealthyExistDataDateModel]) {
 //        switch sDateType {
 //        case .day, .week:

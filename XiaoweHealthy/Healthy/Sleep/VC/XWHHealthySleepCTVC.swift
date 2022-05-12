@@ -27,6 +27,7 @@ class XWHHealthySleepCTVC: XWHHealthyBaseCTVC {
     
     override func registerViews() {
         collectionView.register(cellWithClass: XWHSleepDayChartCTCell.self)
+        collectionView.register(cellWithClass: XWHSleepWeekMonthYearChartCTCell.self)
         
         collectionView.register(cellWithClass: XWHSleepCommonCTCell.self)
         collectionView.register(cellWithClass: XWHSleepScoreCTCell.self)
@@ -148,10 +149,17 @@ extension XWHHealthySleepCTVC {
         let awakeDuration = sleepUIModel?.awakeDuration ?? 0
         
         if item.uiCardType == .chart {
-            let cell = collectionView.dequeueReusableCell(withClass: XWHSleepDayChartCTCell.self, for: indexPath)
-            
-            cell.update(legendTitles: XWHUIDisplayHandler.getSleepStateStrings(), legendColors: XWHUIDisplayHandler.getSleepStateColors(), sleepUIModel: sleepUIModel)
-            return cell
+            if dateType == .day {
+                let cell = collectionView.dequeueReusableCell(withClass: XWHSleepDayChartCTCell.self, for: indexPath)
+                
+                cell.update(legendTitles: XWHUIDisplayHandler.getSleepStateStrings(), legendColors: XWHUIDisplayHandler.getSleepStateColors(), sleepUIModel: sleepUIModel)
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withClass:                 XWHSleepWeekMonthYearChartCTCell.self, for: indexPath)
+                let dateText = getSelectedDateRangeString() + " " + R.string.xwhHealthyText.日均睡眠时长()
+                cell.update(legendTitles: XWHUIDisplayHandler.getSleepStateStrings(), legendColors: XWHUIDisplayHandler.getSleepStateColors(), dateText: dateText, sleepUIModel: sleepUIModel)
+                return cell
+            }
         }
         
         if item.uiCardType == .curDatas {

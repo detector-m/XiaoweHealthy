@@ -107,6 +107,8 @@
 		9672B26227EF06FB00DC80D6 /* XWHAddBrandDeviceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9672B26127EF06FB00DC80D6 /* XWHAddBrandDeviceVC.swift */; };
 		9674A131282B6C2F0021724C /* XWHHealthyChartDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9674A130282B6C2F0021724C /* XWHHealthyChartDataHandler.swift */; };
 		9674A134282CE7680021724C /* XWHMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9674A133282CE7670021724C /* XWHMarkerView.swift */; };
+		9674A136282D17330021724C /* XWHSleepChartBaseCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9674A135282D17330021724C /* XWHSleepChartBaseCTCell.swift */; };
+		9674A138282D17C20021724C /* XWHSleepWeekMonthYearChartCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9674A137282D17C20021724C /* XWHSleepWeekMonthYearChartCTCell.swift */; };
 		96759D8427F34D2E0098CA92 /* XWHBaseTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96759D8327F34D2E0098CA92 /* XWHBaseTBCell.swift */; };
 		96759D8627F3533C0098CA92 /* XWHSearchDeviceTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96759D8527F3533C0098CA92 /* XWHSearchDeviceTBCell.swift */; };
 		9676489F2827B90600DE9AFF /* XWHDeviceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9676489E2827B90600DE9AFF /* XWHDeviceHelper.swift */; };
@@ -469,6 +471,8 @@
 		9672B26127EF06FB00DC80D6 /* XWHAddBrandDeviceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHAddBrandDeviceVC.swift; sourceTree = "<group>"; };
 		9674A130282B6C2F0021724C /* XWHHealthyChartDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyChartDataHandler.swift; sourceTree = "<group>"; };
 		9674A133282CE7670021724C /* XWHMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMarkerView.swift; sourceTree = "<group>"; };
+		9674A135282D17330021724C /* XWHSleepChartBaseCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSleepChartBaseCTCell.swift; sourceTree = "<group>"; };
+		9674A137282D17C20021724C /* XWHSleepWeekMonthYearChartCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSleepWeekMonthYearChartCTCell.swift; sourceTree = "<group>"; };
 		96759D8327F34D2E0098CA92 /* XWHBaseTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBaseTBCell.swift; sourceTree = "<group>"; };
 		96759D8527F3533C0098CA92 /* XWHSearchDeviceTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSearchDeviceTBCell.swift; sourceTree = "<group>"; };
 		9676489E2827B90600DE9AFF /* XWHDeviceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceHelper.swift; sourceTree = "<group>"; };
@@ -1667,7 +1671,9 @@
 			children = (
 				9693106928252BA500133626 /* XWHSleepCommonCTCell.swift */,
 				9693106B28252CA600133626 /* XWHSleepScoreCTCell.swift */,
+				9674A135282D17330021724C /* XWHSleepChartBaseCTCell.swift */,
 				96A10CC1282A69A500C1E18F /* XWHSleepDayChartCTCell.swift */,
+				9674A137282D17C20021724C /* XWHSleepWeekMonthYearChartCTCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2812,6 +2818,7 @@
 				96617A7627E1EE3000139B03 /* XWHBaseNavigationVC.swift in Sources */,
 				9651EE0A27EAFB0B0043FE52 /* XWHLoginRegisterApi.swift in Sources */,
 				9679E9DE2817924F003C6351 /* XWHCalendarItemCTCell.swift in Sources */,
+				9674A138282D17C20021724C /* XWHSleepWeekMonthYearChartCTCell.swift in Sources */,
 				9651EE2327EC0EC60043FE52 /* XWHUserModel.swift in Sources */,
 				9679E9D12815946A003C6351 /* XWHBOUIBloodOxygenAllDataItemModel.swift in Sources */,
 				96617A6C27E1DFE100139B03 /* XWHBaseView.swift in Sources */,
@@ -2947,6 +2954,7 @@
 				969B883828111CCD009952E7 /* XWHHealthyCTReusableView.swift in Sources */,
 				96907255281530820056CE4F /* XWHBODataDetailTBVC.swift in Sources */,
 				9653E49A27F5978800EE55FF /* XWHTBHeaderFooterBaseView.swift in Sources */,
+				9674A136282D17330021724C /* XWHSleepChartBaseCTCell.swift in Sources */,
 				967823AD27F2C9DC004F66FB /* XWHUIFontExtension.swift in Sources */,
 				969F01BA27F693B100CA4DA4 /* RLPopupBaseView.swift in Sources */,
 				96A10CC2282A69A500C1E18F /* XWHSleepDayChartCTCell.swift in Sources */,
