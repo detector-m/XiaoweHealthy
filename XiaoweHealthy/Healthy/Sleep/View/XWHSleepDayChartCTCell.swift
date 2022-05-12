@@ -39,7 +39,9 @@ class XWHSleepDayChartCTCell: XWHHealthyChartBaseCTCell {
     private lazy var deepItems: [XWHHealthySleepUISleepItemModel] = []
     
     private lazy var markerView = XWHMarkerView()
-//    private lazy var 
+//    private var leftConstraint: ConstraintMakerEditable?
+    
+    weak var tapedView: UIView?
     
     private lazy var sum = 0
     private lazy var chartViewWidth: CGFloat = {
@@ -128,8 +130,8 @@ class XWHSleepDayChartCTCell: XWHHealthyChartBaseCTCell {
         markerView.snp.makeConstraints { make in
             make.width.equalTo(140)
             make.top.equalToSuperview().offset(12)
-            make.centerX.equalToSuperview()
-            make.left.greaterThanOrEqualTo(chartView).priority(.low)
+//            make.centerX.equalToSuperview()
+            make.left.equalToSuperview()
             make.bottom.equalTo(chartView)
         }
         
@@ -260,21 +262,21 @@ class XWHSleepDayChartCTCell: XWHHealthyChartBaseCTCell {
         let tag = sender.view?.tag ?? 0
         let iItem = awakeItems[tag]
         
-        showMarker(iItem)
+        showMarker(iItem, sender.view!)
     }
     
     @objc private func clickLightView(_ sender: UITapGestureRecognizer) {
         let tag = sender.view?.tag ?? 0
         let iItem = lightItems[tag]
         
-        showMarker(iItem)
+        showMarker(iItem, sender.view!)
     }
     
     @objc private func clickDeepView(_ sender: UITapGestureRecognizer) {
         let tag = sender.view?.tag ?? 0
         let iItem = deepItems[tag]
         
-        showMarker(iItem)
+        showMarker(iItem, sender.view!)
     }
     
     private func getSleepStateView(item: XWHHealthySleepUISleepItemModel, tag: Int, color: UIColor, action: Selector, top: CGFloat) -> UIView {
@@ -293,7 +295,16 @@ class XWHSleepDayChartCTCell: XWHHealthyChartBaseCTCell {
         return cView
     }
     
-    private func showMarker(_ item: XWHHealthySleepUISleepItemModel) {
+    private func showMarker(_ item: XWHHealthySleepUISleepItemModel, _ inView: UIView) {
+        if tapedView == inView {
+            tapedView = nil
+            markerView.isHidden = true
+            
+            return
+        }
+        
+        tapedView = inView
+        
         let valueStr = XWHUIDisplayHandler.getSleepDurationString(item.duration)
         let sState = XWHHealthySleepState(item.sleepStatus)
         let bTimeStr = item.startTime.date(withFormat: XWHDate.standardTimeAllFormat)?.string(withFormat: XWHDate.hourMinuteFormat) ?? ""
@@ -304,6 +315,31 @@ class XWHSleepDayChartCTCell: XWHHealthyChartBaseCTCell {
         markerView.textLb.text = valueStr
         markerView.detailLb.text = tipStr
         markerView.isHidden = false
+        
+        let viewCenterX = inView.center.x
+        let markerWidthHalf = markerView.width / 2
+        
+        let cMin = viewCenterX - markerWidthHalf
+        let cMax = viewCenterX + markerWidthHalf
+        
+        var cValue: CGFloat = 0
+        var lineOffset: CGFloat = 0
+        if cMin <= 0 {
+            cValue = 0
+            lineOffset = cMin
+        } else if cMax >= self.width {
+            cValue = self.width - markerWidthHalf * 2
+            lineOffset = cMax - self.width
+        } else {
+            cValue = cMin
+        }
+        
+        markerView.snp.updateConstraints { make in
+            make.left.equalToSuperview().offset(cValue)
+        }
+        markerView.lineView.snp.updateConstraints { make in
+            make.centerX.equalToSuperview().offset(lineOffset)
+        }
     }
     
 }

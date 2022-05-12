@@ -31,7 +31,7 @@ class XWHMarkerView: XWHBaseView {
         addSubview(textLb)
         
         detailLb.textColor = fontDarkColor.withAlphaComponent(0.5)
-        detailLb.font = XWHFont.harmonyOSSans(ofSize: 12, weight: .bold)
+        detailLb.font = XWHFont.harmonyOSSans(ofSize: 12)
         detailLb.textAlignment = .center
         addSubview(detailLb)
     }
@@ -46,7 +46,7 @@ class XWHMarkerView: XWHBaseView {
         
         lineView.snp.makeConstraints { make in
             make.width.equalTo(3)
-            make.centerX.equalTo(contentView)
+            make.centerX.equalToSuperview()
             make.top.equalTo(contentView.snp.bottom)
             make.bottom.equalToSuperview()
         }
