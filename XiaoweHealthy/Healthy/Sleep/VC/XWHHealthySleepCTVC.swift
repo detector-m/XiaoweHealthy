@@ -390,6 +390,7 @@ extension XWHHealthySleepCTVC {
                 log.error("睡眠 - 获取数据错误")
                 
                 self.sleepUIModel = nil
+                self.loadUIItems()
                 self.cleanUIItems()
                 
                 self.collectionView.reloadEmptyDataSet()

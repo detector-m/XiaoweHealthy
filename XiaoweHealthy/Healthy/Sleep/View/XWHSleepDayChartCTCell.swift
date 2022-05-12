@@ -186,17 +186,12 @@ class XWHSleepDayChartCTCell: XWHHealthyChartBaseCTCell {
     
     func update(legendTitles: [String], legendColors: [UIColor], sleepUIModel: XWHHealthySleepUISleepModel?) {
         uiModel = sleepUIModel
+        textLb.text = R.string.xwhHealthyText.暂无数据()
+        detailLb.text = ""
+        legendView.isHidden = true
+        bTimeLb.isHidden = true
+        eTimeLb.isHidden = true
         
-        textLb.text = XWHUIDisplayHandler.getSleepDurationString(sleepUIModel?.totalSleepDuration ?? 0)
-        let dateStr = sleepUIModel?.riseTime.date(withFormat: XWHDate.standardTimeAllFormat)?.localizedString(withFormat: XWHDate.monthDayFormat) ?? ""
-        detailLb.text = "\(dateStr) \(R.string.xwhHealthyText.睡眠总时长())"
-        
-        updateChart(sleepUIModel)
-        
-        legendView.update(titles: legendTitles, colors: legendColors)
-    }
-    
-    private func updateChart(_ sleepUIModel: XWHHealthySleepUISleepModel?) {
         awakeViews.forEach({ $0.removeFromSuperview() })
         deepViews.forEach({ $0.removeFromSuperview() })
         lightViews.forEach({ $0.removeFromSuperview() })
@@ -210,8 +205,35 @@ class XWHSleepDayChartCTCell: XWHHealthyChartBaseCTCell {
         deepItems.removeAll()
         
         guard let sleepUIModel = sleepUIModel else {
+            markerView.isHidden = true
             return
         }
+        
+        legendView.isHidden = false
+        bTimeLb.isHidden = false
+        eTimeLb.isHidden = false
+        
+        textLb.text = XWHUIDisplayHandler.getSleepDurationString(sleepUIModel.totalSleepDuration)
+        let dateStr = sleepUIModel.riseTime.date(withFormat: XWHDate.standardTimeAllFormat)?.localizedString(withFormat: XWHDate.monthDayFormat) ?? ""
+        detailLb.text = "\(dateStr) \(R.string.xwhHealthyText.睡眠总时长())"
+        
+        updateChart(sleepUIModel)
+        
+        legendView.update(titles: legendTitles, colors: legendColors)
+    }
+    
+    private func updateChart(_ sleepUIModel: XWHHealthySleepUISleepModel) {
+        awakeViews.forEach({ $0.removeFromSuperview() })
+        deepViews.forEach({ $0.removeFromSuperview() })
+        lightViews.forEach({ $0.removeFromSuperview() })
+        
+        awakeViews.removeAll()
+        deepViews.removeAll()
+        lightViews.removeAll()
+        
+        awakeItems.removeAll()
+        lightItems.removeAll()
+        deepItems.removeAll()
         
         bTimeLb.text = sleepUIModel.bedTime.date(withFormat: XWHDate.standardTimeAllFormat)?.string(withFormat: XWHDate.hourMinuteFormat) ?? ""
         eTimeLb.text = sleepUIModel.riseTime.date(withFormat: XWHDate.standardTimeAllFormat)?.string(withFormat: XWHDate.hourMinuteFormat) ?? ""
