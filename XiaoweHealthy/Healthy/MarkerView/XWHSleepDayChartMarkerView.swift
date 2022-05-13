@@ -1,5 +1,5 @@
 //
-//  XWHMarkerView.swift
+//  XWHSleepDayChartMarkerView.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/5/12.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class XWHMarkerView: XWHBaseView {
+class XWHSleepDayChartMarkerView: XWHBaseView {
 
     lazy var contentView = UIView()
     lazy var textLb = UILabel()

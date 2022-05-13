@@ -36,7 +36,7 @@ class XWHSleepDayChartCTCell: XWHGradientBaseCTCell {
     private lazy var lightItems: [XWHHealthySleepUISleepItemModel] = []
     private lazy var deepItems: [XWHHealthySleepUISleepItemModel] = []
     
-    private lazy var markerView = XWHMarkerView()
+    private lazy var markerView = XWHSleepDayChartMarkerView()
 //    private var leftConstraint: ConstraintMakerEditable?
     
     weak var tapedView: UIView?

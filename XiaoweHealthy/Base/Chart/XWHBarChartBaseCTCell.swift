@@ -11,6 +11,7 @@ import Charts
 class XWHBarChartBaseCTCell: XWHGradientBaseCTCell {
     
     private(set) lazy var chartView = BarChartView()
+    private(set) lazy var markerView = XWHChartMarkerView()
     
     override func addSubViews() {
         super.addSubViews()
@@ -29,6 +30,7 @@ class XWHBarChartBaseCTCell: XWHGradientBaseCTCell {
         configChartViewCommon()
         configXAxis()
         configYAxis()
+        configMarkerView()
     }
     
     final func relayoutTitleValueView() {
@@ -112,10 +114,25 @@ extension XWHBarChartBaseCTCell {
         chartView.rightAxis.labelTextColor = fontDarkColor.withAlphaComponent(0.35)
     }
     
+    @objc func configMarkerView() {
+        chartView.highlightFullBarEnabled = true
+        markerView.frame = CGRect(x: 0, y: 0, width: 160, height: 120)
+        markerView.backgroundColor = .clear
+        markerView.chartView = chartView
+        chartView.marker = markerView
+    }
+    
 }
 
 @objc extension XWHBarChartBaseCTCell: ChartViewDelegate {
     
-    
+    @objc func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        guard let dataSet = chartView.data?.dataSets[highlight.dataSetIndex] else { return }
+        
+        markerView.setShowOffset(chartView, entry: entry, highlight: highlight)
+//        let entryIndex = dataSet.entryIndex(entry: entry)
+        markerView.textLb.text = entry.x.int.string
+        markerView.detailLb.text = entry.y.int.string
+    }
     
 }

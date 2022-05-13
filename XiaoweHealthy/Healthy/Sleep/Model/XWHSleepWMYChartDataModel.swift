@@ -9,15 +9,7 @@ import Foundation
 
 
 /// 睡眠周月年的图表数据模型
-struct XWHSleepWMYChartDataModel {
-    
-    var max: Double = 0
-    var min: Double = 0
-    var granularity: Double = 0
-    var xLabelCount: Int = 0
-    
-    var xAxisValues: [String] = []
-    var yAxisValues: [String] = []
+class XWHSleepWMYChartDataModel: XWHChartDataBaseModel {
     
     var yValues: [[Double]] = []
     
