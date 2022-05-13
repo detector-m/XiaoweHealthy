@@ -14,6 +14,7 @@ class XWHDate {
     static let yearMonthDayFormat = "yyyyMMMd"
     static let yearMonthDayWeekFormat = "yyyyMMMdEEE"
     
+    static let monthFormat = "MMM"
     static let monthDayFormat = "MMMd"
     
     static let standardYearMonthFormat = "yyyy-MM"

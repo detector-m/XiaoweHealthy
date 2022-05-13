@@ -25,7 +25,7 @@ class XWHSleepWeekMonthYearChartCTCell: XWHBarChartBaseCTCell {
         relayoutLegendAndTitleValueView()
         
         chartView.snp.makeConstraints { make in
-            make.left.right.equalTo(legendView)
+            make.left.right.equalToSuperview()
             make.top.equalTo(detailLb.snp.bottom)
             make.bottom.equalTo(legendView.snp.top)
         }
@@ -41,7 +41,7 @@ class XWHSleepWeekMonthYearChartCTCell: XWHBarChartBaseCTCell {
         }
     }
     
-    func update(legendTitles: [String], legendColors: [UIColor], dateText: String, sleepUIModel: XWHHealthySleepUISleepModel?) {
+    func update(legendTitles: [String], legendColors: [UIColor], dateText: String, sDate: Date, dateType: XWHHealthyDateSegmentType, sleepUIModel: XWHHealthySleepUISleepModel?) {
         textLb.text = R.string.xwhHealthyText.暂无数据()
         detailLb.text = ""
         legendView.isHidden = true
@@ -56,13 +56,31 @@ class XWHSleepWeekMonthYearChartCTCell: XWHBarChartBaseCTCell {
         textLb.text = XWHUIDisplayHandler.getSleepDurationString(sleepUIModel.totalSleepDuration)
         detailLb.text = dateText
         
-        chartView.data = getChartData(sleepUIModel: sleepUIModel)
+        let chartDataModel = XWHHealthyChartDataHandler.getSleepWeekMonthYearChartDataModel(date: sDate, dateType: dateType, sItems: sleepUIModel.items)
+        
+        chartView.rightAxis.axisMaximum = chartDataModel.max
+        chartView.rightAxis.axisMinimum = chartDataModel.min
+        chartView.rightAxis.granularity = chartDataModel.granularity
+//        chartView.rightAxis.labelCount = 6
+//        chartView.rightAxis.forceLabelsEnabled = true
+        
+        chartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: chartDataModel.xAxisValues)
+        chartView.rightAxis.valueFormatter = DefaultAxisValueFormatter(block: { value, axis in
+            let h = (value / 60).int
+            if h == 0 {
+                return ""
+            }
+            return h.string + "h"
+        })
+        
+        chartView.data = getChartData(chartDataModel: chartDataModel)
     }
     
-    private func getChartData(sleepUIModel: XWHHealthySleepUISleepModel) -> BarChartData {
+    private func getChartData(chartDataModel: XWHSleepWMYChartDataModel) -> BarChartData {
         var dataEntries: [BarChartDataEntry] = []
-        for (i, iItem) in sleepUIModel.items.enumerated() {
-            let entry = BarChartDataEntry(x: i.double, yValues: [iItem.deepSleepDuration.double, iItem.lightSleepDuration.double, iItem.awakeDuration.double,])
+        for (i, iYValue) in chartDataModel.yValues.enumerated() {
+            let entry = BarChartDataEntry(x: i.double, yValues: iYValue)
+
             dataEntries.append(entry)
         }
         
@@ -73,6 +91,7 @@ class XWHSleepWeekMonthYearChartCTCell: XWHBarChartBaseCTCell {
         
         let chartData = BarChartData(dataSet: dataSet)
 //        chartData.barWidth = 0.8
+//        chartData.groupBars(fromX: -0.5, groupSpace: 0.1, barSpace: 0.1)
         
         return chartData
     }

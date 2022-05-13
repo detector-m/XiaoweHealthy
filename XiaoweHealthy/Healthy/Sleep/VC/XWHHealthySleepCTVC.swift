@@ -156,8 +156,11 @@ extension XWHHealthySleepCTVC {
                 return cell
             } else {
                 let cell = collectionView.dequeueReusableCell(withClass:                 XWHSleepWeekMonthYearChartCTCell.self, for: indexPath)
+                
+                let cSDate = getSelectedDate()
                 let dateText = getSelectedDateRangeString() + " " + R.string.xwhHealthyText.日均睡眠时长()
-                cell.update(legendTitles: XWHUIDisplayHandler.getSleepStateStrings(), legendColors: XWHUIDisplayHandler.getSleepStateColors(), dateText: dateText, sleepUIModel: sleepUIModel)
+                
+                cell.update(legendTitles: XWHUIDisplayHandler.getSleepStateStrings(), legendColors: XWHUIDisplayHandler.getSleepStateColors(), dateText: dateText, sDate: cSDate, dateType: dateType, sleepUIModel: sleepUIModel)
                 return cell
             }
         }

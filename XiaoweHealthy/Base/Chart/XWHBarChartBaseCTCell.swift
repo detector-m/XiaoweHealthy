@@ -61,10 +61,20 @@ extension XWHBarChartBaseCTCell {
         chartView.dragEnabled = false
         
         chartView.gridBackgroundColor = .clear
+        
+        chartView.minOffset = 12
     }
     
     @objc func configXAxis() {
         chartView.xAxis.labelPosition = .bottom
+        
+//        chartView.xAxis.axisMinimum = 0
+        chartView.xAxis.granularity = 1
+//        chartView.xAxis.axisMaximum = 7
+        
+//        chartView.xAxis.labelCount = 7
+//        chartView.xAxis.forceLabelsEnabled = true
+//        chartView.xAxis.granularityEnabled = true
         
         chartView.xAxis.axisLineWidth = 0.5
         chartView.xAxis.axisLineColor = UIColor.black.withAlphaComponent(0.05)
@@ -72,6 +82,9 @@ extension XWHBarChartBaseCTCell {
 //        chartView.xAxis.gridLineWidth = 0.5
 //        chartView.xAxis.gridColor = UIColor.black.withAlphaComponent(0.05)
         chartView.xAxis.drawGridLinesEnabled = false
+        
+        chartView.xAxis.labelFont = XWHFont.harmonyOSSans(ofSize: 10)
+        chartView.xAxis.labelTextColor = fontDarkColor.withAlphaComponent(0.35)
     }
     
     @objc func configYAxis() {
@@ -92,6 +105,9 @@ extension XWHBarChartBaseCTCell {
         
         chartView.rightAxis.gridLineWidth = 0.5
         chartView.rightAxis.gridColor = UIColor.black.withAlphaComponent(0.05)
+        
+        chartView.rightAxis.labelFont = XWHFont.harmonyOSSans(ofSize: 10)
+        chartView.rightAxis.labelTextColor = fontDarkColor.withAlphaComponent(0.35)
     }
     
 }
