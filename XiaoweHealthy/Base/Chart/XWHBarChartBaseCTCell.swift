@@ -1,23 +1,18 @@
 //
-//  XWHSleepChartBaseCTCell.swift
+//  XWHBarChartBaseCTCell.swift
 //  XiaoweHealthy
 //
-//  Created by Riven on 2022/5/12.
+//  Created by Riven on 2022/5/13.
 //
 
 import UIKit
 
-class XWHSleepChartBaseCTCell: XWHHealthyChartBaseCTCell {
+class XWHBarChartBaseCTCell: XWHGradientBaseCTCell {
     
-    lazy var legendView = XWHChartLegendView()
-
     override func addSubViews() {
         super.addSubViews()
-        
+    
         isHorizontal = false
-        gradientColors = [UIColor(hex: 0xE5E6FF)!, UIColor(hex: 0xffffff)!]
-        
-        contentView.addSubview(legendView)
         
         textLb.font = XWHFont.harmonyOSSans(ofSize: 30, weight: .bold)
         textLb.textColor = fontDarkColor
@@ -26,8 +21,8 @@ class XWHSleepChartBaseCTCell: XWHHealthyChartBaseCTCell {
         detailLb.textColor = fontDarkColor.withAlphaComponent(0.5)
         detailLb.textAlignment = .left
     }
-
-    final func relayoutLegendAndTitleValueView() {
+    
+    final func relayoutTitleValueView() {
         textLb.snp.makeConstraints { make in
             make.height.equalTo(40)
             make.left.right.equalToSuperview().inset(20)
@@ -37,12 +32,6 @@ class XWHSleepChartBaseCTCell: XWHHealthyChartBaseCTCell {
             make.left.right.equalTo(textLb)
             make.top.equalTo(textLb.snp.bottom).offset(2)
             make.height.equalTo(16)
-        }
-        
-        legendView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(12)
-            make.height.equalTo(40)
-            make.bottom.equalToSuperview()
         }
     }
     

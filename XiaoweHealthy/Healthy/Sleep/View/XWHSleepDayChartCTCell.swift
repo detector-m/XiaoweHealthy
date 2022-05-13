@@ -8,12 +8,11 @@
 import UIKit
 //import AAInfographics
 
-class XWHSleepDayChartCTCell: XWHSleepChartBaseCTCell {
+class XWHSleepDayChartCTCell: XWHGradientBaseCTCell {
     
 //    private lazy var chartView = AAChartView()
-    
-//    lazy var chartView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-    
+        
+    private(set) lazy var legendView = XWHChartLegendView()
     
     private var uiModel: XWHHealthySleepUISleepModel?
     
@@ -50,10 +49,14 @@ class XWHSleepDayChartCTCell: XWHSleepChartBaseCTCell {
     override func addSubViews() {
         super.addSubViews()
         
+        isHorizontal = false
+        gradientColors = [UIColor(hex: 0xE5E6FF)!, UIColor(hex: 0xffffff)!]
+        
+        contentView.addSubview(legendView)
+        
         markerView.isHidden = true
         contentView.addSubview(markerView)
-        
-//        configChartView()
+    
 //        contentView.addSubview(chartView)
         
         chartView.isHidden = true
@@ -83,15 +86,17 @@ class XWHSleepDayChartCTCell: XWHSleepChartBaseCTCell {
         eTimeLb.font = timeFont
         eTimeLb.textColor = timeColor
         contentView.addSubview(eTimeLb)
+        
+        textLb.font = XWHFont.harmonyOSSans(ofSize: 30, weight: .bold)
+        textLb.textColor = fontDarkColor
+        textLb.textAlignment = .left
+        detailLb.font = XWHFont.harmonyOSSans(ofSize: 12)
+        detailLb.textColor = fontDarkColor.withAlphaComponent(0.5)
+        detailLb.textAlignment = .left
     }
     
     override func relayoutSubViews() {
         relayoutLegendAndTitleValueView()
-        
-//        chartView.snp.makeConstraints { make in
-//            make.left.right.equalToSuperview().inset(12)
-//            make.height.equalTo(72)
-//        }
         
         chartView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(12)
@@ -152,8 +157,23 @@ class XWHSleepDayChartCTCell: XWHSleepChartBaseCTCell {
         }
     }
     
-    private func configChartView() {
+    final func relayoutLegendAndTitleValueView() {
+        textLb.snp.makeConstraints { make in
+            make.height.equalTo(40)
+            make.left.right.equalToSuperview().inset(20)
+            make.top.equalToSuperview().offset(16)
+        }
+        detailLb.snp.makeConstraints { make in
+            make.left.right.equalTo(textLb)
+            make.top.equalTo(textLb.snp.bottom).offset(2)
+            make.height.equalTo(16)
+        }
         
+        legendView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(12)
+            make.height.equalTo(40)
+            make.bottom.equalToSuperview()
+        }
     }
     
     func update(legendTitles: [String], legendColors: [UIColor], sleepUIModel: XWHHealthySleepUISleepModel?) {

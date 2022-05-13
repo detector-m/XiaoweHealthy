@@ -8,7 +8,7 @@
 import UIKit
 import SwifterSwift
 
-class XWHHealthyGradientCTCell: XWHHealthyGradientBaseCTCell {
+class XWHHealthyGradientCTCell: XWHGradientBaseCTCell {
     
     lazy var tipLb = UILabel()
     

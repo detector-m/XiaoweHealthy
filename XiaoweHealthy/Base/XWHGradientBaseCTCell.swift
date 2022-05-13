@@ -1,5 +1,5 @@
 //
-//  XWHHealthyGradientBaseCTCell.swift
+//  XWHGradientBaseCTCell.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/5/10.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class XWHHealthyGradientBaseCTCell: XWHCommonBaseCTCell {
+class XWHGradientBaseCTCell: XWHCommonBaseCTCell {
     
     private lazy var gradientLayer: CAGradientLayer = {
         let gradientLayer = CAGradientLayer()

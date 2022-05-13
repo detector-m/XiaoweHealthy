@@ -7,14 +7,37 @@
 
 import UIKit
 
-class XWHSleepWeekMonthYearChartCTCell: XWHSleepChartBaseCTCell {
+class XWHSleepWeekMonthYearChartCTCell: XWHBarChartBaseCTCell {
+    
+    private(set) lazy var legendView = XWHChartLegendView()
+
     
     override func addSubViews() {
         super.addSubViews()
+        
+        contentView.addSubview(legendView)
+
+        gradientColors = [UIColor(hex: 0xE5E6FF)!, UIColor(hex: 0xffffff)!]
+//        textLb.font = XWHFont.harmonyOSSans(ofSize: 30, weight: .bold)
+//        textLb.textColor = fontDarkColor
+//        textLb.textAlignment = .left
+//        detailLb.font = XWHFont.harmonyOSSans(ofSize: 12)
+//        detailLb.textColor = fontDarkColor.withAlphaComponent(0.5)
+//        detailLb.textAlignment = .left
     }
     
     override func relayoutSubViews() {
         relayoutLegendAndTitleValueView()
+    }
+    
+    final func relayoutLegendAndTitleValueView() {
+        relayoutTitleValueView()
+        
+        legendView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(12)
+            make.height.equalTo(40)
+            make.bottom.equalToSuperview()
+        }
     }
     
     func update(legendTitles: [String], legendColors: [UIColor], dateText: String, sleepUIModel: XWHHealthySleepUISleepModel?) {
