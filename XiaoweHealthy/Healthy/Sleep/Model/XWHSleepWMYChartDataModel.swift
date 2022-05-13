@@ -14,10 +14,11 @@ struct XWHSleepWMYChartDataModel {
     var max: Double = 0
     var min: Double = 0
     var granularity: Double = 0
+    var xLabelCount: Int = 0
     
     var xAxisValues: [String] = []
-    var yValues: [[Double]] = []
-    
     var yAxisValues: [String] = []
+    
+    var yValues: [[Double]] = []
     
 }

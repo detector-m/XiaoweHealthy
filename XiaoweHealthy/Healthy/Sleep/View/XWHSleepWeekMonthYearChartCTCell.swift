@@ -58,13 +58,16 @@ class XWHSleepWeekMonthYearChartCTCell: XWHBarChartBaseCTCell {
         
         let chartDataModel = XWHHealthyChartDataHandler.getSleepWeekMonthYearChartDataModel(date: sDate, dateType: dateType, sItems: sleepUIModel.items)
         
+        chartView.xAxis.setLabelCount(chartDataModel.xLabelCount, force: false)
+        chartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: chartDataModel.xAxisValues)
+        
+        
         chartView.rightAxis.axisMaximum = chartDataModel.max
         chartView.rightAxis.axisMinimum = chartDataModel.min
         chartView.rightAxis.granularity = chartDataModel.granularity
 //        chartView.rightAxis.labelCount = 6
 //        chartView.rightAxis.forceLabelsEnabled = true
         
-        chartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: chartDataModel.xAxisValues)
         chartView.rightAxis.valueFormatter = DefaultAxisValueFormatter(block: { value, axis in
             let h = (value / 60).int
             if h == 0 {

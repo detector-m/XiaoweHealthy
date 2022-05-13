@@ -47,12 +47,15 @@ class XWHHealthyChartDataHandler {
 //        var yAxisValues = [String]()
         var yValues = [[Double]]()
         let bDates = getBeginDates(date: date, dateType: dateType)
+        var xLabelCount = 5
         
         switch dateType {
         case .day:
             return retModel
 
         case .week:
+            xLabelCount = 7
+            
             for iDate in bDates {
                 var yValue: [Double] = [0, 0, 0]
             
@@ -66,6 +69,8 @@ class XWHHealthyChartDataHandler {
             }
 
         case .month:
+            xLabelCount = 32
+            
             for (i, iDate) in bDates.enumerated() {
                 var yValue: [Double] = [0, 0, 0]
             
@@ -74,11 +79,20 @@ class XWHHealthyChartDataHandler {
                     yValue = [iItem.deepSleepDuration.double, iItem.lightSleepDuration.double, iItem.awakeDuration.double]
                 }
                 
-                xAxisValues.append("\(i + 1)")
+                let cI = i + 1
+                if cI == 1 {
+                    xAxisValues.append(iDate.localizedString(withFormat: XWHDate.monthDayFormat))
+                } else if cI % 7 == 0 {
+                    xAxisValues.append(iDate.localizedString(withFormat: XWHDate.dayFormat))
+                } else {
+                    xAxisValues.append("")
+                }
                 yValues.append(yValue)
             }
 
         case .year:
+            xLabelCount = 12
+
             for (i, iDate) in bDates.enumerated() {
                 var yValue: [Double] = [0, 0, 0]
             
@@ -89,7 +103,7 @@ class XWHHealthyChartDataHandler {
                 if i == 0 {
                     xAxisValues.append(iDate.localizedString(withFormat: XWHDate.monthFormat))
                 } else {
-                    xAxisValues.append(i.string)
+                    xAxisValues.append((i + 1).string)
                 }
                 yValues.append(yValue)
             }
@@ -115,7 +129,7 @@ class XWHHealthyChartDataHandler {
 //            
 //            yAxisValues.append(tValue)
 //        }
-        
+        retModel.xLabelCount = xLabelCount
         retModel.xAxisValues = xAxisValues
 //        retModel.yAxisValues = yAxisValues
         retModel.yValues = yValues

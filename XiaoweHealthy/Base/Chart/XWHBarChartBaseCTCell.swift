@@ -68,6 +68,8 @@ extension XWHBarChartBaseCTCell {
     @objc func configXAxis() {
         chartView.xAxis.labelPosition = .bottom
         
+        chartView.xAxis.axisMaxLabels = 32
+        
 //        chartView.xAxis.axisMinimum = 0
         chartView.xAxis.granularity = 1
 //        chartView.xAxis.axisMaximum = 7
