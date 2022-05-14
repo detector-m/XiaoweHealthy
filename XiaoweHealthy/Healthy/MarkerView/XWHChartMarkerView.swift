@@ -55,42 +55,15 @@ class XWHChartMarkerView: MarkerView {
     }
     
     @objc func relayoutSubViews() {
-        contentView.bounds = CGRect(x: 0, y: 0, width: 135, height: 67)
-        contentView.center = CGPoint(x: center.x, y: 68 / 2)
+        var xOffset = (width - 135) / 2
+        contentView.frame = CGRect(x: xOffset, y: 0, width: 135, height: 67)
         
-        textLb.bounds = CGRect(x: 0, y: 0, width: contentView.width - 12, height: 27)
-        textLb.center = CGPoint(x: center.x, y: 28 / 2 + 2)
+        xOffset += 6
+        textLb.frame = CGRect(x: xOffset, y: 10, width: contentView.width - 12, height: 27)
         
-        detailLb.bounds = CGRect(x: 0, y: 0, width: textLb.width, height: 16)
-        detailLb.center = CGPoint(x: center.x, y: textLb.frame.maxY + 8 + 2)
+        detailLb.frame = CGRect(x: textLb.x, y: textLb.frame.maxY + 2, width: textLb.width, height: 16)
         
         lineView.frame = CGRect(x: (width - 3) / 2 + lineOffset, y: contentView.frame.maxY, width: 3, height: height - contentView.frame.maxY)
-        
-//        contentView.snp.makeConstraints { make in
-//            make.width.equalTo(135)
-//            make.height.equalTo(67)
-//            make.top.equalToSuperview()
-//            make.centerX.equalToSuperview()
-//        }
-        
-//        lineView.snp.makeConstraints { make in
-//            make.width.equalTo(3)
-//            make.centerX.equalToSuperview()
-//            make.top.equalTo(contentView.snp.bottom)
-//            make.bottom.equalToSuperview()
-//        }
-//
-//        textLb.snp.makeConstraints { make in
-//            make.height.equalTo(27)
-//            make.left.right.equalTo(contentView).inset(6)
-//            make.top.equalTo(contentView).inset(11)
-//        }
-//
-//        detailLb.snp.makeConstraints { make in
-//            make.height.equalTo(16)
-//            make.top.equalTo(textLb.snp.bottom).offset(2)
-//            make.left.right.equalTo(textLb)
-//        }
     }
     
     override func layoutSubviews() {
@@ -117,7 +90,6 @@ class XWHChartMarkerView: MarkerView {
         lineView.frame = CGRect(x: (width - 3) / 2 + lineOffset, y: contentView.frame.maxY, width: 3, height: height - contentView.frame.maxY)
         
 //        setNeedsLayout()
-//        mOffset = CGPoint(x: offsetX, y: offsetY)
     }
 
 }

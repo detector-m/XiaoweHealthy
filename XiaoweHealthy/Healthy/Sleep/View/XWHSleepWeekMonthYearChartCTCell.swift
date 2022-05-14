@@ -12,6 +12,8 @@ class XWHSleepWeekMonthYearChartCTCell: XWHBarChartBaseCTCell {
     
     private(set) lazy var legendView = XWHChartLegendView()
 
+    private weak var sUIModel: XWHHealthySleepUISleepModel?
+    private lazy var sDateType: XWHHealthyDateSegmentType = .day
     
     override func addSubViews() {
         super.addSubViews()
@@ -26,7 +28,8 @@ class XWHSleepWeekMonthYearChartCTCell: XWHBarChartBaseCTCell {
         
         chartView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
-            make.top.equalTo(detailLb.snp.bottom)
+//            make.top.equalTo(detailLb.snp.bottom)
+            make.top.equalToSuperview().offset(12)
             make.bottom.equalTo(legendView.snp.top)
         }
     }
@@ -46,8 +49,11 @@ class XWHSleepWeekMonthYearChartCTCell: XWHBarChartBaseCTCell {
         detailLb.text = ""
         legendView.isHidden = true
         
+        sUIModel = sleepUIModel
+        sDateType = dateType
+        
         guard let sleepUIModel = sleepUIModel else {
-//            markerView.isHidden = true
+            chartView.highlightValue(nil)
             return
         }
         legendView.isHidden = false
@@ -55,6 +61,8 @@ class XWHSleepWeekMonthYearChartCTCell: XWHBarChartBaseCTCell {
         
         textLb.text = XWHUIDisplayHandler.getSleepDurationString(sleepUIModel.totalSleepDuration)
         detailLb.text = dateText
+        
+        chartView.highlightValue(nil)
         
         let chartDataModel = XWHHealthyChartDataHandler.getSleepWeekMonthYearChartDataModel(date: sDate, dateType: dateType, sItems: sleepUIModel.items)
         
@@ -97,6 +105,48 @@ class XWHSleepWeekMonthYearChartCTCell: XWHBarChartBaseCTCell {
 //        chartData.groupBars(fromX: -0.5, groupSpace: 0.1, barSpace: 0.1)
         
         return chartData
+    }
+    
+}
+
+
+// MARK: - ChartViewDelegate
+@objc extension XWHSleepWeekMonthYearChartCTCell {
+    
+    override func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        guard entry.y != 0 else {
+            chartView.highlightValue(nil)
+            return
+        }
+        guard let cUIModel = sUIModel else {
+            chartView.highlightValue(nil)
+            return
+        }
+        
+        guard let dataSet = chartView.data?.dataSets[highlight.dataSetIndex] else {
+            chartView.highlightValue(nil)
+
+            return
+        }
+        
+        markerView.setShowOffset(chartView, entry: entry, highlight: highlight)
+        let entryIndex = dataSet.entryIndex(entry: entry)
+        markerView.textLb.text = XWHUIDisplayHandler.getSleepDurationString(cUIModel.totalSleepDuration)
+        
+        let iItem = cUIModel.items[entryIndex]
+        let iDate = iItem.timeAxis.date(withFormat: XWHDate.standardYearMonthDayFormat) ?? Date()
+        
+        if sDateType == .week || sDateType == .month {
+            let cbDate = iDate.dayBegin
+            let bTimeStr = iItem.startTime.date(withFormat: XWHDate.standardTimeAllFormat)?.string(withFormat: XWHDate.hourMinuteFormat) ?? ""
+            let eTimeStr = iItem.endTime.date(withFormat: XWHDate.standardTimeAllFormat)?.string(withFormat: XWHDate.hourMinuteFormat) ?? ""
+            let cStr = cbDate.localizedString(withFormat: XWHDate.monthDayFormat) + " \(bTimeStr)-\(eTimeStr)"
+            markerView.detailLb.text = cStr
+        } else if sDateType == .year {
+            let ybDate = iDate.monthBegin
+            let cStr = ybDate.localizedString(withFormat: XWHDate.monthFormat) + R.string.xwhHealthyText.日均睡眠时长()
+            markerView.detailLb.text = cStr
+        }
     }
     
 }

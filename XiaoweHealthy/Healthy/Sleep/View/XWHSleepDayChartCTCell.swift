@@ -348,8 +348,11 @@ class XWHSleepDayChartCTCell: XWHGradientBaseCTCell {
             cValue = cMin
         }
         
+        let bottomOffset = inView.height * (item.sleepStatus + 1).cgFloat
+        
         markerView.snp.updateConstraints { make in
             make.left.equalToSuperview().offset(cValue)
+            make.bottom.equalTo(chartView).offset(-bottomOffset)
         }
         markerView.lineView.snp.updateConstraints { make in
             make.centerX.equalToSuperview().offset(lineOffset)

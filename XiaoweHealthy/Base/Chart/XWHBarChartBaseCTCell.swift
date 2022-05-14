@@ -65,6 +65,7 @@ extension XWHBarChartBaseCTCell {
         chartView.gridBackgroundColor = .clear
         
         chartView.minOffset = 12
+        chartView.extraTopOffset = 91
     }
     
     @objc func configXAxis() {
@@ -124,10 +125,11 @@ extension XWHBarChartBaseCTCell {
     
 }
 
+// MARK: - ChartViewDelegate
 @objc extension XWHBarChartBaseCTCell: ChartViewDelegate {
     
-    @objc func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        guard let dataSet = chartView.data?.dataSets[highlight.dataSetIndex] else { return }
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        guard let _ = chartView.data?.dataSets[highlight.dataSetIndex] else { return }
         
         markerView.setShowOffset(chartView, entry: entry, highlight: highlight)
 //        let entryIndex = dataSet.entryIndex(entry: entry)
