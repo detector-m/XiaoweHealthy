@@ -58,7 +58,7 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
         super.viewDidLoad()
         
         configEventAction()
-        configEmptyView()
+//        configEmptyView()
         
         updateUI(false)
     }

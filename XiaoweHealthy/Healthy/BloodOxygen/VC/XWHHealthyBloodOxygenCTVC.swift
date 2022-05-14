@@ -215,9 +215,10 @@ extension XWHHealthyBloodOxygenCTVC {
             guard let retModel = response.data as? XWHBOUIBloodOxygenModel else {
                 log.debug("血氧 - 获取数据为空")
                 self.boUIModel = nil
+                self.loadUIItems()
                 self.cleanUIItems()
                 
-                self.collectionView.reloadEmptyDataSet()
+//                self.collectionView.reloadEmptyDataSet()
                 
                 return
             }

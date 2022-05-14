@@ -226,8 +226,6 @@ extension XWHHealthyMainVC {
     private func gotoTestTest() {
         //        XWHLogin.present(at: self)
                 
-        //        testBridge()
-                
         //        testFirmwareUpdate()
                 
         //        testCache()
@@ -277,11 +275,6 @@ extension XWHHealthyMainVC {
         }
 
         XWHDDMShared.syncData()
-    }
-    
-    fileprivate func testBridge() {
-        let vc = XWHTestWebViewBridgeVC()
-        navigationController?.pushViewController(vc, animated: true)
     }
     
     fileprivate func testUserProfile() {

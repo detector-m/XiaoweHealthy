@@ -61,8 +61,8 @@ target 'XiaoweHealthy' do
   pod 'Cache'
   
   # 图表
-  pod 'Charts'
-  pod 'AAInfographics'
+#  pod 'Charts'
+#  pod 'AAInfographics'
   
   # 异步编程
 #  pod 'RxSwift'
@@ -135,7 +135,7 @@ target 'XiaoweHealthy' do
 #  pod 'FontBlaster'
   
   # 三端易用的现代跨平台 Javascript bridge， 通过它，你可以在Javascript和原生之间同步或异步的调用彼此的函数.
-  pod "dsBridge"
+#  pod "dsBridge"
   
   # 优创亿的SDK 依赖
   pod 'iOSOTARTK'

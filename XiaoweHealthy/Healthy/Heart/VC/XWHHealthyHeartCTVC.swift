@@ -223,9 +223,10 @@ extension XWHHealthyHeartCTVC {
                 log.error("心率 - 获取数据错误")
                 
                 self.heartUIModel = nil
+                self.loadUIItems()
                 self.cleanUIItems()
                 
-                self.collectionView.reloadEmptyDataSet()
+//                self.collectionView.reloadEmptyDataSet()
                 
                 return
             }

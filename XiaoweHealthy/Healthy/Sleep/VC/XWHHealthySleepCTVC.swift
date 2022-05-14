@@ -321,7 +321,7 @@ extension XWHHealthySleepCTVC {
                 self.loadUIItems()
                 self.cleanUIItems()
                 
-                self.collectionView.reloadEmptyDataSet()
+//                self.collectionView.reloadEmptyDataSet()
                 
                 return
             }

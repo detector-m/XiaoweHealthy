@@ -254,9 +254,10 @@ extension XWHHealthyMentalStressCTVC {
             guard let retModel = response.data as? XWHMentalStressUIStressModel else {
                 log.debug("精神压力 - 获取数据为空")
                 self.msUIModel = nil
+                self.loadUIItems()
                 self.cleanUIItems()
                 
-                self.collectionView.reloadEmptyDataSet()
+//                self.collectionView.reloadEmptyDataSet()
                 
                 return
             }

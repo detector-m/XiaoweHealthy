@@ -129,6 +129,8 @@
 		96786284282FA1C3003E5730 /* XWHColumnRangeBarChartBaseCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96786283282FA1C3003E5730 /* XWHColumnRangeBarChartBaseCTCell.swift */; };
 		96786286282FA208003E5730 /* XWHChartBaseCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96786285282FA208003E5730 /* XWHChartBaseCTCell.swift */; };
 		96786289282FAA84003E5730 /* XWHColumnRangeBarChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96786288282FAA84003E5730 /* XWHColumnRangeBarChartRenderer.swift */; };
+		967952902830082600441D35 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9679528D2830081400441D35 /* Charts.framework */; };
+		967952912830082600441D35 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9679528D2830081400441D35 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9679E9CF28159105003C6351 /* XWHHeartUIAllDataItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9CE28159105003C6351 /* XWHHeartUIAllDataItemModel.swift */; };
 		9679E9D12815946A003C6351 /* XWHBOUIBloodOxygenAllDataItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9D02815946A003C6351 /* XWHBOUIBloodOxygenAllDataItemModel.swift */; };
 		9679E9D428169338003C6351 /* XWHCalendarPopupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9D328169338003C6351 /* XWHCalendarPopupContainer.swift */; };
@@ -275,11 +277,7 @@
 		96C67AFA28047416001ACA81 /* XWHDataBloodPressureSetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C67AF928047416001ACA81 /* XWHDataBloodPressureSetManager.swift */; };
 		96C67AFC2804742D001ACA81 /* XWHDataBloodOxygenSetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C67AFB2804742D001ACA81 /* XWHDataBloodOxygenSetManager.swift */; };
 		96C67AFE2804743D001ACA81 /* XWHDataRaiseWristSetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C67AFD2804743D001ACA81 /* XWHDataRaiseWristSetManager.swift */; };
-		96D0041427F821D100E569C7 /* XWHTestWebViewBridge.html in Resources */ = {isa = PBXBuildFile; fileRef = 96D0041327F821D100E569C7 /* XWHTestWebViewBridge.html */; };
-		96D0041727F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D0041627F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift */; };
-		96D0041927F8236D00E569C7 /* XWHJsApiTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D0041827F8236D00E569C7 /* XWHJsApiTest.swift */; };
 		96D0041C27F8328B00E569C7 /* XWHCryptoAES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D0041B27F8328B00E569C7 /* XWHCryptoAES.swift */; };
-		96DC429327FD26A9009BF300 /* XWHJsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DC429227FD26A9009BF300 /* XWHJsApi.swift */; };
 		96DC429A27FD34C7009BF300 /* RLBLEPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DC429927FD34C7009BF300 /* RLBLEPermissions.swift */; };
 		96DC429D27FD42B7009BF300 /* XWHDeviceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DC429C27FD42B7009BF300 /* XWHDeviceApi.swift */; };
 		96DC42A127FD7382009BF300 /* XWHCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DC42A027FD7382009BF300 /* XWHCache.swift */; };
@@ -355,6 +353,20 @@
 			remoteGlobalIDString = 9648E60A27E0796D0077180D;
 			remoteInfo = XiaoweHealthy;
 		};
+		9679528C2830081400441D35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 967952872830081400441D35 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 65AD9E95D9ED4DC0BD73A743;
+			remoteInfo = Charts;
+		};
+		9679528E2830081400441D35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 967952872830081400441D35 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1CBBC58C6CE1EBEE9852CE41;
+			remoteInfo = ChartsTests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -365,6 +377,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				9661517727E46BF5006781C1 /* UTESmartBandApi.framework in Embed Frameworks */,
+				967952912830082600441D35 /* Charts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -499,6 +512,7 @@
 		96786283282FA1C3003E5730 /* XWHColumnRangeBarChartBaseCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHColumnRangeBarChartBaseCTCell.swift; sourceTree = "<group>"; };
 		96786285282FA208003E5730 /* XWHChartBaseCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHChartBaseCTCell.swift; sourceTree = "<group>"; };
 		96786288282FAA84003E5730 /* XWHColumnRangeBarChartRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHColumnRangeBarChartRenderer.swift; sourceTree = "<group>"; };
+		967952872830081400441D35 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = ThirdLib/Charts/Charts.xcodeproj; sourceTree = "<group>"; };
 		9679E9CE28159105003C6351 /* XWHHeartUIAllDataItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHeartUIAllDataItemModel.swift; sourceTree = "<group>"; };
 		9679E9D02815946A003C6351 /* XWHBOUIBloodOxygenAllDataItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBOUIBloodOxygenAllDataItemModel.swift; sourceTree = "<group>"; };
 		9679E9D328169338003C6351 /* XWHCalendarPopupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCalendarPopupContainer.swift; sourceTree = "<group>"; };
@@ -645,11 +659,7 @@
 		96C67AF928047416001ACA81 /* XWHDataBloodPressureSetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataBloodPressureSetManager.swift; sourceTree = "<group>"; };
 		96C67AFB2804742D001ACA81 /* XWHDataBloodOxygenSetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataBloodOxygenSetManager.swift; sourceTree = "<group>"; };
 		96C67AFD2804743D001ACA81 /* XWHDataRaiseWristSetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataRaiseWristSetManager.swift; sourceTree = "<group>"; };
-		96D0041327F821D100E569C7 /* XWHTestWebViewBridge.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = XWHTestWebViewBridge.html; sourceTree = "<group>"; };
-		96D0041627F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTestWebViewBridgeVC.swift; sourceTree = "<group>"; };
-		96D0041827F8236D00E569C7 /* XWHJsApiTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHJsApiTest.swift; sourceTree = "<group>"; };
 		96D0041B27F8328B00E569C7 /* XWHCryptoAES.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCryptoAES.swift; sourceTree = "<group>"; };
-		96DC429227FD26A9009BF300 /* XWHJsApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHJsApi.swift; sourceTree = "<group>"; };
 		96DC429927FD34C7009BF300 /* RLBLEPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLBLEPermissions.swift; sourceTree = "<group>"; };
 		96DC429C27FD42B7009BF300 /* XWHDeviceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceApi.swift; sourceTree = "<group>"; };
 		96DC42A027FD7382009BF300 /* XWHCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCache.swift; sourceTree = "<group>"; };
@@ -721,6 +731,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				967952902830082600441D35 /* Charts.framework in Frameworks */,
 				8CBF5AE85A9444D903AE1BC2 /* Pods_XiaoweHealthy.framework in Frameworks */,
 				9661517627E46BF5006781C1 /* UTESmartBandApi.framework in Frameworks */,
 			);
@@ -808,6 +819,7 @@
 			isa = PBXGroup;
 			children = (
 				96E8A6BB27F150F100F5C75C /* XiaoweHealthyDebug.entitlements */,
+				967952872830081400441D35 /* Charts.xcodeproj */,
 				9651EE1127EB6CB30043FE52 /* User */,
 				96617A6927E1D87E00139B03 /* LoginRegister */,
 				96E23C2127E1A311009EF208 /* Healthy */,
@@ -817,7 +829,6 @@
 				96931075282600B800133626 /* UIDisplayHandler */,
 				96DC429427FD303A009BF300 /* DeviceManager */,
 				96DC429E27FD7323009BF300 /* DataManager */,
-				96D0041127F8212400E569C7 /* WebViewBridge */,
 				96617A6F27E1E06700139B03 /* Tools */,
 				9651EE0227EAF2D60043FE52 /* Config */,
 				96617A6A27E1DFC000139B03 /* Base */,
@@ -1438,6 +1449,15 @@
 				96786288282FAA84003E5730 /* XWHColumnRangeBarChartRenderer.swift */,
 			);
 			path = Renderer;
+			sourceTree = "<group>";
+		};
+		967952882830081400441D35 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9679528D2830081400441D35 /* Charts.framework */,
+				9679528F2830081400441D35 /* ChartsTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		9679E9D228168930003C6351 /* Calendar */ = {
@@ -2089,25 +2109,6 @@
 			path = DeviceSettings;
 			sourceTree = "<group>";
 		};
-		96D0041127F8212400E569C7 /* WebViewBridge */ = {
-			isa = PBXGroup;
-			children = (
-				96D0041227F8219100E569C7 /* Test */,
-				96DC429227FD26A9009BF300 /* XWHJsApi.swift */,
-			);
-			path = WebViewBridge;
-			sourceTree = "<group>";
-		};
-		96D0041227F8219100E569C7 /* Test */ = {
-			isa = PBXGroup;
-			children = (
-				96D0041327F821D100E569C7 /* XWHTestWebViewBridge.html */,
-				96D0041627F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift */,
-				96D0041827F8236D00E569C7 /* XWHJsApiTest.swift */,
-			);
-			path = Test;
-			sourceTree = "<group>";
-		};
 		96D0041A27F8323C00E569C7 /* Crypto */ = {
 			isa = PBXGroup;
 			children = (
@@ -2577,6 +2578,12 @@
 			mainGroup = 9648E60227E0796D0077180D;
 			productRefGroup = 9648E60C27E0796D0077180D /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 967952882830081400441D35 /* Products */;
+					ProjectRef = 967952872830081400441D35 /* Charts.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				9648E60A27E0796D0077180D /* XiaoweHealthy */,
@@ -2585,6 +2592,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		9679528D2830081400441D35 /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = 9679528C2830081400441D35 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9679528F2830081400441D35 /* ChartsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ChartsTests.xctest;
+			remoteRef = 9679528E2830081400441D35 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		9648E60927E0796D0077180D /* Resources */ = {
@@ -2599,7 +2623,6 @@
 				96FC407727EDA16800D64B64 /* HarmonyOS_Sans_SC_Regular.ttf in Resources */,
 				96F1D66128067CF40067DBFD /* D391901_pix360x360_rgb565.bin in Resources */,
 				9648E61827E0796E0077180D /* Assets.xcassets in Resources */,
-				96D0041427F821D100E569C7 /* XWHTestWebViewBridge.html in Resources */,
 				967823AF27F2CA42004F66FB /* iconfont.ttf in Resources */,
 				96617A6027E1D1A600139B03 /* XWHLaunchLogoS@3x.png in Resources */,
 				96F1D67E280945780067DBFD /* XWHDialText.strings in Resources */,
@@ -2994,7 +3017,6 @@
 				9678257927F2EF3B004F66FB /* XWHDeviceFaceView.swift in Sources */,
 				96C67ADE2803D5E7001ACA81 /* XWHNoticeSetModel.swift in Sources */,
 				96F3588B27FE8C9A00783614 /* XWHBLEDispatchBaseHandler.swift in Sources */,
-				96D0041727F8227B00E569C7 /* XWHTestWebViewBridgeVC.swift in Sources */,
 				96617AA927E328C800139B03 /* XWHResetPasswordVC.swift in Sources */,
 				9651EE3027EC5C7E0043FE52 /* XWHUMManager.swift in Sources */,
 				969310642825034A00133626 /* XWHMultiColorLinearCTCell.swift in Sources */,
@@ -3081,13 +3103,11 @@
 				96DC42A927FDA3C7009BF300 /* XWHTimeoutHandler.swift in Sources */,
 				967823AB27F2C9B5004F66FB /* XWHUIImageExtension.swift in Sources */,
 				96F3589027FE940300783614 /* XWHDevWatchDispatchManager.swift in Sources */,
-				96D0041927F8236D00E569C7 /* XWHJsApiTest.swift in Sources */,
 				960A836A28025EFD00FC1B5F /* XWHDevCmdOperationProtocol.swift in Sources */,
 				96617AA727E3196A00139B03 /* XWHCheckProtocolView.swift in Sources */,
 				96E3F2DD2805656800D9BF11 /* XWHUTEWeatherInfoHandler.swift in Sources */,
 				960A836C2802635C00FC1B5F /* XWHUTECmdOperationHandler.swift in Sources */,
 				9653E4A227F5A4A400EE55FF /* XWHDevSetWeatherVC.swift in Sources */,
-				96DC429327FD26A9009BF300 /* XWHJsApi.swift in Sources */,
 				9678257E27F2F495004F66FB /* RLRadarView.swift in Sources */,
 				967AF4C527EF547B00235E08 /* XWHDevice.swift in Sources */,
 				9653E49227F5545100EE55FF /* XWHDevSetChatVC.swift in Sources */,
