@@ -72,6 +72,37 @@ class XWHChartMarkerView: MarkerView {
         relayoutSubViews()
     }
     
+    override func offsetForDrawing(atPoint point: CGPoint) -> CGPoint {
+        guard let chart = chartView else { return self.offset }
+        
+        var offset = self.offset
+        
+        let width = self.bounds.size.width
+//        let height = self.bounds.size.height
+        let minHeight: CGFloat = 68
+        var tHeight = minHeight
+        
+        if point.x + offset.x < 0.0 {
+            offset.x = -point.x
+        }
+        else if point.x + width + offset.x > chart.bounds.size.width {
+            offset.x = chart.bounds.size.width - point.x - width
+        }
+    
+        offset.y = -point.y
+        
+        tHeight = point.y
+        if tHeight == minHeight {
+            tHeight = minHeight
+        }
+        
+        var tFrame = frame
+        tFrame.size.height = tHeight
+        frame = tFrame
+        
+        return offset
+    }
+    
     func setShowOffset(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
 //        let offsetY: CGFloat = -(bounds.size.height)
         var offsetX: CGFloat = -(bounds.size.width / 2)
