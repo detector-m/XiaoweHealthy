@@ -17,7 +17,7 @@ class XWHMentalStressRangeCTCell: XWHMentalStressCommonCTCell {
         detailLb.textColor = fontDarkColor.withAlphaComponent(0.3)
         
         imageView.isHidden = false
-        imageView.cornerRadius = 4
+        imageView.layer.cornerRadius = 4
     }
     
     override func relayoutSubViews() {
