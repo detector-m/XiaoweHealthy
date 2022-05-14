@@ -129,8 +129,8 @@
 		96786284282FA1C3003E5730 /* XWHColumnRangeBarChartBaseCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96786283282FA1C3003E5730 /* XWHColumnRangeBarChartBaseCTCell.swift */; };
 		96786286282FA208003E5730 /* XWHChartBaseCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96786285282FA208003E5730 /* XWHChartBaseCTCell.swift */; };
 		96786289282FAA84003E5730 /* XWHColumnRangeBarChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96786288282FAA84003E5730 /* XWHColumnRangeBarChartRenderer.swift */; };
-		967952902830082600441D35 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9679528D2830081400441D35 /* Charts.framework */; };
-		967952912830082600441D35 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9679528D2830081400441D35 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		967952942830126F00441D35 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 967952932830126F00441D35 /* Charts.framework */; };
+		967952952830126F00441D35 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 967952932830126F00441D35 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9679E9CF28159105003C6351 /* XWHHeartUIAllDataItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9CE28159105003C6351 /* XWHHeartUIAllDataItemModel.swift */; };
 		9679E9D12815946A003C6351 /* XWHBOUIBloodOxygenAllDataItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9D02815946A003C6351 /* XWHBOUIBloodOxygenAllDataItemModel.swift */; };
 		9679E9D428169338003C6351 /* XWHCalendarPopupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9D328169338003C6351 /* XWHCalendarPopupContainer.swift */; };
@@ -353,20 +353,6 @@
 			remoteGlobalIDString = 9648E60A27E0796D0077180D;
 			remoteInfo = XiaoweHealthy;
 		};
-		9679528C2830081400441D35 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 967952872830081400441D35 /* Charts.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 65AD9E95D9ED4DC0BD73A743;
-			remoteInfo = Charts;
-		};
-		9679528E2830081400441D35 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 967952872830081400441D35 /* Charts.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 1CBBC58C6CE1EBEE9852CE41;
-			remoteInfo = ChartsTests;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -377,7 +363,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				9661517727E46BF5006781C1 /* UTESmartBandApi.framework in Embed Frameworks */,
-				967952912830082600441D35 /* Charts.framework in Embed Frameworks */,
+				967952952830126F00441D35 /* Charts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -512,7 +498,7 @@
 		96786283282FA1C3003E5730 /* XWHColumnRangeBarChartBaseCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHColumnRangeBarChartBaseCTCell.swift; sourceTree = "<group>"; };
 		96786285282FA208003E5730 /* XWHChartBaseCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHChartBaseCTCell.swift; sourceTree = "<group>"; };
 		96786288282FAA84003E5730 /* XWHColumnRangeBarChartRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHColumnRangeBarChartRenderer.swift; sourceTree = "<group>"; };
-		967952872830081400441D35 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = ThirdLib/Charts/Charts.xcodeproj; sourceTree = "<group>"; };
+		967952932830126F00441D35 /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9679E9CE28159105003C6351 /* XWHHeartUIAllDataItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHeartUIAllDataItemModel.swift; sourceTree = "<group>"; };
 		9679E9D02815946A003C6351 /* XWHBOUIBloodOxygenAllDataItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBOUIBloodOxygenAllDataItemModel.swift; sourceTree = "<group>"; };
 		9679E9D328169338003C6351 /* XWHCalendarPopupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCalendarPopupContainer.swift; sourceTree = "<group>"; };
@@ -731,7 +717,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				967952902830082600441D35 /* Charts.framework in Frameworks */,
+				967952942830126F00441D35 /* Charts.framework in Frameworks */,
 				8CBF5AE85A9444D903AE1BC2 /* Pods_XiaoweHealthy.framework in Frameworks */,
 				9661517627E46BF5006781C1 /* UTESmartBandApi.framework in Frameworks */,
 			);
@@ -819,7 +805,6 @@
 			isa = PBXGroup;
 			children = (
 				96E8A6BB27F150F100F5C75C /* XiaoweHealthyDebug.entitlements */,
-				967952872830081400441D35 /* Charts.xcodeproj */,
 				9651EE1127EB6CB30043FE52 /* User */,
 				96617A6927E1D87E00139B03 /* LoginRegister */,
 				96E23C2127E1A311009EF208 /* Healthy */,
@@ -1449,15 +1434,6 @@
 				96786288282FAA84003E5730 /* XWHColumnRangeBarChartRenderer.swift */,
 			);
 			path = Renderer;
-			sourceTree = "<group>";
-		};
-		967952882830081400441D35 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9679528D2830081400441D35 /* Charts.framework */,
-				9679528F2830081400441D35 /* ChartsTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		9679E9D228168930003C6351 /* Calendar */ = {
@@ -2471,6 +2447,7 @@
 		F13397529419217181216C7B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				967952932830126F00441D35 /* Charts.framework */,
 				DF4A353C734F593A2D13B536 /* Pods_XiaoweHealthy.framework */,
 				F259963E5DB67A1A5D3C45EC /* Pods_XiaoweHealthy_XiaoweHealthyUITests.framework */,
 				C24BBC7C44348E71CC065B15 /* Pods_XiaoweHealthyTests.framework */,
@@ -2578,12 +2555,6 @@
 			mainGroup = 9648E60227E0796D0077180D;
 			productRefGroup = 9648E60C27E0796D0077180D /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 967952882830081400441D35 /* Products */;
-					ProjectRef = 967952872830081400441D35 /* Charts.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				9648E60A27E0796D0077180D /* XiaoweHealthy */,
@@ -2592,23 +2563,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		9679528D2830081400441D35 /* Charts.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Charts.framework;
-			remoteRef = 9679528C2830081400441D35 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9679528F2830081400441D35 /* ChartsTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ChartsTests.xctest;
-			remoteRef = 9679528E2830081400441D35 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		9648E60927E0796D0077180D /* Resources */ = {
