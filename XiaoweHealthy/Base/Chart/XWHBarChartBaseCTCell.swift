@@ -13,6 +13,9 @@ class XWHBarChartBaseCTCell: XWHGradientBaseCTCell {
     private(set) lazy var chartView = BarChartView()
     private(set) lazy var markerView = XWHChartMarkerView()
     
+    lazy var sDateType: XWHHealthyDateSegmentType = .day
+    var chartDataModel: XWHSleepWMYChartDataModel?
+    
     override func addSubViews() {
         super.addSubViews()
         

@@ -13,8 +13,6 @@ class XWHSleepWeekMonthYearChartCTCell: XWHBarChartBaseCTCell {
     private(set) lazy var legendView = XWHChartLegendView()
 
     private weak var sUIModel: XWHHealthySleepUISleepModel?
-    private lazy var sDateType: XWHHealthyDateSegmentType = .day
-    private var chartDataModel: XWHSleepWMYChartDataModel?
     
     override func addSubViews() {
         super.addSubViews()
@@ -92,7 +90,7 @@ class XWHSleepWeekMonthYearChartCTCell: XWHBarChartBaseCTCell {
     
     private func getChartData(chartDataModel: XWHSleepWMYChartDataModel) -> BarChartData {
         var dataEntries: [BarChartDataEntry] = []
-        for (i, iYValue) in chartDataModel.yValues.enumerated() {
+        for (i, iYValue) in chartDataModel.sYValues.enumerated() {
             let entry = BarChartDataEntry(x: i.double, yValues: iYValue)
 //            entry.data =
             dataEntries.append(entry)

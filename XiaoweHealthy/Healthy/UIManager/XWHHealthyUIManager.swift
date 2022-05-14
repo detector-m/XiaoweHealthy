@@ -20,15 +20,15 @@ class XWHHealthyUIManager: XWHHealthyUIItemModel {
     
     // MARK: - 心率(Heart)
 //    lazy var heartCardTypes: [XWHHealthyDetailUICardType] = [.chart, .curDatas, .heartRange]
-    private lazy var heartCardTypes: [XWHHealthyDetailUICardType] = [.curDatas, .heartRange]
+    private lazy var heartCardTypes: [XWHHealthyDetailUICardType] = [.chart, .curDatas, .heartRange]
     private lazy var heartCurDataItems: [String] = [R.string.xwhHealthyText.最近一次心率(), R.string.xwhHealthyText.心率范围(), R.string.xwhHealthyText.静息心率(), R.string.xwhHealthyText.平均心率()]
     
     // MARK: - 血氧饱和度（BloodOxygen）
-    private lazy var boCardTypes: [XWHHealthyDetailUICardType] = [.curDatas, .boTip]
+    private lazy var boCardTypes: [XWHHealthyDetailUICardType] = [.chart, .curDatas, .boTip]
     private lazy var boCurDataItems: [String] = [R.string.xwhHealthyText.最近一次血氧饱和度(), R.string.xwhHealthyText.血氧饱和度范围(), R.string.xwhHealthyText.平均血氧饱和度()]
     
     // MARK: - 压力 （MentalStress）
-    private lazy var mentalStressCardTypes: [XWHHealthyDetailUICardType] = [.curDatas, .mentalStressRange]
+    private lazy var mentalStressCardTypes: [XWHHealthyDetailUICardType] = [.chart, .curDatas, .mentalStressRange]
     private lazy var mentalStressCurDataItems: [String] = [R.string.xwhHealthyText.最近一次压力值(), R.string.xwhHealthyText.压力范围(), R.string.xwhHealthyText.平均压力值()]
     
     // MARK: - 睡眠 （Sleep）
@@ -204,6 +204,9 @@ extension XWHHealthyUIManager {
                 ret.remove(at: 0)
             }
             return ret
+            
+        case .sleep:
+            return [""]
             
         default:
             return []

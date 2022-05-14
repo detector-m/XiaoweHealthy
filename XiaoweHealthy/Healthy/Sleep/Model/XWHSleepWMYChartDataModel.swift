@@ -11,6 +11,14 @@ import Foundation
 /// 睡眠周月年的图表数据模型
 class XWHSleepWMYChartDataModel: XWHChartDataBaseModel {
     
-    var yValues: [[Double]] = []
+//    var yValues: [[Double]] = []
+    var sYValues: [[Double]] {
+        get {
+            super.yValues as? [[Double]] ?? []
+        }
+        set {
+            super.yValues = newValue
+        }
+    }
     
 }

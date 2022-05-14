@@ -18,6 +18,9 @@ class XWHChartDataBaseModel {
     var xAxisValues: [String] = []
     var yAxisValues: [String] = []
     
+    /// 图表数据
+    var yValues: [Any] = []
+    /// 原始数据
     var rawValues: [Any?] = []
     
     /// 原始数据所在的标识
