@@ -14,6 +14,7 @@ class XWHSleepWeekMonthYearChartCTCell: XWHBarChartBaseCTCell {
 
     private weak var sUIModel: XWHHealthySleepUISleepModel?
     private lazy var sDateType: XWHHealthyDateSegmentType = .day
+    private var chartDataModel: XWHSleepWMYChartDataModel?
     
     override func addSubViews() {
         super.addSubViews()
@@ -66,6 +67,8 @@ class XWHSleepWeekMonthYearChartCTCell: XWHBarChartBaseCTCell {
         
         let chartDataModel = XWHHealthyChartDataHandler.getSleepWeekMonthYearChartDataModel(date: sDate, dateType: dateType, sItems: sleepUIModel.items)
         
+        self.chartDataModel = chartDataModel
+        
         chartView.xAxis.setLabelCount(chartDataModel.xLabelCount, force: false)
         chartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: chartDataModel.xAxisValues)
         
@@ -91,7 +94,7 @@ class XWHSleepWeekMonthYearChartCTCell: XWHBarChartBaseCTCell {
         var dataEntries: [BarChartDataEntry] = []
         for (i, iYValue) in chartDataModel.yValues.enumerated() {
             let entry = BarChartDataEntry(x: i.double, yValues: iYValue)
-
+//            entry.data =
             dataEntries.append(entry)
         }
         
@@ -123,17 +126,28 @@ class XWHSleepWeekMonthYearChartCTCell: XWHBarChartBaseCTCell {
             return
         }
         
+        guard let cChartDataModel = chartDataModel else {
+            chartView.highlightValue(nil)
+            
+            return
+        }
+        
         guard let dataSet = chartView.data?.dataSets[highlight.dataSetIndex] else {
+            chartView.highlightValue(nil)
+
+            return
+        }
+        let entryIndex = dataSet.entryIndex(entry: entry)
+
+        guard let iItem = cChartDataModel.rawValues[entryIndex] as? XWHHealthySleepUISleepItemModel else {
             chartView.highlightValue(nil)
 
             return
         }
         
         markerView.setShowOffset(chartView, entry: entry, highlight: highlight)
-        let entryIndex = dataSet.entryIndex(entry: entry)
         markerView.textLb.text = XWHUIDisplayHandler.getSleepDurationString(cUIModel.totalSleepDuration)
         
-        let iItem = cUIModel.items[entryIndex]
         let iDate = iItem.timeAxis.date(withFormat: XWHDate.standardYearMonthDayFormat) ?? Date()
         
         if sDateType == .week || sDateType == .month {

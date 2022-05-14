@@ -42,12 +42,17 @@ class XWHHealthyChartDataHandler {
 //    }
     
     class func getSleepWeekMonthYearChartDataModel(date: Date, dateType: XWHHealthyDateSegmentType, sItems: [XWHHealthySleepUISleepItemModel]) -> XWHSleepWMYChartDataModel {
-        var retModel = XWHSleepWMYChartDataModel()
+        let retModel = XWHSleepWMYChartDataModel()
         var xAxisValues = [String]()
 //        var yAxisValues = [String]()
         var yValues = [[Double]]()
+        var rawValues = [Any?]()
+        
         let bDates = getBeginDates(date: date, dateType: dateType)
         var xLabelCount = 5
+        
+        var iRawValue: Any? = nil
+        var iYValue: [Double] = [0, 0, 0]
         
         switch dateType {
         case .day:
@@ -57,26 +62,33 @@ class XWHHealthyChartDataHandler {
             xLabelCount = 7
             
             for iDate in bDates {
-                var yValue: [Double] = [0, 0, 0]
-            
+                iRawValue = nil
+                iYValue = [0, 0, 0]
+                
                 let iDateString = iDate.string(withFormat: XWHDate.standardYearMonthDayFormat)
                 if let iItem = sItems.first(where: { $0.timeAxis == iDateString }) {
-                    yValue = [iItem.deepSleepDuration.double, iItem.lightSleepDuration.double, iItem.awakeDuration.double]
+                    iYValue = [iItem.deepSleepDuration.double, iItem.lightSleepDuration.double, iItem.awakeDuration.double]
+                    
+                    iRawValue = iItem
                 }
                 
                 xAxisValues.append("\(iDate.month)/\(iDate.day)")
-                yValues.append(yValue)
+                yValues.append(iYValue)
+                rawValues.append(iRawValue)
             }
 
         case .month:
             xLabelCount = 32
             
             for (i, iDate) in bDates.enumerated() {
-                var yValue: [Double] = [0, 0, 0]
-            
+                iRawValue = nil
+                iYValue = [0, 0, 0]
+                
                 let iDateString = iDate.string(withFormat: XWHDate.standardYearMonthDayFormat)
                 if let iItem = sItems.first(where: { $0.timeAxis == iDateString }) {
-                    yValue = [iItem.deepSleepDuration.double, iItem.lightSleepDuration.double, iItem.awakeDuration.double]
+                    iYValue = [iItem.deepSleepDuration.double, iItem.lightSleepDuration.double, iItem.awakeDuration.double]
+                    
+                    iRawValue = iItem
                 }
                 
                 let cI = i + 1
@@ -87,17 +99,20 @@ class XWHHealthyChartDataHandler {
                 } else {
                     xAxisValues.append("")
                 }
-                yValues.append(yValue)
+                yValues.append(iYValue)
+                rawValues.append(iRawValue)
             }
 
         case .year:
             xLabelCount = 12
 
             for (i, iDate) in bDates.enumerated() {
-                var yValue: [Double] = [0, 0, 0]
-            
+                iRawValue = nil
+                iYValue = [0, 0, 0]
+                
                 if let iItem = sItems.first(where: { $0.timeAxis.date(withFormat: XWHDate.standardYearMonthDayFormat)?.monthBegin == iDate }) {
-                    yValue = [iItem.deepSleepDuration.double, iItem.lightSleepDuration.double, iItem.awakeDuration.double]
+                    iYValue = [iItem.deepSleepDuration.double, iItem.lightSleepDuration.double, iItem.awakeDuration.double]
+                    iRawValue = iItem
                 }
                 
                 if i == 0 {
@@ -105,7 +120,9 @@ class XWHHealthyChartDataHandler {
                 } else {
                     xAxisValues.append((i + 1).string)
                 }
-                yValues.append(yValue)
+                
+                yValues.append(iYValue)
+                rawValues.append(iRawValue)
             }
         }
         
@@ -133,6 +150,7 @@ class XWHHealthyChartDataHandler {
         retModel.xAxisValues = xAxisValues
 //        retModel.yAxisValues = yAxisValues
         retModel.yValues = yValues
+        retModel.rawValues = rawValues
         return retModel
     }
     
