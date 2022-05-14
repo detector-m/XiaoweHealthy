@@ -126,6 +126,9 @@
 		9678627E282E69A1003E5730 /* XWHChartDataBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9678627D282E69A1003E5730 /* XWHChartDataBaseModel.swift */; };
 		96786280282E7120003E5730 /* XWHChartMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9678627F282E7120003E5730 /* XWHChartMarkerView.swift */; };
 		96786282282F90C8003E5730 /* XWHHeartChartCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96786281282F90C7003E5730 /* XWHHeartChartCTCell.swift */; };
+		96786284282FA1C3003E5730 /* XWHColumnRangeBarChartBaseCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96786283282FA1C3003E5730 /* XWHColumnRangeBarChartBaseCTCell.swift */; };
+		96786286282FA208003E5730 /* XWHChartBaseCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96786285282FA208003E5730 /* XWHChartBaseCTCell.swift */; };
+		96786289282FAA84003E5730 /* XWHColumnRangeBarChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96786288282FAA84003E5730 /* XWHColumnRangeBarChartRenderer.swift */; };
 		9679E9CF28159105003C6351 /* XWHHeartUIAllDataItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9CE28159105003C6351 /* XWHHeartUIAllDataItemModel.swift */; };
 		9679E9D12815946A003C6351 /* XWHBOUIBloodOxygenAllDataItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9D02815946A003C6351 /* XWHBOUIBloodOxygenAllDataItemModel.swift */; };
 		9679E9D428169338003C6351 /* XWHCalendarPopupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679E9D328169338003C6351 /* XWHCalendarPopupContainer.swift */; };
@@ -493,6 +496,9 @@
 		9678627D282E69A1003E5730 /* XWHChartDataBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHChartDataBaseModel.swift; sourceTree = "<group>"; };
 		9678627F282E7120003E5730 /* XWHChartMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHChartMarkerView.swift; sourceTree = "<group>"; };
 		96786281282F90C7003E5730 /* XWHHeartChartCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHeartChartCTCell.swift; sourceTree = "<group>"; };
+		96786283282FA1C3003E5730 /* XWHColumnRangeBarChartBaseCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHColumnRangeBarChartBaseCTCell.swift; sourceTree = "<group>"; };
+		96786285282FA208003E5730 /* XWHChartBaseCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHChartBaseCTCell.swift; sourceTree = "<group>"; };
+		96786288282FAA84003E5730 /* XWHColumnRangeBarChartRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHColumnRangeBarChartRenderer.swift; sourceTree = "<group>"; };
 		9679E9CE28159105003C6351 /* XWHHeartUIAllDataItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHeartUIAllDataItemModel.swift; sourceTree = "<group>"; };
 		9679E9D02815946A003C6351 /* XWHBOUIBloodOxygenAllDataItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBOUIBloodOxygenAllDataItemModel.swift; sourceTree = "<group>"; };
 		9679E9D328169338003C6351 /* XWHCalendarPopupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCalendarPopupContainer.swift; sourceTree = "<group>"; };
@@ -1418,9 +1424,20 @@
 		96786278282DE8EA003E5730 /* Chart */ = {
 			isa = PBXGroup;
 			children = (
+				96786287282FAA56003E5730 /* Renderer */,
+				96786285282FA208003E5730 /* XWHChartBaseCTCell.swift */,
 				96786279282DE91D003E5730 /* XWHBarChartBaseCTCell.swift */,
+				96786283282FA1C3003E5730 /* XWHColumnRangeBarChartBaseCTCell.swift */,
 			);
 			path = Chart;
+			sourceTree = "<group>";
+		};
+		96786287282FAA56003E5730 /* Renderer */ = {
+			isa = PBXGroup;
+			children = (
+				96786288282FAA84003E5730 /* XWHColumnRangeBarChartRenderer.swift */,
+			);
+			path = Renderer;
 			sourceTree = "<group>";
 		};
 		9679E9D228168930003C6351 /* Calendar */ = {
@@ -3012,6 +3029,7 @@
 				9661D35A27F5FD970062B2B8 /* XWHDevSetDisturbVC.swift in Sources */,
 				96F1D6692806D2010067DBFD /* XWHDataWatchManager.swift in Sources */,
 				9651EDF727E961740043FE52 /* XWHAlert.swift in Sources */,
+				96786284282FA1C3003E5730 /* XWHColumnRangeBarChartBaseCTCell.swift in Sources */,
 				96E23C2A27E1A55E009EF208 /* XWHHealthyMainVC.swift in Sources */,
 				9672B26227EF06FB00DC80D6 /* XWHAddBrandDeviceVC.swift in Sources */,
 				9651EDEF27E849740043FE52 /* RLPopupView.swift in Sources */,
@@ -3031,6 +3049,7 @@
 				96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */,
 				96907262281564C90056CE4F /* XWHBOUIBloodOxygenModel.swift in Sources */,
 				9644928827F7EB2F001CA321 /* XWHProgressButton.swift in Sources */,
+				96786289282FAA84003E5730 /* XWHColumnRangeBarChartRenderer.swift in Sources */,
 				9661D35827F5FD830062B2B8 /* XWHDevSetWristVC.swift in Sources */,
 				9679E9E2281798E1003C6351 /* XWHCalendarMonthView.swift in Sources */,
 				968CB8A627F40B5A00E549AC /* XWHDeviceDeploy.swift in Sources */,
@@ -3049,6 +3068,7 @@
 				9651EE0727EAF6CE0043FE52 /* XWHServiceTargetType.swift in Sources */,
 				969F01C027F6DBB600CA4DA4 /* XWHDevSetUpdateVC.swift in Sources */,
 				96A10CC0282A67B500C1E18F /* XWHChartLegendView.swift in Sources */,
+				96786286282FA208003E5730 /* XWHChartBaseCTCell.swift in Sources */,
 				969072432814EC320056CE4F /* XWHHeartDataDetailListTBVC.swift in Sources */,
 				96E23C2027E1A22C009EF208 /* R.generated.swift in Sources */,
 				9653E4A627F5A6D700EE55FF /* XWHDevSetBloodOxygenVC.swift in Sources */,

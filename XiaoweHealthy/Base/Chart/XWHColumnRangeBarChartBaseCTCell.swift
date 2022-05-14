@@ -1,16 +1,17 @@
 //
-//  XWHBarChartBaseCTCell.swift
+//  XWHColumnRangeBarChartBaseCTCell.swift
 //  XiaoweHealthy
 //
-//  Created by Riven on 2022/5/13.
+//  Created by Riven on 2022/5/14.
 //
 
 import UIKit
 import Charts
 
-class XWHBarChartBaseCTCell: XWHChartBaseCTCell {
+class XWHColumnRangeBarChartBaseCTCell: XWHChartBaseCTCell {
     
-    private(set) lazy var chartView = BarChartView()
+    private(set) lazy var chartView = CandleStickChartView()
+    private lazy var columnRangeBarChartRenderer = XWHColumnRangeBarChartRenderer(dataProvider: chartView, animator: chartView.chartAnimator, viewPortHandler: chartView.viewPortHandler)
     
     override func addSubViews() {
         super.addSubViews()
@@ -23,12 +24,24 @@ class XWHBarChartBaseCTCell: XWHChartBaseCTCell {
         configMarkerView()
     }
     
+    override func relayoutSubViews() {
+        relayoutTitleValueView()
+        
+        chartView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
+            make.top.equalToSuperview().offset(12)
+            make.bottom.equalToSuperview()
+        }
+    }
+    
 }
 
-extension XWHBarChartBaseCTCell {
+extension XWHColumnRangeBarChartBaseCTCell {
     
     @objc func configChartViewCommon() {
         chartView.backgroundColor = .clear
+        
+        chartView.renderer = columnRangeBarChartRenderer
 
         chartView.delegate = self
         chartView.noDataText = ""
@@ -43,6 +56,8 @@ extension XWHBarChartBaseCTCell {
         
         chartView.minOffset = 12
         chartView.extraTopOffset = 91
+        
+        chartView.accessibilityElements
     }
     
     @objc func configXAxis() {
@@ -93,7 +108,6 @@ extension XWHBarChartBaseCTCell {
     }
     
     @objc func configMarkerView() {
-        chartView.highlightFullBarEnabled = true
         markerView.frame = CGRect(x: 0, y: 0, width: 160, height: 120)
         markerView.backgroundColor = .clear
         markerView.chartView = chartView
@@ -103,7 +117,7 @@ extension XWHBarChartBaseCTCell {
 }
 
 // MARK: - ChartViewDelegate
-@objc extension XWHBarChartBaseCTCell: ChartViewDelegate {
+@objc extension XWHColumnRangeBarChartBaseCTCell: ChartViewDelegate {
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         guard let _ = chartView.data?.dataSets[highlight.dataSetIndex] else { return }
@@ -115,3 +129,4 @@ extension XWHBarChartBaseCTCell {
     }
     
 }
+
