@@ -196,8 +196,10 @@ class XWHSleepDayChartCTCell: XWHGradientBaseCTCell {
         lightItems.removeAll()
         deepItems.removeAll()
         
+        tapedView = nil
+        markerView.isHidden = true
+        
         guard let sleepUIModel = sleepUIModel else {
-            markerView.isHidden = true
             return
         }
         

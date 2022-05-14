@@ -27,9 +27,9 @@ class XWHSleepUIAllDataItemSleepModel: XWHHealthySleepUISleepBaseModel {
     /// 数据采集日期
     var collectTime = ""
     /// 入睡时间
-    var bedTime = ""
+//    var bedTime = ""
     /// 起床时间
-    var riseTime = ""
+//    var riseTime = ""
     
     /// 设备名称
     var deviceName = ""

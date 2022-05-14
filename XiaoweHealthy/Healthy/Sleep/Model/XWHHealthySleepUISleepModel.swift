@@ -23,6 +23,12 @@ class XWHHealthySleepUISleepBaseModel: HandyJSON {
     /// 清醒时长
     var awakeDuration = 0
     
+    // 不是天的时候返回
+    /// 入睡时间
+    var bedTime = ""
+    /// 起床时间
+    var riseTime = ""
+    
     required init() {
         
     }
@@ -33,9 +39,9 @@ class XWHHealthySleepUISleepBaseModel: HandyJSON {
 class XWHHealthySleepUISleepModel: XWHHealthySleepUISleepBaseModel {
     
     /// 入睡时间
-    var bedTime = ""
+//    var bedTime = ""
     /// 起床时间
-    var riseTime = ""
+//    var riseTime = ""
     
     /// 醒来次数
     var awakeCount = 0

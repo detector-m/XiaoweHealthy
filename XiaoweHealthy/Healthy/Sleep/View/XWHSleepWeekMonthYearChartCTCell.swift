@@ -152,8 +152,8 @@ class XWHSleepWeekMonthYearChartCTCell: XWHBarChartBaseCTCell {
         
         if sDateType == .week || sDateType == .month {
             let cbDate = iDate.dayBegin
-            let bTimeStr = iItem.startTime.date(withFormat: XWHDate.standardTimeAllFormat)?.string(withFormat: XWHDate.hourMinuteFormat) ?? ""
-            let eTimeStr = iItem.endTime.date(withFormat: XWHDate.standardTimeAllFormat)?.string(withFormat: XWHDate.hourMinuteFormat) ?? ""
+            let bTimeStr = iItem.bedTime.date(withFormat: XWHDate.standardTimeAllFormat)?.string(withFormat: XWHDate.hourMinuteFormat) ?? ""
+            let eTimeStr = iItem.riseTime.date(withFormat: XWHDate.standardTimeAllFormat)?.string(withFormat: XWHDate.hourMinuteFormat) ?? ""
             let cStr = cbDate.localizedString(withFormat: XWHDate.monthDayFormat) + " \(bTimeStr)-\(eTimeStr)"
             markerView.detailLb.text = cStr
         } else if sDateType == .year {
