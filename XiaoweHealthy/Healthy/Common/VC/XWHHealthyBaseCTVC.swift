@@ -217,7 +217,7 @@ extension XWHHealthyBaseCTVC {
         let item = uiManager.items[indexPath.section]
         
         if item.uiCardType == .chart {
-            return CGSize(width: collectionView.width, height: 370)
+            return CGSize(width: collectionView.width, height: 340)
         }
         
         if item.uiCardType == .curDatas {

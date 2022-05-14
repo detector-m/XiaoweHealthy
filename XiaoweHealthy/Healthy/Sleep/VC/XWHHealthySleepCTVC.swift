@@ -69,6 +69,10 @@ extension XWHHealthySleepCTVC {
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let item = uiManager.items[indexPath.section]
+        if item.uiCardType == .chart {
+            return CGSize(width: collectionView.width, height: 370)
+        }
+        
         if item.uiCardType == .curDatas {
             return CGSize(width: collectionView.width, height: 232)
         }

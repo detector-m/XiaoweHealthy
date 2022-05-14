@@ -36,6 +36,8 @@ class XWHHealthyHeartCTVC: XWHHealthyBaseCTVC {
         collectionView.register(cellWithClass: XWHHeartCommonCTCell.self)
         collectionView.register(cellWithClass: XWHHeartGradientCTCell.self)
         collectionView.register(cellWithClass: XWHHeartRangeCTCell.self)
+        
+        collectionView.register(cellWithClass: XWHHeartChartCTCell.self)
     }
     
     override func clickDateBtn() {
@@ -70,7 +72,12 @@ extension XWHHealthyHeartCTVC {
         let item = uiManager.items[indexPath.section]
         
         if item.uiCardType == .chart {
-            let cell = collectionView.dequeueReusableCell(withClass: UICollectionViewCell.self, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withClass: XWHHeartChartCTCell.self, for: indexPath)
+            
+            let cSDate = getSelectedDate()
+            let dateText = getSelectedDateRangeString() + " " + R.string.xwhHealthyText.平均心率()
+            
+            cell.update(dateText: dateText, sDate: cSDate, dateType: dateType)
             
             return cell
         }
