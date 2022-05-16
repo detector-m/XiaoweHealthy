@@ -9,5 +9,7 @@ import UIKit
 
 @objc
 public protocol ColumnRangeBarChartDataProvider: BarLineScatterCandleBubbleChartDataProvider {
+    
     var columnRangeBarData: ColumnRangeBarChartData? { get }
+    
 }

@@ -11,6 +11,12 @@ class ColumnRangeBarChartRenderer: LineScatterCandleRadarRenderer {
     
     @objc open weak var dataProvider: ColumnRangeBarChartDataProvider?
     
+//    private var segmentLimits: [Double] = [20, 30, 40]
+//    private var segmentColors: [UIColor] = [.green, .blue, .orange, .red]
+    
+    private var segmentLimits: [Double] = []
+    private var segmentColors: [UIColor] = []
+    
     @objc public init(dataProvider: ColumnRangeBarChartDataProvider, animator: Animator, viewPortHandler: ViewPortHandler) {
         super.init(animator: animator, viewPortHandler: viewPortHandler)
         
@@ -149,7 +155,49 @@ class ColumnRangeBarChartRenderer: LineScatterCandleRadarRenderer {
                 _bodyRect.size.width = (CGFloat(xPos) + 0.5 - barSpace) - _bodyRect.origin.x
                 _bodyRect.size.height = CGFloat(open * phaseY) - _bodyRect.origin.y
                 
+                /// ----------
+                var segmentRects: [CGRect] = []
+                if !segmentLimits.isEmpty {
+                    var tRect = CGRect()
+                    var iLimit = segmentLimits[0]
+                    var preLimit = iLimit
+                    tRect.origin.x = _bodyRect.origin.x
+                    tRect.origin.y = CGFloat(low * phaseY)
+                    tRect.size.width = _bodyRect.size.width
+                    if iLimit > low {
+                        tRect.size.height = CGFloat(iLimit * phaseY) - tRect.origin.y
+                    } else {
+                        tRect.size.height = 0
+                    }
+                    segmentRects.append(tRect)
+                    
+                    for i in 1 ..< segmentLimits.count {
+                        iLimit = segmentLimits[i]
+                        tRect.origin.y = CGFloat(preLimit * phaseY)
+                        if iLimit > preLimit {
+                            tRect.size.height = CGFloat(iLimit * phaseY) - tRect.origin.y
+                        } else {
+                            tRect.size.height = 0
+                        }
+                        segmentRects.append(tRect)
+                        preLimit = iLimit
+                    }
+                    
+                    iLimit = segmentLimits[segmentLimits.count - 1]
+                    tRect.origin.y = CGFloat(iLimit * phaseY)
+                    if iLimit < high {
+                        tRect.size.height = CGFloat(high * phaseY) - tRect.origin.y
+                    } else {
+                        tRect.size.height = 0
+                    }
+                    segmentRects.append(tRect)
+                }
+                /// ----------------
+                
                 trans.rectValueToPixel(&_bodyRect)
+                for i in 0 ..< segmentRects.count {
+                    trans.rectValueToPixel(&segmentRects[i])
+                }
                 
                 // draw body differently for increasing and decreasing entry
 
@@ -162,7 +210,23 @@ class ColumnRangeBarChartRenderer: LineScatterCandleRadarRenderer {
                     if dataSet.isDecreasingFilled
                     {
                         context.setFillColor(color.cgColor)
-                        context.fill(_bodyRect)
+                        if dataSet.shouldRoundCorners {
+                            let path = dataSet.roundedPath(for: _bodyRect)
+                            path.addClip()
+                            context.addPath(path.cgPath)
+                            context.fillPath()
+                            
+                            if !segmentColors.isEmpty, segmentRects.count == segmentColors.count {
+                                for i in 0 ..< segmentColors.count {
+                                    context.setFillColor(segmentColors[i].cgColor)
+                                    context.fill(segmentRects[i])
+                                }
+                            }
+                            
+                            context.resetClip()
+                        } else {
+                            context.fill(_bodyRect)
+                        }
                     }
                     else
                     {
@@ -179,7 +243,23 @@ class ColumnRangeBarChartRenderer: LineScatterCandleRadarRenderer {
                     if dataSet.isIncreasingFilled
                     {
                         context.setFillColor(color.cgColor)
-                        context.fill(_bodyRect)
+                        if dataSet.shouldRoundCorners {
+                            let path = dataSet.roundedPath(for: _bodyRect)
+                            path.addClip()
+                            context.addPath(path.cgPath)
+                            context.fillPath()
+                            
+                            if !segmentColors.isEmpty, segmentRects.count == segmentColors.count {
+                                for i in 0 ..< segmentColors.count {
+                                    context.setFillColor(segmentColors[i].cgColor)
+                                    context.fill(segmentRects[i])
+                                }
+                            }
+                            
+                            context.resetClip()
+                        } else {
+                            context.fill(_bodyRect)
+                        }
                     }
                     else
                     {
@@ -410,4 +490,21 @@ class ColumnRangeBarChartRenderer: LineScatterCandleRadarRenderer {
 
         return element
     }
+}
+
+extension IColumnRangeBarChartDataSet {
+  
+    var shouldRoundCorners: Bool { !roundedCorners.isEmpty }
+    
+    func roundedPath(for barRect: CGRect) -> UIBezierPath {
+        let cornerRadius: CGFloat = barRect.width / 2
+        let bezierPath = UIBezierPath(
+            roundedRect: barRect,
+            byRoundingCorners: roundedCorners,
+            cornerRadii: CGSize(width:cornerRadius, height: cornerRadius)
+        )
+        
+        return bezierPath
+    }
+    
 }

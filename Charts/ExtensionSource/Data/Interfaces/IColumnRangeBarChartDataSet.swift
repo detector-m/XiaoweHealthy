@@ -60,4 +60,7 @@ public protocol IColumnRangeBarChartDataSet: ILineScatterCandleRadarChartDataSet
     /// Are decreasing values drawn as filled?
     var isDecreasingFilled: Bool { get }
     
+    /// array of corners to be rounded
+    var roundedCorners: UIRectCorner { get set }
+    
 }

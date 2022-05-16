@@ -127,4 +127,8 @@ open class ColumnRangeBarChartDataSet: LineScatterCandleRadarChartDataSet, IColu
     
     /// Are decreasing values drawn as filled?
     open var isDecreasingFilled: Bool { return decreasingFilled }
+    
+    /// array of corners to be rounded
+    open var roundedCorners: UIRectCorner = []
+    
 }

@@ -36,9 +36,11 @@ extension XWHHeartChartCTCell {
 //            let open = Double(arc4random_uniform(6) + 1)
 //            let close = Double(arc4random_uniform(6) + 1)
 //            let even = arc4random_uniform(2) % 2 == 0 //true表示开盘价高于收盘价
-            return ColumnRangeBarChartDataEntry(x: Double(i), shadowH: val + high, shadowL: val - low, open: val + high, close: val - low)
+            return ColumnRangeBarChartDataEntry(x: Double(i), shadowH: val + high, shadowL: val - low, open: val - low, close: val + high)
         }
         let chartDataSet1 = ColumnRangeBarChartDataSet(entries: dataEntries1, label: "图例1")
+        chartDataSet1.roundedCorners = .allCorners
+        chartDataSet1.increasingFilled = true
         
         //目前烛形图包括1组数据
         let chartData = ColumnRangeBarChartData(dataSets: [chartDataSet1])
