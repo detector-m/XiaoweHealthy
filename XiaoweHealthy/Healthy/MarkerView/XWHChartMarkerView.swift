@@ -46,11 +46,13 @@ class XWHChartMarkerView: MarkerView {
         textLb.textColor = fontDarkColor
         textLb.font = XWHFont.harmonyOSSans(ofSize: 20, weight: .bold)
         textLb.textAlignment = .left
+        textLb.adjustsFontSizeToFitWidth = true
         addSubview(textLb)
         
         detailLb.textColor = fontDarkColor.withAlphaComponent(0.5)
         detailLb.font = XWHFont.harmonyOSSans(ofSize: 12)
         detailLb.textAlignment = .left
+        detailLb.adjustsFontSizeToFitWidth = true
         addSubview(detailLb)
     }
     

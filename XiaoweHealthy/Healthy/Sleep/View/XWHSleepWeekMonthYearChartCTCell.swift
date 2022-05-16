@@ -144,7 +144,7 @@ class XWHSleepWeekMonthYearChartCTCell: XWHBarChartBaseCTCell {
         }
         
         markerView.setShowOffset(chartView, entry: entry, highlight: highlight)
-        markerView.textLb.text = XWHUIDisplayHandler.getSleepDurationString(cUIModel.totalSleepDuration)
+        markerView.textLb.text = XWHUIDisplayHandler.getSleepDurationString(iItem.totalSleepDuration)
         
         let iDate = iItem.timeAxis.date(withFormat: XWHDate.standardYearMonthDayFormat) ?? Date()
         
