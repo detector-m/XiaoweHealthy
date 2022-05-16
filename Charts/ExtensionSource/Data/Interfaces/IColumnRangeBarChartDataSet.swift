@@ -63,4 +63,9 @@ public protocol IColumnRangeBarChartDataSet: ILineScatterCandleRadarChartDataSet
     /// array of corners to be rounded
     var roundedCorners: UIRectCorner { get set }
     
+    /// 分段的界限
+    var segmentLimits: [Double] { get set }
+    /// 分段的颜色
+    var segmentColors: [UIColor] { get set }
+    
 }

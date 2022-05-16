@@ -131,4 +131,9 @@ open class ColumnRangeBarChartDataSet: LineScatterCandleRadarChartDataSet, IColu
     /// array of corners to be rounded
     open var roundedCorners: UIRectCorner = []
     
+    /// 分段的界限
+    open var segmentLimits: [Double] = []
+    /// 分段的颜色
+    open var segmentColors: [UIColor] = []
+    
 }

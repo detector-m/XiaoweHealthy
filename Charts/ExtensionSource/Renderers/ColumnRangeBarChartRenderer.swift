@@ -11,12 +11,6 @@ class ColumnRangeBarChartRenderer: LineScatterCandleRadarRenderer {
     
     @objc open weak var dataProvider: ColumnRangeBarChartDataProvider?
     
-//    private var segmentLimits: [Double] = [20, 30, 40]
-//    private var segmentColors: [UIColor] = [.green, .blue, .orange, .red]
-    
-    private var segmentLimits: [Double] = []
-    private var segmentColors: [UIColor] = []
-    
     @objc public init(dataProvider: ColumnRangeBarChartDataProvider, animator: Animator, viewPortHandler: ViewPortHandler) {
         super.init(animator: animator, viewPortHandler: viewPortHandler)
         
@@ -61,6 +55,12 @@ class ColumnRangeBarChartRenderer: LineScatterCandleRadarRenderer {
         let phaseY = animator.phaseY
         let barSpace = dataSet.barSpace
         let showCandleBar = dataSet.showCandleBar
+        
+//        let segmentLimits: [Double] = [20, 30, 40]
+//        let segmentColors: [UIColor] = [.green, .blue, .orange, .red]
+        
+        let segmentLimits = dataSet.segmentLimits
+        let segmentColors = dataSet.segmentColors
         
         _xBounds.set(chart: dataProvider, dataSet: dataSet, animator: animator)
         
@@ -155,7 +155,8 @@ class ColumnRangeBarChartRenderer: LineScatterCandleRadarRenderer {
                 _bodyRect.size.width = (CGFloat(xPos) + 0.5 - barSpace) - _bodyRect.origin.x
                 _bodyRect.size.height = CGFloat(open * phaseY) - _bodyRect.origin.y
                 
-                /// ----------
+                // 分段
+                // ----------
                 var segmentRects: [CGRect] = []
                 if !segmentLimits.isEmpty {
                     var tRect = CGRect()
@@ -192,7 +193,7 @@ class ColumnRangeBarChartRenderer: LineScatterCandleRadarRenderer {
                     }
                     segmentRects.append(tRect)
                 }
-                /// ----------------
+                // ----------------
                 
                 trans.rectValueToPixel(&_bodyRect)
                 for i in 0 ..< segmentRects.count {
@@ -463,9 +464,10 @@ class ColumnRangeBarChartRenderer: LineScatterCandleRadarRenderer {
                 context.setLineDash(phase: 0.0, lengths: [])
             }
             
-            let lowValue = e.low * Double(animator.phaseY)
+//            let lowValue = e.low * Double(animator.phaseY)
             let highValue = e.high * Double(animator.phaseY)
-            let y = (lowValue + highValue) / 2.0
+//            let y = (lowValue + highValue) / 2.0
+            let y = highValue
             
             let pt = trans.pixelForValues(x: e.x, y: y)
             
