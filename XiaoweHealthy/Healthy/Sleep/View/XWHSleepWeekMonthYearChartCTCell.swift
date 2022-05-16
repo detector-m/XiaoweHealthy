@@ -119,7 +119,7 @@ class XWHSleepWeekMonthYearChartCTCell: XWHBarChartBaseCTCell {
             chartView.highlightValue(nil)
             return
         }
-        guard let cUIModel = sUIModel else {
+        guard let _ = sUIModel else {
             chartView.highlightValue(nil)
             return
         }

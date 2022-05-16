@@ -10,8 +10,7 @@ import Charts
 
 class XWHColumnRangeBarChartBaseCTCell: XWHChartBaseCTCell {
     
-    private(set) lazy var chartView = CandleStickChartView()
-    private lazy var columnRangeBarChartRenderer = XWHColumnRangeBarChartRenderer(dataProvider: chartView, animator: chartView.chartAnimator, viewPortHandler: chartView.viewPortHandler)
+    private(set) lazy var chartView = ColumnRangeBarChartView()
     
     override func addSubViews() {
         super.addSubViews()
@@ -41,8 +40,6 @@ extension XWHColumnRangeBarChartBaseCTCell {
     @objc func configChartViewCommon() {
         chartView.backgroundColor = .clear
         
-        chartView.renderer = columnRangeBarChartRenderer
-
         chartView.delegate = self
         chartView.noDataText = ""
         chartView.legend.enabled = false
@@ -56,8 +53,6 @@ extension XWHColumnRangeBarChartBaseCTCell {
         
         chartView.minOffset = 12
         chartView.extraTopOffset = 91
-        
-        chartView.accessibilityElements
     }
     
     @objc func configXAxis() {
