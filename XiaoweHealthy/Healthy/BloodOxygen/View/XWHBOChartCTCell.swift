@@ -73,4 +73,20 @@ class XWHBOChartCTCell: XWHColumnRangeBarChartBaseCTCell {
         return chartData
     }
     
+    override func showMarker(with rawValue: Any) {
+        guard let iItem = rawValue as? XWHChartUIChartItemModel else {
+            chartView.highlightValue(nil)
+            return
+        }
+        
+        if iItem.lowest < iItem.highest {
+            markerView.textLb.text = "\(iItem.lowest) - \(iItem.highest)%"
+        } else {
+            markerView.textLb.text = "\(iItem.highest)%"
+        }
+        
+        let iDate = iItem.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat) ?? Date()
+        markerView.detailLb.text = getMarkerDateString(iDate: iDate, dateType: sDateType)
+    }
+    
 }

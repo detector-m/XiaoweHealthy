@@ -63,16 +63,20 @@ class XWHHeartChartCTCell: XWHColumnRangeBarChartBaseCTCell {
         return chartData
     }
     
-//    override func showMarker(with rawValue: Any) {
-//        guard let iItem = rawValue as? XWHChartUIChartItemModel else {
-//            chartView.highlightValue(nil)
-//            return
-//        }
-//
-//        markerView.textLb.text = "\(iItem.lowest) - \(iItem.highest) \(R.string.xwhDeviceText.次分钟())"
-//
-//        let iDate = iItem.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat) ?? Date()
-//        markerView.detailLb.text = getMarkerDateString(iDate: iDate, dateType: sDateType)
-//    }
+    override func showMarker(with rawValue: Any) {
+        guard let iItem = rawValue as? XWHChartUIChartItemModel else {
+            chartView.highlightValue(nil)
+            return
+        }
+        
+        if iItem.lowest < iItem.highest {
+            markerView.textLb.text = "\(iItem.lowest) - \(iItem.highest) \(R.string.xwhDeviceText.次分钟())"
+        } else {
+            markerView.textLb.text = "\(iItem.highest) \(R.string.xwhDeviceText.次分钟())"
+        }
+        
+        let iDate = iItem.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat) ?? Date()
+        markerView.detailLb.text = getMarkerDateString(iDate: iDate, dateType: sDateType)
+    }
     
 }
