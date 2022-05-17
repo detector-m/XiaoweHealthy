@@ -6,11 +6,8 @@
 //
 
 import UIKit
-//import AAInfographics
 
 class XWHSleepDayChartCTCell: XWHGradientBaseCTCell {
-    
-//    private lazy var chartView = AAChartView()
         
     private(set) lazy var legendView = XWHChartLegendView()
     
@@ -362,60 +359,3 @@ class XWHSleepDayChartCTCell: XWHGradientBaseCTCell {
     }
     
 }
-
-
-//extension XWHSleepDayChartCTCell: AAChartViewDelegate {
-//
-//    private func configAAChartView() {
-//        chartView.scrollEnabled = false
-//        chartView.delegate = self
-//        chartView.aa_adaptiveScreenRotation()
-//        chartView.isClearBackgroundColor = true
-//        chartView.translatesAutoresizingMaskIntoConstraints = false
-//        chartView.scrollView.contentInsetAdjustmentBehavior = .never
-//    }
-//
-//    private func updateAAChartView(sleepUIModel: XWHHealthySleepUISleepModel) {
-//        let aaChartModel = AAChartModel()
-//        aaChartModel.chartType(.columnrange).animationDuration(0).legendEnabled(false).xAxisVisible(true).yAxisVisible(true)
-//        aaChartModel.categories(["", "", ""]).dataLabelsEnabled(false)
-//        aaChartModel.yAxisMin(0).yAxisMax(sleepUIModel.totalSleepDuration.cgFloat)
-//        aaChartModel.xAxisTickInterval = 1
-//        aaChartModel.xAxisLabelsEnabled = false
-//        aaChartModel.xAxisGridLineWidth(1)
-//        aaChartModel.yAxisGridLineWidth(0)
-//        aaChartModel.stacking(.normal)
-//        // x 轴是否垂直翻转
-//        aaChartModel.inverted(true)
-//        aaChartModel.backgroundColor(AAColor.clear)
-//        aaChartModel.series(XWHHealthyChartDataHandler.getSleepDayChartData(sleepUIModel))
-//
-//        let aaOptions = aaChartModel.aa_toAAOptions()
-//        aaOptions.plotOptions?.columnrange?.pointPadding(0).pointPlacement(0).groupPadding(0)
-//        aaOptions.xAxis?.min(0).lineWidth(0)
-////        aaOptions.yAxis?
-//        aaOptions.chart?.spacingLeft(16).spacingRight(16).spacingBottom(2)
-//
-//        var yAxisLb = [String](repeating: "", count: sleepUIModel.totalSleepDuration + 1)
-//        yAxisLb[0] = sleepUIModel.bedTime.date(withFormat: XWHDate.standardTimeAllFormat)?.string(withFormat: XWHDate.hourMinuteFormat) ?? ""
-//        yAxisLb[sleepUIModel.totalSleepDuration] = sleepUIModel.riseTime.date(withFormat: XWHDate.standardTimeAllFormat)?.string(withFormat: XWHDate.hourMinuteFormat) ?? ""
-//
-//        let aaStyle = AAStyle()
-//        aaStyle.color(fontDarkColor.withAlphaComponent(0.35).alphaHexString).fontSize(10).fontWeight(AAChartFontWeightType.regular)
-//        let aaLable = AALabels()
-//        aaLable.step(1).style(aaStyle)
-//
-//        aaOptions.yAxis?.tickInterval(1).labels(aaLable).categories(yAxisLb)
-//
-//        chartView.aa_drawChartWithChartOptions(aaOptions)
-//    }
-//
-//    func aaChartViewDidFinishLoad (_ aaChartView: AAChartView) {
-////        log.debug("🚀🚀🚀AAChartView did finished load")
-//    }
-//
-//    func aaChartView(_ aaChartView: AAChartView, moveOverEventMessage: AAMoveOverEventMessageModel) {
-//
-//    }
-//
-//}

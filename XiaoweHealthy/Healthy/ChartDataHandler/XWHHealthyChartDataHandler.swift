@@ -6,7 +6,6 @@
 //
 
 import Foundation
-//import AAInfographics
 
 
 typealias XWHChartDataParseResult<ChartValue, RawValue> = (xAxisValue: String, yValue: ChartValue, rawValue: RawValue?)
@@ -20,35 +19,6 @@ typealias XWHChartDataYAxisHandler<ChartValue> = (_ yValues: [ChartValue], _ yAx
 class XWHHealthyChartDataHandler {
     
     #if false
-    
-//    class func getSleepDayChartData(_ sleepUIModel: XWHHealthySleepUISleepModel) -> [AASeriesElement] {
-//        let zeroArray = [0, 0]
-//        var retArray = [AASeriesElement]()
-//
-//        var sum = 0
-//        for iItem in sleepUIModel.items {
-//            let iElement = AASeriesElement()
-//            let sState = XWHHealthySleepState(iItem.sleepStatus)
-//            var iElementDataArray = [zeroArray, zeroArray, zeroArray]
-//            let iDataArray = [sum, sum + iItem.duration]
-//            switch sState {
-//            case .deep:
-//                iElementDataArray[2] = iDataArray
-//
-//            case .light:
-//                iElementDataArray[1] = iDataArray
-//
-//            case .awake:
-//                iElementDataArray[0] = iDataArray
-//            }
-//            iElement.color(sState.color.hexString).data(iElementDataArray)
-//
-//            sum += iItem.duration
-//            retArray.append(iElement)
-//        }
-//
-//        return retArray
-//    }
     
     class func getSleepWeekMonthYearChartDataModel(date: Date, dateType: XWHHealthyDateSegmentType, sItems: [XWHHealthySleepUISleepItemModel]) -> XWHSleepWMYChartDataModel {
         let retModel = XWHSleepWMYChartDataModel()
