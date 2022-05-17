@@ -88,7 +88,7 @@ class XWHColumnRangeBarChartBaseCTCell: XWHChartBaseCTCell {
         }
         
         let iDate = iItem.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat) ?? Date()
-        markerView.detailLb.text = getMarkerDateString(iDate: iDate, dateType: sDateType)
+        markerView.detailLb.text = getMarkerDateString(iDate: iDate.hourBegin, dateType: sDateType)
     }
     
 }

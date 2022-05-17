@@ -69,6 +69,14 @@ extension Date {
         return string(withFormat: lFormat)
     }
     
+    var hourBegin: Self {
+        return beginning(of: .hour) ?? self
+    }
+    
+    var hourEnd: Self {
+        return end(of: .hour) ?? self
+    }
+    
     var dayBegin: Self {
         return beginning(of: .day) ?? self
     }

@@ -38,6 +38,8 @@ class XWHHealthyMentalStressCTVC: XWHHealthyBaseCTVC {
         collectionView.register(cellWithClass: XWHMultiColorLinearCTCell.self)
 
         collectionView.register(cellWithClass: XWHMentalStressRangeCTCell.self)
+        
+        collectionView.register(cellWithClass: XWHMentalStressChartCTCell.self)
     }
     
     override func clickDateBtn() {
@@ -72,7 +74,12 @@ extension XWHHealthyMentalStressCTVC {
         let item = uiManager.items[indexPath.section]
         
         if item.uiCardType == .chart {
-            let cell = collectionView.dequeueReusableCell(withClass: UICollectionViewCell.self, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withClass: XWHMentalStressChartCTCell.self, for: indexPath)
+            
+            let cSDate = getSelectedDate()
+            let dateText = getSelectedDateRangeString() + " " + R.string.xwhHealthyText.平均压力值()
+            
+            cell.update(dateText: dateText, sDate: cSDate, dateType: dateType, uiModel: msUIModel)
             
             return cell
         }

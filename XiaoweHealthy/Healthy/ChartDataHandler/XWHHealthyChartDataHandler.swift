@@ -20,6 +20,23 @@ class XWHHealthyChartDataHandler {
     
 }
 
+// MARK: - 精神压力(MentalStress)
+extension XWHHealthyChartDataHandler {
+    
+    class func getMentalStressChartDataModel(date: Date, dateType: XWHHealthyDateSegmentType, rawItems: [XWHChartUIChartItemModel]) -> XWHChartDataBaseModel {
+        let retModel = getHeartChartDataModel(date: date, dateType: dateType, rawItems: rawItems)
+        
+        retModel.min = 0
+        retModel.max = 100
+        retModel.granularity = 25
+        
+        retModel.yValues = getValidYValues(with: retModel)
+        
+        return retModel
+    }
+    
+}
+
 // MARK: - 血氧(BloodOxygen)
 extension XWHHealthyChartDataHandler {
 
@@ -30,27 +47,7 @@ extension XWHHealthyChartDataHandler {
         retModel.max = 100
         retModel.granularity = 5
         
-        var yValues: [[Double]] = (retModel.yValues as? [[Double]]) ?? []
-        yValues = yValues.map({
-            var low = $0[0]
-            var high = $0[1]
-            
-            if low == 0, high == 0 {
-                return [low, high]
-            }
-            
-            if low < retModel.min {
-              low = retModel.min
-            }
-            
-            if high > retModel.max {
-                high = retModel.max
-            }
-            
-            return [low, high]
-        })
-        
-        retModel.yValues = yValues
+        retModel.yValues = getValidYValues(with: retModel)
         
         return retModel
     }
@@ -123,6 +120,30 @@ extension XWHHealthyChartDataHandler {
         max = granularity * yAxisCount
         
         return (max, granularity, [])
+    }
+    
+    private class func getValidYValues(with chartDataModel: XWHChartDataBaseModel) -> [[Double]] {
+        var yValues: [[Double]] = (chartDataModel.yValues as? [[Double]]) ?? []
+        yValues = yValues.map({
+            var low = $0[0]
+            var high = $0[1]
+            
+            if low == 0, high == 0 {
+                return [low, high]
+            }
+            
+            if low < chartDataModel.min {
+              low = chartDataModel.min
+            }
+            
+            if high > chartDataModel.max {
+                high = chartDataModel.max
+            }
+            
+            return [low, high]
+        })
+        
+        return yValues
     }
         
 }
