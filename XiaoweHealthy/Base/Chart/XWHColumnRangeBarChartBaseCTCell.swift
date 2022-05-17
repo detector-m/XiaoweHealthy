@@ -33,6 +33,60 @@ class XWHColumnRangeBarChartBaseCTCell: XWHChartBaseCTCell {
         }
     }
     
+    func getChartDataSet(values: [Any]) -> ColumnRangeBarChartDataSet {
+        var dataEntries: [ColumnRangeBarChartDataEntry] = []
+        let yValues: [[Double]] = values as? [[Double]] ?? []
+        
+        for (i, iYValue) in yValues.enumerated() {
+            let high = iYValue[1]
+            let low = iYValue[0]
+            let entry = ColumnRangeBarChartDataEntry(x: i.double, low: low, high: high)
+            dataEntries.append(entry)
+        }
+        
+        let chartDataSet = ColumnRangeBarChartDataSet(entries: dataEntries, label: "")
+        chartDataSet.roundedCorners = .allCorners
+        chartDataSet.increasingFilled = true
+        chartDataSet.colors = [UIColor(hex: 0xEB5763)!]
+        chartDataSet.shadowWidth = 0
+        chartDataSet.drawValuesEnabled = false
+        chartDataSet.setDrawHighlightIndicators(false)
+        
+        return chartDataSet
+    }
+    
+    func getChartData(chartDataModel: XWHChartDataBaseModel) -> ColumnRangeBarChartData {
+        let chartDataSet = getChartDataSet(values: chartDataModel.yValues)
+        let chartData = ColumnRangeBarChartData(dataSets: [chartDataSet])
+        return chartData
+    }
+    
+    func getMarkerDateString(iDate: Date, dateType: XWHHealthyDateSegmentType) -> String {
+        var retStr = ""
+        if dateType == .day {
+            retStr = iDate.localizedString(withFormat: XWHDate.monthDayHourMinute)
+        } else if dateType == .week || dateType == .month {
+            retStr = iDate.localizedString(withFormat: XWHDate.yearMonthDayFormat)
+        } else if dateType == .year {
+            let ybDate = iDate.monthBegin
+            retStr = ybDate.localizedString(withFormat: XWHDate.monthFormat)
+        }
+        
+        return retStr
+    }
+    
+    func showMarker(with rawValue: Any) {
+        guard let iItem = rawValue as? XWHChartUIChartItemModel else {
+            chartView.highlightValue(nil)
+            return
+        }
+        
+        markerView.textLb.text = "\(iItem.lowest) - \(iItem.highest) \(R.string.xwhDeviceText.次分钟())"
+        
+        let iDate = iItem.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat) ?? Date()
+        markerView.detailLb.text = getMarkerDateString(iDate: iDate, dateType: sDateType)
+    }
+    
 }
 
 extension XWHColumnRangeBarChartBaseCTCell {
@@ -53,6 +107,8 @@ extension XWHColumnRangeBarChartBaseCTCell {
         
         chartView.minOffset = 12
         chartView.extraTopOffset = 91
+        
+        chartView.data?.setDrawValues(false)
     }
     
     @objc func configXAxis() {
@@ -115,13 +171,35 @@ extension XWHColumnRangeBarChartBaseCTCell {
 @objc extension XWHColumnRangeBarChartBaseCTCell: ChartViewDelegate {
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        guard let _ = chartView.data?.dataSets[highlight.dataSetIndex] else { return }
+        guard entry.y != 0 else {
+            chartView.highlightValue(nil)
+
+            return
+        }
+        
+        guard let cChartDataModel = chartDataModel else {
+            chartView.highlightValue(nil)
+            
+            return
+        }
+        
+        guard let dataSet = chartView.data?.dataSets[highlight.dataSetIndex] else {
+            chartView.highlightValue(nil)
+
+            return
+        }
+        
+        let entryIndex = dataSet.entryIndex(entry: entry)
+        
+        guard let rawValue = cChartDataModel.rawValues[entryIndex] else {
+            chartView.highlightValue(nil)
+
+            return
+        }
         
         markerView.setShowOffset(chartView, entry: entry, highlight: highlight)
-//        let entryIndex = dataSet.entryIndex(entry: entry)
-        markerView.textLb.text = entry.x.int.string
-        markerView.detailLb.text = entry.y.int.string
+        showMarker(with: rawValue)
     }
-    
+
 }
 

@@ -26,6 +26,15 @@ open class ColumnRangeBarChartDataEntry: ChartDataEntry {
         super.init()
     }
     
+    @objc public init(x: Double, low: Double, high: Double) {
+        super.init(x: x, y: (low + high) / 2.0)
+        
+        self.high = high
+        self.low = low
+        self.open = low
+        self.close = high
+    }
+    
     @objc public init(x: Double, shadowH: Double, shadowL: Double, open: Double, close: Double)
     {
         super.init(x: x, y: (shadowH + shadowL) / 2.0)

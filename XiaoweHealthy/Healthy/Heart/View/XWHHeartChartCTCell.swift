@@ -10,42 +10,65 @@ import Charts
 
 class XWHHeartChartCTCell: XWHColumnRangeBarChartBaseCTCell {
     
+    private weak var uiModel: XWHHeartUIHeartModel?
+
     override func addSubViews() {
         super.addSubViews()
         
         gradientColors = [UIColor(hex: 0xFFE0E2)!, UIColor(hex: 0xFFFFFF)!]
     }
     
-    func update(dateText: String, sDate: Date, dateType: XWHHealthyDateSegmentType) {
+    func update(dateText: String, sDate: Date, dateType: XWHHealthyDateSegmentType, uiModel: XWHHeartUIHeartModel?) {
         textLb.text = R.string.xwhHealthyText.暂无数据()
         detailLb.text = ""
         
-        chartView.data = getChartData(chartDataModel: XWHChartDataBaseModel())
+        sDateType = dateType
+        
+        chartView.highlightValue(nil)
+        guard let cUIModel = uiModel else {
+            self.chartDataModel = nil
+            self.uiModel = nil
+            chartView.data = nil
+            
+            return
+        }
+        
+        self.uiModel = cUIModel
+        
+        textLb.text = cUIModel.avgRate.string
+        detailLb.text = dateText
+        
+        let chartDataModel = XWHHealthyChartDataHandler.getHeartChartDataModel(date: sDate, dateType: dateType, rawItems: cUIModel.items)
+        self.chartDataModel = chartDataModel
+        
+        chartView.xAxis.setLabelCount(chartDataModel.xLabelCount, force: false)
+        chartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: chartDataModel.xAxisValues)
+        
+        chartView.rightAxis.axisMaximum = chartDataModel.max
+        chartView.rightAxis.axisMinimum = chartDataModel.min
+        chartView.rightAxis.granularity = chartDataModel.granularity
+        
+        chartView.data = getChartData(chartDataModel: chartDataModel)
     }
     
-}
-
-extension XWHHeartChartCTCell {
-    
-    private func getChartData(chartDataModel: XWHChartDataBaseModel) -> ColumnRangeBarChartData {
-        //第一组烛形图的10条随机数据
-        let dataEntries1 = (0..<10).map { (i) -> ColumnRangeBarChartDataEntry in
-            let val = Double(arc4random_uniform(40) + 10)
-            let high = Double(arc4random_uniform(9) + 8)
-            let low = Double(arc4random_uniform(9) + 8)
-//            let open = Double(arc4random_uniform(6) + 1)
-//            let close = Double(arc4random_uniform(6) + 1)
-//            let even = arc4random_uniform(2) % 2 == 0 //true表示开盘价高于收盘价
-            return ColumnRangeBarChartDataEntry(x: Double(i), shadowH: val + high, shadowL: val - low, open: val - low, close: val + high)
-        }
-        let chartDataSet1 = ColumnRangeBarChartDataSet(entries: dataEntries1, label: "图例1")
-        chartDataSet1.roundedCorners = .allCorners
-        chartDataSet1.increasingFilled = true
+    override func getChartData(chartDataModel: XWHChartDataBaseModel) -> ColumnRangeBarChartData {
+        let chartDataSet = getChartDataSet(values: chartDataModel.yValues)
+        chartDataSet.colors = [UIColor(hex: 0xEB5763)!]
         
-        //目前烛形图包括1组数据
-        let chartData = ColumnRangeBarChartData(dataSets: [chartDataSet1])
-        
+        let chartData = ColumnRangeBarChartData(dataSets: [chartDataSet])
         return chartData
     }
+    
+//    override func showMarker(with rawValue: Any) {
+//        guard let iItem = rawValue as? XWHChartUIChartItemModel else {
+//            chartView.highlightValue(nil)
+//            return
+//        }
+//
+//        markerView.textLb.text = "\(iItem.lowest) - \(iItem.highest) \(R.string.xwhDeviceText.次分钟())"
+//
+//        let iDate = iItem.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat) ?? Date()
+//        markerView.detailLb.text = getMarkerDateString(iDate: iDate, dateType: sDateType)
+//    }
     
 }

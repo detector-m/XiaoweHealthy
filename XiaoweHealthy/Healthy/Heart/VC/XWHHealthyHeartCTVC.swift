@@ -77,7 +77,7 @@ extension XWHHealthyHeartCTVC {
             let cSDate = getSelectedDate()
             let dateText = getSelectedDateRangeString() + " " + R.string.xwhHealthyText.平均心率()
             
-            cell.update(dateText: dateText, sDate: cSDate, dateType: dateType)
+            cell.update(dateText: dateText, sDate: cSDate, dateType: dateType, uiModel: heartUIModel)
             
             return cell
         }

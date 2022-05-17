@@ -53,6 +53,7 @@ class XWHSleepWeekMonthYearChartCTCell: XWHBarChartBaseCTCell {
         
         guard let sleepUIModel = sleepUIModel else {
             chartView.highlightValue(nil)
+            chartView.data = nil
             return
         }
         legendView.isHidden = false
@@ -88,11 +89,12 @@ class XWHSleepWeekMonthYearChartCTCell: XWHBarChartBaseCTCell {
         chartView.data = getChartData(chartDataModel: chartDataModel)
     }
     
-    private func getChartData(chartDataModel: XWHSleepWMYChartDataModel) -> BarChartData {
+    private func getChartData(chartDataModel: XWHChartDataBaseModel) -> BarChartData {
         var dataEntries: [BarChartDataEntry] = []
-        for (i, iYValue) in chartDataModel.sYValues.enumerated() {
+        let yValues: [[Double]] = chartDataModel.yValues as? [[Double]] ?? []
+        
+        for (i, iYValue) in yValues.enumerated() {
             let entry = BarChartDataEntry(x: i.double, yValues: iYValue)
-//            entry.data =
             dataEntries.append(entry)
         }
         

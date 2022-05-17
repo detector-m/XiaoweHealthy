@@ -18,6 +18,76 @@ typealias XWHChartDataYAxisHandler<ChartValue> = (_ yValues: [ChartValue], _ yAx
 /// 图表数据管理器
 class XWHHealthyChartDataHandler {
     
+}
+
+// MARK: - 心率(Heart)
+extension XWHHealthyChartDataHandler {
+    
+    class func getHeartChartDataModel(date: Date, dateType: XWHHealthyDateSegmentType, rawItems: [XWHChartUIChartItemModel]) -> XWHChartDataBaseModel {
+        let retModel = XWHChartDataBaseModel()
+        
+        var iXAxisValue = ""
+        var iRawValue: XWHChartUIChartItemModel? = nil
+        let defaultIYValue: [Double] = [0, 0]
+        var iYValue = defaultIYValue
+        
+        configChartDataModel(date: date, dateType: dateType, rawItems: rawItems, chartDataModel: retModel, dayParser: { (dateType, i, iDate, rawItems) -> (String, [Double], XWHChartUIChartItemModel?) in
+            iXAxisValue = ""
+            iYValue = defaultIYValue
+            iRawValue = nil
+            
+            (iYValue, iRawValue) = getChartRawValue(in: rawItems, where: { $0.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat)?.hour == iDate.hour }, chartValueHandler: { getColumnRangeBarValidChartValue($0) }, defaultChartValue: defaultIYValue)
+            iXAxisValue = getDayXAxisValue(i: i, iDate: iDate)
+            
+            return (iXAxisValue, iYValue, iRawValue)
+        }, weekParser: { dateType, i, iDate, rawItems in
+            iXAxisValue = ""
+            iYValue = defaultIYValue
+            iRawValue = nil
+                        
+            (iYValue, iRawValue) = getChartRawValue(in: rawItems, where: { $0.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat)?.dayBegin == iDate }, chartValueHandler: { getColumnRangeBarValidChartValue($0) }, defaultChartValue: defaultIYValue)
+            
+            iXAxisValue = getWeekXAxisValue(i: i, iDate: iDate)
+
+            return (iXAxisValue, iYValue, iRawValue)
+        }, monthParser: { dateType, i, iDate, rawItems in
+            iXAxisValue = ""
+            iYValue = defaultIYValue
+            iRawValue = nil
+                        
+            (iYValue, iRawValue) = getChartRawValue(in: rawItems, where: { $0.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat)?.dayBegin == iDate }, chartValueHandler: { getColumnRangeBarValidChartValue($0) }, defaultChartValue: defaultIYValue)
+            
+            iXAxisValue = getMonthXAxisValue(i: i, iDate: iDate)
+
+            return (iXAxisValue, iYValue, iRawValue)
+        }, yearParser: { dateType, i, iDate, rawItems in
+            iXAxisValue = ""
+            iYValue = defaultIYValue
+            iRawValue = nil
+            
+            (iYValue, iRawValue) = getChartRawValue(in: rawItems, where: { $0.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat)?.monthBegin == iDate }, chartValueHandler: { getColumnRangeBarValidChartValue($0) }, defaultChartValue: defaultIYValue)
+            
+            iXAxisValue = getYearXAxisValue(i: i, iDate: iDate)
+
+            return (iXAxisValue, iYValue, iRawValue)
+        }, yAxisHandler: { yValues, yAxisLabelCount in
+            let yAxisCount: Double = yAxisLabelCount.double
+            var max = yValues.map({ $0.max() ?? 0 }).max() ?? 0
+            
+            let granularity = ceil(max / yAxisCount)
+            max = granularity * yAxisCount
+            
+            return (max, granularity, [])
+        }, yAxisLabelCount: 5)
+        
+        return retModel
+    }
+        
+}
+
+// MARK: - 睡眠(Sleep)
+extension XWHHealthyChartDataHandler {
+    
     #if false
     
     class func getSleepWeekMonthYearChartDataModel(date: Date, dateType: XWHHealthyDateSegmentType, sItems: [XWHHealthySleepUISleepItemModel]) -> XWHSleepWMYChartDataModel {
@@ -135,8 +205,8 @@ class XWHHealthyChartDataHandler {
     
     #endif
     
-    class func getSleepWeekMonthYearChartDataModel(date: Date, dateType: XWHHealthyDateSegmentType, sItems: [XWHHealthySleepUISleepItemModel]) -> XWHSleepWMYChartDataModel {
-        let retModel = XWHSleepWMYChartDataModel()
+    class func getSleepWeekMonthYearChartDataModel(date: Date, dateType: XWHHealthyDateSegmentType, sItems: [XWHHealthySleepUISleepItemModel]) -> XWHChartDataBaseModel {
+        let retModel = XWHChartDataBaseModel()
         
         var iXAxisValue = ""
         var iRawValue: XWHHealthySleepUISleepItemModel? = nil
@@ -224,6 +294,19 @@ class XWHHealthyChartDataHandler {
         return retModel
     }
     
+}
+
+// MARK: - Config
+extension XWHHealthyChartDataHandler {
+    
+    class func getColumnRangeBarValidChartValue(_ item: XWHChartUIChartItemModel) -> [Double] {
+        if item.lowest > 0, item.highest == item.lowest {
+            return [item.lowest.double, (item.highest + 1).double]
+        } else {
+            return [item.lowest.double, item.highest.double]
+        }
+    }
+    
     class func getChartRawValue<ChartValue, RawValue>(in rawValues: [RawValue], where predicate: (RawValue) -> Bool, chartValueHandler: (RawValue) -> ChartValue, defaultChartValue: ChartValue) -> (ChartValue, RawValue?) {
         guard let retRawValue = rawValues.first(where: predicate) else {
             return (defaultChartValue, nil)
@@ -251,7 +334,13 @@ class XWHHealthyChartDataHandler {
 
         switch dateType {
         case .day:
-            return retModel
+            for (i, iDate) in bDates.enumerated() {
+                (iXAxisValue, iYValue, iRawValue) = dayParser(dateType, i, iDate, rawItems)
+                
+                xAxisValues.append(iXAxisValue)
+                yValues.append(iYValue)
+                rawValues.append(iRawValue)
+            }
 
         case .week:
 //            xLabelCount = 7
@@ -313,7 +402,9 @@ extension XWHHealthyChartDataHandler {
         
         switch dateType {
         case .day:
-            return retArray
+            bDate = date.dayBegin
+            count = 24
+            calendarComponent = .hour
             
         case .week:
             bDate = date.weekBegin
@@ -340,7 +431,13 @@ extension XWHHealthyChartDataHandler {
     }
     
     private class func getDayXAxisValue(i: Int, iDate: Date) -> String {
-        return ""
+        if i == 0 || i == 6 || i == 12 || i == 18 {
+            return iDate.string(withFormat: XWHDate.hourMinuteFormat)
+        } else if i == 23 {
+            return iDate.dayEnd.string(withFormat: XWHDate.hourMinuteFormat)
+        } else {
+            return ""
+        }
     }
     
     private class func getWeekXAxisValue(i: Int, iDate: Date) -> String {
