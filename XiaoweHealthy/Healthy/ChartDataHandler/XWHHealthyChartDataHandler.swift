@@ -71,16 +71,20 @@ extension XWHHealthyChartDataHandler {
 
             return (iXAxisValue, iYValue, iRawValue)
         }, yAxisHandler: { yValues, yAxisLabelCount in
-            let yAxisCount: Double = yAxisLabelCount.double
-            var max = yValues.map({ $0.max() ?? 0 }).max() ?? 0
-            
-            let granularity = ceil(max / yAxisCount)
-            max = granularity * yAxisCount
-            
-            return (max, granularity, [])
+            return getYAxisResult(yValues: yValues, yAxisLabelCount: yAxisLabelCount)
         }, yAxisLabelCount: 5)
         
         return retModel
+    }
+    
+    private class func getYAxisResult(yValues: [[Double]], yAxisLabelCount: Int) -> XWHChartDataYAxisResult<[Double]> {
+        let yAxisCount: Double = yAxisLabelCount.double
+        var max = yValues.map({ $0.max() ?? 0 }).max() ?? 0
+        
+        let granularity = ceil(max / yAxisCount)
+        max = granularity * yAxisCount
+        
+        return (max, granularity, [])
     }
         
 }
