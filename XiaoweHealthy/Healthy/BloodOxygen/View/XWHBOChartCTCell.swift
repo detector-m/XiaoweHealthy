@@ -1,24 +1,24 @@
 //
-//  XWHHeartChartCTCell.swift
+//  XWHBOChartCTCell.swift
 //  XiaoweHealthy
 //
-//  Created by Riven on 2022/5/14.
+//  Created by Riven on 2022/5/17.
 //
 
 import UIKit
 import Charts
 
-class XWHHeartChartCTCell: XWHColumnRangeBarChartBaseCTCell {
+class XWHBOChartCTCell: XWHColumnRangeBarChartBaseCTCell {
     
-    private weak var uiModel: XWHHeartUIHeartModel?
+    private weak var uiModel: XWHBOUIBloodOxygenModel?
 
     override func addSubViews() {
         super.addSubViews()
         
-        gradientColors = [UIColor(hex: 0xFFE0E2)!, UIColor(hex: 0xFFFFFF)!]
+        gradientColors = [UIColor(hex: 0xDCFDD9)!, UIColor(hex: 0xffffff)!]
     }
     
-    func update(dateText: String, sDate: Date, dateType: XWHHealthyDateSegmentType, uiModel: XWHHeartUIHeartModel?) {
+    func update(dateText: String, sDate: Date, dateType: XWHHealthyDateSegmentType, uiModel: XWHBOUIBloodOxygenModel?) {
         textLb.text = R.string.xwhHealthyText.暂无数据()
         detailLb.text = ""
         
@@ -35,10 +35,10 @@ class XWHHeartChartCTCell: XWHColumnRangeBarChartBaseCTCell {
         
         self.uiModel = cUIModel
         
-        textLb.text = cUIModel.avgRate.string
+        textLb.text = cUIModel.avgBloodOxygen.string
         detailLb.text = dateText
         
-        let chartDataModel = XWHHealthyChartDataHandler.getHeartChartDataModel(date: sDate, dateType: dateType, rawItems: cUIModel.items)
+        let chartDataModel = XWHHealthyChartDataHandler.getBOChartDataModel(date: sDate, dateType: dateType, rawItems: cUIModel.items)
         self.chartDataModel = chartDataModel
         
         chartView.xAxis.setLabelCount(chartDataModel.xLabelCount, force: false)
@@ -52,27 +52,25 @@ class XWHHeartChartCTCell: XWHColumnRangeBarChartBaseCTCell {
         chartView.leftAxis.axisMinimum = chartDataModel.min
         chartView.leftAxis.granularity = chartDataModel.granularity
         
+        chartView.rightAxis.valueFormatter = DefaultAxisValueFormatter(block: { value, axis in
+            if value == chartDataModel.min {
+                return ""
+            } else {
+                return value.int.string + "%"
+            }
+        })
+        
         chartView.data = getChartData(chartDataModel: chartDataModel)
     }
     
     override func getChartData(chartDataModel: XWHChartDataBaseModel) -> ColumnRangeBarChartData {
         let chartDataSet = getChartDataSet(values: chartDataModel.yValues)
-        chartDataSet.colors = [UIColor(hex: 0xEB5763)!]
+        chartDataSet.colors = [UIColor(hex: 0x6CD267)!]
+        chartDataSet.segmentLimits = [90]
+        chartDataSet.segmentColors = [UIColor(hex: 0xF0B36D)!, UIColor(hex: 0x6CD267)!]
         
         let chartData = ColumnRangeBarChartData(dataSets: [chartDataSet])
         return chartData
     }
-    
-//    override func showMarker(with rawValue: Any) {
-//        guard let iItem = rawValue as? XWHChartUIChartItemModel else {
-//            chartView.highlightValue(nil)
-//            return
-//        }
-//
-//        markerView.textLb.text = "\(iItem.lowest) - \(iItem.highest) \(R.string.xwhDeviceText.次分钟())"
-//
-//        let iDate = iItem.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat) ?? Date()
-//        markerView.detailLb.text = getMarkerDateString(iDate: iDate, dateType: sDateType)
-//    }
     
 }

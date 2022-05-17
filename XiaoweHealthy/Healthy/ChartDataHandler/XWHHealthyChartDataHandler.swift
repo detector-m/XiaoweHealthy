@@ -20,6 +20,44 @@ class XWHHealthyChartDataHandler {
     
 }
 
+// MARK: - 血氧(BloodOxygen)
+extension XWHHealthyChartDataHandler {
+
+    class func getBOChartDataModel(date: Date, dateType: XWHHealthyDateSegmentType, rawItems: [XWHChartUIChartItemModel]) -> XWHChartDataBaseModel {
+        let retModel = getHeartChartDataModel(date: date, dateType: dateType, rawItems: rawItems)
+        
+        retModel.min = 80
+        retModel.max = 100
+        retModel.granularity = 5
+        
+        var yValues: [[Double]] = (retModel.yValues as? [[Double]]) ?? []
+        yValues = yValues.map({
+            var low = $0[0]
+            var high = $0[1]
+            
+            if low == 0, high == 0 {
+                return [low, high]
+            }
+            
+            if low < retModel.min {
+              low = retModel.min
+            }
+            
+            if high > retModel.max {
+                high = retModel.max
+            }
+            
+            return [low, high]
+        })
+        
+        retModel.yValues = yValues
+        
+        return retModel
+    }
+    
+    
+}
+
 // MARK: - 心率(Heart)
 extension XWHHealthyChartDataHandler {
     

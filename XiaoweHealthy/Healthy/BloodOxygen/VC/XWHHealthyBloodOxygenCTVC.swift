@@ -36,6 +36,8 @@ class XWHHealthyBloodOxygenCTVC: XWHHealthyBaseCTVC {
         collectionView.register(cellWithClass: XWHBOCommonCTCell.self)
         collectionView.register(cellWithClass: XWHBOGradientCTCell.self)
         collectionView.register(cellWithClass: XWHBOTipCTCell.self)
+        
+        collectionView.register(cellWithClass: XWHBOChartCTCell.self)
     }
     
     override func clickDateBtn() {
@@ -70,7 +72,12 @@ extension XWHHealthyBloodOxygenCTVC {
         let item = uiManager.items[indexPath.section]
         
         if item.uiCardType == .chart {
-            let cell = collectionView.dequeueReusableCell(withClass: UICollectionViewCell.self, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withClass: XWHBOChartCTCell.self, for: indexPath)
+            
+            let cSDate = getSelectedDate()
+            let dateText = getSelectedDateRangeString() + " " + R.string.xwhHealthyText.平均血氧()
+            
+            cell.update(dateText: dateText, sDate: cSDate, dateType: dateType, uiModel: boUIModel)
             
             return cell
         }
