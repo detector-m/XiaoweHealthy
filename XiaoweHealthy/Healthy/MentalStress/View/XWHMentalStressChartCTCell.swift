@@ -35,7 +35,13 @@ class XWHMentalStressChartCTCell: XWHColumnRangeBarChartBaseCTCell {
         
         self.uiModel = cUIModel
         
-        textLb.text = cUIModel.averageVal.string
+//        textLb.text = cUIModel.averageVal.string + XWHUIDisplayHandler.getMentalStressRangeString(cUIModel.averageVal)
+
+        let unit = XWHUIDisplayHandler.getMentalStressRangeString(cUIModel.averageVal)
+        let cValue = cUIModel.averageVal.string
+        let cText = cValue + unit
+        textLb.attributedText = cText.colored(with: fontDarkColor).applying(attributes: [.font: XWHFont.harmonyOSSans(ofSize: 38, weight: .bold)], toOccurrencesOf: cValue).applying(attributes: [.font: XWHFont.harmonyOSSans(ofSize: 14, weight: .medium)], toOccurrencesOf: unit)
+        
         detailLb.text = dateText
         
         let chartDataModel = XWHHealthyChartDataHandler.getMentalStressChartDataModel(date: sDate, dateType: dateType, rawItems: cUIModel.items)

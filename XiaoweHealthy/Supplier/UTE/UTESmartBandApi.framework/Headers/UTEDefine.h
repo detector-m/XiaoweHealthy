@@ -462,9 +462,12 @@ typedef NS_ENUM(NSInteger, UTEOption) {
     UTEOptionResetBodyTemperature       = 78,
     UTEOptionClearBodyTemperature       = 79,
     
-    //Mood、Pressure and Fatigue
-    UTEOptionMPFDetectingStart          = 80,     //This Option requires access to the server, please ensure that the network is working.
-    UTEOptionMPFDetectingStop           = 81,      //This Option requires access to the server, please ensure that the network is working.
+    //Mood、Pressure and Fatigue, (Which UI to display on the interface of the device)
+    UTEOptionMPFDetectingStartInMoodUI      = 80,   //This Option requires access to the server, please ensure that the network is working.
+    UTEOptionMPFDetectingStartInPressureUI  = 81,   //please ensure that the network is working.
+    UTEOptionMPFDetectingStartInFatigueUI   = 82,   //please ensure that the network is working.
+    UTEOptionMPFDetectingStop               = 83,   //please ensure that the network is working.
+    UTEOptionReboot                         = 84,   //Required isHasReboot=Yes
 };
 
 
@@ -518,6 +521,22 @@ typedef NS_ENUM(NSInteger, UTECallBack) {
     UTECallBackOpenRemindZalo,
     UTECallBackOpenRemindImo,
     UTECallBackOpenRemindMicrosoftTeams,
+    UTECallBackOpenRemindMicrosoftOutlook,
+    UTECallBackOpenRemindSwiggy,
+    
+    UTECallBackOpenRemindZomato,
+    UTECallBackOpenRemindGpay,
+    UTECallBackOpenRemindPhonePe,
+    UTECallBackOpenRemindHotstar,
+    UTECallBackOpenRemindPrimeVideo,
+    UTECallBackOpenRemindFlipkart,
+    UTECallBackOpenRemindAmazon,
+    UTECallBackOpenRemindMyntra,
+    
+    UTECallBackOpenRemindNoiseFit,
+    UTECallBackOpenRemindDailyHunt,
+    UTECallBackOpenRemindInshorts,
+    UTECallBackOpenRemindBookMyShow,
     
     UTECallBackCloseRemindFacebook,
     UTECallBackCloseRemindFacebookMessenger,
@@ -545,6 +564,22 @@ typedef NS_ENUM(NSInteger, UTECallBack) {
     UTECallBackCloseRemindZalo,
     UTECallBackCloseRemindImo,
     UTECallBackCloseRemindMicrosoftTeams,
+    UTECallBackCloseRemindMicrosoftOutlook,
+    UTECallBackCloseRemindSwiggy,
+    
+    UTECallBackCloseRemindZomato,
+    UTECallBackCloseRemindGpay,
+    UTECallBackCloseRemindPhonePe,
+    UTECallBackCloseRemindHotstar,
+    UTECallBackCloseRemindPrimeVideo,
+    UTECallBackCloseRemindFlipkart,
+    UTECallBackCloseRemindAmazon,
+    UTECallBackCloseRemindMyntra,
+    
+    UTECallBackCloseRemindNoiseFit,
+    UTECallBackCloseRemindDailyHunt,
+    UTECallBackCloseRemindInshorts,
+    UTECallBackCloseRemindBookMyShow,
     
     UTECallBackOpenUnitSitRemind,
     UTECallBackCloseSitRemind,
@@ -588,6 +623,8 @@ typedef NS_ENUM(NSInteger, UTECallBack) {
     UTECallBackOpenTennis,
     UTECallBackCloseTennis,
     
+    UTECallBackOpenCommonHRMAuto,
+    UTECallBackCloseCommonHRMAuto,
     UTECallBackOpen24HourHRM,
     UTECallBackClose24HourHRM,
     
@@ -630,9 +667,13 @@ typedef NS_ENUM(NSInteger, UTECallBack) {
     UTECallBackDrinkWaterReminderClose,
     UTECallBackHandwashingReminderOpen,
     UTECallBackHandwashingReminderClose,
+
+    UTECallSportAlertHRM,
+    UTECallSportTargetDistance,
+    UTECallSportTargetDuration,
+    UTECallSportTargetCalories,
     
-    UTECallBackWorldClock,
-    UTECallBackMeeting,
+    UTECallBluetooth3_0Key,
 };
 
 /*!
@@ -868,7 +909,7 @@ typedef NS_ENUM(NSInteger, UTEPasswordType) {
  
  *  @constant UTEErrorCodeUpdateDownload      Download firmware error while upgrading device
  *  @constant UTEErrorCodeUpdateDisconnect    Device is disconnected while upgrading device
- *  @constantUTEErrorCodeUpdateLoadFirmwareFail The firmware failed to load while upgrading device.
+ *  @constant UTEErrorCodeUpdateLoadFirmwareFail The firmware failed to load while upgrading device.
  
  *  @constant UTEErrorCodeApduDisconnect      Device disconnected during Apdu data interaction
  *  @constant UTEErrorCodeDeviceTimeout       Device processing timed out
@@ -878,6 +919,7 @@ typedef NS_ENUM(NSInteger, UTEPasswordType) {
  *  @constant UTEErrorCodeDialCRC             Screen(Dial) verification failed
  *  @constant UTEErrorCodeDialTooBig          Screen(Dial) capacity is too large for the device to handle
  *  @constant UTEErrorCodeDialDisconnect      Device disconnected while sending Screen(Dial) data
+ *  @constant UTEErrorCodeDialLowBattery      Device battery is low, please charge
  *
  *  @constant UTEErrorCodePairingInformation
     There may be too many devices connected to the Bluetooth system of the mobile phone, making it impossible to connect. Please prompt the user to ignore the device or restart the device.
@@ -926,18 +968,19 @@ typedef NS_ENUM(NSInteger, UTEErrorCode) {
     UTEErrorCodeDialCRC                 = 31,
     UTEErrorCodeDialTooBig              = 32,
     UTEErrorCodeDialDisconnect          = 33,
+    UTEErrorCodeDialLowBattery          = 34,
     
-    UTEErrorCodePairingInformation      = 34,
+    UTEErrorCodePairingInformation      = 35,//There may be too many devices connected to the Bluetooth system of the mobile phone, making it impossible to connect. Please prompt the user to ignore the device or restart the device.
     
-    UTEErrorCodeBloodPressureCheckTimeout   = 35,
-    UTEErrorCodeBloodPressureCheckFingerAway    = 36,
-    UTEErrorCodeBloodPressureCheckAbnormal  = 37,
+    UTEErrorCodeBloodPressureCheckTimeout       = 36,
+    UTEErrorCodeBloodPressureCheckFingerAway    = 37,
+    UTEErrorCodeBloodPressureCheckAbnormal      = 38,
     
-    UTEErrorCodeMPFInvalidData          = 38,
-    UTEErrorCodeMPFNetworkTimeout       = 39,
-    UTEErrorCodeMPFTestTimeout          = 40,
-    UTEErrorCodeMPFIncorrectlyWorn      = 41,
-    UTEErrorCodeMPFInMotion             = 42,
+    UTEErrorCodeMPFInvalidData          = 39,
+    UTEErrorCodeMPFNetworkTimeout       = 40,
+    UTEErrorCodeMPFTestTimeout          = 41,
+    UTEErrorCodeMPFIncorrectlyWorn      = 42,
+    UTEErrorCodeMPFInMotion             = 43,
     
     UTEErrorCodeNULL,
 };
@@ -1057,6 +1100,10 @@ typedef NS_ENUM(NSInteger, UTEAlarmNum) {
     UTEAlarmNum1 = 1,
     UTEAlarmNum2,
     UTEAlarmNum3,
+    
+    //The following content requires UTEModelDevices.isHasClockTitle = YES
+    UTEAlarmNum4,
+    UTEAlarmNum5,
 };
 
 /*!
@@ -1756,6 +1803,21 @@ typedef NS_ENUM(NSInteger, UTEDeviceApp) {
     UTEDeviceAppZalo,
     UTEDeviceAppImo,
     UTEDeviceAppMicrosoftTeams,
+
+    UTEDeviceAppMicrosoftOutlook,
+    UTEDeviceAppSwiggy,
+    UTEDeviceAppZomato,
+    UTEDeviceAppGpay,
+    UTEDeviceAppPhonePe,
+    UTEDeviceAppHotstar,
+    UTEDeviceAppPrimeVideo,
+    UTEDeviceAppFlipkart,
+    UTEDeviceAppAmazon,
+    UTEDeviceAppMyntra,
+    UTEDeviceAppNoiseFit,
+    UTEDeviceAppDailyHunt,
+    UTEDeviceAppInshorts,
+    UTEDeviceAppBookMyShow,
 };
 
 
@@ -1772,6 +1834,40 @@ typedef NS_ENUM(NSInteger, UTEGoalType) {
     UTEGoalTypeCalorie,
     UTEGoalTypeStep,
     UTEGoalTypeDistance,
+};
+
+typedef NS_ENUM(NSInteger, UTEMenuIcon) {
+    UTEMenuIconStatus            = 1,
+    UTEMenuIconSport,
+    UTEMenuIconSportHistory,
+    UTEMenuIconCall,
+    UTEMenuIconHRM,
+    UTEMenuIconBlood,
+    UTEMenuIconBloodOxygen,
+    UTEMenuIconMusic,
+    UTEMenuIconBodyTemperature,
+    UTEMenuIconMessage,
+    UTEMenuIconPressure,
+    UTEMenuIconSleep,
+    UTEMenuIconWeather,
+    UTEMenuIconBreathingTraining,
+    UTEMenuIconBreathingRate,
+    UTEMenuIconStopwatch,
+    UTEMenuIconCountdown,
+    UTEMenuIconFindiPhone,
+    UTEMenuIconClock,
+    UTEMenuIconCamera,
+    UTEMenuIconFlashlight,
+    UTEMenuIconSetting,
+    UTEMenuIconMore,
+    UTEMenuIconDialSelect,
+    UTEMenuIconMenstrual,
+    UTEMenuIconTheme,
+    UTEMenuIconShutdown,
+    UTEMenuIconReboot,
+    UTEMenuIconRestore,
+    UTEMenuIconAbout,
+    UTEMenuIconAlipay,
 };
 
 @end

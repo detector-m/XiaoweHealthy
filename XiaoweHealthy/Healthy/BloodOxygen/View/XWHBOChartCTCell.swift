@@ -35,7 +35,7 @@ class XWHBOChartCTCell: XWHColumnRangeBarChartBaseCTCell {
         
         self.uiModel = cUIModel
         
-        textLb.text = cUIModel.avgBloodOxygen.string
+        textLb.text = cUIModel.avgBloodOxygen.string + "%"
         detailLb.text = dateText
         
         let chartDataModel = XWHHealthyChartDataHandler.getBOChartDataModel(date: sDate, dateType: dateType, rawItems: cUIModel.items)
