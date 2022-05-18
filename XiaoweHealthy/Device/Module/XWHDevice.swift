@@ -7,9 +7,143 @@
 
 import Foundation
 
+
+/// 业务层设备模块
 class XWHDevice {
     
-    // MARK: - UI
+    private static var _shared = XWHDevice.init()
+    static var shared: XWHDevice {
+        return _shared
+    }
+    
+    private var observers: [XWHDeviceObserverProtocol] = []
+    
+    private init() {
+        if let connWatch = XWHDataDeviceManager.getCurrentWatch() {
+            XWHDDMShared.config(device: connWatch)
+            XWHDDMShared.setMonitorHandler(device: connWatch) { [weak self] _, _ in
+                self?.notifyAllObserverUpdateConnectBindState()
+            }
+        }
+    }
+    
+    func addObserver(observer: XWHDeviceObserverProtocol) {
+            observers.append(observer)
+        }
+        
+    func removeObserver(observer: XWHDeviceObserverProtocol) {
+        observers.removeFirst(where: { $0 === observer })
+    }
+    
+    func notifyAllObserverUpdateConnectBindState() {
+        for observer in observers {
+            observer.updateDeviceConnectBind()
+        }
+    }
+//    func notifyAllObservers() {
+//        for observer in observers {
+//            observer.updateDeviceConnectBind()
+//        }
+//    }
+    
+}
+
+// MARK: - 设备
+extension XWHDevice {
+    
+    var isConnectBind: Bool {
+        return XWHDDMShared.connectBindState == .paired
+    }
+
+    func connect() {
+        if XWHDDMShared.connectBindState == .disconnected {
+            reconnect()
+        }
+    }
+
+    private func reconnect() {
+        if let connWatch = XWHDataDeviceManager.getCurrentWatch() {
+            XWHDDMShared.config(device: connWatch)
+            XWHDDMShared.reconnect(device: connWatch) { [weak self] (result: Result<XWHDeviceConnectBindState, XWHBLEError>) in
+                guard let self = self else {
+                    return
+                }
+
+                switch result {
+                case .success(let connBindState):
+                    if connBindState == .paired {
+                        self.updateDeviceInfo()
+                    } else {
+                        log.error("重连设备失败")
+                    }
+
+                case .failure(_):
+                    log.error("重连设备失败")
+                }
+            }
+        }
+    }
+
+    private func updateDeviceInfo() {
+        XWHDDMShared.getDeviceInfo { [weak self] result in
+            switch result {
+            case .success(let cModel):
+                if let connModel = cModel?.data as? XWHDevWatchModel, let curModel = XWHDataDeviceManager.getCurrentWatch() {
+                    connModel.isCurrent = curModel.isCurrent
+                    connModel.type = curModel.type
+                    connModel.category = curModel.category
+                    XWHDataDeviceManager.setCurrent(device: connModel)
+                }
+                
+                self?.syncData()
+
+            case .failure(let error):
+                log.error(error)
+            }
+        }
+    }
+    
+    var isSyncing: Bool {
+        return XWHDDMShared.state == .inTransit
+    }
+    
+    func syncData() {
+        if !isConnectBind {
+            return
+        }
+        
+        guard let devModel = XWHDataDeviceManager.getCurrentWatch() else {
+            return
+        }
+        
+        XWHDDMShared.config(device: devModel)
+        
+        XWHDDMShared.setDataOperation { cp in
+            log.debug("同步进度 = \(cp)")
+        } resultHandler: { (syncType, syncState, result: Result<XWHResponse?, XWHError>) in
+            if syncState == .succeed {
+                log.debug("数据同步成功")
+            } else if syncState == .failed {
+                switch result {
+                case .success(_):
+                    return
+                    
+                case .failure(let error):
+                    log.error("数据同步失败 error = \(error)")
+//                    self?.view.makeInsetToast(error.message)
+                }
+            }
+        }
+
+        XWHDDMShared.syncData()
+    }
+
+}
+
+
+// MARK: - UI
+extension XWHDevice {
+    
     class func gotoHelp(at targetVC: UIViewController) {
         XWHSafari.present(at: targetVC, urlStr: kRedirectURL)
     }
@@ -23,7 +157,7 @@ class XWHDevice {
     }
     
     static var isDevConnectBind: Bool {
-        XWHDDMShared.connectBindState == .paired
+        Self.shared.isConnectBind
     }
     
     // 心率设置
@@ -79,8 +213,5 @@ class XWHDevice {
         let vc = XWHDevSetMentalStressVC()
         targetVC.navigationController?.pushViewController(vc, animated: true)
     }
-    
-    // MARK: - Api
-    
     
 }

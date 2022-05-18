@@ -8,7 +8,7 @@
 import UIKit
 import SwiftyJSON
 
-class XWHDeviceMainVC: XWHTableViewBaseVC {
+class XWHDeviceMainVC: XWHTableViewBaseVC, XWHDeviceObserverProtocol {
     
 //    lazy var tableView = UITableView(frame: .zero, style: .grouped)
     
@@ -24,14 +24,15 @@ class XWHDeviceMainVC: XWHTableViewBaseVC {
         XWHDataDeviceManager.getCurrentWatch()
     }
     
-    private var isConnected: Bool {
-        return XWHDDMShared.connectBindState == .paired
+    deinit {
+        XWHDevice.shared.removeObserver(observer: self)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
 //        configDeviceItems()
+        XWHDevice.shared.addObserver(observer: self)
         reloadAll()
     }
     
@@ -201,10 +202,10 @@ class XWHDeviceMainVC: XWHTableViewBaseVC {
         if item.cellType == .info {
             let cell = tableView.dequeueReusableCell(withClass: XWHDeviceInfoTBCell.self)
             if let cDevModel = connWatchModel {
-                cell.update(cDevModel, isConnected: isConnected)
+                cell.update(cDevModel, isConnected: XWHDevice.shared.isConnectBind)
                 
                 cell.clickCallback = { [unowned self] in
-                    self.checkReconnect()
+                    self.gotoReconnectOrSyncData()
                 }
             }
             
@@ -261,8 +262,13 @@ class XWHDeviceMainVC: XWHTableViewBaseVC {
             return
         }
 
-        if !isConnected {
+        if !XWHDevice.shared.isConnectBind {
             view.makeInsetToast(R.string.xwhDeviceText.设备未连接())
+            return
+        }
+        
+        if XWHDevice.shared.isSyncing {
+            view.makeInsetToast(R.string.xwhDeviceText.同步中())
             return
         }
                 
@@ -321,6 +327,11 @@ class XWHDeviceMainVC: XWHTableViewBaseVC {
 //    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        handleScrollLargeTitle(in: scrollView)
 //    }
+    
+    // MARK: - XWHDeviceObserverProtocol
+    func updateDeviceConnectBind() {
+        reloadAll()
+    }
 
 }
 
@@ -378,53 +389,53 @@ extension XWHDeviceMainVC {
 // MARK: - Api
 extension XWHDeviceMainVC {
     
-    private func checkReconnect() {
-        if XWHDDMShared.connectBindState == .disconnected {
-            reconnect()
-        }
-    }
-    
-    private func reconnect() {
-        if let connWatch = XWHDataDeviceManager.getCurrentWatch() {
-            XWHDDMShared.config(device: connWatch)
-            XWHDDMShared.reconnect(device: connWatch) { [weak self] (result: Result<XWHDeviceConnectBindState, XWHBLEError>) in
-                guard let self = self else {
-                    return
-                }
-                
-                switch result {
-                case .success(let connBindState):
-                    if connBindState == .paired {
-                        self.updateDeviceInfo()
-                    } else {
-                        self.view.makeInsetToast("重连设备失败")
-                    }
-                    
-                case .failure(_):
-                    self.view.makeInsetToast("重连设备失败")
-                }
-            }
-        }
-    }
-    
-    private func updateDeviceInfo() {
-        XWHDDMShared.getDeviceInfo { [unowned self] result in
-            switch result {
-            case .success(let cModel):
-                if let connModel = cModel?.data as? XWHDevWatchModel, let curModel = XWHDataDeviceManager.getCurrentWatch() {
-                    connModel.isCurrent = curModel.isCurrent
-                    connModel.type = curModel.type
-                    connModel.category = curModel.category
-                    XWHDataDeviceManager.setCurrent(device: connModel)
-                    
-                    reloadAll()
-                }
-                
-            case .failure(let error):
-                self.view.makeInsetToast(error.message)
-            }
-        }
-    }
+//    private func checkReconnect() {
+//        if XWHDDMShared.connectBindState == .disconnected {
+//            reconnect()
+//        }
+//    }
+//
+//    private func reconnect() {
+//        if let connWatch = XWHDataDeviceManager.getCurrentWatch() {
+//            XWHDDMShared.config(device: connWatch)
+//            XWHDDMShared.reconnect(device: connWatch) { [weak self] (result: Result<XWHDeviceConnectBindState, XWHBLEError>) in
+//                guard let self = self else {
+//                    return
+//                }
+//
+//                switch result {
+//                case .success(let connBindState):
+//                    if connBindState == .paired {
+//                        self.updateDeviceInfo()
+//                    } else {
+//                        self.view.makeInsetToast("重连设备失败")
+//                    }
+//
+//                case .failure(_):
+//                    self.view.makeInsetToast("重连设备失败")
+//                }
+//            }
+//        }
+//    }
+//
+//    private func updateDeviceInfo() {
+//        XWHDDMShared.getDeviceInfo { [unowned self] result in
+//            switch result {
+//            case .success(let cModel):
+//                if let connModel = cModel?.data as? XWHDevWatchModel, let curModel = XWHDataDeviceManager.getCurrentWatch() {
+//                    connModel.isCurrent = curModel.isCurrent
+//                    connModel.type = curModel.type
+//                    connModel.category = curModel.category
+//                    XWHDataDeviceManager.setCurrent(device: connModel)
+//
+//                    reloadAll()
+//                }
+//
+//            case .failure(let error):
+//                self.view.makeInsetToast(error.message)
+//            }
+//        }
+//    }
     
     private func gotoCheckFirmwareUpdate() {
         XWHDeviceVM().firmwareUpdate(deviceSn: "1923190012204123450", version: "v1.0.0") { [unowned self] error in
@@ -450,6 +461,26 @@ extension XWHDeviceMainVC {
 
 // MARK: - UI Jump
 extension XWHDeviceMainVC {
+    
+    // 重连设备或者同步数据
+    private func gotoReconnectOrSyncData() {
+        if XWHDevice.shared.isConnectBind {
+            if XWHDevice.shared.isSyncing {
+                view.makeInsetToast(R.string.xwhDeviceText.同步中())
+                return
+            }
+            
+            XWHDevice.shared.syncData()
+        } else {
+            RLBLEPermissions.shared.getState { bleState in
+                if bleState == .poweredOn {
+                    XWHDevice.shared.connect()
+                } else {
+                    XWHAlert.show(message: R.string.xwhDeviceText.连接设备需要打开手机蓝牙要开启吗())
+                }
+            }
+        }
+    }
     
     // 表盘市场
     private func gotoDevSetDialMarket() {
@@ -561,6 +592,11 @@ extension XWHDeviceMainVC {
     
     // 解除绑定
     private func gotoDevSetUnbind() {
+        if XWHDevice.shared.isSyncing {
+            view.makeInsetToast(R.string.xwhDeviceText.同步中())
+            return
+        }
+        
         tableView.isUserInteractionEnabled = false
         XWHAlert.show(title: nil, message: R.string.xwhDeviceText.确认解除绑定的设备吗(), cancelTitle: R.string.xwhDisplayText.取消(), confirmTitle: R.string.xwhDeviceText.解除绑定()) { [unowned self] cType in
             self.tableView.isUserInteractionEnabled = true

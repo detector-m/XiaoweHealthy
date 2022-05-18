@@ -16,10 +16,9 @@ var XWHDDMShared: XWHDevWatchDispatchManager {
 /// 此类为XWHDevice 蓝牙相关操作分发中心 - 继承 外设管理 - 外设设置 - 数据接收与发送相关，并分发给不同厂商SDK处理事物
 class XWHDevWatchDispatchManager {
     
-    //单例初始化
+    // 单例初始化
     private static var _shared = XWHDevWatchDispatchManager.init()
     static var shared: XWHDevWatchDispatchManager {
-        
         return _shared
     }
     
@@ -106,7 +105,7 @@ extension XWHDevWatchDispatchManager: XWHBLEDispatchProtocol {
     
     /// 设置设备连接状态监听回调
     func setMonitorHandler(device: XWHDevWatchModel?, monitorHnadler: XWHDeviceMonitorHandler?) {
-        
+        bleHandler?.setMonitorHandler(device: device, monitorHnadler: monitorHnadler)
     }
     
     // MARK: - 扫描

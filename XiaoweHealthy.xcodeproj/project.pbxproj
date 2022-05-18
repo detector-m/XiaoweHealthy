@@ -203,6 +203,7 @@
 		9693107428253CF100133626 /* XWHSleepDataDetailTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693107328253CF100133626 /* XWHSleepDataDetailTBVC.swift */; };
 		96931077282600FA00133626 /* XWHUIDisplayHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96931076282600FA00133626 /* XWHUIDisplayHandler.swift */; };
 		969A4CF8280E8A630049BC07 /* XWHLargeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */; };
+		969ACEF12834E85E00DC4E3C /* XWHDeviceObserverProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969ACEF02834E85E00DC4E3C /* XWHDeviceObserverProtocol.swift */; };
 		969B8816280FE11A009952E7 /* XWHHealthyBaseCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */; };
 		969B881A280FE182009952E7 /* XWHHealthyHeartCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8819280FE182009952E7 /* XWHHealthyHeartCTVC.swift */; };
 		969B881D280FE2B7009952E7 /* XWHHealthyConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B881C280FE2B7009952E7 /* XWHHealthyConstant.swift */; };
@@ -571,6 +572,7 @@
 		9693107328253CF100133626 /* XWHSleepDataDetailTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSleepDataDetailTBVC.swift; sourceTree = "<group>"; };
 		96931076282600FA00133626 /* XWHUIDisplayHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUIDisplayHandler.swift; sourceTree = "<group>"; };
 		969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLargeTitleView.swift; sourceTree = "<group>"; };
+		969ACEF02834E85E00DC4E3C /* XWHDeviceObserverProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceObserverProtocol.swift; sourceTree = "<group>"; };
 		969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyBaseCTVC.swift; sourceTree = "<group>"; };
 		969B8819280FE182009952E7 /* XWHHealthyHeartCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyHeartCTVC.swift; sourceTree = "<group>"; };
 		969B881C280FE2B7009952E7 /* XWHHealthyConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyConstant.swift; sourceTree = "<group>"; };
@@ -1516,6 +1518,7 @@
 		967AF4BF27EF536D00235E08 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				969ACEF02834E85E00DC4E3C /* XWHDeviceObserverProtocol.swift */,
 				967AF4C427EF547B00235E08 /* XWHDevice.swift */,
 			);
 			path = Module;
@@ -3060,6 +3063,7 @@
 				969B883A2811320B009952E7 /* XWHHealthyUIItemModel.swift in Sources */,
 				9653E4AD27F5BD4D00EE55FF /* XWHDevSetStandVC.swift in Sources */,
 				969072412814EC120056CE4F /* XWHHeartAllDataTBVC.swift in Sources */,
+				969ACEF12834E85E00DC4E3C /* XWHDeviceObserverProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -199,6 +199,8 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
         switch devicesState {
         // MARK: - 连接
         case .connected:
+            log.info("-----------UTE手表连接状态：----------- connected")
+
             if isReconnect {
                 cConnBindState = .paired
             } else {
@@ -206,8 +208,10 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
             }
             
             uteStateType = .connect
-            
+                        
         case .disconnected:
+            log.info("-----------UTE手表连接状态：----------- disconnected")
+
             bindTimerInvalidate()
             bindHandler = nil
             
@@ -216,6 +220,8 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
             uteStateType = .connect
             
         case .connectingError:
+            log.info("-----------UTE手表连接状态：----------- connectingError")
+
             cConnBindState = .disconnected
             
             uteStateType = .connect
@@ -278,29 +284,31 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
                     return
                 }
                 
-                if (preConnBindState == .connected || preConnBindState == .paired) && self.connectHandler == nil {
-                    var deviceModel: XWHDevWatchModel!
-                    if let cUteModel = self.manager.connectedDevicesModel {
-                        deviceModel = self.getDeviceInfo(with: cUteModel)
-                    } else {
-                        deviceModel = XWHDevWatchModel()
-                        deviceModel.category = .watch
-                        deviceModel.type = .skyworthWatchS1
-                    }
-                    
-                    self.monitorHnadler?(deviceModel, self.connectBindState)
-                }
-                
                 if cConnBindState == .connected || cConnBindState == .paired {
                     self.cmdHandler?.config(nil, nil, handler: nil)
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 13) {
                         self.connectBindState = cConnBindState
                         self.connectHandler?(.success(self.connectBindState))
                         
                         self.connectTimerInvalidate()
                         self.connectHandler = nil
                         self.bleDevModel = nil
+                        
+                        var deviceModel: XWHDevWatchModel!
+                        if let cUteModel = self.manager.connectedDevicesModel {
+                            deviceModel = self.getDeviceInfo(with: cUteModel)
+                        } else {
+                            deviceModel = XWHDevWatchModel()
+                            deviceModel.category = .watch
+                            deviceModel.type = .skyworthWatchS1
+                        }
+                        
+                        self.monitorHnadler?(deviceModel, self.connectBindState)
+                        
+//                        if (preConnBindState == .connected || preConnBindState == .paired) && self.connectHandler == nil {
+//
+//                        }
                     }
                 } else {
                     self.connectBindState = cConnBindState
@@ -309,6 +317,19 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
                     self.connectTimerInvalidate()
                     self.connectHandler = nil
                     self.bleDevModel = nil
+                    
+                    if (preConnBindState == .connected || preConnBindState == .paired) && self.connectHandler == nil {
+                        var deviceModel: XWHDevWatchModel!
+                        if let cUteModel = self.manager.connectedDevicesModel {
+                            deviceModel = self.getDeviceInfo(with: cUteModel)
+                        } else {
+                            deviceModel = XWHDevWatchModel()
+                            deviceModel.category = .watch
+                            deviceModel.type = .skyworthWatchS1
+                        }
+                        
+                        self.monitorHnadler?(deviceModel, self.connectBindState)
+                    }
                 }
             }
             

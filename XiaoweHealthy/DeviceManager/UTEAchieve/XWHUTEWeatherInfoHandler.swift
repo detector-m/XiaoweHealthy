@@ -18,23 +18,23 @@ class XWHUTEWeatherInfoHandler: XWHWeatherServiceProtocol {
     func getWeatherServiceWeatherInfo(cityId: String? = nil, latitude: Double, longitude: Double, handler: XWHWeatherServiceHandler?) {
         let errorMsg = "获取天气服务的天气数据失败"
         log.debug("获取天气服务的天气数据")
-        UTESmartBandClient.sharedInstance().getUTEWeatherDataFormServer(Self.kUTEWeatherApiKey, cityID: cityId, latitude: latitude, longitude: longitude) { (weatherInfo: UTEModelWeatherInfo?) -> Void in
-            DispatchQueue.main.async {
-                guard let wInfo = weatherInfo else {
-                    self.handleError(errorMsg, handler: handler)
-                    
-                    return
-                }
-                
-                self.handlerWeatherInfo(wInfo, handler: handler)
-            }
-        } failure: { error in
-            DispatchQueue.main.async {
-                var sysErrorMsg = XWHError.handleSysError(error)
-                sysErrorMsg = sysErrorMsg.isEmpty ? errorMsg : sysErrorMsg
-                self.handleError(sysErrorMsg, handler: handler)
-            }
-        }
+//        UTESmartBandClient.sharedInstance().getUTEWeatherDataFormServer(Self.kUTEWeatherApiKey, cityID: cityId, latitude: latitude, longitude: longitude) { (weatherInfo: UTEModelWeatherInfo?) -> Void in
+//            DispatchQueue.main.async {
+//                guard let wInfo = weatherInfo else {
+//                    self.handleError(errorMsg, handler: handler)
+//
+//                    return
+//                }
+//
+//                self.handlerWeatherInfo(wInfo, handler: handler)
+//            }
+//        } failure: { error in
+//            DispatchQueue.main.async {
+//                var sysErrorMsg = XWHError.handleSysError(error)
+//                sysErrorMsg = sysErrorMsg.isEmpty ? errorMsg : sysErrorMsg
+//                self.handleError(sysErrorMsg, handler: handler)
+//            }
+//        }
     }
     
     private func handlerWeatherInfo(_ wInfo: UTEModelWeatherInfo, handler: XWHWeatherServiceHandler?) {
