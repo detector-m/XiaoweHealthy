@@ -29,6 +29,11 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
         setTime(handler: handler)
         setUnit(handler: handler)
         
+        manager.activateDeviceMPF { (isOk, eCode: UTEErrorCode) in
+            if !isOk {
+                log.error("UTE 开启 MPF 失败")
+            }
+        }
         if let user = XWHDataUserManager.getCurrentUser() {
             setUserInfo(user, raiseWristSet, handler: handler)
         } else {
@@ -271,6 +276,7 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
     
     /// 设置精神压力设置
     func setMentalStressSet(_ mentalStressSet: XWHMentalStressSetModel, handler: XWHDevCmdOperationHandler?) {
+        manager.setMPFAutoTest(mentalStressSet.isOn, time: UTECommonTestTime.time10Mins)
         handler?(.success(nil))
     }
     

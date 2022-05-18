@@ -260,6 +260,9 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
         case .bloodOxygenDetectingError:
             uteDataHandler?.handleError(error)
             
+        case .mpfDetectingFail:
+            uteDataHandler?.handleError(error)
+            
         // MARK: - ---------
         default:
             break

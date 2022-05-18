@@ -60,7 +60,7 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             self._state = .inTransit
             
             var cp = 0
-            let itemMax: CGFloat = 3
+            let itemMax: CGFloat = 4
 
             // 1
             if !self.syncHeart() {
@@ -94,6 +94,17 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             }
             cp = ((3 / itemMax) * 100).int
             self.handleProgress(cp)
+                        
+            // 4
+            if !self.syncMentalState() {
+                return
+            }
+            if self.semaphoreWait() {
+                self.handleTimeoutError()
+                return
+            }
+            cp = ((4 / itemMax) * 100).int
+            self.handleProgress(cp)
             
             self._state = .succeed
         }
@@ -111,6 +122,9 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             
         case .sleep:
             return handleSleepData(rawData)
+            
+        case .mental:
+            return handleMentalData(rawData)
             
         case .none:
             return nil
@@ -149,7 +163,7 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
         guard let rawDic = rawData as? [AnyHashable: Any] else {
             return nil
         }
-
+        
         guard let heartArray = rawDic[kUTEQuery24HRMData] as? [UTEModelHRMData] else {
             return nil
         }
@@ -174,7 +188,7 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             
             XWHServerDataManager.postHeart(deviceSn: deviceSn, data: parsedHeartArray, failureHandler: nil, successHandler: nil)
         }
-       return parsedHeartArray
+        return parsedHeartArray
     }
     
     /// 处理血氧数据
@@ -325,6 +339,48 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
        return parsedSleepArray
     }
     
+    /// 处理精神状态数据
+    func handleMentalData(_ rawData: Any?) -> Any? {
+        guard let deviceSn = manager.connectedDevicesModel?.identifier else {
+            log.error("未获取到设备标识符")
+            return nil
+        }
+        
+        guard let rawDic = rawData as? [AnyHashable: Any] else {
+            return nil
+        }
+        
+        guard let msArray = rawDic[kUTEQueryMPF] as? [UTEModelMPFInfo] else {
+            return nil
+        }
+
+        let parsedMsArray: [XWHMentalStateModel] = msArray.compactMap { cModel in
+            guard let cTime = cModel.time, let cDate = cTime.date(withFormat: uteTimeFormat) else {
+                return nil
+            }
+
+            let rModel = XWHMentalStateModel()
+            rModel.time = cDate.string(withFormat: XWHDeviceHelper.standardTimeFormat)
+            rModel.mood = cModel.mood
+            rModel.stress = cModel.pressure
+            rModel.fatigue = cModel.fatigue
+            rModel.identifier = deviceSn
+
+            return rModel
+        }
+
+        log.info("同步精神状态原始数据 \(parsedMsArray)")
+        if !parsedMsArray.isEmpty {
+            if let last = parsedMsArray.last?.clone() {
+                XWHHealthyDataManager.saveMentalState(last)
+            }
+
+            XWHServerDataManager.postMentalState(deviceSn: deviceSn, data: parsedMsArray, failureHandler: nil, successHandler: nil)
+        }
+
+       return parsedMsArray
+    }
+    
     private func handleProgress(_ cp: Int) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
@@ -359,7 +415,12 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             
         case .sleep:
             msg = "同步睡眠超时"
+            
+        case .mental:
+            msg = "同步精神状态超时"
         }
+        
+        _state = .failed
         
         let error = XWHError(message: msg)
         log.error(error)
@@ -463,24 +524,28 @@ extension XWHUTEDataOperationHandler {
     }
     
     /// 同步精神状态数据 （压力、情绪、疲劳度数据）
-//    private func syncMentalState() -> Bool {
-//        dataType = .sleep
-//        guard let conDev = manager.connectedDevicesModel else {
-//            handleUTENotConnectBindError(type: dataType)
-//
-//            dataType = .none
-//            return false
-//        }
-//
-//        if conDev.isHasDataStatus {
-//            let cTime = "2020-06-06-06-06"
-//            manager.syncDataCustomTime(cTime, type: .sleep)
-//        } else {
-//            manager.setUTEOption(.syncAllSleepData)
-//        }
-//
-//        return true
-//    }
+    private func syncMentalState() -> Bool {
+        dataType = .mental
+        guard let conDev = manager.connectedDevicesModel else {
+            handleUTENotConnectBindError(type: dataType)
+
+            dataType = .none
+            return false
+        }
+        
+        // 表示设备支持此功能
+        guard conDev.isHasMPF else {
+            handleUTENotSupportError(type: dataType)
+            
+            dataType = .none
+            return false
+        }
+
+        let cTime = "2020-06-06-06-06"
+        manager.syncDataCustomTime(cTime, type: .MPF)
+
+        return true
+    }
     
     
     private func isUTEConnectBind() -> Bool {
@@ -502,7 +567,15 @@ extension XWHUTEDataOperationHandler {
     }
     
     private func handleUTENotConnectBindError(type: XWHDevSyncDataType) {
-        let error = XWHError(message: "未连接绑定")
+        handleUTEError(type: type, errorMsg: "未连接绑定")
+    }
+    
+    private func handleUTENotSupportError(type: XWHDevSyncDataType) {
+        handleUTEError(type: type, errorMsg: "不支持该功能")
+    }
+    
+    private func handleUTEError(type: XWHDevSyncDataType, errorMsg: String) {
+        let error = XWHError(message: errorMsg)
         log.error(error)
         handleResult(type, .failed, .failure(error))
     }

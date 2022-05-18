@@ -82,4 +82,7 @@ enum XWHDevSyncDataType: String {
     /// 睡眠
     case sleep
     
+    /// 精神状态
+    case mental
+    
 }
