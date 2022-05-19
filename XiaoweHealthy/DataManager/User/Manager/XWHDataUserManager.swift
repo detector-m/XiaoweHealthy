@@ -14,7 +14,7 @@ class XWHDataUserManager {
     
     class func getCurrentUser() -> XWHUserModel? {
         guard let cUser = getUser() else {
-            UserDefaults.standard[kToken] = nil
+//            UserDefaults.standard[kToken] = nil
             return nil
         }
         return cUser
@@ -84,7 +84,7 @@ extension XWHDataUserManager {
     
     private static let kToken = "kToken"
     
-    class func isLogined() -> Bool {
+    static var isHasToken: Bool {
         guard let _ = getToken() else {
             return false
         }
@@ -101,6 +101,19 @@ extension XWHDataUserManager {
         if token == nil {
             deleteCurrentUser()
         }
+    }
+    
+    static var isLogined: Bool {
+        guard let _ = getToken() else {
+            return false
+        }
+        
+        guard let _ = getCurrentUser() else {
+            setToken(token: nil)
+            return false
+        }
+        
+        return true
     }
     
 }

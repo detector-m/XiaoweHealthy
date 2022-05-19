@@ -221,7 +221,7 @@ extension XWHLoginVC {
     
     func gotoUpdateUserInfo() -> Bool {
 //        let token = XWHUser.getToken() ?? ""
-        if XWHUser.isLogined() {
+        if XWHUser.isHasToken {
             let vc = XWHGenderSelectVC()
             navigationController?.setViewControllers([vc], animated: true)
             

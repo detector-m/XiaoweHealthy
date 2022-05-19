@@ -114,7 +114,7 @@ class XWHAddDeviceEntryVC: XWHSearchBindDevBaseVC, FSPagerViewDataSource, FSPage
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if XWHUser.isLogined(), let _ = XWHDataDeviceManager.getCurrentWatch() {
+        if XWHUser.isLogined, let _ = XWHDataDeviceManager.getCurrentWatch() {
             gotoDeviceMainVC()
         }
     }
@@ -161,7 +161,7 @@ class XWHAddDeviceEntryVC: XWHSearchBindDevBaseVC, FSPagerViewDataSource, FSPage
 extension XWHAddDeviceEntryVC {
     
     fileprivate func addBrandDevice() {
-        if !XWHUser.isLogined() {
+        if !XWHUser.isLogined {
             XWHAlert.showLogin(at: self)
             
             return

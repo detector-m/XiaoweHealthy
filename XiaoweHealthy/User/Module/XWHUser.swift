@@ -10,8 +10,12 @@ import Foundation
 
 class XWHUser {
     
-    class func isLogined() -> Bool {
-        return XWHDataUserManager.isLogined()
+    static var isHasToken: Bool {
+        return XWHDataUserManager.isHasToken
+    }
+    
+    static var isLogined: Bool {
+        return XWHDataUserManager.isLogined
     }
     
     class func getToken() -> String? {

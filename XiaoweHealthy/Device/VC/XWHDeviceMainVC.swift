@@ -160,7 +160,7 @@ class XWHDeviceMainVC: XWHTableViewBaseVC, XWHDeviceObserverProtocol {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if !XWHUser.isLogined() {
+        if !XWHUser.isLogined {
             gotoAddDeviceEntry()
             
             return

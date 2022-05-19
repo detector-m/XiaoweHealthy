@@ -163,7 +163,7 @@ extension XWHHealthyMainVC {
     
     // 跳转到心率
     private func gotoHeart() {
-        if !XWHUser.isLogined() {
+        if !XWHUser.isLogined {
             gotoLogin()
             
             return
@@ -175,7 +175,7 @@ extension XWHHealthyMainVC {
     
     // 跳转到血氧
     private func gotoBloodOxygen() {
-        if !XWHUser.isLogined() {
+        if !XWHUser.isLogined {
             gotoLogin()
             
             return
@@ -187,7 +187,7 @@ extension XWHHealthyMainVC {
     
     // 跳转到压力
     private func gotoMentalStress() {
-        if !XWHUser.isLogined() {
+        if !XWHUser.isLogined {
             gotoLogin()
             
             return
@@ -199,7 +199,7 @@ extension XWHHealthyMainVC {
     
     // 跳转到睡眠
     private func gotoSleep() {
-        if !XWHUser.isLogined() {
+        if !XWHUser.isLogined {
             gotoLogin()
             
             return
