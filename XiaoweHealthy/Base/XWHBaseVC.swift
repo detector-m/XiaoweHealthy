@@ -218,7 +218,7 @@ class XWHBaseVC: UIViewController {
 //            curInset = topInsetMin
 //        }
         
-        if sContentOffset >= -topContentInset {
+        if sContentOffset >= -topContentInset - 20 {
             setNavigationBarWithLargeTitle()
         } else {
             resetNavigationBarWithoutLargeTitle()
