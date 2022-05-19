@@ -233,6 +233,18 @@ typedef void(^cardApduResponseBlock)(NSData * _Nullable data,BOOL success);
 - (void)connectUTEModelDevices:(UTEModelDevices *_Nonnull)model;
 
 /**
+ *  @discussion Check which known devices are connected to the system.
+ *
+ *  Note:Currently Apple does not provide a method to query which devices and systems are paired
+ *
+ *  @param  UUID What services does the device have, can fill in one or more services. e.g. @[@"EFF5"].
+ *  See mServicesConnectedUUID in UTEModelDevices.
+ *
+ *  @return If there are no connected devices, 0 will be returned. If yes, then only attributes 'identifier' and 'name' in UTEModelDevices have values.
+ */
+- (NSArray<UTEModelDevices *> *_Nullable)retrieveConnectedDeviceWithServers:(NSArray<NSString *> *_Nonnull)UUID;
+
+/**
 *  @discussion Check if the QR code is valid
 *
 *  @param qrCode identifier cannot be nil
@@ -260,55 +272,6 @@ typedef void(^cardApduResponseBlock)(NSData * _Nullable data,BOOL success);
 - (BOOL)setUTEOption:(UTEOption)option;
 
 /**
- *  @discussion Set alarm
- *
- *  @param array See UTEModelAlarm (Up to 3 , If isHasClockTitle = YES up to 5)
- *  @param count Number of alarm vibrations (0-9); if the UTEModelAlarm attribute 'countVibrate' is not equal to 0, then 'countVibrate' will prevail.
- *
- *  Note: If isHasClockTitle = YES, To delete all alarms, please fill in the parameter array as nil .
- */
-- (BOOL)setUTEAlarmArray:(NSArray<UTEModelAlarm *> *_Nonnull)array vibrate:(NSInteger)count;
-
-/**
- *  @discussion Set alarm
- *
- *  Required: If isHasClockTitle = YES
- */
-- (BOOL)setUTEAlarmArray:(NSArray<UTEModelAlarm *> *_Nonnull)array vibrate:(NSInteger)count result:(void(^_Nullable)(BOOL success))result;
-
-/**
- *  @discussion Read device alarm information
- *  Required isHasClockTitle=Yes.
- *  @param result also callback  delegate uteManagerReceiveAlarmChange:success
- */
-- (BOOL)readUTEAlarm:(void(^_Nullable)(NSArray<UTEModelAlarm *> * _Nullable array, BOOL success))result;
-
-/**
- *  @discussion Sedentary reminder (12 to 14 noon and night sleep time, no reminder)
- *  Note:When isHasSitRemindDuration = Yes，please invoke sendUTESitRemindModel:
- *
- *  @param remindTime How long to sit for long, then remind. Unit minute,range<10,180>.
- */
-- (void)setUTESitRemindOpenTime:(NSInteger)remindTime;
-
-/**
- *  @discussion Turn off sedentary reminder
- */
-- (void)setUTESitRemindClose;
-
-/**
- *  @discussion Please invoke setUTEInfoModel:
- *
- */
-//- (BOOL)setUTEInfoHeigh:(CGFloat)heigh
-//                 weight:(NSInteger)weight
-//                  light:(NSInteger)sec
-//            sportTarget:(NSInteger)sportTarget
-//              handlight:(BOOL)handlight
-//               maxHeart:(NSInteger)maxHeart NS_DEPRECATED_IOS(2_0,7_0, "Implement setUTEInfoModel: instead");
-
-
-/**
  *   @discussion Set up additional information
  *   Please invoke 'setUTEOption:' to set the device unit( meters or feet) before calling this method.
  *   If it is not invoke 'setUTEOption:', or invoke fails, the distance and calories may all be 0.
@@ -317,26 +280,6 @@ typedef void(^cardApduResponseBlock)(NSData * _Nullable data,BOOL success);
  *
  */
 - (BOOL)setUTEInfoModel:(UTEModelDeviceInfo *_Nonnull)model;
-
-/**
- *  @discussion   How often is the heart rate detected.
- *  Required isSwitchHeart=Yes.
- *
- *  @param isAuto automatic detection
- *
- *  @param time  Range 1 ~ 23 (Unit hour)
- */
-- (void)setUTEHeartAuto:(BOOL)isAuto time:(NSInteger)time;
-
-/**
- *  @discussion   How often is the blood pressure detected.
- *  Required isHasBloodAutoTest=Yes.
- *
- *  @param isAuto automatic detection
- *
- *  @param time   Detect every few hours, range 1 ~ 23
- */
-- (void)setUTEBloodPressureAuto:(BOOL)isAuto time:(NSInteger)time;
 
 /**
  *  @discussion Send password
@@ -364,25 +307,55 @@ typedef void(^cardApduResponseBlock)(NSData * _Nullable data,BOOL success);
  */
 - (void)setUTESDKRegion:(NSString *_Nonnull)region;
 
+
+#pragma mark - Alarm Clock
 /**
- *  @discussion Set Bluetooth3.0 key
- *  Required isHasBluetooth3=Yes
- *  
- *  See  delegate uteManageUTEOptionCallBack:UTECallBluetooth3_0Key
+ *  @discussion Set alarm
  *
- *  @param key  Range: 1~99999999
- *  @param allow  Allow the device Bluetooth 3.0 to connect to the app
+ *  @param array See UTEModelAlarm (Up to 3 , If isHasClockTitle = YES up to 5)
+ *  @param count Number of alarm vibrations (0-9); if the UTEModelAlarm attribute 'countVibrate' is not equal to 0, then 'countVibrate' will prevail.
+ *
+ *  Note: If isHasClockTitle = YES, To delete all alarms, please fill in the parameter array as nil .
  */
-- (BOOL)setUTEBluetooth3_0Key:(NSInteger)key allowConnect:(BOOL)allow;
+- (BOOL)setUTEAlarmArray:(NSArray<UTEModelAlarm *> *_Nonnull)array vibrate:(NSInteger)count;
 
 /**
- *  @discussion Read UTEBluetooth3.0 Status
- *  Required isHasBluetooth3=Yes
+ *  @discussion Set alarm
  *
- *  See delegate  uteManagerReceiveBluetooth3Info:
+ *  Required: If isHasClockTitle = YES
  */
-- (BOOL)readUTEBluetooth3Status;
+- (BOOL)setUTEAlarmArray:(NSArray<UTEModelAlarm *> *_Nonnull)array vibrate:(NSInteger)count result:(void(^_Nullable)(BOOL success))result;
 
+/**
+ *  @discussion Read device alarm information
+ *  Required isHasClockTitle=Yes.
+ *  @param result also callback  delegate uteManagerReceiveAlarmChange:success
+ */
+- (BOOL)readUTEAlarm:(void(^_Nullable)(NSArray<UTEModelAlarm *> * _Nullable array, BOOL success))result;
+
+#pragma mark - Sit Remind
+/**
+ *  @discussion Sedentary reminder (12 to 14 noon and night sleep time, no reminder)
+ *  Note:When isHasSitRemindDuration = Yes，please invoke sendUTESitRemindModel:
+ *
+ *  @param remindTime How long to sit for long, then remind. Unit minute,range<10,180>.
+ */
+- (void)setUTESitRemindOpenTime:(NSInteger)remindTime;
+
+/**
+ *  @discussion Turn off sedentary reminder
+ */
+- (void)setUTESitRemindClose;
+
+/**
+ *  @discussion   Set sedentary reminder
+ *  Required:isHasSitRemindDuration = Yes
+ *
+ *  @param model  See UTEModelDeviceSitRemind
+ */
+- (void)sendUTESitRemindModel:(UTEModelDeviceSitRemind *_Nonnull)model;
+
+#pragma mark - User ID
 /**
  *  @discussion Set User ID
  *  Required isHasUserID=Yes
@@ -402,6 +375,27 @@ typedef void(^cardApduResponseBlock)(NSData * _Nullable data,BOOL success);
  */
 - (BOOL)readUTEUserID:(void(^_Nullable)(NSUInteger ID))result;
 
+#pragma mark - Bluetooth3.0
+/**
+ *  @discussion Read UTEBluetooth3.0 Status
+ *  Required isHasBluetooth3=Yes
+ *
+ *  See delegate  uteManagerReceiveBluetooth3Info:
+ */
+- (BOOL)readUTEBluetooth3Status;
+
+/**
+ *  @discussion Set Bluetooth3.0 key
+ *  Required isHasBluetooth3=Yes
+ *
+ *  See  delegate uteManageUTEOptionCallBack:UTECallBluetooth3_0Key
+ *
+ *  @param key  Range: 1~99999999
+ *  @param allow  Allow the device Bluetooth 3.0 to connect to the app
+ */
+- (BOOL)setUTEBluetooth3_0Key:(NSInteger)key allowConnect:(BOOL)allow;
+
+#pragma mark - Weather
 /**
  *  @discussion Read UV
  *
@@ -417,86 +411,6 @@ typedef void(^cardApduResponseBlock)(NSData * _Nullable data,BOOL success);
  *  @return It sends successfully or fails
  */
 - (BOOL)readUTEDeviceUV:(void(^_Nullable)(NSInteger value))result;
-
-/**
- *  @discussion Check if the server has the latest firmware
- *  Callback uteManagerDevicesSate:error:
- *  Note:Run the App once during debugging, you can access the server 5 times in a row, and then please run the App again to continue access.
- *  If SDKKey has never been set, please invoke setUTESDKKey: first.
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)checkUTEFirmwareVersion;
-
-/**
- *  @discussion Check if the server has the latest firmware UI.
- *  Callback uteManagerDevicesSate:error:
- *
- *  Required:isHasFirmwareUI = YES
- *
- *  @return It sends successfully or fails
- *
- *  Note:First invoke 'checkUTEFirmwareVersion' to check the firmware, if there is a new version, invoke 'beginUpdateFirmware' to upgrade. If there is no new version, invoke this method again to check the firmware UI.
- *  If SDKKey has never been set, please invoke setUTESDKKey: first.
- */
-- (BOOL)checkUTEFirmwareUIVersion;
-
-/**
- *  @discussion Check if method UTEOption can be called OR Is it possible to set up or perform other operations on the device.
- *  For example, when isSyncDevices=YES, isHeartDetecting=YES, isBloodDetecting=YES, isECGDetecting=YES, isUpdateDevices=YES, sendingDailFlag=YES  other values cannot be sent.
- *
- *  Exceptions: 1. When the device is in the process of testing heart rate, you can send UTEOptionHeartDetectingStop / UTEOptionCloseCameraMode, regardless of the return value.
- *  Exception: 2. When the device is in the process of testing blood pressure, UTEOptionBloodDetectingStop / UTEOptionCloseCameraMode can be sent, regardless of the return value.
- *  Exception: 3. When the device sportModeStatus !=UTEDeviceSportModeStatusClose, you can call the method setUTESportModel: to stop the current motion state.
- *
- *  When isOpenApdu=YES,UTEOption instructions are invalid, this method returns false.
- *
- *  @return value
- */
-- (BOOL)checkUTEDevicesStateIsEnable;
-
-/**
- *  @discussion Start firmware upgrade
- *  Callback during upgrade: uteManagerUpdateProcess:
- *  Callback when the upgrade fails or succeeds: uteManagerDevicesSate:error:
- *
- *  Note:
- *  1.Before upgrading, it is recommended to determine the battery level of the device. When the power is greater than 50, please call the method to upgrade, otherwise the province will easily fail.
- *  2. When upgrading, please keep the app in the foreground. This will help increase the data sending speed.
- *  If the app is in the background, the sending speed will become very slow.
- */
-- (void)beginUpdateFirmware;
-
-/**
- *  @discussion Change device feature. See UTEDeviceFeature
- *
- *  @param isSuccess result
- *
- *  Note: 'isMustUpdate=YES': Must force to upgrade (if not upgrade, some of the original functions may not be available).
- *
- */
-- (void)changeDeviveFeature:(void(^_Nullable)(BOOL isSuccess,BOOL isMustUpdate))isSuccess;
-
-/**
- *  @discussion Do not disturb
- *
- *  @param type See UTESilenceType
- *
- *  @param start time e.g. @"08:30"
- *
- *  @param end   time e.g. @"23:00"
- *
- *  @param except as follows
- *  Note:
- *  1.When except is Yes, it means "Do not disturb" in the range of (e.g 08: 30 ~ 23: 00), which is not related to the parameter type. But outside of this time, it is related to type and is controlled by the type attribute UTESilenceType.
- *  2.When except is No, it means that “Do Not Disturb” in one day is controlled by the type attribute UTESilenceType, which is not related to startTime and endTime.
- *  3.If you want to turn off 'Do Not Disturb', set except=NO and type to UTESilenceTypeNone.
- *
- *  4."Do not disturb" can not set separate functions at multiple different times, such as setting [UTESilenceTypeVibration] at a certain time A, and then setting B [UTESilenceTypeMessage] at a certain time.
- *  5."Do Not Disturb" can only be set uniformly within a certain time [Do Not Disturb], and then set UTESilenceType outside of this time A.
- */
-- (void)sendUTEAllTimeSilence:(UTESilenceType)type exceptStartTime:(NSString *_Nonnull)start endTime:(NSString *_Nonnull)end except:(BOOL)except;
-
 /**
  *  @discussion Set the 7-day weather of the device
  *  Required:isHasWeatherSeven = YES
@@ -559,8 +473,103 @@ typedef void(^cardApduResponseBlock)(NSData * _Nullable data,BOOL success);
                            latitude:(double)latitude
                           longitude:(double)longitude
                             success:(void (^_Nullable)(UTEModelWeatherInfo * _Nullable data))success
-                            failure:(void (^_Nullable)(NSError * _Nullable error))failure NS_DEPRECATED(2_0, 2_0, 2_0, 2_0,"Currently not supported");
+                            failure:(void (^_Nullable)(NSError * _Nullable error))failure;
 
+#pragma mark - Version
+
+/**
+ *  @discussion Check if the server has the latest firmware
+ *  Callback uteManagerDevicesSate:error:
+ *  Note:Run the App once during debugging, you can access the server 5 times in a row, and then please run the App again to continue access.
+ *  If SDKKey has never been set, please invoke setUTESDKKey: first.
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)checkUTEFirmwareVersion;
+
+/**
+ *  @discussion Check if the server has the latest firmware UI.
+ *  Callback uteManagerDevicesSate:error:
+ *
+ *  Required:isHasFirmwareUI = YES
+ *
+ *  @return It sends successfully or fails
+ *
+ *  Note:First invoke 'checkUTEFirmwareVersion' to check the firmware, if there is a new version, invoke 'beginUpdateFirmware' to upgrade. If there is no new version, invoke this method again to check the firmware UI.
+ *  If SDKKey has never been set, please invoke setUTESDKKey: first.
+ */
+- (BOOL)checkUTEFirmwareUIVersion;
+
+/**
+ *  @discussion Check if method UTEOption can be called OR Is it possible to set up or perform other operations on the device.
+ *  For example, when isSyncDevices=YES, isHeartDetecting=YES, isBloodDetecting=YES, isECGDetecting=YES, isUpdateDevices=YES, sendingDailFlag=YES  other values cannot be sent.
+ *
+ *  Exceptions: 1. When the device is in the process of testing heart rate, you can send UTEOptionHeartDetectingStop / UTEOptionCloseCameraMode, regardless of the return value.
+ *  Exception: 2. When the device is in the process of testing blood pressure, UTEOptionBloodDetectingStop / UTEOptionCloseCameraMode can be sent, regardless of the return value.
+ *  Exception: 3. When the device sportModeStatus !=UTEDeviceSportModeStatusClose, you can call the method setUTESportModel: to stop the current motion state.
+ *
+ *  When isOpenApdu=YES,UTEOption instructions are invalid, this method returns false.
+ *
+ *  @return value
+ */
+- (BOOL)checkUTEDevicesStateIsEnable;
+
+/**
+ *  @discussion Start firmware upgrade
+ *  Callback during upgrade: uteManagerUpdateProcess:
+ *  Callback when the upgrade fails or succeeds: uteManagerDevicesSate:error:
+ *
+ *  Note:
+ *  1.Before upgrading, it is recommended to determine the battery level of the device. When the power is greater than 50, please call the method to upgrade, otherwise the province will easily fail.
+ *  2. When upgrading, please keep the app in the foreground. This will help increase the data sending speed.
+ *  If the app is in the background, the sending speed will become very slow.
+ */
+- (void)beginUpdateFirmware;
+
+/**
+ *  @discussion Check local firmware
+ *
+ *  @url firmware path
+ *  e.g. @"/var/mobile/Containers/Data/Application/xxxxx/SH0AV0000564.bin"
+ *  e.g. @"/var/mobile/Containers/Data/Application/xxxxx/SH0AV0000564.img"
+ *
+ *  @return Is the firmware valid. If Yes , You can invoke method beginUpdateFirmware to upgrade the firmware.
+ *  if NO,Please do not upgrade the firmware, otherwise the device will freeze and become unusable.
+*/
+- (BOOL)updateLocalFirmwareUrl:(NSString *_Nonnull)url;
+
+/**
+ *  @discussion Change device feature. See UTEDeviceFeature
+ *
+ *  @param isSuccess result
+ *
+ *  Note: 'isMustUpdate=YES': Must force to upgrade (if not upgrade, some of the original functions may not be available).
+ *
+ */
+- (void)changeDeviveFeature:(void(^_Nullable)(BOOL isSuccess,BOOL isMustUpdate))isSuccess;
+
+#pragma mark - Do not disturb
+/**
+ *  @discussion Do not disturb
+ *
+ *  @param type See UTESilenceType
+ *
+ *  @param start time e.g. @"08:30"
+ *
+ *  @param end   time e.g. @"23:00"
+ *
+ *  @param except as follows
+ *  Note:
+ *  1.When except is Yes, it means "Do not disturb" in the range of (e.g 08: 30 ~ 23: 00), which is not related to the parameter type. But outside of this time, it is related to type and is controlled by the type attribute UTESilenceType.
+ *  2.When except is No, it means that “Do Not Disturb” in one day is controlled by the type attribute UTESilenceType, which is not related to startTime and endTime.
+ *  3.If you want to turn off 'Do Not Disturb', set except=NO and type to UTESilenceTypeNone.
+ *
+ *  4."Do not disturb" can not set separate functions at multiple different times, such as setting [UTESilenceTypeVibration] at a certain time A, and then setting B [UTESilenceTypeMessage] at a certain time.
+ *  5."Do Not Disturb" can only be set uniformly within a certain time [Do Not Disturb], and then set UTESilenceType outside of this time A.
+ */
+- (void)sendUTEAllTimeSilence:(UTESilenceType)type exceptStartTime:(NSString *_Nonnull)start endTime:(NSString *_Nonnull)end except:(BOOL)except;
+
+#pragma mark - Dial Display
 /**
  *  @discussion Get the Dial that exists on the server
  *
@@ -715,15 +724,7 @@ typedef void(^cardApduResponseBlock)(NSData * _Nullable data,BOOL success);
                        success:(void (^_Nullable)(UTEModelDialInfo * _Nullable dialInfo))success
                        failure:(void (^_Nullable)(void))failure;
 
-/**
- *  @discussion Display and wearing style
- *  Required: isHasSwitchHand=YES
- *
- *  @param wearType  See UTEWearType
- *  @param sreenType See UTEDeviceSreenDisplayType
- */
-- (void)sendUTEWearType:(UTEWearType)wearType sreenType:(UTEDeviceSreenDisplayType)sreenType;
-
+#pragma mark - iBeacon
 /**
  *  @discussion ibeacon
  *
@@ -754,14 +755,7 @@ typedef void(^cardApduResponseBlock)(NSData * _Nullable data,BOOL success);
  */
 - (void)readUTEIbeacon:(UTEIbeaconOption)option;
 
-/**
- *  @discussion   Set sedentary reminder
- *  Required:isHasSitRemindDuration = Yes
- *
- *  @param model  See UTEModelDeviceSitRemind
- */
-- (void)sendUTESitRemindModel:(UTEModelDeviceSitRemind *_Nonnull)model;
-
+#pragma mark - Menstruation
 /**
  *  @discussion Setting the menstrual
  *
@@ -771,6 +765,7 @@ typedef void(^cardApduResponseBlock)(NSData * _Nullable data,BOOL success);
  */
 - (BOOL)sendMenstruationRemind:(UTEModelDeviceMenstruation *_Nonnull)model;
 
+#pragma mark - Send Custom Data
 /**
  *  @discussion  Send custom data to the device
  *  Callback uteManagerSendCustomDataResult:
@@ -793,6 +788,7 @@ typedef void(^cardApduResponseBlock)(NSData * _Nullable data,BOOL success);
  */
 - (void)sendUTECustomMsg:(UTEModelDeviceCustomMsg *_Nonnull)model;
 
+#pragma mark - Contact
 /**
  *  @discussion  Send contacts to the device
  *  Required:isHasContact=Yes
@@ -801,6 +797,7 @@ typedef void(^cardApduResponseBlock)(NSData * _Nullable data,BOOL success);
  */
 - (void)sendUTEContactInfo:(NSArray<UTEModelContactInfo *> *_Nonnull)array callback:(void (^_Nullable)(void))callback;
 
+#pragma mark - Language
 /**
  *  @discussion Customize the language of the device display interface
  *  During the language sending process (approximately 8 seconds, the longer the text, the longer the time), please do not send other command, otherwise the device displays incomplete text.
@@ -817,11 +814,706 @@ typedef void(^cardApduResponseBlock)(NSData * _Nullable data,BOOL success);
 - (void)setUTELanguageSwitchDirectly:(UTEDeviceLanguage)language;
 
 /**
+ *  @discussion Read the language of the current device
+ *  Required: isHasReadLanguage=YES
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)readDeviceLanguage:(void(^_Nullable)(UTEDeviceLanguage language))result;
+
+/**
+ *  @discussion Read which languages the current device supports
+ *  Required: isHasReadSupportLanguage=YES
+ *
+ *  supports:NSArray e.g. @[@UTEDeviceLanguageChinese, @UTEDeviceLanguageEnglish...]
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)readDeviceLanguageSupport:(void(^_Nullable)(UTEDeviceLanguage currentLanguage,NSArray<NSNumber *> * _Nullable supports))result;
+
+#pragma mark - Remind App
+/**
  *  @discussion Information push for the specified app
  *  Required:isHasSocialNotification=Yes OR isHasSocialNotification2=Yes OR isHasIconANCS=Yes
  *
  */
 - (void)setUTERemindApp:(UTEModelDeviceRemindApp *_Nonnull)model;
+
+/**
+ *  @discussion Which app icons are built into the device
+ *  Required:isHasIconANCS=YES
+ *
+ *  @param result arrayApp See UTEDeviceApp(please convert NSNumber to UTEDeviceApp).
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)readDeviceSupportAppListANCS:(void(^_Nullable)(NSArray<NSNumber *> * _Nullable arrayApp))result;
+
+#pragma mark - Shortcut
+/**
+ *  @discussion Read which shortcut buttons are supported by the device
+ *  Required:isHasShortcutButton=YES
+ *
+ *  Please see delegate uteManagerShortcutBtnSupport:
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)readDeviceShortcutBtnSupport;
+
+/**
+ *  @discussion Read the status of device shortcut buttons
+ *  Required:isHasShortcutButton=YES
+ *  Callback uteManagerShortcutBtnStatus:closeType
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)readDeviceShortcutBtnStatus;
+
+#pragma mark - HRM
+/**
+ *  @discussion   How often is the heart rate detected.
+ *  Required isSwitchHeart=Yes.
+ *
+ *  @param isAuto automatic detection
+ *
+ *  @param time  Range 1 ~ 23 (Unit hour)
+ */
+- (void)setUTEHeartAuto:(BOOL)isAuto time:(NSInteger)time;
+
+/**
+ *  @discussion Read heart rate status
+ *  Whether the device is detecting heart rate
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)readHRMStatus:(void(^_Nullable)(BOOL isHeartDetecting))result;
+
+#pragma mark - Blood
+/**
+ *  @discussion   How often is the blood pressure detected.
+ *  Required isHasBloodAutoTest=Yes.
+ *
+ *  @param isAuto automatic detection
+ *
+ *  @param time   Detect every few hours, range 1 ~ 23
+ */
+- (void)setUTEBloodPressureAuto:(BOOL)isAuto time:(NSInteger)time;
+
+/**
+ *  @discussion Set blood pressure calibration parameters
+ *  Required:isHasBloodCalibrate=YES
+ *
+ *  @param callback Device setting parameters succeeded or failed.
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)setBloodCalibrateData:(NSData *_Nonnull)data callback:(void(^_Nullable)(BOOL success))callback;
+
+/**
+ *  @discussion Set blood pressure  parameters
+ *  Required:isHasBloodCalibrate=YES
+ *
+ *  @param isHypertension Is it high blood pressure.
+ *  @param isDrug Taking medicines related to lowering high blood pressure.
+ *  @param callback Device setting parameters succeeded or failed.
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)setBloodParamHypertension:(BOOL)isHypertension drug:(BOOL)isDrug callback:(void(^_Nullable)(BOOL success))callback;
+
+/**
+ *  @discussion Does the device need to be calibrated
+ *  Required:isHasBloodCalibrate=YES
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)readBloodCalibrateStatus:(void(^_Nullable)(BOOL needCalibrate))callback;
+
+/**
+ *  @discussion Read blood chip type
+ *  Required:isHasBloodMoreFeatures=YES
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)readBloodChipType:(void(^_Nullable)(NSInteger chipType, NSInteger chipNum, NSString * _Nullable chipVersion))callback;
+
+/**
+ *  @discussion Whether the blood pressure function of the device is activated
+ *  Required:isHasBloodMoreFeatures=YES
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)checkDeviceActivateBlood:(void(^_Nullable)(BOOL activated ,NSString * _Nullable sn))callback;
+
+/**
+ *  @discussion Activate the Blood of the device
+ *  Required:isHasBloodMoreFeatures=YES
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)activateDeviceBlood:(NSData *_Nonnull)activateData callback:(void(^_Nullable)(BOOL success))callback;
+
+/**
+ *  @discussion Regular blood pressure test
+ *  Required:isHasBloodPressureCustom=YES
+ *
+ *  @param array See UTEModelCustomBloodClock
+ *  Note:12 Clocks must be filled
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)setCustomBloodAlarmClock:(NSArray<UTEModelCustomBloodClock *> *_Nonnull)array;
+- (BOOL)setCustomBloodHandle;
+
+/**
+ *  @discussion How many blood pressure records are there.
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)readCustomBloodHistoryCount:(void(^_Nullable)(NSInteger count))callback;
+
+/**
+ *  @discussion Blood History
+ *
+ *  @param fromIndex Data start position
+ *  @param toIndex  Data end position
+ *
+ *  The data(fromIndex,toIndex) cannot exceed the number returned by method readCustomBloodHistoryCount.
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)readCustomBloodHistoryFrom:(NSInteger)fromIndex ToIndex:(NSInteger)toIndex;
+
+#pragma mark - BodyFat
+/**
+ *  @discussion Read device body fat status
+ *  Whether the device is detecting body fat
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)readDeviceBodyFatStatus:(void(^_Nullable)(BOOL isDetecting))result;
+
+/**
+ *  @discussion Test body fat
+ *
+ *  @param  open  Start or stop
+ *  @param  model If you are testing body fat, you must set UTEModelDeviceBodyFatConfig
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)monitorBodyFat:(BOOL)open config:(UTEModelDeviceBodyFatConfig *_Nonnull)model;
+
+/**
+ *  @discussion   Set Body Fat Information
+ *  @param  model See UTEModelDeviceBodyFatConfig
+ */
+- (BOOL)setUTEBodyFatInfo:(UTEModelDeviceBodyFatConfig *_Nonnull)model;
+
+#pragma mark - MPF
+/**
+ *  @discussion Read MPF sensor name
+ *  Required: isHasMPF=YES
+ *
+ *  @param result Sensor Name AND Whether the device displays Mood/Pressure/Fatigue interface.
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)readDeviceSensorMPF:(void(^_Nullable)(NSString *_Nullable sensorName,BOOL haveMood,BOOL havePressure,BOOL haveFatigue))result;
+
+/**
+ *  @discussion Whether the device has been activated MPF(Mood,Pressure and Fatigue)
+ *  Required:isHasMPF=YES
+ *  If activated, the device can test MPF offline. If NO, Please invoke activateDeviceMPF:   to activate .
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)checkDeviceActivateMPF:(void(^_Nullable)(BOOL activated))callback;
+
+/**
+ *  @discussion Activate the MPF of the device
+ *  Required:isHasMPF=YES
+ *  If success, the device can test MPF offline.
+ *  @param callback errorCode See UTEErrorCode
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)activateDeviceMPF:(void(^_Nullable)(BOOL success ,UTEErrorCode errorCode))callback;
+
+/**
+ *  @discussion Whether the device is detecting Mood,Pressure and Fatigue
+ *  Required:isHasMPF = YES
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)readUTE_MPF_Status:(void(^_Nullable)(BOOL detecting))callback;
+
+/**
+ *  @discussion Monitoring interval
+ *  Required:isHasMPF = YES
+ *
+ *  @return It sends successfully or fails
+ *
+ */
+- (BOOL)setMPFAutoTest:(BOOL)open time:(UTECommonTestTime)testTime;
+
+/**
+ *  @discussion Time period for automatic monitoring
+ *  Required:isHasMPF = YES
+ *  When method (setMPFAutoTest:time:) parameter open is YES, this method is valid.
+ *
+ *  @param open  If YES,  The detection period is from startTime to endTime.
+ *               If NO, All day.
+ *
+ *  @param startTime  e.g. @"08:30"
+ *  @param endTime    e.g. @"18:00"
+ *
+ *  @return It sends successfully or fails
+ *
+ */
+- (BOOL)setMPFAutoTestDuration:(BOOL)open startTime:(NSString *_Nonnull)startTime endTime:(NSString *_Nonnull)endTime;
+
+#pragma mark - ECG
+/**
+ *  @discussion Read if the device has data to save offline ECG history
+ *
+ *  @param  result (Format:yyyy-MM-dd-HH-mm) If there is ECG data, the date of the historical data is returned, otherwise nil.
+ *
+ *  Note:It is recommended to call this method before synchronizing the ECG data of the device, so that the progress percentage of the synchronization will be displayed truthfully.
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)readDeviceECGHistoryDate:(void(^_Nullable)(NSString *_Nullable strDate))result;
+
+/**
+*  @discussion Sampling frequency of device's ECG
+*
+*  @param result
+*   frequency: This parameter may be needed when drawing an ECG.How many points are there per second.
+*   ignore: The result of the test needs to delete the initial number of points.
+*
+*
+*  @return It sends successfully or fails
+*/
+- (BOOL)readDeviceECGSamplingfrequency:(void(^_Nullable)(NSInteger frequency ,NSInteger ignore))result;
+
+
+
+/**
+ *  @discussion ECG test
+ *
+ *  @param  open  Start or stop
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)monitorECG:(BOOL)open;
+
+#pragma mark - Body Temperature
+/**
+ *  @discussion Calibrate body temperature
+ *  Required:isHasCalibrateBodyTemperature = YES
+ *  @param  temp      Calibration temperature. Unit Celsius. Exact two decimal places
+ *  e.g. @"16.55" @"16" ,range 0.01~255 .
+ *
+ *  @param  complete  Calibration succeeded or failed
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)calibrateBodyTemp:(NSString *_Nonnull)temp complete:(void(^_Nullable)(BOOL success))complete;
+
+/**
+ *  @discussion Read the compensation value of the current calibration temperature
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)readDeviceCalibrateBodyTemp:(void(^_Nullable)(NSString *_Nullable temp))result;
+
+/**
+ *  @discussion Sync data (from a certain date to today)
+ *  Required:isHasBodyTemperature = YES
+ *
+ *  @param  time From that day. Format:yyyy-MM-dd-HH-mm e.g. @"2018-08-30-09-30"
+ *
+ *  @return It sends successfully or fails
+ *
+ */
+- (BOOL)syncBodyTemperature:(NSString *_Nonnull)time;
+
+/**
+ *  @discussion Time for automatic body temperature test
+ *  Required:isHasBodyTemperature = YES
+ *
+ *  @param open  If YES,turn on automatic temperature test.
+ *               If NO,turn off automatic temperature test.
+ *
+ *  @param testTime See UTEBodyTempTestTime (Test frequency)
+ *
+ *  @return It sends successfully or fails
+ *
+ */
+- (BOOL)setBodyTemperatureAutoTest:(BOOL)open time:(UTECommonTestTime)testTime;
+
+/**
+ *  @discussion Duration of automatic test body temperature
+ *  Required:isHasBodyTemperature = YES
+ *  When method (setBodyTemperatureAutoTest:time:) parameter open is YES, this method is valid.
+ *
+ *  @param open  If YES,  body temperature is automatically test between startTime and endTime.
+ *               If NO,  body temperature testing throughout the day.
+ *
+ *  @param startTime  e.g. @"08:30"
+ *  @param endTime    e.g. @"18:00"
+ *
+ *  @return It sends successfully or fails
+ *
+ */
+- (BOOL)setBodyTemperatureAutoTestDuration:(BOOL)open startTime:(NSString *_Nonnull)startTime endTime:(NSString *_Nonnull)endTime;
+
+/**
+ *  @discussion Set body temperature device alarm value
+ *  If the body temperature(UTEModelBodyTemperature.bodyTemperature) exceeds the maximum or minimum value,lasts longer than one minute,
+ *  the device will alert. See UTEDevicesSateBodyTempAlarm.
+ *  Required:isHasBodyTemperature = YES
+ *
+ *  Max OR Min Temperature range 35 ~ 42.
+ *
+ *  @param  open  Enable alarm
+ *  @param  max   Maximum temperature.
+ *  @param  min   Minimum temperature.
+ *
+ *  @return It sends successfully or fails
+ *
+ */
+- (BOOL)setBodyTemperatureAlarmOpen:(BOOL)open max:(CGFloat)max alarmMin:(CGFloat)min;
+
+/**
+ *  @discussion Open body temperature Funtion2(original data collection)
+ *
+ *  Required:isHasBodyTemperatureFunction2 = YES
+ *
+ *  @param  open If YES, During the test, UTEModelBodyTemperature.ambientTemperature/shellTemperature have value .
+ *                 If NO, During the test, UTEModelBodyTemperature.bodyTemperature/shellTemperature have value .
+ *
+ *  @return It sends successfully or fails
+ *
+ */
+- (BOOL)setBodyTemperatureEnableFuntion2:(BOOL)open;
+
+/**
+ *  @discussion Read Body Temperature Funtion2 Status
+ *
+ *  Required:isHasBodyTemperatureFunction2 = YES
+ *
+ *  @return It sends successfully or fails
+ *
+ */
+- (BOOL)readBodyTemperatureFuntion2Status:(void(^_Nullable)(BOOL open))result;
+
+/**
+ *  @discussion Read Current Body Temperature Current
+ *
+ *  Required:isHasBodyTemperature = YES
+ *
+ *  CallBack: See delegate uteManagerDevicesSate:UTEDevicesSateBodyTempCurrent
+ *  Note:It may take 10 to 30 seconds before the body temperature data is CallBack.
+ *
+ *  @return It sends successfully or fails
+ *
+ */
+- (BOOL)readBodyTemperatureCurrent;
+
+#pragma mark - Respiration
+/**
+ *  @discussion Read respiration status
+ *  Whether the device is detecting
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)readRespirationStatus:(void(^_Nullable)(BOOL isDetecting))result;
+
+/**
+ *  @discussion Time for automatic Respiration test
+ *
+ *  @return It sends successfully or fails
+ *
+ */
+- (BOOL)setRespirationAutoTest:(BOOL)open time:(UTECommonTestTime)testTime;
+
+/**
+ *  @discussion Duration of automatic test Respiration
+ *  When method (setRespirationAutoTest:time:) parameter open is YES, this method is valid.
+ *
+ *  @param open  If YES,  Respiration is automatically test between startTime and endTime.
+ *               If NO,  Respiration testing throughout the day.
+ *
+ *  @param startTime  e.g. @"08:30"
+ *  @param endTime    e.g. @"18:00"
+ *
+ *  @return It sends successfully or fails
+ *
+ */
+- (BOOL)setRespirationAutoTestDuration:(BOOL)open startTime:(NSString *_Nonnull)startTime endTime:(NSString *_Nonnull)endTime;
+
+#pragma mark - BloodOxygen
+/**
+ *  @discussion Read Blood Oxygen status
+ *  Whether the device is detecting
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)readBloodOxygenStatus:(void(^_Nullable)(BOOL isDetecting))result;
+
+/**
+ *  @discussion Time for automatic Blood Oxygen test
+ *
+ *  @return It sends successfully or fails
+ *
+ */
+- (BOOL)setBloodOxygenAutoTest:(BOOL)open time:(UTECommonTestTime)testTime;
+
+/**
+ *  @discussion Duration of automatic test BloodOxygen
+ *  When method (setBloodOxygenAutoTest:time:) parameter open is YES, this method is valid.
+ *
+ *  @param open  If YES,  BloodOxygen is automatically test between startTime and endTime.
+ *               If NO,  BloodOxygen testing throughout the day.
+ *
+ *  @param startTime  e.g. @"08:30"
+ *  @param endTime    e.g. @"18:00"
+ *
+ *  @return It sends successfully or fails
+ *
+ */
+- (BOOL)setBloodOxygenAutoTestDuration:(BOOL)open startTime:(NSString *_Nonnull)startTime endTime:(NSString *_Nonnull)endTime;
+
+#pragma mark - Sport
+/**
+ *  @discussion How many sports does the device support
+ *  Required:isHasMoreSportType = YES
+ *
+ *  @param callback
+ *  minDisplay : The minimum number of sports icons displayed on the device interface
+ *  maxDisplay : The maximum number of sports icons displayed on the device interface
+ *  array : Which sports are supported by the device. See UTEDeviceSportMode (Convert to NSNumber)
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)readUTESportModelSupport:(void(^_Nullable)(NSInteger minDisplay,NSInteger maxDisplay, NSArray<NSNumber *> * _Nullable array))callback;
+
+/**
+ *  @discussion Which sports are displayed by the device
+ *  Required:isHasMoreSportType = YES
+ *
+ *  @param callback  array  See UTEDeviceSportMode (Convert to NSNumber)
+ *  The order of array is the order of Sport Type in the device.
+ *
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)readUTESportModelCurrentDisplay:(void(^_Nullable)(NSArray<NSNumber *> * _Nullable array))callback;
+
+/**
+ *  @discussion Read the status of the device's sport mode
+ *  Required:isHasSportHRM = YES
+ *
+ *  Note:When isHasHeadsetHRM=YES, please invoke readUTESportHeadsetModelStatus
+ *  Each time the device is successfully connected, the SDK will automatically read it once.
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)readUTESportModelStatus:(void(^_Nullable)(UTEDeviceSportMode mode,UTEDeviceSportModeStatus status))callback;
+/**
+ *  @discussion Read the status of the Headset's sport mode.
+ *  Each time the device is successfully connected, the SDK will automatically read it once.
+ *
+ *  Required:isHasHeadsetHRM=YES
+ *  Callback: uteManagerHeadsetSport
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)readUTESportHeadsetModelStatus;
+
+/**
+ *  @discussion Set sport mode on or off
+ *  Required:isHasSportHRM=YES
+ *
+ *  Note:When isHasHeadsetHRM=YES please invoke setUTESportHeadsetModel.
+ *  Method uteManagerReceiveSportHRM to monitor heart rate and other data.
+ *
+ *  @param  open Open or close
+ *  @param  hrmTime How often does the device save the heart rate value.
+ *  @param  mode See UTEDeviceSportMode
+ *  @param  callback When the device receives command, there is a callback.OR see delegate uteManagerReceiveSportMode:status
+ *
+ *  Note:If the device has opened a sport mode A, and then turn it on or off a sport mode(Not Sport Mode A), then there is no callback.
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)setUTESportModel:(UTEDeviceSportMode)mode
+                    open:(BOOL)open
+                 hrmTime:(UTEDeviceIntervalTime)hrmTime
+                callback:(void(^_Nullable)(UTEDeviceSportMode mode,BOOL open))callback;
+
+/**
+ *  @discussion Set sport mode pause
+ *  Required:isHasSportPause=YES
+ *
+ *  @param info See UTEDeviceSportModeInfo
+ *  Note:Set the parameters(UTEDeviceSportModeInfo) ensure that the activity duration of the App is consistent with the activity duration of the device.
+ *  See delegate uteManagerReceiveSportMode:
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)setUTESportModelPause:(UTEDeviceSportModeInfo *_Nonnull)info;
+
+/**
+ *  @discussion Set sport mode continue
+ *  Required:isHasSportPause=YES
+ *
+ *  @param info See UTEDeviceSportModeInfo
+ *  Note:Set the parameters(UTEDeviceSportModeInfo) ensure that the activity duration of the App is consistent with the activity duration of the device.
+ *  See delegate uteManagerReceiveSportMode:
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)setUTESportModelContinue:(UTEDeviceSportModeInfo *_Nonnull)info;
+
+/**
+ *  @discussion Set sport mode Info
+ *  Required:isHasSportPause=YES
+ *
+ *  @param info See UTEDeviceSportModeInfo
+ *  Note:You should set the parameters(UTEDeviceSportModeInfo) every second by invoke this method.
+ *  In order to keep the device time consistent with the app time during exercise.
+ *  There is no need to invoke this method after the exercise is over.
+ *
+ *  No need to fill in UTEDeviceSportModeInfo.status
+ *  When Sport model is UTEDeviceSportModeWalking/UTEDeviceSportModeRunning/UTEDeviceSportModeCycling ,
+ *  parameters(UTEDeviceSportModeInfo.calories , UTEDeviceSportModeInfo.distance ,UTEDeviceSportModeInfo.speed) need to be filled.
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)setUTESportModelInfo:(UTEDeviceSportModeInfo *_Nonnull)info;
+
+/**
+ *  @discussion Set Headset sport mode on or off
+ *  Required:isHasHeadsetHRM=YES
+ *
+ *  Note:If the app and device are disconnected for 10 minutes, the heart rate headset will automatically end the exercise.
+ *  Status can be monitored through method uteManagerHeadsetSport
+ *
+ *  @param  open Open or close
+ *  @param  hrmTime Unit second, Range(1~200). How often have a heart rate.
+ *   Method uteManagerReceiveSportHRM to monitor heart rate and other data.
+ *
+ *  @param  mode See UTEDeviceSportMode
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)setUTESportHeadsetModel:(UTEDeviceSportMode)mode
+                           open:(BOOL)open
+                        hrmTime:(NSInteger)hrmTime;
+                        
+/**
+ *  @discussion Set which sport types are currently displayed on the device
+ *  Required:isHasMoreSportType = YES
+ *
+ *  @param  array  See UTEDeviceSportMode (Convert to NSNumber)
+ *  The order of array is the order of Sport Type in the device.
+ *
+ *  @param  callback if YES  (errorCode = 0), device successfully received the data.
+ *  OR errorCode = 1, The number of devices displayed exceeds the limit.
+ *
+ *  Note: See method readUTESportModelSupport:
+ *  Do not fill in the sports that the device does not support, otherwise the device interface will display a blank line.
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)setUTESportModelCurrentDisplay:(NSArray<NSNumber *> * _Nonnull)array callback:(void(^_Nullable)(BOOL success, NSInteger errorCode))callback;
+
+/**
+ *  @discussion Sport  heart rate alert
+ *  Required: isHasSportTargetHRM=YES
+ *
+ *  @param minHRMAlert Range 50~180
+ *  @param maxHRMAlert Range 70~200
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)setUTESportHRMAlert:(NSInteger)minHRMAlert alertMax:(NSInteger)maxHRMAlert open:(BOOL)open;
+
+/**
+ *  @discussion Sport target distance
+ *  Required: isHasSportTargetHRM=YES
+ *
+ *  @param distance Unit meter. Range 100~1000000
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)setUTESportTargetDistance:(NSInteger)distance open:(BOOL)open;
+
+/**
+ *  @discussion Sport target duration
+ *  Required: isHasSportTargetHRM=YES
+ *
+ *  @param duration Unit seconds. Range 120~86400
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)setUTESportTargetDuration:(NSInteger)duration open:(BOOL)open;
+
+/**
+ *  @discussion Sport target calories
+ *  Required: isHasSportTargetHRM=YES
+ *
+ *  @param calories Unit kcal. Range 50~10000
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)setUTESportTargetCalories:(NSInteger)calories open:(BOOL)open;
+
+/**
+ *  @discussion Sync data(All sport data from a certain day to today)
+ *  Required:isHasSportHRM=YES
+ *  See UTEDevicesSateSyncSuccess,key:kUTEQuerySportHRMData.
+ *
+ *  @param  time From that day. Format:yyyy-MM-dd-HH-mm  e.g. @"2018-08-30-09-30"
+ *
+ *  @return It sends successfully or fails
+ */
+- (BOOL)syncUTESportModelCustomTime:(NSString *_Nonnull)time;
+
+/**
+ *  @discussion Set which sports icons are displayed
+ *  Required:isHasCustomSportIconList = YES
+ *  @param array See Enum UTEDeviceSportMode
+ *  e.g. @[[NSNumber numberWithInteger:UTEDeviceSportModeRunning], [NSNumber numberWithInteger:UTEDeviceSportModeCycling]]
+ *
+ *  @return It sends successfully or fails
+ *
+ *  Note:The order in array is the order in which it is displayed.
+ */
+- (BOOL)setSportIcons:(NSArray *_Nonnull)array callback:(void(^_Nullable)(BOOL success))callback;
+
+/**
+ *  @discussion Get which sports icons are showing
+ *  Required:isHasCustomSportIconList = YES
+ *  @param callback See Enum UTEDeviceSportMode
+ *
+ *  e.g. @[[NSNumber numberWithInteger:UTEDeviceSportModeRunning], [NSNumber numberWithInteger:UTEDeviceSportModeCycling]]
+ *
+ *  @return It sends successfully or fails
+ *
+ *  Note:
+ *  1.The order in array is the order in which it is displayed.
+ *  2.arrayShow : How many icons are currently displayed on the device
+ *  3.arrayHide : How many icons are hidden on the current device
+ *  4.minShow : Indicates how many icons need to be displayed at least. If it is 0, it means that the device does not support this attribute.
+ *  5.maxShow : Indicates how many icons can be displayed at most. If it is 0, it means that the device does not support this attribute.
+ *
+ */
+- (BOOL)readSportIconShow:(void(^_Nullable)(NSArray * _Nullable arrayShow ,NSArray * _Nullable arrayHide, BOOL success, NSInteger minShow, NSInteger maxShow))callback;
+
+#pragma mark - Other
 /**
  *  @discussion Correction device to monitor sleep
  *  Required:isHasCustomSleep=Yes
@@ -856,6 +1548,15 @@ typedef void(^cardApduResponseBlock)(NSData * _Nullable data,BOOL success);
  *  @return It sends successfully or fails
  */
 - (BOOL)setUTEDeviceCheckWearOpen:(BOOL)open;
+
+/**
+ *  @discussion Display and wearing style
+ *  Required: isHasSwitchHand=YES
+ *
+ *  @param wearType  See UTEWearType
+ *  @param sreenType See UTEDeviceSreenDisplayType
+ */
+- (void)sendUTEWearType:(UTEWearType)wearType sreenType:(UTEDeviceSreenDisplayType)sreenType;
 
 /**
  *  @discussion Drink water reminder
@@ -1009,61 +1710,11 @@ typedef void(^cardApduResponseBlock)(NSData * _Nullable data,BOOL success);
 - (BOOL)readUTEDeviceGPSStatus:(void(^_Nullable)(UTEDeviceGPSStatus status))result;
 
 /**
- *  @discussion Read heart rate status
- *  Whether the device is detecting heart rate
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)readHRMStatus:(void(^_Nullable)(BOOL isHeartDetecting))result;
-
-/**
- *  @discussion Read Blood Oxygen status
- *  Whether the device is detecting
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)readBloodOxygenStatus:(void(^_Nullable)(BOOL isDetecting))result;
-
-/**
- *  @discussion Read respiration status
- *  Whether the device is detecting
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)readRespirationStatus:(void(^_Nullable)(BOOL isDetecting))result;
-
-/**
  *  @discussion Read the connected device signal value
  *
  *  @return It sends successfully or fails
  */
 - (BOOL)readDeviceRSSI:(void(^_Nullable)(NSInteger rssi))result;
-
-/**
- *  @discussion Read device body fat status
- *  Whether the device is detecting body fat
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)readDeviceBodyFatStatus:(void(^_Nullable)(BOOL isDetecting))result;
-
-/**
- *  @discussion Read the language of the current device
- *  Required: isHasReadLanguage=YES
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)readDeviceLanguage:(void(^_Nullable)(UTEDeviceLanguage language))result;
-
-/**
- *  @discussion Read which languages the current device supports
- *  Required: isHasReadSupportLanguage=YES
- *
- *  supports:NSArray e.g. @[@UTEDeviceLanguageChinese, @UTEDeviceLanguageEnglish...]
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)readDeviceLanguageSupport:(void(^_Nullable)(UTEDeviceLanguage currentLanguage,NSArray<NSNumber *> * _Nullable supports))result;
 
 /**
  *  @discussion What other types of data are not yet synchronized (or what new data)
@@ -1074,112 +1725,6 @@ typedef void(^cardApduResponseBlock)(NSData * _Nullable data,BOOL success);
  *  @return It sends successfully or fails
  */
 - (BOOL)readDeviceDataStatus:(void(^_Nullable)(UTEModelDeviceDataStatus *_Nullable status))result;
-
-/**
- *  @discussion Read if the device has data to save offline ECG history
- *
- *  @param  result (Format:yyyy-MM-dd-HH-mm) If there is ECG data, the date of the historical data is returned, otherwise nil.
- *
- *  Note:It is recommended to call this method before synchronizing the ECG data of the device, so that the progress percentage of the synchronization will be displayed truthfully.
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)readDeviceECGHistoryDate:(void(^_Nullable)(NSString *_Nullable strDate))result;
-
-/**
-*  @discussion Sampling frequency of device's ECG
-*
-*  @param result
-*   frequency: This parameter may be needed when drawing an ECG.How many points are there per second.
-*   ignore: The result of the test needs to delete the initial number of points.
-*
-*
-*  @return It sends successfully or fails
-*/
-- (BOOL)readDeviceECGSamplingfrequency:(void(^_Nullable)(NSInteger frequency ,NSInteger ignore))result;
-
-/**
- *  @discussion Read which shortcut buttons are supported by the device
- *  Required:isHasShortcutButton=YES
- *
- *  Please see delegate uteManagerShortcutBtnSupport:
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)readDeviceShortcutBtnSupport;
-
-/**
- *  @discussion Read the status of device shortcut buttons
- *  Required:isHasShortcutButton=YES
- *  Callback uteManagerShortcutBtnStatus:closeType
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)readDeviceShortcutBtnStatus;
-
-/**
- *  @discussion Which app icons are built into the device
- *  Required:isHasIconANCS=YES
- *
- *  @param result arrayApp See UTEDeviceApp(please convert NSNumber to UTEDeviceApp).
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)readDeviceSupportAppListANCS:(void(^_Nullable)(NSArray<NSNumber *> * _Nullable arrayApp))result;
-
-/**
- *  @discussion Read MPF sensor name
- *  Required: isHasMPF=YES
- *
- *  @param result Sensor Name AND Whether the device displays Mood/Pressure/Fatigue interface.
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)readDeviceSensorMPF:(void(^_Nullable)(NSString *_Nullable sensorName,BOOL haveMood,BOOL havePressure,BOOL haveFatigue))result;
-
-/**
- *  @discussion Test body fat
- *
- *  @param  open  Start or stop
- *  @param  model If you are testing body fat, you must set UTEModelDeviceBodyFatConfig
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)monitorBodyFat:(BOOL)open config:(UTEModelDeviceBodyFatConfig *_Nonnull)model;
-
-/**
- *  @discussion   Set Body Fat Information
- *  @param  model See UTEModelDeviceBodyFatConfig
- */
-- (BOOL)setUTEBodyFatInfo:(UTEModelDeviceBodyFatConfig *_Nonnull)model;
-
-/**
- *  @discussion ECG test
- *
- *  @param  open  Start or stop
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)monitorECG:(BOOL)open;
-
-/**
- *  @discussion Calibrate body temperature
- *  Required:isHasCalibrateBodyTemperature = YES
- *  @param  temp      Calibration temperature. Unit Celsius. Exact two decimal places
- *  e.g. @"16.55" @"16" ,range 0.01~255 .
- *
- *  @param  complete  Calibration succeeded or failed
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)calibrateBodyTemp:(NSString *_Nonnull)temp complete:(void(^_Nullable)(BOOL success))complete;
-
-/**
- *  @discussion Read the compensation value of the current calibration temperature
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)readDeviceCalibrateBodyTemp:(void(^_Nullable)(NSString *_Nullable temp))result;
 
 /**
  *  @discussion Sync data (from a certain date to the present)
@@ -1209,403 +1754,6 @@ typedef void(^cardApduResponseBlock)(NSData * _Nullable data,BOOL success);
  *
  */
 - (BOOL)syncDataGPS:(NSString *_Nonnull)time;
-
-/**
- *  @discussion Time for automatic Blood Oxygen test
- *
- *  @return It sends successfully or fails
- *
- */
-- (BOOL)setBloodOxygenAutoTest:(BOOL)open time:(UTECommonTestTime)testTime;
-
-/**
- *  @discussion Duration of automatic test BloodOxygen
- *  When method (setBloodOxygenAutoTest:time:) parameter open is YES, this method is valid.
- *
- *  @param open  If YES,  BloodOxygen is automatically test between startTime and endTime.
- *               If NO,  BloodOxygen testing throughout the day.
- *
- *  @param startTime  e.g. @"08:30"
- *  @param endTime    e.g. @"18:00"
- *
- *  @return It sends successfully or fails
- *
- */
-- (BOOL)setBloodOxygenAutoTestDuration:(BOOL)open startTime:(NSString *_Nonnull)startTime endTime:(NSString *_Nonnull)endTime;
-
-/**
- *  @discussion Time for automatic Respiration test
- *
- *  @return It sends successfully or fails
- *
- */
-- (BOOL)setRespirationAutoTest:(BOOL)open time:(UTECommonTestTime)testTime;
-
-/**
- *  @discussion Duration of automatic test Respiration
- *  When method (setRespirationAutoTest:time:) parameter open is YES, this method is valid.
- *
- *  @param open  If YES,  Respiration is automatically test between startTime and endTime.
- *               If NO,  Respiration testing throughout the day.
- *
- *  @param startTime  e.g. @"08:30"
- *  @param endTime    e.g. @"18:00"
- *
- *  @return It sends successfully or fails
- *
- */
-- (BOOL)setRespirationAutoTestDuration:(BOOL)open startTime:(NSString *_Nonnull)startTime endTime:(NSString *_Nonnull)endTime;
-
-/**
- *  @discussion Sync data (from a certain date to today)
- *  Required:isHasBodyTemperature = YES
- *
- *  @param  time From that day. Format:yyyy-MM-dd-HH-mm e.g. @"2018-08-30-09-30"
- *
- *  @return It sends successfully or fails
- *
- */
-- (BOOL)syncBodyTemperature:(NSString *_Nonnull)time;
-
-/**
- *  @discussion Time for automatic body temperature test
- *  Required:isHasBodyTemperature = YES
- *
- *  @param open  If YES,turn on automatic temperature test.
- *               If NO,turn off automatic temperature test.
- *
- *  @param testTime See UTEBodyTempTestTime (Test frequency)
- *
- *  @return It sends successfully or fails
- *
- */
-- (BOOL)setBodyTemperatureAutoTest:(BOOL)open time:(UTECommonTestTime)testTime;
-
-/**
- *  @discussion Duration of automatic test body temperature
- *  Required:isHasBodyTemperature = YES
- *  When method (setBodyTemperatureAutoTest:time:) parameter open is YES, this method is valid.
- *
- *  @param open  If YES,  body temperature is automatically test between startTime and endTime.
- *               If NO,  body temperature testing throughout the day.
- *
- *  @param startTime  e.g. @"08:30"
- *  @param endTime    e.g. @"18:00"
- *
- *  @return It sends successfully or fails
- *
- */
-- (BOOL)setBodyTemperatureAutoTestDuration:(BOOL)open startTime:(NSString *_Nonnull)startTime endTime:(NSString *_Nonnull)endTime;
-
-/**
- *  @discussion Set body temperature device alarm value
- *  If the body temperature(UTEModelBodyTemperature.bodyTemperature) exceeds the maximum or minimum value,lasts longer than one minute,
- *  the device will alert. See UTEDevicesSateBodyTempAlarm.
- *  Required:isHasBodyTemperature = YES
- *
- *  Max OR Min Temperature range 35 ~ 42.
- *
- *  @param  open  Enable alarm
- *  @param  max   Maximum temperature.
- *  @param  min   Minimum temperature.
- *
- *  @return It sends successfully or fails
- *
- */
-- (BOOL)setBodyTemperatureAlarmOpen:(BOOL)open max:(CGFloat)max alarmMin:(CGFloat)min;
-
-/**
- *  @discussion Open body temperature Funtion2(original data collection)
- *
- *  Required:isHasBodyTemperatureFunction2 = YES
- *
- *  @param  open If YES, During the test, UTEModelBodyTemperature.ambientTemperature/shellTemperature have value .
- *                 If NO, During the test, UTEModelBodyTemperature.bodyTemperature/shellTemperature have value .
- *
- *  @return It sends successfully or fails
- *
- */
-- (BOOL)setBodyTemperatureEnableFuntion2:(BOOL)open;
-
-/**
- *  @discussion Read Body Temperature Funtion2 Status
- *
- *  Required:isHasBodyTemperatureFunction2 = YES
- *
- *  @return It sends successfully or fails
- *
- */
-- (BOOL)readBodyTemperatureFuntion2Status:(void(^_Nullable)(BOOL open))result;
-
-/**
- *  @discussion Read Current Body Temperature Current
- *
- *  Required:isHasBodyTemperature = YES
- *
- *  CallBack: See delegate uteManagerDevicesSate:UTEDevicesSateBodyTempCurrent
- *  Note:It may take 10 to 30 seconds before the body temperature data is CallBack.
- *
- *  @return It sends successfully or fails
- *
- */
-- (BOOL)readBodyTemperatureCurrent;
-
-/**
- *  @discussion How many sports does the device support
- *  Required:isHasMoreSportType = YES
- *
- *  @param callback
- *  minDisplay : The minimum number of sports icons displayed on the device interface
- *  maxDisplay : The maximum number of sports icons displayed on the device interface
- *  array : Which sports are supported by the device. See UTEDeviceSportMode (Convert to NSNumber)
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)readUTESportModelSupport:(void(^_Nullable)(NSInteger minDisplay,NSInteger maxDisplay, NSArray<NSNumber *> * _Nullable array))callback;
-
-/**
- *  @discussion Which sports are displayed by the device
- *  Required:isHasMoreSportType = YES
- *
- *  @param callback  array  See UTEDeviceSportMode (Convert to NSNumber)
- *  The order of array is the order of Sport Type in the device.
- *
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)readUTESportModelCurrentDisplay:(void(^_Nullable)(NSArray<NSNumber *> * _Nullable array))callback;
-
-/**
- *  @discussion Read the status of the device's sport mode
- *  Required:isHasSportHRM = YES
- *
- *  Note:When isHasHeadsetHRM=YES, please invoke readUTESportHeadsetModelStatus
- *  Each time the device is successfully connected, the SDK will automatically read it once.
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)readUTESportModelStatus:(void(^_Nullable)(UTEDeviceSportMode mode,UTEDeviceSportModeStatus status))callback;
-/**
- *  @discussion Read the status of the Headset's sport mode.
- *  Each time the device is successfully connected, the SDK will automatically read it once.
- *
- *  Required:isHasHeadsetHRM=YES
- *  Callback: uteManagerHeadsetSport
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)readUTESportHeadsetModelStatus;
-
-/**
- *  @discussion Set sport mode on or off
- *  Required:isHasSportHRM=YES
- *
- *  Note:When isHasHeadsetHRM=YES please invoke setUTESportHeadsetModel.
- *  Method uteManagerReceiveSportHRM to monitor heart rate and other data.
- *
- *  @param  open Open or close
- *  @param  hrmTime How often does the device save the heart rate value.
- *  @param  mode See UTEDeviceSportMode
- *  @param  callback When the device receives command, there is a callback.OR see delegate uteManagerReceiveSportMode:status
- *
- *  Note:If the device has opened a sport mode A, and then turn it on or off a sport mode(Not Sport Mode A), then there is no callback.
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)setUTESportModel:(UTEDeviceSportMode)mode
-                    open:(BOOL)open
-                 hrmTime:(UTEDeviceIntervalTime)hrmTime
-                callback:(void(^_Nullable)(UTEDeviceSportMode mode,BOOL open))callback;
-
-/**
- *  @discussion Set sport mode pause
- *  Required:isHasSportPause=YES
- *
- *  @param info See UTEDeviceSportModeInfo
- *  Note:Set the parameters(UTEDeviceSportModeInfo) ensure that the activity duration of the App is consistent with the activity duration of the device.
- *  See delegate uteManagerReceiveSportMode:
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)setUTESportModelPause:(UTEDeviceSportModeInfo *_Nonnull)info;
-
-/**
- *  @discussion Set sport mode continue
- *  Required:isHasSportPause=YES
- *
- *  @param info See UTEDeviceSportModeInfo
- *  Note:Set the parameters(UTEDeviceSportModeInfo) ensure that the activity duration of the App is consistent with the activity duration of the device.
- *  See delegate uteManagerReceiveSportMode:
- *  
- *  @return It sends successfully or fails
- */
-- (BOOL)setUTESportModelContinue:(UTEDeviceSportModeInfo *_Nonnull)info;
-
-/**
- *  @discussion Set sport mode Info
- *  Required:isHasSportPause=YES
- *
- *  @param info See UTEDeviceSportModeInfo
- *  Note:You should set the parameters(UTEDeviceSportModeInfo) every second by invoke this method.
- *  In order to keep the device time consistent with the app time during exercise.
- *  There is no need to invoke this method after the exercise is over.
- *
- *  No need to fill in UTEDeviceSportModeInfo.status
- *  When Sport model is UTEDeviceSportModeWalking/UTEDeviceSportModeRunning/UTEDeviceSportModeCycling ,
- *  parameters(UTEDeviceSportModeInfo.calories , UTEDeviceSportModeInfo.distance ,UTEDeviceSportModeInfo.speed) need to be filled.
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)setUTESportModelInfo:(UTEDeviceSportModeInfo *_Nonnull)info;
-
-/**
- *  @discussion Set Headset sport mode on or off
- *  Required:isHasHeadsetHRM=YES
- *
- *  Note:If the app and device are disconnected for 10 minutes, the heart rate headset will automatically end the exercise.
- *  Status can be monitored through method uteManagerHeadsetSport
- *
- *  @param  open Open or close
- *  @param  hrmTime Unit second, Range(1~200). How often have a heart rate.
- *   Method uteManagerReceiveSportHRM to monitor heart rate and other data.
- *
- *  @param  mode See UTEDeviceSportMode
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)setUTESportHeadsetModel:(UTEDeviceSportMode)mode
-                           open:(BOOL)open
-                        hrmTime:(NSInteger)hrmTime;
-						
-/**
- *  @discussion Set which sport types are currently displayed on the device
- *  Required:isHasMoreSportType = YES
- *
- *  @param  array  See UTEDeviceSportMode (Convert to NSNumber)
- *  The order of array is the order of Sport Type in the device.
- *
- *  @param  callback if YES  (errorCode = 0), device successfully received the data.
- *  OR errorCode = 1, The number of devices displayed exceeds the limit.
- *
- *  Note: See method readUTESportModelSupport:
- *  Do not fill in the sports that the device does not support, otherwise the device interface will display a blank line.
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)setUTESportModelCurrentDisplay:(NSArray<NSNumber *> * _Nonnull)array callback:(void(^_Nullable)(BOOL success, NSInteger errorCode))callback;
-
-/**
- *  @discussion Sport  heart rate alert
- *  Required: isHasSportTargetHRM=YES
- *
- *  @param minHRMAlert Range 50~180
- *  @param maxHRMAlert Range 70~200
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)setUTESportHRMAlert:(NSInteger)minHRMAlert alertMax:(NSInteger)maxHRMAlert open:(BOOL)open;
-
-/**
- *  @discussion Sport target distance
- *  Required: isHasSportTargetHRM=YES
- *
- *  @param distance Unit meter. Range 100~1000000
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)setUTESportTargetDistance:(NSInteger)distance open:(BOOL)open;
-
-/**
- *  @discussion Sport target duration
- *  Required: isHasSportTargetHRM=YES
- *
- *  @param duration Unit seconds. Range 120~86400
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)setUTESportTargetDuration:(NSInteger)duration open:(BOOL)open;
-
-/**
- *  @discussion Sport target calories
- *  Required: isHasSportTargetHRM=YES
- *
- *  @param calories Unit kcal. Range 50~10000
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)setUTESportTargetCalories:(NSInteger)calories open:(BOOL)open;
-
-/**
- *  @discussion Sync data(All sport data from a certain day to today)
- *  Required:isHasSportHRM=YES
- *  See UTEDevicesSateSyncSuccess,key:kUTEQuerySportHRMData.
- *
- *  @param  time From that day. Format:yyyy-MM-dd-HH-mm  e.g. @"2018-08-30-09-30"
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)syncUTESportModelCustomTime:(NSString *_Nonnull)time;
-
-/**
- *  @discussion Set blood pressure calibration parameters
- *  Required:isHasBloodCalibrate=YES
- *
- *  @param callback Device setting parameters succeeded or failed.
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)setBloodCalibrateData:(NSData *_Nonnull)data callback:(void(^_Nullable)(BOOL success))callback;
-
-/**
- *  @discussion Set blood pressure  parameters
- *  Required:isHasBloodCalibrate=YES
- *
- *  @param isHypertension Is it high blood pressure.
- *  @param isDrug Taking medicines related to lowering high blood pressure.
- *  @param callback Device setting parameters succeeded or failed.
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)setBloodParamHypertension:(BOOL)isHypertension drug:(BOOL)isDrug callback:(void(^_Nullable)(BOOL success))callback;
-
-/**
- *  @discussion Does the device need to be calibrated
- *  Required:isHasBloodCalibrate=YES
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)readBloodCalibrateStatus:(void(^_Nullable)(BOOL needCalibrate))callback;
-
-/**
- *  @discussion Regular blood pressure test
- *  Required:isHasBloodPressureCustom=YES
- *
- *  @param array See UTEModelCustomBloodClock
- *  Note:12 Clocks must be filled
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)setCustomBloodAlarmClock:(NSArray<UTEModelCustomBloodClock *> *_Nonnull)array;
-- (BOOL)setCustomBloodHandle;
-
-/**
- *  @discussion How many blood pressure records are there.
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)readCustomBloodHistoryCount:(void(^_Nullable)(NSInteger count))callback;
-
-/**
- *  @discussion Blood History
- *
- *  @param fromIndex Data start position
- *  @param toIndex  Data end position
- *
- *  The data(fromIndex,toIndex) cannot exceed the number returned by method readCustomBloodHistoryCount.
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)readCustomBloodHistoryFrom:(NSInteger)fromIndex ToIndex:(NSInteger)toIndex;
 
 /**
  *  @discussion Daily goal. When the goal is reached, the device will vibrate to remind
@@ -1639,95 +1787,12 @@ typedef void(^cardApduResponseBlock)(NSData * _Nullable data,BOOL success);
 - (BOOL)syncUTEGoalHistory:(UTEGoalType)type;
 
 /**
- *  @discussion Whether the device has been activated MPF(Mood,Pressure and Fatigue)
- *  Required:isHasMPF=YES
- *  If activated, the device can test MPF offline. If NO, Please invoke activateDeviceMPF:   to activate .
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)checkDeviceActivateMPF:(void(^_Nullable)(BOOL activated))callback;
-
-/**
- *  @discussion Activate the MPF of the device
- *  Required:isHasMPF=YES
- *  If success, the device can test MPF offline.
- *  @param callback errorCode See UTEErrorCode
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)activateDeviceMPF:(void(^_Nullable)(BOOL success ,UTEErrorCode errorCode))callback;
-
-/**
- *  @discussion Whether the device is detecting Mood,Pressure and Fatigue
- *  Required:isHasMPF = YES
- *
- *  @return It sends successfully or fails
- */
-- (BOOL)readUTE_MPF_Status:(void(^_Nullable)(BOOL detecting))callback;
-
-/**
- *  @discussion Monitoring interval
- *  Required:isHasMPF = YES
- *
- *  @return It sends successfully or fails
- *
- */
-- (BOOL)setMPFAutoTest:(BOOL)open time:(UTECommonTestTime)testTime;
-
-/**
- *  @discussion Time period for automatic monitoring
- *  Required:isHasMPF = YES
- *  When method (setMPFAutoTest:time:) parameter open is YES, this method is valid.
- *
- *  @param open  If YES,  The detection period is from startTime to endTime.
- *               If NO, All day.
- *
- *  @param startTime  e.g. @"08:30"
- *  @param endTime    e.g. @"18:00"
- *
- *  @return It sends successfully or fails
- *
- */
-- (BOOL)setMPFAutoTestDuration:(BOOL)open startTime:(NSString *_Nonnull)startTime endTime:(NSString *_Nonnull)endTime;
-
-/**
  *  @discussion When receiving the instruction of the device to find the iPhone, the ringing state of the app.
  *  Required:isHasFindiPhone = YES
  *
  *  @return It sends successfully or fails
  */
 - (BOOL)setRingtoneStatus:(BOOL)open;
-
-/**
- *  @discussion Set which sports icons are displayed
- *  Required:isHasCustomSportIconList = YES
- *  @param array See Enum UTEDeviceSportMode
- *  e.g. @[[NSNumber numberWithInteger:UTEDeviceSportModeRunning], [NSNumber numberWithInteger:UTEDeviceSportModeCycling]]
- *
- *  @return It sends successfully or fails
- *
- *  Note:The order in array is the order in which it is displayed.
- */
-- (BOOL)setSportIcons:(NSArray *_Nonnull)array callback:(void(^_Nullable)(BOOL success))callback;
-
-/**
- *  @discussion Get which sports icons are showing
- *  Required:isHasCustomSportIconList = YES
- *  @param callback See Enum UTEDeviceSportMode
- *
- *  e.g. @[[NSNumber numberWithInteger:UTEDeviceSportModeRunning], [NSNumber numberWithInteger:UTEDeviceSportModeCycling]]
- *
- *  @return It sends successfully or fails
- *
- *  Note:
- *  1.The order in array is the order in which it is displayed.
- *  2.arrayShow : How many icons are currently displayed on the device
- *  3.arrayHide : How many icons are hidden on the current device
- *  4.minShow : Indicates how many icons need to be displayed at least. If it is 0, it means that the device does not support this attribute.
- *  5.maxShow : Indicates how many icons can be displayed at most. If it is 0, it means that the device does not support this attribute.
- *
- */
-- (BOOL)readSportIconShow:(void(^_Nullable)(NSArray * _Nullable arrayShow ,NSArray * _Nullable arrayHide, BOOL success, NSInteger minShow, NSInteger maxShow))callback;
 
 /**
  *  @discussion Set which Menu icons are displayed
@@ -1770,33 +1835,9 @@ typedef void(^cardApduResponseBlock)(NSData * _Nullable data,BOOL success);
 - (BOOL)modifyUTEBluetoothName:(NSString *_Nonnull)name success:(void(^_Nullable)(BOOL ok))success;
 
 /**
- *  @discussion Check which known devices are connected to the system.
- *
- *  Note:Currently Apple does not provide a method to query which devices and systems are paired
- *
- *  @param  UUID What services does the device have, can fill in one or more services. e.g. @[@"EFF5"].
- *  See mServicesConnectedUUID in UTEModelDevices.
- *
- *  @return If there are no connected devices, 0 will be returned. If yes, then only attributes 'identifier' and 'name' in UTEModelDevices have values.
- */
-- (NSArray<UTEModelDevices *> *_Nullable)retrieveConnectedDeviceWithServers:(NSArray<NSString *> *_Nonnull)UUID;
-
-/**
- *  @discussion Check local firmware
- *
- *  @url firmware path
- *  e.g. @"/var/mobile/Containers/Data/Application/xxxxx/SH0AV0000564.bin"
- *  e.g. @"/var/mobile/Containers/Data/Application/xxxxx/SH0AV0000564.img"
- *
- *  @return Is the firmware valid. If Yes , You can invoke method beginUpdateFirmware to upgrade the firmware.
- *  if NO,Please do not upgrade the firmware, otherwise the device will freeze and become unusable.
-*/
-- (BOOL)updateLocalFirmwareUrl:(NSString *_Nonnull)url;
-
-/**
  *  @discussion Current SDK version
  *
- *  @return e.g. @"2.14.9"
+ *  @return e.g. @"2.15.0"
  *
  *  Note:If it is a four digit such as @"2.3.10.8", then the last 8 is the 8th debug version.
  */

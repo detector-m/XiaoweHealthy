@@ -1870,4 +1870,18 @@ typedef NS_ENUM(NSInteger, UTEMenuIcon) {
     UTEMenuIconAlipay,
 };
 
+/*!
+ *  @enum UTEDeviceBloodFeature
+ *
+ *  @discussion Blood pressure supports more functions
+ *
+ */
+typedef NS_ENUM(NSInteger, UTEDeviceBloodFeature) {
+    UTEDeviceBloodFeatureHRV                = 1 << 0,    
+    UTEDeviceBloodFeatureCardiovascular     = 1 << 1,
+    UTEDeviceBloodFeatureLiquor             = 1 << 2,
+    UTEDeviceBloodFeatureOverallRating      = 1 << 3,
+
+};
+
 @end

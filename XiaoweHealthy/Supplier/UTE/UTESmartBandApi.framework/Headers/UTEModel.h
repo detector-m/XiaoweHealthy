@@ -546,9 +546,9 @@
  */
 @property (nonatomic,assign) BOOL      isHasCustomWeatherCity;
 /**
- *  ①Support Blood pressure is automatically activated
+ *  ①Support blood pressure more functions
  */
-@property (nonatomic,assign) BOOL      isHasAutoActiveBlood;
+@property (nonatomic,assign) BOOL      isHasBloodMoreFeatures;
 /**
  *  ①Support Weather humidity and UV
  */
