@@ -400,7 +400,7 @@ extension XWHHealthyMainVC {
         let date = Date()
         let hearts = XWHHealthyDataManager.getHearts(identifier: Self.testDeviceSn(), bDate: date.dayBegin, eDate: date.dayEnd)
         
-        log.info(hearts)
+        log.debug(hearts)
     }
     
     private func testPostBloodOxygen() {

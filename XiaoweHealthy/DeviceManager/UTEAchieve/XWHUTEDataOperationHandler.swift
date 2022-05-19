@@ -184,7 +184,7 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             
             return rModel
         }
-        log.info("同步心率的原始数据 \(parsedHeartArray)")
+        log.debug("同步心率的原始数据 \(parsedHeartArray)")
         if !parsedHeartArray.isEmpty {
             if let last = parsedHeartArray.last?.clone() {
                 XWHHealthyDataManager.saveHeart(last)
@@ -223,7 +223,7 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             return rModel
         }
         
-        log.info("同步血氧的原始数据 \(parsedboArray)")
+        log.debug("同步血氧的原始数据 \(parsedboArray)")
         if !parsedboArray.isEmpty {
             if let last = parsedboArray.last?.clone() {
                 XWHHealthyDataManager.saveBloodOxygen(last)
@@ -331,7 +331,7 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             parsedSleepArray.append(sModel)
         }
         
-        log.info("同步睡眠的原始数据 \(parsedSleepArray)")
+        log.debug("同步睡眠的原始数据 \(parsedSleepArray)")
         if !parsedSleepArray.isEmpty {
 //            if let last = parsedSleepArray.last?.clone() {
 //                XWHHealthyDataManager.saveBloodOxygen(last)
@@ -373,7 +373,7 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             return rModel
         }
 
-        log.info("同步精神状态原始数据 \(parsedMsArray)")
+        log.debug("同步精神状态原始数据 \(parsedMsArray)")
         if !parsedMsArray.isEmpty {
             if let last = parsedMsArray.last?.clone() {
                 XWHHealthyDataManager.saveMentalState(last)

@@ -79,17 +79,17 @@ class XWHCryptoAES {
 //        }
         
         let oString = "hello"
-        log.info(oString)
+        log.debug(oString)
         
         let eString = oString.aesEncrypt()
-        log.info(eString)
+        log.debug(eString)
         
         let dString = eString?.aesDecrypt()
-        log.info(dString)
+        log.debug(dString)
         
         let eString1 = "VHn5WXeXswWKN3wRs9bG3w=="
         let dString1 = eString1.aesDecrypt()
-        log.info(dString1)
+        log.debug(dString1)
     }
     
 }

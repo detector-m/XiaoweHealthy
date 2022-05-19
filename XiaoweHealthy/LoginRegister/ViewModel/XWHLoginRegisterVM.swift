@@ -38,7 +38,7 @@ class XWHLoginRegisterVM {
                     return
                 }
                 
-                log.info(json.dictionaryObject)
+                log.debug(json.dictionaryObject)
                 if json["code"].intValue != 0 {
                     retError.message = "code = \(json["code"].intValue)"
 
@@ -80,7 +80,7 @@ class XWHLoginRegisterVM {
                     return
                 }
                 
-                log.info(json.dictionaryObject)
+                log.debug(json.dictionaryObject)
                 if json["code"].intValue != 0 {
                     retError.code = json["code"].stringValue
                     retError.message = json["message"].stringValue

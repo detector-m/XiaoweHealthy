@@ -44,8 +44,10 @@ class XWHLog {
             let logDirPath = logDir.path
             var cFiles = try FileManager.default.contentsOfDirectory(atPath: logDirPath)
             cFiles = cFiles.filter({ $0.hasSuffix(logSufix) }).sorted()
-            if cFiles.count > 7 {
-                for i in 0 ..< cFiles.count - 7 {
+            
+            let removeMax = cFiles.count - 7
+            if removeMax > 0 {
+                for i in 0 ..< removeMax {
                     let iFile = cFiles[i]
                     let cPath = logDirPath.appendingPathComponent(iFile)
                     

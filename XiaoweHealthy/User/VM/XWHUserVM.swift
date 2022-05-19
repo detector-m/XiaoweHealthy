@@ -56,7 +56,7 @@ class XWHUserVM {
                     return
                 }
                 
-                log.info(json.dictionaryObject)
+                log.debug(json.dictionaryObject)
                 if json["code"].intValue != 0 {
                     retError.code = json["code"].stringValue
                     retError.message = json["message"].stringValue
@@ -102,7 +102,7 @@ class XWHUserVM {
                     return
                 }
                 
-                log.info(json.dictionaryObject)
+                log.debug(json.dictionaryObject)
                 if json["code"].intValue != 0 {
                     retError.code = json["code"].stringValue
                     retError.message = json["message"].stringValue
