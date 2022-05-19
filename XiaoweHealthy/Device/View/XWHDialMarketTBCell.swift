@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class XWHDialMarketTBCell: XWHCommonBaseTBCell {
     
@@ -64,6 +65,42 @@ class XWHDialMarketTBCell: XWHCommonBaseTBCell {
         dialImageView3.snp.makeConstraints { make in
             make.size.centerY.equalTo(dialImageView1)
             make.right.equalToSuperview().offset(-20)
+        }
+    }
+    
+    func update(title: String, subTitle: String, dials: [XWHDialModel]) {
+        titleLb.text = title
+        subTitleLb.text = subTitle
+        
+        dialImageView1.isHidden = true
+        dialImageView2.isHidden = true
+        dialImageView3.isHidden = true
+        
+        if dials.isEmpty {
+            return
+        }
+        
+        dialImageView1.isHidden = false
+        dialImageView2.isHidden = false
+        dialImageView3.isHidden = false
+        
+        if dials.count == 1 {
+            dialImageView1.isHidden = false
+            dialImageView1.kf.setImage(with: dials[0].image.url)
+        } else if dials.count == 2 {
+            dialImageView1.isHidden = false
+            dialImageView2.isHidden = false
+            
+            dialImageView1.kf.setImage(with: dials[0].image.url)
+            dialImageView2.kf.setImage(with: dials[1].image.url)
+        } else {
+            dialImageView1.isHidden = false
+            dialImageView2.isHidden = false
+            dialImageView3.isHidden = false
+            
+            dialImageView1.kf.setImage(with: dials[0].image.url)
+            dialImageView2.kf.setImage(with: dials[1].image.url)
+            dialImageView3.kf.setImage(with: dials[2].image.url)
         }
     }
 

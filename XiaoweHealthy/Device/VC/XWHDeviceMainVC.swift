@@ -24,6 +24,8 @@ class XWHDeviceMainVC: XWHTableViewBaseVC, XWHDeviceObserverProtocol {
         XWHDataDeviceManager.getCurrentWatch()
     }
     
+    lazy var dials = [XWHDialModel]()
+    
     deinit {
         XWHDevice.shared.removeObserver(observer: self)
     }
@@ -165,6 +167,8 @@ class XWHDeviceMainVC: XWHTableViewBaseVC, XWHDeviceObserverProtocol {
         }
         
         tableView.reloadData()
+        
+        getDials()
     }
     
     // MARK: - UITableViewDataSource, UITableViewDelegate, UITableViewRoundedProtocol
@@ -187,6 +191,9 @@ class XWHDeviceMainVC: XWHTableViewBaseVC, XWHDeviceObserverProtocol {
         }
         
         if item.cellType == .dial {
+            if dials.isEmpty {
+                return 74
+            }
             return 184
         }
             
@@ -202,8 +209,6 @@ class XWHDeviceMainVC: XWHTableViewBaseVC, XWHDeviceObserverProtocol {
         if item.cellType == .info {
             let cell = tableView.dequeueReusableCell(withClass: XWHDeviceInfoTBCell.self)
             if let cDevModel = connWatchModel {
-//                cell.update(cDevModel, isConnected: XWHDevice.shared.isConnectBind, isSyncing: XWHDevice.shared.isSyncing)
-                
                 cell.update(cDevModel, connectBindState: XWHDDMShared.connectBindState, isSyncing: XWHDevice.shared.isSyncing)
                 
                 cell.clickCallback = { [unowned self] in
@@ -215,8 +220,7 @@ class XWHDeviceMainVC: XWHTableViewBaseVC, XWHDeviceObserverProtocol {
         } else if item.cellType == .dial {
             let cell = tableView.dequeueReusableCell(withClass: XWHDialMarketTBCell.self)
             
-            cell.titleLb.text = item.title
-            cell.subTitleLb.text = item.subTitle
+            cell.update(title: item.title, subTitle: item.subTitle, dials: dials)
             
             return cell
         } else {
@@ -449,8 +453,37 @@ extension XWHDeviceMainVC {
 //        }
 //    }
     
+    private func getDials() {
+        guard var deviceSn = connWatchModel?.identifier else {
+            return
+        }
+        deviceSn = XWHDeviceHelper.getStandardDeviceSn(deviceSn)
+        
+        XWHDialVM().getMyDial(deviceSn: deviceSn) { [unowned self] error in
+            self.dials = []
+            self.tableView.reloadData()
+        } successHandler: { [unowned self] response in
+            XWHProgressHUD.hide()
+            
+            guard let cDials = response.data as? [XWHDialModel] else {
+                self.view.makeInsetToast("数据解析错误")
+                return
+            }
+            
+            self.dials = cDials
+            self.tableView.reloadData()
+        }
+    }
+    
     private func gotoCheckFirmwareUpdate() {
-        XWHDeviceVM().firmwareUpdate(deviceSn: "1923190012204123450", version: "v1.0.0") { [unowned self] error in
+//        let deviceSn = "1923190012204123450"
+//        let firmwareVersion = "v1.0.0"
+        guard var deviceSn = connWatchModel?.identifier, let firmwareVersion = connWatchModel?.version else {
+            return
+        }
+        deviceSn = XWHDeviceHelper.getStandardDeviceSn(deviceSn)
+        
+        XWHDeviceVM().firmwareUpdate(deviceSn: deviceSn, version: firmwareVersion) { [unowned self] error in
             self.view.makeInsetToast(error.message)
         } successHandler: { [unowned self] response in
             guard let cJson = response.data as? JSON else {
@@ -496,9 +529,15 @@ extension XWHDeviceMainVC {
     
     // 表盘市场
     private func gotoDevSetDialMarket() {
-        let vc = XWHDialVC()
         // Test
-        vc.deviceSn = XWHHealthyMainVC.testDeviceSn()
+//        let deviceSn = XWHHealthyMainVC.testDeviceSn()
+        guard var deviceSn = connWatchModel?.identifier else {
+            return
+        }
+        deviceSn = XWHDeviceHelper.getStandardDeviceSn(deviceSn)
+                
+        let vc = XWHDialVC()
+        vc.deviceSn = deviceSn
         navigationController?.pushViewController(vc, animated: true)
     }
     
