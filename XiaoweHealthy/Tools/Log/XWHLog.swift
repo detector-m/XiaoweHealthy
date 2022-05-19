@@ -11,10 +11,12 @@ let log = XCGLogger.default
 
 class XWHLog {
     
+    private static var logDir: URL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+    private static var logSufix = "-log.txt"
     static var logFileURL: URL = {
         //日志文件地址
-        let cachePath = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
-        let logName = Date().string(withFormat: "yyyy-MM-dd") + "-log.txt"
+        let cachePath = logDir
+        let logName = Date().string(withFormat: "yyyy-MM-dd") + logSufix
         let logURL = cachePath.appendingPathComponent(logName)
         
         return logURL
@@ -31,6 +33,28 @@ class XWHLog {
         let logFileDestination: FileDestination = FileDestination(writeToFile: logFileURL, identifier: XCGLogger.Constants.fileDestinationIdentifier, shouldAppend: true)
         log.add(destination: logFileDestination)
         log.logAppDetails(selectedDestination: logFileDestination)
+        
+        DispatchQueue.global().async {
+            clearLogFiles()
+        }
+    }
+    
+    class func clearLogFiles() {
+        do {
+            let logDirPath = logDir.path
+            var cFiles = try FileManager.default.contentsOfDirectory(atPath: logDirPath)
+            cFiles = cFiles.filter({ $0.hasSuffix(logSufix) }).sorted()
+            if cFiles.count > 7 {
+                for i in 0 ..< cFiles.count - 7 {
+                    let iFile = cFiles[i]
+                    let cPath = logDirPath.appendingPathComponent(iFile)
+                    
+                    try FileManager.default.removeItem(atPath: cPath)
+                }
+            }
+        } catch let error {
+            log.error(error)
+        }
     }
     
 }
