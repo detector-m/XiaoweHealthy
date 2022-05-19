@@ -40,6 +40,13 @@ class XWHDevice {
             observer.updateDeviceConnectBind()
         }
     }
+
+    func notifyAllObserverUpdateSyncState(_ state: XWHDevDataTransferState) {
+        for observer in observers {
+            observer.updateSyncState(state)
+        }
+    }
+    
 //    func notifyAllObservers() {
 //        for observer in observers {
 //            observer.updateDeviceConnectBind()
@@ -122,8 +129,6 @@ extension XWHDevice {
             log.debug("同步进度 = \(cp)")
         } resultHandler: { [weak self] (syncType, syncState, result: Result<XWHResponse?, XWHError>) in
             
-            self?.notifyAllObserverUpdateConnectBindState()
-            
             if syncState == .succeed {
                 log.debug("数据同步成功")
             } else if syncState == .failed {
@@ -136,10 +141,12 @@ extension XWHDevice {
 //                    self?.view.makeInsetToast(error.message)
                 }
             }
+            
+            self?.notifyAllObserverUpdateSyncState(syncState)
         }
 
-        notifyAllObserverUpdateConnectBindState()
         XWHDDMShared.syncData()
+        notifyAllObserverUpdateSyncState(.inTransit)
     }
 
 }

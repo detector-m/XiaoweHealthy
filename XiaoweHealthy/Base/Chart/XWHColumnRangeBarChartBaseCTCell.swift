@@ -64,7 +64,10 @@ class XWHColumnRangeBarChartBaseCTCell: XWHChartBaseCTCell {
     func getMarkerDateString(iDate: Date, dateType: XWHHealthyDateSegmentType) -> String {
         var retStr = ""
         if dateType == .day {
-            retStr = iDate.localizedString(withFormat: XWHDate.monthDayHourMinute)
+//            retStr = iDate.localizedString(withFormat: XWHDate.monthDayHourMinute)
+            let bDate = iDate.hourBegin
+            let eDate = bDate.adding(.hour, value: 1)
+            retStr = bDate.string(withFormat: XWHDate.hourMinuteFormat) + "-" + eDate.string(withFormat: XWHDate.hourMinuteFormat)
         } else if dateType == .week || dateType == .month {
             retStr = iDate.localizedString(withFormat: XWHDate.yearMonthDayFormat)
         } else if dateType == .year {

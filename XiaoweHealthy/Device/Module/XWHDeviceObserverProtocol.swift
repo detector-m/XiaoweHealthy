@@ -12,4 +12,14 @@ protocol XWHDeviceObserverProtocol: AnyObject {
     
     func updateDeviceConnectBind()
     
+    func updateSyncState(_ syncState: XWHDevDataTransferState)
+    
+}
+
+extension XWHDeviceObserverProtocol {
+    
+    func updateSyncState(_ syncState: XWHDevDataTransferState) {
+        
+    }
+    
 }

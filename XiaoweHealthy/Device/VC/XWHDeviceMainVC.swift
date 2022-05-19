@@ -270,7 +270,7 @@ class XWHDeviceMainVC: XWHTableViewBaseVC, XWHDeviceObserverProtocol {
         }
         
         if XWHDevice.shared.isSyncing {
-            view.makeInsetToast(R.string.xwhDeviceText.同步中())
+            view.makeInsetToast(R.string.xwhDeviceText.正在同步数据())
             return
         }
                 
@@ -332,6 +332,16 @@ class XWHDeviceMainVC: XWHTableViewBaseVC, XWHDeviceObserverProtocol {
     
     // MARK: - XWHDeviceObserverProtocol
     func updateDeviceConnectBind() {
+        reloadAll()
+    }
+    
+    func updateSyncState(_ syncState: XWHDevDataTransferState) {
+        if syncState == .succeed {
+            view.makeInsetToast(R.string.xwhDeviceText.同步成功())
+        } else if syncState == .failed {
+            view.makeInsetToast(R.string.xwhDeviceText.同步失败())
+        }
+        
         reloadAll()
     }
 
@@ -468,7 +478,7 @@ extension XWHDeviceMainVC {
     private func gotoReconnectOrSyncData() {
         if XWHDevice.shared.isConnectBind {
             if XWHDevice.shared.isSyncing {
-                view.makeInsetToast(R.string.xwhDeviceText.同步中())
+                view.makeInsetToast(R.string.xwhDeviceText.正在同步数据())
                 return
             }
             
@@ -595,7 +605,7 @@ extension XWHDeviceMainVC {
     // 解除绑定
     private func gotoDevSetUnbind() {
         if XWHDevice.shared.isSyncing {
-            view.makeInsetToast(R.string.xwhDeviceText.同步中())
+            view.makeInsetToast(R.string.xwhDeviceText.正在同步数据())
             return
         }
         

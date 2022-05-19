@@ -95,7 +95,7 @@ class XWHDeviceInfoTBCell: XWHCommonBaseTBCell {
             
             if isSyncing {
                 button.setImage(nil, for: .normal)
-                button.setTitle(R.string.xwhDeviceText.同步中(), for: .normal)
+                button.setTitle(R.string.xwhDeviceText.正在同步数据(), for: .normal)
                 button.contentEdgeInsets = UIEdgeInsets(horizontal: 12, vertical: 0)
                 
                 button.snp.remakeConstraints { make in
