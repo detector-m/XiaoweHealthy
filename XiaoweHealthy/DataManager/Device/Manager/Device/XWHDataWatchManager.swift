@@ -19,6 +19,7 @@ class XWHDataWatchManager {
             t.column(XWHDevWatchModel.Columns.identifier.name, .text).notNull().primaryKey()
             
             t.column(XWHDevWatchModel.Columns.name.name, .text).notNull()
+            t.column(XWHDevWatchModel.Columns.brand.name, .text).notNull()
             
             t.column(XWHDevWatchModel.Columns.category.name, .text).notNull()
             

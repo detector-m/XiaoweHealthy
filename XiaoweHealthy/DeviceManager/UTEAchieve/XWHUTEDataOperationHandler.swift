@@ -107,6 +107,10 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             self.handleProgress(cp)
             
             self._state = .succeed
+
+            DispatchQueue.main.async {
+                self.handleResult(.none, self._state, .success(nil))
+            }
         }
     }
     

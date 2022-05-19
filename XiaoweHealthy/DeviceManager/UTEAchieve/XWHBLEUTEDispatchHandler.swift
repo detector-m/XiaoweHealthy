@@ -412,6 +412,8 @@ extension XWHBLEUTEDispatchHandler {
         device.mac = XWHDeviceHelper.getStandardFormatMac(devMac)
         
         device.name = uteDevice.name
+        device.brand = "SKYWORTH"
+        
         device.category = .watch
         device.type = bleDevModel?.type ?? .skyworthWatchS1
         

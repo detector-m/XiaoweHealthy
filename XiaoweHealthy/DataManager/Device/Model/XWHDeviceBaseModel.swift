@@ -17,6 +17,9 @@ class XWHDeviceBaseModel: XWHDataBaseModel {
     /// 设备名称
     var name = ""
     
+    /// 品牌名称
+    var brand = ""
+    
     /// 设备的分类
     private var _category = ""
     
@@ -65,7 +68,7 @@ class XWHDeviceBaseModel: XWHDataBaseModel {
     }
     
     override var debugDescription: String {
-        return "identifier = \(identifier), name = \(name), type = \(type), mac = \(mac), version = \(version)"
+        return "identifier = \(identifier), name = \(name), brand = \(brand), type = \(type), mac = \(mac), version = \(version)"
     }
     
     required init() {

@@ -12,7 +12,7 @@ import GRDB
 class XWHDevWatchModel: XWHDeviceBaseModel {
     
     enum Columns: String, ColumnExpression {
-        case identifier, name, category, type, mac, version, battery, bindDate, isCurrent
+        case identifier, name, brand, category, type, mac, version, battery, bindDate, isCurrent
     }
     
     class override var databaseTableName: String {
@@ -33,6 +33,8 @@ class XWHDevWatchModel: XWHDeviceBaseModel {
         identifier = row[Columns.identifier]
 
         name = row[Columns.name]
+        brand = row[Columns.brand]
+        
         category = XWHDeviceCategory(rawValue: row[Columns.category]) ?? .none
         
         type = XWHDeviceType(rawValue: row[Columns.type]) ?? .none
@@ -50,6 +52,7 @@ class XWHDevWatchModel: XWHDeviceBaseModel {
         container[Columns.identifier] = identifier
 
         container[Columns.name] = name
+        container[Columns.brand] = brand
         
         container[Columns.category] = category.rawValue
         

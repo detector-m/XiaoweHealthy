@@ -13,7 +13,11 @@ import GRDB
 class XWHDataUserManager {
     
     class func getCurrentUser() -> XWHUserModel? {
-        return getUser()
+        guard let cUser = getUser() else {
+            UserDefaults.standard[kToken] = nil
+            return nil
+        }
+        return cUser
     }
     
     class func deleteCurrentUser() {

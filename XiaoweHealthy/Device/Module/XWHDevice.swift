@@ -120,7 +120,10 @@ extension XWHDevice {
         
         XWHDDMShared.setDataOperation { cp in
             log.debug("同步进度 = \(cp)")
-        } resultHandler: { (syncType, syncState, result: Result<XWHResponse?, XWHError>) in
+        } resultHandler: { [weak self] (syncType, syncState, result: Result<XWHResponse?, XWHError>) in
+            
+            self?.notifyAllObserverUpdateConnectBindState()
+            
             if syncState == .succeed {
                 log.debug("数据同步成功")
             } else if syncState == .failed {
@@ -135,6 +138,7 @@ extension XWHDevice {
             }
         }
 
+        notifyAllObserverUpdateConnectBindState()
         XWHDDMShared.syncData()
     }
 

@@ -202,7 +202,9 @@ class XWHDeviceMainVC: XWHTableViewBaseVC, XWHDeviceObserverProtocol {
         if item.cellType == .info {
             let cell = tableView.dequeueReusableCell(withClass: XWHDeviceInfoTBCell.self)
             if let cDevModel = connWatchModel {
-                cell.update(cDevModel, isConnected: XWHDevice.shared.isConnectBind)
+//                cell.update(cDevModel, isConnected: XWHDevice.shared.isConnectBind, isSyncing: XWHDevice.shared.isSyncing)
+                
+                cell.update(cDevModel, connectBindState: XWHDDMShared.connectBindState, isSyncing: XWHDevice.shared.isSyncing)
                 
                 cell.clickCallback = { [unowned self] in
                     self.gotoReconnectOrSyncData()
