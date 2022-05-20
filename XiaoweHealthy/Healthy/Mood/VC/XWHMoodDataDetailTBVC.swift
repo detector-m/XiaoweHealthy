@@ -7,6 +7,9 @@
 
 import UIKit
 
+
+// FIXME: 需要完善
+/// 详细数据界面
 class XWHMoodDataDetailTBVC: XWHHealthyDataDetailBaseTBVC {
     
     lazy var dataModel = XWHMentalStressModel()

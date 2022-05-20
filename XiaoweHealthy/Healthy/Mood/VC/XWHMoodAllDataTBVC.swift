@@ -7,6 +7,8 @@
 
 import UIKit
 
+// FIXME: 需要完善
+/// 情绪的所有数据界面
 class XWHMoodAllDataTBVC: XWHHealthyAllDataBaseTBVC {
     
     lazy var allDataUIItems: [XWHMentalStressUIAllDataItemModel] = [] {
