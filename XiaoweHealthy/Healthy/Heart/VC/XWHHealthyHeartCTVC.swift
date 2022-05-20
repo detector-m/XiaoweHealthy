@@ -216,12 +216,16 @@ extension XWHHealthyHeartCTVC {
                 XWHUser.handleExpiredUserTokenUI(self, nil)
                 return
             }
+            
+            self.heartUIModel = nil
+            self.loadUIItems()
+            self.cleanUIItems()
         } successHandler: { [unowned self] response in
             XWHProgressHUD.hide()
             
             guard let retModel = response.data as? XWHHeartUIHeartModel else {
-                log.error("心率 - 获取数据错误")
-                
+                log.debug("心率 - 获取数据错误")
+
                 self.heartUIModel = nil
                 self.loadUIItems()
                 self.cleanUIItems()

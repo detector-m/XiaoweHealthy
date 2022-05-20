@@ -311,6 +311,10 @@ extension XWHHealthySleepCTVC {
                 XWHUser.handleExpiredUserTokenUI(self, nil)
                 return
             }
+            
+            self.sleepUIModel = nil
+            self.loadUIItems()
+            self.cleanUIItems()
         } successHandler: { [unowned self] response in
             XWHProgressHUD.hide()
             

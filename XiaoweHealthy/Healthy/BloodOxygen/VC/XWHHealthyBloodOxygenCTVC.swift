@@ -216,6 +216,10 @@ extension XWHHealthyBloodOxygenCTVC {
                 XWHUser.handleExpiredUserTokenUI(self, nil)
                 return
             }
+            
+            self.boUIModel = nil
+            self.loadUIItems()
+            self.cleanUIItems()
         } successHandler: { [unowned self] response in
             XWHProgressHUD.hide()
             

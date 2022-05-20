@@ -255,6 +255,10 @@ extension XWHHealthyMentalStressCTVC {
                 XWHUser.handleExpiredUserTokenUI(self, nil)
                 return
             }
+            
+            self.msUIModel = nil
+            self.loadUIItems()
+            self.cleanUIItems()
         } successHandler: { [unowned self] response in
             XWHProgressHUD.hide()
             
