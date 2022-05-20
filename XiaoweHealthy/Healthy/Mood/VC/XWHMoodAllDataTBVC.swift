@@ -1,14 +1,14 @@
 //
-//  XWHMentalStressAllDataTBVC.swift
+//  XWHMoodAllDataTBVC.swift
 //  XiaoweHealthy
 //
-//  Created by Riven on 2022/5/6.
+//  Created by Riven on 2022/5/20.
 //
 
 import UIKit
 
-class XWHMentalStressAllDataTBVC: XWHHealthyAllDataBaseTBVC {
-
+class XWHMoodAllDataTBVC: XWHHealthyAllDataBaseTBVC {
+    
     lazy var allDataUIItems: [XWHMentalStressUIAllDataItemModel] = [] {
         didSet {
             expandStates = allDataUIItems.map({ _ in false })
@@ -18,13 +18,13 @@ class XWHMentalStressAllDataTBVC: XWHHealthyAllDataBaseTBVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getYearMentalStressHistory()
+        getYearMoodHistory()
     }
     
 }
 
 // MARK: - UITableViewDataSource & UITableViewDelegate & UITableViewRoundedProtocol
-extension XWHMentalStressAllDataTBVC {
+extension XWHMoodAllDataTBVC {
     
 //    override func numberOfSections(in tableView: UITableView) -> Int {
 //        return expandStates.count
@@ -89,10 +89,10 @@ extension XWHMentalStressAllDataTBVC {
 }
 
 // MARK: - Jump UI
-extension XWHMentalStressAllDataTBVC {
+extension XWHMoodAllDataTBVC {
     
     private func gotoDataDetailList(_ item: XWHMentalStressUIAllDataItemStressModel) {
-        let vc = XWHMentalStressDataDetailListTBVC()
+        let vc = XWHMoodDataDetailListTBVC()
         vc.sDate = item.collectTime.date(withFormat: XWHDate.standardYearMonthDayFormat) ?? Date()
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -101,9 +101,9 @@ extension XWHMentalStressAllDataTBVC {
 
 
 // MARK: - Api
-extension XWHMentalStressAllDataTBVC {
+extension XWHMoodAllDataTBVC {
     
-    private func getYearMentalStressHistory() {
+    private func getYearMoodHistory() {
         XWHProgressHUD.show()
         XWHHealthyVM().getYearMentalStressHistory(date: Date(), failureHandler: { error in
             XWHProgressHUD.hide()
@@ -112,7 +112,7 @@ extension XWHMentalStressAllDataTBVC {
             XWHProgressHUD.hide()
             
             guard let retModel = response.data as? [XWHMentalStressUIAllDataItemModel] else {
-                log.error("精神压力 - 获取年的数据错误")
+                log.error("情绪 - 获取年的数据错误")
                 return
             }
             
@@ -122,4 +122,5 @@ extension XWHMentalStressAllDataTBVC {
     }
     
 }
+
 

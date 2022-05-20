@@ -567,7 +567,7 @@ extension XWHHealthyBaseCTVC {
 // MARK: - Methods
 extension XWHHealthyBaseCTVC {
     
-    /// 是否是最好一个
+    /// 是否是最后一个
     func isLast(_ item: XWHHealthyDataBaseModel?) -> Bool {
         guard let lModel = item, let lDate = lModel.formatDate() else {
             return false

@@ -19,6 +19,7 @@ enum XWHHealthyType: String {
     case bloodOxygen = "血氧饱和度"
     
     case mentalStress = "压力"
+    case mood = "情绪"
     
     case sleep = "睡眠"
     

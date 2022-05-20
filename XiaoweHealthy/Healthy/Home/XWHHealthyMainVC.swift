@@ -12,7 +12,7 @@ import SwiftUI
 /// 运动健康首页
 class XWHHealthyMainVC: XWHTableViewBaseVC {
     
-    private lazy var testItems: [XWHHealthyType] = [.heart, .bloodOxygen, .mentalStress, .sleep, .login, .test, .post, .sync]
+    private lazy var testItems: [XWHHealthyType] = [.heart, .bloodOxygen, .mentalStress, .mood, .sleep, .login, .test, .post, .sync]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,6 +126,9 @@ class XWHHealthyMainVC: XWHTableViewBaseVC {
         case .mentalStress:
             gotoMentalStress()
             
+        case .mood:
+            gotoMood()
+            
         case .sleep:
             gotoSleep()
             
@@ -194,6 +197,18 @@ extension XWHHealthyMainVC {
         }
         
         let vc = XWHHealthyMentalStressCTVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // 跳转到情绪
+    private func gotoMood() {
+        if !XWHUser.isLogined {
+            gotoLogin()
+            
+            return
+        }
+        
+        let vc = XWHHealthyMoodCTVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     

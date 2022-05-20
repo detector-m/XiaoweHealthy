@@ -1,14 +1,14 @@
 //
-//  XWHMentalStressDataDetailListTBVC.swift
+//  XWHMoodDataDetailListTBVC.swift
 //  XiaoweHealthy
 //
-//  Created by Riven on 2022/5/6.
+//  Created by Riven on 2022/5/20.
 //
 
 import UIKit
 
-class XWHMentalStressDataDetailListTBVC: XWHHealthyDataDetailListBaseTBVC {
-
+class XWHMoodDataDetailListTBVC: XWHHealthyDataDetailListBaseTBVC {
+    
     override var titleText: String {
         let tString = sDate.localizedString(withFormat: XWHDate.yearMonthDayFormat)
 
@@ -20,13 +20,13 @@ class XWHMentalStressDataDetailListTBVC: XWHHealthyDataDetailListBaseTBVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getDayMentalStressHistory()
+        getDayMoodHistory()
     }
 
 }
 
 // MARK: - UITableViewDataSource & UITableViewDelegate & UITableViewRoundedProtocol
-extension XWHMentalStressDataDetailListTBVC {
+extension XWHMoodDataDetailListTBVC {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return allDataUIItems.count
@@ -55,20 +55,20 @@ extension XWHMentalStressDataDetailListTBVC {
 }
 
 // MARK: - Jump UI
-extension XWHMentalStressDataDetailListTBVC {
+extension XWHMoodDataDetailListTBVC {
     
-    private func gotoDataDetail(_ stressModel: XWHMentalStressModel) {
-        let vc = XWHMentalStressDataDetailTBVC()
-        vc.detailId = stressModel.srId
+    private func gotoDataDetail(_ dataModel: XWHMentalStressModel) {
+        let vc = XWHMoodDataDetailTBVC()
+        vc.detailId = dataModel.srId
         navigationController?.pushViewController(vc, animated: true)
     }
     
 }
 
 // MARK: - Api
-extension XWHMentalStressDataDetailListTBVC {
+extension XWHMoodDataDetailListTBVC {
     
-    private func getDayMentalStressHistory() {
+    private func getDayMoodHistory() {
         XWHProgressHUD.show()
         XWHHealthyVM().getDayMentalStressHistory(date: sDate, failureHandler: { error in
             XWHProgressHUD.hide()
@@ -77,7 +77,7 @@ extension XWHMentalStressDataDetailListTBVC {
             XWHProgressHUD.hide()
             
             guard let retModel = response.data as? [XWHMentalStressModel] else {
-                log.error("精神压力 - 获取天的数据错误")
+                log.error("情绪 - 获取天的数据错误")
                 return
             }
             
@@ -87,3 +87,4 @@ extension XWHMentalStressDataDetailListTBVC {
     }
     
 }
+
