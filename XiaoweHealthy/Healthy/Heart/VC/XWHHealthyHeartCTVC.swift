@@ -224,7 +224,7 @@ extension XWHHealthyHeartCTVC {
             XWHProgressHUD.hide()
             
             guard let retModel = response.data as? XWHHeartUIHeartModel else {
-                log.debug("心率 - 获取数据错误")
+                log.debug("心率 - 获取数据为空")
 
                 self.heartUIModel = nil
                 self.loadUIItems()
