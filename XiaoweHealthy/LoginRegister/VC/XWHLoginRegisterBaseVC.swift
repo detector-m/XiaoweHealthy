@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
 class XWHLoginRegisterBaseVC: XWHBaseVC {
     
@@ -18,10 +19,17 @@ class XWHLoginRegisterBaseVC: XWHBaseVC {
     
     lazy var loginBtn = UIButton()
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setNavTransparent()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: UIResponder.keyboardDidHideNotification, object: nil)
     }
     
 //    override func setupNavigationItems() {
@@ -78,6 +86,35 @@ class XWHLoginRegisterBaseVC: XWHBaseVC {
     
     @objc func clickLoginBtn() {
         
+    }
+    
+    @objc func keyboardWillShow() {
+        if UIScreen.main.bounds.height >= 812 {
+            return
+        }
+        
+        UIView.animate(withDuration: 0.25) {
+            self.view.y = -60
+        }
+    }
+    
+    @objc func keyboardDidHide() {
+        UIView.animate(withDuration: 0.25) {
+            self.view.y = 0
+        }
+    }
+    
+    // MARK: -
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        IQKeyboardManager.shared.enable = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        IQKeyboardManager.shared.enable = true
     }
 
 }
