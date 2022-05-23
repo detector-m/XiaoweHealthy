@@ -18,7 +18,7 @@ class RLCountDownTimer {
         timer?.pause()
     }
     
-    func createTimer(tCount: Int = 10, handler: @escaping (() -> ())) {
+    func createTimer(tCount: Int = 60, handler: @escaping (() -> ())) {
         count = tCount
         curCount = tCount
         

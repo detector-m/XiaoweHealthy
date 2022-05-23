@@ -21,7 +21,7 @@ class XWHRegisterBaseVC: XWHBaseVC {
     override func addSubViews() {
         super.addSubViews()
         
-        let cColor = UIColor(hex: 0x000000, transparency: 0.9)
+        let cColor = fontDarkColor
 
         titleLb.textAlignment = .left
         titleLb.text = ""

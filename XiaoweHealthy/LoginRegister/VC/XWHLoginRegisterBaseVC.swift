@@ -42,7 +42,7 @@ class XWHLoginRegisterBaseVC: XWHBaseVC {
         view.addSubview(bgView)
         
         titleLb.font = XWHFont.harmonyOSSans(ofSize: 30, weight: .bold)
-        titleLb.textColor = UIColor(hex: 0x000000, transparency: 0.9)
+        titleLb.textColor = fontDarkColor
         view.addSubview(titleLb)
         
         view.addSubview(checkProtocolView)
@@ -56,12 +56,12 @@ class XWHLoginRegisterBaseVC: XWHBaseVC {
         
         view.addSubview(otherLoginView)
         
-        checkProtocolView.clickUserPtl = {
-            
+        checkProtocolView.clickUserPtl = { [unowned self] in
+            XWHSafari.gotoUserProtocol(at: self)
         }
         
-        checkProtocolView.clickPrivacyPtl = {
-            
+        checkProtocolView.clickPrivacyPtl = { [unowned self] in
+            XWHSafari.gotoPrivacyProtocol(at: self)
         }
     }
     

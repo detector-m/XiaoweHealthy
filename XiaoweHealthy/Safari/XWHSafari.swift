@@ -10,6 +10,16 @@ import SafariServices
 
 struct XWHSafari {
     
+    static func gotoUserProtocol(at vc: UIViewController) {
+        let userProtocolUrl = "https://app.uteasy.com/user-agreement/xiaowei.html"
+        present(at: vc, urlStr: userProtocolUrl)
+    }
+    
+    static func gotoPrivacyProtocol(at vc: UIViewController) {
+        let privacyProtocolUrl = "https://app.uteasy.com/privacy-policy/xiaowei.html"
+        present(at: vc, urlStr: privacyProtocolUrl)
+    }
+    
     static func present(at vc: UIViewController, urlStr: String) {
         let cUrlStr = urlStr.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "`%^{}\"[]|\\<> ").inverted)
         guard let url = cUrlStr?.url else {

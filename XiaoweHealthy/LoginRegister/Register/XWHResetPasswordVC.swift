@@ -15,10 +15,6 @@ class XWHResetPasswordVC: XWHBindPhoneVC {
 //    private var isPhoneOk = false
 //    private var isCodeOk = false
     private var isPasswordOk = false
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,9 +22,6 @@ class XWHResetPasswordVC: XWHBindPhoneVC {
 //        phoneNumView.textFiled.addTarget(self, action: #selector(textFiledChanged(sender:)), for: .editingChanged)
         passwordView.textFiled.addTarget(self, action: #selector(textFiledChanged(sender:)), for: .editingChanged)
 //        codeView.textFiled.addTarget(self, action: #selector(textFiledChanged(sender:)), for: .editingChanged)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: UIResponder.keyboardDidHideNotification, object: nil)
     }
     
 
@@ -168,35 +161,6 @@ class XWHResetPasswordVC: XWHBindPhoneVC {
         } else {
             confirmBtn.layer.backgroundColor = UIColor(hex: 0x000000, transparency: 0.24)?.cgColor
         }
-    }
-    
-    @objc func keyboardWillShow() {
-        if UIScreen.main.bounds.height >= 812 {
-            return
-        }
-        
-        UIView.animate(withDuration: 0.25) {
-            self.view.y = -60
-        }
-    }
-    
-    @objc func keyboardDidHide() {
-        UIView.animate(withDuration: 0.25) {
-            self.view.y = 0
-        }
-    }
-    
-    // MARK: -
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        IQKeyboardManager.shared.enable = false
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        IQKeyboardManager.shared.enable = true
     }
 
 }

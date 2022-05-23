@@ -18,6 +18,10 @@ class XWHUser {
         return XWHDataUserManager.isLogined
     }
     
+    class func logout() {
+        setToken(token: nil)
+    }
+    
     class func getToken() -> String? {
         return XWHDataUserManager.getToken()
     }
