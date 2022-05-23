@@ -47,6 +47,14 @@ class XWHLoginRegisterBaseVC: XWHBaseVC {
         view.addSubview(loginBtn)
         
         view.addSubview(otherLoginView)
+        
+        checkProtocolView.clickUserPtl = {
+            
+        }
+        
+        checkProtocolView.clickPrivacyPtl = {
+            
+        }
     }
     
     @objc override func clickNavGlobalBackBtn() {

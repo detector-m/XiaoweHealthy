@@ -13,6 +13,9 @@ class XWHCheckProtocolView: XWHTextFieldBaseView {
 //    lazy var checkBtn = UIButton()
     lazy var protocolLb = ActiveLabel()
     
+    var clickUserPtl: (() -> Void)?
+    var clickPrivacyPtl: (() -> Void)?
+    
     override func addSubViews() {
         super.addSubViews()
         
@@ -30,14 +33,16 @@ class XWHCheckProtocolView: XWHTextFieldBaseView {
         protocolLb.customColor[customType1] = UIColor(hex: 0x2DC84D)
         protocolLb.customColor[customType2] = UIColor(hex: 0x2DC84D)
         protocolLb.textColor = UIColor(hex: 0x000000, transparency: 0.9)
-        protocolLb.handleCustomTap(for: customType1, handler: { (customType) in
-
+        protocolLb.handleCustomTap(for: customType1, handler: { [unowned self] (customType) in
+            self.clickUserPtl?()
         })
-        protocolLb.handleCustomTap(for: customType2, handler: { (customType) in
-
+        protocolLb.handleCustomTap(for: customType2, handler: { [unowned self] (customType) in
+            self.clickPrivacyPtl?()
         })
         
         addSubview(protocolLb)
+        
+        textFiled.isHidden = true
     }
     
     override func relayoutSubViews() {

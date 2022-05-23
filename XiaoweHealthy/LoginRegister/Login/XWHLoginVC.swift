@@ -123,7 +123,7 @@ class XWHLoginVC: XWHLoginRegisterBaseVC {
         }
         
         otherLoginView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(69)
+            make.left.right.equalToSuperview().inset(63)
             make.top.greaterThanOrEqualTo(loginBtn.snp.bottom).offset(30)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-44).priority(.low)
             make.height.equalTo(110)
@@ -131,6 +131,8 @@ class XWHLoginVC: XWHLoginRegisterBaseVC {
     }
     
     @objc override func clickLoginBtn() {
+        view.endEditing(true)
+        
         if gotoUpdateUserInfo() {
             return
         }

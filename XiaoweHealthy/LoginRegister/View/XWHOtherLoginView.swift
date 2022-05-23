@@ -9,7 +9,10 @@ import UIKit
 
 class XWHOtherLoginView: XWHBaseView {
 
+    lazy var leftLine = UIView()
+    lazy var rightLine = UIView()
     lazy var titleLb = UILabel()
+    
     lazy var loginBtn1 = UIButton()
     lazy var loginBtn2 = UIButton()
     lazy var loginBtn3 = UIButton()
@@ -18,6 +21,12 @@ class XWHOtherLoginView: XWHBaseView {
     
     override func addSubViews() {
         super.addSubViews()
+        
+        leftLine.backgroundColor = UIColor.black.withAlphaComponent(0.08)
+        rightLine.backgroundColor = leftLine.backgroundColor
+        
+        addSubview(leftLine)
+        addSubview(rightLine)
         
         titleLb.font = XWHFont.harmonyOSSans(ofSize: 14)
         titleLb.textColor = UIColor(hex: 0x000000, transparency: 0.9)
@@ -49,9 +58,23 @@ class XWHOtherLoginView: XWHBaseView {
     override func relayoutSubViews() {
         titleLb.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.width.equalTo(100)
+            make.width.lessThanOrEqualTo(100)
             make.height.equalTo(19)
             make.centerX.equalToSuperview()
+        }
+        
+        leftLine.snp.makeConstraints { make in
+            make.height.equalTo(0.5)
+            make.left.equalToSuperview()
+            make.centerY.equalTo(titleLb)
+            make.right.equalTo(titleLb.snp.left).offset(-4)
+        }
+        
+        rightLine.snp.makeConstraints { make in
+            make.height.equalTo(leftLine)
+            make.left.equalTo(titleLb.snp.right).offset(4)
+            make.centerY.equalTo(titleLb)
+            make.right.equalToSuperview()
         }
         
         loginBtn1.snp.makeConstraints { make in
@@ -60,18 +83,18 @@ class XWHOtherLoginView: XWHBaseView {
             make.top.equalTo(titleLb.snp.bottom).offset(26)
         }
         
-        loginBtn2.snp.makeConstraints { make in
-            make.centerX.equalToSuperview().offset(-14)
-//            make.right.equalTo(loginBtn3.snp.left)
-            make.centerY.equalTo(loginBtn1)
-            make.size.equalTo(38)
-        }
-        
         loginBtn3.snp.makeConstraints { make in
             make.centerY.equalTo(loginBtn1)
             make.right.equalToSuperview()
             make.width.equalTo(105)
             make.height.equalTo(36)
+        }
+        
+        let padding = ((UIScreen.main.bounds.width - 63 * 2) - 105 - 38 - 38) / 2
+        loginBtn2.snp.makeConstraints { make in
+            make.left.equalTo(loginBtn1.snp.right).offset(padding)
+            make.centerY.equalTo(loginBtn1)
+            make.size.equalTo(38)
         }
     }
     
