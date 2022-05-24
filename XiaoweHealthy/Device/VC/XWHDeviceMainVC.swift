@@ -475,6 +475,15 @@ extension XWHDeviceMainVC {
         }
     }
     
+    private func unbindDeviceToServer() {
+        guard var deviceSn = connWatchModel?.identifier else {
+            return
+        }
+        deviceSn = XWHDeviceHelper.getStandardDeviceSn(deviceSn)
+        
+        XWHUserVM().unbindDevice(deviceSn: deviceSn)
+    }
+    
     private func gotoCheckFirmwareUpdate() {
 //        let deviceSn = "1923190012204123450"
 //        let firmwareVersion = "v1.0.0"
@@ -624,6 +633,8 @@ extension XWHDeviceMainVC {
                     case .success(_):
                         if let cModel = self.connWatchModel {
                             XWHDataDeviceManager.remove(device: cModel)
+                            
+                            self.unbindDeviceToServer()
                         }
                         self.gotoAddDeviceEntry()
                         
@@ -657,6 +668,9 @@ extension XWHDeviceMainVC {
                 if let cModel = self.connWatchModel {
                     XWHDDMShared.disconnect(device: cModel)
                     XWHDataDeviceManager.remove(device: cModel)
+                    
+                    self.unbindDeviceToServer()
+                    
                     self.gotoAddDeviceEntry()
                 }
             }

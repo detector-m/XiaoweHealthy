@@ -319,7 +319,7 @@ extension XWHHealthySleepCTVC {
             XWHProgressHUD.hide()
             
             guard let retModel = response.data as? XWHHealthySleepUISleepModel else {
-                log.error("睡眠 - 获取数据错误")
+                log.debug("睡眠 - 获取数据为空")
                 
                 self.sleepUIModel = nil
                 self.loadUIItems()
