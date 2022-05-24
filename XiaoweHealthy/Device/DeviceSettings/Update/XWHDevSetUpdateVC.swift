@@ -17,7 +17,12 @@ class XWHDevSetUpdateVC: XWHDevSetBaseVC {
     
     var updateInfo: JSON?
     
-    private lazy var testTimer = RLCountDownTimer()
+    private lazy var downloader = XWHDownloader()
+    private var isInstalling = false {
+        didSet {
+            rt_disableInteractivePop = isInstalling
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,18 +36,20 @@ class XWHDevSetUpdateVC: XWHDevSetBaseVC {
         button.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 16, weight: .medium)
         button.setTitleColor(fontLightLightColor, for: .normal)
         button.addTarget(self, action: #selector(clickButton), for: .touchUpInside)
+        
         button.progressView.capType = 1
-        button.progressView.trackColor = btnBgColor.withAlphaComponent(0.35)
+        button.progressView.trackColor = btnBgColor
         button.progressView.barColor = btnBgColor
+        
         view.addSubview(button)
 
         titleLb.text = R.string.xwhDeviceText.检查更新()
         
-        button.setTitle(R.string.xwhDeviceText.下载升级包N(), for: .normal)
+        button.setTitle(R.string.xwhDeviceText.下载升级包(), for: .normal)
         
         let verStr = updateInfo?["versionNo"].string ?? ""
         if !verStr.isEmpty {
-            headerView.titleLb.text = verStr + "\n发现新版本"
+            headerView.titleLb.text = verStr + "\n" + R.string.xwhDeviceText.发现新版本()
         }
     }
     
@@ -67,43 +74,25 @@ class XWHDevSetUpdateVC: XWHDevSetBaseVC {
         }
     }
     
+    override func clickNavGlobalBackBtn() {
+        if isInstalling {
+            view.makeInsetToast(R.string.xwhDeviceText.固件更新中())
+            return
+        }
+        
+        super.clickNavGlobalBackBtn()
+    }
+    
+    @objc private func clickButton() {
+        installingUI()
+        downloadInstall()
+    }
+    
     // MARK: - ConfigUI
     override func registerTableViewCell() {
         tableView.register(cellWithClass: XWHBaseTBCell.self)
         
         tableView.register(headerFooterViewClassWith: XWHTBHeaderFooterBaseView.self)
-    }
-    
-    @objc func clickButton() {
-//        testTimer.createTimer { [unowned self] in
-//            self.button.progressView.progressValue = abs(self.testTimer.curCount - 10).cgFloat * 10
-//        }
-//        testTimer.timer?.start()
-        
-        let fileName = "D391901_pix360x360_rgb565"
-        
-        guard let fileUrl = Bundle.main.url(forResource: fileName, withExtension: "bin") else {
-            return
-        }
-        
-        XWHProgressHUD.show(title: "升级固件中...")
-        XWHDDMShared.sendFirmwareFile(fileUrl) { progress in
-            
-        } handler: { [weak self] result in
-            guard let self = self else {
-                return
-            }
-            
-            XWHProgressHUD.hide()
-            
-            switch result {
-            case .success(_):
-                self.view.makeInsetToast("安装成功")
-                
-            case .failure(let error):
-                self.view.makeInsetToast(error.message)
-            }
-        }
     }
     
 
@@ -113,15 +102,11 @@ class XWHDevSetUpdateVC: XWHDevSetBaseVC {
             return 1
         }
         
-        return 1
+        return 0
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let updateDes = updateInfo?["versionDesc"].stringValue.components(separatedBy: "\n") {
-            return updateDes.count
-        }
-        
-        return 3
+        return 1
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -130,10 +115,14 @@ class XWHDevSetUpdateVC: XWHDevSetBaseVC {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: XWHBaseTBCell.self)
-        cell.titleLb.text =  "\(indexPath.row + 1)、\(String.random(ofLength: 32))"
+        
         cell.titleLb.numberOfLines = 0
         cell.titleLb.font = XWHFont.harmonyOSSans(ofSize: 14)
         cell.relayoutOnlyTitleLb()
+        
+        if let updateDes = updateInfo?["versionDesc"].stringValue {
+            cell.titleLb.text = updateDes
+        }
         
         return cell
     }
@@ -149,6 +138,112 @@ class XWHDevSetUpdateVC: XWHDevSetBaseVC {
         header.titleLb.text = R.string.xwhDeviceText.固件更新日志()
         
         return header
+    }
+
+}
+
+// MARK: - 下载安装UI
+extension XWHDevSetUpdateVC {
+    
+    private func allowInstallUI() {
+        button.isEnabled = true
+
+        button.progressView.progressValue = 0
+        button.progressView.trackColor = btnBgColor
+        button.progressView.barColor = btnBgColor
+        
+        button.setTitle(R.string.xwhDeviceText.下载升级包(), for: .normal)
+    }
+    
+    private func installingUI() {
+        button.isEnabled = false
+        button.progressView.progressValue = 1
+        button.progressView.trackColor = btnBgColor.withAlphaComponent(0.35)
+        button.progressView.barColor = btnBgColor
+        
+        button.setTitle(R.string.xwhDialText.安装中(), for: .normal)
+    }
+    
+    private func installedUI () {
+        button.isEnabled = false
+        
+        button.progressView.progressValue = 0
+        button.progressView.trackColor = btnBgColor.withAlphaComponent(0.35)
+        button.progressView.barColor = btnBgColor
+        
+        button.setTitle(R.string.xwhDeviceText.安装成功(), for: .normal)
+    }
+    
+}
+
+extension XWHDevSetUpdateVC {
+
+    private func downloadInstall() {
+        guard let fileUrl = updateInfo?["fileUrl"].string else {
+            log.error("固件升级失败 获取 fileUrl 失败")
+            
+            return
+        }
+
+//        XWHProgressHUD.show(title: R.string.xwhDeviceText.固件更新中())
+        
+        downloader.download(url: fileUrl) { [unowned self] pRes in
+            let cProgress = pRes.progress / 2
+            self.button.progressView.progressValue = cProgress.cgFloat
+        } failureHandler: { [unowned self] error in
+//            XWHProgressHUD.hide()
+            
+            self.isInstalling = false
+            self.allowInstallUI()
+            self.view.makeInsetToast(R.string.xwhDeviceText.下载固件包失败())
+        } successHandler: { [unowned self] sRes in
+            if let fileUrl = sRes.data as? URL {
+                self.install(fileUrl)
+            } else {
+//                XWHProgressHUD.hide()
+                
+                self.isInstalling = false
+
+                self.allowInstallUI()
+                self.view.makeInsetToast(R.string.xwhDeviceText.下载固件包失败())
+            }
+        }
+    }
+    
+    private func install(_ fileUrl: URL ) {
+//        let fileName = "D391901_pix360x360_rgb565"
+//
+//        guard let fileUrl = Bundle.main.url(forResource: fileName, withExtension: "bin") else {
+//            return
+//        }
+        
+        XWHDDMShared.sendFirmwareFile(fileUrl) { [weak self] progress in
+            guard let self = self else {
+                return
+            }
+            
+            let cProgress = progress / 2 + 50
+            self.button.progressView.progressValue = cProgress.cgFloat
+        } handler: { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
+//            XWHProgressHUD.hide()
+            
+            switch result {
+            case .success(_):
+                self.isInstalling = false
+                self.installedUI()
+                self.view.makeInsetToast(R.string.xwhDeviceText.安装成功())
+                
+            case .failure(_):
+                self.isInstalling = false
+                self.allowInstallUI()
+                self.view.makeInsetToast(R.string.xwhDeviceText.安装固件包失败())
+            }
+        }
+        
     }
 
 }

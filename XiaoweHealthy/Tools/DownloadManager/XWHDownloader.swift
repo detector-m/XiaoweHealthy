@@ -12,7 +12,7 @@ import Tiercel
 class XWHDownloader {
     
     deinit {
-        log.debug("xxxx")
+        log.debug("下载器已释放")
     }
     
     private(set) lazy var downloader: SessionManager = {

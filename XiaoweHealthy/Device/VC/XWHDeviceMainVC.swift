@@ -487,11 +487,22 @@ extension XWHDeviceMainVC {
     private func gotoCheckFirmwareUpdate() {
 //        let deviceSn = "1923190012204123450"
 //        let firmwareVersion = "v1.0.0"
+        
+//        let rawData = [
+//            "versionNo": "v1.0.1",
+//            "versionDesc": "这是最新版本",
+//            "publishDate": "2022-03-29",
+//            "fileUrl": "https://ycyoss.xiaowe.cc/dial/D3923001/D392301_pix360x360_rgb565.bin"
+//        ]
+//
+//        let cJson = JSON(rawData)
+//        gotoDevSetUpdate(updateInfo: cJson)
+        
         guard var deviceSn = connWatchModel?.identifier, let firmwareVersion = connWatchModel?.version else {
             return
         }
         deviceSn = XWHDeviceHelper.getStandardDeviceSn(deviceSn)
-        
+
         XWHDeviceVM().firmwareUpdate(deviceSn: deviceSn, version: firmwareVersion) { [unowned self] error in
             self.view.makeInsetToast(error.message)
         } successHandler: { [unowned self] response in
@@ -505,9 +516,6 @@ extension XWHDeviceMainVC {
             } else {
                 self.view.makeInsetToast(R.string.xwhDeviceText.当前已经是最新版本())
             }
-            
-            // Test
-//            self.gotoDevSetUpdate(updateInfo: JSON())
         }
     }
     

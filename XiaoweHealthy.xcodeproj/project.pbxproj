@@ -310,7 +310,6 @@
 		96E8A6BF27F1B2A700F5C75C /* XWHSearchDeviceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8A6BE27F1B2A700F5C75C /* XWHSearchDeviceVC.swift */; };
 		96F1D65B28065C7D0067DBFD /* XWHDevDataOperationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1D65A28065C7D0067DBFD /* XWHDevDataOperationProtocol.swift */; };
 		96F1D65D28066CC30067DBFD /* XWHDevDialOperationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1D65C28066CC30067DBFD /* XWHDevDialOperationProtocol.swift */; };
-		96F1D66128067CF40067DBFD /* D391901_pix360x360_rgb565.bin in Resources */ = {isa = PBXBuildFile; fileRef = 96F1D66028067CF30067DBFD /* D391901_pix360x360_rgb565.bin */; };
 		96F1D66328069A9C0067DBFD /* XWHDevFirmwareOperationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1D66228069A9C0067DBFD /* XWHDevFirmwareOperationProtocol.swift */; };
 		96F1D6662806BE960067DBFD /* XWHDevContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1D6652806BE960067DBFD /* XWHDevContactModel.swift */; };
 		96F1D6692806D2010067DBFD /* XWHDataWatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1D6682806D2010067DBFD /* XWHDataWatchManager.swift */; };
@@ -688,7 +687,6 @@
 		96E8A6BE27F1B2A700F5C75C /* XWHSearchDeviceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSearchDeviceVC.swift; sourceTree = "<group>"; };
 		96F1D65A28065C7D0067DBFD /* XWHDevDataOperationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevDataOperationProtocol.swift; sourceTree = "<group>"; };
 		96F1D65C28066CC30067DBFD /* XWHDevDialOperationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevDialOperationProtocol.swift; sourceTree = "<group>"; };
-		96F1D66028067CF30067DBFD /* D391901_pix360x360_rgb565.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = D391901_pix360x360_rgb565.bin; sourceTree = "<group>"; };
 		96F1D66228069A9C0067DBFD /* XWHDevFirmwareOperationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevFirmwareOperationProtocol.swift; sourceTree = "<group>"; };
 		96F1D6652806BE960067DBFD /* XWHDevContactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevContactModel.swift; sourceTree = "<group>"; };
 		96F1D6682806D2010067DBFD /* XWHDataWatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataWatchManager.swift; sourceTree = "<group>"; };
@@ -2372,17 +2370,8 @@
 				96F1D679280919E40067DBFD /* Model */,
 				96F1D67A280919E90067DBFD /* View */,
 				96F1D678280919DC0067DBFD /* VC */,
-				96F1D65F28067CE50067DBFD /* TestDial */,
 			);
 			path = Dial;
-			sourceTree = "<group>";
-		};
-		96F1D65F28067CE50067DBFD /* TestDial */ = {
-			isa = PBXGroup;
-			children = (
-				96F1D66028067CF30067DBFD /* D391901_pix360x360_rgb565.bin */,
-			);
-			path = TestDial;
 			sourceTree = "<group>";
 		};
 		96F1D6642806BE530067DBFD /* Contact */ = {
@@ -2626,7 +2615,6 @@
 				96617A6727E1D31700139B03 /* XWHLaunchBg@3x.png in Resources */,
 				96FC408327EDA4F400D64B64 /* SKSans-Regular.otf in Resources */,
 				96FC407727EDA16800D64B64 /* HarmonyOS_Sans_SC_Regular.ttf in Resources */,
-				96F1D66128067CF40067DBFD /* D391901_pix360x360_rgb565.bin in Resources */,
 				9648E61827E0796E0077180D /* Assets.xcassets in Resources */,
 				967823AF27F2CA42004F66FB /* iconfont.ttf in Resources */,
 				96617A6027E1D1A600139B03 /* XWHLaunchLogoS@3x.png in Resources */,
