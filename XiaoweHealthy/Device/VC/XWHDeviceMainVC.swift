@@ -609,7 +609,8 @@ extension XWHDeviceMainVC {
     
     // 使用指南
     private func gotoDevSetGuide() {
-        XWHSafari.present(at: self, urlStr: "https://www.baidu.com")
+        let vc = XWHDeviceUseGuideTBVC()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     // 恢复出厂设置

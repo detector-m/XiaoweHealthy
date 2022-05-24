@@ -11,19 +11,13 @@ import UIKit
 /// 连接绑定帮助
 class XWHDeviceConnectBindHelpTBVC: XWHTableViewBaseVC {
     
-    private lazy var expandStates: [Bool] = []
-    private lazy var questions: [[String]] = []
+    lazy var expandStates: [Bool] = []
+    lazy var questions: [[String]] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        questions = [
-            ["原因一：手机网络连接异常", "解决方案：重新连接网络"],
-            ["原因二：手表蓝牙连接异常", "解决方案：请尝试关闭手机系统蓝牙开关，然后重新开启，在再APP我的页面点击连接"],
-            ["原因三：已经配对", "解决方案：请查看当前手机蓝牙系统是否已经配对上了(蓝牙名称后面有个符号ⓘ)，如已配对，可点击符合进入下一级界面，点击忽略设备，才能再次扫描到设备"],
-            ["原因四：被其他手机App连接了", "解决方案：解绑其他手机或App"],
-        ]
-        expandStates = questions.map({ _ in false })
+        configQuestions()
     }
     
     override func addSubViews() {
@@ -46,6 +40,16 @@ class XWHDeviceConnectBindHelpTBVC: XWHTableViewBaseVC {
     override func registerViews() {
         tableView.register(cellWithClass: XWHBaseTBCell.self)
         tableView.register(cellWithClass: XWHExpandBaseTBCell.self)
+    }
+    
+    @objc func configQuestions() {
+        questions = [
+            ["原因一：手机网络连接异常", "解决方案：重新连接网络"],
+            ["原因二：手表蓝牙连接异常", "解决方案：请尝试关闭手机系统蓝牙开关，然后重新开启，在再APP我的页面点击连接"],
+            ["原因三：已经配对", "解决方案：请查看当前手机蓝牙系统是否已经配对上了(蓝牙名称后面有个符号ⓘ)，如已配对，可点击符合进入下一级界面，点击忽略设备，才能再次扫描到设备"],
+            ["原因四：被其他手机App连接了", "解决方案：解绑其他手机或App"],
+        ]
+        expandStates = questions.map({ _ in false })
     }
     
 }
