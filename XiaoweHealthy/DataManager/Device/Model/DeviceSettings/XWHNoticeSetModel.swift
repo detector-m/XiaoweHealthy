@@ -20,13 +20,13 @@ class XWHNoticeSetModel: XWHDataBaseModel {
     }
     
     /// 总开关
-    var isOn = false
+    var isOn = true
     
     /// 电话
-    var isOnCall = false
+    var isOnCall = true
     
     /// 信息
-    var isOnSms = false
+    var isOnSms = true
     /// 微信
     var isOnWeChat = false
     /// QQ

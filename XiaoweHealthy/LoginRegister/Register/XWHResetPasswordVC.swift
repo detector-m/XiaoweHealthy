@@ -69,11 +69,11 @@ class XWHResetPasswordVC: XWHBindPhoneVC {
             
             self.codeView.start()
             
-//            XWHLoginRegisterVM().sendCode(phoneNum: phoneNum) { _ in
-//                XWHAlert.show(message: R.string.xwhDisplayText.验证码获取失败(), cancelTitle: nil)
-//            } successHandler: { _ in
-//                
-//            }
+            XWHLoginRegisterVM().sendCode(phoneNum: phoneNum) { _ in
+                XWHAlert.show(message: R.string.xwhDisplayText.验证码获取失败(), cancelTitle: nil)
+            } successHandler: { _ in
+                
+            }
         }
     }
     

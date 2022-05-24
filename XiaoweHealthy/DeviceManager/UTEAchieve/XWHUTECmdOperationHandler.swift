@@ -26,6 +26,16 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
     var wsHandler: XWHWeatherServiceProtocol?
     
     func config(_ user: XWHUserModel?, _ raiseWristSet: XWHRaiseWristSetModel?, handler: XWHDevCmdOperationHandler?) {
+        guard let deviceSn = manager.connectedDevicesModel?.identifier else {
+            log.error("UTE 设备未连接")
+            
+            var error = XWHError()
+            error.message = "设备未连接"
+            handler?(.failure(error))
+            
+            return
+        }
+        
         setTime(handler: handler)
         setUnit(handler: handler)
         
@@ -42,7 +52,19 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
             var error = XWHError()
             error.message = "获取用户信息失败"
             handler?(.failure(error))
+            
+            return
         }
+        
+        var noticeSet: XWHNoticeSetModel
+        
+        if let cNoticeSet = XWHDataDeviceManager.getCurrentNoticeSet() {
+            noticeSet = cNoticeSet
+        } else {
+            noticeSet = XWHNoticeSetModel()
+        }
+        
+        setNoticeSet(noticeSet, handler: handler)
     }
     
     func reboot(handler: XWHDevCmdOperationHandler?) {
@@ -184,7 +206,7 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
                 remindApp.wechat = noticeSet.isOnWeChat ? .open : .close
                 remindApp.qq = noticeSet.isOnQQ ? .open : .close
                 
-                remindApp.other = .open
+                remindApp.other = .close
             } else {
                 let remindType = UTEDeviceRemindEnableType.close
                 
