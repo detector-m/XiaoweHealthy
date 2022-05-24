@@ -101,8 +101,9 @@ extension XWHSearchDeviceVC: UITableViewDataSource, UITableViewDelegate {
         
         let cell = tableView.dequeueReusableCell(withClass: XWHSearchDeviceTBCell.self, for: indexPath)
         
-        let rssi = (abs(cWatchModel.rssi + 100) / 25)
-        let rssiImageStr = "SignalQuality_\(rssi)"
+        let rssi = abs(cWatchModel.rssi + 25 + 100) / 25
+        let sqIndex = min(rssi, 4)
+        let rssiImageStr = "SignalQuality_\(sqIndex)"
         
         cell.titleLb.text = cWatchModel.name
         cell.iconView.image = UIImage(named: rssiImageStr)

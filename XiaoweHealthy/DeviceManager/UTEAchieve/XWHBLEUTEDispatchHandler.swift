@@ -160,7 +160,7 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
         }
         
         if !sameDevices {
-            log.debug("UTE 扫描到的设备: name = \(String(describing: modelDevices.name)), id = \(String(describing: modelDevices.identifier))")
+            log.debug("UTE 扫描到的设备: name = \(String(describing: modelDevices.name)), id = \(String(describing: modelDevices.identifier)), rssi = \(modelDevices.rssi)")
             
             guard let name = modelDevices.name, !name.isEmpty else {
                 return
