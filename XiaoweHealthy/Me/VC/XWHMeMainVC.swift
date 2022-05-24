@@ -37,6 +37,13 @@ class XWHMeMainVC: XWHTableViewBaseVC {
     override func registerViews() {
         tableView.register(cellWithClass: XWHBaseTBCell.self)
     }
+    
+    // MARK: -
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableView.reloadData()
+    }
 
 }
 
@@ -88,6 +95,8 @@ class XWHMeMainVC: XWHTableViewBaseVC {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if XWHUser.isLogined {
             XWHUser.logout()
+            
+            tableView.reloadData()
         }
     }
     
