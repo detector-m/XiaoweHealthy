@@ -53,12 +53,41 @@ class XWHTableViewBaseVC: XWHBaseVC {
         relayoutLargeTitleSecond()
     }
     
+    final func relayoutCommon() {
+        // 大标题方式2
+        tableView.snp.remakeConstraints { make in
+            make.left.right.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        relayoutLargeTitleSecond()
+        relayoutLargeTitleContentView()
+    }
+    
     final func relayoutLargeTitleSecond() {
         largeTitleView.snp.remakeConstraints { make in
             make.left.equalToSuperview()
             make.width.equalTo(largeTitleWidth)
             make.top.equalToSuperview().inset(-largeTitleHeight)
             make.height.equalTo(largeTitleHeight)
+        }
+    }
+    
+    final func relayoutLargeTitleContentView() {
+        largeTitleView.relayout { ltView in
+            ltView.button.snp.remakeConstraints { make in
+                make.right.equalToSuperview().inset(28)
+                make.size.equalTo(24)
+                make.centerY.equalTo(ltView.titleLb)
+            }
+
+            ltView.titleLb.snp.remakeConstraints { make in
+                make.top.equalToSuperview()
+                make.height.equalTo(40)
+                make.left.equalToSuperview().inset(28)
+                make.right.lessThanOrEqualTo(ltView.button.snp.left).offset(-10)
+            }
         }
     }
     

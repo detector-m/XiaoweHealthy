@@ -156,7 +156,10 @@ extension XWHDevice {
 extension XWHDevice {
     
     class func gotoHelp(at targetVC: UIViewController) {
-        XWHSafari.present(at: targetVC, urlStr: kRedirectURL)
+//        XWHSafari.present(at: targetVC, urlStr: kRedirectURL)
+        
+        let vc = XWHDeviceConnectBindHelpTBVC()
+        targetVC.navigationController?.pushViewController(vc, animated: true)
     }
     
     class func getRootVC() -> UIViewController {

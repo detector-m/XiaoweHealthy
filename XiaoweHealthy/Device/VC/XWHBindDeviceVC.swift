@@ -69,6 +69,11 @@ class XWHBindDeviceVC: XWHSearchBindDevBaseVC {
             return
         }
         
+        if XWHDDMShared.connectBindState != .disconnected, XWHDDMShared.connectBindState != .paired {
+            view.makeInsetToast(R.string.xwhDeviceText.连接中())
+            return
+        }
+        
         if isBindSuccess {
             gotoDeviceMain()
             return

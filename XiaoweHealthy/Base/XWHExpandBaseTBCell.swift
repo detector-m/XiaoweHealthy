@@ -41,4 +41,17 @@ class XWHExpandBaseTBCell: XWHBaseTBCell {
         }
     }
     
+    final func relayoutSubViews(leftRightInset: CGFloat) {
+        iconView.snp.remakeConstraints { make in
+            make.size.equalTo(22)
+            make.right.equalToSuperview().inset(leftRightInset)
+            make.centerY.equalToSuperview()
+        }
+        titleLb.snp.remakeConstraints { make in
+            make.left.equalToSuperview().inset(leftRightInset)
+            make.right.equalTo(iconView.snp.left).offset(-16)
+            make.centerY.height.equalToSuperview()
+        }
+    }
+    
 }
