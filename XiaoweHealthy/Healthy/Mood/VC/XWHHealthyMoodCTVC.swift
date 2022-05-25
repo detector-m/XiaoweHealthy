@@ -7,6 +7,8 @@
 
 import UIKit
 
+
+// FIXME: 需要完善
 class XWHHealthyMoodCTVC: XWHHealthyBaseCTVC {
     
     override var popMenuItems: [String] {
@@ -25,7 +27,6 @@ class XWHHealthyMoodCTVC: XWHHealthyBaseCTVC {
         navigationItem.title = R.string.xwhHealthyText.情绪()
         
         cleanUIItems()
-//        loadUIItems()
     }
     
     override func registerViews() {
