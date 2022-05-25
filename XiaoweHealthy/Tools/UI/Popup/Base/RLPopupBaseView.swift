@@ -38,6 +38,7 @@ class RLPopupBaseView: UIView {
     }
     
     func addSubViews() {
+        overlayView.alpha = 0
         addSubview(overlayView)
         
         contentView.layer.cornerRadius = 16
@@ -58,12 +59,16 @@ class RLPopupBaseView: UIView {
     func showAnimation() {
         contentView.center.y = contentCenterY + 500
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut) {
+            self.overlayView.alpha = 1
+
             self.contentView.center.y = self.contentCenterY
         } completion: { _ in }
     }
     
     func hideAnimation() {
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut) {
+            self.overlayView.alpha = 0
+
             self.contentView.center.y = self.contentCenterY + 500
         } completion: { _ in
             self.removeFromSuperview()

@@ -26,7 +26,10 @@ class RLPopupContentBaseView: UIView {
         super.init(frame: frame)
         
         addSubViews()
-        relayoutSubViews()
+        
+        DispatchQueue.main.async { [unowned self] in
+            self.relayoutSubViews()
+        }
     }
     
     required init?(coder: NSCoder) {
