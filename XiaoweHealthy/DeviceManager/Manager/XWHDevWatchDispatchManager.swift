@@ -37,6 +37,9 @@ class XWHDevWatchDispatchManager {
     
     // 数据处理
     private var dataHandler: XWHDevDataOperationProtocol?
+    
+    // 状态监听
+    private var monitorHandler: XWHDeviceMonitorHandler?
 
     
     // MARK: - handlers
@@ -58,20 +61,16 @@ class XWHDevWatchDispatchManager {
     
     @discardableResult
     func config(device: XWHDevWatchModel) -> Self {
+        reset()
+        
         switch device.type {
         case .none:
-            bleHandler?.cmdHandler = nil
-            bleHandler = nil
-            
-            cmdHandler?.wsHandler = nil
-            cmdHandler = nil
-            
-            wsHandler = nil
-            
-            dataHandler = nil
+            break
             
         case .skyworthWatchS1, .skyworthWatchS2:
             bleHandler = _uteBLEHandler
+            
+            bleHandler?.monitorHandler = monitorHandler
             
             cmdHandler = _uteCmdHandler
             bleHandler?.cmdHandler = cmdHandler
@@ -83,7 +82,21 @@ class XWHDevWatchDispatchManager {
             bleHandler?.dataHandler = dataHandler
             
         }
+        
         return self
+    }
+    
+    private func reset() {
+        bleHandler?.cmdHandler = nil
+        bleHandler?.monitorHandler = nil
+        bleHandler = nil
+        
+        cmdHandler?.wsHandler = nil
+        cmdHandler = nil
+        
+        wsHandler = nil
+        
+        dataHandler = nil
     }
     
 }
@@ -104,8 +117,9 @@ extension XWHDevWatchDispatchManager: XWHBLEDispatchProtocol {
     }
     
     /// 设置设备连接状态监听回调
-    func setMonitorHandler(device: XWHDevWatchModel?, monitorHnadler: XWHDeviceMonitorHandler?) {
-        bleHandler?.setMonitorHandler(device: device, monitorHnadler: monitorHnadler)
+    func setMonitorHandler(device: XWHDevWatchModel?, monitorHandler: XWHDeviceMonitorHandler?) {
+        self.monitorHandler = monitorHandler
+        bleHandler?.setMonitorHandler(device: device, monitorHandler: monitorHandler)
     }
     
     // MARK: - 扫描

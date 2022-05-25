@@ -44,7 +44,7 @@ protocol XWHBLEDispatchProtocol {
     /// - Parameters:
     ///     - device: 设备信息
     ///     - monitorHandler: 设备监听回调
-    func setMonitorHandler(device: XWHDevWatchModel?, monitorHnadler: XWHDeviceMonitorHandler?)
+    func setMonitorHandler(device: XWHDevWatchModel?, monitorHandler: XWHDeviceMonitorHandler?)
     
     
     /// 开始扫描

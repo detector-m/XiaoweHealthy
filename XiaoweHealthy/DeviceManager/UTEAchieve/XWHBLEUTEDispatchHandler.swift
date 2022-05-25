@@ -113,6 +113,20 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
         log.info("UTE 重连设备")
         
         disconnect(device: device)
+        
+        connectBindState = .connecting
+        
+        var deviceModel: XWHDevWatchModel!
+        if let cUteModel = self.manager.connectedDevicesModel {
+            deviceModel = self.getDeviceInfo(with: cUteModel)
+        } else {
+            deviceModel = XWHDevWatchModel()
+            deviceModel.category = .watch
+            deviceModel.type = .skyworthWatchS1
+        }
+        
+        self.monitorHandler?(deviceModel, self.connectBindState)
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             self?.connect(device: device, isReconnect: true, connectHandler: connectHandler)
         }
@@ -304,7 +318,7 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
                             deviceModel.type = .skyworthWatchS1
                         }
                         
-                        self.monitorHnadler?(deviceModel, self.connectBindState)
+                        self.monitorHandler?(deviceModel, self.connectBindState)
                         
 //                        if (preConnBindState == .connected || preConnBindState == .paired) && self.connectHandler == nil {
 //
@@ -328,7 +342,7 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
                             deviceModel.type = .skyworthWatchS1
                         }
                         
-                        self.monitorHnadler?(deviceModel, self.connectBindState)
+                        self.monitorHandler?(deviceModel, self.connectBindState)
                     }
                 }
             }

@@ -19,7 +19,7 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
     /// 是否是重连
     var isReconnect = false
     
-    var monitorHnadler: XWHDeviceMonitorHandler?
+    var monitorHandler: XWHDeviceMonitorHandler?
     
     var scanProgressHandler: XWHDevScanProgressHandler?
     var connectHandler: XWHDevConnectHandler?
@@ -57,8 +57,8 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
     }
     
     /// 设置设备连接状态监听回调
-    func setMonitorHandler(device: XWHDevWatchModel?, monitorHnadler: XWHDeviceMonitorHandler?) {
-        self.monitorHnadler = monitorHnadler
+    func setMonitorHandler(device: XWHDevWatchModel?, monitorHandler: XWHDeviceMonitorHandler?) {
+        self.monitorHandler = monitorHandler
     }
     
 //    func configCurType(type: XWHDeviceType) {

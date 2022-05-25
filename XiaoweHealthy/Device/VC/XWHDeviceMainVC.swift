@@ -639,12 +639,12 @@ extension XWHDeviceMainVC {
                 XWHDDMShared.reset { result in
                     switch result {
                     case .success(_):
-                        if let cModel = self.connWatchModel {
-                            XWHDataDeviceManager.remove(device: cModel)
-                            
-                            self.unbindDeviceToServer()
-                        }
-                        self.gotoAddDeviceEntry()
+//                        if let cModel = self.connWatchModel {
+//                            XWHDataDeviceManager.remove(device: cModel)
+//                            self.unbindDeviceToServer()
+//                        }
+//                        self.gotoAddDeviceEntry()
+                        self.view.makeInsetToast(R.string.xwhDeviceText.恢复出厂设置成功())
                         
                     case .failure(let error):
                         self.view.makeInsetToast(error.message)
