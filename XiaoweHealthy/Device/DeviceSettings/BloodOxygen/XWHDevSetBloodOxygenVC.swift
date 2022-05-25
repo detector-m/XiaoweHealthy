@@ -9,12 +9,13 @@ import UIKit
 
 class XWHDevSetBloodOxygenVC: XWHDevSetBaseVC {
     
-    lazy var isOxygenOn = ddManager.getCurrentBloodOxygenSet()?.isOn ?? false
+    private lazy var curBOSet: XWHBloodOxygenSetModel? = ddManager.getCurrentBloodOxygenSet()
+    lazy var isOxygenOn = curBOSet?.isOn ?? false
     
     lazy var monitorTimes = [10, 30, 60, 60 * 2, 60 * 3,  60 * 4,  60 * 5,  60 * 6,  60 * 7,  60 * 8]
     lazy var sIndex: Int = {
         var ret = 2
-        guard let boSet = ddManager.getCurrentBloodOxygenSet() else {
+        guard let boSet = curBOSet else {
             return ret
         }
         
@@ -52,11 +53,11 @@ class XWHDevSetBloodOxygenVC: XWHDevSetBaseVC {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if section == 0 {
-//            return 1
-//        }
+        if section == 0 {
+            return 1
+        }
         
-        return 1
+        return 3
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -93,17 +94,25 @@ class XWHDevSetBloodOxygenVC: XWHDevSetBaseVC {
         } else {
             let cell = tableView.dequeueReusableCell(withClass: XWHDevSetCommonTBCell.self)
             
-            cell.titleLb.text = R.string.xwhDeviceText.监测频率()
+            if indexPath.row == 0 {
+                cell.titleLb.text = R.string.xwhDeviceText.开始时间()
+                cell.subTitleLb.text = curBOSet?.beginTime
+            } else if indexPath.row == 1 {
+                cell.titleLb.text = R.string.xwhDeviceText.结束时间()
+                cell.subTitleLb.text = curBOSet?.endTime
+            } else {
+                cell.titleLb.text = R.string.xwhDeviceText.监测频率()
             
-            let sTimeStr = getTimeText(mTime: monitorTimes[sIndex])
-            cell.subTitleLb.text = sTimeStr
+                let sTimeStr = getTimeText(mTime: monitorTimes[sIndex])
+                cell.subTitleLb.text = sTimeStr
+            }
             
             return cell
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 1 {
+        if indexPath.section == 1, indexPath.row == 2 {
             gotoPickMonitorTime()
         }
     }

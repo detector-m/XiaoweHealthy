@@ -9,13 +9,15 @@ import UIKit
 
 class XWHDevSetStandVC: XWHDevSetBaseVC {
 
-    lazy var isStandOn = ddManager.getCurrentLongSitSet()?.isOn ?? false
-    lazy var isNotDisturbAtNoon = ddManager.getCurrentLongSitSet()?.isSiestaOn ?? false
+    private lazy var curLSSet: XWHLongSitSetModel? = ddManager.getCurrentLongSitSet()
+    
+    lazy var isStandOn = curLSSet?.isOn ?? false
+    lazy var isNotDisturbAtNoon = curLSSet?.isSiestaOn ?? false
     
     lazy var warnTimes = [30, 45, 60, 60 * 2, 60 * 3]
     lazy var sIndex: Int = {
         var ret = 2
-        guard let lsSet = ddManager.getCurrentLongSitSet() else {
+        guard let lsSet = curLSSet else {
             return ret
         }
         
@@ -53,11 +55,13 @@ class XWHDevSetStandVC: XWHDevSetBaseVC {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if section == 1 {
-//            return 1
-//        }
-        
-        return 1
+        if section == 0 {
+            return 1
+        } else if section == 1 {
+            return 3
+        } else {
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -109,17 +113,25 @@ class XWHDevSetStandVC: XWHDevSetBaseVC {
         } else {
             let cell = tableView.dequeueReusableCell(withClass: XWHDevSetCommonTBCell.self)
             
-            cell.titleLb.text = R.string.xwhDeviceText.提醒间隔()
-            
-            let sTimeStr = getTimeText(mTime: warnTimes[sIndex])
-            cell.subTitleLb.text = sTimeStr
+            if indexPath.row == 0 {
+                cell.titleLb.text = R.string.xwhDeviceText.开始时间()
+                cell.subTitleLb.text = curLSSet?.beginTime
+            } else if indexPath.row == 1 {
+                cell.titleLb.text = R.string.xwhDeviceText.结束时间()
+                cell.subTitleLb.text = curLSSet?.endTime
+            } else {
+                cell.titleLb.text = R.string.xwhDeviceText.提醒间隔()
+                
+                let sTimeStr = getTimeText(mTime: warnTimes[sIndex])
+                cell.subTitleLb.text = sTimeStr
+            }
             
             return cell
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 1 {
+        if indexPath.section == 1, indexPath.row == 2 {
             gotoPickStandWarnTime()
         }
     }
