@@ -101,7 +101,7 @@ class XWHCalendarPopupContainer: UIView {
         //For the black background
         self.frame = CGRect(x: 0, y: 0, width: largerSide * 2, height: largerSide * 2)
         
-        self.dialogView.layer.opacity = 0.5
+        self.dialogView.layer.opacity = 0.0
         self.dialogView.layer.transform = CATransform3DMakeScale(1.3, 1.3, 1.0)
         
         self.backgroundColor = UIColor.black.withAlphaComponent(0)
@@ -131,7 +131,7 @@ class XWHCalendarPopupContainer: UIView {
         }
     
         UIView.animate(
-            withDuration: 0.2,
+            withDuration: 0.25,
             delay: 0.0,
             options: UIView.AnimationOptions(),
             animations: { () -> Void in
@@ -146,7 +146,7 @@ class XWHCalendarPopupContainer: UIView {
         self.dialogView.layer.opacity = 1.0
         
         UIView.animate(
-            withDuration: 0.2,
+            withDuration: 0.25,
             delay: 0.0,
             options: UIView.AnimationOptions(),
             animations: { () -> Void in

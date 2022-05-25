@@ -25,8 +25,10 @@ class XWHHealthyMentalStressCTVC: XWHHealthyBaseCTVC {
 
         navigationItem.title = R.string.xwhHealthyText.压力()
         
-        getMentalStressExistDate()
-        getMentalStress()
+        cleanUIItems()
+        
+        getDataExistDate()
+        getData()
     }
     
     override func registerViews() {
@@ -44,15 +46,15 @@ class XWHHealthyMentalStressCTVC: XWHHealthyBaseCTVC {
     
     override func clickDateBtn() {
         showCalendar() { [unowned self] scrollDate, cDateType in
-            self._getMentalStressExistDate(scrollDate, sDateType: cDateType) { isExist in
+            self.getDataExistDate(scrollDate, cDateType) { isExist in
             }
         }
     }
     
     override func dateSegmentValueChanged(_ segmentType: XWHHealthyDateSegmentType) {
         updateUI(false)
-        getMentalStressExistDate()
-        getMentalStress()
+        getDataExistDate()
+        getData()
     }
     
     func loadUIItems() {
@@ -61,6 +63,7 @@ class XWHHealthyMentalStressCTVC: XWHHealthyBaseCTVC {
     }
     
     func cleanUIItems() {
+        uiManager.loadItems(.mentalStress)
         uiManager.cleanItems(without: [.chart])
         collectionView.reloadData()
     }
@@ -202,17 +205,17 @@ extension XWHHealthyMentalStressCTVC {
 // MARK: - Api
 extension XWHHealthyMentalStressCTVC {
     
-    private func getMentalStressExistDate() {
+    private func getDataExistDate() {
         let cDate = getSelectedDate()
 //        XWHProgressHUD.show()
-        _getMentalStressExistDate(cDate, sDateType: dateType) { isExist in
+        getDataExistDate(cDate, dateType) { isExist in
 //            if isExist {
 //                XWHProgressHUD.hide()
 //            }
         }
     }
     
-    private func _getMentalStressExistDate(_ sDate: Date, sDateType: XWHHealthyDateSegmentType, _ completion: ((Bool) -> Void)?) {
+    private func getDataExistDate(_ sDate: Date, _ sDateType: XWHHealthyDateSegmentType, _ completion: ((Bool) -> Void)?) {
         if existDataDateItemsContains(sDate, sDateType: sDateType) {
             completion?(true)
             return
@@ -244,7 +247,7 @@ extension XWHHealthyMentalStressCTVC {
         }
     }
     
-    private func getMentalStress() {
+    private func getData() {
         XWHProgressHUD.show()
         let cDate = getSelectedDate()
         XWHHealthyVM().getMentalStress(date: cDate, dateType: dateType) { [unowned self] error in
@@ -265,7 +268,6 @@ extension XWHHealthyMentalStressCTVC {
             guard let retModel = response.data as? XWHMentalStressUIStressModel else {
                 log.debug("精神压力 - 获取数据为空")
                 self.msUIModel = nil
-                self.loadUIItems()
                 self.cleanUIItems()
                 
 //                self.collectionView.reloadEmptyDataSet()

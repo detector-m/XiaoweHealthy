@@ -22,7 +22,8 @@ class XWHHealthyMoodCTVC: XWHHealthyBaseCTVC {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        loadUIItems()
+        cleanUIItems()
+//        loadUIItems()
     }
     
     override func registerViews() {
@@ -56,6 +57,7 @@ class XWHHealthyMoodCTVC: XWHHealthyBaseCTVC {
     }
     
     func cleanUIItems() {
+        uiManager.loadItems(.mood)
         uiManager.cleanItems(without: [.chart])
         collectionView.reloadData()
     }

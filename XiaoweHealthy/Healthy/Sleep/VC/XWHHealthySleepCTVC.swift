@@ -21,8 +21,10 @@ class XWHHealthySleepCTVC: XWHHealthyBaseCTVC {
         
         navigationItem.title = R.string.xwhHealthyText.睡眠()
         
-        getSleepExistDate()
-        getSleep()
+        cleanUIItems()
+        
+        getDataExistDate()
+        getData()
     }
     
     override func registerViews() {
@@ -39,17 +41,17 @@ class XWHHealthySleepCTVC: XWHHealthyBaseCTVC {
     
     override func clickDateBtn() {
         showCalendar() { [unowned self] scrollDate, cDateType in
-            self._getSleepExistDate(scrollDate, sDateType: cDateType) { isExist in
+            self.getDataExistDate(scrollDate, cDateType) { isExist in
             }
         }
     }
     
     override func dateSegmentValueChanged(_ segmentType: XWHHealthyDateSegmentType) {
         updateUI(false)
-        getSleepExistDate()
-        getSleep()
+        getDataExistDate()
+        getData()
         
-        collectionView.reloadData()
+//        collectionView.reloadData()
     }
     
     func loadUIItems() {
@@ -58,6 +60,7 @@ class XWHHealthySleepCTVC: XWHHealthyBaseCTVC {
     }
     
     func cleanUIItems() {
+        uiManager.loadItems(.sleep)
         uiManager.cleanItems(without: [.chart])
         collectionView.reloadData()
     }
@@ -257,17 +260,17 @@ extension XWHHealthySleepCTVC {
 // MARK: - Api
 extension XWHHealthySleepCTVC {
     
-    private func getSleepExistDate() {
+    private func getDataExistDate() {
         let cDate = getSelectedDate()
 //        XWHProgressHUD.show()
-        _getSleepExistDate(cDate, sDateType: dateType) { isExist in
+        getDataExistDate(cDate, dateType) { isExist in
 //            if isExist {
 //                XWHProgressHUD.hide()
 //            }
         }
     }
     
-    private func _getSleepExistDate(_ sDate: Date, sDateType: XWHHealthyDateSegmentType, _ completion: ((Bool) -> Void)?) {
+    private func getDataExistDate(_ sDate: Date, _ sDateType: XWHHealthyDateSegmentType, _ completion: ((Bool) -> Void)?) {
         if existDataDateItemsContains(sDate, sDateType: sDateType) {
             completion?(true)
             return
@@ -300,7 +303,7 @@ extension XWHHealthySleepCTVC {
         }
     }
     
-    private func getSleep() {
+    private func getData() {
         XWHProgressHUD.show()
         let cDate = getSelectedDate()
         XWHHealthyVM().getSleep(date: cDate, dateType: dateType) { [unowned self] error in
@@ -322,7 +325,6 @@ extension XWHHealthySleepCTVC {
                 log.debug("睡眠 - 获取数据为空")
                 
                 self.sleepUIModel = nil
-                self.loadUIItems()
                 self.cleanUIItems()
                 
 //                self.collectionView.reloadEmptyDataSet()

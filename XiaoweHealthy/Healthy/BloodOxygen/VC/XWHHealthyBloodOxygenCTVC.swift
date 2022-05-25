@@ -26,8 +26,10 @@ class XWHHealthyBloodOxygenCTVC: XWHHealthyBaseCTVC {
         
         navigationItem.title = R.string.xwhHealthyText.血氧饱和度()
         
-        getBloodOxygenExistDate()
-        getBloodOxygen()
+        cleanUIItems()
+        
+        getDataExistDate()
+        getData()
     }
     
     override func registerViews() {
@@ -42,15 +44,15 @@ class XWHHealthyBloodOxygenCTVC: XWHHealthyBaseCTVC {
     
     override func clickDateBtn() {
         showCalendar() { [unowned self] scrollDate, cDateType in
-            self._getBloodOxygenExistDate(scrollDate, sDateType: cDateType) { isExist in
+            self.getDataExistDate(scrollDate, cDateType) { isExist in
             }
         }
     }
     
     override func dateSegmentValueChanged(_ segmentType: XWHHealthyDateSegmentType) {
         updateUI(false)
-        getBloodOxygenExistDate()
-        getBloodOxygen()
+        getDataExistDate()
+        getData()
     }
     
     func loadUIItems() {
@@ -59,6 +61,7 @@ class XWHHealthyBloodOxygenCTVC: XWHHealthyBaseCTVC {
     }
     
     func cleanUIItems() {
+        uiManager.loadItems(.bloodOxygen)
         uiManager.cleanItems(without: [.chart])
         collectionView.reloadData()
     }
@@ -163,17 +166,17 @@ extension XWHHealthyBloodOxygenCTVC {
 // MARK: - Api
 extension XWHHealthyBloodOxygenCTVC {
     
-    private func getBloodOxygenExistDate() {
+    private func getDataExistDate() {
         let cDate = getSelectedDate()
 //        XWHProgressHUD.show()
-        _getBloodOxygenExistDate(cDate, sDateType: dateType) { isExist in
+        getDataExistDate(cDate, dateType) { isExist in
 //            if isExist {
 //                XWHProgressHUD.hide()
 //            }
         }
     }
     
-    private func _getBloodOxygenExistDate(_ sDate: Date, sDateType: XWHHealthyDateSegmentType, _ completion: ((Bool) -> Void)?) {
+    private func getDataExistDate(_ sDate: Date, _ sDateType: XWHHealthyDateSegmentType, _ completion: ((Bool) -> Void)?) {
         if existDataDateItemsContains(sDate, sDateType: sDateType) {
             completion?(true)
             return
@@ -205,7 +208,7 @@ extension XWHHealthyBloodOxygenCTVC {
         }
     }
     
-    private func getBloodOxygen() {
+    private func getData() {
         XWHProgressHUD.show()
         let cDate = getSelectedDate()
         XWHHealthyVM().getBloodOxygen(date: cDate, dateType: dateType) { [unowned self] error in
@@ -226,7 +229,6 @@ extension XWHHealthyBloodOxygenCTVC {
             guard let retModel = response.data as? XWHBOUIBloodOxygenModel else {
                 log.debug("血氧 - 获取数据为空")
                 self.boUIModel = nil
-                self.loadUIItems()
                 self.cleanUIItems()
                 
 //                self.collectionView.reloadEmptyDataSet()

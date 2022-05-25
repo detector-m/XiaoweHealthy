@@ -106,8 +106,6 @@ class XWHCalendarView: RLPopupContentBaseView {
         addSubview(dayView)
         
         configEventAction()
-        
-        dateSegmentValueChanged(dateType)
     }
     
     override func relayoutSubViews() {
@@ -117,6 +115,8 @@ class XWHCalendarView: RLPopupContentBaseView {
         relayoutMonthView()
         relayoutWeekView()
         relayoutDayView()
+        
+        dateSegmentValueChanged(dateType)
     }
     
     @objc final func relayoutDateSegment() {

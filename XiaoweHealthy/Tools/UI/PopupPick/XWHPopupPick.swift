@@ -104,8 +104,10 @@ class XWHPopupPickContentView: RLPopupContentBaseView, UIPickerViewDelegate & UI
     }
     
     override func relayoutSubViews() {
-        relayoutCancelConfirmButton()
-        relayoutPickerView()
+        DispatchQueue.main.async { [unowned self] in
+            self.relayoutCancelConfirmButton()
+            self.relayoutPickerView()
+        }
     }
     
     func relayoutPickerView() {

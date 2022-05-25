@@ -26,8 +26,10 @@ class XWHHealthyHeartCTVC: XWHHealthyBaseCTVC {
         super.viewDidLoad()
         navigationItem.title = R.string.xwhHealthyText.心率()
         
-        getHeartExistDate()
-        getHeart()
+        cleanUIItems()
+        
+        getDataExistDate()
+        getData()
     }
     
     override func registerViews() {
@@ -42,15 +44,15 @@ class XWHHealthyHeartCTVC: XWHHealthyBaseCTVC {
     
     override func clickDateBtn() {
         showCalendar() { [unowned self] scrollDate, cDateType in
-            self._getHeartExistDate(scrollDate, sDateType: cDateType) { isExist in
+            self.getDataExistDate(scrollDate, cDateType) { isExist in
             }
         }
     }
     
     override func dateSegmentValueChanged(_ segmentType: XWHHealthyDateSegmentType) {
         updateUI(false)
-        getHeartExistDate()
-        getHeart()
+        getDataExistDate()
+        getData()
     }
     
     func loadUIItems() {
@@ -59,6 +61,7 @@ class XWHHealthyHeartCTVC: XWHHealthyBaseCTVC {
     }
     
     func cleanUIItems() {
+        uiManager.loadItems(.heart)
         uiManager.cleanItems(without: [.chart])
         collectionView.reloadData()
     }
@@ -162,17 +165,17 @@ extension XWHHealthyHeartCTVC {
 // MARK: - Api
 extension XWHHealthyHeartCTVC {
     
-    private func getHeartExistDate() {
+    private func getDataExistDate() {
         let cDate = getSelectedDate()
 //        XWHProgressHUD.show()
-        _getHeartExistDate(cDate, sDateType: dateType) { isExist in
+        getDataExistDate(cDate, dateType) { isExist in
 //            if isExist {
 //                XWHProgressHUD.hide()
 //            }
         }
     }
     
-    private func _getHeartExistDate(_ sDate: Date, sDateType: XWHHealthyDateSegmentType, _ completion: ((Bool) -> Void)?) {
+    private func getDataExistDate(_ sDate: Date, _ sDateType: XWHHealthyDateSegmentType, _ completion: ((Bool) -> Void)?) {
         if existDataDateItemsContains(sDate, sDateType: sDateType) {
             completion?(true)
             return
@@ -205,7 +208,7 @@ extension XWHHealthyHeartCTVC {
         }
     }
     
-    private func getHeart() {
+    private func getData() {
         XWHProgressHUD.show()
         let cDate = getSelectedDate()
         XWHHealthyVM().getHeart(date: cDate, dateType: dateType) { [unowned self] error in
@@ -227,7 +230,6 @@ extension XWHHealthyHeartCTVC {
                 log.debug("心率 - 获取数据为空")
 
                 self.heartUIModel = nil
-                self.loadUIItems()
                 self.cleanUIItems()
                 
 //                self.collectionView.reloadEmptyDataSet()
