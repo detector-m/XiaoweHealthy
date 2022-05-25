@@ -140,10 +140,62 @@ extension XWHLoginRegisterBaseVC {
             self.view.makeInsetToast(cError.message)
         } successHandler: { [unowned self] cResponse in
             guard let info = cResponse.data as? UMSocialUserInfoResponse else {
+                self.view.makeInsetToast(R.string.xwhDisplayText.授权失败())
+
                 return
             }
             
-            self.gotoBindPhone(loginType: loginType, nickname: info.name, avatar: info.iconurl, wxOpenid: info.usid, qqOpenid: info.usid)
+//            self.gotoBindPhone(loginType: loginType, nickname: info.name, avatar: info.iconurl, wxOpenid: info.usid, qqOpenid: info.usid)
+            self.gotoThirdLogin(loginType, info)
+        }
+    }
+    
+    // 第三方登录
+    fileprivate func gotoThirdLogin(_ loginType: XWHLoginType, _ info: UMSocialUserInfoResponse) {
+        if loginType != .weixin, loginType != .qq {
+            return
+        }
+        
+        let cOpenId = info.usid ?? ""
+        
+        let vm = XWHLoginRegisterVM()
+        
+        var param = [String: String]()
+        
+        if cOpenId.isEmpty {
+            log.error("loginType = \(loginType), openid 为空")
+
+            view.makeInsetToast(R.string.xwhDisplayText.授权失败())
+            return
+        }
+        
+        if loginType == .weixin {
+            param = vm.getWeixinLoginParameters(wxOpenid: cOpenId)
+        } else if loginType == .qq {
+            param = vm.getQQLoginParameters(qqOpenid: cOpenId)
+        }
+        
+        XWHProgressHUD.showLogin(text: R.string.xwhDisplayText.加速登录中())
+        vm.login(parameters: param) { [weak self] error in
+            XWHProgressHUD.hideLogin()
+            
+            if error.code.int != 10404 { // 用户不存在
+                self?.view.makeInsetToast(error.message)
+                return
+            }
+            
+            self?.gotoBindPhone(loginType: loginType, nickname: info.name, avatar: info.iconurl, wxOpenid: info.usid, qqOpenid: info.usid)
+        } successHandler: { [unowned self] response in
+            XWHProgressHUD.hideLogin()
+            if let cRes = response.data as? JSON {
+                if let token = cRes["token"].string, !token.isEmpty {
+                    XWHUser.setToken(token: token)
+                }
+                
+                let isNewer = cRes["newer"].boolValue
+                
+                XWHUser.gotoSetUserInfo(at: self, isNewer: isNewer)
+            }
         }
     }
     

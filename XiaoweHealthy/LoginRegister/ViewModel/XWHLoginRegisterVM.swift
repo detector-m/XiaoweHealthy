@@ -154,12 +154,20 @@ extension XWHLoginRegisterVM {
         return ["mobile": phoneNum, "password": password, "loginType": "password"]
     }
     
-    func getWeixinLoginParameters(phoneNum: String, code: String, nickname: String, avatar: String, wxOpenid: String) -> [String: String] {
+    func getWeixinRegisterParameters(phoneNum: String, code: String, nickname: String, avatar: String, wxOpenid: String) -> [String: String] {
         return ["mobile": phoneNum, "code": code, "nickname": nickname, "avatar": avatar, "wxOpenid": wxOpenid, "loginType": "weixin"]
     }
     
-    func getQQLoginParameters(phoneNum: String, code: String, nickname: String, avatar: String, qqOpenid: String) -> [String: String] {
+    func getQQRegisterParameters(phoneNum: String, code: String, nickname: String, avatar: String, qqOpenid: String) -> [String: String] {
         return ["mobile": phoneNum, "code": code, "nickname": nickname, "avatar": avatar, "qqOpenid": qqOpenid, "loginType": "qq"]
+    }
+    
+    func getWeixinLoginParameters(wxOpenid: String) -> [String: String] {
+        return ["wxOpenid": wxOpenid, "loginType": "weixin"]
+    }
+
+    func getQQLoginParameters(qqOpenid: String) -> [String: String] {
+        return ["qqOpenid": qqOpenid, "loginType": "qq"]
     }
     
 }

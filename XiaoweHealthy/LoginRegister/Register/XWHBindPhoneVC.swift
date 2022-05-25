@@ -127,7 +127,7 @@ class XWHBindPhoneVC: XWHRegisterBaseVC {
             return
         }
         
-        gotoLogin()
+        gotoRegister()
     }
     
     @objc func textFiledChanged(sender: UITextField) {
@@ -187,7 +187,7 @@ class XWHBindPhoneVC: XWHRegisterBaseVC {
 
 extension XWHBindPhoneVC {
     
-    fileprivate func gotoLogin() {
+    fileprivate func gotoRegister() {
         if loginType != .weixin, loginType != .qq {
             return
         }
@@ -203,14 +203,14 @@ extension XWHBindPhoneVC {
                 return
             }
             
-            param = vm.getWeixinLoginParameters(phoneNum: phone, code: code, nickname: nickname, avatar: avatar, wxOpenid: wxOpenid)
+            param = vm.getWeixinRegisterParameters(phoneNum: phone, code: code, nickname: nickname, avatar: avatar, wxOpenid: wxOpenid)
         } else if loginType == .qq {
             if qqOpenid.isEmpty {
                 view.makeInsetToast("qqOpenid 为空")
                 return
             }
             
-            param = vm.getQQLoginParameters(phoneNum: phone, code: code, nickname: nickname, avatar: avatar, qqOpenid: qqOpenid)
+            param = vm.getQQRegisterParameters(phoneNum: phone, code: code, nickname: nickname, avatar: avatar, qqOpenid: qqOpenid)
         }
         
         XWHProgressHUD.showLogin(text: R.string.xwhDisplayText.加速登录中())
