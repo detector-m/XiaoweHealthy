@@ -12,7 +12,7 @@ import UIKit
 class XWHHealthyMoodCTVC: XWHHealthyBaseCTVC {
     
     override var popMenuItems: [String] {
-        [R.string.xwhDeviceText.压力设置(), R.string.xwhHealthyText.所有数据()]
+        [R.string.xwhDeviceText.情绪压力设置(), R.string.xwhHealthyText.所有数据()]
     }
     
     override var isHasLastCurDataItem: Bool {

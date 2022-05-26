@@ -18,7 +18,7 @@ class XWHDevSetMentalStressVC: XWHDevSetBaseVC {
     override func addSubViews() {
         super.addSubViews()
         
-        titleLb.text = R.string.xwhDeviceText.压力设置()
+        titleLb.text = R.string.xwhDeviceText.情绪压力设置()
     }
     
     // MARK: - ConfigUI

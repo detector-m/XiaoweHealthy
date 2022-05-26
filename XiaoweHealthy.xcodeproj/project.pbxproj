@@ -264,6 +264,7 @@
 		96AD28662801C5AA0092B843 /* XWHDataUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD28652801C5AA0092B843 /* XWHDataUserManager.swift */; };
 		96AD28682801C5BA0092B843 /* XWHDataDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD28672801C5BA0092B843 /* XWHDataDeviceManager.swift */; };
 		96AD2AE3283F156B0024AF5B /* SignInWithApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD2AE2283F156B0024AF5B /* SignInWithApple.swift */; };
+		96AD2AE5283F6BCF0024AF5B /* XWHStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD2AE4283F6BCF0024AF5B /* XWHStringExtension.swift */; };
 		96BFC8FE283770B10080DCFC /* XWHHealthyMoodCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BFC8FD283770B10080DCFC /* XWHHealthyMoodCTVC.swift */; };
 		96BFC900283775420080DCFC /* XWHMoodIntroductionTXVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BFC8FF283775420080DCFC /* XWHMoodIntroductionTXVC.swift */; };
 		96BFC902283777430080DCFC /* XWHMoodChartCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BFC901283777430080DCFC /* XWHMoodChartCTCell.swift */; };
@@ -642,6 +643,7 @@
 		96AD28652801C5AA0092B843 /* XWHDataUserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataUserManager.swift; sourceTree = "<group>"; };
 		96AD28672801C5BA0092B843 /* XWHDataDeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataDeviceManager.swift; sourceTree = "<group>"; };
 		96AD2AE2283F156B0024AF5B /* SignInWithApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithApple.swift; sourceTree = "<group>"; };
+		96AD2AE4283F6BCF0024AF5B /* XWHStringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHStringExtension.swift; sourceTree = "<group>"; };
 		96BFC8FD283770B10080DCFC /* XWHHealthyMoodCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyMoodCTVC.swift; sourceTree = "<group>"; };
 		96BFC8FF283775420080DCFC /* XWHMoodIntroductionTXVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMoodIntroductionTXVC.swift; sourceTree = "<group>"; };
 		96BFC901283777430080DCFC /* XWHMoodChartCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMoodChartCTCell.swift; sourceTree = "<group>"; };
@@ -1259,6 +1261,7 @@
 				9653E48827F54D5900EE55FF /* XWHDataExtension.swift */,
 				967790B2280FADFA00C78327 /* XWHUIButtonExtension.swift */,
 				969B88442812A6B1009952E7 /* XWHDateExtension.swift */,
+				96AD2AE4283F6BCF0024AF5B /* XWHStringExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -3115,6 +3118,7 @@
 				969B882B2810122A009952E7 /* XWHHealthyCommonCTCell.swift in Sources */,
 				9679E9F22818DDAD003C6351 /* XWHCalendarHelper.swift in Sources */,
 				96DC42A927FDA3C7009BF300 /* XWHTimeoutHandler.swift in Sources */,
+				96AD2AE5283F6BCF0024AF5B /* XWHStringExtension.swift in Sources */,
 				967823AB27F2C9B5004F66FB /* XWHUIImageExtension.swift in Sources */,
 				96F3589027FE940300783614 /* XWHDevWatchDispatchManager.swift in Sources */,
 				960A836A28025EFD00FC1B5F /* XWHDevCmdOperationProtocol.swift in Sources */,

@@ -344,10 +344,25 @@ extension XWHHealthyBaseCTVC {
 @objc extension XWHHealthyBaseCTVC {
     
     func showPopMenu(_ sender: UIView, _ mItems: [String], _ completion: ((Int) -> Void)? = nil) {
+        if mItems.isEmpty {
+            return
+        }
+        
         let iImage = UIImage(color: bgColor, size: CGSize(width: 12, height: 12))
         
+        let iItem = mItems.max { $0.count < $1.count }
+        
+        let config = getPopMenuConfig()
+        var maxWidth: CGFloat = 140
+        if let maxItem = iItem {
+            let iWidth = maxItem.widthWith(font: config.textFont) + config.menuIconSize * 2 + 4 * 3 + 4 * 2
+            maxWidth = max(maxWidth, iWidth)
+        }
+        
+        config.menuWidth = maxWidth
+        
         let menuImages: [UIImage] = mItems.map({ _ in iImage })
-        FTPopOverMenu.showForSender(sender: sender, with: mItems, menuImageArray: menuImages, popOverPosition: .alwaysUnderSender, config: getPopMenuConfig(), done: completion, cancel: nil)
+        FTPopOverMenu.showForSender(sender: sender, with: mItems, menuImageArray: menuImages, popOverPosition: .alwaysUnderSender, config: config, done: completion, cancel: nil)
         
 //        var senderRect = CGRect.zero
 //        if let superView = sender.superview {

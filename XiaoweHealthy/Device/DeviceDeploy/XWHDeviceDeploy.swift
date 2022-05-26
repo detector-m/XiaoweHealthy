@@ -182,7 +182,7 @@ class XWHDeviceDeploy {
             item.iconImageName = "DeviceOxygen"
 
         case .mentalStress: // 压力设置
-            item.title = R.string.xwhDeviceText.压力设置()
+            item.title = R.string.xwhDeviceText.情绪压力设置()
             item.iconBgColor = UIColor(hex: 0x76D4EA)
             item.iconImageName = "DevicePressure"
 
