@@ -135,13 +135,13 @@ extension XWHLoginRegisterBaseVC {
         SignInWithApple.shared.getUserInfo(at: self) { [unowned self] cError in
             self.view.makeInsetToast(cError.message)
         } successHandler: { [unowned self] cResponse in
-//            guard let info = cResponse.data as? UMSocialUserInfoResponse else {
-//                self.view.makeInsetToast(R.string.xwhDisplayText.授权失败())
-//
-//                return
-//            }
+            guard let info = cResponse.data as? SignInWithAppleUserModel else {
+                self.view.makeInsetToast(R.string.xwhDisplayText.授权失败())
+
+                return
+            }
             
-//            self.gotoThirdLogin(loginType: .apple, thirdOpenId: info.usid ?? "", nickname: info.name, avatar: info.iconurl)
+            self.gotoThirdLogin(loginType: .apple, thirdOpenId: info.userid, nickname: info.nickname, avatar: info.avatar)
         }
     }
     
