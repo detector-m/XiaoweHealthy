@@ -124,6 +124,28 @@ extension XWHLoginRegisterBaseVC {
     
     // 获取第三方登录信息
     func getThirdPlatformUserInfo(loginType: XWHLoginType) {
+        if loginType == .apple {
+            getApplePlatformUserInfo()
+        } else {
+            getUMThirdPlatformUserInfo(loginType: loginType)
+        }
+    }
+    
+    func getApplePlatformUserInfo() {
+        SignInWithApple.shared.getUserInfo(at: self) { [unowned self] cError in
+            self.view.makeInsetToast(cError.message)
+        } successHandler: { [unowned self] cResponse in
+//            guard let info = cResponse.data as? UMSocialUserInfoResponse else {
+//                self.view.makeInsetToast(R.string.xwhDisplayText.授权失败())
+//
+//                return
+//            }
+            
+//            self.gotoThirdLogin(loginType: .apple, thirdOpenId: info.usid ?? "", nickname: info.name, avatar: info.iconurl)
+        }
+    }
+    
+    func getUMThirdPlatformUserInfo(loginType: XWHLoginType) {
         var pType = UMSocialPlatformType.unKnown
         
         if loginType == .weixin {
@@ -146,23 +168,22 @@ extension XWHLoginRegisterBaseVC {
             }
             
 //            self.gotoBindPhone(loginType: loginType, nickname: info.name, avatar: info.iconurl, wxOpenid: info.usid, qqOpenid: info.usid)
-            self.gotoThirdLogin(loginType, info)
+//            self.gotoThirdLogin(loginType, info)
+            self.gotoThirdLogin(loginType: loginType, thirdOpenId: info.usid ?? "", nickname: info.name, avatar: info.iconurl)
         }
     }
     
     // 第三方登录
-    fileprivate func gotoThirdLogin(_ loginType: XWHLoginType, _ info: UMSocialUserInfoResponse) {
-        if loginType != .weixin, loginType != .qq {
+    fileprivate func gotoThirdLogin(loginType: XWHLoginType, thirdOpenId: String, nickname: String, avatar: String) {
+        if loginType != .weixin, loginType != .qq, loginType != .apple {
             return
         }
-        
-        let cOpenId = info.usid ?? ""
         
         let vm = XWHLoginRegisterVM()
         
         var param = [String: String]()
         
-        if cOpenId.isEmpty {
+        if thirdOpenId.isEmpty {
             log.error("loginType = \(loginType), openid 为空")
 
             view.makeInsetToast(R.string.xwhDisplayText.授权失败())
@@ -170,9 +191,11 @@ extension XWHLoginRegisterBaseVC {
         }
         
         if loginType == .weixin {
-            param = vm.getWeixinLoginParameters(wxOpenid: cOpenId)
+            param = vm.getWeixinLoginParameters(wxOpenid: thirdOpenId)
         } else if loginType == .qq {
-            param = vm.getQQLoginParameters(qqOpenid: cOpenId)
+            param = vm.getQQLoginParameters(qqOpenid: thirdOpenId)
+        } else if loginType == .apple {
+            param = vm.getAppleLoginParameters(appleOpenid: thirdOpenId)
         }
         
         XWHProgressHUD.showLogin(text: R.string.xwhDisplayText.加速登录中())
@@ -184,7 +207,8 @@ extension XWHLoginRegisterBaseVC {
                 return
             }
             
-            self?.gotoBindPhone(loginType: loginType, nickname: info.name, avatar: info.iconurl, wxOpenid: info.usid, qqOpenid: info.usid)
+//            self?.gotoBindPhone(loginType: loginType, nickname: nickname, avatar: avatar, wxOpenid: thirdOpenId, qqOpenid: thirdOpenId)
+            self?.gotoBindPhone(loginType: loginType, nickname: nickname, avatar: avatar, thirdOpenId: thirdOpenId)
         } successHandler: { [unowned self] response in
             XWHProgressHUD.hideLogin()
             if let cRes = response.data as? JSON {
@@ -204,7 +228,7 @@ extension XWHLoginRegisterBaseVC {
 // MARK: - UI Jump
 extension XWHLoginRegisterBaseVC {
     
-    func gotoBindPhone(loginType: XWHLoginType, nickname: String, avatar: String, wxOpenid: String, qqOpenid: String) {
+    func gotoBindPhone(loginType: XWHLoginType, nickname: String, avatar: String, thirdOpenId: String) {
         if loginType != .weixin, loginType != .qq {
             return
         }
@@ -213,8 +237,7 @@ extension XWHLoginRegisterBaseVC {
         vc.loginType = loginType
         vc.nickname = nickname
         vc.avatar = avatar
-        vc.wxOpenid = wxOpenid
-        vc.qqOpenid = qqOpenid
+        vc.thirdOpenId = thirdOpenId
         navigationController?.pushViewController(vc, completion: nil)
     }
     

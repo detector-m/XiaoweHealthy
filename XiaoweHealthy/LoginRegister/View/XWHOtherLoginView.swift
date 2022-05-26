@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AuthenticationServices
 
 class XWHOtherLoginView: XWHBaseView {
 
@@ -16,6 +17,9 @@ class XWHOtherLoginView: XWHBaseView {
     lazy var loginBtn1 = UIButton()
     lazy var loginBtn2 = UIButton()
     lazy var loginBtn3 = UIButton()
+    
+    @available(iOS 13.0, *)
+    lazy var appleLoginBtn = UIButton()
     
     var clickCallback: ((XWHLoginType) -> Void)?
     
@@ -53,6 +57,12 @@ class XWHOtherLoginView: XWHBaseView {
         loginBtn3.layer.borderWidth = 1
         loginBtn3.addTarget(self, action: #selector(clickLoginBtn(sender:)), for: .touchUpInside)
         addSubview(loginBtn3)
+        
+        if #available(iOS 13.0, *) {
+            appleLoginBtn.setImage(R.image.siwa_White()?.withRoundedCorners(radius: 19), for: .normal)
+            appleLoginBtn.addTarget(self, action: #selector(clickAppleLoginBtn), for: .touchUpInside)
+            addSubview(appleLoginBtn)
+        }
     }
     
     override func relayoutSubViews() {
@@ -77,24 +87,53 @@ class XWHOtherLoginView: XWHBaseView {
             make.right.equalToSuperview()
         }
         
-        loginBtn1.snp.makeConstraints { make in
-            make.left.equalToSuperview()
-            make.size.equalTo(38)
-            make.top.equalTo(titleLb.snp.bottom).offset(26)
-        }
-        
-        loginBtn3.snp.makeConstraints { make in
-            make.centerY.equalTo(loginBtn1)
-            make.right.equalToSuperview()
-            make.width.equalTo(105)
-            make.height.equalTo(36)
-        }
-        
-        let padding = ((UIScreen.main.bounds.width - 63 * 2) - 105 - 38 - 38) / 2
-        loginBtn2.snp.makeConstraints { make in
-            make.left.equalTo(loginBtn1.snp.right).offset(padding)
-            make.centerY.equalTo(loginBtn1)
-            make.size.equalTo(38)
+        if #available(iOS 13.0, *) {
+            let padding = ((UIScreen.main.bounds.width - 63 * 2) - 105 - 38 - 38 - 38) / 3
+            
+            appleLoginBtn.snp.makeConstraints { make in
+                make.left.equalToSuperview()
+                make.size.equalTo(38)
+                make.top.equalTo(titleLb.snp.bottom).offset(26)
+            }
+
+            loginBtn1.snp.makeConstraints { make in
+                make.left.equalTo(appleLoginBtn.snp.right).offset(padding)
+                make.size.equalTo(38)
+                make.top.equalTo(titleLb.snp.bottom).offset(26)
+            }
+            
+            loginBtn3.snp.makeConstraints { make in
+                make.centerY.equalTo(loginBtn1)
+                make.right.equalToSuperview()
+                make.width.equalTo(105)
+                make.height.equalTo(36)
+            }
+            
+            loginBtn2.snp.makeConstraints { make in
+                make.left.equalTo(loginBtn1.snp.right).offset(padding)
+                make.centerY.equalTo(loginBtn1)
+                make.size.equalTo(38)
+            }
+        } else {
+            loginBtn1.snp.makeConstraints { make in
+                make.left.equalToSuperview()
+                make.size.equalTo(38)
+                make.top.equalTo(titleLb.snp.bottom).offset(26)
+            }
+            
+            loginBtn3.snp.makeConstraints { make in
+                make.centerY.equalTo(loginBtn1)
+                make.right.equalToSuperview()
+                make.width.equalTo(105)
+                make.height.equalTo(36)
+            }
+            
+            let padding = ((UIScreen.main.bounds.width - 63 * 2) - 105 - 38 - 38) / 2
+            loginBtn2.snp.makeConstraints { make in
+                make.left.equalTo(loginBtn1.snp.right).offset(padding)
+                make.centerY.equalTo(loginBtn1)
+                make.size.equalTo(38)
+            }
         }
     }
     
@@ -114,6 +153,14 @@ class XWHOtherLoginView: XWHBaseView {
                 cCallback(.password)
             }
         }
+    }
+    
+    @objc func clickAppleLoginBtn() {
+        guard let cCallback = clickCallback else {
+            return
+        }
+        
+        cCallback(.apple)
     }
 
 }

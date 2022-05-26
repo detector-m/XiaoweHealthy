@@ -20,8 +20,9 @@ class XWHBindPhoneVC: XWHRegisterBaseVC {
     lazy var loginType: XWHLoginType = .phone
     lazy var nickname: String = ""
     lazy var avatar: String = ""
-    lazy var wxOpenid: String = ""
-    lazy var qqOpenid: String = ""
+//    lazy var wxOpenid: String = ""
+//    lazy var qqOpenid: String = ""
+    lazy var thirdOpenId: String = ""
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -198,19 +199,26 @@ extension XWHBindPhoneVC {
         let vm = XWHLoginRegisterVM()
         var param = [String: String]()
         if loginType == .weixin {
-            if wxOpenid.isEmpty {
+            if thirdOpenId.isEmpty {
                 view.makeInsetToast("wxOpenid 为空")
                 return
             }
             
-            param = vm.getWeixinRegisterParameters(phoneNum: phone, code: code, nickname: nickname, avatar: avatar, wxOpenid: wxOpenid)
+            param = vm.getWeixinRegisterParameters(phoneNum: phone, code: code, nickname: nickname, avatar: avatar, wxOpenid: thirdOpenId)
         } else if loginType == .qq {
-            if qqOpenid.isEmpty {
+            if thirdOpenId.isEmpty {
                 view.makeInsetToast("qqOpenid 为空")
                 return
             }
             
-            param = vm.getQQRegisterParameters(phoneNum: phone, code: code, nickname: nickname, avatar: avatar, qqOpenid: qqOpenid)
+            param = vm.getQQRegisterParameters(phoneNum: phone, code: code, nickname: nickname, avatar: avatar, qqOpenid: thirdOpenId)
+        } else if loginType == .apple {
+            if thirdOpenId.isEmpty {
+                view.makeInsetToast("苹果 OpenId 为空")
+                return
+            }
+            
+            param = vm.getAppleRegisterParameters(phoneNum: phone, code: code, nickname: nickname, avatar: avatar, appleOpenid: thirdOpenId)
         }
         
         XWHProgressHUD.showLogin(text: R.string.xwhDisplayText.加速登录中())

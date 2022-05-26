@@ -263,6 +263,7 @@
 		96AD285C28016BB30092B843 /* XWHTestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD285B28016BB30092B843 /* XWHTestModel.swift */; };
 		96AD28662801C5AA0092B843 /* XWHDataUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD28652801C5AA0092B843 /* XWHDataUserManager.swift */; };
 		96AD28682801C5BA0092B843 /* XWHDataDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD28672801C5BA0092B843 /* XWHDataDeviceManager.swift */; };
+		96AD2AE3283F156B0024AF5B /* SignInWithApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD2AE2283F156B0024AF5B /* SignInWithApple.swift */; };
 		96BFC8FE283770B10080DCFC /* XWHHealthyMoodCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BFC8FD283770B10080DCFC /* XWHHealthyMoodCTVC.swift */; };
 		96BFC900283775420080DCFC /* XWHMoodIntroductionTXVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BFC8FF283775420080DCFC /* XWHMoodIntroductionTXVC.swift */; };
 		96BFC902283777430080DCFC /* XWHMoodChartCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BFC901283777430080DCFC /* XWHMoodChartCTCell.swift */; };
@@ -640,6 +641,7 @@
 		96AD285B28016BB30092B843 /* XWHTestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTestModel.swift; sourceTree = "<group>"; };
 		96AD28652801C5AA0092B843 /* XWHDataUserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataUserManager.swift; sourceTree = "<group>"; };
 		96AD28672801C5BA0092B843 /* XWHDataDeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataDeviceManager.swift; sourceTree = "<group>"; };
+		96AD2AE2283F156B0024AF5B /* SignInWithApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithApple.swift; sourceTree = "<group>"; };
 		96BFC8FD283770B10080DCFC /* XWHHealthyMoodCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyMoodCTVC.swift; sourceTree = "<group>"; };
 		96BFC8FF283775420080DCFC /* XWHMoodIntroductionTXVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMoodIntroductionTXVC.swift; sourceTree = "<group>"; };
 		96BFC901283777430080DCFC /* XWHMoodChartCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMoodChartCTCell.swift; sourceTree = "<group>"; };
@@ -840,6 +842,7 @@
 				96E23C0627E18003009EF208 /* AppEntry */,
 				960E768327F0B0F900A0DA25 /* Safari */,
 				9661517227E46A07006781C1 /* Supplier */,
+				96AD2AE1283F15160024AF5B /* SignInWithApple */,
 				9651EE2A27EC5B030043FE52 /* UM */,
 				96E23C0727E1839B009EF208 /* Resource */,
 			);
@@ -2066,6 +2069,14 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		96AD2AE1283F15160024AF5B /* SignInWithApple */ = {
+			isa = PBXGroup;
+			children = (
+				96AD2AE2283F156B0024AF5B /* SignInWithApple.swift */,
+			);
+			path = SignInWithApple;
+			sourceTree = "<group>";
+		};
 		96BFC8F928376ACE0080DCFC /* Mood */ = {
 			isa = PBXGroup;
 			children = (
@@ -3031,6 +3042,7 @@
 				96F1D68E280988080067DBFD /* XWHDialMoreVC.swift in Sources */,
 				9613E78527F4A0BC007A1589 /* XWHThemeConfig.swift in Sources */,
 				9653E49627F55D1B00EE55FF /* XWHDevSetSwitchTBCell.swift in Sources */,
+				96AD2AE3283F156B0024AF5B /* SignInWithApple.swift in Sources */,
 				969A4CF8280E8A630049BC07 /* XWHLargeTitleView.swift in Sources */,
 				9690723D2814E9A90056CE4F /* XWHHealthyAllDataBaseTBVC.swift in Sources */,
 				96A10CB22829006100C1E18F /* XWHDevSetMentalStressVC.swift in Sources */,

@@ -15,6 +15,7 @@ enum XWHLoginType: String {
     case weibo
     case weixin
     case qq
+    case apple
     
 }
 
@@ -162,12 +163,20 @@ extension XWHLoginRegisterVM {
         return ["mobile": phoneNum, "code": code, "nickname": nickname, "avatar": avatar, "qqOpenid": qqOpenid, "loginType": "qq"]
     }
     
+    func getAppleRegisterParameters(phoneNum: String, code: String, nickname: String, avatar: String, appleOpenid: String) -> [String: String] {
+        return ["mobile": phoneNum, "code": code, "nickname": nickname, "avatar": avatar, "appleOpenid": appleOpenid, "loginType": "apple"]
+    }
+    
     func getWeixinLoginParameters(wxOpenid: String) -> [String: String] {
         return ["wxOpenid": wxOpenid, "loginType": "weixin"]
     }
 
     func getQQLoginParameters(qqOpenid: String) -> [String: String] {
         return ["qqOpenid": qqOpenid, "loginType": "qq"]
+    }
+    
+    func getAppleLoginParameters(appleOpenid: String) -> [String: String] {
+        return ["appleOpenid": appleOpenid, "loginType": "apple"]
     }
     
 }
