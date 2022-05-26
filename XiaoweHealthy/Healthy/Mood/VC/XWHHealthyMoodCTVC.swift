@@ -105,8 +105,7 @@ extension XWHHealthyMoodCTVC {
     
     override func didSelectPopMenuItem(at index: Int) {
         if index == 0 {
-            // TODO: 需要添加
-//            XWHDevice.gotoDevSetMentalStress(at: self)
+            XWHDevice.gotoDevSetMentalStress(at: self)
         } else if index == 1 {
             gotoAllData()
         }
