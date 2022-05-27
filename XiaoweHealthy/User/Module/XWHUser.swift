@@ -19,7 +19,7 @@ class XWHUser {
     }
     
     class func logout() {
-        setToken(token: nil)
+        handleExpiredUserToken()
     }
     
     class func getToken() -> String? {
@@ -32,6 +32,12 @@ class XWHUser {
     
     /// 用户Token 过期处理
     class func handleExpiredUserToken(_ completion: (() -> Void)? = nil) {
+        if let curConnDev = ddManager.getCurrentDevice() {
+            XWHDDMShared.disconnect(device: curConnDev)
+            
+            ddManager.remove(device: curConnDev)
+        }
+        
         setToken(token: nil)
         completion?()
     }
