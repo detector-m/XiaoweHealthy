@@ -199,9 +199,6 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
             case syncData
         }
         
-        
-        log.info("-----------UTE手表连接状态：----------- \(devicesState.rawValue)")
-        
         // 之前的连接状态
         let preConnBindState = connectBindState
         
@@ -213,7 +210,7 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
         switch devicesState {
         // MARK: - 连接
         case .connected:
-            log.info("-----------UTE手表连接状态：----------- connected")
+            log.info("-- UTE手表连接状态(\(devicesState.rawValue))：-- connected")
 
             if isReconnect {
                 cConnBindState = .paired
@@ -224,7 +221,7 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
             uteStateType = .connect
                         
         case .disconnected:
-            log.info("-----------UTE手表连接状态：----------- disconnected")
+            log.info("-- UTE手表连接状态(\(devicesState.rawValue))：-- disconnected")
 
             bindTimerInvalidate()
             bindHandler = nil
@@ -234,7 +231,7 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
             uteStateType = .connect
             
         case .connectingError:
-            log.info("-----------UTE手表连接状态：----------- connectingError")
+            log.info("-- UTE手表连接状态(\(devicesState.rawValue))：-- connectingError")
 
             cConnBindState = .disconnected
             
@@ -266,12 +263,15 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
             
         // MARK: - SyncData
         case .syncBegin:
+            log.info("-- UTE手表连接状态(\(devicesState.rawValue))：-- syncBegin")
             break
             
         case .syncSuccess:
+            log.info("-- UTE手表连接状态(\(devicesState.rawValue))：-- syncSuccess")
             uteDataHandler?.handleRawData(info, uteSyncState: devicesState)
             
         case .syncError:
+            log.info("-- UTE手表连接状态(\(devicesState.rawValue))：-- syncError")
             uteDataHandler?.handleError(error)
             
         case .heartDetectingError:

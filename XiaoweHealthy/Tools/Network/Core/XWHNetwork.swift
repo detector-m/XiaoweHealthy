@@ -43,7 +43,7 @@ class XWHNetwork {
                 return nil
             }
             
-            log.debug(json.dictionaryObject)
+            log.debug("requestId = \(cId), dictionaryObject = \(json.dictionaryObject ?? [:])")
             if json["code"].intValue != 0 {
                 retError.code = json["code"].stringValue
                 retError.message = json["message"].stringValue
@@ -59,8 +59,8 @@ class XWHNetwork {
                 return nil
             }
     
-            let retRawString = json["data"].rawString() ?? ""
-            log.debug("handleResult -> retRawString = \(retRawString)")
+            let retRawDataString = json["data"].rawString() ?? ""
+            log.debug("requestId = \(cId), handleResult -> retRawDataString = \(retRawDataString)")
             
             let retResponse = XWHResponse()
             retResponse.identifier = cId

@@ -210,7 +210,7 @@ extension XWHHealthySleepCTVC {
                 valueStr = "\(awakeTimes) " + R.string.xwhHealthyText.次()
                 tipStr = XWHUIDisplayHandler.getAwakeTimesRangeString(awakeTimes)
             }
-            cell.update(titleStr, valueStr, tipStr, XWHUIDisplayHandler.getSleepRangeColors()[0])
+            cell.update(titleStr, valueStr, tipStr, XWHUIDisplayHandler.getSleepRangeColors()[indexPath.item - 1])
 
             return cell
         }
