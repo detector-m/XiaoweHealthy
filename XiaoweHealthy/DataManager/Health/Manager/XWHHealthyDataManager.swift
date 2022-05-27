@@ -80,6 +80,8 @@ extension XWHHealthyDataManager {
         try db.create(table: XWHHeartModel.databaseTableName, body: { t in
             t.column(XWHHeartModel.Columns.identifier.name, .text)
 
+            t.column(XWHHeartModel.Columns.mac.name, .text)
+
             t.column(XWHHeartModel.Columns.time.name, .text)
             t.column(XWHHeartModel.Columns.value.name, .integer)
             
@@ -141,6 +143,8 @@ extension XWHHealthyDataManager {
         try db.create(table: XWHBloodOxygenModel.databaseTableName, body: { t in
             t.column(XWHBloodOxygenModel.Columns.identifier.name, .text)
 
+            t.column(XWHHeartModel.Columns.mac.name, .text)
+
             t.column(XWHBloodOxygenModel.Columns.time.name, .text)
             t.column(XWHBloodOxygenModel.Columns.value.name, .integer)
             
@@ -200,6 +204,8 @@ extension XWHHealthyDataManager {
     class func createMentalStateTable(_ db: Database) throws {
         try db.create(table: XWHMentalStateModel.databaseTableName, body: { t in
             t.column(XWHMentalStateModel.Columns.identifier.name, .text)
+            
+            t.column(XWHMentalStateModel.Columns.mac.name, .text)
 
             t.column(XWHMentalStateModel.Columns.time.name, .text)
             t.column(XWHMentalStateModel.Columns.mood.name, .integer)

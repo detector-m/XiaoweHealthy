@@ -379,7 +379,8 @@ extension XWHHealthyMainVC {
             XWHHealthyDataManager.saveHearts([cHeart])
         }
         
-        XWHServerDataManager.postHeart(deviceSn: Self.testDeviceSn(), data: hData) { error in
+        let deviceMac = ""
+        XWHServerDataManager.postHeart(deviceMac: deviceMac, deviceSn: Self.testDeviceSn(), data: hData) { error in
             log.error(error)
         } successHandler: { response in
             
@@ -423,7 +424,8 @@ extension XWHHealthyMainVC {
             XWHHealthyDataManager.saveBloodOxygen(cBo)
         }
         
-        XWHServerDataManager.postBloodOxygen(deviceSn: Self.testDeviceSn(), data: boData) { error in
+        let deviceMac = ""
+        XWHServerDataManager.postBloodOxygen(deviceMac: deviceMac, deviceSn: Self.testDeviceSn(), data: boData) { error in
             log.error(error)
         } successHandler: { response in
             
@@ -458,7 +460,8 @@ extension XWHHealthyMainVC {
             XWHHealthyDataManager.saveMentalState(sItem)
         }
         
-        XWHServerDataManager.postMentalState(deviceSn: devSn, data: postData) { error in
+        let deviceMac = ""
+        XWHServerDataManager.postMentalState(deviceMac: deviceMac, deviceSn: devSn, data: postData) { error in
             log.error(error)
             self.view.makeInsetToast("testPostMentalState 上传失败")
         } successHandler: { [unowned self] response in

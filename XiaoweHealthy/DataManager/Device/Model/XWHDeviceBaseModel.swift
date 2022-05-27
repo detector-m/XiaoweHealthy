@@ -45,9 +45,6 @@ class XWHDeviceBaseModel: XWHDataBaseModel {
         }
     }
     
-    /// 设备mac
-    var mac = ""
-    
     /// 信号
     var rssi = 0
     

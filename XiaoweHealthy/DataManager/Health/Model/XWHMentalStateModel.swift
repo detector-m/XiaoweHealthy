@@ -13,7 +13,7 @@ import GRDB
 class XWHMentalStateModel: XWHHealthyDataBaseModel {
     
     enum Columns: String, ColumnExpression, CodingKey {
-        case identifier, time, mood, fatigue, stress
+        case identifier, mac, time, mood, fatigue, stress
     }
     
     class override var databaseTableName: String {
@@ -28,7 +28,7 @@ class XWHMentalStateModel: XWHHealthyDataBaseModel {
     var stress = 0
     
     override var description: String {
-        "{ identifier = \(identifier), time = \(time), mood = \(mood), fatigue = \(fatigue), stress = \(stress) }"
+        "{ identifier = \(identifier), mac = \(mac), time = \(time), mood = \(mood), fatigue = \(fatigue), stress = \(stress) }"
     }
     
     required init() {
@@ -40,6 +40,8 @@ class XWHMentalStateModel: XWHHealthyDataBaseModel {
         super.init(row: row)
         
         identifier = row[Columns.identifier]
+        mac = row[Columns.mac]
+
         time = row[Columns.time]
         mood = row[Columns.mood]
         fatigue = row[Columns.fatigue]
@@ -48,6 +50,8 @@ class XWHMentalStateModel: XWHHealthyDataBaseModel {
     
     override func encode(to container: inout PersistenceContainer) {
         container[Columns.identifier] = identifier
+        container[Columns.mac] = mac
+
         container[Columns.time] = time
         container[Columns.mood] = mood
         container[Columns.fatigue] = fatigue
@@ -71,6 +75,8 @@ class XWHMentalStateModel: XWHHealthyDataBaseModel {
         var container = encoder.container(keyedBy: Columns.self)
         
         try container.encode(identifier, forKey: .identifier)
+        try container.encode(mac, forKey: .mac)
+
         try container.encode(time, forKey: .time)
         try container.encode(mood, forKey: .mood)
         try container.encode(fatigue, forKey: .fatigue)
@@ -84,6 +90,8 @@ class XWHMentalStateModel: XWHHealthyDataBaseModel {
         let container = try decoder.container(keyedBy: Columns.self)
         
         identifier = try container.decode(String.self, forKey: .identifier)
+        mac = try container.decode(String.self, forKey: .mac)
+
         time = try container.decode(String.self, forKey: .time)
         mood = try container.decode(Int.self, forKey: .mood)
         fatigue = try container.decode(Int.self, forKey: .fatigue)

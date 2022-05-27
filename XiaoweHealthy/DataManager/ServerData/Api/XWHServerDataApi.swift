@@ -14,21 +14,38 @@ enum XWHServerDataApi {
     
     // MARK: - Heart(心率)
     /// 上传心率数据到服务
-    case postHeart(_ deviceSn: String, _ data: [[String: Any]])
+    /// - Parameters:
+    ///     - deviceMac: 设备的mac 地址 （必选）
+    ///     - deviceSn: 设备唯一标识码 (可选)
+    ///     - data: 上传的数据 （必选）
+    case postHeart(_ deviceMac: String, _ deviceSn: String, _ data: [[String: Any]])
     
 
     // MARK: - BloodOxygen(血氧)
     /// 上传血氧数据到服务
-    case postBloodOxygen(_ deviceSn: String, _ data: [[String: Any]])
+    /// - Parameters:
+    ///     - deviceMac: 设备的mac 地址 （必选）
+    ///     - deviceSn: 设备唯一标识码 (可选)
+    ///     - data: 上传的数据 （必选）
+    case postBloodOxygen(_ deviceMac: String, _ deviceSn: String, _ data: [[String: Any]])
     
 
     // MARK: - Sleep(睡眠)
     /// 上传睡眠数据
-    case postSleep(_ deviceSn: String, _ data: [[String: Any]])
+    /// - Parameters:
+    ///     - deviceMac: 设备的mac 地址 （必选）
+    ///     - deviceSn: 设备唯一标识码 (可选)
+    ///     - data: 上传的数据 （必选）
+    case postSleep(_ deviceMac: String, _ deviceSn: String, _ data: [[String: Any]])
     
     // MARK: - MentalState(精神状态)
     /// 上传精神状态数据 （压力、情绪、疲劳度数据）
-    case postMentalState(_ deviceSn: String, _ data: [[String: Any]])
+    /// - Parameters:
+    ///     - deviceMac: 设备的mac 地址 （必选）
+    ///     - deviceSn: 设备唯一标识码 (可选)
+    ///     - data: 上传的数据 （必选）
+    case postMentalState(_ deviceMac: String, _ deviceSn: String, _ data: [[String: Any]])
+    
 }
 
 
@@ -61,10 +78,10 @@ extension XWHServerDataApi: XWHServiceTargetType {
         var param: [String: Any] = [:]
         
         switch self {
-        case .postHeart(let deviceSn, let data), .postBloodOxygen(let deviceSn, let data), .postMentalState(let deviceSn, let data):
-            param = ["deviceSn": deviceSn, "data": data]
+        case .postHeart(let deviceMac, let deviceSn, let data), .postBloodOxygen(let deviceMac, let deviceSn, let data), .postMentalState(let deviceMac, let deviceSn, let data):
+            param = ["mac": deviceMac, "deviceSn": deviceSn, "data": data]
             
-        case .postSleep(_, let data):
+        case .postSleep(_, _, let data):
             param = ["itemList": data]
         }
         

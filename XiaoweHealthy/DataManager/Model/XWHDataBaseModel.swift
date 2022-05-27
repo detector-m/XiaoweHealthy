@@ -22,8 +22,11 @@ class XWHDataBaseModel: Record, HandyJSON, Codable, CustomStringConvertible, Cus
     /// 主键
     var identifier = ""
     
+    /// mac 地址
+    var mac = ""
+    
     var description: String {
-        "identifier = \(identifier)"
+        "identifier = \(identifier), mac = \(mac)"
     }
     
     var debugDescription: String {

@@ -11,7 +11,7 @@ import GRDB
 class XWHSleepItemModel: XWHHealthyDataBaseModel {
     
     public enum ItemColumns: String, ColumnExpression, CodingKey {
-        case identifier, time, bTime, duration, eTime, type
+        case identifier, mac, time, bTime, duration, eTime, type
     }
     
     class override var databaseTableName: String {
@@ -30,7 +30,7 @@ class XWHSleepItemModel: XWHHealthyDataBaseModel {
     var type = 0
     
     override var description: String {
-        "{ identifier = \(identifier), time = \(time), bTime = \(bTime), eTime = \(eTime), duration = \(duration), type = \(type) }"
+        "{ identifier = \(identifier), mac = \(mac), time = \(time), bTime = \(bTime), eTime = \(eTime), duration = \(duration), type = \(type) }"
     }
     
     required init() {
@@ -71,6 +71,8 @@ class XWHSleepItemModel: XWHHealthyDataBaseModel {
         var container = encoder.container(keyedBy: ItemColumns.self)
         
         try container.encode(identifier, forKey: .identifier)
+        try container.encode(mac, forKey: .mac)
+
         try container.encode(time, forKey: .time)
         try container.encode(bTime, forKey: .bTime)
         try container.encode(eTime, forKey: .eTime)
@@ -85,6 +87,8 @@ class XWHSleepItemModel: XWHHealthyDataBaseModel {
         let container = try decoder.container(keyedBy: ItemColumns.self)
         
         identifier = try container.decode(String.self, forKey: .identifier)
+        mac = try container.decode(String.self, forKey: .mac)
+
         time = try container.decode(String.self, forKey: .time)
         
         bTime = try container.decode(String.self, forKey: .bTime)

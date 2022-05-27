@@ -164,6 +164,11 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             log.error("未获取到设备标识符")
             return nil
         }
+        
+        guard let deviceMac = getUTEDeviceMac() else {
+            return nil
+        }
+        
         guard let rawDic = rawData as? [AnyHashable: Any] else {
             return nil
         }
@@ -190,7 +195,7 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
                 XWHHealthyDataManager.saveHeart(last)
             }
             
-            XWHServerDataManager.postHeart(deviceSn: deviceSn, data: parsedHeartArray, failureHandler: nil, successHandler: nil)
+            XWHServerDataManager.postHeart(deviceMac: deviceMac, deviceSn: deviceSn, data: parsedHeartArray, failureHandler: nil, successHandler: nil)
         }
         return parsedHeartArray
     }
@@ -199,6 +204,10 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
     func handleBloodOxygenData(_ rawData: Any?) -> Any? {
         guard let deviceSn = manager.connectedDevicesModel?.identifier else {
             log.error("未获取到设备标识符")
+            return nil
+        }
+        
+        guard let deviceMac = getUTEDeviceMac() else {
             return nil
         }
         
@@ -219,6 +228,7 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             rModel.time = cDate.string(withFormat: XWHDeviceHelper.standardTimeFormat)
             rModel.value = cModel.value
             rModel.identifier = deviceSn
+            rModel.mac = deviceMac
             
             return rModel
         }
@@ -229,7 +239,7 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
                 XWHHealthyDataManager.saveBloodOxygen(last)
             }
             
-            XWHServerDataManager.postBloodOxygen(deviceSn: deviceSn, data: parsedboArray, failureHandler: nil, successHandler: nil)
+            XWHServerDataManager.postBloodOxygen(deviceMac: deviceMac, deviceSn: deviceSn, data: parsedboArray, failureHandler: nil, successHandler: nil)
         }
         
        return parsedboArray
@@ -239,6 +249,10 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
     func handleSleepData(_ rawData: Any?) -> Any? {
         guard let deviceSn = manager.connectedDevicesModel?.identifier else {
             log.error("未获取到设备标识符")
+            return nil
+        }
+        
+        guard let deviceMac = getUTEDeviceMac() else {
             return nil
         }
         
@@ -291,6 +305,8 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
                 rModel.bTime = rBDate.string(withFormat: XWHDeviceHelper.standardTimeFormat)
                 rModel.eTime = rEDate.string(withFormat: XWHDeviceHelper.standardTimeFormat)
                 rModel.identifier = deviceSn
+                rModel.mac = deviceMac
+                
                 if cModel.sleepType == .awake {
                     rModel.type = 2
                 } else if cModel.sleepType == .lightSleep {
@@ -314,6 +330,7 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             sModel.bTime = bTime
             sModel.eTime = eTime
             sModel.identifier = deviceSn
+            sModel.mac = deviceMac
             
             sModel.duration = items.sum(for: \.duration)
             sModel.deepSleepDuration = items.filter({ $0.type == 0 }).sum(for: \.duration)
@@ -337,7 +354,7 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
 //                XWHHealthyDataManager.saveBloodOxygen(last)
 //            }
 
-            XWHServerDataManager.postSleep(deviceSn: deviceSn, data: parsedSleepArray, failureHandler: nil, successHandler: nil)
+            XWHServerDataManager.postSleep(deviceMac: deviceMac, deviceSn: deviceSn, data: parsedSleepArray, failureHandler: nil, successHandler: nil)
         }
         
        return parsedSleepArray
@@ -347,6 +364,10 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
     func handleMentalData(_ rawData: Any?) -> Any? {
         guard let deviceSn = manager.connectedDevicesModel?.identifier else {
             log.error("未获取到设备标识符")
+            return nil
+        }
+        
+        guard let deviceMac = getUTEDeviceMac() else {
             return nil
         }
         
@@ -369,6 +390,7 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             rModel.stress = cModel.pressure
             rModel.fatigue = cModel.fatigue
             rModel.identifier = deviceSn
+            rModel.mac = deviceMac
 
             return rModel
         }
@@ -379,7 +401,7 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
                 XWHHealthyDataManager.saveMentalState(last)
             }
 
-            XWHServerDataManager.postMentalState(deviceSn: deviceSn, data: parsedMsArray, failureHandler: nil, successHandler: nil)
+            XWHServerDataManager.postMentalState(deviceMac: deviceMac, deviceSn: deviceSn, data: parsedMsArray, failureHandler: nil, successHandler: nil)
         }
 
        return parsedMsArray
@@ -582,6 +604,25 @@ extension XWHUTEDataOperationHandler {
         let error = XWHError(message: errorMsg)
         log.error(error)
         handleResult(type, .failed, .failure(error))
+    }
+    
+}
+
+// MARK: - UTE Methods
+extension XWHUTEDataOperationHandler {
+    
+    /// 获取设备 MAC 地址
+    private func getUTEDeviceMac() -> String? {
+        let devMac = manager.connectedDevicesModel?.addressStr ?? manager.connectedDevicesModel?.advertisementAddress
+        
+        guard let deviceMac = devMac else {
+            log.error("未获取到设备的 mac 地址")
+            return nil
+        }
+        
+//        deviceMac = XWHDeviceHelper.getStandardFormatMac(deviceMac)
+        
+        return deviceMac
     }
     
 }

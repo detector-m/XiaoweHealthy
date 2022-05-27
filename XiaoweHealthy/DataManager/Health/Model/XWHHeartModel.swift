@@ -14,7 +14,7 @@ import GRDB
 class XWHHeartModel: XWHHealthyDataBaseModel {
     
     public enum Columns: String, ColumnExpression, CodingKey {
-        case identifier, time, value
+        case identifier, mac, time, value
     }
     
     class override var databaseTableName: String {
@@ -26,7 +26,7 @@ class XWHHeartModel: XWHHealthyDataBaseModel {
     var value = 0
     
     override var description: String {
-        "{ identifier = \(identifier), time = \(time), value = \(value) }"
+        "{ identifier = \(identifier), mac = \(mac), time = \(time), value = \(value) }"
     }
     
     required init() {
@@ -38,12 +38,14 @@ class XWHHeartModel: XWHHealthyDataBaseModel {
         super.init(row: row)
         
         identifier = row[Columns.identifier]
+        mac = row[Columns.mac]
         time = row[Columns.time]
         value = row[Columns.value]
     }
     
     override func encode(to container: inout PersistenceContainer) {
         container[Columns.identifier] = identifier
+        container[Columns.mac] = mac
         container[Columns.time] = time
         container[Columns.value] = value
     }
@@ -70,6 +72,7 @@ class XWHHeartModel: XWHHealthyDataBaseModel {
         var container = encoder.container(keyedBy: Columns.self)
         
         try container.encode(identifier, forKey: .identifier)
+        try container.encode(mac, forKey: .mac)
         try container.encode(time, forKey: .time)
         try container.encode(value, forKey: .value)
     }
@@ -81,6 +84,7 @@ class XWHHeartModel: XWHHealthyDataBaseModel {
         let container = try decoder.container(keyedBy: Columns.self)
         
         identifier = try container.decode(String.self, forKey: .identifier)
+        mac = try container.decode(String.self, forKey: .mac)
         time = try container.decode(String.self, forKey: .time)
         value = try container.decode(Int.self, forKey: .value)
     }
