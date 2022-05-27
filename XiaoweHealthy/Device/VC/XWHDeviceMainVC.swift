@@ -55,6 +55,8 @@ class XWHDeviceMainVC: XWHTableViewBaseVC, XWHDeviceObserverProtocol {
         let rightImage = UIImage.iconFont(text: XWHIconFontOcticons.addCircle.rawValue, size: 24, color: fontDarkColor)
         let rightItem = getNavItem(text: nil, image: rightImage, target: self, action: #selector(clickNavRightItem))
         navigationItem.rightBarButtonItem = rightItem
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     @objc private func clickNavLeftItem() {
@@ -66,6 +68,8 @@ class XWHDeviceMainVC: XWHTableViewBaseVC, XWHDeviceObserverProtocol {
     }
     
     override func resetNavigationBarWithoutLargeTitle() {
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        
         setNavTransparent()
         navigationItem.leftBarButtonItem = nil
         navigationItem.rightBarButtonItem = nil
