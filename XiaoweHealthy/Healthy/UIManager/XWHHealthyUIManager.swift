@@ -32,7 +32,7 @@ class XWHHealthyUIManager: XWHHealthyUIItemModel {
     private lazy var mentalStressCurDataItems: [String] = [R.string.xwhHealthyText.最近一次压力值(), R.string.xwhHealthyText.压力范围(), R.string.xwhHealthyText.平均压力值()]
     
     // MARK: - 情绪 （Mood）
-    private lazy var moodCardTypes: [XWHHealthyDetailUICardType] = [.chart]
+    private lazy var moodCardTypes: [XWHHealthyDetailUICardType] = [.chart, .moodRange]
      
     // MARK: - 睡眠 （Sleep）
     private lazy var sleepCardTypes: [XWHHealthyDetailUICardType] = [.chart, .curDatas, .sleepRange]
@@ -161,6 +161,9 @@ extension XWHHealthyUIManager {
                 return R.string.xwhHealthyText.平均睡眠分布()
             }
             
+        case .moodRange:
+            return R.string.xwhHealthyText.情绪分布()
+            
         default:
             return ""
         }
@@ -182,6 +185,9 @@ extension XWHHealthyUIManager {
             
         case .sleepRange:
             return R.string.xwhHealthyText.了解睡眠()
+            
+        case .moodRange:
+            return R.string.xwhHealthyText.了解情绪()
             
         default:
             return nil
@@ -213,6 +219,9 @@ extension XWHHealthyUIManager {
             
         case .sleep:
             return [""]
+            
+        case .mood:
+            return []
             
         default:
             return []

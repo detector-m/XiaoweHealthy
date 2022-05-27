@@ -81,6 +81,10 @@ enum XWHHealthyDetailUICardType {
     
     /// 睡眠分布 (睡眠区间)
     case sleepRange
+    
+    /// 情绪分布（情绪区间）
+    case moodRange
+    
 }
 
 

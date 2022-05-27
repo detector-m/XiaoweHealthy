@@ -27,14 +27,15 @@ class XWHHealthyMoodCTVC: XWHHealthyBaseCTVC {
 //        navigationItem.title = R.string.xwhHealthyText.情绪()
         titleBtn.titleForNormal = R.string.xwhHealthyText.情绪()
         
-        cleanUIItems()
+        loadUIItems()
     }
     
     override func registerViews() {
         super.registerViews()
         
         collectionView.register(cellWithClass: XWHMoodChartCTCell.self)
-
+        collectionView.register(cellWithClass: XWHMoodRangeCTCell.self)
+        
 //        collectionView.register(cellWithClass: XWHMentalStressCommonCTCell.self)
 //        collectionView.register(cellWithClass: XWHMentalStressGradiendtCTCell.self)
 //        collectionView.register(cellWithClass: XWHMentalStressRangeCTCell.self)
@@ -87,6 +88,12 @@ extension XWHHealthyMoodCTVC {
             return cell
         }
         
+        if item.uiCardType == .moodRange {
+            let cell = collectionView.dequeueReusableCell(withClass: XWHMoodRangeCTCell.self, for: indexPath)
+            cell.update(indexPath.row, 50)
+            
+            return cell
+        }
         
         return UICollectionViewCell()
     }

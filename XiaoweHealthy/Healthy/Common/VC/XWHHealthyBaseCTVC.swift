@@ -219,6 +219,10 @@ extension XWHHealthyBaseCTVC {
             return 5
         }
         
+        if item.uiCardType == .moodRange {
+            return 3
+        }
+        
         return 0
     }
     
@@ -260,6 +264,10 @@ extension XWHHealthyBaseCTVC {
             return CGSize(width: collectionView.width, height: 71)
         }
         
+        if item.uiCardType == .moodRange {
+            return CGSize(width: collectionView.width, height: 71)
+        }
+        
         return .zero
     }
     
@@ -286,6 +294,10 @@ extension XWHHealthyBaseCTVC {
             return 12
         }
         
+        if item.uiCardType == .moodRange {
+            return 12
+        }
+        
         return 2
     }
 
@@ -297,6 +309,10 @@ extension XWHHealthyBaseCTVC {
         }
         
         if item.uiCardType == .mentalStressRange {
+            return 12
+        }
+        
+        if item.uiCardType == .moodRange {
             return 12
         }
         
