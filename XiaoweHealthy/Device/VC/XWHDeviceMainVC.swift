@@ -406,54 +406,6 @@ extension XWHDeviceMainVC {
 // MARK: - Api
 extension XWHDeviceMainVC {
     
-//    private func checkReconnect() {
-//        if XWHDDMShared.connectBindState == .disconnected {
-//            reconnect()
-//        }
-//    }
-//
-//    private func reconnect() {
-//        if let connWatch = XWHDataDeviceManager.getCurrentWatch() {
-//            XWHDDMShared.config(device: connWatch)
-//            XWHDDMShared.reconnect(device: connWatch) { [weak self] (result: Result<XWHDeviceConnectBindState, XWHBLEError>) in
-//                guard let self = self else {
-//                    return
-//                }
-//
-//                switch result {
-//                case .success(let connBindState):
-//                    if connBindState == .paired {
-//                        self.updateDeviceInfo()
-//                    } else {
-//                        self.view.makeInsetToast("重连设备失败")
-//                    }
-//
-//                case .failure(_):
-//                    self.view.makeInsetToast("重连设备失败")
-//                }
-//            }
-//        }
-//    }
-//
-//    private func updateDeviceInfo() {
-//        XWHDDMShared.getDeviceInfo { [unowned self] result in
-//            switch result {
-//            case .success(let cModel):
-//                if let connModel = cModel?.data as? XWHDevWatchModel, let curModel = XWHDataDeviceManager.getCurrentWatch() {
-//                    connModel.isCurrent = curModel.isCurrent
-//                    connModel.type = curModel.type
-//                    connModel.category = curModel.category
-//                    XWHDataDeviceManager.setCurrent(device: connModel)
-//
-//                    reloadAll()
-//                }
-//
-//            case .failure(let error):
-//                self.view.makeInsetToast(error.message)
-//            }
-//        }
-//    }
-    
     private func getDials() {
         guard var deviceSn = connWatchModel?.identifier else {
             return
