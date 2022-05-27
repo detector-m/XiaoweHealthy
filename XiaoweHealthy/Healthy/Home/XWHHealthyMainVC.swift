@@ -379,7 +379,11 @@ extension XWHHealthyMainVC {
             XWHHealthyDataManager.saveHearts([cHeart])
         }
         
-        let deviceMac = ""
+        
+        guard let deviceMac = ddManager.getCurrentDevice()?.mac else {
+            return
+        }
+        
         XWHServerDataManager.postHeart(deviceMac: deviceMac, deviceSn: Self.testDeviceSn(), data: hData) { error in
             log.error(error)
         } successHandler: { response in
@@ -424,7 +428,10 @@ extension XWHHealthyMainVC {
             XWHHealthyDataManager.saveBloodOxygen(cBo)
         }
         
-        let deviceMac = ""
+        guard let deviceMac = ddManager.getCurrentDevice()?.mac else {
+            return
+        }
+        
         XWHServerDataManager.postBloodOxygen(deviceMac: deviceMac, deviceSn: Self.testDeviceSn(), data: boData) { error in
             log.error(error)
         } successHandler: { response in

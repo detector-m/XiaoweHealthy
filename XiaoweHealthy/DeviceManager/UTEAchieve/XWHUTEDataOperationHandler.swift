@@ -615,12 +615,12 @@ extension XWHUTEDataOperationHandler {
     private func getUTEDeviceMac() -> String? {
         let devMac = manager.connectedDevicesModel?.addressStr ?? manager.connectedDevicesModel?.advertisementAddress
         
-        guard let deviceMac = devMac else {
+        guard var deviceMac = devMac else {
             log.error("未获取到设备的 mac 地址")
             return nil
         }
         
-//        deviceMac = XWHDeviceHelper.getStandardFormatMac(deviceMac)
+        deviceMac = XWHDeviceHelper.getStandardFormatMac(deviceMac)
         
         return deviceMac
     }

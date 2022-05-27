@@ -120,6 +120,8 @@ extension XWHBindDeviceVC {
             self.bindDeviceSuccessUI()
             
             self.uploadBindDevice(connDev)
+            
+            XWHDevice.shared.syncData()
         }
     }
     
