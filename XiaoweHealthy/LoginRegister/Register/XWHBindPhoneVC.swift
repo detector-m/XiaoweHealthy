@@ -189,7 +189,7 @@ class XWHBindPhoneVC: XWHRegisterBaseVC {
 extension XWHBindPhoneVC {
     
     fileprivate func gotoRegister() {
-        if loginType != .weixin, loginType != .qq {
+        if loginType != .weixin, loginType != .qq, loginType != .apple {
             return
         }
                 

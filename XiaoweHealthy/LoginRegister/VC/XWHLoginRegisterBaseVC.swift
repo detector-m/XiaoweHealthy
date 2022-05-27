@@ -229,7 +229,7 @@ extension XWHLoginRegisterBaseVC {
 extension XWHLoginRegisterBaseVC {
     
     func gotoBindPhone(loginType: XWHLoginType, nickname: String, avatar: String, thirdOpenId: String) {
-        if loginType != .weixin, loginType != .qq {
+        if loginType != .weixin, loginType != .qq, loginType != .apple {
             return
         }
         
