@@ -61,7 +61,7 @@ class XWHSelectContactVC: XWHContactBaseVC {
     
     override func relayoutSubViews() {
         textField.snp.makeConstraints { make in
-            make.top.equalTo(16)
+            make.top.equalTo(104)
             make.height.equalTo(44)
             make.left.right.equalToSuperview().inset(28)
         }

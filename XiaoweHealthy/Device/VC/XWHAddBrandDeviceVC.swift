@@ -37,7 +37,7 @@ class XWHAddBrandDeviceVC: XWHDeviceBaseVC, UICollectionViewDataSource, UICollec
         
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.backgroundColor = UIColor.white
+        collectionView.backgroundColor = bgColor
         
         collectionView.register(cellWithClass: XWHAddBrandDeviceCTCell.self)
         collectionView.register(supplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withClass: XWHBaseCTCell.self)

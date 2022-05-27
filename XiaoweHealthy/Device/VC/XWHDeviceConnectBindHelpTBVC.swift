@@ -11,6 +11,14 @@ import UIKit
 /// 连接绑定帮助
 class XWHDeviceConnectBindHelpTBVC: XWHTableViewBaseVC {
     
+//    override var topContentInset: CGFloat {
+//        94
+//    }
+    
+    var titleText: String {
+        R.string.xwhDeviceText.查看帮助().replacingOccurrences(of: " >", with: "")
+    }
+    
     lazy var expandStates: [Bool] = []
     lazy var questions: [[String]] = []
 
@@ -20,17 +28,31 @@ class XWHDeviceConnectBindHelpTBVC: XWHTableViewBaseVC {
         configQuestions()
     }
     
+    override func setNavigationBarWithLargeTitle() {
+        super.setNavigationBarWithLargeTitle()
+        
+        navigationItem.title = titleText
+    }
+    
+    
+    override func resetNavigationBarWithoutLargeTitle() {
+        super.resetNavigationBarWithoutLargeTitle()
+        
+        navigationItem.title = nil
+    }
+    
     override func addSubViews() {
         super.addSubViews()
         
         setLargeTitleMode()
 
         view.backgroundColor = bgColor
-        tableView.backgroundColor = view.backgroundColor
-        tableView.separatorStyle = .none
-        largeTitleView.backgroundColor = tableView.backgroundColor
+        tableView.backgroundColor = bgColor
+        largeTitleView.backgroundColor = bgColor
         
-        largeTitleView.titleLb.text = R.string.xwhDeviceText.查看帮助().replacingOccurrences(of: " >", with: "")
+        tableView.separatorStyle = .none
+        
+        largeTitleView.titleLb.text = titleText
     }
     
     override func relayoutSubViews() {

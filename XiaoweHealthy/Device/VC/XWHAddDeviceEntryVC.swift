@@ -21,7 +21,8 @@ class XWHAddDeviceEntryVC: XWHSearchBindDevBaseVC, FSPagerViewDataSource, FSPage
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setNavTransparent()
+        navigationController?.setNavigationBarHidden(true, animated: false)
+//        setNavTransparent()
         
         getDeviceList()
     }
@@ -110,14 +111,24 @@ class XWHAddDeviceEntryVC: XWHSearchBindDevBaseVC, FSPagerViewDataSource, FSPage
         addBrandDevice()
     }
     
-    // MARK: -
+    // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        navigationController?.setNavigationBarHidden(false, animated: false)
         if XWHUser.isLogined, let _ = XWHDataDeviceManager.getCurrentWatch() {
             gotoDeviceMainVC()
         }
+        
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
     
     // MARK: - FSPagerView DataSource
     public func numberOfItems(in pagerView: FSPagerView) -> Int {

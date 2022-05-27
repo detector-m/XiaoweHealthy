@@ -24,7 +24,8 @@ class XWHBaseVC: UIViewController {
     
     // 大标题处理方式 方式2
     var topContentInset: CGFloat {
-        66
+//        66
+        94
     }
 
     override func viewDidLoad() {

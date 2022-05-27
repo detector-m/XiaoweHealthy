@@ -8,16 +8,18 @@
 import UIKit
 
 class XWHDeviceUseGuideTBVC: XWHDeviceConnectBindHelpTBVC {
+    
+    override var titleText: String {
+        R.string.xwhDeviceText.使用指南()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    override func addSubViews() {
-        super.addSubViews()
-        
-        largeTitleView.titleLb.text = R.string.xwhDeviceText.使用指南()
-    }
+//    override func addSubViews() {
+//        super.addSubViews()
+//    }
     
     override func configQuestions() {
         questions = [
