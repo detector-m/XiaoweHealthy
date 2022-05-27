@@ -24,7 +24,8 @@ class XWHHealthyHeartCTVC: XWHHealthyBaseCTVC {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = R.string.xwhHealthyText.心率()
+//        navigationItem.title = R.string.xwhHealthyText.心率()
+        titleBtn.titleForNormal = R.string.xwhHealthyText.心率()
         
         cleanUIItems()
         

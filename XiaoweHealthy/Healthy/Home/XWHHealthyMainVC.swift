@@ -12,6 +12,10 @@ import SwiftUI
 /// 运动健康首页
 class XWHHealthyMainVC: XWHTableViewBaseVC {
     
+    override var topContentInset: CGFloat {
+        66
+    }
+    
     private lazy var testItems: [XWHHealthyType] = [.heart, .bloodOxygen, .mentalStress, .mood, .sleep, .login, .test, .post, .sync]
 
     override func viewDidLoad() {

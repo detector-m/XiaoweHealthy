@@ -24,7 +24,8 @@ class XWHHealthyMoodCTVC: XWHHealthyBaseCTVC {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = R.string.xwhHealthyText.情绪()
+//        navigationItem.title = R.string.xwhHealthyText.情绪()
+        titleBtn.titleForNormal = R.string.xwhHealthyText.情绪()
         
         cleanUIItems()
     }

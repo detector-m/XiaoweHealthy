@@ -16,6 +16,10 @@ class XWHDeviceMainVC: XWHTableViewBaseVC, XWHDeviceObserverProtocol {
         UIScreen.main.bounds.width - 32
     }
     
+    override var topContentInset: CGFloat {
+        66
+    }
+    
     lazy var tableFooter = XWHDeviceMainFooter(frame: CGRect(origin: .zero, size: CGSize(width: UIScreen.main.bounds.width - 32, height: 120)))
     
     private lazy var deviceItems = [[XWHDeviceDeployItemModel]]()

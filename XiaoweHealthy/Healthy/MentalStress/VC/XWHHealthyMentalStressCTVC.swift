@@ -23,7 +23,8 @@ class XWHHealthyMentalStressCTVC: XWHHealthyBaseCTVC {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = R.string.xwhHealthyText.压力()
+//        navigationItem.title = R.string.xwhHealthyText.压力()
+        titleBtn.titleForNormal = R.string.xwhHealthyText.压力()
         
         cleanUIItems()
         

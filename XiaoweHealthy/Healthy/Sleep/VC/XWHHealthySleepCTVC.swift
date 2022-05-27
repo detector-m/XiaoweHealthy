@@ -19,7 +19,8 @@ class XWHHealthySleepCTVC: XWHHealthyBaseCTVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = R.string.xwhHealthyText.睡眠()
+//        navigationItem.title = R.string.xwhHealthyText.睡眠()
+        titleBtn.titleForNormal = R.string.xwhHealthyText.睡眠()
         
         cleanUIItems()
         

@@ -8,6 +8,10 @@
 import UIKit
 
 class XWHMeMainVC: XWHTableViewBaseVC {
+    
+    override var topContentInset: CGFloat {
+        66
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

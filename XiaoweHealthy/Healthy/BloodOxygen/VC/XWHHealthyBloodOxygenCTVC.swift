@@ -24,7 +24,8 @@ class XWHHealthyBloodOxygenCTVC: XWHHealthyBaseCTVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = R.string.xwhHealthyText.血氧饱和度()
+//        navigationItem.title = R.string.xwhHealthyText.血氧饱和度()
+        titleBtn.titleForNormal = R.string.xwhHealthyText.血氧饱和度()
         
         cleanUIItems()
         

@@ -11,6 +11,7 @@ import EmptyDataSet_Swift
 
 class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
     
+    lazy var titleBtn = UIButton()
     lazy var dateBtn = UIButton()
     lazy var arrowDownImage: UIImage = UIImage.iconFont(text: XWHIconFontOcticons.arrowDown.rawValue, size: 12, color: fontDarkColor)
     
@@ -66,6 +67,13 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
     override func setupNavigationItems() {
         super.setupNavigationItems()
         
+        titleBtn.frame = CGRect(x: 0, y: 0, width: 160, height: 44)
+        titleBtn.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 17, weight: .medium)
+        titleBtn.setTitleColor(fontDarkColor, for: .normal)
+        titleBtn.addTarget(self, action: #selector(clickDateBtn), for: .touchUpInside)
+        
+        navigationItem.titleView = titleBtn
+        
         let rightItem = getNavItem(text: XWHIconFontOcticons.more.rawValue, font: UIFont.iconFont(size: 22), color: fontDarkColor, image: nil, target: self, action: #selector(clickNavRightItem(_:)))
         navigationItem.rightBarButtonItem = rightItem
     }
@@ -78,7 +86,7 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
     
     override func addSubViews() {
         super.addSubViews()
-        
+                
         dateBtn.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 14)
         dateBtn.setTitleColor(fontDarkColor, for: .normal)
         view.addSubview(dateBtn)
@@ -95,7 +103,8 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
     @objc final func relayoutDateBtn() {
         dateBtn.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(18)
-            make.top.equalToSuperview().offset(79)
+//            make.top.equalToSuperview().offset(79)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(-10)
             make.height.equalTo(19)
         }
     }
@@ -103,7 +112,8 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
     @objc final func relayoutDateSegment() {
         dateSegment.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(18)
-            make.top.equalToSuperview().offset(120)
+//            make.top.equalToSuperview().offset(120)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(32)
             make.height.equalTo(32)
         }
     }
