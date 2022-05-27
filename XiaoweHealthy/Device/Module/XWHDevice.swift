@@ -79,7 +79,9 @@ extension XWHDevice {
                 switch result {
                 case .success(let connBindState):
                     if connBindState == .paired {
-                        self.updateDeviceInfo()
+                        self.updateDeviceInfo {
+                            self.syncData()
+                        }
                     } else {
                         log.error("重连设备失败")
                     }
@@ -91,8 +93,8 @@ extension XWHDevice {
         }
     }
 
-    private func updateDeviceInfo() {
-        XWHDDMShared.getDeviceInfo { [weak self] result in
+    func updateDeviceInfo(completion: (() -> Void)?) {
+        XWHDDMShared.getDeviceInfo { result in
             switch result {
             case .success(let cModel):
                 if let connModel = cModel?.data as? XWHDevWatchModel, let curModel = XWHDataDeviceManager.getCurrentWatch() {
@@ -102,7 +104,8 @@ extension XWHDevice {
                     XWHDataDeviceManager.setCurrent(device: connModel)
                 }
                 
-                self?.syncData()
+                completion?()
+//                self?.syncData()
 
             case .failure(let error):
                 log.error(error)

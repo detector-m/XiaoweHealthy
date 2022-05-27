@@ -341,6 +341,7 @@ class XWHDeviceMainVC: XWHTableViewBaseVC, XWHDeviceObserverProtocol {
     
     func updateSyncState(_ syncState: XWHDevDataTransferState) {
         if syncState == .succeed {
+            XWHDevice.shared.updateDeviceInfo(completion: nil)
             view.makeInsetToast(R.string.xwhDeviceText.同步成功())
         } else if syncState == .failed {
             view.makeInsetToast(R.string.xwhDeviceText.同步失败())

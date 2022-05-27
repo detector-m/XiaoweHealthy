@@ -26,7 +26,7 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
     var wsHandler: XWHWeatherServiceProtocol?
     
     func config(_ user: XWHUserModel?, _ raiseWristSet: XWHRaiseWristSetModel?, handler: XWHDevCmdOperationHandler?) {
-        guard let deviceSn = manager.connectedDevicesModel?.identifier else {
+        guard let _ = manager.connectedDevicesModel?.identifier else {
             log.error("UTE 设备未连接")
             
             var error = XWHError()
@@ -39,11 +39,6 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
         setTime(handler: handler)
         setUnit(handler: handler)
         
-        manager.activateDeviceMPF { (isOk, eCode: UTEErrorCode) in
-            if !isOk {
-                log.error("UTE 开启 MPF 失败")
-            }
-        }
         if let user = XWHDataUserManager.getCurrentUser() {
             setUserInfo(user, raiseWristSet, handler: handler)
         } else {
@@ -57,14 +52,15 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
         }
         
         var noticeSet: XWHNoticeSetModel
-        
         if let cNoticeSet = XWHDataDeviceManager.getCurrentNoticeSet() {
             noticeSet = cNoticeSet
         } else {
             noticeSet = XWHNoticeSetModel()
         }
-        
+
         setNoticeSet(noticeSet, handler: handler)
+        
+        setUTEMPFEnable()
     }
     
     func reboot(handler: XWHDevCmdOperationHandler?) {
@@ -192,6 +188,7 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
             return
         }
         
+        log.debug("UTE 设置通知提醒")
         if uteConnModel.isHasSocialNotification || uteConnModel.isHasSocialNotification2 {
             let remindApp = UTEModelDeviceRemindApp()
             
@@ -628,12 +625,26 @@ extension XWHUTECmdOperationHandler {
 // MARK: - Private (UTE)
 extension XWHUTECmdOperationHandler {
     
+    /// 开启 MPF
+    private func setUTEMPFEnable() {
+        let isHasMpf = manager.connectedDevicesModel?.isHasMPF ?? false
+        if isHasMpf {
+            log.debug("UTE 开启MPF")
+            manager.activateDeviceMPF { (isOk, eCode: UTEErrorCode) in
+                if !isOk {
+                    log.error("UTE 开启 MPF 失败")
+                }
+            }
+        }
+    }
+    
     private func getUTEDeviceInfo(_ user: XWHUserModel) -> UTEModelDeviceInfo {
         // 设置设备中身高、体重
         let infoModel = UTEModelDeviceInfo()
         infoModel.heigh = user.height.cgFloat
         infoModel.weight = user.weight.cgFloat
         infoModel.age = user.age
+        infoModel.languageIsChinese = true
         
         if user.genderType == .female {
             infoModel.sex = UTEDeviceInfoSex.female

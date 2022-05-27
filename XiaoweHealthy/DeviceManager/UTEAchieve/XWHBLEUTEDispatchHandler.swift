@@ -11,6 +11,10 @@ import UTESmartBandApi
 class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
     
     // MARK: - 变量
+    override var connectTimeoutTime: TimeInterval {
+        return 45
+    }
+    
     var manager: UTESmartBandClient {
         return UTESmartBandClient.sharedInstance()
     }
@@ -283,7 +287,7 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
         case .mpfDetectingFail:
             uteDataHandler?.handleError(error)
             
-        // MARK: - ---------
+        // MARK: -
         default:
             break
         }
@@ -293,15 +297,17 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
             break
             
         case .connect:
+            cmdHandler?.config(nil, nil, handler: nil)
+
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else {
                     return
                 }
                 
                 if cConnBindState == .connected || cConnBindState == .paired {
-                    self.cmdHandler?.config(nil, nil, handler: nil)
+//                    self.cmdHandler?.config(nil, nil, handler: nil)
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 13) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 14) {
                         self.connectBindState = cConnBindState
                         self.connectHandler?(.success(self.connectBindState))
                         
@@ -309,16 +315,7 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
                         self.connectHandler = nil
                         self.bleDevModel = nil
                         
-                        var deviceModel: XWHDevWatchModel!
-                        if let cUteModel = self.manager.connectedDevicesModel {
-                            deviceModel = self.getDeviceInfo(with: cUteModel)
-                        } else {
-                            deviceModel = XWHDevWatchModel()
-                            deviceModel.category = .watch
-                            deviceModel.type = .skyworthWatchS1
-                        }
-                        
-                        self.monitorHandler?(deviceModel, self.connectBindState)
+                        self.handleMonitor(connectBindState: self.connectBindState)
                         
 //                        if (preConnBindState == .connected || preConnBindState == .paired) && self.connectHandler == nil {
 //
@@ -333,16 +330,7 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
                     self.bleDevModel = nil
                     
                     if (preConnBindState == .connected || preConnBindState == .paired) && self.connectHandler == nil {
-                        var deviceModel: XWHDevWatchModel!
-                        if let cUteModel = self.manager.connectedDevicesModel {
-                            deviceModel = self.getDeviceInfo(with: cUteModel)
-                        } else {
-                            deviceModel = XWHDevWatchModel()
-                            deviceModel.category = .watch
-                            deviceModel.type = .skyworthWatchS1
-                        }
-                        
-                        self.monitorHandler?(deviceModel, self.connectBindState)
+                        self.handleMonitor(connectBindState: self.connectBindState)
                     }
                 }
             }
@@ -434,6 +422,25 @@ extension XWHBLEUTEDispatchHandler {
         device.rssi = uteDevice.rssi
         
         return device
+    }
+    
+    /// 处理监测结果
+    private func handleMonitor(connectBindState: XWHDeviceConnectBindState) {
+        let deviceModel = getMonitorDeviceModel()
+        self.monitorHandler?(deviceModel, connectBindState)
+    }
+    
+    private func getMonitorDeviceModel() -> XWHDevWatchModel {
+        var deviceModel: XWHDevWatchModel
+        if let cUteModel = self.manager.connectedDevicesModel {
+            deviceModel = self.getDeviceInfo(with: cUteModel)
+        } else {
+            deviceModel = XWHDevWatchModel()
+            deviceModel.category = .watch
+            deviceModel.type = .skyworthWatchS1
+        }
+        
+        return deviceModel
     }
     
 }

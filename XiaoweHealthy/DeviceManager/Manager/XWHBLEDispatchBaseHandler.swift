@@ -49,10 +49,12 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
     fileprivate let searchTime: TimeInterval = 5
     
     /// 连接设备超时时间
-    var connectTime: TimeInterval = 30
+    var connectTimeoutTime: TimeInterval {
+        return 30
+    }
     
     /// 绑定设备超时时间
-    class var bindTime: TimeInterval {
+    class var bindTimeoutTime: TimeInterval {
         return 30
     }
     
@@ -121,7 +123,7 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
         
         bleDevModel = device
         
-        connectTimer = Timer.scheduledTimer(timeInterval: connectTime, target: self, selector: #selector(connectTimeout), userInfo: nil, repeats: false)
+        connectTimer = Timer.scheduledTimer(timeInterval: connectTimeoutTime, target: self, selector: #selector(connectTimeout), userInfo: nil, repeats: false)
 
         RunLoop.current.add(connectTimer!, forMode: .common)
     }

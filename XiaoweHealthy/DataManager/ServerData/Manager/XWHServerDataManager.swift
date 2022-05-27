@@ -26,6 +26,7 @@ class XWHServerDataManager {
             return
         }
 
+        log.debug("requestId = \(cId) 上传数据")
         serverDataProvider.request(.postHeart(deviceSn, reqData)) { result in
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
                 
@@ -49,6 +50,7 @@ class XWHServerDataManager {
             return
         }
         
+        log.debug("requestId = \(cId) 上传数据")
         serverDataProvider.request(.postBloodOxygen(deviceSn, reqData)) { result in
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
                 
@@ -71,6 +73,7 @@ class XWHServerDataManager {
             return
         }
         
+        log.debug("requestId = \(cId) 上传数据")
         serverDataProvider.request(.postSleep(deviceSn, reqData)) { result in
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
                 
@@ -93,6 +96,7 @@ class XWHServerDataManager {
             return
         }
         
+        log.debug("requestId = \(cId) 上传数据")
         serverDataProvider.request(.postMentalState(deviceSn, reqData)) { result in
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
                 
