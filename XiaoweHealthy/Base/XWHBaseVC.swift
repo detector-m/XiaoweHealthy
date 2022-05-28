@@ -25,7 +25,16 @@ class XWHBaseVC: UIViewController {
     // 大标题处理方式 方式2
     var topContentInset: CGFloat {
 //        66
-        94
+//        94
+        let statusBarHeight = UIApplication.shared.statusBarFrame.height
+        var statusNavHeight = statusBarHeight
+        if let navHeight = navigationController?.navigationBar.height {
+            statusNavHeight += navHeight
+        } else {
+            statusNavHeight = 88
+        }
+        
+        return statusNavHeight + 6
     }
 
     override func viewDidLoad() {

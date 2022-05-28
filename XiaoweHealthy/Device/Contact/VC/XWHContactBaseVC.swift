@@ -103,7 +103,7 @@ class XWHContactBaseVC: XWHTableViewBaseVC {
     
     func relayoutTitleLb() {
         titleLb.snp.makeConstraints { make in
-            make.top.equalTo(94)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(6)
             make.height.equalTo(40)
 
             make.left.right.equalToSuperview().inset(28)
