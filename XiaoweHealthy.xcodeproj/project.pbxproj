@@ -156,6 +156,7 @@
 		967F867D283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F867C283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift */; };
 		967F867F283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F867E283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift */; };
 		968489FD2840F52100821E24 /* XWHMoodRangeCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */; };
+		96848A012841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96848A002841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift */; };
 		968CB8A327F3FB8800E549AC /* UITableViewRoundedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */; };
 		968CB8A627F40B5A00E549AC /* XWHDeviceDeploy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */; };
 		968CB8A827F42A8C00E549AC /* XWHCommonBaseTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A727F42A8C00E549AC /* XWHCommonBaseTBCell.swift */; };
@@ -536,6 +537,7 @@
 		967F867C283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceConnectBindHelpTBVC.swift; sourceTree = "<group>"; };
 		967F867E283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceUseGuideTBVC.swift; sourceTree = "<group>"; };
 		968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMoodRangeCTCell.swift; sourceTree = "<group>"; };
+		96848A002841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyMainCommonCTCell.swift; sourceTree = "<group>"; };
 		968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewRoundedProtocol.swift; sourceTree = "<group>"; };
 		968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceDeploy.swift; sourceTree = "<group>"; };
 		968CB8A727F42A8C00E549AC /* XWHCommonBaseTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCommonBaseTBCell.swift; sourceTree = "<group>"; };
@@ -1404,7 +1406,8 @@
 		967790B5280FAF2800C78327 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				96E23C2927E1A55E009EF208 /* XWHHealthyMainVC.swift */,
+				968489FF2841BF2300821E24 /* View */,
+				968489FE2841BF1800821E24 /* VC */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1548,6 +1551,22 @@
 				967AF4C427EF547B00235E08 /* XWHDevice.swift */,
 			);
 			path = Module;
+			sourceTree = "<group>";
+		};
+		968489FE2841BF1800821E24 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				96E23C2927E1A55E009EF208 /* XWHHealthyMainVC.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		968489FF2841BF2300821E24 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				96848A002841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		968CB8A127F3FB3700E549AC /* UITableViewRoundedProtocol */ = {
@@ -3019,6 +3038,7 @@
 				96617AA527E3169200139B03 /* XWHCodeView.swift in Sources */,
 				9676489F2827B90600DE9AFF /* XWHDeviceHelper.swift in Sources */,
 				9674A131282B6C2F0021724C /* XWHHealthyChartDataHandler.swift in Sources */,
+				96848A012841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift in Sources */,
 				969B883828111CCD009952E7 /* XWHHealthyCTReusableView.swift in Sources */,
 				96BFC900283775420080DCFC /* XWHMoodIntroductionTXVC.swift in Sources */,
 				96907255281530820056CE4F /* XWHBODataDetailTBVC.swift in Sources */,

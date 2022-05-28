@@ -6,11 +6,9 @@
 //
 
 import UIKit
-import Alamofire
-import SwiftUI
 
 /// 运动健康首页
-class XWHHealthyMainVC: XWHTableViewBaseVC {
+class XWHHealthyMainVC: XWHCollectionViewBaseVC {
     
     override var topContentInset: CGFloat {
         66
@@ -34,75 +32,47 @@ class XWHHealthyMainVC: XWHTableViewBaseVC {
         // 大标题方式2
         setLargeTitleMode()
         
-        tableView.backgroundColor = view.backgroundColor
-        tableView.separatorStyle = .none
-        largeTitleView.backgroundColor = tableView.backgroundColor
+        collectionView.backgroundColor = view.backgroundColor
+        collectionView.alwaysBounceVertical = true
+        largeTitleView.backgroundColor = collectionView.backgroundColor
         
         largeTitleView.titleLb.text = R.string.xwhDisplayText.健康()
     }
     
     override func relayoutSubViews() {
-        // 大标题方式2
-        tableView.snp.remakeConstraints { make in
-            make.left.right.equalToSuperview()
-            make.top.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-        }
-        
-        relayoutLargeTitle()
-        
-        relayoutLargeTitleContentView()
+        relayoutCommon()
     }
     
     override func registerViews() {
-        tableView.register(cellWithClass: XWHBaseTBCell.self)
+        collectionView.register(cellWithClass: XWHHealthyMainCommonCTCell.self)
     }
 
 }
 
-// MARK: - UITableViewDataSource & UITableViewDelegate & UITableViewRoundedProtocol
+// MARK: - UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate
 @objc extension XWHHealthyMainVC {
     
-//    override func numberOfSections(in tableView: UITableView) -> Int {
+//    override func numberOfSections(in collectionView: UICollectionView) -> Int {
 //        return 1
 //    }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return testItems.count
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 52
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.width, height: 52)
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withClass: XWHBaseTBCell.self, for: indexPath)
-        cell.titleLb.text = testItems[indexPath.row].rawValue
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withClass: XWHHealthyMainCommonCTCell.self, for: indexPath)
+        cell.textLb.text = testItems[indexPath.item].rawValue
         
         return cell
     }
     
-//   override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//    }
-    
-//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 0.001
-//    }
-//
-//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        return UIView()
-//    }
-
-//    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return 0.001
-//    }
-//
-//    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        return UIView()
-//    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let tItem = testItems[indexPath.row]
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let tItem = testItems[indexPath.item]
         switch tItem {
         case .heart:
             gotoHeart()
