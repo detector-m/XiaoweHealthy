@@ -21,7 +21,7 @@ class XWHHealthyMainCommonCTCell: XWHBaseCTCell {
     
     override func relayoutSubViews() {
         textLb.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(28)
+            make.left.right.equalToSuperview().inset(16)
             make.top.bottom.equalToSuperview()
         }
     }

@@ -69,14 +69,14 @@ class XWHCollectionViewBaseVC: XWHBaseVC {
     
     final func relayoutLargeTitleSecond() {
         largeTitleView.snp.remakeConstraints { make in
-            make.left.equalToSuperview()
+            make.centerX.equalToSuperview()
             make.width.equalTo(largeTitleWidth)
             make.top.equalToSuperview().inset(-largeTitleHeight)
             make.height.equalTo(largeTitleHeight)
         }
     }
     
-    final func relayoutLargeTitleContentView() {
+    func relayoutLargeTitleContentView() {
         largeTitleView.relayout { ltView in
             ltView.button.snp.remakeConstraints { make in
                 make.right.equalToSuperview().inset(28)

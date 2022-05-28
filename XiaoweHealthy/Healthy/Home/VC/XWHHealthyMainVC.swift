@@ -26,6 +26,31 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
         
     }
     
+    override func setNavigationBarWithLargeTitle() {
+        setNav(color: .white)
+        
+        let leftItem = getNavItem(text: R.string.xwhDisplayText.健康(), font: XWHFont.harmonyOSSans(ofSize: 16, weight: .medium), image: nil, target: self, action: #selector(clickNavLeftItem))
+        navigationItem.leftBarButtonItem = leftItem
+        
+//        let rightImage = UIImage.iconFont(text: XWHIconFontOcticons.addCircle.rawValue, size: 24, color: fontDarkColor)
+//        let rightItem = getNavItem(text: nil, image: rightImage, target: self, action: #selector(clickNavRightItem))
+//        navigationItem.rightBarButtonItem = rightItem
+        
+        setNavHidden(false, animated: true, async: isFirstTimeSetNavHidden)
+    }
+    
+    @objc private func clickNavLeftItem() {
+        
+    }
+    
+    override func resetNavigationBarWithoutLargeTitle() {
+        setNavTransparent()
+        navigationItem.leftBarButtonItem = nil
+        navigationItem.rightBarButtonItem = nil
+        
+        setNavHidden(true, animated: true, async: isFirstTimeSetNavHidden)
+    }
+    
     override func addSubViews() {
         super.addSubViews()
         
@@ -43,6 +68,23 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
     
     override func relayoutSubViews() {
         relayoutCommon()
+    }
+    
+    override func relayoutLargeTitleContentView() {
+        largeTitleView.relayout { ltView in
+            ltView.button.snp.remakeConstraints { make in
+                make.right.equalToSuperview().inset(16)
+                make.size.equalTo(24)
+                make.centerY.equalTo(ltView.titleLb)
+            }
+
+            ltView.titleLb.snp.remakeConstraints { make in
+                make.top.equalToSuperview()
+                make.height.equalTo(40)
+                make.left.equalToSuperview().inset(16)
+                make.right.lessThanOrEqualTo(ltView.button.snp.left).offset(-10)
+            }
+        }
     }
     
     override func registerViews() {

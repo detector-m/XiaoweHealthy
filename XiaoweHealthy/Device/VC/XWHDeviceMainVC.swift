@@ -56,7 +56,7 @@ class XWHDeviceMainVC: XWHTableViewBaseVC, XWHDeviceObserverProtocol {
         let rightItem = getNavItem(text: nil, image: rightImage, target: self, action: #selector(clickNavRightItem))
         navigationItem.rightBarButtonItem = rightItem
         
-        navigationController?.setNavigationBarHidden(false, animated: true)
+        setNavHidden(false, animated: true, async: isFirstTimeSetNavHidden)
     }
     
     @objc private func clickNavLeftItem() {
@@ -68,11 +68,12 @@ class XWHDeviceMainVC: XWHTableViewBaseVC, XWHDeviceObserverProtocol {
     }
     
     override func resetNavigationBarWithoutLargeTitle() {
-        navigationController?.setNavigationBarHidden(true, animated: true)
-        
         setNavTransparent()
+        
         navigationItem.leftBarButtonItem = nil
         navigationItem.rightBarButtonItem = nil
+        
+        setNavHidden(true, animated: true, async: isFirstTimeSetNavHidden)
     }
     
     override func addSubViews() {

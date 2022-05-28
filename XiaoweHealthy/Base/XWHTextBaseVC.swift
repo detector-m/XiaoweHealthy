@@ -93,7 +93,7 @@ class XWHTextBaseVC: XWHBaseVC {
     
     final func relayoutLargeTitleSecond() {
         largeTitleView.snp.remakeConstraints { make in
-            make.left.equalToSuperview()
+            make.centerX.equalToSuperview()
             make.width.equalTo(largeTitleWidth)
             make.top.equalToSuperview().inset(-largeTitleHeight)
             make.height.equalTo(largeTitleHeight)

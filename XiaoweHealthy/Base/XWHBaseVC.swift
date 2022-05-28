@@ -36,6 +36,10 @@ class XWHBaseVC: UIViewController {
         
         return statusNavHeight + 6
     }
+    
+    // 是否是第一次设置导航栏动画 （防止第一次时有黑线闪动）
+    private(set) var isFirstTimeSetNavHidden = true
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -186,6 +190,8 @@ class XWHBaseVC: UIViewController {
             resetNavigationBarWithoutLargeTitle()
         }
         
+        isFirstTimeSetNavHidden = false
+        
         cTopConstraint.update(inset: curInset)
     }
     
@@ -233,6 +239,8 @@ class XWHBaseVC: UIViewController {
         } else {
             resetNavigationBarWithoutLargeTitle()
         }
+        
+        isFirstTimeSetNavHidden = false
     }
     
 }

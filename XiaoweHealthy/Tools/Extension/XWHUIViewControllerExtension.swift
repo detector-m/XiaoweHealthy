@@ -26,6 +26,20 @@ extension UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
     }
     
+    public func setNavHidden(_ isHidden: Bool, animated: Bool = true, async: Bool = false) {
+        guard let nav = navigationController else {
+            return
+        }
+        
+        if async {
+            DispatchQueue.main.async {
+                nav.setNavigationBarHidden(isHidden, animated: animated)
+            }
+        } else {
+            nav.setNavigationBarHidden(isHidden, animated: animated)
+        }
+    }
+    
 //    public func addNavInteractivePopGestureRecognizerDelegate() {
 //        navigationController?.addInteractivePopGestureRecognizerDelegate()
 //    }
