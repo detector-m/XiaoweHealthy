@@ -18,6 +18,8 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        addHeaderRefresh()
     }
     
     override func setupNavigationItems() {
@@ -45,6 +47,16 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
     
     override func registerViews() {
         collectionView.register(cellWithClass: XWHHealthyMainCommonCTCell.self)
+    }
+    
+    func addHeaderRefresh() {
+        let headerContentOffset = UIApplication.shared.statusBarFrame.height
+
+        collectionView.addHeader(contentInsetTop: topContentInset + largeTitleHeight, contentOffset: headerContentOffset) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [unowned self] in
+                self.collectionView.mj_header?.endRefreshing()
+            }
+        }
     }
 
 }

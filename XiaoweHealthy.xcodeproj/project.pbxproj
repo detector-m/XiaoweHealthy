@@ -15,6 +15,8 @@
 		960E768027F00BB700A0DA25 /* XWHAddBrandDeviceCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960E767F27F00BB700A0DA25 /* XWHAddBrandDeviceCTCell.swift */; };
 		960E768227F0574200A0DA25 /* XWHBaseCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960E768127F0574200A0DA25 /* XWHBaseCTCell.swift */; };
 		960E768527F0B17D00A0DA25 /* XWHSafari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960E768427F0B17D00A0DA25 /* XWHSafari.swift */; };
+		96127D142842039C00940132 /* PullToRefreshExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96127D132842039C00940132 /* PullToRefreshExtension.swift */; };
+		96127D162842100E00940132 /* PullToRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96127D152842100E00940132 /* PullToRefreshHeader.swift */; };
 		9613E78527F4A0BC007A1589 /* XWHThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613E78427F4A0BC007A1589 /* XWHThemeConfig.swift */; };
 		96168CB5281BED5300F79C2A /* XWHUTEDataOperationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96168CB4281BED5300F79C2A /* XWHUTEDataOperationHandler.swift */; };
 		9618B6EA28339894003D5770 /* XWHBOChartCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9618B6E928339894003D5770 /* XWHBOChartCTCell.swift */; };
@@ -392,6 +394,8 @@
 		960E767F27F00BB700A0DA25 /* XWHAddBrandDeviceCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHAddBrandDeviceCTCell.swift; sourceTree = "<group>"; };
 		960E768127F0574200A0DA25 /* XWHBaseCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBaseCTCell.swift; sourceTree = "<group>"; };
 		960E768427F0B17D00A0DA25 /* XWHSafari.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSafari.swift; sourceTree = "<group>"; };
+		96127D132842039C00940132 /* PullToRefreshExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullToRefreshExtension.swift; sourceTree = "<group>"; };
+		96127D152842100E00940132 /* PullToRefreshHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullToRefreshHeader.swift; sourceTree = "<group>"; };
 		9613E78427F4A0BC007A1589 /* XWHThemeConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHThemeConfig.swift; sourceTree = "<group>"; };
 		96168CB4281BED5300F79C2A /* XWHUTEDataOperationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUTEDataOperationHandler.swift; sourceTree = "<group>"; };
 		9618B6E928339894003D5770 /* XWHBOChartCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBOChartCTCell.swift; sourceTree = "<group>"; };
@@ -788,6 +792,24 @@
 			path = Safari;
 			sourceTree = "<group>";
 		};
+		96127D11284202AA00940132 /* Plugin */ = {
+			isa = PBXGroup;
+			children = (
+				96127D122842030900940132 /* PullToRefresh */,
+				96AD2AE1283F15160024AF5B /* SignInWithApple */,
+			);
+			path = Plugin;
+			sourceTree = "<group>";
+		};
+		96127D122842030900940132 /* PullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				96127D152842100E00940132 /* PullToRefreshHeader.swift */,
+				96127D132842039C00940132 /* PullToRefreshExtension.swift */,
+			);
+			path = PullToRefresh;
+			sourceTree = "<group>";
+		};
 		9628F84E27EE9ECC00221C5E /* Module */ = {
 			isa = PBXGroup;
 			children = (
@@ -840,6 +862,7 @@
 				96931075282600B800133626 /* UIDisplayHandler */,
 				96DC429427FD303A009BF300 /* DeviceManager */,
 				96DC429E27FD7323009BF300 /* DataManager */,
+				96127D11284202AA00940132 /* Plugin */,
 				96617A6F27E1E06700139B03 /* Tools */,
 				9651EE0227EAF2D60043FE52 /* Config */,
 				96617A6A27E1DFC000139B03 /* Base */,
@@ -848,7 +871,6 @@
 				96E23C0627E18003009EF208 /* AppEntry */,
 				960E768327F0B0F900A0DA25 /* Safari */,
 				9661517227E46A07006781C1 /* Supplier */,
-				96AD2AE1283F15160024AF5B /* SignInWithApple */,
 				9651EE2A27EC5B030043FE52 /* UM */,
 				96E23C0727E1839B009EF208 /* Resource */,
 			);
@@ -2980,6 +3002,7 @@
 				969310682825285200133626 /* XWHHealthySleepCTVC.swift in Sources */,
 				960E768527F0B17D00A0DA25 /* XWHSafari.swift in Sources */,
 				96DC429D27FD42B7009BF300 /* XWHDeviceApi.swift in Sources */,
+				96127D142842039C00940132 /* PullToRefreshExtension.swift in Sources */,
 				968CB8A827F42A8C00E549AC /* XWHCommonBaseTBCell.swift in Sources */,
 				969E7134280D107C00BDA401 /* XWHConstant.swift in Sources */,
 				96931077282600FA00133626 /* XWHUIDisplayHandler.swift in Sources */,
@@ -3110,6 +3133,7 @@
 				96617AA327E3110E00139B03 /* XWHPasswordLoginVC.swift in Sources */,
 				9693104D2824C01700133626 /* XWHHealthyMentalStressCTVC.swift in Sources */,
 				96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */,
+				96127D162842100E00940132 /* PullToRefreshHeader.swift in Sources */,
 				96907262281564C90056CE4F /* XWHBOUIBloodOxygenModel.swift in Sources */,
 				9644928827F7EB2F001CA321 /* XWHProgressButton.swift in Sources */,
 				9661D35827F5FD830062B2B8 /* XWHDevSetWristVC.swift in Sources */,

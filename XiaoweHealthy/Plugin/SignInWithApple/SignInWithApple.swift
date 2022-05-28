@@ -25,6 +25,7 @@ struct SignInWithAppleUserModel {
     
 }
 
+/// 苹果登录
 class SignInWithApple: NSObject, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
     
     static let shared: SignInWithApple = SignInWithApple()
@@ -36,6 +37,7 @@ class SignInWithApple: NSObject, ASAuthorizationControllerDelegate, ASAuthorizat
         
     }
     
+    /// 去授权并获取用户信息
     func getUserInfo(at vc: UIViewController? = nil, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
         self.failureHandler = failureHandler
         self.successHandler = successHandler
@@ -73,7 +75,7 @@ class SignInWithApple: NSObject, ASAuthorizationControllerDelegate, ASAuthorizat
         }
     }
     
-    // 如果存在iCloud Keychain 凭证或者AppleID 凭证提示用户
+    /// 如果存在iCloud Keychain 凭证或者AppleID 凭证提示用户
     func performExistingAccountSetupFlows(at vc: UIViewController? = nil, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
         self.failureHandler = failureHandler
         self.successHandler = successHandler
@@ -111,7 +113,7 @@ class SignInWithApple: NSObject, ASAuthorizationControllerDelegate, ASAuthorizat
     }
     
     // MARK: - ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding
-    // 授权成功地回调
+    /// 授权成功地回调
     @available(iOS 13.0, *)
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         log.debug("授权完成::: credential = \(authorization.credential), controller = \(controller), authorization = \(authorization)")
@@ -188,7 +190,7 @@ class SignInWithApple: NSObject, ASAuthorizationControllerDelegate, ASAuthorizat
         successHandler = nil
     }
     
-    // 授权失败的回调
+    /// 授权失败的回调
     @available(iOS 13.0, *)
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         log.error("Handle error：\(error)")
@@ -229,7 +231,7 @@ class SignInWithApple: NSObject, ASAuthorizationControllerDelegate, ASAuthorizat
         successHandler = nil
     }
     
-    // 告诉代理应该在哪个window 展示内容给用户
+    /// 告诉代理应该在哪个window 展示内容给用户
     @available(iOS 13.0, *)
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return UIApplication.shared.keyWindow!
