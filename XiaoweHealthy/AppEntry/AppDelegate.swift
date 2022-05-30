@@ -90,13 +90,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 // MARK: - Window
 extension AppDelegate {
     
+    /// 配置 根控制器
     class func configWindow(win: UIWindow) {
-        let rVC = XWHRootVCProvider.getTabBarVC()
+        var rVC: UIViewController
+        if AppUserGuide.isShow {
+            rVC = AppUserGuide.getGuideVC(btnAction: { isSkip in
+                AppDelegate.configWindow(win: win)
+            })
+        } else {
+            rVC = XWHRootVCProvider.getTabBarVC()
+        }
         
         win.rootViewController = rVC
     }
     
-    // 配置App UI
+    // 配置 App UI
     fileprivate func configAppearance() {
         UINavigationBar.appearance().setTitleFont(XWHFont.harmonyOSSans(ofSize: 17, weight: .medium), color: fontDarkColor)
     }

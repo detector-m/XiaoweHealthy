@@ -24,7 +24,6 @@
 		9628F85027EE9EF300221C5E /* XWHLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9628F84F27EE9EF300221C5E /* XWHLogin.swift */; };
 		9644928827F7EB2F001CA321 /* XWHProgressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9644928727F7EB2F001CA321 /* XWHProgressButton.swift */; };
 		9648E60F27E0796D0077180D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648E60E27E0796D0077180D /* AppDelegate.swift */; };
-		9648E61327E0796D0077180D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648E61227E0796D0077180D /* ViewController.swift */; };
 		9648E61627E0796D0077180D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9648E61427E0796D0077180D /* Main.storyboard */; };
 		9648E61827E0796E0077180D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9648E61727E0796E0077180D /* Assets.xcassets */; };
 		9648E61B27E0796E0077180D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9648E61927E0796E0077180D /* LaunchScreen.storyboard */; };
@@ -155,6 +154,8 @@
 		967AF4C127EF544200235E08 /* XWHDevicePagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C027EF544200235E08 /* XWHDevicePagerViewCell.swift */; };
 		967AF4C327EF545800235E08 /* XWHDeviceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C227EF545800235E08 /* XWHDeviceVM.swift */; };
 		967AF4C527EF547B00235E08 /* XWHDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C427EF547B00235E08 /* XWHDevice.swift */; };
+		967E8B9C2844738F008E65FF /* AppUserGuideVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967E8B9B2844738F008E65FF /* AppUserGuideVC.swift */; };
+		967E8B9E28449106008E65FF /* AppUserGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967E8B9D28449106008E65FF /* AppUserGuide.swift */; };
 		967F867D283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F867C283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift */; };
 		967F867F283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F867E283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift */; };
 		968489FD2840F52100821E24 /* XWHMoodRangeCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */; };
@@ -404,7 +405,6 @@
 		9644928727F7EB2F001CA321 /* XWHProgressButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHProgressButton.swift; sourceTree = "<group>"; };
 		9648E60B27E0796D0077180D /* XiaoweHealthy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XiaoweHealthy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9648E60E27E0796D0077180D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9648E61227E0796D0077180D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9648E61527E0796D0077180D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9648E61727E0796E0077180D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9648E61A27E0796E0077180D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -538,6 +538,8 @@
 		967AF4C027EF544200235E08 /* XWHDevicePagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevicePagerViewCell.swift; sourceTree = "<group>"; };
 		967AF4C227EF545800235E08 /* XWHDeviceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceVM.swift; sourceTree = "<group>"; };
 		967AF4C427EF547B00235E08 /* XWHDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevice.swift; sourceTree = "<group>"; };
+		967E8B9B2844738F008E65FF /* AppUserGuideVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserGuideVC.swift; sourceTree = "<group>"; };
+		967E8B9D28449106008E65FF /* AppUserGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserGuide.swift; sourceTree = "<group>"; };
 		967F867C283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceConnectBindHelpTBVC.swift; sourceTree = "<group>"; };
 		967F867E283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceUseGuideTBVC.swift; sourceTree = "<group>"; };
 		968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMoodRangeCTCell.swift; sourceTree = "<group>"; };
@@ -795,6 +797,7 @@
 		96127D11284202AA00940132 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
+				967E8B9A28447256008E65FF /* AppUserGuide */,
 				96127D122842030900940132 /* PullToRefresh */,
 				96AD2AE1283F15160024AF5B /* SignInWithApple */,
 			);
@@ -1575,6 +1578,15 @@
 			path = Module;
 			sourceTree = "<group>";
 		};
+		967E8B9A28447256008E65FF /* AppUserGuide */ = {
+			isa = PBXGroup;
+			children = (
+				967E8B9B2844738F008E65FF /* AppUserGuideVC.swift */,
+				967E8B9D28449106008E65FF /* AppUserGuide.swift */,
+			);
+			path = AppUserGuide;
+			sourceTree = "<group>";
+		};
 		968489FE2841BF1800821E24 /* VC */ = {
 			isa = PBXGroup;
 			children = (
@@ -2324,7 +2336,6 @@
 			children = (
 				96617A7127E1E12E00139B03 /* XWHExported.swift */,
 				9648E60E27E0796D0077180D /* AppDelegate.swift */,
-				9648E61227E0796D0077180D /* ViewController.swift */,
 			);
 			path = AppEntry;
 			sourceTree = "<group>";
@@ -2905,6 +2916,7 @@
 				966A60F627FFD5DE00CBE915 /* XWHDeviceProductModel.swift in Sources */,
 				9653E48927F54D5900EE55FF /* XWHDataExtension.swift in Sources */,
 				96A10CB7282919FE00C1E18F /* XWHMentalStressModel.swift in Sources */,
+				967E8B9C2844738F008E65FF /* AppUserGuideVC.swift in Sources */,
 				96DC42A427FD88A2009BF300 /* XWHFileManager.swift in Sources */,
 				96A10CA92828E45300C1E18F /* XWHHealthySleepUISleepModel.swift in Sources */,
 				969310552824D59400133626 /* XWHMentalStressIntroductionTXVC.swift in Sources */,
@@ -3026,7 +3038,6 @@
 				967F867D283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift in Sources */,
 				96775E8F2826B92500AB88D3 /* XWHSleepModel.swift in Sources */,
 				96DC42A727FD9F8A009BF300 /* XWHDownloader.swift in Sources */,
-				9648E61327E0796D0077180D /* ViewController.swift in Sources */,
 				9648E60F27E0796D0077180D /* AppDelegate.swift in Sources */,
 				969B883C2811522A009952E7 /* XWHHeartRangeCTCell.swift in Sources */,
 				96617AAD27E3408C00139B03 /* XWHRegisterBaseVC.swift in Sources */,
@@ -3126,6 +3137,7 @@
 				9679E9D82816AA03003C6351 /* XWHCalendarWeekIndicatorView.swift in Sources */,
 				96F1D68428094A5E0067DBFD /* XWHDialMarketVC.swift in Sources */,
 				9651EE1527EB6CF50043FE52 /* XWHUserApi.swift in Sources */,
+				967E8B9E28449106008E65FF /* AppUserGuide.swift in Sources */,
 				9653E4A427F5A60900EE55FF /* XWHDevSetHeartVC.swift in Sources */,
 				9679E9FD281A9D79003C6351 /* XWHHealthyDataManager.swift in Sources */,
 				969B8816280FE11A009952E7 /* XWHHealthyBaseCTVC.swift in Sources */,
