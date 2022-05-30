@@ -156,6 +156,7 @@
 		967AF4C527EF547B00235E08 /* XWHDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AF4C427EF547B00235E08 /* XWHDevice.swift */; };
 		967E8B9C2844738F008E65FF /* AppUserGuideVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967E8B9B2844738F008E65FF /* AppUserGuideVC.swift */; };
 		967E8B9E28449106008E65FF /* AppUserGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967E8B9D28449106008E65FF /* AppUserGuide.swift */; };
+		967E8BA02844D4F1008E65FF /* XWHMoodGradientCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967E8B9F2844D4F1008E65FF /* XWHMoodGradientCTCell.swift */; };
 		967F867D283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F867C283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift */; };
 		967F867F283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F867E283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift */; };
 		968489FD2840F52100821E24 /* XWHMoodRangeCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */; };
@@ -193,7 +194,7 @@
 		969310472824B15500133626 /* XWHServerDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969310462824B15500133626 /* XWHServerDataManager.swift */; };
 		9693104D2824C01700133626 /* XWHHealthyMentalStressCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693104C2824C01700133626 /* XWHHealthyMentalStressCTVC.swift */; };
 		9693104F2824C53300133626 /* XWHMentalStressCommonCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693104E2824C53300133626 /* XWHMentalStressCommonCTCell.swift */; };
-		969310512824C54B00133626 /* XWHMentalStressGradiendtCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969310502824C54B00133626 /* XWHMentalStressGradiendtCTCell.swift */; };
+		969310512824C54B00133626 /* XWHMentalStressGradientCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969310502824C54B00133626 /* XWHMentalStressGradientCTCell.swift */; };
 		969310532824C68D00133626 /* XWHMentalStressRangeCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969310522824C68D00133626 /* XWHMentalStressRangeCTCell.swift */; };
 		969310552824D59400133626 /* XWHMentalStressIntroductionTXVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969310542824D59400133626 /* XWHMentalStressIntroductionTXVC.swift */; };
 		969310572824ED6700133626 /* XWHMentalStressAllDataTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969310562824ED6700133626 /* XWHMentalStressAllDataTBVC.swift */; };
@@ -540,6 +541,7 @@
 		967AF4C427EF547B00235E08 /* XWHDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevice.swift; sourceTree = "<group>"; };
 		967E8B9B2844738F008E65FF /* AppUserGuideVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserGuideVC.swift; sourceTree = "<group>"; };
 		967E8B9D28449106008E65FF /* AppUserGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserGuide.swift; sourceTree = "<group>"; };
+		967E8B9F2844D4F1008E65FF /* XWHMoodGradientCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMoodGradientCTCell.swift; sourceTree = "<group>"; };
 		967F867C283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceConnectBindHelpTBVC.swift; sourceTree = "<group>"; };
 		967F867E283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceUseGuideTBVC.swift; sourceTree = "<group>"; };
 		968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMoodRangeCTCell.swift; sourceTree = "<group>"; };
@@ -577,7 +579,7 @@
 		969310462824B15500133626 /* XWHServerDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHServerDataManager.swift; sourceTree = "<group>"; };
 		9693104C2824C01700133626 /* XWHHealthyMentalStressCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyMentalStressCTVC.swift; sourceTree = "<group>"; };
 		9693104E2824C53300133626 /* XWHMentalStressCommonCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMentalStressCommonCTCell.swift; sourceTree = "<group>"; };
-		969310502824C54B00133626 /* XWHMentalStressGradiendtCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMentalStressGradiendtCTCell.swift; sourceTree = "<group>"; };
+		969310502824C54B00133626 /* XWHMentalStressGradientCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMentalStressGradientCTCell.swift; sourceTree = "<group>"; };
 		969310522824C68D00133626 /* XWHMentalStressRangeCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMentalStressRangeCTCell.swift; sourceTree = "<group>"; };
 		969310542824D59400133626 /* XWHMentalStressIntroductionTXVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMentalStressIntroductionTXVC.swift; sourceTree = "<group>"; };
 		969310562824ED6700133626 /* XWHMentalStressAllDataTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMentalStressAllDataTBVC.swift; sourceTree = "<group>"; };
@@ -1736,7 +1738,7 @@
 			isa = PBXGroup;
 			children = (
 				9693104E2824C53300133626 /* XWHMentalStressCommonCTCell.swift */,
-				969310502824C54B00133626 /* XWHMentalStressGradiendtCTCell.swift */,
+				969310502824C54B00133626 /* XWHMentalStressGradientCTCell.swift */,
 				969310522824C68D00133626 /* XWHMentalStressRangeCTCell.swift */,
 				9618B6EB2833A5AD003D5770 /* XWHMentalStressChartCTCell.swift */,
 			);
@@ -2162,6 +2164,7 @@
 			children = (
 				96BFC901283777430080DCFC /* XWHMoodChartCTCell.swift */,
 				968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */,
+				967E8B9F2844D4F1008E65FF /* XWHMoodGradientCTCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2960,7 +2963,7 @@
 				96DC429A27FD34C7009BF300 /* RLBLEPermissions.swift in Sources */,
 				96F1D67C28091A8E0067DBFD /* XWHDialVC.swift in Sources */,
 				96C67AF228043362001ACA81 /* XWHDataHeartSetManager.swift in Sources */,
-				969310512824C54B00133626 /* XWHMentalStressGradiendtCTCell.swift in Sources */,
+				969310512824C54B00133626 /* XWHMentalStressGradientCTCell.swift in Sources */,
 				9679E9E62817BC79003C6351 /* XWHCalendarDayView.swift in Sources */,
 				969B88482812A91C009952E7 /* XWHDate.swift in Sources */,
 				96C67AFE2804743D001ACA81 /* XWHDataRaiseWristSetManager.swift in Sources */,
@@ -3065,6 +3068,7 @@
 				969B884B2812B769009952E7 /* XWHHealthyApi.swift in Sources */,
 				9693105B2824EDAA00133626 /* XWHMentalStressDataDetailTBVC.swift in Sources */,
 				96C67AE92804174B001ACA81 /* XWHHeartSetModel.swift in Sources */,
+				967E8BA02844D4F1008E65FF /* XWHMoodGradientCTCell.swift in Sources */,
 				969310442824AF9C00133626 /* XWHServerDataApi.swift in Sources */,
 				9651EDFA27E9A3130043FE52 /* RLOverlayerBgView.swift in Sources */,
 				96A10CBB2829F8CD00C1E18F /* XWHMentalStressUIStressModel.swift in Sources */,

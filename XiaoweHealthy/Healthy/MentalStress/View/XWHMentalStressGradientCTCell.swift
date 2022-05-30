@@ -1,5 +1,5 @@
 //
-//  XWHMentalStressGradiendtCTCell.swift
+//  XWHMentalStressGradientCTCell.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/5/6.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class XWHMentalStressGradiendtCTCell: XWHHealthyGradientCTCell {
+class XWHMentalStressGradientCTCell: XWHHealthyGradientCTCell {
     
     override func addSubViews() {
         super.addSubViews()

@@ -36,7 +36,7 @@ class XWHHealthyMentalStressCTVC: XWHHealthyBaseCTVC {
         super.registerViews()
         
         collectionView.register(cellWithClass: XWHMentalStressCommonCTCell.self)
-        collectionView.register(cellWithClass: XWHMentalStressGradiendtCTCell.self)
+        collectionView.register(cellWithClass: XWHMentalStressGradientCTCell.self)
         
         collectionView.register(cellWithClass: XWHMultiColorLinearCTCell.self)
 
@@ -94,7 +94,7 @@ extension XWHHealthyMentalStressCTVC {
             var unit = ""
             
             if indexPath.item == 0, isHasLastCurDataItem {
-                let cell = collectionView.dequeueReusableCell(withClass: XWHMentalStressGradiendtCTCell.self, for: indexPath)
+                let cell = collectionView.dequeueReusableCell(withClass: XWHMentalStressGradientCTCell.self, for: indexPath)
                 
                 titleStr = uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item]
                 

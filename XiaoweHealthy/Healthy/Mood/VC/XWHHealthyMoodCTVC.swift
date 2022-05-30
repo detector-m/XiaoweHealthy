@@ -16,7 +16,7 @@ class XWHHealthyMoodCTVC: XWHHealthyBaseCTVC {
     }
     
     override var isHasLastCurDataItem: Bool {
-        return false
+        return true
     }
     
     private lazy var lastItem = XWHHealthyDataManager.getCurrentMentalState()
@@ -35,8 +35,8 @@ class XWHHealthyMoodCTVC: XWHHealthyBaseCTVC {
         
         collectionView.register(cellWithClass: XWHMoodChartCTCell.self)
         collectionView.register(cellWithClass: XWHMoodRangeCTCell.self)
+        collectionView.register(cellWithClass: XWHMoodGradientCTCell.self)
         
-//        collectionView.register(cellWithClass: XWHMentalStressCommonCTCell.self)
 //        collectionView.register(cellWithClass: XWHMentalStressGradiendtCTCell.self)
 //        collectionView.register(cellWithClass: XWHMentalStressRangeCTCell.self)
         
@@ -54,10 +54,12 @@ class XWHHealthyMoodCTVC: XWHHealthyBaseCTVC {
         
 //        getMentalStressExistDate()
 //        getMentalStress()
+        
+        collectionView.reloadData()
     }
     
     func loadUIItems() {
-        uiManager.loadItems(.mood)
+        uiManager.loadItems(.mood, isHasCurDatasItem: isHasLastCurDataItem)
         collectionView.reloadData()
     }
     
@@ -84,6 +86,12 @@ extension XWHHealthyMoodCTVC {
 //            cell.update(dateText: dateText, sDate: cSDate, dateType: dateType, uiModel: msUIModel)
             
             cell.update()
+            
+            return cell
+        }
+        
+        if item.uiCardType == .curDatas {
+            let cell = collectionView.dequeueReusableCell(withClass: XWHMoodGradientCTCell.self, for: indexPath)
             
             return cell
         }

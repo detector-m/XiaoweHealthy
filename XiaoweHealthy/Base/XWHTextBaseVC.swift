@@ -84,7 +84,7 @@ class XWHTextBaseVC: XWHBaseVC {
         
         largeTitleView.button.isHidden = true
         relayoutLargeTitle()
-        largeTitleView.relayout(leftRightInset: 0)
+        largeTitleView.relayout(leftRightInset: 28)
     }
     
     override func relayoutLargeTitle() {

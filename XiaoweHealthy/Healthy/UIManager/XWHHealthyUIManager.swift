@@ -32,12 +32,13 @@ class XWHHealthyUIManager: XWHHealthyUIItemModel {
     private lazy var mentalStressCurDataItems: [String] = [R.string.xwhHealthyText.最近一次压力值(), R.string.xwhHealthyText.压力范围(), R.string.xwhHealthyText.平均压力值()]
     
     // MARK: - 情绪 （Mood）
-    private lazy var moodCardTypes: [XWHHealthyDetailUICardType] = [.chart, .moodRange]
+    private lazy var moodCardTypes: [XWHHealthyDetailUICardType] = [.chart, .curDatas, .moodRange]
+    private lazy var moodCurDataItems: [String] = [R.string.xwhHealthyText.最近一次情绪状态()]
      
     // MARK: - 睡眠 （Sleep）
     private lazy var sleepCardTypes: [XWHHealthyDetailUICardType] = [.chart, .curDatas, .sleepRange]
 
-    func loadItems(_ type: XWHHealthyType) {
+    func loadItems(_ type: XWHHealthyType, isHasCurDatasItem: Bool = true) {
         switch type {
         case .heart:
             items = getUICardItems(heartCardTypes, healthyType: type)
@@ -49,6 +50,9 @@ class XWHHealthyUIManager: XWHHealthyUIItemModel {
             items = getUICardItems(mentalStressCardTypes, healthyType: type)
             
         case .mood:
+            if !isHasCurDatasItem {
+                moodCardTypes.removeFirst(where: { $0 == .curDatas })
+            }
             items = getUICardItems(moodCardTypes, healthyType: type)
             
         case .sleep:
@@ -91,7 +95,7 @@ extension XWHHealthyUIManager {
             switch dateSegmentType {
             case .day:
                 switch item.healthyType {
-                case .heart, .bloodOxygen, .mentalStress:
+                case .heart, .bloodOxygen, .mentalStress, .mood:
                     break
                     
                 case .sleep:
@@ -104,7 +108,7 @@ extension XWHHealthyUIManager {
                 
             case .week:
                 switch item.healthyType {
-                case .heart, .bloodOxygen, .mentalStress:
+                case .heart, .bloodOxygen, .mentalStress, .mood:
                     break
                     
                 case .sleep:
@@ -117,7 +121,7 @@ extension XWHHealthyUIManager {
                 
             case .month:
                 switch item.healthyType {
-                case .heart, .bloodOxygen, .mentalStress:
+                case .heart, .bloodOxygen, .mentalStress, .mood:
                     break
                     
                 case .sleep:
@@ -131,7 +135,7 @@ extension XWHHealthyUIManager {
                 
             case .year:
                 switch item.healthyType {
-                case .heart, .bloodOxygen, .mentalStress:
+                case .heart, .bloodOxygen, .mentalStress, .mood:
                     break
                     
                 case .sleep:
@@ -162,7 +166,16 @@ extension XWHHealthyUIManager {
             }
             
         case .moodRange:
-            return R.string.xwhHealthyText.情绪分布()
+            switch dateSegmentType {
+            case .day:
+                return R.string.xwhHealthyText.情绪分布()
+                
+            case .week:
+                return R.string.xwhHealthyText.本周情绪分布()
+                
+            case .month, .year:
+                return R.string.xwhHealthyText.本月情绪分布()
+            }
             
         default:
             return ""
@@ -221,6 +234,11 @@ extension XWHHealthyUIManager {
             return [""]
             
         case .mood:
+            let ret = moodCurDataItems
+            if isHasLastItem {
+                return ret
+            }
+            
             return []
             
         default:
