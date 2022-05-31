@@ -59,8 +59,8 @@ class ColumnRangeBarChartRenderer: LineScatterCandleRadarRenderer {
 //        let segmentLimits: [Double] = [20, 30, 40]
 //        let segmentColors: [UIColor] = [.green, .blue, .orange, .red]
         
-        let segmentLimits = dataSet.segmentLimits
-        let segmentColors = dataSet.segmentColors
+        var segmentLimits = dataSet.segmentLimits
+        var segmentColors = dataSet.segmentColors
         
         _xBounds.set(chart: dataProvider, dataSet: dataSet, animator: animator)
         
@@ -70,6 +70,9 @@ class ColumnRangeBarChartRenderer: LineScatterCandleRadarRenderer {
 
         for j in _xBounds
         {
+            segmentLimits = dataSet.segmentLimits
+            segmentColors = dataSet.segmentColors
+            
             // get the entry
             guard let e = dataSet.entryForIndex(j) as? ColumnRangeBarChartDataEntry else { continue }
             
@@ -79,6 +82,11 @@ class ColumnRangeBarChartRenderer: LineScatterCandleRadarRenderer {
             let close = e.close
             let high = e.high
             let low = e.low
+            
+            if !e.segmentLimits.isEmpty {
+                segmentLimits = e.segmentLimits
+                segmentColors = e.segmentColors
+            }
             
             let doesContainMultipleDataSets = (dataProvider.columnRangeBarData?.dataSets.count ?? 1) > 1
             var accessibilityMovementDescription = "neutral"

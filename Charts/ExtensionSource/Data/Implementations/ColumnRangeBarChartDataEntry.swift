@@ -21,6 +21,11 @@ open class ColumnRangeBarChartDataEntry: ChartDataEntry {
     /// open value
     @objc open var open = Double(0.0)
     
+    /// 分段的界限
+    @objc open var segmentLimits: [Double] = []
+    /// 分段的颜色
+    @objc open var segmentColors: [UIColor] = []
+    
     public required init()
     {
         super.init()

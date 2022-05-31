@@ -19,6 +19,7 @@ class XWHHealthyMoodCTVC: XWHHealthyBaseCTVC {
         return isLast(lastItem)
     }
     
+    var uiModel: XWHMentalStressUIStressModel?
     private lazy var lastItem = XWHHealthyDataManager.getCurrentMentalState()
 
     override func viewDidLoad() {
@@ -27,7 +28,11 @@ class XWHHealthyMoodCTVC: XWHHealthyBaseCTVC {
 //        navigationItem.title = R.string.xwhHealthyText.情绪()
         titleBtn.titleForNormal = R.string.xwhHealthyText.情绪()
         
-        loadUIItems()
+//        loadUIItems()
+        cleanUIItems()
+        
+        getDataExistDate()
+        getData()
     }
     
     override func registerViews() {
@@ -42,18 +47,15 @@ class XWHHealthyMoodCTVC: XWHHealthyBaseCTVC {
     
     override func clickDateBtn() {
         showCalendar() { [unowned self] scrollDate, cDateType in
-//            self._getMentalStressExistDate(scrollDate, sDateType: cDateType) { isExist in
-//            }
+            self.getDataExistDate(scrollDate, cDateType) { isExist in }
         }
     }
     
     override func dateSegmentValueChanged(_ segmentType: XWHHealthyDateSegmentType) {
         updateUI(false)
         
-//        getMentalStressExistDate()
-//        getMentalStress()
-        
-        collectionView.reloadData()
+        getDataExistDate()
+        getData()
     }
     
     func loadUIItems() {
@@ -78,12 +80,9 @@ extension XWHHealthyMoodCTVC {
         if item.uiCardType == .chart {
             let cell = collectionView.dequeueReusableCell(withClass: XWHMoodChartCTCell.self, for: indexPath)
             
-//            let cSDate = getSelectedDate()
-//            let dateText = getSelectedDateRangeString() + " " + R.string.xwhHealthyText.平均压力值()
-//
-//            cell.update(dateText: dateText, sDate: cSDate, dateType: dateType, uiModel: msUIModel)
-            
-            cell.update()
+            let cSDate = getSelectedDate()
+            let dateText = R.string.xwhHealthyText.平均情绪状态()
+            cell.update(dateText: dateText, sDate: cSDate, dateType: dateType, uiModel: uiModel)
             
             return cell
         }
@@ -179,6 +178,87 @@ extension XWHHealthyMoodCTVC {
     private func gotoMoodIntroduction() {
         let vc = XWHMoodIntroductionTXVC()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+}
+
+
+// MARK: - Api
+extension XWHHealthyMoodCTVC {
+    
+    private func getDataExistDate() {
+        let cDate = getSelectedDate()
+//        XWHProgressHUD.show()
+        getDataExistDate(cDate, dateType) { isExist in
+//            if isExist {
+//                XWHProgressHUD.hide()
+//            }
+        }
+    }
+    
+    private func getDataExistDate(_ sDate: Date, _ sDateType: XWHHealthyDateSegmentType, _ completion: ((Bool) -> Void)?) {
+        if existDataDateItemsContains(sDate, sDateType: sDateType) {
+            completion?(true)
+            return
+        }
+        
+        var rDateType = sDateType
+        if sDateType == .week {
+            rDateType = .day
+        }
+        XWHHealthyVM().getMentalStressExistDate(date: sDate, dateType: rDateType) { [unowned self] error in
+            XWHProgressHUD.hide()
+            log.error(error)
+            
+            if error.isExpiredUserToken {
+                XWHUser.handleExpiredUserTokenUI(self, nil)
+                return
+            }
+        } successHandler: { [unowned self] response in
+            XWHProgressHUD.hide()
+            
+            guard let retModel = response.data as? XWHHealthyExistDataDateModel else {
+                log.debug("精神压力 - 获取存在数据日期为空")
+                return
+            }
+            
+            updateExistDataDateItem(retModel)
+            
+            completion?(false)
+        }
+    }
+    
+    private func getData() {
+        XWHProgressHUD.show()
+        let cDate = getSelectedDate()
+        XWHHealthyVM().getMentalStress(date: cDate, dateType: dateType) { [unowned self] error in
+            XWHProgressHUD.hide()
+            log.error(error)
+            
+            if error.isExpiredUserToken {
+                XWHUser.handleExpiredUserTokenUI(self, nil)
+                return
+            }
+            
+            self.uiModel = nil
+            self.loadUIItems()
+            self.cleanUIItems()
+        } successHandler: { [unowned self] response in
+            XWHProgressHUD.hide()
+            
+            guard let retModel = response.data as? XWHMentalStressUIStressModel else {
+                log.debug("精神压力 - 获取数据为空")
+                self.uiModel = nil
+                self.cleanUIItems()
+                
+//                self.collectionView.reloadEmptyDataSet()
+                
+                return
+            }
+            
+            self.uiModel = retModel
+            self.loadUIItems()
+        }
     }
     
 }
