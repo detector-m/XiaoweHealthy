@@ -9,8 +9,15 @@ import UIKit
 
 class XWHMoodRangeCTCell: XWHHealthyCommonCTCell {
     
+    lazy var tipLb = UILabel()
+    
     override func addSubViews() {
         super.addSubViews()
+        
+        tipLb.font = XWHFont.harmonyOSSans(ofSize: 12)
+        tipLb.textColor = fontDarkColor.withAlphaComponent(0.5)
+        tipLb.textAlignment = .right
+        contentView.addSubview(tipLb)
         
         textLb.font = XWHFont.harmonyOSSans(ofSize: 20, weight: .bold)
         detailLb.font = XWHFont.harmonyOSSans(ofSize: 12)
@@ -25,9 +32,10 @@ class XWHMoodRangeCTCell: XWHHealthyCommonCTCell {
         detailLb.textAlignment = .left
         
         textLb.snp.remakeConstraints { make in
-            make.top.equalToSuperview().offset(13)
             make.height.equalTo(27)
-            make.left.right.equalToSuperview().offset(16)
+            make.top.equalTo(16)
+            make.left.equalToSuperview().offset(13)
+            make.right.lessThanOrEqualTo(tipLb.snp.left).offset(-4)
         }
         
         imageView.snp.makeConstraints { make in
@@ -36,37 +44,48 @@ class XWHMoodRangeCTCell: XWHHealthyCommonCTCell {
             make.top.equalTo(textLb.snp.bottom).offset(5)
         }
         
-        detailLb.snp.remakeConstraints { make in
+        detailLb.snp.makeConstraints { make in
             make.left.equalTo(imageView.snp.right).offset(3)
             make.right.equalTo(textLb)
-            make.centerY.equalTo(imageView)
+            make.top.equalTo(textLb.snp.bottom).offset(2)
             make.height.equalTo(16)
+        }
+        
+        tipLb.snp.remakeConstraints { make in
+            make.height.equalTo(32)
+            make.centerY.equalToSuperview()
+            make.right.equalToSuperview().inset(16)
+            make.width.lessThanOrEqualTo(120)
         }
     }
     
-    func update(_ index: Int, _ rate: Int) {
-        var cValue = ""
+    func update(_ index: Int, _ value: Int, _ rate: Int) {
+        let cValue = XWHUIDisplayHandler.getSleepDurationString(value)
+        var cRate = ""
         
         var cColor = UIColor.white
-        let colors = XWHUIDisplayHandler.getMentalStressRangeColors()
+        let colors = XWHUIDisplayHandler.getMoodRangeColors()
         if !colors.isEmpty, index < colors.count {
             cColor = colors[index]
         }
         
         if rate != 0 {
-            cValue = rate.string
+            cRate = rate.string
         }
         
-        if cValue.isEmpty {
-            cValue = "--"
+        if cRate.isEmpty {
+            cRate = "--"
         } else {
-            cValue += "%"
+            cRate += "%"
         }
         
         imageView.layer.backgroundColor = cColor.cgColor
         textLb.text = cValue
         
-        detailLb.text = XWHUIDisplayHandler.getMentalStressRangeFullStrings()[index]
+        detailLb.text = XWHUIDisplayHandler.getMoodDurationTitles()[index]
+        
+        let unit = XWHUIDisplayHandler.getMoodRangeStrings()[index]
+        tipLb.text = cRate + " " + unit
     }
     
 }

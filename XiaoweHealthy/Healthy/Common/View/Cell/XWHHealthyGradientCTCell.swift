@@ -56,7 +56,8 @@ class XWHHealthyGradientCTCell: XWHGradientBaseCTCell {
         textLb.text = title
         tipLb.text = tipText
         
-        let cValue = value + " "
+        
+        let cValue = value + (unit.isEmpty ? "" : " ")
         let cText = cValue + unit
         
         detailLb.attributedText = cText.colored(with: fontDarkColor).applying(attributes: [.font: XWHFont.harmonyOSSans(ofSize: 24, weight: .bold)], toOccurrencesOf: cValue).applying(attributes: [.font: XWHFont.harmonyOSSans(ofSize: 12)], toOccurrencesOf: unit)

@@ -16,7 +16,7 @@ class XWHHealthyMoodCTVC: XWHHealthyBaseCTVC {
     }
     
     override var isHasLastCurDataItem: Bool {
-        return true
+        return isLast(lastItem)
     }
     
     private lazy var lastItem = XWHHealthyDataManager.getCurrentMentalState()
@@ -37,9 +37,7 @@ class XWHHealthyMoodCTVC: XWHHealthyBaseCTVC {
         collectionView.register(cellWithClass: XWHMoodRangeCTCell.self)
         collectionView.register(cellWithClass: XWHMoodGradientCTCell.self)
         
-//        collectionView.register(cellWithClass: XWHMentalStressGradiendtCTCell.self)
-//        collectionView.register(cellWithClass: XWHMentalStressRangeCTCell.self)
-        
+        collectionView.register(cellWithClass: XWHMultiColorLinearCTCell.self)
     }
     
     override func clickDateBtn() {
@@ -91,14 +89,53 @@ extension XWHHealthyMoodCTVC {
         }
         
         if item.uiCardType == .curDatas {
-            let cell = collectionView.dequeueReusableCell(withClass: XWHMoodGradientCTCell.self, for: indexPath)
+            var titleStr = uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item]
+            var valueStr = ""
+            var unit = ""
             
-            return cell
+            if indexPath.item == 0, isHasLastCurDataItem {
+                let cell = collectionView.dequeueReusableCell(withClass: XWHMoodGradientCTCell.self, for: indexPath)
+                
+                titleStr = uiManager.getCurDataItems(item, isHasLastItem: isHasLastCurDataItem)[indexPath.item]
+                
+                let value = lastItem?.mood ?? 0
+                valueStr = XWHUIDisplayHandler.getMoodString(value)
+                unit = ""
+                let tipText = lastItem?.formatDate()?.localizedString(withFormat: XWHDate.monthDayHourMinute) ?? ""
+                cell.update(titleStr, valueStr, unit, tipText)
+                
+                return cell
+            }
         }
         
         if item.uiCardType == .moodRange {
+            /// 积极
+            let positiveNumber = 30
+            /// 正常
+            let normalNumber = 50
+            /// 消极
+            let negativeNumber = 20
+            
+            /// 所有状态
+//            var totalNumber = positiveNumber + normalNumber + negativeNumber
+            
+//            if totalNumber <= 0 {
+//                totalNumber = 100
+//            }
+            
+            let values = [positiveNumber, normalNumber, negativeNumber]
+            // 分布图例
+            if indexPath.item == 0 {
+                let cell = collectionView.dequeueReusableCell(withClass: XWHMultiColorLinearCTCell.self, for: indexPath)
+                
+                cell.update(values: values, colors: XWHUIDisplayHandler.getMoodRangeColors())
+                
+                return cell
+            }
+            
+            
             let cell = collectionView.dequeueReusableCell(withClass: XWHMoodRangeCTCell.self, for: indexPath)
-            cell.update(indexPath.row, 50)
+            cell.update(indexPath.row - 1, Int(arc4random()) % 120, values[indexPath.row - 1])
             
             return cell
         }

@@ -12,6 +12,34 @@ import Foundation
 class XWHUIDisplayHandler {
     
     // MARK: - 健康
+    /// 获取压力区间颜色
+    class func getMoodRangeColors() -> [UIColor] {
+        return [UIColor(hex: 0xFFB25A)!, UIColor(hex: 0xFFD978)!, UIColor(hex: 0x8391F3)!]
+    }
+    
+    /// 获取情绪区间文案
+    class func getMoodRangeStrings() -> [String] {
+        [R.string.xwhHealthyText.积极(), R.string.xwhHealthyText.正常(), R.string.xwhHealthyText.消极()]
+    }
+    
+    /// 获取情绪文案
+    class func getMoodString(_ value: Int) -> String {
+        switch value {
+        case 1:
+            return R.string.xwhHealthyText.正常()
+            
+        case 2:
+            return R.string.xwhHealthyText.积极()
+            
+        default:
+            return R.string.xwhHealthyText.消极()
+        }
+    }
+    
+    class func getMoodDurationTitles() -> [String] {
+        return [R.string.xwhHealthyText.积极情绪时长(), R.string.xwhHealthyText.平和情绪时长(), R.string.xwhHealthyText.消极情绪时长()]
+    }
+    
     /// 获取精神压力区间
     class func getMentalStressRangeString(_ value: Int) -> String {
         let strings = getMentalStressRangeStrings()

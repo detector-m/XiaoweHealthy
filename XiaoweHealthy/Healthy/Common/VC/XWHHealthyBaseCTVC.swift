@@ -220,7 +220,7 @@ extension XWHHealthyBaseCTVC {
         }
         
         if item.uiCardType == .moodRange {
-            return 3
+            return 4
         }
         
         return 0
@@ -265,6 +265,10 @@ extension XWHHealthyBaseCTVC {
         }
         
         if item.uiCardType == .moodRange {
+            if indexPath.item == 0 {
+                return CGSize(width: collectionView.width, height: 30)
+            }
+            
             return CGSize(width: collectionView.width, height: 71)
         }
         
