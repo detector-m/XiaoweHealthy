@@ -12,7 +12,7 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
     
     // MARK: - 变量
     override var searchTime: TimeInterval {
-        return 2.5
+        return 3
     }
     
     override var connectTimeoutTime: TimeInterval {
@@ -47,7 +47,7 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
         manager.isScanRepeat = true
         
         // 设置信号值过滤
-        manager.filerRSSI = -60
+        manager.filerRSSI = -70
         
         // 设置过滤服务（可以搜索包含设置服务的设备）
         // 默认情况下，SDK只会扫描其中某个设备，请开发者再次设置过滤
