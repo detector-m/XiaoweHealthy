@@ -10,6 +10,16 @@ import Foundation
 
 class XWHUMManager {
     
+    /// 是否安装了 微信
+    static var isWeixinInstalled: Bool {
+        return UMSocialManager.default().isInstall(.wechatSession)
+    }
+    
+    /// 是否安装了 QQ
+    static var isQQInstalled: Bool {
+        return UMSocialManager.default().isInstall(.QQ)
+    }
+    
     // 配置友盟
     class func configUMCommon() {
         UMConfigure.initWithAppkey(kUMAppKey, channel: kUMChannel)

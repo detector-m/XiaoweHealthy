@@ -28,6 +28,15 @@ struct SignInWithAppleUserModel {
 /// 苹果登录
 class SignInWithApple: NSObject, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
     
+    /// 是否支持
+    static var isSupport: Bool {
+        if #available(iOS 13.0, *) {
+            return true
+        }
+        
+        return false
+    }
+    
     static let shared: SignInWithApple = SignInWithApple()
     
     private var failureHandler: FailureHandler?
