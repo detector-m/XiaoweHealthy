@@ -22,8 +22,11 @@ class XWHDevWatchDispatchManager {
         return _shared
     }
     
-    private init() {
-        
+    // 蓝牙状态监听
+    var bleStateHandler: BluetoothStateHandler.BLEStateHandler? {
+        didSet {
+            BluetoothStateHandler.shared.reqeustState(bleStateHandler)
+        }
     }
     
     // 核心设备与外设操作
@@ -49,6 +52,22 @@ class XWHDevWatchDispatchManager {
     private lazy var _uteWSHandler = XWHUTEWeatherInfoHandler()
     private lazy var _uteDataHandler = XWHUTEDataOperationHandler()
     
+    private init() {
+        BluetoothStateHandler.shared.reqeustState { [weak self] state in
+            log.info("蓝牙状态 state = \(state.string)")
+            if state.isOpen {
+                guard let connectBindState = self?.bleHandler?.connectBindState, connectBindState == .disconnected else {
+                    return
+                }
+                
+                guard let devModel = XWHDataDeviceManager.getCurrentDevice() else {
+                    return
+                }
+                
+                self?.reconnect(device: devModel, connectHandler: nil)
+            }
+        }
+    }
     
     // MARK: - 方法
     func configCurrentDevice() {

@@ -159,6 +159,7 @@
 		967E8BA02844D4F1008E65FF /* XWHMoodGradientCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967E8B9F2844D4F1008E65FF /* XWHMoodGradientCTCell.swift */; };
 		967F867D283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F867C283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift */; };
 		967F867F283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F867E283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift */; };
+		9680104528477435004C45C9 /* BluetoothStateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9680104428477435004C45C9 /* BluetoothStateHandler.swift */; };
 		968489FD2840F52100821E24 /* XWHMoodRangeCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */; };
 		96848A012841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96848A002841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift */; };
 		968CB8A327F3FB8800E549AC /* UITableViewRoundedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */; };
@@ -544,6 +545,7 @@
 		967E8B9F2844D4F1008E65FF /* XWHMoodGradientCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMoodGradientCTCell.swift; sourceTree = "<group>"; };
 		967F867C283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceConnectBindHelpTBVC.swift; sourceTree = "<group>"; };
 		967F867E283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceUseGuideTBVC.swift; sourceTree = "<group>"; };
+		9680104428477435004C45C9 /* BluetoothStateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothStateHandler.swift; sourceTree = "<group>"; };
 		968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMoodRangeCTCell.swift; sourceTree = "<group>"; };
 		96848A002841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyMainCommonCTCell.swift; sourceTree = "<group>"; };
 		968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewRoundedProtocol.swift; sourceTree = "<group>"; };
@@ -799,6 +801,7 @@
 		96127D11284202AA00940132 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
+				9680104328477383004C45C9 /* BluetoothStateHandler */,
 				967E8B9A28447256008E65FF /* AppUserGuide */,
 				96127D122842030900940132 /* PullToRefresh */,
 				96AD2AE1283F15160024AF5B /* SignInWithApple */,
@@ -1587,6 +1590,14 @@
 				967E8B9D28449106008E65FF /* AppUserGuide.swift */,
 			);
 			path = AppUserGuide;
+			sourceTree = "<group>";
+		};
+		9680104328477383004C45C9 /* BluetoothStateHandler */ = {
+			isa = PBXGroup;
+			children = (
+				9680104428477435004C45C9 /* BluetoothStateHandler.swift */,
+			);
+			path = BluetoothStateHandler;
 			sourceTree = "<group>";
 		};
 		968489FE2841BF1800821E24 /* VC */ = {
@@ -3010,6 +3021,7 @@
 				9679E9CF28159105003C6351 /* XWHHeartUIAllDataItemModel.swift in Sources */,
 				9693103D2822282F00133626 /* XWHInnerDataHandlerProtocol.swift in Sources */,
 				969E712D280C383D00BDA401 /* XWHContactBaseVC.swift in Sources */,
+				9680104528477435004C45C9 /* BluetoothStateHandler.swift in Sources */,
 				969E712F280C3CDB00BDA401 /* XWHContactTBCell.swift in Sources */,
 				96617A7827E1FCF600139B03 /* XWHLoginRegisterBaseVC.swift in Sources */,
 				9679E9E02817965F003C6351 /* XWHCalendarPreNextBtnView.swift in Sources */,

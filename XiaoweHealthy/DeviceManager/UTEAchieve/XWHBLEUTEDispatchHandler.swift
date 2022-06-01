@@ -84,6 +84,14 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
     }
     
     override func connect(device: XWHDevWatchModel, isReconnect: Bool, connectHandler: XWHDevConnectHandler?) {
+        if manager.bluetoothState == .close {
+            log.error("蓝牙关闭")
+//            connectHandler?(.failure(.normal))
+            connectBindState = .disconnected
+            handleMonitor(connectBindState: connectBindState)
+            return
+        }
+        
         super.connect(device: device, isReconnect: isReconnect, connectHandler: connectHandler)
         
         connectBindState = .connecting
@@ -301,7 +309,9 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
             break
             
         case .connect:
-            cmdHandler?.config(nil, nil, handler: nil)
+            if cConnBindState == .connected {
+                cmdHandler?.config(nil, nil, handler: nil)
+            }
 
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else {
@@ -359,9 +369,23 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
         }
     }
     
-//    func uteManagerBluetoothState(_ bluetoothState: UTEBluetoothState) {
-//        log.info("bluetoothState = \(bluetoothState.rawValue)")
-//    }
+    func uteManagerBluetoothState(_ bluetoothState: UTEBluetoothState) {
+        if bluetoothState == .close {
+            connectTimerInvalidate()
+            bindTimerInvalidate()
+            
+            connectHandler = nil
+            bindHandler = nil
+            
+            connectBindState = .disconnected
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                self.handleMonitor(connectBindState: self.connectBindState)
+            }
+        }
+    }
     
     // 蓝牙配对弹框选择回调
     func uteManagerExtraIsAble(_ isAble: Bool) {
@@ -445,6 +469,36 @@ extension XWHBLEUTEDispatchHandler {
         }
         
         return deviceModel
+    }
+    
+}
+
+// MARK: - UTEBluetoothState extension
+extension UTEBluetoothState {
+    
+    var name: String {
+        switch self {
+        case .open:
+            return "打开"
+            
+        case .close:
+            return "关闭"
+            
+        case .resetting:
+            return "重置"
+            
+        case .unsupported:
+            return "不支持"
+            
+        case .unauthorized:
+            return "未授权"
+            
+        case .unknown:
+            return "未知"
+            
+        @unknown default:
+            return "未知的默认状态"
+        }
     }
     
 }

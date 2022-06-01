@@ -140,6 +140,10 @@ target 'XiaoweHealthy' do
   # 引导页
   pod 'SwiftyOnboard'
   
+  # 隐私权限 (PermissionsKit)
+#  pod 'PermissionsKit/BluetoothPermission', :git => 'https://github.com/sparrowcode/PermissionsKit'
+
+  
   # 三端易用的现代跨平台 Javascript bridge， 通过它，你可以在Javascript和原生之间同步或异步的调用彼此的函数.
 #  pod "dsBridge"
   
