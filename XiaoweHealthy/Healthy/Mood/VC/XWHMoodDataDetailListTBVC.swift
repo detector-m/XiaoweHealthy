@@ -42,8 +42,8 @@ extension XWHMoodDataDetailListTBVC {
         
         cell.titleLb.text = cItem.formatDate()?.string(withFormat: XWHDate.hourMinuteFormat)
         
-        let value = cItem.value.string
-        let unit = XWHUIDisplayHandler.getMentalStressRangeString(cItem.value)
+        let value = ""
+        let unit = XWHUIDisplayHandler.getMoodString(cItem.value % 2)
         let text = value + unit
         cell.subTitleLb.attributedText = text.colored(with: fontDarkColor).applying(attributes: [.font: valueFont], toOccurrencesOf: value).applying(attributes: [.font: normalFont], toOccurrencesOf: unit)
         

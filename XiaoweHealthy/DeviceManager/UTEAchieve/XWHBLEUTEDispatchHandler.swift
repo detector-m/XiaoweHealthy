@@ -11,6 +11,10 @@ import UTESmartBandApi
 class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
     
     // MARK: - 变量
+    override var searchTime: TimeInterval {
+        return 2.5
+    }
+    
     override var connectTimeoutTime: TimeInterval {
         return 45
     }
@@ -67,7 +71,7 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
         
 //        uteDevices = []
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [unowned self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.02) { [unowned self] in
             self.manager.startScanDevices()
         }
     }

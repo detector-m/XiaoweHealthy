@@ -44,9 +44,10 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
     /// 是否搜索成功
     var isSearchSuccess = false
     
-    // MARK: - 私有定义
     /// 搜索设备超时时间
-    fileprivate let searchTime: TimeInterval = 5
+    var searchTime: TimeInterval {
+        return 5
+    }
     
     /// 连接设备超时时间
     var connectTimeoutTime: TimeInterval {

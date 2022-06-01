@@ -26,13 +26,13 @@ class XWHUIDisplayHandler {
     class func getMoodString(_ value: Int) -> String {
         switch value {
         case 1:
-            return R.string.xwhHealthyText.正常()
-            
+            return getMoodRangeStrings()[1]
+
         case 2:
-            return R.string.xwhHealthyText.积极()
-            
+            return getMoodRangeStrings()[0]
+
         default:
-            return R.string.xwhHealthyText.消极()
+            return getMoodRangeStrings()[2]
         }
     }
     

@@ -33,8 +33,8 @@ extension XWHMoodDataDetailTBVC {
         let cell = tableView.dequeueReusableCell(withClass: XWHHealthyDataDetailTBCell.self, for: indexPath)
         cell.bottomLine.isHidden = false
         if indexPath.row == 0 {
-            cell.titleLb.text = R.string.xwhHealthyText.压力值()
-            cell.subTitleLb.text = dataModel.value.string + " " +  XWHUIDisplayHandler.getMentalStressRangeString(dataModel.value)
+            cell.titleLb.text = R.string.xwhHealthyText.情绪()
+            cell.subTitleLb.text = XWHUIDisplayHandler.getMoodString(dataModel.value % 2)
         } else if indexPath.row == 1 {
             cell.titleLb.text = R.string.xwhHealthyText.测量时间()
             cell.subTitleLb.text = dataModel.time

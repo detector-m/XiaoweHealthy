@@ -187,6 +187,8 @@ extension XWHSearchDeviceVC {
         }
         
         UIView.animate(withDuration: 0.25) {
+            self.titleLb.text = R.string.xwhDeviceText.正在搜索()
+            
             self.button.setTitle(R.string.xwhDeviceText.正在搜索(), for: .normal)
             self.button.isEnabled = false
             self.button.alpha = 0.24
@@ -237,6 +239,8 @@ extension XWHSearchDeviceVC {
         radarView.stop()
         
         UIView.animate(withDuration: 0.25) {
+            self.titleLb.text = R.string.xwhDeviceText.未搜索到设备()
+            
             self.button.isEnabled = true
             self.button.setTitle(R.string.xwhDeviceText.重试(), for: .normal)
             

@@ -65,7 +65,7 @@ extension XWHMoodAllDataTBVC {
             
             let cItem = item.items[indexPath.row - 1]
             cell.titleLb.text = cItem.collectTime
-            cell.subTitleLb.text = R.string.xwhHealthyText.日均() + " \(cItem.avgPressureVal) \(XWHUIDisplayHandler.getMentalStressRangeString(cItem.avgPressureVal))"
+            cell.subTitleLb.text = R.string.xwhHealthyText.日均() + " " + XWHUIDisplayHandler.getMoodString(cItem.avgPressureVal % 2)
             
             cell.bottomLine.isHidden = false
             if item.items.count == indexPath.row {
