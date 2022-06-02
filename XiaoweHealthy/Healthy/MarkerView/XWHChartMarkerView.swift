@@ -57,11 +57,13 @@ class XWHChartMarkerView: MarkerView {
     }
     
     @objc func relayoutSubViews() {
-        var xOffset = (width - 135) / 2
-        contentView.frame = CGRect(x: xOffset, y: 0, width: 135, height: 67)
+        var xOffset = 12.cgFloat
+        let contentWidth = width - xOffset * 2
+        contentView.frame = CGRect(x: xOffset, y: 0, width: contentWidth, height: 67)
         
-        xOffset += 6
-        textLb.frame = CGRect(x: xOffset, y: 10, width: contentView.width - 12, height: 27)
+        let contentOffset: CGFloat = 16
+        xOffset += contentOffset
+        textLb.frame = CGRect(x: xOffset, y: 10, width: contentView.width - contentOffset * 2, height: 27)
         
         detailLb.frame = CGRect(x: textLb.x, y: textLb.frame.maxY + 2, width: textLb.width, height: 16)
         

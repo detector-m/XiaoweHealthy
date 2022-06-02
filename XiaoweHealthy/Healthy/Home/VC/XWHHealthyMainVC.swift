@@ -14,7 +14,7 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
         66
     }
     
-    private lazy var testItems: [XWHHealthyType] = [.heart, .bloodOxygen, .mentalStress, .mood, .sleep, .login, .test, .post, .sync]
+    private lazy var testItems: [XWHHealthyType] = [.heart, .bloodOxygen, .mentalStress, .mood, .sleep, .login, .test]
 
     override func viewDidLoad() {
         super.viewDidLoad()

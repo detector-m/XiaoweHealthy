@@ -147,4 +147,30 @@ class XWHMoodChartCTCell: XWHColumnRangeBarChartBaseCTCell {
         return chartDataSet
     }
     
+    override func configMarkerView() {
+        super.configMarkerView()
+        
+        markerView.frame = CGRect(x: 0, y: 0, width: 200, height: 120)
+    }
+    
+    override func showMarker(with rawValue: Any) {
+        guard let iItem = rawValue as? XWHChartUIChartItemModel else {
+            chartView.highlightValue(nil)
+            return
+        }
+        
+//        if iItem.lowest < iItem.highest {
+//            markerView.textLb.text = "\(iItem.lowest) - \(iItem.highest) \(R.string.xwhDeviceText.次分钟())"
+//        } else {
+//            markerView.textLb.text = "\(iItem.highest) \(R.string.xwhDeviceText.次分钟())"
+//        }
+        
+        let iDate = iItem.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat) ?? Date()
+        markerView.textLb.text = getMarkerDateString(iDate: iDate.hourBegin, dateType: sDateType)
+        
+//        markerView.detailLb.text = getMarkerDateString(iDate: iDate.hourBegin, dateType: sDateType)
+        let moodStrings = XWHUIDisplayHandler.getMoodRangeStrings()
+        markerView.detailLb.text = "\(moodStrings[0])\(2)%, \(moodStrings[1])\(2)%, \(moodStrings[2])\(2)%"
+    }
+    
 }
