@@ -31,11 +31,15 @@ class BluetoothStateHandler: NSObject, CBCentralManagerDelegate {
         if manager == nil {
             manager = CBCentralManager(delegate: self, queue: nil, options: [:])
         } else {
+            log.info("蓝牙开关状态 state = \(manager!.state.string)")
+
             stateHandler?(manager!.state)
         }
     }
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        log.info("蓝牙开关状态 state = \(central.state.string)")
+        
         stateHandler?(central.state)
     }
     

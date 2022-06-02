@@ -38,7 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             cWin.makeKeyAndVisible()
 //        }
         
-        XWHDevice.shared.connect()
+//        XWHDevice.shared.connect()
+        XWHDevice.shared.config()
         
         return true
     }

@@ -19,12 +19,7 @@ class XWHDevice {
     private var observers: [XWHDeviceObserverProtocol] = []
     
     private init() {
-        if let connWatch = XWHDataDeviceManager.getCurrentWatch() {
-            XWHDDMShared.config(device: connWatch)
-            XWHDDMShared.setMonitorHandler(device: connWatch) { [weak self] _, _ in
-                self?.notifyAllObserverUpdateConnectBindState()
-            }
-        }
+        
     }
     
     func addObserver(observer: XWHDeviceObserverProtocol) {
@@ -61,34 +56,54 @@ extension XWHDevice {
     var isConnectBind: Bool {
         return XWHDDMShared.connectBindState == .paired
     }
-
-    func connect() {
-        if XWHDDMShared.connectBindState == .disconnected {
-            reconnect()
+    
+    func config() {
+        XWHDDMShared.bleStateHandler = { [weak self] state in
+//            log.info("蓝牙状态 state = \(state.string)")
+            if state.isOpen {
+                self?.connect()
+            }
+        }
+        
+        if let connWatch = XWHDataDeviceManager.getCurrentWatch() {
+            XWHDDMShared.config(device: connWatch)
+            XWHDDMShared.setMonitorHandler(device: connWatch) { [weak self] _, _ in
+                self?.notifyAllObserverUpdateConnectBindState()
+            }
         }
     }
 
+    func connect() {
+        guard XWHDDMShared.connectBindState == .disconnected else {
+            return
+        }
+        
+        reconnect()
+    }
+
     private func reconnect() {
-        if let connWatch = XWHDataDeviceManager.getCurrentWatch() {
-            XWHDDMShared.config(device: connWatch)
-            XWHDDMShared.reconnect(device: connWatch) { [weak self] (result: Result<XWHDeviceConnectBindState, XWHBLEError>) in
-                guard let self = self else {
-                    return
-                }
+        guard let connWatch = XWHDataDeviceManager.getCurrentWatch() else {
+            return
+        }
+        
+        XWHDDMShared.config(device: connWatch)
+        XWHDDMShared.reconnect(device: connWatch) { [weak self] (result: Result<XWHDeviceConnectBindState, XWHBLEError>) in
+            guard let self = self else {
+                return
+            }
 
-                switch result {
-                case .success(let connBindState):
-                    if connBindState == .paired {
-                        self.updateDeviceInfo {
-                            self.syncData()
-                        }
-                    } else {
-                        log.error("重连设备失败")
+            switch result {
+            case .success(let connBindState):
+                if connBindState == .paired {
+                    self.updateDeviceInfo {
+                        self.syncData()
                     }
-
-                case .failure(_):
+                } else {
                     log.error("重连设备失败")
                 }
+
+            case .failure(_):
+                log.error("重连设备失败")
             }
         }
     }

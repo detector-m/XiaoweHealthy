@@ -53,20 +53,20 @@ class XWHDevWatchDispatchManager {
     private lazy var _uteDataHandler = XWHUTEDataOperationHandler()
     
     private init() {
-        BluetoothStateHandler.shared.reqeustState { [weak self] state in
-            log.info("蓝牙状态 state = \(state.string)")
-            if state.isOpen {
-                guard let connectBindState = self?.bleHandler?.connectBindState, connectBindState == .disconnected else {
-                    return
-                }
-                
-                guard let devModel = XWHDataDeviceManager.getCurrentDevice() else {
-                    return
-                }
-                
-                self?.reconnect(device: devModel, connectHandler: nil)
-            }
-        }
+//        BluetoothStateHandler.shared.reqeustState { [weak self] state in
+//            log.info("蓝牙状态 state = \(state.string)")
+//            if state.isOpen {
+//                guard let connectBindState = self?.bleHandler?.connectBindState, connectBindState == .disconnected else {
+//                    return
+//                }
+//                
+//                guard let devModel = XWHDataDeviceManager.getCurrentDevice() else {
+//                    return
+//                }
+//                
+//                self?.reconnect(device: devModel, connectHandler: nil)
+//            }
+//        }
     }
     
     // MARK: - 方法
