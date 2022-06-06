@@ -12,7 +12,7 @@ typealias DevSyncDataProgressHandler = DevTransferProgressHandler
 typealias XWHDevDataOperationHandler = (_ syncType: XWHDevSyncDataType, _ syncState: XWHDevDataTransferState, Result<XWHResponse?, XWHError>) -> Void
 
 
-/// 设备数据处理（操作）协议
+/// 设备数据处理（操作、同步）协议
 protocol XWHDevDataOperationProtocol {
     
     /// 同步状态

@@ -175,6 +175,7 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
 }
 
 
+// MARK: - UTEManagerDelegate
 extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
     
     // 发现设备回调
@@ -424,6 +425,27 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
         }
         
         uteCmdHandler.handleTransferProgress(process)
+    }
+    
+}
+
+// MARK: - UTEManagerDelegate(Sport)
+extension XWHBLEUTEDispatchHandler {
+    
+    /// 运动模式回调
+    func uteManagerReceiveSportMode(_ info: UTEDeviceSportModeInfo!) {
+//        UTEDeviceSportMode
+//        UTEDeviceSportModeStatus
+//        UTEDeviceIntervalTime
+        log.debug("UTE 运动数据 SportModeInfo")
+    }
+    
+    func uteManagerReceiveTodaySport(_ dict: [AnyHashable : Any]!) {
+        log.debug("UTE 运动数据 TodaySport = \(dict)")
+    }
+    
+    func uteManagerReceiveSportHRM(_ dict: [AnyHashable : Any]!) {
+        log.debug("UTE 运动数据 SportHRM = \(dict)")
     }
     
 }

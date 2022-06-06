@@ -86,3 +86,31 @@ enum XWHDevSyncDataType: String {
     case mental
     
 }
+
+
+// MARK: - 运动(Sport)
+
+/// 运动类型
+enum XWHSportType {
+    
+    /// none
+    case none
+    
+}
+
+/// 运动状态
+enum XWHSportState {
+    
+    /// 停止
+    case stop
+    
+    /// 开始
+    case start
+    
+    /// 暂停
+    case pause
+    
+    /// 继续
+    case  `continue`
+    
+}

@@ -475,6 +475,7 @@ extension XWHUTEDataOperationHandler {
     private func semaphoreSignal() {
         semaphore.signal()
     }
+    
 }
 
 // MARK: - UTE 同步数据
@@ -482,6 +483,10 @@ extension XWHUTEDataOperationHandler {
     
     /// 同步心率数据
     private func syncHeart() -> Bool {
+        manager.readUTESportModelStatus { sMode, smStatus in
+            
+        }
+        
         dataType = .heart
         guard let conDev = manager.connectedDevicesModel else {
             handleUTENotConnectBindError(type: dataType)
