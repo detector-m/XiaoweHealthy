@@ -37,7 +37,7 @@ class XWHUIDisplayHandler {
     }
     
     class func getMoodDurationTitles() -> [String] {
-        return [R.string.xwhHealthyText.积极情绪时长(), R.string.xwhHealthyText.平和情绪时长(), R.string.xwhHealthyText.消极情绪时长()]
+        return [R.string.xwhHealthyText.积极情绪占比(), R.string.xwhHealthyText.平和情绪占比(), R.string.xwhHealthyText.消极情绪占比()]
     }
     
     /// 获取精神压力区间

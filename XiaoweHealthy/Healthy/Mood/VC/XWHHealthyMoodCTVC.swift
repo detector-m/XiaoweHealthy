@@ -134,7 +134,7 @@ extension XWHHealthyMoodCTVC {
             
             
             let cell = collectionView.dequeueReusableCell(withClass: XWHMoodRangeCTCell.self, for: indexPath)
-            cell.update(indexPath.row - 1, Int(arc4random()) % 120, values[indexPath.row - 1])
+            cell.update(indexPath.row - 1, values[indexPath.row - 1])
             
             return cell
         }

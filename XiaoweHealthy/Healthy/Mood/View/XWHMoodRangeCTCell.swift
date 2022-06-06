@@ -9,19 +9,20 @@ import UIKit
 
 class XWHMoodRangeCTCell: XWHHealthyCommonCTCell {
     
-    lazy var tipLb = UILabel()
+//    lazy var tipLb = UILabel()
     
     override func addSubViews() {
         super.addSubViews()
         
-        tipLb.font = XWHFont.harmonyOSSans(ofSize: 12)
-        tipLb.textColor = fontDarkColor.withAlphaComponent(0.5)
-        tipLb.textAlignment = .right
-        contentView.addSubview(tipLb)
+//        tipLb.font = XWHFont.harmonyOSSans(ofSize: 12)
+//        tipLb.textColor = fontDarkColor.withAlphaComponent(0.5)
+//        tipLb.textAlignment = .right
+//        contentView.addSubview(tipLb)
         
-        textLb.font = XWHFont.harmonyOSSans(ofSize: 20, weight: .bold)
-        detailLb.font = XWHFont.harmonyOSSans(ofSize: 12)
-        detailLb.textColor = fontDarkColor.withAlphaComponent(0.3)
+        textLb.font = XWHFont.harmonyOSSans(ofSize: 14, weight: .regular)
+        textLb.textColor = fontDarkColor.withAlphaComponent(0.5)
+        detailLb.font = XWHFont.harmonyOSSans(ofSize: 20, weight: .bold)
+        detailLb.textColor = fontDarkColor
         
         imageView.isHidden = false
         imageView.layer.cornerRadius = 4
@@ -31,36 +32,37 @@ class XWHMoodRangeCTCell: XWHHealthyCommonCTCell {
         textLb.textAlignment = .left
         detailLb.textAlignment = .left
         
-        textLb.snp.remakeConstraints { make in
-            make.height.equalTo(27)
-            make.top.equalTo(16)
-            make.left.equalToSuperview().offset(13)
-            make.right.lessThanOrEqualTo(tipLb.snp.left).offset(-4)
-        }
-        
-        imageView.snp.makeConstraints { make in
-            make.size.equalTo(10)
-            make.left.equalTo(textLb)
-            make.top.equalTo(textLb.snp.bottom).offset(5)
-        }
-        
-        detailLb.snp.makeConstraints { make in
-            make.left.equalTo(imageView.snp.right).offset(3)
-            make.right.equalTo(textLb)
-            make.top.equalTo(textLb.snp.bottom).offset(2)
-            make.height.equalTo(16)
-        }
-        
-        tipLb.snp.remakeConstraints { make in
+        detailLb.snp.remakeConstraints { make in
             make.height.equalTo(32)
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().inset(16)
             make.width.lessThanOrEqualTo(120)
         }
+        
+        imageView.snp.makeConstraints { make in
+            make.size.equalTo(10)
+            make.left.equalToSuperview().inset(16)
+//            make.top.equalTo(textLb.snp.bottom).offset(5)
+            make.centerY.equalToSuperview()
+        }
+        
+        textLb.snp.remakeConstraints { make in
+            make.height.equalTo(19)
+            make.centerY.equalToSuperview()
+            make.left.equalTo(imageView.snp.right).offset(4)
+            make.right.lessThanOrEqualTo(detailLb.snp.left).offset(-4)
+        }
+        
+//        tipLb.snp.remakeConstraints { make in
+//            make.height.equalTo(32)
+//            make.centerY.equalToSuperview()
+//            make.right.equalToSuperview().inset(16)
+//            make.width.lessThanOrEqualTo(120)
+//        }
     }
     
-    func update(_ index: Int, _ value: Int, _ rate: Int) {
-        let cValue = XWHUIDisplayHandler.getSleepDurationString(value)
+    func update(_ index: Int, _ rate: Int) {
+//        let cValue = XWHUIDisplayHandler.getSleepDurationString(value)
         var cRate = ""
         
         var cColor = UIColor.white
@@ -80,12 +82,9 @@ class XWHMoodRangeCTCell: XWHHealthyCommonCTCell {
         }
         
         imageView.layer.backgroundColor = cColor.cgColor
-        textLb.text = cValue
+        textLb.text = XWHUIDisplayHandler.getMoodDurationTitles()[index]
         
-        detailLb.text = XWHUIDisplayHandler.getMoodDurationTitles()[index]
-        
-        let unit = XWHUIDisplayHandler.getMoodRangeStrings()[index]
-        tipLb.text = cRate + " " + unit
+        detailLb.text = cRate
     }
     
 }
