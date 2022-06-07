@@ -14,12 +14,12 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
     }
     
     override var titleText: String {
-        "个人信息"
+        R.string.xwhDisplayText.个人资料()
     }
     
-    private lazy var tbFooter = XWHTBButtonFooter(frame: CGRect(origin: .zero, size: CGSize(width: UIScreen.main.bounds.width, height: 160)))
+    lazy var tbFooter = XWHTBButtonFooter(frame: CGRect(origin: .zero, size: CGSize(width: UIScreen.main.bounds.width, height: 160)))
     
-    private lazy var userModel: XWHUserModel = {
+    lazy var userModel: XWHUserModel = {
         var user: XWHUserModel = XWHUserModel()
         if let cUser = XWHDataUserManager.getCurrentUser() {
             user = cUser
@@ -161,7 +161,7 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
 }
 
 
-// MARK: - Api
+// MARK: - UI Jump & Api
 extension XWHPersonInfoTBVC {
     
     /// 选择性别

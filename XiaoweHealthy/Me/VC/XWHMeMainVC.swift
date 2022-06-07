@@ -110,7 +110,7 @@ class XWHMeMainVC: XWHTableViewBaseVC {
         
         if item.type == .login {
             let cell = tableView.dequeueReusableCell(withClass: XWHMeNormalTBCell.self, for: indexPath)
-            cell.titleLb.text = "未登录"
+            cell.titleLb.text = R.string.xwhDisplayText.未登录()
             
             return cell
         } else if item.type == .profile {
@@ -168,9 +168,7 @@ class XWHMeMainVC: XWHTableViewBaseVC {
             gotoPersonInfo()
             
         case .settings:
-            XWHUser.logout()
-            
-            reloadAll()
+            gotoPersonSettings()
         }
     }
     
@@ -197,6 +195,12 @@ extension XWHMeMainVC {
     /// 跳转到个人信息
     private func gotoPersonInfo() {
         let vc = XWHPersonInfoTBVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    /// 设置
+    private func gotoPersonSettings() {
+        let vc = XWHPersonSettingTBVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     

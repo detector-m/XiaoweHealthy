@@ -109,17 +109,17 @@ class XWHMeDeploy {
             break
             
         case .data:
-            item.title = "我的数据"
+            item.title = R.string.xwhDisplayText.我的数据()
 //            item.iconBgColor = UIColor(hex: 0x6AACF7)
 //            item.iconImageName = "DeviceGuide"
             
         case .info:
-            item.title = "个人资料"
+            item.title = R.string.xwhDisplayText.个人资料()
 //            item.iconBgColor = UIColor(hex: 0x6AACF7)
 //            item.iconImageName = "DeviceGuide"
             
         case .settings:
-            item.title = "退出登录"
+            item.title = R.string.xwhDisplayText.设置()
 //            item.iconBgColor = UIColor(hex: 0x8389F3)
 //            item.iconImageName = "DeviceRecover"
         }

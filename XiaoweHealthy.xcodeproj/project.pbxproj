@@ -323,6 +323,7 @@
 		96E79EB3284EFB830063647C /* XWHPersonInfoTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E79EB2284EFB830063647C /* XWHPersonInfoTBVC.swift */; };
 		96E79EB5284F00020063647C /* XWHPersonInfoTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E79EB4284F00020063647C /* XWHPersonInfoTBCell.swift */; };
 		96E79EB7284F1EED0063647C /* XWHTBButtonFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E79EB6284F1EED0063647C /* XWHTBButtonFooter.swift */; };
+		96E79EB9284F46430063647C /* XWHPersonSettingTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E79EB8284F46430063647C /* XWHPersonSettingTBVC.swift */; };
 		96E8A6BD27F1738200F5C75C /* XWHUINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8A6BC27F1738200F5C75C /* XWHUINavigationControllerExtension.swift */; };
 		96E8A6BF27F1B2A700F5C75C /* XWHSearchDeviceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8A6BE27F1B2A700F5C75C /* XWHSearchDeviceVC.swift */; };
 		96F1D65B28065C7D0067DBFD /* XWHDevDataOperationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1D65A28065C7D0067DBFD /* XWHDevDataOperationProtocol.swift */; };
@@ -717,6 +718,7 @@
 		96E79EB2284EFB830063647C /* XWHPersonInfoTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPersonInfoTBVC.swift; sourceTree = "<group>"; };
 		96E79EB4284F00020063647C /* XWHPersonInfoTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPersonInfoTBCell.swift; sourceTree = "<group>"; };
 		96E79EB6284F1EED0063647C /* XWHTBButtonFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTBButtonFooter.swift; sourceTree = "<group>"; };
+		96E79EB8284F46430063647C /* XWHPersonSettingTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPersonSettingTBVC.swift; sourceTree = "<group>"; };
 		96E8A6BB27F150F100F5C75C /* XiaoweHealthyDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = XiaoweHealthyDebug.entitlements; sourceTree = "<group>"; };
 		96E8A6BC27F1738200F5C75C /* XWHUINavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUINavigationControllerExtension.swift; sourceTree = "<group>"; };
 		96E8A6BE27F1B2A700F5C75C /* XWHSearchDeviceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSearchDeviceVC.swift; sourceTree = "<group>"; };
@@ -1395,6 +1397,7 @@
 			children = (
 				96E23C2D27E1A586009EF208 /* XWHMeMainVC.swift */,
 				96E79EB2284EFB830063647C /* XWHPersonInfoTBVC.swift */,
+				96E79EB8284F46430063647C /* XWHPersonSettingTBVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -3158,6 +3161,7 @@
 				9672B26027EF05F700DC80D6 /* XWHAddDeviceEntryVC.swift in Sources */,
 				9679E9D628169BC1003C6351 /* XWHCalendarView.swift in Sources */,
 				96A10CB428290AEB00C1E18F /* XWHMentalStateModel.swift in Sources */,
+				96E79EB9284F46430063647C /* XWHPersonSettingTBVC.swift in Sources */,
 				960E768227F0574200A0DA25 /* XWHBaseCTCell.swift in Sources */,
 				9651EDFF27EAC2560043FE52 /* Repeater.swift in Sources */,
 				9653E4AA27F5B3B800EE55FF /* XWHDevSetCommonTBCell.swift in Sources */,
