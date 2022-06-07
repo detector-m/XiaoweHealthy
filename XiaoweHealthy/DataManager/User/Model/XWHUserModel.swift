@@ -15,6 +15,19 @@ enum XWHUserGenderType: Int {
     case female = 0
     case male
     
+    var name: String {
+        switch self {
+        case .none:
+            return ""
+            
+        case .female:
+            return R.string.xwhDisplayText.女()
+            
+        case .male:
+            return R.string.xwhDisplayText.男()
+        }
+    }
+    
 }
 
 struct XWHUserModel: Codable, FetchableRecord, TableRecord, PersistableRecord, HandyJSON, CustomDebugStringConvertible {

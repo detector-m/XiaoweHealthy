@@ -46,10 +46,6 @@ class XWHMeMainVC: XWHTableViewBaseVC {
         
     }
     
-    @objc private func clickNavRightItem() {
-        
-    }
-    
     override func resetNavigationBarWithoutLargeTitle() {
         setNavTransparent()
         
@@ -169,7 +165,7 @@ class XWHMeMainVC: XWHTableViewBaseVC {
             break
             
         case .info:
-            break
+            gotoPersonInfo()
             
         case .settings:
             XWHUser.logout()
@@ -198,6 +194,10 @@ extension XWHMeMainVC {
 // MARK: - UI Jump
 extension XWHMeMainVC {
     
-    
+    /// 跳转到个人信息
+    private func gotoPersonInfo() {
+        let vc = XWHPersonInfoTBVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
 }
