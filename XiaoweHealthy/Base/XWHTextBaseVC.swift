@@ -12,9 +12,9 @@ class XWHTextBaseVC: XWHBaseVC {
     
     lazy var textView = UITextView()
     
-    var titleText: String {
-        return ""
-    }
+//    var titleText: String {
+//        return ""
+//    }
     
     lazy var normal = Style {
         $0.font = XWHFont.harmonyOSSans(ofSize: 14)

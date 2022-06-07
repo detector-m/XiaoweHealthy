@@ -8,7 +8,7 @@
 import Foundation
 
 
-// MARK: - item 的类型
+// MARK: - Device item 的类型
 enum XWHDeviceDeployType: Int {
     
     case info = 0 // 设备信息

@@ -9,7 +9,7 @@ import UIKit
 
 class XWHHealthyDataDetailBaseTBVC: XWHTableViewBaseVC {
     
-    var titleText: String {
+    override var titleText: String {
         R.string.xwhHealthyText.数据详情()
     }
     

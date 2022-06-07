@@ -18,6 +18,10 @@ class XWHBaseVC: UIViewController {
         64
     }
     
+    var titleText: String {
+        return ""
+    }
+    
     // 大标题处理方式 方式1
     // largeTitleView 顶部约束
     var topConstraint: Constraint?

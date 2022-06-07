@@ -15,7 +15,7 @@ class XWHDeviceConnectBindHelpTBVC: XWHTableViewBaseVC {
 //        94
 //    }
     
-    var titleText: String {
+    override var titleText: String {
         R.string.xwhDeviceText.查看帮助().replacingOccurrences(of: " >", with: "")
     }
     
