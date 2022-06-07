@@ -13,6 +13,10 @@ class XWHRegisterFillInfoBaseVC: XWHRegisterBaseVC {
     lazy var nextBtn = UIButton()
     
     lazy var userModel = XWHUserModel()
+    
+    // 是否是更新信息
+    var isUpdate: Bool = false
+    var updateCallback: ((XWHUserModel) -> Void)?
 
     override func addSubViews() {
         super.addSubViews()
@@ -37,7 +41,11 @@ class XWHRegisterFillInfoBaseVC: XWHRegisterBaseVC {
     }
     
     override func clickNavGlobalBackBtn() {
-        dismiss(animated: true, completion: nil)
+        if isUpdate {
+            navigationController?.popViewController(animated: true)
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
     }
     
     @objc func clickBtnAction(sender: UIButton) {
@@ -56,6 +64,16 @@ class XWHRegisterFillInfoBaseVC: XWHRegisterBaseVC {
             make.left.equalTo(view.snp.centerX).offset(6)
             make.right.equalToSuperview().inset(24)
             make.bottom.height.equalTo(preBtn)
+        }
+    }
+    
+    final func relayoutUpdateConfirmBtn() {
+        preBtn.isHidden = true
+        nextBtn.setTitle(R.string.xwhDisplayText.确定(), for: .normal)
+        nextBtn.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(24)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
+            make.height.equalTo(48)
         }
     }
 

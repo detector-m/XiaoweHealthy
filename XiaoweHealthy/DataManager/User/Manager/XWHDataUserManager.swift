@@ -34,24 +34,24 @@ class XWHDataUserManager {
     class func createUserTable(_ db: Database) throws {
         try db.create(table: XWHUserModel.databaseTableName) { t in
 //            t.autoIncrementedPrimaryKey("id")
-            t.column(XWHUserModel.Columns.mobile.name, .text).notNull()
-            t.column(XWHUserModel.Columns.nickname.name, .text).notNull()
-            t.column(XWHUserModel.Columns.avatar.name, .text).notNull()
+            t.column(XWHUserModel.Columns.mobile.name, .text).primaryKey()
+            t.column(XWHUserModel.Columns.nickname.name, .text)
+            t.column(XWHUserModel.Columns.avatar.name, .text)
             
-            t.column(XWHUserModel.Columns.gender.name, .integer).notNull()
-            t.column(XWHUserModel.Columns.height.name, .integer).notNull()
-            t.column(XWHUserModel.Columns.weight.name, .integer).notNull()
-            t.column(XWHUserModel.Columns.birthday.name, .text).notNull()
+            t.column(XWHUserModel.Columns.gender.name, .integer)
+            t.column(XWHUserModel.Columns.height.name, .integer)
+            t.column(XWHUserModel.Columns.weight.name, .integer)
+            t.column(XWHUserModel.Columns.birthday.name, .text)
                         
-            t.column(XWHUserModel.Columns.goal.name, .integer).notNull()
+            t.column(XWHUserModel.Columns.goal.name, .integer)
             
-            t.primaryKey([XWHUserModel.Columns.mobile.name])
+//            t.primaryKey([XWHUserModel.Columns.mobile.name])
         }
     }
     
     class func saveUser(_ user: inout XWHUserModel) {
         appDB.write { db in
-            try user.insert(db)
+            try user.save(db)
         }
     }
     

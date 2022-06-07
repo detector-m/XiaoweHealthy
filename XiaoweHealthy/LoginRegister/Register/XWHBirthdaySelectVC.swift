@@ -16,7 +16,19 @@ class XWHBirthdaySelectVC: XWHGenderSelectVC {
         super.viewDidLoad()
         
         let dYear = 1990
-        pickerView.selectRow(dYear - 1900, inComponent: 0, animated: false)
+        
+        if isUpdate {
+            let date = userModel.birthday.date(withFormat: XWHDate.standardYearMonthDayFormat) ?? Date()
+            let yRow = date.year - 1900
+            let mRow = date.month - 1
+            let dRow = date.day - 1
+            
+            pickerView.selectRow(yRow, inComponent: 0, animated: false)
+            pickerView.selectRow(mRow, inComponent: 1, animated: false)
+            pickerView.selectRow(dRow, inComponent: 2, animated: false)
+        } else {
+            pickerView.selectRow(dYear - 1900, inComponent: 0, animated: false)
+        }
     }
     
 
@@ -34,7 +46,11 @@ class XWHBirthdaySelectVC: XWHGenderSelectVC {
         
         layoutPickerView()
         
-        layoutPreNextBtn()
+        if isUpdate {
+            relayoutUpdateConfirmBtn()
+        } else {
+            layoutPreNextBtn()
+        }
     }
 
     override func clickBtnAction(sender: UIButton) {
@@ -47,7 +63,13 @@ class XWHBirthdaySelectVC: XWHGenderSelectVC {
             
             let birthday = String(format: "%d-%02d-%02d", yRow, mRow, dRow)
             userModel.birthday = birthday
-            gotoUpdateUserInfo(userModel: userModel)
+            
+            if isUpdate {
+                updateCallback?(userModel)
+                navigationController?.popViewController(animated: true)
+            } else {
+                gotoUpdateUserInfo(userModel: userModel)
+            }
         }
     }
     

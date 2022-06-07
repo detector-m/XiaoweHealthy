@@ -17,6 +17,10 @@ class XWHWeightSelectVC: XWHHeightSelectVC {
             dWeight = 50
         }
         
+        if isUpdate {
+            dWeight = userModel.weight
+        }
+        
         pickerView.selectRow(dWeight - 30, inComponent: 0, animated: false)
     }
     
@@ -33,7 +37,11 @@ class XWHWeightSelectVC: XWHHeightSelectVC {
         
         layoutPickerView()
         
-        layoutPreNextBtn()
+        if isUpdate {
+            relayoutUpdateConfirmBtn()
+        } else {
+            layoutPreNextBtn()
+        }
     }
 
     override func clickBtnAction(sender: UIButton) {
@@ -43,9 +51,14 @@ class XWHWeightSelectVC: XWHHeightSelectVC {
             let sRow = pickerView.selectedRow(inComponent: 0)
             userModel.weight = sRow + 30
             
-            let vc = XWHBirthdaySelectVC()
-            vc.userModel = userModel
-            navigationController?.pushViewController(vc, animated: true)
+            if isUpdate {
+                updateCallback?(userModel)
+                navigationController?.popViewController(animated: true)
+            } else {
+                let vc = XWHBirthdaySelectVC()
+                vc.userModel = userModel
+                navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
     

@@ -16,6 +16,17 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
     override var titleText: String {
         "个人信息"
     }
+    
+    private lazy var tbFooter = XWHTBButtonFooter(frame: CGRect(origin: .zero, size: CGSize(width: UIScreen.main.bounds.width, height: 160)))
+    
+    private lazy var userModel: XWHUserModel = {
+        var user: XWHUserModel = XWHUserModel()
+        if let cUser = XWHDataUserManager.getCurrentUser() {
+            user = cUser
+        }
+        
+        return user
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,18 +52,18 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
 //        setNavHidden(true, animated: true, async: false)
 //    }
     
-//    override func addSubViews() {
-//        super.addSubViews()
-//
-//        setLargeTitleMode()
-//
-//        view.backgroundColor = collectionBgColor
-//        tableView.backgroundColor = view.backgroundColor
-//        tableView.separatorStyle = .none
-//        largeTitleView.backgroundColor = tableView.backgroundColor
-//
-//        largeTitleView.titleLb.text = titleText
-//    }
+    override func addSubViews() {
+        super.addSubViews()
+
+        tableView.tableFooterView = tbFooter
+        tbFooter.button.setTitle(R.string.xwhDisplayText.保存(), for: .normal)
+        DispatchQueue.main.async { [unowned self] in
+            self.tbFooter.relayoutSubViews(leftRightInset: 50, bottomInset: 40, height: 50)
+        }
+        tbFooter.clickCallback = { [unowned self] in
+            self.updatePersonInfo()
+        }
+    }
     
     override func relayoutSubViews() {
         tableView.snp.makeConstraints { make in
@@ -86,29 +97,24 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: XWHPersonInfoTBCell.self, for: indexPath)
         
-        var user: XWHUserModel = XWHUserModel()
-        if let cUser = XWHDataUserManager.getCurrentUser() {
-            user = cUser
-        }
-        
         if indexPath.row == 0 { // 头像
             cell.titleLb.text = "头像"
             cell.subTitleLb.text = ""
         } else if indexPath.row == 1 { // 性别
             cell.titleLb.text = "性别"
-            cell.subTitleLb.text = user.genderType.name
+            cell.subTitleLb.text = userModel.genderType.name
         } else if indexPath.row == 2 { // 昵称
             cell.titleLb.text = "昵称"
-            cell.subTitleLb.text = user.nickname
+            cell.subTitleLb.text = userModel.nickname
         } else if indexPath.row == 3 { // 身高
             cell.titleLb.text = "身高"
-            cell.subTitleLb.text = user.height.string + "CM"
+            cell.subTitleLb.text = userModel.height.string + "CM"
         } else if indexPath.row == 4 { // 体重
             cell.titleLb.text = "体重"
-            cell.subTitleLb.text = user.weight.string + "KG"
+            cell.subTitleLb.text = userModel.weight.string + "KG"
         } else if indexPath.row == 5 { // 出生年份
             cell.titleLb.text = "出生年份"
-            cell.subTitleLb.text = user.birthday
+            cell.subTitleLb.text = userModel.birthday
         }
         
         return cell
@@ -137,7 +143,87 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
 //    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0 { // 头像
+            
+        } else if indexPath.row == 1 { // 性别
+            gotoSelectGender()
+        } else if indexPath.row == 2 { // 昵称
+            
+        } else if indexPath.row == 3 { // 身高
+            gotoSelectHeight()
+        } else if indexPath.row == 4 { // 体重
+            gotoSelectWeight()
+        } else if indexPath.row == 5 { // 出生年份
+            gotoSelectBirthday()
+        }
+    }
+    
+}
 
+
+// MARK: - Api
+extension XWHPersonInfoTBVC {
+    
+    /// 选择性别
+    private func gotoSelectGender() {
+        let vc = XWHGenderSelectVC()
+        vc.userModel = userModel
+        vc.isUpdate = true
+        
+        vc.updateCallback = { [weak self] cUserModel in
+            self?.userModel.gender = cUserModel.gender
+            self?.tableView.reloadData()
+        }
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    /// 选择身高
+    private func gotoSelectHeight() {
+        let vc = XWHHeightSelectVC()
+        vc.userModel = userModel
+        vc.isUpdate = true
+        
+        vc.updateCallback = { [weak self] cUserModel in
+            self?.userModel.height = cUserModel.height
+            self?.tableView.reloadData()
+        }
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    /// 选择体重
+    private func gotoSelectWeight() {
+        let vc = XWHWeightSelectVC()
+        vc.userModel = userModel
+        vc.isUpdate = true
+        
+        vc.updateCallback = { [weak self] cUserModel in
+            self?.userModel.weight = cUserModel.weight
+            self?.tableView.reloadData()
+        }
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    /// 选择出生
+    private func gotoSelectBirthday() {
+        let vc = XWHBirthdaySelectVC()
+        vc.userModel = userModel
+        vc.isUpdate = true
+        
+        vc.updateCallback = { [weak self] cUserModel in
+            self?.userModel.birthday = cUserModel.birthday
+            self?.tableView.reloadData()
+        }
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    /// 更新用户信息
+    private func updatePersonInfo() {
+        XWHUserVM().update(userModel: userModel)
+        XWHDataUserManager.saveUser(&userModel)
     }
     
 }

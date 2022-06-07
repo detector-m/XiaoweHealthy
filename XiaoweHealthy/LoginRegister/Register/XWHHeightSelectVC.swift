@@ -18,6 +18,11 @@ class XWHHeightSelectVC: XWHGenderSelectVC {
         if userModel.gender == 0 {
             dHeight = 160
         }
+        
+        if isUpdate {
+            dHeight = userModel.height
+        }
+        
         pickerView.selectRow(dHeight - 30, inComponent: 0, animated: false)
     }
     
@@ -39,7 +44,11 @@ class XWHHeightSelectVC: XWHGenderSelectVC {
         
         layoutPickerView()
         
-        layoutPreNextBtn()
+        if isUpdate {
+            relayoutUpdateConfirmBtn()
+        } else {
+            layoutPreNextBtn()
+        }
     }
 
     override func clickBtnAction(sender: UIButton) {
@@ -49,9 +58,14 @@ class XWHHeightSelectVC: XWHGenderSelectVC {
             let sRow = pickerView.selectedRow(inComponent: 0)
             userModel.height = sRow + 30
             
-            let vc = XWHWeightSelectVC()
-            vc.userModel = userModel
-            navigationController?.pushViewController(vc, animated: true)
+            if isUpdate {
+                updateCallback?(userModel)
+                navigationController?.popViewController(animated: true)
+            } else {
+                let vc = XWHWeightSelectVC()
+                vc.userModel = userModel
+                navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
     

@@ -24,6 +24,20 @@ class XWHGenderSelectVC: XWHRegisterFillInfoBaseVC & UIPickerViewDelegate & UIPi
         pickerView.delegate = self
         pickerView.dataSource = self
         view.addSubview(pickerView)
+        
+        if isUpdate {
+            var genderIndex = userModel.gender
+            if genderIndex < 0 {
+                genderIndex = 0
+            }
+            
+            var sRow = 0
+            if genderIndex == 0 {
+                sRow = 1
+            }
+            
+            pickerView.selectRow(sRow, inComponent: 0, animated: false)
+        }
     }
     
     override func relayoutSubViews() {
@@ -31,10 +45,14 @@ class XWHGenderSelectVC: XWHRegisterFillInfoBaseVC & UIPickerViewDelegate & UIPi
         
         layoutPickerView()
         
-        nextBtn.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(24)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
-            make.height.equalTo(48)
+        if isUpdate {
+            relayoutUpdateConfirmBtn()
+        } else {
+            nextBtn.snp.makeConstraints { make in
+                make.left.right.equalToSuperview().inset(24)
+                make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
+                make.height.equalTo(48)
+            }
         }
     }
     
@@ -49,9 +67,14 @@ class XWHGenderSelectVC: XWHRegisterFillInfoBaseVC & UIPickerViewDelegate & UIPi
                 userModel.gender = 0
             }
             
-            let vc = XWHHeightSelectVC()
-            vc.userModel = userModel
-            navigationController?.pushViewController(vc, animated: true)
+            if isUpdate {
+                updateCallback?(userModel)
+                navigationController?.popViewController(animated: true)
+            } else {
+                let vc = XWHHeightSelectVC()
+                vc.userModel = userModel
+                navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
     

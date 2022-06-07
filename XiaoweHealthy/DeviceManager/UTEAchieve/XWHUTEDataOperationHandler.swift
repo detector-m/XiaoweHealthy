@@ -401,7 +401,8 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
                 XWHHealthyDataManager.saveMentalState(last)
             }
 
-            XWHServerDataManager.postMentalState(deviceMac: deviceMac, deviceSn: deviceSn, data: parsedMsArray, failureHandler: nil, successHandler: nil)
+            let postDevMac = deviceMac.replacingOccurrences(of: ":", with: "")
+            XWHServerDataManager.postMentalState(deviceMac: postDevMac, deviceSn: deviceSn, data: parsedMsArray, failureHandler: nil, successHandler: nil)
         }
 
        return parsedMsArray
