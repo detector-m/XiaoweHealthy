@@ -19,7 +19,7 @@ class XWHHealthyMoodCTVC: XWHHealthyBaseCTVC {
         return isLast(lastItem)
     }
     
-    var uiModel: XWHMentalStressUIStressModel?
+    var uiModel: XWHMoodUIMoodModel?
     private lazy var lastItem = XWHHealthyDataManager.getCurrentMentalState()
 
     override func viewDidLoad() {
@@ -206,7 +206,7 @@ extension XWHHealthyMoodCTVC {
         if sDateType == .week {
             rDateType = .day
         }
-        XWHHealthyVM().getMentalStressExistDate(date: sDate, dateType: rDateType) { [unowned self] error in
+        XWHHealthyVM().getMoodExistDate(date: sDate, dateType: rDateType) { [unowned self] error in
             XWHProgressHUD.hide()
             log.error(error)
             
@@ -218,7 +218,7 @@ extension XWHHealthyMoodCTVC {
             XWHProgressHUD.hide()
             
             guard let retModel = response.data as? XWHHealthyExistDataDateModel else {
-                log.debug("精神压力 - 获取存在数据日期为空")
+                log.debug("情绪 - 获取存在数据日期为空")
                 return
             }
             
@@ -231,7 +231,7 @@ extension XWHHealthyMoodCTVC {
     private func getData() {
         XWHProgressHUD.show()
         let cDate = getSelectedDate()
-        XWHHealthyVM().getMentalStress(date: cDate, dateType: dateType) { [unowned self] error in
+        XWHHealthyVM().getMood(date: cDate, dateType: dateType) { [unowned self] error in
             XWHProgressHUD.hide()
             log.error(error)
             
@@ -246,8 +246,8 @@ extension XWHHealthyMoodCTVC {
         } successHandler: { [unowned self] response in
             XWHProgressHUD.hide()
             
-            guard let retModel = response.data as? XWHMentalStressUIStressModel else {
-                log.debug("精神压力 - 获取数据为空")
+            guard let retModel = response.data as? XWHMoodUIMoodModel else {
+                log.debug("情绪 - 获取数据为空")
                 self.uiModel = nil
                 self.cleanUIItems()
                 

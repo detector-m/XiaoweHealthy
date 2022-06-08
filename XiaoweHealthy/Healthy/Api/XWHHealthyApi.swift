@@ -68,6 +68,19 @@ enum XWHHealthyApi {
     /// 获取精神压力记录的详情数据
     case getMentalStressDetail(_ rId: Int)
     
+    // MARK: - Mood(情绪)
+    /// 查询用户情绪数据是否存在的日期
+    case getMoodExistDate(_ year: Int, _ month: Int, _ queryType: String)
+    
+    /// 获取情绪
+    case getMood(_ year: Int, _ month: Int, _ day: Int, _ queryType: String)
+    
+    /// 获取情绪历史数据
+    case getMoodHistory(_ year: Int, _ month: Int, _ day: Int, _ queryType: String)
+    
+    /// 获取情绪记录的详情数据
+    case getMoodDetail(_ rId: Int)
+    
 }
 
 
@@ -128,6 +141,18 @@ extension XWHHealthyApi: XWHServiceTargetType {
             
         case .getMentalStressDetail:
             return "/device/specify_pressure_data"
+            
+        case .getMoodExistDate:
+            return "/device/mood_data_exist"
+            
+        case .getMood:
+            return "/device/query_mood_data"
+            
+        case .getMoodHistory:
+            return "/device/log_mood_data"
+            
+        case .getMoodDetail:
+            return "/device/specify_mood_data"
         }
     }
     
@@ -136,7 +161,7 @@ extension XWHHealthyApi: XWHServiceTargetType {
 //        case .postHeart, .postBloodOxygen:
 //            return .post
             
-        case .getHeartExistDate, .getBloodOxygenExistDate, .getHeart, .getBloodOxygen, .getHeartHistory, .getBloodOxygenHistory, .getHeartDetail, .getBloodOxygenDetail, .getSleepExistDate, .getSleep, .getSleepHistory, .getMentalStressExistDate, .getMentalStress, .getMentalStressHistory, .getMentalStressDetail:
+        case .getHeartExistDate, .getBloodOxygenExistDate, .getHeart, .getBloodOxygen, .getHeartHistory, .getBloodOxygenHistory, .getHeartDetail, .getBloodOxygenDetail, .getSleepExistDate, .getSleep, .getSleepHistory, .getMentalStressExistDate, .getMentalStress, .getMentalStressHistory, .getMentalStressDetail, .getMoodExistDate, .getMood, .getMoodHistory, .getMoodDetail:
             return .get
         }
     }
@@ -148,18 +173,17 @@ extension XWHHealthyApi: XWHServiceTargetType {
 //        case .postHeart(let deviceSn, let data), .postBloodOxygen(let deviceSn, let data):
 //            param = ["deviceSn": deviceSn, "data": data]
             
-        case .getHeartExistDate(let year, let month, let queryType), .getBloodOxygenExistDate(let year, let month, let queryType), .getSleepExistDate(let year, let month, let queryType), .getMentalStressExistDate(let year, let month, let queryType):
+        case .getHeartExistDate(let year, let month, let queryType), .getBloodOxygenExistDate(let year, let month, let queryType), .getSleepExistDate(let year, let month, let queryType), .getMentalStressExistDate(let year, let month, let queryType), .getMoodExistDate(let year, let month, let queryType):
             param = ["year": year, "month": month, "queryType": queryType]
             
-        case .getHeart(let year, let month, let day, let queryType), .getBloodOxygen(let year, let month, let day, let queryType), .getSleep(let year, let month, let day, let queryType), .getMentalStress(let year, let month, let day, let queryType):
+        case .getHeart(let year, let month, let day, let queryType), .getBloodOxygen(let year, let month, let day, let queryType), .getSleep(let year, let month, let day, let queryType), .getMentalStress(let year, let month, let day, let queryType), .getMood(let year, let month, let day, let queryType):
             param = ["year": year, "month": month, "day": day, "queryType": queryType]
             
-        case .getHeartHistory(let year, let month, let day, let queryType), .getBloodOxygenHistory(let year, let month, let day, let queryType), .getSleepHistory(let year, let month, let day, let queryType), .getMentalStressHistory(let year, let month, let day, let queryType):
+        case .getHeartHistory(let year, let month, let day, let queryType), .getBloodOxygenHistory(let year, let month, let day, let queryType), .getSleepHistory(let year, let month, let day, let queryType), .getMentalStressHistory(let year, let month, let day, let queryType), .getMoodHistory(let year, let month, let day, let queryType):
             param = ["year": year, "month": month, "day": day, "queryType": queryType]
             
-        case .getHeartDetail(let rId), .getBloodOxygenDetail(let rId), .getMentalStressDetail(let rId):
+        case .getHeartDetail(let rId), .getBloodOxygenDetail(let rId), .getMentalStressDetail(let rId), .getMoodDetail(let rId):
             param = ["id": rId]
-
         }
         
         log.debug("url: \(baseURL.absoluteString + path) param: \(param)")

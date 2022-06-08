@@ -20,6 +20,86 @@ class XWHHealthyChartDataHandler {
     
 }
 
+// MARK: - 情绪
+extension XWHHealthyChartDataHandler {
+    
+    class func getMoodChartDataModel(date: Date, dateType: XWHHealthyDateSegmentType, rawItems: [XWHMoodUIMoodItemModel]) -> XWHChartDataBaseModel {
+        let retModel = XWHChartDataBaseModel()
+        
+        var iXAxisValue = ""
+        var iRawValue: XWHMoodUIMoodItemModel? = nil
+        let defaultIYValue: [Double] = [0, 0]
+        var iYValue = defaultIYValue
+        
+        configChartDataModel(date: date, dateType: dateType, rawItems: rawItems, chartDataModel: retModel, dayParser: { (dateType, i, iDate, rawItems) -> (String, [Double], XWHMoodUIMoodItemModel?) in
+            iXAxisValue = ""
+            iYValue = defaultIYValue
+            iRawValue = nil
+            
+            (iYValue, iRawValue) = getChartRawValue(in: rawItems, where: { $0.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat)?.hour == iDate.hour }, chartValueHandler: { getMoodColumnRangeBarValidChartValue($0) }, defaultChartValue: defaultIYValue)
+            iXAxisValue = getDayXAxisValue(i: i, iDate: iDate)
+            
+            return (iXAxisValue, iYValue, iRawValue)
+        }, weekParser: { dateType, i, iDate, rawItems in
+            iXAxisValue = ""
+            iYValue = defaultIYValue
+            iRawValue = nil
+                        
+            (iYValue, iRawValue) = getChartRawValue(in: rawItems, where: { $0.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat)?.dayBegin == iDate }, chartValueHandler: { getMoodColumnRangeBarValidChartValue($0) }, defaultChartValue: defaultIYValue)
+            
+            iXAxisValue = getWeekXAxisValue(i: i, iDate: iDate)
+
+            return (iXAxisValue, iYValue, iRawValue)
+        }, monthParser: { dateType, i, iDate, rawItems in
+            iXAxisValue = ""
+            iYValue = defaultIYValue
+            iRawValue = nil
+                        
+            (iYValue, iRawValue) = getChartRawValue(in: rawItems, where: { $0.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat)?.dayBegin == iDate }, chartValueHandler: { getMoodColumnRangeBarValidChartValue($0) }, defaultChartValue: defaultIYValue)
+            
+            iXAxisValue = getMonthXAxisValue(i: i, iDate: iDate)
+
+            return (iXAxisValue, iYValue, iRawValue)
+        }, yearParser: { dateType, i, iDate, rawItems in
+            iXAxisValue = ""
+            iYValue = defaultIYValue
+            iRawValue = nil
+            
+            (iYValue, iRawValue) = getChartRawValue(in: rawItems, where: { $0.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat)?.monthBegin == iDate }, chartValueHandler: { getMoodColumnRangeBarValidChartValue($0) }, defaultChartValue: defaultIYValue)
+            
+            iXAxisValue = getYearXAxisValue(i: i, iDate: iDate)
+
+            return (iXAxisValue, iYValue, iRawValue)
+        }, yAxisHandler: { yValues, yAxisLabelCount in
+            return getYAxisResult(yValues: yValues, yAxisLabelCount: yAxisLabelCount)
+        }, yAxisLabelCount: 5)
+        
+        return retModel
+    }
+    
+    
+//    class func getMoodColumnRangeBarValidChartValue(_ item: XWHMoodUIMoodItemModel, iDate: Date, dateType: XWHHealthyDateSegmentType) -> [Double] {
+    class func getMoodColumnRangeBarValidChartValue(_ item: XWHMoodUIMoodItemModel) -> [Double] {
+//        iDate.minutesSince(<#T##date: Date##Date#>)
+//        switch dateType {
+//        case .day:
+//            break
+//            
+//        case .week, .month:
+//            break
+//            
+//        case .year:
+//            break
+//        }
+        if item.initialPoint > 0, item.initialPoint == item.finalPoint {
+            return [item.initialPoint.double, (item.initialPoint + 1).double]
+        } else {
+            return [item.initialPoint.double, item.finalPoint.double]
+        }
+    }
+    
+}
+
 // MARK: - 精神压力(MentalStress)
 extension XWHHealthyChartDataHandler {
     

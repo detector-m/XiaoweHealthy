@@ -12,7 +12,7 @@ class XWHMoodChartCTCell: XWHColumnRangeBarChartBaseCTCell {
     
     private(set) lazy var legendView = XWHChartLegendView()
     
-    private weak var uiModel: XWHMentalStressUIStressModel?
+    private weak var uiModel: XWHMoodUIMoodModel?
 
     override func addSubViews() {
         super.addSubViews()
@@ -38,7 +38,7 @@ class XWHMoodChartCTCell: XWHColumnRangeBarChartBaseCTCell {
         }
     }
     
-    func update(dateText: String, sDate: Date, dateType: XWHHealthyDateSegmentType, uiModel: XWHMentalStressUIStressModel?) {
+    func update(dateText: String, sDate: Date, dateType: XWHHealthyDateSegmentType, uiModel: XWHMoodUIMoodModel?) {
         textLb.text = R.string.xwhHealthyText.暂无数据()
         detailLb.text = ""
         
@@ -70,7 +70,7 @@ class XWHMoodChartCTCell: XWHColumnRangeBarChartBaseCTCell {
         
         detailLb.text = dateText
         
-        let chartDataModel = XWHHealthyChartDataHandler.getMentalStressChartDataModel(date: sDate, dateType: dateType, rawItems: cUIModel.items)
+        let chartDataModel = XWHHealthyChartDataHandler.getMoodChartDataModel(date: sDate, dateType: dateType, rawItems: cUIModel.items)
         self.chartDataModel = chartDataModel
         
         chartView.xAxis.setLabelCount(chartDataModel.xLabelCount, force: false)

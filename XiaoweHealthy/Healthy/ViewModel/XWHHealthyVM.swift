@@ -293,6 +293,73 @@ class XWHHealthyVM {
         }
     }
     
+    // MARK: - Mood(情绪)
+    /// 查询情绪数据是否存在的日期
+    func getMoodExistDate(date: Date, dateType: XWHHealthyDateSegmentType, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        healthyProvider.request(.getMoodExistDate(date.year, date.month, dateType.rawValue)) { result in
+            let cId = "Healthy.getMoodExistDate"
+            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
+                response.code = dateType.rawValue
+                guard let items = json.arrayObject as? [String] else {
+                    log.error("\(cId) 查询用户压力数据是否存在的日期错误")
+                    return nil
+                }
+                
+                response.data = self.getExistDataDateModel(date, dateType, items)
+                return nil
+            }
+        }
+    }
+    
+    /// 获取情绪
+    func getMood(date: Date, dateType: XWHHealthyDateSegmentType, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        healthyProvider.request(.getMood(date.year, date.month, date.day, dateType.rawValue)) { result in
+            let cId = "Healthy.getMood"
+            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
+                response.data = XWHMoodUIMoodModel.deserialize(from: json.dictionaryObject)
+                
+                return nil
+            }
+        }
+    }
+    
+    
+    /// 获取年情绪历史数据
+    func getYearMoodHistory(date: Date, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        healthyProvider.request(.getMoodHistory(date.year, date.month, date.day, XWHHealthyDateSegmentType.year.rawValue)) { result in
+            let cId = "Healthy.getYearMoodHistory"
+            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
+
+                response.data = [XWHMentalStressUIAllDataItemModel].deserialize(from: json.arrayObject)
+                return nil
+            }
+        }
+    }
+    
+    /// 获取日情绪历史数据
+    func getDayMoodHistory(date: Date, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        healthyProvider.request(.getMoodHistory(date.year, date.month, date.day, XWHHealthyDateSegmentType.day.rawValue)) { result in
+            let cId = "Healthy.getDayMoodHistory"
+            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
+                
+                response.data = [XWHMentalStressModel].deserialize(from: json.arrayObject)
+                return nil
+            }
+        }
+    }
+    
+    /// 获取情绪记录的详情数据
+    func getMoodDetail(rId: Int, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        healthyProvider.request(.getMoodDetail(rId)) { result in
+            let cId = "Healthy.getMentalStressDetail"
+            XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
+                
+                response.data = XWHMentalStressModel.deserialize(from: json.dictionaryObject)
+                return nil
+            }
+        }
+    }
+    
 }
 
 // MARK: - Private
