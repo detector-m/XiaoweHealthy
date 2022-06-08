@@ -106,25 +106,24 @@ class XWHMoodChartCTCell: XWHColumnRangeBarChartBaseCTCell {
         let yValues: [[Double]] = chartDataModel.yValues as? [[Double]] ?? []
 
         for (i, iYValue) in yValues.enumerated() {
-            let tLimit = 50
+//            let tLimit = 50
             
-//            let high = iYValue[1]
-//            let low = iYValue[0]
+            let high = iYValue[1]
+            let low = iYValue[0]
             
-            let high = (tLimit + (Int(arc4random()) % 50) + 1).double
-            let low = (tLimit - (Int(arc4random()) % 50) + 1).double
+//            let high = (tLimit + (Int(arc4random()) % 50) + 1).double
+//            let low = (tLimit - (Int(arc4random()) % 50) + 1).double
             
             let entry = ColumnRangeBarChartDataEntry(x: i.double, low: low, high: high)
             dataEntries.append(entry)
             
-            if let iRawValue = chartDataModel.rawValues[i] {
-                var result = ((high - low) / 2).int - 1
-                if result <= 0 {
-                    result = 1
-                }
-                let l1 = low + ((Int(arc4random())) % result).double
-                let l2 = high - ((Int(arc4random())) % result).double
+            if let iRawValue = chartDataModel.rawValues[i] as? XWHMoodUIMoodItemModel {
+                let duration = high - low
                 
+                let rates = XWHUIDisplayHandler.getMoodRangeRates(iRawValue)
+                
+                let l1 = duration * rates[2] / 100 + low
+                let l2 = duration * rates[1] / 100 + l1
                 segmentLimits = [l1, l2]
                 entry.segmentLimits = segmentLimits
                 entry.segmentColors = segmentColors
@@ -154,7 +153,7 @@ class XWHMoodChartCTCell: XWHColumnRangeBarChartBaseCTCell {
     }
     
     override func showMarker(with rawValue: Any) {
-        guard let iItem = rawValue as? XWHChartUIChartItemModel else {
+        guard let iItem = rawValue as? XWHMoodUIMoodItemModel else {
             chartView.highlightValue(nil)
             return
         }
@@ -168,9 +167,11 @@ class XWHMoodChartCTCell: XWHColumnRangeBarChartBaseCTCell {
         let iDate = iItem.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat) ?? Date()
         markerView.textLb.text = getMarkerDateString(iDate: iDate.hourBegin, dateType: sDateType)
         
+        let rates = XWHUIDisplayHandler.getMoodRangeRates(iItem)
+        
 //        markerView.detailLb.text = getMarkerDateString(iDate: iDate.hourBegin, dateType: sDateType)
         let moodStrings = XWHUIDisplayHandler.getMoodRangeStrings()
-        markerView.detailLb.text = "\(moodStrings[0])\(2)%, \(moodStrings[1])\(2)%, \(moodStrings[2])\(2)%"
+        markerView.detailLb.text = "\(moodStrings[0])\(rates[0].int)%, \(moodStrings[1])\(rates[1].int)%, \(moodStrings[2])\(rates[2].int)%"
     }
     
 }

@@ -12,7 +12,30 @@ import Foundation
 class XWHUIDisplayHandler {
     
     // MARK: - 健康
-    /// 获取压力区间颜色
+    /// 获取情绪区间占比
+    class func getMoodRangeRates(_ iItem: XWHMoodUIMoodBaseModel) -> [Double] {
+        /// 积极
+        let positiveNumber = iItem.positiveTimes.double
+        /// 正常
+        let normalNumber = iItem.peaceTimes.double
+        /// 消极
+        let negativeNumber = iItem.negativeTimes.double
+        
+        /// 所有状态
+        var totalNumber = positiveNumber + normalNumber + negativeNumber
+        
+        if totalNumber <= 0 {
+            totalNumber = 100
+        }
+        
+        let positiveRate = positiveNumber / totalNumber * 100
+        let normalRate = normalNumber / totalNumber * 100
+        let negativeRate = negativeNumber / totalNumber * 100
+        
+        return [positiveRate, normalRate, negativeRate]
+    }
+    
+    /// 获取情绪区间颜色
     class func getMoodRangeColors() -> [UIColor] {
         return [UIColor(hex: 0xFFB25A)!, UIColor(hex: 0xFFD978)!, UIColor(hex: 0x8391F3)!]
     }

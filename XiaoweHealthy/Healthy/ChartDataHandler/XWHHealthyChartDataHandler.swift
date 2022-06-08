@@ -36,7 +36,7 @@ extension XWHHealthyChartDataHandler {
             iYValue = defaultIYValue
             iRawValue = nil
             
-            (iYValue, iRawValue) = getChartRawValue(in: rawItems, where: { $0.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat)?.hour == iDate.hour }, chartValueHandler: { getMoodColumnRangeBarValidChartValue($0) }, defaultChartValue: defaultIYValue)
+            (iYValue, iRawValue) = getChartRawValue(in: rawItems, where: { $0.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat)?.hour == iDate.hour }, chartValueHandler: { getMoodColumnRangeBarValidChartValue($0, iDate, dateType) }, defaultChartValue: defaultIYValue)
             iXAxisValue = getDayXAxisValue(i: i, iDate: iDate)
             
             return (iXAxisValue, iYValue, iRawValue)
@@ -45,7 +45,7 @@ extension XWHHealthyChartDataHandler {
             iYValue = defaultIYValue
             iRawValue = nil
                         
-            (iYValue, iRawValue) = getChartRawValue(in: rawItems, where: { $0.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat)?.dayBegin == iDate }, chartValueHandler: { getMoodColumnRangeBarValidChartValue($0) }, defaultChartValue: defaultIYValue)
+            (iYValue, iRawValue) = getChartRawValue(in: rawItems, where: { $0.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat)?.dayBegin == iDate }, chartValueHandler: { getMoodColumnRangeBarValidChartValue($0, iDate, dateType) }, defaultChartValue: defaultIYValue)
             
             iXAxisValue = getWeekXAxisValue(i: i, iDate: iDate)
 
@@ -55,7 +55,7 @@ extension XWHHealthyChartDataHandler {
             iYValue = defaultIYValue
             iRawValue = nil
                         
-            (iYValue, iRawValue) = getChartRawValue(in: rawItems, where: { $0.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat)?.dayBegin == iDate }, chartValueHandler: { getMoodColumnRangeBarValidChartValue($0) }, defaultChartValue: defaultIYValue)
+            (iYValue, iRawValue) = getChartRawValue(in: rawItems, where: { $0.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat)?.dayBegin == iDate }, chartValueHandler: { getMoodColumnRangeBarValidChartValue($0, iDate, dateType) }, defaultChartValue: defaultIYValue)
             
             iXAxisValue = getMonthXAxisValue(i: i, iDate: iDate)
 
@@ -65,7 +65,7 @@ extension XWHHealthyChartDataHandler {
             iYValue = defaultIYValue
             iRawValue = nil
             
-            (iYValue, iRawValue) = getChartRawValue(in: rawItems, where: { $0.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat)?.monthBegin == iDate }, chartValueHandler: { getMoodColumnRangeBarValidChartValue($0) }, defaultChartValue: defaultIYValue)
+            (iYValue, iRawValue) = getChartRawValue(in: rawItems, where: { $0.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat)?.monthBegin == iDate }, chartValueHandler: { getMoodColumnRangeBarValidChartValue($0, iDate, dateType) }, defaultChartValue: defaultIYValue)
             
             iXAxisValue = getYearXAxisValue(i: i, iDate: iDate)
 
@@ -78,9 +78,7 @@ extension XWHHealthyChartDataHandler {
     }
     
     
-//    class func getMoodColumnRangeBarValidChartValue(_ item: XWHMoodUIMoodItemModel, iDate: Date, dateType: XWHHealthyDateSegmentType) -> [Double] {
-    class func getMoodColumnRangeBarValidChartValue(_ item: XWHMoodUIMoodItemModel) -> [Double] {
-//        iDate.minutesSince(<#T##date: Date##Date#>)
+    class func getMoodColumnRangeBarValidChartValue(_ item: XWHMoodUIMoodItemModel, _ iDate: Date, _ dateType: XWHHealthyDateSegmentType) -> [Double] {
 //        switch dateType {
 //        case .day:
 //            break
@@ -91,11 +89,26 @@ extension XWHHealthyChartDataHandler {
 //        case .year:
 //            break
 //        }
-        if item.initialPoint > 0, item.initialPoint == item.finalPoint {
-            return [item.initialPoint.double, (item.initialPoint + 1).double]
-        } else {
-            return [item.initialPoint.double, item.finalPoint.double]
+        guard let bDate = item.initialPoint.date(withFormat: XWHDate.standardTimeAllFormat), let eDate = item.finalPoint.date(withFormat: XWHDate.standardTimeAllFormat) else {
+            return [0, 0]
         }
+        
+        var offsetDuration = bDate.minutesSince(iDate)
+        var duration = eDate.minutesSince(bDate)
+        
+        if offsetDuration < 0 {
+            offsetDuration = 0
+        }
+        
+        if duration < 0 {
+            duration = 0
+        }
+        
+        if offsetDuration > 0, duration == 0 {
+            duration = 1
+        }
+        
+        return [offsetDuration, offsetDuration + duration]
     }
     
 }

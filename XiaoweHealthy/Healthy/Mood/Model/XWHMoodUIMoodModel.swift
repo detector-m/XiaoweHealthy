@@ -41,9 +41,9 @@ class XWHMoodUIMoodItemModel: XWHMoodUIMoodBaseModel {
     /// 数据采集时间 仅在非按天查询时才会返回
     var timeAxis = ""
     
-    /// 时间间隔内首次测量的时间换算成分钟数
-    var initialPoint = 0
-    /// 时间间隔内末次测量的时间换算成分钟数
-    var finalPoint = 0
+    /// 时间间隔内首次测量的时间
+    var initialPoint = ""
+    /// 时间间隔内末次测量的时间
+    var finalPoint = ""
     
 }
