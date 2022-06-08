@@ -109,18 +109,18 @@ extension XWHHealthyMoodCTVC {
         
         if item.uiCardType == .moodRange {
             /// 积极
-            let positiveNumber = 30
+            let positiveNumber = uiModel?.positiveTimes ?? 0
             /// 正常
-            let normalNumber = 50
+            let normalNumber = uiModel?.peaceTimes ?? 0
             /// 消极
-            let negativeNumber = 20
+            let negativeNumber = uiModel?.negativeTimes ?? 0
             
             /// 所有状态
-//            var totalNumber = positiveNumber + normalNumber + negativeNumber
+            var totalNumber = positiveNumber + normalNumber + negativeNumber
             
-//            if totalNumber <= 0 {
-//                totalNumber = 100
-//            }
+            if totalNumber <= 0 {
+                totalNumber = 100
+            }
             
             let values = [positiveNumber, normalNumber, negativeNumber]
             // 分布图例
@@ -134,7 +134,8 @@ extension XWHHealthyMoodCTVC {
             
             
             let cell = collectionView.dequeueReusableCell(withClass: XWHMoodRangeCTCell.self, for: indexPath)
-            cell.update(indexPath.row - 1, values[indexPath.row - 1])
+            let rate = (values[indexPath.row - 1].cgFloat / totalNumber.cgFloat) * 100
+            cell.update(indexPath.row - 1, rate.int)
             
             return cell
         }
