@@ -162,7 +162,7 @@ class XWHMeMainVC: XWHTableViewBaseVC {
             break
             
         case .data:
-            break
+            gotoPersonHealthDatas()
             
         case .info:
             gotoPersonInfo()
@@ -192,6 +192,12 @@ extension XWHMeMainVC {
 // MARK: - UI Jump
 extension XWHMeMainVC {
     
+    /// 我的数据
+    private func gotoPersonHealthDatas() {
+        let vc = XWHPersonHealthDatasTBVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     /// 跳转到个人信息
     private func gotoPersonInfo() {
         let vc = XWHPersonInfoTBVC()
@@ -200,7 +206,7 @@ extension XWHMeMainVC {
     
     /// 设置
     private func gotoPersonSettings() {
-        let vc = XWHPersonSettingTBVC()
+        let vc = XWHPersonSettingsTBVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     

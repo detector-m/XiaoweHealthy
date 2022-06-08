@@ -1,5 +1,5 @@
 //
-//  XWHPersonSettingTBVC.swift
+//  XWHPersonSettingsTBVC.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/6/7.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class XWHPersonSettingTBVC: XWHPersonInfoTBVC {
+class XWHPersonSettingsTBVC: XWHPersonInfoTBVC {
     
     override var titleText: String {
         R.string.xwhDisplayText.设置()
@@ -33,7 +33,7 @@ class XWHPersonSettingTBVC: XWHPersonInfoTBVC {
 }
 
 // MARK: - UITableViewDataSource & UITableViewDelegate & UITableViewRoundedProtocol
-extension XWHPersonSettingTBVC {
+extension XWHPersonSettingsTBVC {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -87,7 +87,7 @@ extension XWHPersonSettingTBVC {
 
 
 // MARK: - UI Jump & Api
-extension XWHPersonSettingTBVC {
+extension XWHPersonSettingsTBVC {
     
     /// 修改密码
     private func gotoResetPassword() {
