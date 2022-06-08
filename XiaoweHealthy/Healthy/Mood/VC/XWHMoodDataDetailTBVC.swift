@@ -12,7 +12,7 @@ import UIKit
 /// 详细数据界面
 class XWHMoodDataDetailTBVC: XWHHealthyDataDetailBaseTBVC {
     
-    lazy var dataModel = XWHMentalStressModel()
+    lazy var dataModel = XWHMoodUIAllDataItemMoodModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,13 +34,13 @@ extension XWHMoodDataDetailTBVC {
         cell.bottomLine.isHidden = false
         if indexPath.row == 0 {
             cell.titleLb.text = R.string.xwhHealthyText.情绪()
-            cell.subTitleLb.text = XWHUIDisplayHandler.getMoodString(dataModel.value % 2)
+            cell.subTitleLb.text = XWHUIDisplayHandler.getMoodString(dataModel.moodStatus)
         } else if indexPath.row == 1 {
             cell.titleLb.text = R.string.xwhHealthyText.测量时间()
-            cell.subTitleLb.text = dataModel.time
+            cell.subTitleLb.text = dataModel.collectTime
         } else {
             cell.titleLb.text = R.string.xwhHealthyText.来源()
-            cell.subTitleLb.text = dataModel.identifier
+            cell.subTitleLb.text = dataModel.deviceName
             cell.bottomLine.isHidden = true
         }
         
@@ -55,13 +55,13 @@ extension XWHMoodDataDetailTBVC {
     
     private func getMoodDetail() {
         XWHProgressHUD.show()
-        XWHHealthyVM().getMentalStressDetail(rId: detailId, failureHandler: { error in
+        XWHHealthyVM().getMoodDetail(rId: detailId, failureHandler: { error in
             XWHProgressHUD.hide()
             log.error(error)
         }, successHandler: { [unowned self] response in
             XWHProgressHUD.hide()
             
-            guard let retModel = response.data as? XWHMentalStressModel else {
+            guard let retModel = response.data as? XWHMoodUIAllDataItemMoodModel else {
                 log.error("情绪 - 获取详情数据错误")
                 return
             }

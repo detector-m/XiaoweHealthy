@@ -11,7 +11,7 @@ import UIKit
 /// 情绪的所有数据界面
 class XWHMoodAllDataTBVC: XWHHealthyAllDataBaseTBVC {
     
-    lazy var allDataUIItems: [XWHMentalStressUIAllDataItemModel] = [] {
+    lazy var allDataUIItems: [XWHMoodUIAllDataItemModel] = [] {
         didSet {
             expandStates = allDataUIItems.map({ _ in false })
         }
@@ -65,7 +65,7 @@ extension XWHMoodAllDataTBVC {
             
             let cItem = item.items[indexPath.row - 1]
             cell.titleLb.text = cItem.collectTime
-            cell.subTitleLb.text = R.string.xwhHealthyText.日均() + " " + XWHUIDisplayHandler.getMoodString(cItem.avgPressureVal % 2)
+            cell.subTitleLb.text = R.string.xwhHealthyText.日均() + " " + XWHUIDisplayHandler.getMoodString(cItem.moodStatus)
             
             cell.bottomLine.isHidden = false
             if item.items.count == indexPath.row {
@@ -93,7 +93,7 @@ extension XWHMoodAllDataTBVC {
 // MARK: - Jump UI
 extension XWHMoodAllDataTBVC {
     
-    private func gotoDataDetailList(_ item: XWHMentalStressUIAllDataItemStressModel) {
+    private func gotoDataDetailList(_ item: XWHMoodUIAllDataItemMoodModel) {
         let vc = XWHMoodDataDetailListTBVC()
         vc.sDate = item.collectTime.date(withFormat: XWHDate.standardYearMonthDayFormat) ?? Date()
         navigationController?.pushViewController(vc, animated: true)
@@ -107,13 +107,13 @@ extension XWHMoodAllDataTBVC {
     
     private func getYearMoodHistory() {
         XWHProgressHUD.show()
-        XWHHealthyVM().getYearMentalStressHistory(date: Date(), failureHandler: { error in
+        XWHHealthyVM().getYearMoodHistory(date: Date(), failureHandler: { error in
             XWHProgressHUD.hide()
             log.error(error)
         }, successHandler: { [unowned self] response in
             XWHProgressHUD.hide()
             
-            guard let retModel = response.data as? [XWHMentalStressUIAllDataItemModel] else {
+            guard let retModel = response.data as? [XWHMoodUIAllDataItemModel] else {
                 log.error("情绪 - 获取年的数据错误")
                 return
             }

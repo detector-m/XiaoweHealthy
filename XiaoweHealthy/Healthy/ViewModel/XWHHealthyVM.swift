@@ -330,7 +330,7 @@ class XWHHealthyVM {
             let cId = "Healthy.getYearMoodHistory"
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
 
-                response.data = [XWHMentalStressUIAllDataItemModel].deserialize(from: json.arrayObject)
+                response.data = [XWHMoodUIAllDataItemModel].deserialize(from: json.arrayObject)
                 return nil
             }
         }
@@ -342,7 +342,7 @@ class XWHHealthyVM {
             let cId = "Healthy.getDayMoodHistory"
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
                 
-                response.data = [XWHMentalStressModel].deserialize(from: json.arrayObject)
+                response.data = [XWHMoodUIAllDataItemMoodModel].deserialize(from: json.arrayObject)
                 return nil
             }
         }
@@ -354,7 +354,7 @@ class XWHHealthyVM {
             let cId = "Healthy.getMentalStressDetail"
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
                 
-                response.data = XWHMentalStressModel.deserialize(from: json.dictionaryObject)
+                response.data = XWHMoodUIAllDataItemMoodModel.deserialize(from: json.dictionaryObject)
                 return nil
             }
         }

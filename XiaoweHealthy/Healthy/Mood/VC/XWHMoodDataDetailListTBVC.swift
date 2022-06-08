@@ -18,7 +18,7 @@ class XWHMoodDataDetailListTBVC: XWHHealthyDataDetailListBaseTBVC {
         return tString + R.string.xwhHealthyText.数据()
     }
     
-    lazy var allDataUIItems: [XWHMentalStressModel] = []
+    lazy var allDataUIItems: [XWHMoodUIAllDataItemMoodModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +43,7 @@ extension XWHMoodDataDetailListTBVC {
         cell.titleLb.text = cItem.formatDate()?.string(withFormat: XWHDate.hourMinuteFormat)
         
         let value = ""
-        let unit = XWHUIDisplayHandler.getMoodString(cItem.value % 2)
+        let unit = XWHUIDisplayHandler.getMoodString(cItem.moodStatus)
         let text = value + unit
         cell.subTitleLb.attributedText = text.colored(with: fontDarkColor).applying(attributes: [.font: valueFont], toOccurrencesOf: value).applying(attributes: [.font: normalFont], toOccurrencesOf: unit)
         
@@ -60,7 +60,7 @@ extension XWHMoodDataDetailListTBVC {
 // MARK: - Jump UI
 extension XWHMoodDataDetailListTBVC {
     
-    private func gotoDataDetail(_ dataModel: XWHMentalStressModel) {
+    private func gotoDataDetail(_ dataModel: XWHMoodUIAllDataItemMoodModel) {
         let vc = XWHMoodDataDetailTBVC()
         vc.detailId = dataModel.srId
         navigationController?.pushViewController(vc, animated: true)
@@ -73,13 +73,13 @@ extension XWHMoodDataDetailListTBVC {
     
     private func getDayMoodHistory() {
         XWHProgressHUD.show()
-        XWHHealthyVM().getDayMentalStressHistory(date: sDate, failureHandler: { error in
+        XWHHealthyVM().getDayMoodHistory(date: sDate, failureHandler: { error in
             XWHProgressHUD.hide()
             log.error(error)
         }, successHandler: { [unowned self] response in
             XWHProgressHUD.hide()
             
-            guard let retModel = response.data as? [XWHMentalStressModel] else {
+            guard let retModel = response.data as? [XWHMoodUIAllDataItemMoodModel] else {
                 log.error("情绪 - 获取天的数据错误")
                 return
             }

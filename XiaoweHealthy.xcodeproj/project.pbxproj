@@ -21,6 +21,7 @@
 		96168CB5281BED5300F79C2A /* XWHUTEDataOperationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96168CB4281BED5300F79C2A /* XWHUTEDataOperationHandler.swift */; };
 		9618B6EA28339894003D5770 /* XWHBOChartCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9618B6E928339894003D5770 /* XWHBOChartCTCell.swift */; };
 		9618B6EC2833A5AD003D5770 /* XWHMentalStressChartCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9618B6EB2833A5AD003D5770 /* XWHMentalStressChartCTCell.swift */; };
+		961F4C2F28503047003029B1 /* XWHMoodUIAllDataItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961F4C2E28503047003029B1 /* XWHMoodUIAllDataItemModel.swift */; };
 		9628F85027EE9EF300221C5E /* XWHLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9628F84F27EE9EF300221C5E /* XWHLogin.swift */; };
 		9644928827F7EB2F001CA321 /* XWHProgressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9644928727F7EB2F001CA321 /* XWHProgressButton.swift */; };
 		9648E60F27E0796D0077180D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648E60E27E0796D0077180D /* AppDelegate.swift */; };
@@ -413,6 +414,7 @@
 		96168CB4281BED5300F79C2A /* XWHUTEDataOperationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUTEDataOperationHandler.swift; sourceTree = "<group>"; };
 		9618B6E928339894003D5770 /* XWHBOChartCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBOChartCTCell.swift; sourceTree = "<group>"; };
 		9618B6EB2833A5AD003D5770 /* XWHMentalStressChartCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMentalStressChartCTCell.swift; sourceTree = "<group>"; };
+		961F4C2E28503047003029B1 /* XWHMoodUIAllDataItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMoodUIAllDataItemModel.swift; sourceTree = "<group>"; };
 		9628F84F27EE9EF300221C5E /* XWHLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLogin.swift; sourceTree = "<group>"; };
 		9644928727F7EB2F001CA321 /* XWHProgressButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHProgressButton.swift; sourceTree = "<group>"; };
 		9648E60B27E0796D0077180D /* XiaoweHealthy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XiaoweHealthy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2208,6 +2210,7 @@
 			isa = PBXGroup;
 			children = (
 				96E79EBA284F57060063647C /* XWHMoodUIMoodModel.swift */,
+				961F4C2E28503047003029B1 /* XWHMoodUIAllDataItemModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3167,6 +3170,7 @@
 				96A10CB428290AEB00C1E18F /* XWHMentalStateModel.swift in Sources */,
 				96E79EB9284F46430063647C /* XWHPersonSettingTBVC.swift in Sources */,
 				960E768227F0574200A0DA25 /* XWHBaseCTCell.swift in Sources */,
+				961F4C2F28503047003029B1 /* XWHMoodUIAllDataItemModel.swift in Sources */,
 				9651EDFF27EAC2560043FE52 /* Repeater.swift in Sources */,
 				9653E4AA27F5B3B800EE55FF /* XWHDevSetCommonTBCell.swift in Sources */,
 				96E23C2827E1A53F009EF208 /* XWHSportMainVC.swift in Sources */,
