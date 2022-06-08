@@ -316,7 +316,13 @@ class XWHHealthyVM {
         healthyProvider.request(.getMood(date.year, date.month, date.day, dateType.rawValue)) { result in
             let cId = "Healthy.getMood"
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
-                response.data = XWHMoodUIMoodModel.deserialize(from: json.dictionaryObject)
+                if let uiMoodModel = XWHMoodUIMoodModel.deserialize(from: json.dictionaryObject) {
+                    if uiMoodModel.items.isEmpty {
+                        return nil
+                    }
+                    
+                    response.data = uiMoodModel
+                }
                 
                 return nil
             }

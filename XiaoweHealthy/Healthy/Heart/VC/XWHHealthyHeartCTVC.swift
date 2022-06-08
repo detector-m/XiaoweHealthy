@@ -222,7 +222,7 @@ extension XWHHealthyHeartCTVC {
             }
             
             self.heartUIModel = nil
-            self.loadUIItems()
+//            self.loadUIItems()
             self.cleanUIItems()
         } successHandler: { [unowned self] response in
             XWHProgressHUD.hide()

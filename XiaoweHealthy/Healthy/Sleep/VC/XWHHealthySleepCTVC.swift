@@ -317,7 +317,7 @@ extension XWHHealthySleepCTVC {
             }
             
             self.sleepUIModel = nil
-            self.loadUIItems()
+//            self.loadUIItems()
             self.cleanUIItems()
         } successHandler: { [unowned self] response in
             XWHProgressHUD.hide()

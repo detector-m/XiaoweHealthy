@@ -71,7 +71,7 @@ extension XWHHealthyChartDataHandler {
 
             return (iXAxisValue, iYValue, iRawValue)
         }, yAxisHandler: { yValues, yAxisLabelCount in
-            return getYAxisResult(yValues: yValues, yAxisLabelCount: yAxisLabelCount)
+            return getMoodYAxisResult(yValues: yValues, yAxisLabelCount: yAxisLabelCount)
         }, yAxisLabelCount: 5)
         
         return retModel
@@ -109,6 +109,21 @@ extension XWHHealthyChartDataHandler {
         }
         
         return [offsetDuration, offsetDuration + duration]
+    }
+    
+    private class func getMoodYAxisResult(yValues: [[Double]], yAxisLabelCount: Int) -> XWHChartDataYAxisResult<[Double]> {
+        let yAxisCount: Double = yAxisLabelCount.double
+        var max = yValues.map({ $0.max() ?? 0 }).max() ?? 0
+        
+        // 防止不弹出marker
+        if max > 0 {
+            max += 1
+        }
+        
+        let granularity = ceil(max / yAxisCount)
+        max = granularity * yAxisCount
+        
+        return (max, granularity, [])
     }
     
 }

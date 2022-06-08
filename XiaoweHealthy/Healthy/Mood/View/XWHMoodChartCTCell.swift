@@ -158,12 +158,6 @@ class XWHMoodChartCTCell: XWHColumnRangeBarChartBaseCTCell {
             return
         }
         
-//        if iItem.lowest < iItem.highest {
-//            markerView.textLb.text = "\(iItem.lowest) - \(iItem.highest) \(R.string.xwhDeviceText.次分钟())"
-//        } else {
-//            markerView.textLb.text = "\(iItem.highest) \(R.string.xwhDeviceText.次分钟())"
-//        }
-        
         let iDate = iItem.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat) ?? Date()
         markerView.textLb.text = getMarkerDateString(iDate: iDate.hourBegin, dateType: sDateType)
         

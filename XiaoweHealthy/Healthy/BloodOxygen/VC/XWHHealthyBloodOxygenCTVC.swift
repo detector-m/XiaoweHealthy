@@ -222,7 +222,7 @@ extension XWHHealthyBloodOxygenCTVC {
             }
             
             self.boUIModel = nil
-            self.loadUIItems()
+//            self.loadUIItems()
             self.cleanUIItems()
         } successHandler: { [unowned self] response in
             XWHProgressHUD.hide()

@@ -64,7 +64,7 @@ class XWHHealthyMoodCTVC: XWHHealthyBaseCTVC {
     }
     
     func cleanUIItems() {
-        uiManager.loadItems(.mood)
+        uiManager.loadItems(.mood, isHasCurDatasItem: false)
         uiManager.cleanItems(without: [.chart])
         collectionView.reloadData()
     }
@@ -232,7 +232,7 @@ extension XWHHealthyMoodCTVC {
             }
             
             self.uiModel = nil
-            self.loadUIItems()
+//            self.loadUIItems()
             self.cleanUIItems()
         } successHandler: { [unowned self] response in
             XWHProgressHUD.hide()
