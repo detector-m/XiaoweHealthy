@@ -167,6 +167,7 @@
 		9680D8182851A23E00FA6F9C /* XWHSportRecordListTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9680D8172851A23E00FA6F9C /* XWHSportRecordListTBVC.swift */; };
 		9680D81A2851A3D100FA6F9C /* XWHSportText.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9680D8192851A3D100FA6F9C /* XWHSportText.strings */; };
 		9680D81C2851A4FB00FA6F9C /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9680D81B2851A4FB00FA6F9C /* HealthKit.framework */; };
+		9680D81E2851CF3A00FA6F9C /* XWHSRLSportRecordTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9680D81D2851CF3A00FA6F9C /* XWHSRLSportRecordTBCell.swift */; };
 		968489FD2840F52100821E24 /* XWHMoodRangeCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */; };
 		96848A012841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96848A002841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift */; };
 		968CB8A327F3FB8800E549AC /* UITableViewRoundedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */; };
@@ -568,6 +569,7 @@
 		9680D8172851A23E00FA6F9C /* XWHSportRecordListTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportRecordListTBVC.swift; sourceTree = "<group>"; };
 		9680D8192851A3D100FA6F9C /* XWHSportText.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = XWHSportText.strings; sourceTree = "<group>"; };
 		9680D81B2851A4FB00FA6F9C /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		9680D81D2851CF3A00FA6F9C /* XWHSRLSportRecordTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSRLSportRecordTBCell.swift; sourceTree = "<group>"; };
 		968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMoodRangeCTCell.swift; sourceTree = "<group>"; };
 		96848A002841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyMainCommonCTCell.swift; sourceTree = "<group>"; };
 		968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewRoundedProtocol.swift; sourceTree = "<group>"; };
@@ -1647,6 +1649,7 @@
 		9680D8162851A1D600FA6F9C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9680D81D2851CF3A00FA6F9C /* XWHSRLSportRecordTBCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3088,6 +3091,7 @@
 				965DADEE284DDA1700BB4ED3 /* XWHDevDataInteractionProtocol.swift in Sources */,
 				9679E9EF2817FFB4003C6351 /* XWHCalendarDayCTCell.swift in Sources */,
 				969310532824C68D00133626 /* XWHMentalStressRangeCTCell.swift in Sources */,
+				9680D81E2851CF3A00FA6F9C /* XWHSRLSportRecordTBCell.swift in Sources */,
 				9672B25E27EEA48900DC80D6 /* XWHUser.swift in Sources */,
 				96C67AFC2804742D001ACA81 /* XWHDataBloodOxygenSetManager.swift in Sources */,
 				9651EE2E27EC5BD30043FE52 /* UMShareSwiftInterface.swift in Sources */,

@@ -127,8 +127,6 @@ class XWHHealthyBaseCTVC: XWHCollectionViewBaseVC {
     }
     
     override func registerViews() {
-        collectionView.register(cellWithClass: UICollectionViewCell.self)
-        
         collectionView.register(supplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withClass: XWHHealthyCTReusableView.self)
     }
     
