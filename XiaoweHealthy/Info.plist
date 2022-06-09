@@ -111,6 +111,8 @@
 	<string>需要访问您的健康数据以保存此应用构建的锻炼</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>需要访问您的健康数据以保存此应用构建的锻炼</string>
+	<key>NSMotionUsageDescription</key>
+	<string>需要运动相关的跟踪功能来记录锻炼过程中的步数等数据</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
