@@ -28,27 +28,31 @@ class XWHUIDisplayHandler {
             totalNumber = 100
         }
         
-        var positiveRate: Double = 0
-        var normalRate: Double = 0
-        var negativeRate: Double = 0
+        var positiveRate: Int = 0
+        var normalRate: Int = 0
+        var negativeRate: Int = 0
         
         if positiveNumber == 0, normalNumber == 0, negativeNumber == 0 {
             
         } else {
-            positiveRate = positiveNumber / totalNumber * 100
-            normalRate = normalNumber / totalNumber * 100
-            negativeRate = negativeNumber / totalNumber * 100
+            positiveRate = (positiveNumber / totalNumber * 100).int
+            normalRate = (normalNumber / totalNumber * 100).int
+            negativeRate = (negativeNumber / totalNumber * 100).int
             
-            if positiveRate == 0 {
-                normalRate = (100 - negativeRate.int).double
-            } else if negativeRate == 0 {
-                normalRate = (100 - positiveRate.int).double
-            } else if normalRate == 0 {
-                positiveRate = (100 - negativeRate.int).double
+            if positiveRate > 0, normalRate > 0, negativeRate > 0 {
+                normalRate = 100 - positiveRate - negativeRate
+            } else {
+                if positiveRate == 0 {
+                    normalRate = 100 - negativeRate
+                } else if negativeRate == 0 {
+                    normalRate = 100 - positiveRate
+                } else if normalRate == 0 {
+                    positiveRate = 100 - negativeRate
+                }
             }
         }
         
-        return [positiveRate, normalRate, negativeRate]
+        return [positiveRate.double, normalRate.double, negativeRate.double]
     }
     
     /// 获取情绪区间颜色
