@@ -28,9 +28,25 @@ class XWHUIDisplayHandler {
             totalNumber = 100
         }
         
-        let positiveRate = positiveNumber / totalNumber * 100
-        let normalRate = normalNumber / totalNumber * 100
-        let negativeRate = negativeNumber / totalNumber * 100
+        var positiveRate: Double = 0
+        var normalRate: Double = 0
+        var negativeRate: Double = 0
+        
+        if positiveNumber == 0, normalNumber == 0, negativeNumber == 0 {
+            
+        } else {
+            positiveRate = positiveNumber / totalNumber * 100
+            normalRate = normalNumber / totalNumber * 100
+            negativeRate = negativeNumber / totalNumber * 100
+            
+            if positiveRate == 0 {
+                normalRate = (100 - negativeRate.int).double
+            } else if negativeRate == 0 {
+                normalRate = (100 - positiveRate.int).double
+            } else if normalRate == 0 {
+                positiveRate = (100 - negativeRate.int).double
+            }
+        }
         
         return [positiveRate, normalRate, negativeRate]
     }

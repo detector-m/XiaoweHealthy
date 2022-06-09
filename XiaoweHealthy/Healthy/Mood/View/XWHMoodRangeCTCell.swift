@@ -75,11 +75,14 @@ class XWHMoodRangeCTCell: XWHHealthyCommonCTCell {
             cRate = rate.string
         }
         
-        if cRate.isEmpty {
-            cRate = "--"
-        } else {
-            cRate += "%"
-        }
+//        if cRate.isEmpty {
+//            cRate = "--"
+//        } else {
+//            cRate += "%"
+//        }
+        
+        cRate = rate.string
+        cRate += "%"
         
         imageView.layer.backgroundColor = cColor.cgColor
         textLb.text = XWHUIDisplayHandler.getMoodDurationTitles()[index]
