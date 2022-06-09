@@ -164,6 +164,9 @@
 		967F867D283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F867C283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift */; };
 		967F867F283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F867E283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift */; };
 		9680104528477435004C45C9 /* BluetoothStateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9680104428477435004C45C9 /* BluetoothStateHandler.swift */; };
+		9680D8182851A23E00FA6F9C /* XWHSportRecordListTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9680D8172851A23E00FA6F9C /* XWHSportRecordListTBVC.swift */; };
+		9680D81A2851A3D100FA6F9C /* XWHSportText.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9680D8192851A3D100FA6F9C /* XWHSportText.strings */; };
+		9680D81C2851A4FB00FA6F9C /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9680D81B2851A4FB00FA6F9C /* HealthKit.framework */; };
 		968489FD2840F52100821E24 /* XWHMoodRangeCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */; };
 		96848A012841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96848A002841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift */; };
 		968CB8A327F3FB8800E549AC /* UITableViewRoundedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */; };
@@ -562,6 +565,9 @@
 		967F867C283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceConnectBindHelpTBVC.swift; sourceTree = "<group>"; };
 		967F867E283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceUseGuideTBVC.swift; sourceTree = "<group>"; };
 		9680104428477435004C45C9 /* BluetoothStateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothStateHandler.swift; sourceTree = "<group>"; };
+		9680D8172851A23E00FA6F9C /* XWHSportRecordListTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportRecordListTBVC.swift; sourceTree = "<group>"; };
+		9680D8192851A3D100FA6F9C /* XWHSportText.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = XWHSportText.strings; sourceTree = "<group>"; };
+		9680D81B2851A4FB00FA6F9C /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMoodRangeCTCell.swift; sourceTree = "<group>"; };
 		96848A002841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyMainCommonCTCell.swift; sourceTree = "<group>"; };
 		968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewRoundedProtocol.swift; sourceTree = "<group>"; };
@@ -777,6 +783,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				967952942830126F00441D35 /* Charts.framework in Frameworks */,
+				9680D81C2851A4FB00FA6F9C /* HealthKit.framework in Frameworks */,
 				8CBF5AE85A9444D903AE1BC2 /* Pods_XiaoweHealthy.framework in Frameworks */,
 				9661517627E46BF5006781C1 /* UTESmartBandApi.framework in Frameworks */,
 			);
@@ -1378,6 +1385,7 @@
 			isa = PBXGroup;
 			children = (
 				96E23C2727E1A53F009EF208 /* XWHSportMainVC.swift */,
+				9680D8172851A23E00FA6F9C /* XWHSportRecordListTBVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -1634,6 +1642,13 @@
 				9680104428477435004C45C9 /* BluetoothStateHandler.swift */,
 			);
 			path = BluetoothStateHandler;
+			sourceTree = "<group>";
+		};
+		9680D8162851A1D600FA6F9C /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		968489FE2841BF1800821E24 /* VC */ = {
@@ -2421,6 +2436,7 @@
 				96F1D67D280945780067DBFD /* XWHDialText.strings */,
 				969E7122280BE3D800BDA401 /* XWHContactText.strings */,
 				969B8825280FEA5D009952E7 /* XWHHealthyText.strings */,
+				9680D8192851A3D100FA6F9C /* XWHSportText.strings */,
 			);
 			path = LocalString;
 			sourceTree = "<group>";
@@ -2448,6 +2464,7 @@
 		96E23C2227E1A322009EF208 /* Sport */ = {
 			isa = PBXGroup;
 			children = (
+				9680D8162851A1D600FA6F9C /* View */,
 				96617A9927E2BFE300139B03 /* VC */,
 			);
 			path = Sport;
@@ -2624,6 +2641,7 @@
 		F13397529419217181216C7B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9680D81B2851A4FB00FA6F9C /* HealthKit.framework */,
 				967952932830126F00441D35 /* Charts.framework */,
 				DF4A353C734F593A2D13B536 /* Pods_XiaoweHealthy.framework */,
 				F259963E5DB67A1A5D3C45EC /* Pods_XiaoweHealthy_XiaoweHealthyUITests.framework */,
@@ -2766,6 +2784,7 @@
 				96617A6427E1D1B300139B03 /* XWHLaunchImg@2x.png in Resources */,
 				969E7123280BE3D800BDA401 /* XWHContactText.strings in Resources */,
 				96FC408827EDB9B700D64B64 /* HarmonyOS_Sans_SC_Bold.ttf in Resources */,
+				9680D81A2851A3D100FA6F9C /* XWHSportText.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3028,6 +3047,7 @@
 				96DC429A27FD34C7009BF300 /* RLBLEPermissions.swift in Sources */,
 				96F1D67C28091A8E0067DBFD /* XWHDialVC.swift in Sources */,
 				96C67AF228043362001ACA81 /* XWHDataHeartSetManager.swift in Sources */,
+				9680D8182851A23E00FA6F9C /* XWHSportRecordListTBVC.swift in Sources */,
 				969310512824C54B00133626 /* XWHMentalStressGradientCTCell.swift in Sources */,
 				9679E9E62817BC79003C6351 /* XWHCalendarDayView.swift in Sources */,
 				969B88482812A91C009952E7 /* XWHDate.swift in Sources */,

@@ -107,6 +107,10 @@
 	<string>需要定位权限以测试校准。</string>
 	<key>NSContactsUsageDescription</key>
 	<string>需要联系人权限以获取联系人。</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>需要访问您的健康数据以保存此应用构建的锻炼</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>需要访问您的健康数据以保存此应用构建的锻炼</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
