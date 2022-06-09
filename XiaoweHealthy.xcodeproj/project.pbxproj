@@ -168,6 +168,8 @@
 		9680D81A2851A3D100FA6F9C /* XWHSportText.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9680D8192851A3D100FA6F9C /* XWHSportText.strings */; };
 		9680D81C2851A4FB00FA6F9C /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9680D81B2851A4FB00FA6F9C /* HealthKit.framework */; };
 		9680D81E2851CF3A00FA6F9C /* XWHSRLSportRecordTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9680D81D2851CF3A00FA6F9C /* XWHSRLSportRecordTBCell.swift */; };
+		9680D8202851EB3600FA6F9C /* XWHSportRecordDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9680D81F2851EB3600FA6F9C /* XWHSportRecordDetailVC.swift */; };
+		9680D8232851EDDA00FA6F9C /* XWHSportRecordListDeploy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9680D8222851EDDA00FA6F9C /* XWHSportRecordListDeploy.swift */; };
 		968489FD2840F52100821E24 /* XWHMoodRangeCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */; };
 		96848A012841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96848A002841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift */; };
 		968CB8A327F3FB8800E549AC /* UITableViewRoundedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */; };
@@ -570,6 +572,8 @@
 		9680D8192851A3D100FA6F9C /* XWHSportText.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = XWHSportText.strings; sourceTree = "<group>"; };
 		9680D81B2851A4FB00FA6F9C /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		9680D81D2851CF3A00FA6F9C /* XWHSRLSportRecordTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSRLSportRecordTBCell.swift; sourceTree = "<group>"; };
+		9680D81F2851EB3600FA6F9C /* XWHSportRecordDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportRecordDetailVC.swift; sourceTree = "<group>"; };
+		9680D8222851EDDA00FA6F9C /* XWHSportRecordListDeploy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportRecordListDeploy.swift; sourceTree = "<group>"; };
 		968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMoodRangeCTCell.swift; sourceTree = "<group>"; };
 		96848A002841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyMainCommonCTCell.swift; sourceTree = "<group>"; };
 		968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewRoundedProtocol.swift; sourceTree = "<group>"; };
@@ -1388,6 +1392,7 @@
 			children = (
 				96E23C2727E1A53F009EF208 /* XWHSportMainVC.swift */,
 				9680D8172851A23E00FA6F9C /* XWHSportRecordListTBVC.swift */,
+				9680D81F2851EB3600FA6F9C /* XWHSportRecordDetailVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -1652,6 +1657,14 @@
 				9680D81D2851CF3A00FA6F9C /* XWHSRLSportRecordTBCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		9680D8212851ED7F00FA6F9C /* Deploy */ = {
+			isa = PBXGroup;
+			children = (
+				9680D8222851EDDA00FA6F9C /* XWHSportRecordListDeploy.swift */,
+			);
+			path = Deploy;
 			sourceTree = "<group>";
 		};
 		968489FE2841BF1800821E24 /* VC */ = {
@@ -2467,6 +2480,7 @@
 		96E23C2227E1A322009EF208 /* Sport */ = {
 			isa = PBXGroup;
 			children = (
+				9680D8212851ED7F00FA6F9C /* Deploy */,
 				9680D8162851A1D600FA6F9C /* View */,
 				96617A9927E2BFE300139B03 /* VC */,
 			);
@@ -3118,6 +3132,7 @@
 				969072452814EDBA0056CE4F /* XWHHealthyAllDataCommonTBCell.swift in Sources */,
 				96BFC90828377BF90080DCFC /* XWHMoodDataDetailTBVC.swift in Sources */,
 				96FC408627EDB78F00D64B64 /* XWHDeviceBaseVC.swift in Sources */,
+				9680D8202851EB3600FA6F9C /* XWHSportRecordDetailVC.swift in Sources */,
 				96907247281501DE0056CE4F /* XWHHealthyDataDetailCommonTBCell.swift in Sources */,
 				96AD2857280139670092B843 /* AppDatabase.swift in Sources */,
 				96C67AF8280473AE001ACA81 /* XWHRaiseWristSetModel.swift in Sources */,
@@ -3223,6 +3238,7 @@
 				9679E9F628191337003C6351 /* XWHCalendarWeekCTCell.swift in Sources */,
 				966F53C927F1E8B200411D38 /* XWHBindDeviceVC.swift in Sources */,
 				96617A7227E1E12E00139B03 /* XWHExported.swift in Sources */,
+				9680D8232851EDDA00FA6F9C /* XWHSportRecordListDeploy.swift in Sources */,
 				9693106E28253B4A00133626 /* XWHSleepIntroductionTXVC.swift in Sources */,
 				9618B6EA28339894003D5770 /* XWHBOChartCTCell.swift in Sources */,
 				9661D35A27F5FD970062B2B8 /* XWHDevSetDisturbVC.swift in Sources */,

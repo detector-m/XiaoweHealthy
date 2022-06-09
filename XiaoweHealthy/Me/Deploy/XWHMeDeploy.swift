@@ -11,19 +11,19 @@ import Foundation
 // MARK: - Me item 的类型
 enum XWHMeDeployType: Int {
     
-    // 登录
+    /// 登录
     case login = 0
     
-    // 个人描述
+    /// 个人描述
     case profile
     
-    // 我的数据
+    /// 我的数据
     case data
     
-    // 个人资料
+    /// 个人资料
     case info
 
-    // 设置
+    /// 设置
     case settings
     
 }

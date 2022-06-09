@@ -12,9 +12,14 @@ class XWHSportRecordListTBVC: XWHTableViewBaseVC {
     override var titleText: String {
         return R.string.xwhSportText.运动记录()
     }
+    
+    private var srItems: [XWHSRListDeployItemModel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        srItems = XWHSportRecordListDeploy().loadDeploys(rawData: [])
+        tableView.reloadData()
     }
     
     override func setupNavigationItems() {
@@ -40,7 +45,7 @@ class XWHSportRecordListTBVC: XWHTableViewBaseVC {
     }
     
     override func registerViews() {
-        tableView.register(cellWithClass: XWHSRLSportRecordTBCell.self)
+        tableView.register(cellWithClass: XWHSRLSportRecordTBCell.self)        
     }
 
 }
@@ -49,20 +54,42 @@ class XWHSportRecordListTBVC: XWHTableViewBaseVC {
 @objc extension XWHSportRecordListTBVC {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return srItems.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        let sItem = srItems[section]
+        return sItem.items.count
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let section = indexPath.section
+        let row = indexPath.row
+         
+        let iItem = srItems[section].items[row]
+        
+        if iItem.type == .sportRecordHeader {
+            return 90
+        }
+        
         return 52
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let section = indexPath.section
+        let row = indexPath.row
+         
+        let iItem = srItems[section].items[row]
+        
         let cell = tableView.dequeueReusableCell(withClass: XWHSRLSportRecordTBCell.self, for: indexPath)
-        cell.titleLb.text = "运动1"
+
+        if iItem.type == .sportRecordHeader {
+            cell.titleLb.text = "标题 \(section)-\(row)"
+        }
+        
+        if iItem.type == .sportRecord {
+            cell.titleLb.text = "运动 \(section)-\(row)"
+        }
 
         return cell
     }
@@ -90,12 +117,24 @@ class XWHSportRecordListTBVC: XWHTableViewBaseVC {
 //    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        gotoSportRecordDetail()
     }
     
     // MARK: - UIScrollViewDeletate
 //    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        handleScrollLargeTitle(in: scrollView)
 //    }
+    
+}
+
+
+// MARK: - UI Jump
+extension XWHSportRecordListTBVC {
+    
+    /// 运动详情
+    private func gotoSportRecordDetail() {
+        let vc = XWHSportRecordDetailVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
 }
