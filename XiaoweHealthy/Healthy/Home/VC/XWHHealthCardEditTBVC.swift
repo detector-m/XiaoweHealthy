@@ -305,6 +305,9 @@ class XWHHealthCardEditTBVC: XWHTableViewBaseVC {
     
     // 实现委托(delegate)方法以实际重新排列基础数据源。
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+//        let cell = tableView.cellForRow(at: sourceIndexPath)
+//        cell?.transform = CGAffineTransform(scaleX: 1, y: 1)
+        
         if sourceIndexPath.section != 0 || destinationIndexPath.section != 0 {
             return
         }
@@ -340,11 +343,18 @@ extension XWHHealthCardEditTBVC: UITableViewDragDelegate & UITableViewDropDelega
     }
     
     func tableView(_ tableView: UITableView, dragPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
+//        let cell = tableView.cellForRow(at: indexPath)
+//        cell?.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+
         let preView = UIDragPreviewParameters()
-        
         preView.backgroundColor = .clear
+        
         return preView
     }
+    
+//    func tableView(_ tableView: UITableView, dragSessionWillBegin session: UIDragSession) {
+//
+//    }
     
 //    func tableView(_ tableView: UITableView, dragSessionAllowsMoveOperation session: UIDragSession) -> Bool {
 //        return true
@@ -356,7 +366,10 @@ extension XWHHealthCardEditTBVC: UITableViewDragDelegate & UITableViewDropDelega
 
     // MARK: - UITableViewDropDelegate
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
-        
+//        if let indexPath = coordinator.items.first?.sourceIndexPath {
+//            let cell = tableView.cellForRow(at: indexPath)
+//            cell?.transform = CGAffineTransform(scaleX: 1, y: 1)
+//        }
     }
     
     func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
