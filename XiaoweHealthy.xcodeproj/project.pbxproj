@@ -362,6 +362,12 @@
 		96F3588B27FE8C9A00783614 /* XWHBLEDispatchBaseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3588A27FE8C9A00783614 /* XWHBLEDispatchBaseHandler.swift */; };
 		96F3588E27FE92C900783614 /* XWHBLEUTEDispatchHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3588D27FE92C900783614 /* XWHBLEUTEDispatchHandler.swift */; };
 		96F3589027FE940300783614 /* XWHDevWatchDispatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3588F27FE940300783614 /* XWHDevWatchDispatchManager.swift */; };
+		96F788D62852EFD200877898 /* XWHHealthCardEditTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F788D52852EFD200877898 /* XWHHealthCardEditTBVC.swift */; };
+		96F788D82853114200877898 /* XWHHealthCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F788D72853114200877898 /* XWHHealthCardModel.swift */; };
+		96F788DA2853163B00877898 /* XWHHealthCardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F788D92853163B00877898 /* XWHHealthCardManager.swift */; };
+		96F788DC28531F1B00877898 /* XWHHealthCardEditTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F788DB28531F1B00877898 /* XWHHealthCardEditTBCell.swift */; };
+		96F788DE2853250200877898 /* XWHHealthCardEditTBHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F788DD2853250200877898 /* XWHHealthCardEditTBHeader.swift */; };
+		96F788E028533DF000877898 /* XWHHealthCardEditEmptyTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F788DF28533DF000877898 /* XWHHealthCardEditEmptyTBCell.swift */; };
 		96FC406B27ED738100D64B64 /* XWHUIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC406A27ED738100D64B64 /* XWHUIViewControllerExtension.swift */; };
 		96FC407727EDA16800D64B64 /* HarmonyOS_Sans_SC_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96FC407027EDA16800D64B64 /* HarmonyOS_Sans_SC_Regular.ttf */; };
 		96FC407D27EDA16800D64B64 /* HarmonyOS_Sans_SC_Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96FC407627EDA16800D64B64 /* HarmonyOS_Sans_SC_Medium.ttf */; };
@@ -767,6 +773,12 @@
 		96F3588A27FE8C9A00783614 /* XWHBLEDispatchBaseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBLEDispatchBaseHandler.swift; sourceTree = "<group>"; };
 		96F3588D27FE92C900783614 /* XWHBLEUTEDispatchHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBLEUTEDispatchHandler.swift; sourceTree = "<group>"; };
 		96F3588F27FE940300783614 /* XWHDevWatchDispatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevWatchDispatchManager.swift; sourceTree = "<group>"; };
+		96F788D52852EFD200877898 /* XWHHealthCardEditTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthCardEditTBVC.swift; sourceTree = "<group>"; };
+		96F788D72853114200877898 /* XWHHealthCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthCardModel.swift; sourceTree = "<group>"; };
+		96F788D92853163B00877898 /* XWHHealthCardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthCardManager.swift; sourceTree = "<group>"; };
+		96F788DB28531F1B00877898 /* XWHHealthCardEditTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthCardEditTBCell.swift; sourceTree = "<group>"; };
+		96F788DD2853250200877898 /* XWHHealthCardEditTBHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthCardEditTBHeader.swift; sourceTree = "<group>"; };
+		96F788DF28533DF000877898 /* XWHHealthCardEditEmptyTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthCardEditEmptyTBCell.swift; sourceTree = "<group>"; };
 		96FC406A27ED738100D64B64 /* XWHUIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUIViewControllerExtension.swift; sourceTree = "<group>"; };
 		96FC407027EDA16800D64B64 /* HarmonyOS_Sans_SC_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HarmonyOS_Sans_SC_Regular.ttf; sourceTree = "<group>"; };
 		96FC407627EDA16800D64B64 /* HarmonyOS_Sans_SC_Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HarmonyOS_Sans_SC_Medium.ttf; sourceTree = "<group>"; };
@@ -1487,6 +1499,7 @@
 		967790B5280FAF2800C78327 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				96F788D42852EDEE00877898 /* HealthCardManager */,
 				968489FF2841BF2300821E24 /* View */,
 				968489FE2841BF1800821E24 /* VC */,
 			);
@@ -1671,6 +1684,7 @@
 			isa = PBXGroup;
 			children = (
 				96E23C2927E1A55E009EF208 /* XWHHealthyMainVC.swift */,
+				96F788D52852EFD200877898 /* XWHHealthCardEditTBVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -1679,6 +1693,9 @@
 			isa = PBXGroup;
 			children = (
 				96848A002841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift */,
+				96F788DB28531F1B00877898 /* XWHHealthCardEditTBCell.swift */,
+				96F788DD2853250200877898 /* XWHHealthCardEditTBHeader.swift */,
+				96F788DF28533DF000877898 /* XWHHealthCardEditEmptyTBCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2628,6 +2645,15 @@
 			path = UTEAchieve;
 			sourceTree = "<group>";
 		};
+		96F788D42852EDEE00877898 /* HealthCardManager */ = {
+			isa = PBXGroup;
+			children = (
+				96F788D72853114200877898 /* XWHHealthCardModel.swift */,
+				96F788D92853163B00877898 /* XWHHealthCardManager.swift */,
+			);
+			path = HealthCardManager;
+			sourceTree = "<group>";
+		};
 		96FC406C27ED91EC00D64B64 /* Font */ = {
 			isa = PBXGroup;
 			children = (
@@ -3089,6 +3115,7 @@
 				9651EDF227E8542B0043FE52 /* XWHProgressHUD.swift in Sources */,
 				96F1D6712807FB4C0067DBFD /* XWHWeatherInfoModel.swift in Sources */,
 				96FC406B27ED738100D64B64 /* XWHUIViewControllerExtension.swift in Sources */,
+				96F788DC28531F1B00877898 /* XWHHealthCardEditTBCell.swift in Sources */,
 				968CB8A327F3FB8800E549AC /* UITableViewRoundedProtocol.swift in Sources */,
 				96C67AF628047278001ACA81 /* XWHBloodOxygenSetModel.swift in Sources */,
 				9679E9E42817A09B003C6351 /* XWHCalendarYearCTCell.swift in Sources */,
@@ -3102,6 +3129,7 @@
 				9690725328152D990056CE4F /* XWHHealthyDataDetailTBCell.swift in Sources */,
 				96A10CBD2829FA9300C1E18F /* XWHChartUIChartItemModel.swift in Sources */,
 				96BFC90428377AF00080DCFC /* XWHMoodAllDataTBVC.swift in Sources */,
+				96F788DA2853163B00877898 /* XWHHealthCardManager.swift in Sources */,
 				965DADEE284DDA1700BB4ED3 /* XWHDevDataInteractionProtocol.swift in Sources */,
 				9679E9EF2817FFB4003C6351 /* XWHCalendarDayCTCell.swift in Sources */,
 				969310532824C68D00133626 /* XWHMentalStressRangeCTCell.swift in Sources */,
@@ -3193,9 +3221,11 @@
 				96BFC900283775420080DCFC /* XWHMoodIntroductionTXVC.swift in Sources */,
 				96907255281530820056CE4F /* XWHBODataDetailTBVC.swift in Sources */,
 				9653E49A27F5978800EE55FF /* XWHTBHeaderFooterBaseView.swift in Sources */,
+				96F788D62852EFD200877898 /* XWHHealthCardEditTBVC.swift in Sources */,
 				967823AD27F2C9DC004F66FB /* XWHUIFontExtension.swift in Sources */,
 				969F01BA27F693B100CA4DA4 /* RLPopupBaseView.swift in Sources */,
 				96A10CC2282A69A500C1E18F /* XWHSleepDayChartCTCell.swift in Sources */,
+				96F788E028533DF000877898 /* XWHHealthCardEditEmptyTBCell.swift in Sources */,
 				96617A6E27E1E00E00139B03 /* XWHBaseVC.swift in Sources */,
 				96C67ADC2803D27A001ACA81 /* XWHDataBaseModel.swift in Sources */,
 				96E79EB3284EFB830063647C /* XWHPersonInfoTBVC.swift in Sources */,
@@ -3232,6 +3262,7 @@
 				96617A9727E2BFB600139B03 /* XWHOtherLoginView.swift in Sources */,
 				96617AB127E3496000139B03 /* XWHGenderSelectVC.swift in Sources */,
 				9693107428253CF100133626 /* XWHSleepDataDetailTBVC.swift in Sources */,
+				96F788D82853114200877898 /* XWHHealthCardModel.swift in Sources */,
 				96E23C2E27E1A586009EF208 /* XWHMeMainVC.swift in Sources */,
 				96C67AE728041732001ACA81 /* XWHDisturbSetModel.swift in Sources */,
 				968CB8B027F4661700E549AC /* XWHDeviceMainFooter.swift in Sources */,
@@ -3253,6 +3284,7 @@
 				969B882828100F6C009952E7 /* XWHCommonBaseCTCell.swift in Sources */,
 				9690723B2814E6B00056CE4F /* XWHExpandBaseTBCell.swift in Sources */,
 				96BFC902283777430080DCFC /* XWHMoodChartCTCell.swift in Sources */,
+				96F788DE2853250200877898 /* XWHHealthCardEditTBHeader.swift in Sources */,
 				96DC42A127FD7382009BF300 /* XWHCache.swift in Sources */,
 				9679E9D82816AA03003C6351 /* XWHCalendarWeekIndicatorView.swift in Sources */,
 				96F1D68428094A5E0067DBFD /* XWHDialMarketVC.swift in Sources */,

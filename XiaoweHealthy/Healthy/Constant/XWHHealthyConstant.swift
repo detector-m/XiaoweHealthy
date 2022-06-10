@@ -23,6 +23,8 @@ enum XWHHealthyType: String {
     
     case sleep = "睡眠"
     
+    case editCard = "编辑卡片"
+    
     // Test
     case test = "测试"
     

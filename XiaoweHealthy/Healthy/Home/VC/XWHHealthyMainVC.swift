@@ -14,7 +14,7 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
         66
     }
     
-    private lazy var testItems: [XWHHealthyType] = [.heart, .bloodOxygen, .mentalStress, .mood, .sleep, .login, .test]
+    private lazy var testItems: [XWHHealthyType] = [.heart, .bloodOxygen, .mentalStress, .mood, .sleep, .editCard, .login, .test]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -143,6 +143,9 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
         case .sleep:
             gotoSleep()
             
+        case .editCard:
+            gotoEidtCard()
+            
         case .login:
             gotoTestLogin()
             
@@ -170,12 +173,12 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
 // MARK: - Jump UI
 extension XWHHealthyMainVC {
     
-    // 去登录
+    /// 去登录
     private func gotoLogin() {
         XWHLogin.present(at: self)
     }
     
-    // 跳转到心率
+    /// 跳转到心率
     private func gotoHeart() {
         if !XWHUser.isLogined {
             gotoLogin()
@@ -187,7 +190,7 @@ extension XWHHealthyMainVC {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    // 跳转到血氧
+    /// 跳转到血氧
     private func gotoBloodOxygen() {
         if !XWHUser.isLogined {
             gotoLogin()
@@ -199,7 +202,7 @@ extension XWHHealthyMainVC {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    // 跳转到压力
+    /// 跳转到压力
     private func gotoMentalStress() {
         if !XWHUser.isLogined {
             gotoLogin()
@@ -211,7 +214,7 @@ extension XWHHealthyMainVC {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    // 跳转到情绪
+    /// 跳转到情绪
     private func gotoMood() {
         if !XWHUser.isLogined {
             gotoLogin()
@@ -223,7 +226,7 @@ extension XWHHealthyMainVC {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    // 跳转到睡眠
+    /// 跳转到睡眠
     private func gotoSleep() {
         if !XWHUser.isLogined {
             gotoLogin()
@@ -232,6 +235,12 @@ extension XWHHealthyMainVC {
         }
         
         let vc = XWHHealthySleepCTVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    /// 编辑健康卡片
+    private func gotoEidtCard() {
+        let vc = XWHHealthCardEditTBVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     
