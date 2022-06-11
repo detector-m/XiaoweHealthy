@@ -186,14 +186,19 @@ class XWHHealthCardEditTBVC: XWHTableViewBaseVC {
             cell.subIconView.image = R.image.cardShowIcon()
         }
         
+        cell.subIconView.isHidden = false
         switch iCard.cardType {
         case .heart:
             cell.iconView.image = R.image.heartIcon()
             cell.titleLb.text = R.string.xwhHealthyText.心率()
             
+            cell.subIconView.isHidden = true
+            
         case .sleep:
             cell.iconView.image = R.image.sleepIcon()
             cell.titleLb.text = R.string.xwhHealthyText.睡眠()
+            
+            cell.subIconView.isHidden = true
             
         case .bloodOxygen:
 //            cell.iconView.image = R.image.sleepIcon()
@@ -201,9 +206,13 @@ class XWHHealthCardEditTBVC: XWHTableViewBaseVC {
             cell.iconView.image = R.image.deviceOxygen()
             cell.titleLb.text = R.string.xwhHealthyText.血氧饱和度()
             
+            cell.subIconView.isHidden = true
+            
         case .mentalStress:
             cell.iconView.image = R.image.stressIcon()
             cell.titleLb.text = R.string.xwhHealthyText.压力()
+            
+            cell.subIconView.isHidden = true
             
         case .mood:
             cell.iconView.image = R.image.moodIcon()
@@ -262,7 +271,13 @@ class XWHHealthCardEditTBVC: XWHTableViewBaseVC {
             if showCards.isEmpty {
                 return
             }
+            
             let iCard = showCards[indexPath.row]
+            
+            if iCard.cardType == .heart || iCard.cardType == .sleep || iCard.cardType == .bloodOxygen || iCard.cardType == .mentalStress {
+                return
+            }
+            
             iCard.isHidden = true
             
             cShowCards.removeFirst(where: { $0 === iCard })
