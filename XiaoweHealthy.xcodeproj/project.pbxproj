@@ -307,6 +307,8 @@
 		96C67AFE2804743D001ACA81 /* XWHDataRaiseWristSetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C67AFD2804743D001ACA81 /* XWHDataRaiseWristSetManager.swift */; };
 		96D0041C27F8328B00E569C7 /* XWHCryptoAES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D0041B27F8328B00E569C7 /* XWHCryptoAES.swift */; };
 		96D68D0328544B9F0027DB46 /* XWHHomeDeploy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D68D0228544B9F0027DB46 /* XWHHomeDeploy.swift */; };
+		96D68D05285475AD0027DB46 /* XWHHealthActivityCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D68D04285475AD0027DB46 /* XWHHealthActivityCTCell.swift */; };
+		96D68D07285489FC0027DB46 /* XWHHomeEditCardCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D68D06285489FC0027DB46 /* XWHHomeEditCardCTCell.swift */; };
 		96DC429A27FD34C7009BF300 /* RLBLEPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DC429927FD34C7009BF300 /* RLBLEPermissions.swift */; };
 		96DC429D27FD42B7009BF300 /* XWHDeviceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DC429C27FD42B7009BF300 /* XWHDeviceApi.swift */; };
 		96DC42A127FD7382009BF300 /* XWHCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DC42A027FD7382009BF300 /* XWHCache.swift */; };
@@ -718,6 +720,8 @@
 		96C67AFD2804743D001ACA81 /* XWHDataRaiseWristSetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataRaiseWristSetManager.swift; sourceTree = "<group>"; };
 		96D0041B27F8328B00E569C7 /* XWHCryptoAES.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCryptoAES.swift; sourceTree = "<group>"; };
 		96D68D0228544B9F0027DB46 /* XWHHomeDeploy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHomeDeploy.swift; sourceTree = "<group>"; };
+		96D68D04285475AD0027DB46 /* XWHHealthActivityCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthActivityCTCell.swift; sourceTree = "<group>"; };
+		96D68D06285489FC0027DB46 /* XWHHomeEditCardCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHomeEditCardCTCell.swift; sourceTree = "<group>"; };
 		96DC429927FD34C7009BF300 /* RLBLEPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLBLEPermissions.swift; sourceTree = "<group>"; };
 		96DC429C27FD42B7009BF300 /* XWHDeviceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceApi.swift; sourceTree = "<group>"; };
 		96DC42A027FD7382009BF300 /* XWHCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCache.swift; sourceTree = "<group>"; };
@@ -1699,6 +1703,8 @@
 				96F788DB28531F1B00877898 /* XWHHealthCardEditTBCell.swift */,
 				96F788DD2853250200877898 /* XWHHealthCardEditTBHeader.swift */,
 				96F788DF28533DF000877898 /* XWHHealthCardEditEmptyTBCell.swift */,
+				96D68D04285475AD0027DB46 /* XWHHealthActivityCTCell.swift */,
+				96D68D06285489FC0027DB46 /* XWHHomeEditCardCTCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3284,6 +3290,8 @@
 				9680D8232851EDDA00FA6F9C /* XWHSportRecordListDeploy.swift in Sources */,
 				9693106E28253B4A00133626 /* XWHSleepIntroductionTXVC.swift in Sources */,
 				9618B6EA28339894003D5770 /* XWHBOChartCTCell.swift in Sources */,
+				96D68D05285475AD0027DB46 /* XWHHealthActivityCTCell.swift in Sources */,
+				96D68D07285489FC0027DB46 /* XWHHomeEditCardCTCell.swift in Sources */,
 				9661D35A27F5FD970062B2B8 /* XWHDevSetDisturbVC.swift in Sources */,
 				96F1D6692806D2010067DBFD /* XWHDataWatchManager.swift in Sources */,
 				9651EDF727E961740043FE52 /* XWHAlert.swift in Sources */,

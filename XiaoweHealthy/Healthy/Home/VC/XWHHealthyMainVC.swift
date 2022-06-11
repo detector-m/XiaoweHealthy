@@ -10,11 +10,27 @@ import UIKit
 /// 运动健康首页
 class XWHHealthyMainVC: XWHCollectionViewBaseVC {
     
+    override var largeTitleWidth: CGFloat {
+        UIScreen.main.bounds.width - 32
+    }
+    
     override var topContentInset: CGFloat {
         66
     }
     
-    private lazy var testItems: [XWHHealthyType] = [.heart, .bloodOxygen, .mentalStress, .mood, .sleep, .editCard, .login, .test]
+    private lazy var gradientLayer: CAGradientLayer = {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = gradientColors.map({ $0.cgColor })
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0, y: 1)
+        gradientLayer.type = .axial
+        return gradientLayer
+    }()
+    
+    private lazy var gradientColors: [UIColor] = [UIColor(hex: 0xD5F9E1)!, UIColor(hex: 0xF8F8F8)!]
+    
+    private lazy var deployItems: [XWHHomeDeployItemModel] = []
+    private lazy var deploy = XWHHomeDeploy()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,13 +69,14 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
     
     override func addSubViews() {
         super.addSubViews()
+        view.backgroundColor = .clear
+
+        gradientLayer.frame = view.bounds
+        view.layer.insertSublayer(gradientLayer, at: 0)
         
-        view.backgroundColor = collectionBgColor
-        
-        // 大标题方式2
         setLargeTitleMode()
         
-        collectionView.backgroundColor = view.backgroundColor
+        collectionView.backgroundColor = .clear
         collectionView.alwaysBounceVertical = true
         largeTitleView.backgroundColor = collectionView.backgroundColor
         
@@ -67,13 +84,20 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
     }
     
     override func relayoutSubViews() {
-        relayoutCommon()
+        collectionView.snp.remakeConstraints { make in
+            make.left.right.equalToSuperview().inset(16)
+            make.top.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        relayoutLargeTitle()
+        relayoutLargeTitleContentView()
     }
     
     override func relayoutLargeTitleContentView() {
         largeTitleView.relayout { ltView in
             ltView.button.snp.remakeConstraints { make in
-                make.right.equalToSuperview().inset(16)
+                make.right.equalToSuperview().inset(12)
                 make.size.equalTo(24)
                 make.centerY.equalTo(ltView.titleLb)
             }
@@ -81,14 +105,19 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
             ltView.titleLb.snp.remakeConstraints { make in
                 make.top.equalToSuperview()
                 make.height.equalTo(40)
-                make.left.equalToSuperview().inset(16)
+                make.left.equalToSuperview().inset(12)
                 make.right.lessThanOrEqualTo(ltView.button.snp.left).offset(-10)
             }
         }
     }
     
     override func registerViews() {
+        collectionView.register(cellWithClass: XWHHealthActivityCTCell.self)
         collectionView.register(cellWithClass: XWHHealthyMainCommonCTCell.self)
+        
+        collectionView.register(cellWithClass: XWHHomeEditCardCTCell.self)
+        
+        collectionView.register(supplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withClass: UICollectionReusableView.self)
     }
     
     func addHeaderRefresh() {
@@ -100,66 +129,162 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
             }
         }
     }
+    
+    // MARK: -
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        loadDatas()
+    }
 
+}
+
+// MARK: - Data
+extension XWHHealthyMainVC {
+    
+    private func loadDatas() {
+        deployItems = deploy.loadDeploys(rawData: [])
+        collectionView.reloadData()
+    }
+    
 }
 
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate
 @objc extension XWHHealthyMainVC {
     
-//    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        return 1
-//    }
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return deployItems.count
+    }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return testItems.count
+        let iDeployItem = deployItems[section]
+        if iDeployItem.type == .health {
+            return iDeployItem.items.count
+        } else {
+            return 1
+        }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 12
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 12
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.width, height: 52)
+        let iDeployItem = deployItems[indexPath.section]
+        if iDeployItem.type == .activity {
+            return CGSize(width: collectionView.width, height: 205)
+        }
+        
+        if iDeployItem.type == .health {
+            let iWidth = (collectionView.width - 12) / 2
+            return CGSize(width: iWidth.int, height: 198)
+        }
+        
+        if iDeployItem.type == .editCard {
+            return CGSize(width: collectionView.width, height: 48)
+        }
+
+        return CGSize(width: collectionView.width, height: 74)
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let section = indexPath.section
+        let row = indexPath.item
+        
+        let iDeployItem = deployItems[section]
+        
+        if iDeployItem.type == .activity {
+            let cell = collectionView.dequeueReusableCell(withClass: XWHHealthActivityCTCell.self, for: indexPath)
+            cell.textLb.text = iDeployItem.type.name
+            
+            return cell
+        }
+        
+        if iDeployItem.type == .health {
+            let iSubDeployItem = iDeployItem.items[row]
+
+            let cell = collectionView.dequeueReusableCell(withClass: XWHHealthyMainCommonCTCell.self, for: indexPath)
+            cell.textLb.text = iSubDeployItem.subType.rawValue
+            
+            return cell
+        }
+        
+        if iDeployItem.type == .editCard {
+            let cell = collectionView.dequeueReusableCell(withClass: XWHHomeEditCardCTCell.self, for: indexPath)
+            return cell
+        }
+        
+//        if iDeployItem.type == .login, iDeployItem.type == .bind {  }
+        
+        // iDeployItem.type == .login, iDeployItem.type == .bind
         let cell = collectionView.dequeueReusableCell(withClass: XWHHealthyMainCommonCTCell.self, for: indexPath)
-        cell.textLb.text = testItems[indexPath.item].rawValue
+        
+        if iDeployItem.type == .login {
+            cell.textLb.text = R.string.xwhHealthyText.点击登录()
+            cell.detailLb.text = R.string.xwhHealthyText.体验更多功能和运动健康服务()
+            cell.imageView.image = R.image.homeLoginIcon()?.scaled(toWidth: 18)
+        } else if iDeployItem.type == .bind {
+            cell.textLb.text = R.string.xwhHealthyText.点击绑定设备()
+            cell.detailLb.text = R.string.xwhHealthyText.体验更丰富的设备功能和服务()
+            cell.imageView.image = R.image.tabMe()?.tint(.white, blendMode: .destinationIn).scaled(toWidth: 18)
+        }
         
         return cell
     }
     
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.width, height: 12)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withClass: UICollectionReusableView.self, for: indexPath)
+        return reusableView
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let tItem = testItems[indexPath.item]
-        switch tItem {
-        case .heart:
-            gotoHeart()
+        let section = indexPath.section
+        let row = indexPath.item
+        
+        let iDeployItem = deployItems[section]
+        
+        switch iDeployItem.type {
+        case .activity:
+            break
             
-        case .bloodOxygen:
-            gotoBloodOxygen()
+        case .login:
+            gotoLogin()
             
-        case .mentalStress:
-            gotoMentalStress()
+        case .bind:
+            break
             
-        case .mood:
-            gotoMood()
-            
-        case .sleep:
-            gotoSleep()
+        case .health:
+            let iSubDeployItem = iDeployItem.items[row]
+            switch iSubDeployItem.subType {
+            case .heart:
+                gotoHeart()
+                
+            case .bloodOxygen:
+                gotoBloodOxygen()
+                
+            case .mentalStress:
+                gotoMentalStress()
+                
+            case .mood:
+                gotoMood()
+                
+            case .sleep:
+                gotoSleep()
+                
+            case .none:
+                break
+            }
             
         case .editCard:
             gotoEidtCard()
-            
-        case .login:
-            gotoTestLogin()
-            
-        case .test:
-            gotoTestTest()
-            
-        case .post:
-            gotoTestPost()
-            
-        case .sync:
-            gotoSync()
-            
-        case .none:
-            break
         }
     }
     
@@ -249,14 +374,6 @@ extension XWHHealthyMainVC {
 
 // MARK: - Test
 extension XWHHealthyMainVC {
-    
-    private func gotoTestLogin() {
-        XWHLogin.presentPasswordLogin(at: self)
-        
-//        XWHCryptoAES.test()
-        
-//        testUserProfile()
-    }
     
     private func gotoTestTest() {
         //        XWHLogin.present(at: self)

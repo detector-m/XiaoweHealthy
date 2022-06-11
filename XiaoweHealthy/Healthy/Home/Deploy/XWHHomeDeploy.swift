@@ -51,6 +51,8 @@ enum XWHHomeDeployType {
 struct XWHHomeDeployItemModel {
     
     var type: XWHHomeDeployType
+    var subType: XWHHealthyType = .none
+
     var items: [XWHHomeDeployItemModel] = []
     
     var rawData: Any?
@@ -63,6 +65,46 @@ struct XWHHomeDeployItemModel {
 
 class XWHHomeDeploy {
     
-    
+    /// 获取配置数据
+    func loadDeploys(rawData: [String]) -> [XWHHomeDeployItemModel] {
+        var deploys = [XWHHomeDeployItemModel]()
+        
+        var iItem = XWHHomeDeployItemModel(type: .activity)
+        deploys.append(iItem)
+        
+//        if !XWHUser.isLogined {
+            iItem = XWHHomeDeployItemModel(type: .login)
+            deploys.append(iItem)
+//        }
+        
+//        if ddManager.getCurrentWatch() == nil {
+            iItem = XWHHomeDeployItemModel(type: .bind)
+            deploys.append(iItem)
+//        }
+        
+        let cardMsg = XWHHealthCardManager()
+        let healthCards = cardMsg.loadCards(userId: XWHDataUserManager.getCurrentUser()?.mobile ?? "")
+        if !healthCards.isEmpty {
+            iItem = XWHHomeDeployItemModel(type: .health)
+            
+            var cardItems: [XWHHomeDeployItemModel] = []
+            var iCardItem: XWHHomeDeployItemModel
+            for iHealthCard in healthCards {
+                iCardItem = XWHHomeDeployItemModel(type: .health)
+                iCardItem.subType = iHealthCard.cardType
+                cardItems.append(iCardItem)
+            }
+            
+            iItem.items = cardItems
+            deploys.append(iItem)
+        }
+        
+        if XWHUser.isLogined {
+            iItem = XWHHomeDeployItemModel(type: .editCard)
+            deploys.append(iItem)
+        }
+        
+        return deploys
+    }
     
 }

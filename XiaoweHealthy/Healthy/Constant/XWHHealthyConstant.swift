@@ -23,16 +23,6 @@ enum XWHHealthyType: String {
     
     case sleep = "睡眠"
     
-    case editCard = "编辑卡片"
-    
-    // Test
-    case test = "测试"
-    
-    case post = "上传心率血氧测试数据"
-    case sync = "同步"
-    
-    case login = "登录"
-    
 }
 
 /// 日期分段控件 分段的类型
