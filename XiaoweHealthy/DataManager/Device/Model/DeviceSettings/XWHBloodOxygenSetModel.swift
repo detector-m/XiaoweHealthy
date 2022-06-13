@@ -21,7 +21,7 @@ class XWHBloodOxygenSetModel: XWHDataBaseModel {
     }
     
     /// 总开关
-    var isOn = true
+    var isOn = false
     
     /// 开始结束时间
     var beginTime = "00:00"

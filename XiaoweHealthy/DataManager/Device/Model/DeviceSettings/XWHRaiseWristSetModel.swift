@@ -22,7 +22,7 @@ class XWHRaiseWristSetModel: XWHDataBaseModel {
     }
     
     /// 总开关
-    var isOn = true
+    var isOn = false
     
     /// 抬腕亮屏的时间(默认 5s)
     var duration = 5
