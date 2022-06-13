@@ -365,6 +365,12 @@ extension XWHHealthyMainVC {
     
     /// 编辑健康卡片
     private func gotoEidtCard() {
+        if !XWHUser.isLogined {
+            gotoLogin()
+            
+            return
+        }
+        
         let vc = XWHHealthCardEditTBVC()
         navigationController?.pushViewController(vc, animated: true)
     }

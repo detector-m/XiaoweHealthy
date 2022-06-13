@@ -72,15 +72,15 @@ class XWHHomeDeploy {
         var iItem = XWHHomeDeployItemModel(type: .activity)
         deploys.append(iItem)
         
-//        if !XWHUser.isLogined {
+        if !XWHUser.isLogined {
             iItem = XWHHomeDeployItemModel(type: .login)
             deploys.append(iItem)
-//        }
+        }
         
-//        if ddManager.getCurrentWatch() == nil {
+        if ddManager.getCurrentWatch() == nil {
             iItem = XWHHomeDeployItemModel(type: .bind)
             deploys.append(iItem)
-//        }
+        }
         
         let cardMsg = XWHHealthCardManager()
         let healthCards = cardMsg.loadCards(userId: XWHDataUserManager.getCurrentUser()?.mobile ?? "")
@@ -99,10 +99,10 @@ class XWHHomeDeploy {
             deploys.append(iItem)
         }
         
-        if XWHUser.isLogined {
-            iItem = XWHHomeDeployItemModel(type: .editCard)
-            deploys.append(iItem)
-        }
+//        if XWHUser.isLogined {
+        iItem = XWHHomeDeployItemModel(type: .editCard)
+        deploys.append(iItem)
+//        }
         
         return deploys
     }
