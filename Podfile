@@ -107,6 +107,9 @@ target 'XiaoweHealthy' do
   # 圆形进度
   pod 'KDCircularProgress'
   
+  # 三环
+  pod 'MKRingProgressView'
+  
   # 文件下载管理
   pod 'Tiercel'
   

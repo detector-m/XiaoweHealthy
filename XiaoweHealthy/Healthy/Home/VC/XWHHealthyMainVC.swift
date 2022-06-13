@@ -203,7 +203,6 @@ extension XWHHealthyMainVC {
         
         if iDeployItem.type == .activity {
             let cell = collectionView.dequeueReusableCell(withClass: XWHHealthActivityCTCell.self, for: indexPath)
-            cell.textLb.text = iDeployItem.type.name
             
             return cell
         }
