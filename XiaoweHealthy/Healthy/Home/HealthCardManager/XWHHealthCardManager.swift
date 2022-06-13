@@ -13,6 +13,14 @@ class XWHHealthCardManager {
     
     private static let kHealthCardKeyPrefix = "HealthCard+"
     
+    func loadShowCards(userId: String) -> [XWHHealthCardModel] {
+        let cards = loadCards(userId: userId)
+        
+        let showCares = cards.filter({ !$0.isHidden })
+        
+        return showCares
+    }
+    
     func loadCards(userId: String) -> [XWHHealthCardModel] {
         if userId.isEmpty {
             return loadDefaultCards()

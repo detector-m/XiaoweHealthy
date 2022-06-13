@@ -19,6 +19,8 @@ class XWHHealthCardEditTBVC: XWHTableViewBaseVC {
         R.string.xwhHealthyText.编辑卡片()
     }
     
+    var refreshCallback: (() -> Void)?
+    
     private let cardMsg = XWHHealthCardManager()
     
     private var cards: [XWHHealthCardModel] = []
@@ -299,6 +301,7 @@ class XWHHealthCardEditTBVC: XWHTableViewBaseVC {
 //        cards = cardMsg.loadCards(userId: userId)
         
         tableView.reloadData()
+        refreshCallback?()
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -338,6 +341,8 @@ class XWHHealthCardEditTBVC: XWHTableViewBaseVC {
         cardMsg.saveCards(userId: userId, cards: cards)
         
         tableView.reloadData()
+        
+        refreshCallback?()
         
         objc_sync_exit(self)
     }

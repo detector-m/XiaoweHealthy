@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import Charts
 
 class XWHHomeColumnRangeBarChartCTCell: XWHColumnRangeBarChartBaseCTCell {
     
     lazy var emptyChartView = UIView()
-    lazy var emptyBLb = UILabel()
-    lazy var emptyELb = UILabel()
+    
+    lazy var bLb = UILabel()
+    lazy var eLb = UILabel()
     
     override func addSubViews() {
         super.addSubViews()
@@ -21,8 +23,8 @@ class XWHHomeColumnRangeBarChartCTCell: XWHColumnRangeBarChartBaseCTCell {
         contentView.addSubview(imageView)
         
         contentView.addSubview(emptyChartView)
-        contentView.addSubview(emptyBLb)
-        contentView.addSubview(emptyELb)
+        contentView.addSubview(bLb)
+        contentView.addSubview(eLb)
 
         layer.cornerRadius = 16
         layer.backgroundColor = contentBgColor.cgColor
@@ -40,15 +42,19 @@ class XWHHomeColumnRangeBarChartCTCell: XWHColumnRangeBarChartBaseCTCell {
         
         emptyChartView.layer.cornerRadius = 8
 
-        emptyBLb.font = XWHFont.harmonyOSSans(ofSize: 10, weight: .regular)
-        emptyBLb.textColor = fontDarkColor.withAlphaComponent(0.25)
-        emptyBLb.textAlignment = .left
+        bLb.font = XWHFont.harmonyOSSans(ofSize: 10, weight: .regular)
+        bLb.textColor = fontDarkColor.withAlphaComponent(0.25)
+        bLb.textAlignment = .left
         
-        emptyELb.font = emptyBLb.font
-        emptyELb.textColor = emptyBLb.textColor
-        emptyELb.textAlignment = .right
+        eLb.font = bLb.font
+        eLb.textColor = bLb.textColor
+        eLb.textAlignment = .right
         
-        showEmptyView()
+        bLb.text = "00:00"
+        eLb.text = "24:00"
+        
+//        showEmptyView()
+        hideEmptyView()
     }
     
     override func relayoutSubViews() {
@@ -75,17 +81,24 @@ class XWHHomeColumnRangeBarChartCTCell: XWHColumnRangeBarChartBaseCTCell {
             make.top.equalTo(detailLb.snp.bottom).offset(24)
         }
         
-        emptyBLb.snp.makeConstraints { make in
+        bLb.snp.makeConstraints { make in
             make.left.equalTo(emptyChartView)
             make.right.equalTo(contentView.snp.centerX).offset(-1)
             make.height.equalTo(14)
             make.top.equalTo(emptyChartView.snp.bottom).offset(4)
         }
         
-        emptyELb.snp.makeConstraints { make in
+        eLb.snp.makeConstraints { make in
             make.left.equalTo(contentView.snp.centerX).offset(2)
             make.right.equalTo(emptyChartView)
-            make.height.top.equalTo(emptyBLb)
+            make.height.top.equalTo(bLb)
+        }
+        
+        chartView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(16)
+            make.top.equalTo(detailLb.snp.bottom).offset(24)
+//            make.bottom.equalToSuperview().offset(-20)
+            make.height.equalTo(44)
         }
     }
     
@@ -94,17 +107,131 @@ class XWHHomeColumnRangeBarChartCTCell: XWHColumnRangeBarChartBaseCTCell {
         detailLb.text = R.string.xwhHealthyText.暂无数据()
         
         emptyChartView.isHidden = false
-        emptyBLb.isHidden = false
-        emptyBLb.isHidden = false
-        
-        emptyBLb.text = "00:00"
-        emptyELb.text = "12:00"
+        chartView.isHidden = true
     }
     
     func hideEmptyView() {
         emptyChartView.isHidden = true
-        emptyBLb.isHidden = true
-        emptyBLb.isHidden = true
+        chartView.isHidden = false
+    }
+    
+    func update(healthType: XWHHealthyType) {
+        var rawItems: [XWHChartUIChartItemModel] = []
+
+        let sDate = Date()
+        
+        detailLb.text = sDate.string(withFormat: XWHDate.monthDayFormat)
+        
+        let sEDate = sDate.dayBegin
+        for i in 0 ..< 24 {
+            let item = XWHChartUIChartItemModel()
+            
+            item.lowest = Int(arc4random() % 51) + 40
+            item.highest = item.lowest + Int(arc4random() % 51)
+            
+            let iDate = sEDate.adding(.hour, value: i)
+            item.timeAxis = iDate.string(withFormat: XWHDate.standardTimeAllFormat)
+            
+            rawItems.append(item)
+        }
+        
+        let chartDataModel = XWHHealthyChartDataHandler.getHeartChartDataModel(date: sDate, dateType: .day, rawItems: rawItems)
+        self.chartDataModel = chartDataModel
+        
+        chartView.rightAxis.axisMaximum = chartDataModel.max
+        chartView.rightAxis.axisMinimum = chartDataModel.min
+        chartView.rightAxis.granularity = chartDataModel.granularity
+        
+        chartView.leftAxis.axisMaximum = chartDataModel.max
+        chartView.leftAxis.axisMinimum = chartDataModel.min
+        chartView.leftAxis.granularity = chartDataModel.granularity
+        
+        if healthType == .heart {
+            chartView.data = getHeartChartData(chartDataModel: chartDataModel)
+        } else if healthType == .bloodOxygen {
+            chartView.data = getBOChartData(chartDataModel: chartDataModel)
+        } else {
+            chartView.data = getStressChartData(chartDataModel: chartDataModel)
+        }
+    }
+    
+    
+    private func getHeartChartData(chartDataModel: XWHChartDataBaseModel) -> ColumnRangeBarChartData {
+        let chartDataSet = getChartDataSet(values: chartDataModel.yValues)
+        chartDataSet.colors = [UIColor(hex: 0xEB5763)!]
+        
+        let bgChartDataSet = getBgChartSet(chartDataModel: chartDataModel, color: UIColor(hex: 0xEB5763)!.withAlphaComponent(0.08))
+        let chartData = ColumnRangeBarChartData(dataSets: [bgChartDataSet, chartDataSet])
+        
+        return chartData
+    }
+    
+    private func getBOChartData(chartDataModel: XWHChartDataBaseModel) -> ColumnRangeBarChartData {
+        let chartDataSet = getChartDataSet(values: chartDataModel.yValues)
+        chartDataSet.colors = [UIColor(hex: 0x6CD267)!]
+        chartDataSet.segmentLimits = [90]
+        chartDataSet.segmentColors = [UIColor(hex: 0xF0B36D)!, UIColor(hex: 0x6CD267)!]
+        
+        let bgChartDataSet = getBgChartSet(chartDataModel: chartDataModel, color: UIColor(hex: 0x6CD267)!.withAlphaComponent(0.1))
+
+        let chartData = ColumnRangeBarChartData(dataSets: [bgChartDataSet, chartDataSet])
+        return chartData
+    }
+    
+    private func getStressChartData(chartDataModel: XWHChartDataBaseModel) -> ColumnRangeBarChartData {
+        let chartDataSet = getChartDataSet(values: chartDataModel.yValues)
+        chartDataSet.colors = [UIColor(hex: 0x76D4EA)!]
+        chartDataSet.segmentLimits = [29, 59, 79]
+        chartDataSet.segmentColors = [UIColor(hex: 0x49CE64)!, UIColor(hex: 0x76D4EA)!, UIColor(hex: 0xF0B36D)!, UIColor(hex: 0xED7135)!]
+        
+        let bgChartDataSet = getBgChartSet(chartDataModel: chartDataModel, color: UIColor(hex: 0x76D4EA)!.withAlphaComponent(0.1))
+        
+        let chartData = ColumnRangeBarChartData(dataSets: [bgChartDataSet, chartDataSet])
+        
+        return chartData
+    }
+    
+    private func getBgChartSet(chartDataModel: XWHChartDataBaseModel, color: UIColor) -> ColumnRangeBarChartDataSet {
+        var bgChartDataYValues: [[Double]] = []
+        for _ in 0 ..< chartDataModel.yValues.count {
+            let yValue = [0, chartDataModel.max]
+            bgChartDataYValues.append(yValue)
+        }
+        let bgChartDataSet = getChartDataSet(values: bgChartDataYValues)
+        bgChartDataSet.colors = [color]
+        
+        return bgChartDataSet
+    }
+    
+}
+
+extension XWHHomeColumnRangeBarChartCTCell {
+    
+    override func configChartViewCommon() {
+        super.configChartViewCommon()
+        
+        chartView.drawMarkers = false
+        chartView.isUserInteractionEnabled = false
+        chartView.extraTopOffset = 0
+        chartView.minOffset = 0
+    }
+    
+    override func configXAxis() {
+        super.configXAxis()
+        
+        chartView.xAxis.drawLabelsEnabled = false
+        chartView.xAxis.drawAxisLineEnabled = false
+    }
+    
+    override func configYAxis() {
+        super.configYAxis()
+        
+        chartView.rightAxis.drawGridLinesEnabled = false
+        chartView.rightAxis.drawLabelsEnabled = false
+    }
+    
+    override func configMarkerView() {
+        
     }
     
 }

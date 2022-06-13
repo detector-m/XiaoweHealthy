@@ -36,6 +36,8 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
         super.viewDidLoad()
         
 //        addHeaderRefresh()
+        
+        loadDatas()
     }
     
     override func setupNavigationItems() {
@@ -137,8 +139,6 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
     // MARK: -
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        loadDatas()
     }
 
 }
@@ -236,6 +236,8 @@ extension XWHHealthyMainVC {
                     
                     cell.emptyChartView.layer.backgroundColor = UIColor(hex: 0x76D4EA)?.withAlphaComponent(0.08).cgColor
                 }
+                
+                cell.update(healthType: iSubDeployItem.subType)
                 
                 return cell
             }
@@ -400,6 +402,9 @@ extension XWHHealthyMainVC {
         }
         
         let vc = XWHHealthCardEditTBVC()
+        vc.refreshCallback = { [weak self] in
+            self?.loadDatas()
+        }
         navigationController?.pushViewController(vc, animated: true)
     }
     
