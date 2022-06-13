@@ -7,20 +7,17 @@
 
 import UIKit
 
-class XWHHealthyMainCommonCTCell: XWHBaseCTCell {
+class XWHHealthyMainCommonCTCell: XWHCommonBaseCTCell {
     
     lazy var subImageView = UIImageView()
-    lazy var detailLb = UILabel()
     
     override func addSubViews() {
         super.addSubViews()
         layer.cornerRadius = 16
         layer.backgroundColor = contentBgColor.cgColor
-
-        addImageTextView()
         
-        addSubview(subImageView)
-        addSubview(detailLb)
+        contentView.addSubview(imageView)
+        contentView.addSubview(subImageView)
         
         textLb.textColor = fontDarkColor
         textLb.font = XWHFont.harmonyOSSans(ofSize: 16, weight: .medium)

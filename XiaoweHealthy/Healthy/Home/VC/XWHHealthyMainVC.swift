@@ -112,6 +112,10 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
     }
     
     override func registerViews() {
+        collectionView.register(cellWithClass: XWHHomeMoodCTCell.self)
+        collectionView.register(cellWithClass: XWHHomeSleepCTCell.self)
+        collectionView.register(cellWithClass: XWHHomeColumnRangeBarChartCTCell.self)
+
         collectionView.register(cellWithClass: XWHHealthActivityCTCell.self)
         collectionView.register(cellWithClass: XWHHealthyMainCommonCTCell.self)
         
@@ -206,11 +210,36 @@ extension XWHHealthyMainVC {
         
         if iDeployItem.type == .health {
             let iSubDeployItem = iDeployItem.items[row]
-
-            let cell = collectionView.dequeueReusableCell(withClass: XWHHealthyMainCommonCTCell.self, for: indexPath)
-            cell.textLb.text = iSubDeployItem.subType.rawValue
-            
-            return cell
+            if iSubDeployItem.subType == .sleep {
+                let cell = collectionView.dequeueReusableCell(withClass: XWHHomeSleepCTCell.self, for: indexPath)
+                cell.textLb.text = iSubDeployItem.subType.rawValue
+                
+                return cell
+            } else if iSubDeployItem.subType == .mood {
+                let cell = collectionView.dequeueReusableCell(withClass: XWHHomeMoodCTCell.self, for: indexPath)
+                cell.textLb.text = iSubDeployItem.subType.rawValue
+                
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withClass: XWHHomeColumnRangeBarChartCTCell.self, for: indexPath)
+                cell.textLb.text = iSubDeployItem.subType.rawValue
+                
+                if iSubDeployItem.subType == .heart {
+                    cell.imageView.image = R.image.heartIcon()
+                    cell.emptyChartView.layer.backgroundColor = UIColor(hex: 0xEB5763)?.withAlphaComponent(0.08).cgColor
+                } else if iSubDeployItem.subType == .bloodOxygen {
+                    cell.imageView.image = R.image.deviceOxygen()
+                    cell.imageView.layer.backgroundColor = UIColor(hex: 0x6CD267)!.cgColor
+                    
+                    cell.emptyChartView.layer.backgroundColor = UIColor(hex: 0x6CD267)?.withAlphaComponent(0.08).cgColor
+                } else {
+                    cell.imageView.image = R.image.stressIcon()
+                    
+                    cell.emptyChartView.layer.backgroundColor = UIColor(hex: 0x76D4EA)?.withAlphaComponent(0.08).cgColor
+                }
+                
+                return cell
+            }
         }
         
         if iDeployItem.type == .editCard {

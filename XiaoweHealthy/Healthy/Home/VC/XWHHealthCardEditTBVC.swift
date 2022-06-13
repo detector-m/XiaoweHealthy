@@ -201,7 +201,6 @@ class XWHHealthCardEditTBVC: XWHTableViewBaseVC {
             cell.subIconView.isHidden = true
             
         case .bloodOxygen:
-//            cell.iconView.image = R.image.sleepIcon()
             cell.iconView.backgroundColor = UIColor(hex: 0x6CD267)
             cell.iconView.image = R.image.deviceOxygen()
             cell.titleLb.text = R.string.xwhHealthyText.血氧饱和度()
