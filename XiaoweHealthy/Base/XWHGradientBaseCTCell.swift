@@ -9,7 +9,7 @@ import UIKit
 
 class XWHGradientBaseCTCell: XWHCommonBaseCTCell {
     
-    private lazy var gradientLayer: CAGradientLayer = {
+    private(set) lazy var gradientLayer: CAGradientLayer = {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = gradientColors.map({ $0.cgColor })
         gradientLayer.startPoint = CGPoint(x: 0, y: 1)

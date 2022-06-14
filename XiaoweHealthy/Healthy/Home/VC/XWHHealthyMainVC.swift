@@ -283,7 +283,7 @@ extension XWHHealthyMainVC {
         
         switch iDeployItem.type {
         case .activity:
-            break
+            gotoActivity()
             
         case .login:
             gotoLogin()
@@ -331,6 +331,12 @@ extension XWHHealthyMainVC {
     /// 去登录
     private func gotoLogin() {
         XWHLogin.present(at: self)
+    }
+    
+    /// 每日活动
+    private func gotoActivity() {
+        let vc = XWHActivityCTVC()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     /// 跳转到心率

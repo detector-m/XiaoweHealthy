@@ -25,6 +25,15 @@ enum XWHHealthyType: String {
     
 }
 
+/// 获取类型
+enum XWHActivityType {
+    
+    case step
+    case cal
+    case distance
+    
+}
+
 /// 日期分段控件 分段的类型
 enum XWHHealthyDateSegmentType: String {
     

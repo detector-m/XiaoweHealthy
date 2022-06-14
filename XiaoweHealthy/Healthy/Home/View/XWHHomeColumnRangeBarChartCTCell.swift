@@ -18,7 +18,8 @@ class XWHHomeColumnRangeBarChartCTCell: XWHColumnRangeBarChartBaseCTCell {
     override func addSubViews() {
         super.addSubViews()
         
-        gradientColors = [UIColor.clear, UIColor.clear]
+        gradientLayer.isHidden = true
+        gradientColors = [UIColor.white, UIColor.white]
         
         contentView.addSubview(imageView)
         

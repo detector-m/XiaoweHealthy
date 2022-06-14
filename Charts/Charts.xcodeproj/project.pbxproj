@@ -103,6 +103,10 @@
 		9618B6E5283236B7003D5770 /* ColumnRangeBarChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9618B6E4283236B7003D5770 /* ColumnRangeBarChartData.swift */; };
 		9618B6E828323A52003D5770 /* ColumnRangeBarChartDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9618B6E728323A52003D5770 /* ColumnRangeBarChartDataProvider.swift */; };
 		967EE2EDDE3337C5C4337C59 /* IndexAxisValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DD0A02E3CF611BD11EBA9B /* IndexAxisValueFormatter.swift */; };
+		96837977285860A50034DB98 /* RoundedCornersBarChatRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96837976285860A50034DB98 /* RoundedCornersBarChatRenderer.swift */; };
+		9683797928586A780034DB98 /* IRoundedCornersBarChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9683797828586A780034DB98 /* IRoundedCornersBarChartDataSet.swift */; };
+		9683797B28586BCB0034DB98 /* RoundedCornersBarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9683797A28586BCB0034DB98 /* RoundedCornersBarChartView.swift */; };
+		96837981285871720034DB98 /* RoundedCornersBarChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96837980285871720034DB98 /* RoundedCornersBarChartDataSet.swift */; };
 		96B4485D2831E4D5002CCCA1 /* ColumnRangeBarChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B4485C2831E4D5002CCCA1 /* ColumnRangeBarChartRenderer.swift */; };
 		96B4485F2831E8FB002CCCA1 /* ColumnRangeBarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B4485E2831E8FB002CCCA1 /* ColumnRangeBarChartView.swift */; };
 		97AD2D4620AF917100F9C24A /* Platform+Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AD2D4520AF917100F9C24A /* Platform+Accessibility.swift */; };
@@ -276,6 +280,10 @@
 		9618B6E228323692003D5770 /* ColumnRangeBarChartDataEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnRangeBarChartDataEntry.swift; sourceTree = "<group>"; };
 		9618B6E4283236B7003D5770 /* ColumnRangeBarChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnRangeBarChartData.swift; sourceTree = "<group>"; };
 		9618B6E728323A52003D5770 /* ColumnRangeBarChartDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnRangeBarChartDataProvider.swift; sourceTree = "<group>"; };
+		96837976285860A50034DB98 /* RoundedCornersBarChatRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedCornersBarChatRenderer.swift; sourceTree = "<group>"; };
+		9683797828586A780034DB98 /* IRoundedCornersBarChartDataSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRoundedCornersBarChartDataSet.swift; sourceTree = "<group>"; };
+		9683797A28586BCB0034DB98 /* RoundedCornersBarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornersBarChartView.swift; sourceTree = "<group>"; };
+		96837980285871720034DB98 /* RoundedCornersBarChartDataSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornersBarChartDataSet.swift; sourceTree = "<group>"; };
 		96B4485C2831E4D5002CCCA1 /* ColumnRangeBarChartRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnRangeBarChartRenderer.swift; sourceTree = "<group>"; };
 		96B4485E2831E8FB002CCCA1 /* ColumnRangeBarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnRangeBarChartView.swift; sourceTree = "<group>"; };
 		97AD2D4520AF917100F9C24A /* Platform+Accessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Platform+Accessibility.swift"; path = "Source/Charts/Utils/Platform+Accessibility.swift"; sourceTree = "<group>"; };
@@ -574,6 +582,7 @@
 				9618B6E4283236B7003D5770 /* ColumnRangeBarChartData.swift */,
 				9618B6E228323692003D5770 /* ColumnRangeBarChartDataEntry.swift */,
 				9618B6E028323629003D5770 /* ColumnRangeBarChartDataSet.swift */,
+				96837980285871720034DB98 /* RoundedCornersBarChartDataSet.swift */,
 			);
 			path = Implementations;
 			sourceTree = "<group>";
@@ -582,6 +591,7 @@
 			isa = PBXGroup;
 			children = (
 				9618B6DE283235B2003D5770 /* IColumnRangeBarChartDataSet.swift */,
+				9683797828586A780034DB98 /* IRoundedCornersBarChartDataSet.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -609,6 +619,7 @@
 			isa = PBXGroup;
 			children = (
 				96B4485C2831E4D5002CCCA1 /* ColumnRangeBarChartRenderer.swift */,
+				96837976285860A50034DB98 /* RoundedCornersBarChatRenderer.swift */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
@@ -617,6 +628,7 @@
 			isa = PBXGroup;
 			children = (
 				96B4485E2831E8FB002CCCA1 /* ColumnRangeBarChartView.swift */,
+				9683797A28586BCB0034DB98 /* RoundedCornersBarChartView.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -946,6 +958,7 @@
 				17E994DA88777AA1D8CCFC58 /* BarChartDataSet.swift in Sources */,
 				C9AA360A2355F01F00C97D93 /* Platform+Color.swift in Sources */,
 				7C9CE6718D18859A35146098 /* BarLineScatterCandleBubbleChartData.swift in Sources */,
+				96837977285860A50034DB98 /* RoundedCornersBarChatRenderer.swift in Sources */,
 				53A91F6F86740E26FE733639 /* BarLineScatterCandleBubbleChartDataSet.swift in Sources */,
 				E68CA3DC66EB638C956E09B8 /* BubbleChartData.swift in Sources */,
 				C09E91F67A4AC43C277E7D82 /* BubbleChartDataEntry.swift in Sources */,
@@ -954,6 +967,7 @@
 				D50B0EC2BB2245F32E757C50 /* CandleChartDataEntry.swift in Sources */,
 				383D68A13E1C3D6A251E5147 /* CandleChartDataSet.swift in Sources */,
 				81892994002C0640AD858748 /* ChartData.swift in Sources */,
+				9683797B28586BCB0034DB98 /* RoundedCornersBarChartView.swift in Sources */,
 				EAEA60D22CA8C1B7E18D3F7D /* ChartDataEntry.swift in Sources */,
 				7D546013F3A14FF5BB7F3294 /* ChartDataEntryBase.swift in Sources */,
 				66A18A8EEBAAAC2EDA31ABEC /* ChartDataSet.swift in Sources */,
@@ -1012,6 +1026,7 @@
 				0511E43EF3FD2CDE7F7F15DB /* ScatterChartDataProvider.swift in Sources */,
 				7EE6EFE70CF4D8B09CAFCD01 /* AnimatedMoveViewJob.swift in Sources */,
 				CC7F8198A13249B5DEBBF25E /* AnimatedViewPortJob.swift in Sources */,
+				9683797928586A780034DB98 /* IRoundedCornersBarChartDataSet.swift in Sources */,
 				0577C2B38BCE4C871F262714 /* AnimatedZoomViewJob.swift in Sources */,
 				02A6E6E1A82A27A66B8D08C4 /* MoveViewJob.swift in Sources */,
 				9618B6E328323692003D5770 /* ColumnRangeBarChartDataEntry.swift in Sources */,
@@ -1022,6 +1037,7 @@
 				219192CA6B4895319AB49DCA /* BarLineScatterCandleBubbleRenderer.swift in Sources */,
 				96B4485F2831E8FB002CCCA1 /* ColumnRangeBarChartView.swift in Sources */,
 				56E0F5EA9255B9B92876E040 /* BubbleChartRenderer.swift in Sources */,
+				96837981285871720034DB98 /* RoundedCornersBarChartDataSet.swift in Sources */,
 				8BCCD709AACC565613D9DA68 /* CandleStickChartRenderer.swift in Sources */,
 				F37B07008B8AE7F3909FFB9C /* ChartDataRendererBase.swift in Sources */,
 				05253AFC448C107DEF54C2FE /* CombinedChartRenderer.swift in Sources */,

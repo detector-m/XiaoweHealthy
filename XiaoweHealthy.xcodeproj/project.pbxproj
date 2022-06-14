@@ -174,6 +174,9 @@
 		968379662856DD3A0034DB98 /* XWHHomeSleepCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968379652856DD3A0034DB98 /* XWHHomeSleepCTCell.swift */; };
 		968379682856DD7F0034DB98 /* XWHHomeMoodCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968379672856DD7F0034DB98 /* XWHHomeMoodCTCell.swift */; };
 		9683796C2857241A0034DB98 /* MKRingProgressGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9683796B2857241A0034DB98 /* MKRingProgressGroupView.swift */; };
+		96837971285829090034DB98 /* XWHActivityCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96837970285829090034DB98 /* XWHActivityCTVC.swift */; };
+		9683797D28586D5C0034DB98 /* XWHRoundedCornersBarChartBaseCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9683797C28586D5C0034DB98 /* XWHRoundedCornersBarChartBaseCTCell.swift */; };
+		9683797F28586EAF0034DB98 /* XWHActivityChartCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9683797E28586EAF0034DB98 /* XWHActivityChartCTCell.swift */; };
 		968489FD2840F52100821E24 /* XWHMoodRangeCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */; };
 		96848A012841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96848A002841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift */; };
 		968CB8A327F3FB8800E549AC /* UITableViewRoundedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */; };
@@ -591,6 +594,9 @@
 		968379652856DD3A0034DB98 /* XWHHomeSleepCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHomeSleepCTCell.swift; sourceTree = "<group>"; };
 		968379672856DD7F0034DB98 /* XWHHomeMoodCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHomeMoodCTCell.swift; sourceTree = "<group>"; };
 		9683796B2857241A0034DB98 /* MKRingProgressGroupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKRingProgressGroupView.swift; sourceTree = "<group>"; };
+		96837970285829090034DB98 /* XWHActivityCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHActivityCTVC.swift; sourceTree = "<group>"; };
+		9683797C28586D5C0034DB98 /* XWHRoundedCornersBarChartBaseCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHRoundedCornersBarChartBaseCTCell.swift; sourceTree = "<group>"; };
+		9683797E28586EAF0034DB98 /* XWHActivityChartCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHActivityChartCTCell.swift; sourceTree = "<group>"; };
 		968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMoodRangeCTCell.swift; sourceTree = "<group>"; };
 		96848A002841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyMainCommonCTCell.swift; sourceTree = "<group>"; };
 		968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewRoundedProtocol.swift; sourceTree = "<group>"; };
@@ -1563,6 +1569,7 @@
 				96786285282FA208003E5730 /* XWHChartBaseCTCell.swift */,
 				96786279282DE91D003E5730 /* XWHBarChartBaseCTCell.swift */,
 				96786283282FA1C3003E5730 /* XWHColumnRangeBarChartBaseCTCell.swift */,
+				9683797C28586D5C0034DB98 /* XWHRoundedCornersBarChartBaseCTCell.swift */,
 			);
 			path = Chart;
 			sourceTree = "<group>";
@@ -1693,6 +1700,31 @@
 				9680D8222851EDDA00FA6F9C /* XWHSportRecordListDeploy.swift */,
 			);
 			path = Deploy;
+			sourceTree = "<group>";
+		};
+		9683796D285827450034DB98 /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				9683796F285827630034DB98 /* View */,
+				9683796E2858275E0034DB98 /* VC */,
+			);
+			path = Activity;
+			sourceTree = "<group>";
+		};
+		9683796E2858275E0034DB98 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				96837970285829090034DB98 /* XWHActivityCTVC.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		9683796F285827630034DB98 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9683797E28586EAF0034DB98 /* XWHActivityChartCTCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		968489FE2841BF1800821E24 /* VC */ = {
@@ -2509,6 +2541,7 @@
 				9674A12F282B6BF80021724C /* ChartDataHandler */,
 				969B884C2812B950009952E7 /* ViewModel */,
 				969B88492812B677009952E7 /* Api */,
+				9683796D285827450034DB98 /* Activity */,
 				969310492824BF6B00133626 /* Sleep */,
 				96BFC8F928376ACE0080DCFC /* Mood */,
 				969310482824BD6900133626 /* MentalStress */,
@@ -3141,6 +3174,7 @@
 				9674A134282CE7680021724C /* XWHSleepDayChartMarkerView.swift in Sources */,
 				96F1D68628096B400067DBFD /* XWHCollectionViewBaseVC.swift in Sources */,
 				96617A9F27E302C900139B03 /* XWHPhoneNumView.swift in Sources */,
+				9683797F28586EAF0034DB98 /* XWHActivityChartCTCell.swift in Sources */,
 				96617A7A27E1FE6B00139B03 /* XWHLoginVC.swift in Sources */,
 				9618B6EC2833A5AD003D5770 /* XWHMentalStressChartCTCell.swift in Sources */,
 				9628F85027EE9EF300221C5E /* XWHLogin.swift in Sources */,
@@ -3171,6 +3205,7 @@
 				96C67AFC2804742D001ACA81 /* XWHDataBloodOxygenSetManager.swift in Sources */,
 				9651EE2E27EC5BD30043FE52 /* UMShareSwiftInterface.swift in Sources */,
 				96F1D68A28096F370067DBFD /* XWHDialTitleCTCell.swift in Sources */,
+				96837971285829090034DB98 /* XWHActivityCTVC.swift in Sources */,
 				96A10CAB2828EF1A00C1E18F /* XWHSleepUIAllDataItemModel.swift in Sources */,
 				9679E9CF28159105003C6351 /* XWHHeartUIAllDataItemModel.swift in Sources */,
 				9693103D2822282F00133626 /* XWHInnerDataHandlerProtocol.swift in Sources */,
@@ -3255,6 +3290,7 @@
 				96907255281530820056CE4F /* XWHBODataDetailTBVC.swift in Sources */,
 				9653E49A27F5978800EE55FF /* XWHTBHeaderFooterBaseView.swift in Sources */,
 				96F788D62852EFD200877898 /* XWHHealthCardEditTBVC.swift in Sources */,
+				9683797D28586D5C0034DB98 /* XWHRoundedCornersBarChartBaseCTCell.swift in Sources */,
 				967823AD27F2C9DC004F66FB /* XWHUIFontExtension.swift in Sources */,
 				969F01BA27F693B100CA4DA4 /* RLPopupBaseView.swift in Sources */,
 				96A10CC2282A69A500C1E18F /* XWHSleepDayChartCTCell.swift in Sources */,
