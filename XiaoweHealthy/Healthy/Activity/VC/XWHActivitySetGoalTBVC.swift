@@ -13,6 +13,20 @@ class XWHActivitySetGoalTBVC: XWHTableViewBaseVC {
         R.string.xwhHealthyText.设置目标()
     }
 
+    private var stepGoalValues: [Int] {
+        [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 15000, 20000, 25000, 30000, 35000, 40000, 50000]
+    }
+    
+    private var calGoalValues: [Int] {
+        [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
+    }
+    
+    private var distanceGoalValues: [Int] {
+        [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000]
+    }
+    
+    private var sAtType: XWHActivityType = .step
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -99,7 +113,46 @@ extension XWHActivitySetGoalTBVC {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let atTypes: [XWHActivityType] = [.step, .cal, .distance]
+        sAtType = atTypes[indexPath.section]
         
+        gotoPickGoalValue()
+    }
+    
+}
+
+extension XWHActivitySetGoalTBVC {
+    
+    /// 选择目标数
+    private func gotoPickGoalValue() {
+        var pickItems: [String] = []
+        var sIndex = 0
+        if sAtType == .step {
+            sIndex = 7
+            pickItems = stepGoalValues.map { value in
+                return value.string + R.string.xwhHealthyText.步()
+            }
+        } else if sAtType == .cal {
+            sIndex = 2
+            
+            pickItems = calGoalValues.map { value in
+                return value.string + R.string.xwhHealthyText.千卡()
+            }
+        } else {
+            sIndex = 2
+            
+            pickItems = distanceGoalValues.map { value in
+                let kmValue = value / 1000
+                return kmValue.string + R.string.xwhHealthyText.公里()
+            }
+        }
+        
+        XWHPopupPick.show(pickItems: pickItems, sIndex: sIndex) { [unowned self] cType, index in
+            if cType == .cancel {
+                return
+            }
+            
+        }
     }
     
 }
