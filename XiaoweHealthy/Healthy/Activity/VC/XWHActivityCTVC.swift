@@ -196,7 +196,11 @@ class XWHActivityCTVC: XWHCollectionViewBaseVC {
     }
     
     func didSelectPopMenuItem(at index: Int) {
-        
+        if index == 0 {
+            gotoSetGoal()
+        } else {
+            gotoActivityIntroduction()
+        }
     }
     
     func getPopMenuConfig() -> FTConfiguration {
@@ -218,6 +222,23 @@ class XWHActivityCTVC: XWHCollectionViewBaseVC {
         // set 'ignoreImageOriginalColor' to YES, images color will be same as textColor
         
         return configuration
+    }
+    
+}
+
+// MARK: - Jump UI
+extension XWHActivityCTVC {
+    
+    /// 设置目标
+    private func gotoSetGoal() {
+        let vc = XWHActivitySetGoalTBVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    /// 了解活动数据
+    private func gotoActivityIntroduction() {
+        let vc = XWHActivityIntroductionTXVC()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }
