@@ -44,6 +44,39 @@ class XWHRoundedCornersBarChartBaseCTCell: XWHChartBaseCTCell {
         }
     }
     
+    func getMarkerDateString(iDate: Date, dateType: XWHHealthyDateSegmentType) -> String {
+        var retStr = ""
+        if dateType == .day {
+//            retStr = iDate.localizedString(withFormat: XWHDate.monthDayHourMinute)
+            let bDate = iDate.hourBegin
+            let eDate = bDate.adding(.hour, value: 1)
+            retStr = bDate.string(withFormat: XWHDate.hourMinuteFormat) + "-" + eDate.string(withFormat: XWHDate.hourMinuteFormat)
+        } else if dateType == .week || dateType == .month {
+            retStr = iDate.localizedString(withFormat: XWHDate.yearMonthDayFormat)
+        } else if dateType == .year {
+            let ybDate = iDate.monthBegin
+            retStr = ybDate.localizedString(withFormat: XWHDate.monthFormat)
+        }
+        
+        return retStr
+    }
+    
+    func showMarker(with rawValue: Any) {
+        guard let iItem = rawValue as? XWHChartUIChartItemModel else {
+            chartView.highlightValue(nil)
+            return
+        }
+        
+        if iItem.lowest < iItem.highest {
+            markerView.textLb.text = "\(iItem.lowest) - \(iItem.highest) \(R.string.xwhDeviceText.次分钟())"
+        } else {
+            markerView.textLb.text = "\(iItem.highest) \(R.string.xwhDeviceText.次分钟())"
+        }
+        
+        let iDate = iItem.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat) ?? Date()
+        markerView.detailLb.text = getMarkerDateString(iDate: iDate.hourBegin, dateType: sDateType)
+    }
+    
 }
 
 extension XWHRoundedCornersBarChartBaseCTCell {
@@ -129,12 +162,34 @@ extension XWHRoundedCornersBarChartBaseCTCell {
 @objc extension XWHRoundedCornersBarChartBaseCTCell: ChartViewDelegate {
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        guard let _ = chartView.data?.dataSets[highlight.dataSetIndex] else { return }
+        guard entry.y != 0 else {
+            chartView.highlightValue(nil)
+
+            return
+        }
+        
+        guard let cChartDataModel = chartDataModel else {
+            chartView.highlightValue(nil)
+            
+            return
+        }
+        
+        guard let dataSet = chartView.data?.dataSets[highlight.dataSetIndex] else {
+            chartView.highlightValue(nil)
+
+            return
+        }
+        
+        let entryIndex = dataSet.entryIndex(entry: entry)
+        
+        guard let rawValue = cChartDataModel.rawValues[entryIndex] else {
+            chartView.highlightValue(nil)
+
+            return
+        }
         
         markerView.setShowOffset(chartView, entry: entry, highlight: highlight)
-//        let entryIndex = dataSet.entryIndex(entry: entry)
-        markerView.textLb.text = entry.x.int.string
-        markerView.detailLb.text = entry.y.int.string
+        showMarker(with: rawValue)
     }
     
 }

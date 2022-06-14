@@ -23,6 +23,13 @@ class XWHActivityChartCTCell: XWHRoundedCornersBarChartBaseCTCell {
         XWHFont.harmonyOSSans(ofSize: 38, weight: .bold)
     }
     
+    private var markerValueFont: UIFont {
+        XWHFont.harmonyOSSans(ofSize: 20, weight: .bold)
+    }
+    private var markerUnitFont: UIFont {
+        XWHFont.harmonyOSSans(ofSize: 14, weight: .regular)
+    }
+    
     private var stepColor: UIColor {
         UIColor(hex: 0x3EDE69)!
     }
@@ -35,6 +42,7 @@ class XWHActivityChartCTCell: XWHRoundedCornersBarChartBaseCTCell {
         UIColor(hex: 0x6FA9FF)!
     }
 
+    private lazy var atType: XWHActivityType = .step
     
     override func addSubViews() {
         super.addSubViews()
@@ -44,6 +52,8 @@ class XWHActivityChartCTCell: XWHRoundedCornersBarChartBaseCTCell {
     }
     
     func update(activityType: XWHActivityType) {
+        atType = activityType
+        
         var rawItems: [XWHChartUIChartItemModel] = []
 
         let sDate = Date()
@@ -157,5 +167,41 @@ class XWHActivityChartCTCell: XWHRoundedCornersBarChartBaseCTCell {
         
         return chartDataSet
     }
+    
+    override func showMarker(with rawValue: Any) {
+        guard let iItem = rawValue as? XWHChartUIChartItemModel else {
+            chartView.highlightValue(nil)
+            return
+        }
+        
+        var valueString = ""
+        var targetString = ""
+        var text = ""
+        
+        if atType == .step {
+            let stepValue = iItem.highest
+            valueString = stepValue.string
+            targetString = R.string.xwhHealthyText.步()
+            text = valueString + targetString
+            
+            markerView.textLb.attributedText = NSAttributedString(string: text).applying(attributes: [.font: markerValueFont, .foregroundColor: fontDarkColor], toOccurrencesOf: valueString).applying(attributes: [.font: markerUnitFont, .foregroundColor: fontDarkColor], toOccurrencesOf: targetString)
+        } else if atType == .cal {
+            valueString = iItem.highest.string
+            targetString = R.string.xwhHealthyText.千卡()
+            text = valueString + targetString
+            
+            markerView.textLb.attributedText = NSAttributedString(string: text).applying(attributes: [.font: markerValueFont, .foregroundColor: fontDarkColor], toOccurrencesOf: valueString).applying(attributes: [.font: markerUnitFont, .foregroundColor: fontDarkColor], toOccurrencesOf: targetString)
+        } else {
+            valueString = iItem.highest.string
+            targetString = R.string.xwhHealthyText.公里()
+            text = valueString + targetString
+            
+            markerView.textLb.attributedText = NSAttributedString(string: text).applying(attributes: [.font: markerValueFont, .foregroundColor: fontDarkColor], toOccurrencesOf: valueString).applying(attributes: [.font: markerUnitFont, .foregroundColor: fontDarkColor], toOccurrencesOf: targetString)
+        }
+        
+        let iDate = iItem.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat) ?? Date()
+        markerView.detailLb.text = getMarkerDateString(iDate: iDate, dateType: .day)
+    }
+    
     
 }
