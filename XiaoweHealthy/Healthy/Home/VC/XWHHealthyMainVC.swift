@@ -32,6 +32,10 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
     private lazy var deployItems: [XWHHomeDeployItemModel] = []
     private lazy var deploy = XWHHomeDeploy()
 
+    deinit {
+        XWHDevice.shared.removeObserver(observer: self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,6 +43,7 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
         
         loadDatas()
         configNotifications()
+        XWHDevice.shared.addObserver(observer: self)
     }
     
     override func setupNavigationItems() {
@@ -162,13 +167,33 @@ extension XWHHealthyMainVC {
     }
     
     @objc private func handleLoginNotification(notification: Notification) {
-        guard let isLogin = notification.object as? Bool else {
+        guard let _ = notification.object as? Bool else {
             return
         }
 
         DispatchQueue.main.async { [weak self] in
             self?.loadDatas()
         }
+    }
+    
+}
+
+// MARK: - XWHDeviceObserverProtocol
+extension XWHHealthyMainVC: XWHDeviceObserverProtocol {
+    
+    func updateDeviceConnectBind() {
+        loadDatas()
+    }
+    
+    func updateSyncState(_ syncState: XWHDevDataTransferState) {
+//        if syncState == .succeed {
+//            XWHDevice.shared.updateDeviceInfo(completion: nil)
+//            view.makeInsetToast(R.string.xwhDeviceText.同步成功())
+//        } else if syncState == .failed {
+//            view.makeInsetToast(R.string.xwhDeviceText.同步失败())
+//        }
+//
+//        reloadAll()
     }
     
 }
