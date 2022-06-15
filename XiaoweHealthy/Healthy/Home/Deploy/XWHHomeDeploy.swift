@@ -75,11 +75,11 @@ class XWHHomeDeploy {
         if !XWHUser.isLogined {
             iItem = XWHHomeDeployItemModel(type: .login)
             deploys.append(iItem)
-        }
-        
-        if ddManager.getCurrentWatch() == nil {
-            iItem = XWHHomeDeployItemModel(type: .bind)
-            deploys.append(iItem)
+        } else {
+            if ddManager.getCurrentWatch() == nil {
+                iItem = XWHHomeDeployItemModel(type: .bind)
+                deploys.append(iItem)
+            }
         }
         
         let cardMsg = XWHHealthCardManager()

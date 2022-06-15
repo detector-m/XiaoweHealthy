@@ -24,6 +24,12 @@ class XWHLogin {
         targetVC.present(loginNav, animated: animated, completion: completion)
     }
     
+    static let kLoginOrLogoutNotificationName = Notification.Name("LoginOrLogoutNotificationName")
+    
+    class func postNotification(isLogin: Bool) {
+        NotificationCenter.default.post(name: kLoginOrLogoutNotificationName, object: isLogin)
+    }
+    
 }
 
 extension XWHAlert {

@@ -28,6 +28,12 @@ class XWHUser {
     
     class func setToken(token: String?) {
         XWHDataUserManager.setToken(token: token)
+        
+        if token == nil {
+            XWHLogin.postNotification(isLogin: false)
+        } else {
+            XWHLogin.postNotification(isLogin: true)
+        }
     }
     
     /// 用户Token 过期处理

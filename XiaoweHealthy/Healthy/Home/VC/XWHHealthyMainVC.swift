@@ -38,6 +38,7 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
 //        addHeaderRefresh()
         
         loadDatas()
+        configNotifications()
     }
     
     override func setupNavigationItems() {
@@ -149,6 +150,25 @@ extension XWHHealthyMainVC {
     private func loadDatas() {
         deployItems = deploy.loadDeploys(rawData: [])
         collectionView.reloadData()
+    }
+    
+}
+
+// MARK: - Notification
+extension XWHHealthyMainVC {
+    
+    private func configNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleLoginNotification(notification:)), name: XWHLogin.kLoginOrLogoutNotificationName, object: nil)
+    }
+    
+    @objc private func handleLoginNotification(notification: Notification) {
+        guard let isLogin = notification.object as? Bool else {
+            return
+        }
+
+        DispatchQueue.main.async { [weak self] in
+            self?.loadDatas()
+        }
     }
     
 }
@@ -289,7 +309,7 @@ extension XWHHealthyMainVC {
             gotoLogin()
             
         case .bind:
-            break
+            gotoBindDevice()
             
         case .health:
             let iSubDeployItem = iDeployItem.items[row]
@@ -331,6 +351,11 @@ extension XWHHealthyMainVC {
     /// 去登录
     private func gotoLogin() {
         XWHLogin.present(at: self)
+    }
+    
+    /// 去绑定设备
+    private func gotoBindDevice() {
+        tabBarController?.selectedIndex = 2
     }
     
     /// 每日活动
