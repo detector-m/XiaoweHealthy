@@ -214,10 +214,24 @@ extension XWHHealthyChartDataHandler {
 
             return (iXAxisValue, iYValue, iRawValue)
         }, yAxisHandler: { yValues, yAxisLabelCount in
-            return getYAxisResult(yValues: yValues, yAxisLabelCount: yAxisLabelCount)
+            return getHeartYAxisResult(yValues: yValues, yAxisLabelCount: yAxisLabelCount)
         }, yAxisLabelCount: 5)
         
         return retModel
+    }
+    
+    private class func getHeartYAxisResult(yValues: [[Double]], yAxisLabelCount: Int) -> XWHChartDataYAxisResult<[Double]> {
+        let yAxisCount: Double = yAxisLabelCount.double
+        var max = yValues.map({ $0.max() ?? 0 }).max() ?? 0
+        
+        if max > 0, max < 100 {
+            max = 100
+        }
+        
+        let granularity = ceil(max / yAxisCount)
+        max = granularity * yAxisCount
+        
+        return (max, granularity, [])
     }
     
     private class func getYAxisResult(yValues: [[Double]], yAxisLabelCount: Int) -> XWHChartDataYAxisResult<[Double]> {

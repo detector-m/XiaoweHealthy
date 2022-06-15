@@ -21,6 +21,24 @@ class XWHMoodUIMoodBaseModel: HandyJSON {
     /// 消极的次数
     var negativeTimes = 0
 
+    
+    /// 情绪值0消极1正常2积极
+    var mood: Int {
+        var times = positiveTimes - negativeTimes
+        if times > 0 {
+            return 2
+        } else if times == 0 {
+            return 1
+        } else  {
+            times += peaceTimes
+            if times >= 0 {
+                return 1
+            }
+            
+            return 0
+        }
+    }
+    
     required init() {
         
     }

@@ -31,6 +31,14 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
     
     private lazy var deployItems: [XWHHomeDeployItemModel] = []
     private lazy var deploy = XWHHomeDeploy()
+    
+    private var sleepUIModel: XWHHealthySleepUISleepModel?
+    private var heartUIModel: XWHHeartUIHeartModel?
+    private var boUIModel: XWHBOUIBloodOxygenModel?
+    private var msUIModel: XWHMentalStressUIStressModel?
+    private var moodUIModel: XWHMoodUIMoodModel?
+
+    private var atSumModel: XWHActivitySumModel?
 
     deinit {
         XWHDevice.shared.removeObserver(observer: self)
@@ -122,7 +130,11 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
     override func registerViews() {
         collectionView.register(cellWithClass: XWHHomeMoodCTCell.self)
         collectionView.register(cellWithClass: XWHHomeSleepCTCell.self)
-        collectionView.register(cellWithClass: XWHHomeColumnRangeBarChartCTCell.self)
+//        collectionView.register(cellWithClass: XWHHomeColumnRangeBarChartCTCell.self)
+        
+        collectionView.register(cellWithClass: XWHHomeHeartCTCell.self)
+        collectionView.register(cellWithClass: XWHHomeBOCTCell.self)
+        collectionView.register(cellWithClass: XWHHomeMSCTCell.self)
 
         collectionView.register(cellWithClass: XWHHealthActivityCTCell.self)
         collectionView.register(cellWithClass: XWHHealthyMainCommonCTCell.self)
@@ -155,6 +167,30 @@ extension XWHHealthyMainVC {
     private func loadDatas() {
         deployItems = deploy.loadDeploys(rawData: [])
         collectionView.reloadData()
+        
+        loadServerDatas()
+    }
+    
+    private func loadServerDatas() {
+        if let _ = deployItems.first(where: { $0.type == .activity }) {
+            getActivitySum()
+        }
+            
+        if let iDeployItem = deployItems.first(where: { $0.type == .health }) {
+            for iSubDeployItem in iDeployItem.items {
+                if iSubDeployItem.subType == .sleep {
+                    getSleepData()
+                } else if iSubDeployItem.subType == .mood {
+                    getMoodData()
+                } else if iSubDeployItem.subType == .mentalStress {
+                    getMentalStressData()
+                } else if iSubDeployItem.subType == .heart {
+                    getHeartData()
+                } else if iSubDeployItem.subType == .bloodOxygen {
+                    getBOData()
+                }
+            }
+        }
     }
     
 }
@@ -249,6 +285,7 @@ extension XWHHealthyMainVC: XWHDeviceObserverProtocol {
         if iDeployItem.type == .activity {
             let cell = collectionView.dequeueReusableCell(withClass: XWHHealthActivityCTCell.self, for: indexPath)
             
+            cell.update(atSumModel: atSumModel)
             return cell
         }
         
@@ -258,31 +295,47 @@ extension XWHHealthyMainVC: XWHDeviceObserverProtocol {
                 let cell = collectionView.dequeueReusableCell(withClass: XWHHomeSleepCTCell.self, for: indexPath)
                 cell.textLb.text = iSubDeployItem.subType.rawValue
                 
+                cell.update(sleepUIModel: sleepUIModel)
+                
                 return cell
             } else if iSubDeployItem.subType == .mood {
                 let cell = collectionView.dequeueReusableCell(withClass: XWHHomeMoodCTCell.self, for: indexPath)
                 cell.textLb.text = iSubDeployItem.subType.rawValue
                 
+                cell.update(moodUIModel: moodUIModel)
+                
                 return cell
-            } else {
-                let cell = collectionView.dequeueReusableCell(withClass: XWHHomeColumnRangeBarChartCTCell.self, for: indexPath)
+            } else if iSubDeployItem.subType == .heart {
+                let cell = collectionView.dequeueReusableCell(withClass: XWHHomeHeartCTCell.self, for: indexPath)
+                cell.textLb.text = iSubDeployItem.subType.rawValue
+                cell.imageView.image = R.image.heartIcon()
+                cell.emptyChartView.layer.backgroundColor = UIColor(hex: 0xEB5763)?.withAlphaComponent(0.08).cgColor
+                
+                cell.update(heartUIModel: heartUIModel)
+                
+                return cell
+            } else if iSubDeployItem.subType == .bloodOxygen {
+                
+                let cell = collectionView.dequeueReusableCell(withClass: XWHHomeBOCTCell.self, for: indexPath)
                 cell.textLb.text = iSubDeployItem.subType.rawValue
                 
-                if iSubDeployItem.subType == .heart {
-                    cell.imageView.image = R.image.heartIcon()
-                    cell.emptyChartView.layer.backgroundColor = UIColor(hex: 0xEB5763)?.withAlphaComponent(0.08).cgColor
-                } else if iSubDeployItem.subType == .bloodOxygen {
-                    cell.imageView.image = R.image.deviceOxygen()
-                    cell.imageView.layer.backgroundColor = UIColor(hex: 0x6CD267)!.cgColor
-                    
-                    cell.emptyChartView.layer.backgroundColor = UIColor(hex: 0x6CD267)?.withAlphaComponent(0.08).cgColor
-                } else {
-                    cell.imageView.image = R.image.stressIcon()
-                    
-                    cell.emptyChartView.layer.backgroundColor = UIColor(hex: 0x76D4EA)?.withAlphaComponent(0.08).cgColor
-                }
+                cell.imageView.image = R.image.deviceOxygen()
+                cell.imageView.layer.backgroundColor = UIColor(hex: 0x6CD267)!.cgColor
                 
-                cell.update(healthType: iSubDeployItem.subType)
+                cell.emptyChartView.layer.backgroundColor = UIColor(hex: 0x6CD267)?.withAlphaComponent(0.08).cgColor
+                
+                cell.update(boUIModel: boUIModel)
+                
+                return cell
+            } else if  iSubDeployItem.subType == .mentalStress {
+                let cell = collectionView.dequeueReusableCell(withClass: XWHHomeMSCTCell.self, for: indexPath)
+                cell.textLb.text = iSubDeployItem.subType.rawValue
+                
+                cell.imageView.image = R.image.stressIcon()
+                
+                cell.emptyChartView.layer.backgroundColor = UIColor(hex: 0x76D4EA)?.withAlphaComponent(0.08).cgColor
+                
+                cell.update(msUIModel: msUIModel)
                 
                 return cell
             }
@@ -366,6 +419,175 @@ extension XWHHealthyMainVC: XWHDeviceObserverProtocol {
     // MARK: - UIScrollViewDeletate
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         handleScrollLargeTitle(in: scrollView)
+    }
+    
+}
+
+// MARK: - Api
+extension XWHHealthyMainVC {
+    
+    /// 获取每日数据概览
+    private func getActivitySum() {
+        XWHActivityVM().getActivity(date: Date()) { [unowned self] error in
+            log.error(error)
+            
+            if error.isExpiredUserToken {
+                XWHUser.handleExpiredUserTokenUI(self, nil)
+                return
+            }
+            
+            self.atSumModel = nil
+            self.collectionView.reloadData()
+        } successHandler: { [unowned self] response in
+            guard let retModel = response.data as? XWHActivitySumModel else {
+                log.debug("活动 - 获取数据为空")
+                
+                self.atSumModel = nil
+                self.collectionView.reloadData()
+                                
+                return
+            }
+            
+            self.atSumModel = retModel
+            self.collectionView.reloadData()
+        }
+    }
+    
+    /// 睡眠
+    private func getSleepData() {
+        let cDate = Date()
+        XWHHealthyVM().getSleep(date: cDate, dateType: .day) { [unowned self] error in
+            log.error(error)
+            
+            if error.isExpiredUserToken {
+                XWHUser.handleExpiredUserTokenUI(self, nil)
+                return
+            }
+            
+            self.sleepUIModel = nil
+            self.collectionView.reloadData()
+        } successHandler: { [unowned self] response in
+            guard let retModel = response.data as? XWHHealthySleepUISleepModel else {
+                log.debug("睡眠 - 获取数据为空")
+                
+                self.sleepUIModel = nil
+                self.collectionView.reloadData()
+                                
+                return
+            }
+            
+            self.sleepUIModel = retModel
+            self.collectionView.reloadData()
+        }
+    }
+    
+    /// 精神压力
+    private func getMentalStressData() {
+        let cDate = Date()
+        XWHHealthyVM().getMentalStress(date: cDate, dateType: .day) { [unowned self] error in
+            log.error(error)
+            
+            if error.isExpiredUserToken {
+                XWHUser.handleExpiredUserTokenUI(self, nil)
+                return
+            }
+            
+            self.msUIModel = nil
+            self.collectionView.reloadData()
+        } successHandler: { [unowned self] response in
+            guard let retModel = response.data as? XWHMentalStressUIStressModel else {
+                log.debug("精神压力 - 获取数据为空")
+                self.msUIModel = nil
+                self.collectionView.reloadData()
+                
+                return
+            }
+            
+            self.msUIModel = retModel
+            self.collectionView.reloadData()
+        }
+    }
+    
+    /// 血氧
+    private func getBOData() {
+        let cDate = Date()
+        XWHHealthyVM().getBloodOxygen(date: cDate, dateType: .day) { [unowned self] error in
+            log.error(error)
+            
+            if error.isExpiredUserToken {
+                XWHUser.handleExpiredUserTokenUI(self, nil)
+                return
+            }
+            
+            self.boUIModel = nil
+            self.collectionView.reloadData()
+        } successHandler: { [unowned self] response in
+            guard let retModel = response.data as? XWHBOUIBloodOxygenModel else {
+                log.debug("血氧 - 获取数据为空")
+                self.boUIModel = nil
+                self.collectionView.reloadData()
+
+                return
+            }
+            
+            self.boUIModel = retModel
+            self.collectionView.reloadData()
+        }
+    }
+    
+    /// 心率
+    private func getHeartData() {
+        let cDate = Date()
+        XWHHealthyVM().getHeart(date: cDate, dateType: .day) { [unowned self] error in
+            log.error(error)
+            
+            if error.isExpiredUserToken {
+                XWHUser.handleExpiredUserTokenUI(self, nil)
+                return
+            }
+            
+            self.heartUIModel = nil
+            self.collectionView.reloadData()
+        } successHandler: { [unowned self] response in
+            guard let retModel = response.data as? XWHHeartUIHeartModel else {
+                log.debug("心率 - 获取数据为空")
+
+                self.heartUIModel = nil
+                self.collectionView.reloadData()
+                
+                return
+            }
+            
+            self.heartUIModel = retModel
+            self.collectionView.reloadData()
+        }
+    }
+    
+    /// 情绪
+    private func getMoodData() {
+        let cDate = Date()
+        XWHHealthyVM().getMood(date: cDate, dateType: .day) { [unowned self] error in
+            log.error(error)
+            
+            if error.isExpiredUserToken {
+                XWHUser.handleExpiredUserTokenUI(self, nil)
+                return
+            }
+            
+            self.moodUIModel = nil
+            self.collectionView.reloadData()
+        } successHandler: { [unowned self] response in
+            guard let retModel = response.data as? XWHMoodUIMoodModel else {
+                log.debug("情绪 - 获取数据为空")
+                self.moodUIModel = nil
+                self.collectionView.reloadData()
+                
+                return
+            }
+            
+            self.moodUIModel = retModel
+            self.collectionView.reloadData()
+        }
     }
     
 }
@@ -462,294 +684,6 @@ extension XWHHealthyMainVC {
             self?.loadDatas()
         }
         navigationController?.pushViewController(vc, animated: true)
-    }
-    
-}
-
-
-// MARK: - Test
-extension XWHHealthyMainVC {
-    
-    private func gotoTestTest() {
-        //        XWHLogin.present(at: self)
-                
-        //        testFirmwareUpdate()
-                
-        //        testCache()
-                
-        //        testScan()
-                
-        //        testDatabase()
-        //        testUTEWeatherApi()
-                
-        //        testDailVC()
-                
-//                testContact()
-        
-//        testGetHeart()
-        
-        testCalendar()
-    }
-    
-    private func gotoTestPost() {
-//        testPostHeart()
-//        testPostBloodOxygen()
-        
-        testPostMentalState()
-    }
-    
-    private func gotoSync() {
-        let devModel = XWHDevWatchModel()
-        devModel.category = .watch
-        devModel.type = .skyworthWatchS1
-        XWHDDMShared.config(device: devModel)
-        
-        XWHDDMShared.setDataOperation { cp in
-            log.debug("同步进度 = \(cp)")
-        } resultHandler: { [weak self] (syncType, syncState, result: Result<XWHResponse?, XWHError>) in
-            if syncState == .succeed {
-                log.debug("数据同步成功")
-            } else if syncState == .failed {
-                switch result {
-                case .success(_):
-                    return
-                    
-                case .failure(let error):
-                    log.error("数据同步失败 error = \(error)")
-                    self?.view.makeInsetToast(error.message)
-                }
-            }
-        }
-
-        XWHDDMShared.syncData()
-    }
-    
-    fileprivate func testUserProfile() {
-        XWHUserVM().profile { error in
-            self.view.makeInsetToast(error.message)
-        } successHandler: { response in
-            self.view.makeInsetToast(response.data.debugDescription)
-        }
-    }
-    
-    fileprivate func testFirmwareUpdate() {
-        XWHDeviceVM().firmwareUpdate(deviceSn: Self.testDeviceSn(), version: "v1.2.32") { error in
-            self.view.makeInsetToast(error.message)
-        } successHandler: { response in
-            self.view.makeInsetToast(response.data.debugDescription)
-        }
-    }
-    
-    fileprivate func testCache() {
-        XWHCache.test()
-    }
-    
-    fileprivate func testScan() {
-        let devModel = XWHDevWatchModel()
-        devModel.category = .watch
-        devModel.type = .skyworthWatchS1
-        XWHDDMShared.config(device: devModel)
-        
-        XWHDDMShared.startScan(device: devModel) { devices in
-            log.debug(devices)
-        }
-    }
-    
-    fileprivate func testDatabase() {
-//        XWHDataUserManager.test()
-        XWHDataDeviceManager.test()
-    }
-    
-    fileprivate func testUTEWeatherApi() {
-        let devModel = XWHDevWatchModel()
-        devModel.category = .watch
-        devModel.type = .skyworthWatchS1
-        XWHDDMShared.config(device: devModel)
-        
-        XWHDDMShared.getWeatherServiceWeatherInfo(cityId: "CN101010100", latitude: 0, longitude: 0) { [weak self] result in
-            switch result {
-            case .success(let wsInfo):
-                log.debug(wsInfo)
-                
-            case .failure(let error):
-                self?.view.makeInsetToast(error.message)
-            }
-        }
-    }
-    
-    private func testDailVC() {
-        let vc = XWHDialVC()
-        // Test
-        vc.deviceSn = Self.testDeviceSn()
-        navigationController?.pushViewController(vc, animated: true)
-        
-        // Test
-//        let deviceSn = testDeviceSn()
-//        XWHDialVM().add(dialNo: "D3919001", deviceSn: deviceSn) { error in
-//
-//        } successHandler: { response in
-//
-//        }
-        
-        // Test
-//        XWHUserVM().bindDevice(deviceSn: deviceSn, deviceMode: "S1", deviceName: "ABCE", macAddr: "12345678900988765") { error in
-//            log.error(error)
-//        } successHandler: { res in
-//
-//        }
-
-    }
-    
-    private func testContact() {
-        let vc = XWHContactVC()
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    private func testPostHeart() {
-        let date = Date()
-        var ts = (date.timeIntervalSince1970 / 600).int * 600
-        ts -= 600 * 20
-        
-        var hData = [XWHHeartModel]()
-        
-        for i in 0 ..< 20 {
-            let iTs = 600 * i + ts
-            let iModel = XWHHeartModel()
-            iModel.identifier = Self.testDeviceSn()
-            iModel.value = Int(40 + arc4random() % 160)
-            let iDate = Date(timeIntervalSince1970: iTs.double)
-            iModel.time = iDate.string(withFormat: iModel.standardTimeFormat)
-            hData.append(iModel)
-        }
-        
-        if let lastHeart = hData.last {
-            let cHeart = lastHeart.clone()
-//            XWHHealthyDataManager.saveHeart(cHeart)
-            XWHHealthyDataManager.saveHearts([cHeart])
-        }
-        
-        
-        guard let deviceMac = ddManager.getCurrentDevice()?.mac else {
-            return
-        }
-        
-        XWHServerDataManager.postHeart(deviceMac: deviceMac, deviceSn: Self.testDeviceSn(), data: hData) { error in
-            log.error(error)
-        } successHandler: { response in
-            
-        }
-    }
-    
-    private func testGetHeart() {
-//        let date = Date()
-//        let dateType = XWHHealthyDateSegmentType.year
-//        XWHHealthyVM().getHeart(date: date, dateType: dateType) { error in
-//            log.error(error)
-//        } successHandler: { response in
-//
-//        }
-        
-        let date = Date()
-        let hearts = XWHHealthyDataManager.getHearts(identifier: Self.testDeviceSn(), bDate: date.dayBegin, eDate: date.dayEnd)
-        
-        log.debug(hearts)
-    }
-    
-    private func testPostBloodOxygen() {
-        let date = Date()
-        var ts = (date.timeIntervalSince1970 / 600).int * 600
-        ts -= 600 * 20
-        
-        var boData = [XWHBloodOxygenModel]()
-        
-        for i in 0 ..< 20 {
-            let iTs = 600 * i + ts
-            let iModel = XWHBloodOxygenModel()
-            iModel.identifier = Self.testDeviceSn()
-            iModel.value = Int(70 + arc4random() % 30)
-            let iDate = Date(timeIntervalSince1970: iTs.double)
-            iModel.time = iDate.string(withFormat: iModel.standardTimeFormat)
-            boData.append(iModel)
-        }
-        
-        if let lastBo = boData.last {
-            let cBo = lastBo.clone()
-            XWHHealthyDataManager.saveBloodOxygen(cBo)
-        }
-        
-        guard let deviceMac = ddManager.getCurrentDevice()?.mac else {
-            return
-        }
-        
-        XWHServerDataManager.postBloodOxygen(deviceMac: deviceMac, deviceSn: Self.testDeviceSn(), data: boData) { error in
-            log.error(error)
-        } successHandler: { response in
-            
-        }
-    }
-    
-    private func testPostMentalState() {
-        guard let devSn = ddManager.getCurrentDeviceIdentifier() else {
-            return
-        }
-
-        let date = Date()
-        var ts = (date.timeIntervalSince1970 / 600).int * 600
-        ts -= 600 * 20
-        
-        var postData = [XWHMentalStateModel]()
-        
-        for i in 0 ..< 20 {
-            let iTs = 600 * i + ts
-            let iModel = XWHMentalStateModel()
-            iModel.identifier = devSn
-            iModel.mood = Int(arc4random() % 3)
-            iModel.fatigue = Int(arc4random() % 101)
-            iModel.stress = Int(arc4random() % 101)
-            let iDate = Date(timeIntervalSince1970: iTs.double)
-            iModel.time = iDate.string(withFormat: iModel.standardTimeFormat)
-            postData.append(iModel)
-        }
-        
-        if let last = postData.last {
-            let sItem = last.clone()
-            XWHHealthyDataManager.saveMentalState(sItem)
-        }
-        
-        let deviceMac = ""
-        XWHServerDataManager.postMentalState(deviceMac: deviceMac, deviceSn: devSn, data: postData) { error in
-            log.error(error)
-            self.view.makeInsetToast("testPostMentalState 上传失败")
-        } successHandler: { [unowned self] response in
-            self.view.makeInsetToast("testPostMentalState 上传成功")
-        }
-    }
-    
-    private func testGetBloodOxygen() {
-        let date = Date()
-        let dateType = XWHHealthyDateSegmentType.year
-        XWHHealthyVM().getBloodOxygen(date: date, dateType: dateType) { error in
-            log.error(error)
-        } successHandler: { response in
-
-        }
-    }
-    
-    private func testCalendar() {
-        let calendarView = XWHCalendarView()
-        calendarView.backgroundColor = .white
-        calendarView.size = CGSize(width: XWHCalendarHelper.calendarWidth, height: 469)
-        XWHCalendarPopupContainer.generatePopupWithView(calendarView).show()
-        
-//        calendarView.sDate = Date()
-        calendarView.dateType = .day
-        
-//        XWHCalendar.show(Date(), .year, nil)
-    }
-    
-    
-    class func testDeviceSn() -> String {
-        "1923190012204123456"
     }
     
 }

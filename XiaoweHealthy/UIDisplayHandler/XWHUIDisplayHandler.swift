@@ -62,7 +62,7 @@ class XWHUIDisplayHandler {
     
     /// 获取情绪区间文案
     class func getMoodRangeStrings() -> [String] {
-        [R.string.xwhHealthyText.积极(), R.string.xwhHealthyText.正常(), R.string.xwhHealthyText.消极()]
+        [R.string.xwhHealthyText.积极(), R.string.xwhHealthyText.平和(), R.string.xwhHealthyText.消极()]
     }
     
     /// 获取情绪文案
@@ -503,23 +503,29 @@ class XWHUIDisplayHandler {
 
     /// 获取睡眠质量文案
     class func getSleepQualityString(_ score: Int) -> String {
+        let qStrings = [R.string.xwhHealthyText.很差(), R.string.xwhHealthyText.较差(), R.string.xwhHealthyText.一般(), R.string.xwhHealthyText.较好(), R.string.xwhHealthyText.很好()]
+        return qStrings[getSleepQualityLevel(score)]
+    }
+    
+    /// 获取睡眠质量等级
+    class func getSleepQualityLevel(_ score: Int) -> Int {
         if score <= 39 {
-            return R.string.xwhHealthyText.很差()
+            return 0
         }
         
         if score <= 59 {
-            return R.string.xwhHealthyText.较差()
+            return 1
         }
         
         if score <= 79 {
-            return R.string.xwhHealthyText.一般()
+            return 2
         }
         
         if score <= 89 {
-            return R.string.xwhHealthyText.较好()
+            return 3
         }
         
-        return R.string.xwhHealthyText.很好()
+        return 4
     }
     
     /// 获取周月年的睡眠提示描述文案

@@ -157,7 +157,7 @@ class XWHHomeColumnRangeBarChartCTCell: XWHColumnRangeBarChartBaseCTCell {
     }
     
     
-    private func getHeartChartData(chartDataModel: XWHChartDataBaseModel) -> ColumnRangeBarChartData {
+    func getHeartChartData(chartDataModel: XWHChartDataBaseModel) -> ColumnRangeBarChartData {
         let chartDataSet = getChartDataSet(values: chartDataModel.yValues)
         chartDataSet.colors = [UIColor(hex: 0xEB5763)!]
         
@@ -167,7 +167,7 @@ class XWHHomeColumnRangeBarChartCTCell: XWHColumnRangeBarChartBaseCTCell {
         return chartData
     }
     
-    private func getBOChartData(chartDataModel: XWHChartDataBaseModel) -> ColumnRangeBarChartData {
+    func getBOChartData(chartDataModel: XWHChartDataBaseModel) -> ColumnRangeBarChartData {
         let chartDataSet = getChartDataSet(values: chartDataModel.yValues)
         chartDataSet.colors = [UIColor(hex: 0x6CD267)!]
         chartDataSet.segmentLimits = [90]
@@ -179,7 +179,7 @@ class XWHHomeColumnRangeBarChartCTCell: XWHColumnRangeBarChartBaseCTCell {
         return chartData
     }
     
-    private func getStressChartData(chartDataModel: XWHChartDataBaseModel) -> ColumnRangeBarChartData {
+    func getStressChartData(chartDataModel: XWHChartDataBaseModel) -> ColumnRangeBarChartData {
         let chartDataSet = getChartDataSet(values: chartDataModel.yValues)
         chartDataSet.colors = [UIColor(hex: 0x76D4EA)!]
         chartDataSet.segmentLimits = [29, 59, 79]
@@ -192,7 +192,7 @@ class XWHHomeColumnRangeBarChartCTCell: XWHColumnRangeBarChartBaseCTCell {
         return chartData
     }
     
-    private func getBgChartSet(chartDataModel: XWHChartDataBaseModel, color: UIColor) -> ColumnRangeBarChartDataSet {
+    func getBgChartSet(chartDataModel: XWHChartDataBaseModel, color: UIColor) -> ColumnRangeBarChartDataSet {
         var bgChartDataYValues: [[Double]] = []
         for _ in 0 ..< chartDataModel.yValues.count {
             let yValue = [0, chartDataModel.max]

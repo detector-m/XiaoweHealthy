@@ -151,4 +151,36 @@ class XWHHomeMoodCTCell: XWHCommonBaseCTCell {
         }
     }
     
+    func relayoutCurLevel(level: Int) {
+        let targetView: UIView
+
+        if level == 0 {
+            targetView = levelChartView1
+        } else if level == 1 {
+            targetView = levelChartView2
+        } else {
+            targetView = levelChartView3
+        }
+        
+        curLevelLine.snp.remakeConstraints { make in
+            make.width.equalTo(2)
+            make.height.equalTo(45)
+            make.bottom.centerX.equalTo(targetView)
+        }
+    }
+    
+    func update(moodUIModel: XWHMoodUIMoodModel?) {
+        guard let moodUIModel = moodUIModel else {
+            curLevelLine.isHidden = true
+            curLevelDot.isHidden = true
+            
+            return
+        }
+        
+        curLevelLine.isHidden = false
+        curLevelDot.isHidden = false
+        
+        relayoutCurLevel(level: moodUIModel.mood)
+    }
+    
 }

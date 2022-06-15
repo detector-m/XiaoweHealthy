@@ -197,4 +197,43 @@ class XWHHomeSleepCTCell: XWHCommonBaseCTCell {
         }
     }
     
+    func relayoutForCurLevel(sLevel: Int) {
+        let targetView: UIView
+        if sLevel == 0 {
+            targetView = levelChartView1
+        } else if sLevel == 1 {
+            targetView = levelChartView2
+        } else if sLevel == 2 {
+            targetView = levelChartView3
+        } else if sLevel == 3 {
+            targetView = levelChartView4
+        } else {
+            targetView = levelChartView5
+        }
+        
+        curLevelLine.snp.remakeConstraints { make in
+            make.width.equalTo(2)
+            make.height.equalTo(45)
+            make.bottom.centerX.equalTo(targetView)
+        }
+    }
+    
+    func update(sleepUIModel: XWHHealthySleepUISleepModel?) {
+        guard let sleepUIModel = sleepUIModel else {
+            curLevelLine.isHidden = true
+            curLevelDot.isHidden = true
+            return
+        }
+        
+        curLevelLine.isHidden = false
+        curLevelDot.isHidden = false
+        
+        let totalDuration = sleepUIModel.totalSleepDuration
+        let score = XWHUIDisplayHandler.getWeekMonthYearSleepTotalDurationScore(totalDuration)
+        let sLevel = XWHUIDisplayHandler.getSleepQualityLevel(score)
+        
+        
+        relayoutForCurLevel(sLevel: sLevel)
+    }
+    
 }

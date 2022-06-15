@@ -64,7 +64,7 @@ class XWHMoodChartCTCell: XWHColumnRangeBarChartBaseCTCell {
 //        textLb.text = cUIModel.averageVal.string + XWHUIDisplayHandler.getMentalStressRangeString(cUIModel.averageVal)
 
         let unit = ""
-        let cValue = XWHUIDisplayHandler.getMoodString(0)
+        let cValue = XWHUIDisplayHandler.getMoodString(cUIModel.mood)
         let cText = cValue + unit
         textLb.attributedText = cText.colored(with: fontDarkColor).applying(attributes: [.font: XWHFont.harmonyOSSans(ofSize: 38, weight: .bold)], toOccurrencesOf: cValue).applying(attributes: [.font: XWHFont.harmonyOSSans(ofSize: 14, weight: .medium)], toOccurrencesOf: unit)
         
