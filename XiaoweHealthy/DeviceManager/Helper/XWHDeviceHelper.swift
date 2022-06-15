@@ -12,7 +12,12 @@ class XWHDeviceHelper {
     
     static let standardTimeFormat = "yyyy-MM-dd HH:mm:ss"
     
-    static let sleepCollectionTimeFormat = "yyyy-MM-dd"
+    static let standardYMDFormat = "yyyy-MM-dd"
+    
+    static var sleepCollectionTimeFormat: String {
+        return standardYMDFormat
+    }
+    
     
     class func getStandardDeviceSn(_ identifier: String) -> String {
         var devId = identifier

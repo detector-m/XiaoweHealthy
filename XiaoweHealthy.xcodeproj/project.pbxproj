@@ -161,6 +161,8 @@
 		967E8B9C2844738F008E65FF /* AppUserGuideVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967E8B9B2844738F008E65FF /* AppUserGuideVC.swift */; };
 		967E8B9E28449106008E65FF /* AppUserGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967E8B9D28449106008E65FF /* AppUserGuide.swift */; };
 		967E8BA02844D4F1008E65FF /* XWHMoodGradientCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967E8B9F2844D4F1008E65FF /* XWHMoodGradientCTCell.swift */; };
+		967E97DF2859A7FE001F9782 /* XWHActivityItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967E97DE2859A7FE001F9782 /* XWHActivityItemModel.swift */; };
+		967E97E12859AB53001F9782 /* XWHActivitySumModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967E97E02859AB53001F9782 /* XWHActivitySumModel.swift */; };
 		967F867D283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F867C283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift */; };
 		967F867F283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F867E283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift */; };
 		9680104528477435004C45C9 /* BluetoothStateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9680104428477435004C45C9 /* BluetoothStateHandler.swift */; };
@@ -584,6 +586,8 @@
 		967E8B9B2844738F008E65FF /* AppUserGuideVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserGuideVC.swift; sourceTree = "<group>"; };
 		967E8B9D28449106008E65FF /* AppUserGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserGuide.swift; sourceTree = "<group>"; };
 		967E8B9F2844D4F1008E65FF /* XWHMoodGradientCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMoodGradientCTCell.swift; sourceTree = "<group>"; };
+		967E97DE2859A7FE001F9782 /* XWHActivityItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHActivityItemModel.swift; sourceTree = "<group>"; };
+		967E97E02859AB53001F9782 /* XWHActivitySumModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHActivitySumModel.swift; sourceTree = "<group>"; };
 		967F867C283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceConnectBindHelpTBVC.swift; sourceTree = "<group>"; };
 		967F867E283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceUseGuideTBVC.swift; sourceTree = "<group>"; };
 		9680104428477435004C45C9 /* BluetoothStateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothStateHandler.swift; sourceTree = "<group>"; };
@@ -1797,6 +1801,8 @@
 				96775E8E2826B92500AB88D3 /* XWHSleepModel.swift */,
 				96A10CB328290AEB00C1E18F /* XWHMentalStateModel.swift */,
 				96A10CB6282919FE00C1E18F /* XWHMentalStressModel.swift */,
+				967E97DE2859A7FE001F9782 /* XWHActivityItemModel.swift */,
+				967E97E02859AB53001F9782 /* XWHActivitySumModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3149,6 +3155,7 @@
 				9651EE1E27EBFDAA0043FE52 /* XWHResponse.swift in Sources */,
 				969B88302811028C009952E7 /* XWHHeartCommonCTCell.swift in Sources */,
 				969310592824ED8B00133626 /* XWHMentalStressDataDetailListTBVC.swift in Sources */,
+				967E97DF2859A7FE001F9782 /* XWHActivityItemModel.swift in Sources */,
 				96F1D65D28066CC30067DBFD /* XWHDevDialOperationProtocol.swift in Sources */,
 				96E23C2C27E1A579009EF208 /* XWHDeviceMainVC.swift in Sources */,
 				96C67AEE28043328001ACA81 /* XWHDataWeatherSetManager.swift in Sources */,
@@ -3230,6 +3237,7 @@
 				960E768527F0B17D00A0DA25 /* XWHSafari.swift in Sources */,
 				96DC429D27FD42B7009BF300 /* XWHDeviceApi.swift in Sources */,
 				96127D142842039C00940132 /* PullToRefreshExtension.swift in Sources */,
+				967E97E12859AB53001F9782 /* XWHActivitySumModel.swift in Sources */,
 				968CB8A827F42A8C00E549AC /* XWHCommonBaseTBCell.swift in Sources */,
 				969E7134280D107C00BDA401 /* XWHConstant.swift in Sources */,
 				96931077282600FA00133626 /* XWHUIDisplayHandler.swift in Sources */,

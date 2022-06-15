@@ -13,6 +13,7 @@ import UTESmartBandApi
 class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandlerProtocol {
     
     let uteTimeFormat = "yyyy-MM-dd-HH-mm"
+    let uteYMDHFormat = "yyyy-MM-dd-HH"
     
     private var progressHandler: DevSyncDataProgressHandler?
     private var resultHandler: XWHDevDataOperationHandler?
@@ -60,7 +61,7 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             self._state = .inTransit
             
             var cp = 0
-            let itemMax: CGFloat = 4
+            let itemMax: CGFloat = 5
 
             // 1
             if !self.syncHeart() {
@@ -106,6 +107,17 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             cp = ((4 / itemMax) * 100).int
             self.handleProgress(cp)
             
+            // 5
+            if !self.syncActivity() {
+                return
+            }
+            if self.semaphoreWait() {
+                self.handleTimeoutError()
+                return
+            }
+            cp = ((5 / itemMax) * 100).int
+            self.handleProgress(cp)
+            
             self._state = .succeed
 
             DispatchQueue.main.async {
@@ -129,6 +141,9 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             
         case .mental:
             return handleMentalData(rawData)
+            
+        case .activity:
+            return handleActivityData(rawData)
             
         case .none:
             return nil
@@ -408,6 +423,121 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
        return parsedMsArray
     }
     
+    /// 处理活动数据
+    func handleActivityData(_ rawData: Any?) -> Any? {
+        guard let user = XWHDataUserManager.getCurrentUser() else {
+            log.error("未获取用户信息")
+            return nil
+        }
+        
+        guard let connDev = manager.connectedDevicesModel else {
+            log.error("未获取到连接设备")
+            return nil
+        }
+        
+        guard let deviceSn = connDev.identifier, !deviceSn.isEmpty else {
+            log.error("未获取到设备标识符")
+            return nil
+        }
+        
+        guard let deviceMac = getUTEDeviceMac() else {
+            return nil
+        }
+        
+        guard let rawDic = rawData as? [AnyHashable: Any] else {
+            return nil
+        }
+        
+        var parsedAtArray: [XWHActivitySumModel] = []
+        if connDev.isHasWalkRun {
+            guard let atArray = rawDic[kUTEQuerySportWalkRunData] as? [UTEModelSportWalkRun] else {
+                return nil
+            }
+            
+            for i in 0 ..< atArray.count {
+                let iAt = atArray[i]
+                guard let cTime = iAt.time, let cDate = cTime.date(withFormat: uteYMDHFormat) else {
+                    continue
+                }
+                
+                let iDayTime = cDate.string(withFormat: XWHDeviceHelper.standardYMDFormat)
+                
+                let iItemModel = XWHActivityItemModel()
+                iItemModel.time = cDate.string(withFormat: XWHDeviceHelper.standardTimeFormat)
+                iItemModel.identifier = deviceSn
+                iItemModel.mac = deviceMac
+                
+                iItemModel.steps = iAt.stepsTotal
+                iItemModel.calories = iAt.runCalories.int + iAt.walkCalories.int
+                iItemModel.distance = iAt.runDistances.int + iAt.walkDistances.int
+
+                var iSumModel: XWHActivitySumModel
+                if let atSum = parsedAtArray.first(where: { $0.time == iDayTime }) {
+                    iSumModel = atSum
+                } else {
+                    iSumModel = XWHActivitySumModel()
+                    iSumModel.identifier = deviceSn
+                    iSumModel.mac = deviceMac
+                    iSumModel.time = iDayTime
+                    
+                    parsedAtArray.append(iSumModel)
+                }
+                
+                iSumModel.items.append(iItemModel)
+            }
+        } else {
+            guard let atArray = rawDic[kUTEQueryRunData] as? [UTEModelRunData] else {
+                return nil
+            }
+            
+            for i in 0 ..< atArray.count {
+                let iAt = atArray[i]
+                guard let cTime = iAt.time, let cDate = cTime.date(withFormat: uteYMDHFormat) else {
+                    continue
+                }
+                
+                let iDayTime = cDate.string(withFormat: XWHDeviceHelper.standardYMDFormat)
+                
+                let iItemModel = XWHActivityItemModel()
+                iItemModel.time = cDate.string(withFormat: XWHDeviceHelper.standardTimeFormat)
+                iItemModel.identifier = deviceSn
+                iItemModel.mac = deviceMac
+                
+                iItemModel.steps = iAt.totalSteps
+                iItemModel.calories = iAt.calories.int
+                iItemModel.distance = iAt.distances.int
+
+                var iSumModel: XWHActivitySumModel
+                if let atSum = parsedAtArray.first(where: { $0.time == iDayTime }) {
+                    iSumModel = atSum
+                } else {
+                    iSumModel = XWHActivitySumModel()
+                    iSumModel.identifier = deviceSn
+                    iSumModel.mac = deviceMac
+                    iSumModel.time = iDayTime
+                    
+                    parsedAtArray.append(iSumModel)
+                }
+                
+                iSumModel.items.append(iItemModel)
+            }
+        }
+
+        for iSum in parsedAtArray {
+            iSum.stepGoal = user.stepGoal
+            iSum.caloriesGoal = user.caloriesGoal
+            iSum.distanceGoal = user.distanceGoal
+        }
+
+        log.debug("同步活动原始数据 \(parsedAtArray)")
+        if !parsedAtArray.isEmpty {
+            let postDevMac = deviceMac.replacingOccurrences(of: ":", with: "")
+            XWHServerDataManager.postActivity(deviceMac: postDevMac, deviceSn: deviceSn, data: parsedAtArray, failureHandler: nil, successHandler: nil)
+        }
+        
+        return parsedAtArray
+    }
+    
     private func handleProgress(_ cp: Int) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
@@ -445,6 +575,9 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             
         case .mental:
             msg = "同步精神状态超时"
+            
+        case .activity:
+            msg = "同步活动数据超时"
         }
         
         _state = .failed
@@ -482,12 +615,15 @@ extension XWHUTEDataOperationHandler {
 // MARK: - UTE 同步数据
 extension XWHUTEDataOperationHandler {
     
-    /// 同步心率数据
-    private func syncHeart() -> Bool {
+    // Test
+    private func syncTest() {
         manager.readUTESportModelStatus { sMode, smStatus in
             
         }
-        
+    }
+    
+    /// 同步心率数据
+    private func syncHeart() -> Bool {
         dataType = .heart
         guard let conDev = manager.connectedDevicesModel else {
             handleUTENotConnectBindError(type: dataType)
@@ -576,6 +712,27 @@ extension XWHUTEDataOperationHandler {
         let cTime = "2020-06-06-06-06"
         manager.syncDataCustomTime(cTime, type: .MPF)
 
+        return true
+    }
+    
+    /// 同步活动数据
+    private func syncActivity() -> Bool {
+        dataType = .activity
+        guard let conDev = manager.connectedDevicesModel else {
+            handleUTENotConnectBindError(type: dataType)
+            
+            dataType = .none
+            return false
+        }
+        
+        if conDev.isHasDataStatus {
+//            let cTime = Date().string(withFormat: "yyyy-MM-dd-HH-mm")
+            let cTime = "2020-06-06-06-06"
+            manager.syncDataCustomTime(cTime, type: .steps)
+        } else {
+            manager.setUTEOption(.syncAllStepsData)
+        }
+        
         return true
     }
     

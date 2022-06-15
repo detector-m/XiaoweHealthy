@@ -310,7 +310,7 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
             break
             
         case .connect:
-            if cConnBindState == .connected {
+            if cConnBindState == .connected || cConnBindState == .paired {
                 cmdHandler?.config(nil, nil, handler: nil)
             }
 

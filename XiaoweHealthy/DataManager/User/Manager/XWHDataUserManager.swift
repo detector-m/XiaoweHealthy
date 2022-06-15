@@ -43,7 +43,9 @@ class XWHDataUserManager {
             t.column(XWHUserModel.Columns.weight.name, .integer)
             t.column(XWHUserModel.Columns.birthday.name, .text)
                         
-            t.column(XWHUserModel.Columns.goal.name, .integer)
+            t.column(XWHUserModel.Columns.stepGoal.name, .integer)
+            t.column(XWHUserModel.Columns.caloriesGoal.name, .integer)
+            t.column(XWHUserModel.Columns.distanceGoal.name, .integer)
             
 //            t.primaryKey([XWHUserModel.Columns.mobile.name])
         }
@@ -121,7 +123,7 @@ extension XWHDataUserManager {
 extension XWHDataUserManager {
     
     class func test() {
-        var user = XWHUserModel(mobile: "15000847202", nickname: "Riven", avatar: "", gender: 1, height: 168, weight: 57, birthday: "1990-03-16", goal: 9000)
+        var user = XWHUserModel(mobile: "15000847202", nickname: "Riven", avatar: "", gender: 1, height: 168, weight: 57, birthday: "1990-03-16", stepGoal: 9000)
         saveUser(&user)
     }
     

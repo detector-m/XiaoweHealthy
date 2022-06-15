@@ -33,7 +33,7 @@ enum XWHUserGenderType: Int {
 struct XWHUserModel: Codable, FetchableRecord, TableRecord, PersistableRecord, HandyJSON, CustomDebugStringConvertible {
     
     public enum Columns: String, ColumnExpression {
-        case mobile, nickname, avatar, gender, height, weight, birthday, goal
+        case mobile, nickname, avatar, gender, height, weight, birthday, stepGoal, caloriesGoal, distanceGoal
     }
     
     // 手机号码
@@ -72,14 +72,19 @@ struct XWHUserModel: Codable, FetchableRecord, TableRecord, PersistableRecord, H
     }
     
     // 运动目标
-    var goal = 8000
+    // 步
+    var stepGoal = 8000
+    // ka
+    var caloriesGoal = 300
+    // m
+    var distanceGoal = 3000
     
     static var databaseTableName: String {
         return "user_model"
     }
     
     var debugDescription: String {
-        return "{ mobile = \(mobile), nickname = \(nickname), gender = \(gender), height = \(height), height = \(weight), birthday = \(birthday) }"
+        return "{ mobile = \(mobile), nickname = \(nickname), gender = \(gender), height = \(height), height = \(weight), birthday = \(birthday), stepGoal = \(stepGoal), caloriesGoal = \(caloriesGoal), distanceGoal = \(distanceGoal) }"
     }
     
 //    func toDic() -> [String: Any] {

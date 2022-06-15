@@ -37,7 +37,6 @@ class XWHActivitySetGoalTBVC: XWHTableViewBaseVC {
         navigationItem.title = titleText
     }
     
-    
     override func resetNavigationBarWithoutLargeTitle() {
         super.resetNavigationBarWithoutLargeTitle()
         
@@ -98,15 +97,18 @@ extension XWHActivitySetGoalTBVC {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: XWHActivitySetGoalTBCell.self, for: indexPath)
         
+        let user = XWHDataUserManager.getCurrentUser()
+        
         if indexPath.section == 0 {
             cell.titleLb.text = R.string.xwhHealthyText.步数目标()
-            cell.subTitleLb.text = "\(8000)" + R.string.xwhHealthyText.步()
+            cell.subTitleLb.text = "\(user?.stepGoal ?? 8000)" + R.string.xwhHealthyText.步()
         } else if indexPath.section == 1 {
             cell.titleLb.text = R.string.xwhHealthyText.消耗目标()
-            cell.subTitleLb.text = "\(100)" + R.string.xwhHealthyText.千卡()
+            cell.subTitleLb.text = "\(user?.caloriesGoal ?? 300)" + R.string.xwhHealthyText.千卡()
         } else {
             cell.titleLb.text = R.string.xwhHealthyText.距离目标()
-            cell.subTitleLb.text = "\(3.3)" + R.string.xwhHealthyText.公里()
+            let distanceGoal = (user?.distanceGoal ?? 3000) / 1000
+            cell.subTitleLb.text = "\(distanceGoal)" + R.string.xwhHealthyText.公里()
         }
         
         return cell
@@ -125,21 +127,26 @@ extension XWHActivitySetGoalTBVC {
     
     /// 选择目标数
     private func gotoPickGoalValue() {
+        guard var user = XWHDataUserManager.getCurrentUser() else {
+            log.error("未获取用户信息")
+            return
+        }
+        
         var pickItems: [String] = []
         var sIndex = 0
         if sAtType == .step {
-            sIndex = 7
+            sIndex = stepGoalValues.firstIndex(of: user.stepGoal) ?? 7
             pickItems = stepGoalValues.map { value in
                 return value.string + R.string.xwhHealthyText.步()
             }
         } else if sAtType == .cal {
-            sIndex = 2
+            sIndex = calGoalValues.firstIndex(of: user.caloriesGoal) ?? 2
             
             pickItems = calGoalValues.map { value in
                 return value.string + R.string.xwhHealthyText.千卡()
             }
         } else {
-            sIndex = 2
+            sIndex = distanceGoalValues.firstIndex(of: user.distanceGoal) ?? 2
             
             pickItems = distanceGoalValues.map { value in
                 let kmValue = value / 1000
@@ -152,6 +159,17 @@ extension XWHActivitySetGoalTBVC {
                 return
             }
             
+            if sAtType == .step {
+                user.stepGoal = stepGoalValues[index]
+            } else if sAtType == .cal {
+                user.caloriesGoal = calGoalValues[index]
+            } else {
+                user.distanceGoal = distanceGoalValues[index]
+            }
+            
+            XWHDataUserManager.saveUser(&user)
+            
+            self.tableView.reloadData()
         }
     }
     

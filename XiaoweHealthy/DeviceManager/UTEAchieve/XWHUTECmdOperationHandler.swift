@@ -654,7 +654,7 @@ extension XWHUTECmdOperationHandler {
             infoModel.sex = UTEDeviceInfoSex.default
         }
         
-        infoModel.sportTarget = user.goal
+        infoModel.sportTarget = user.stepGoal
 
         // 抬腕亮屏开关
         infoModel.handlight = 0
