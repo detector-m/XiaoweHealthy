@@ -211,7 +211,7 @@ class XWHHealthActivityCTCell: UICollectionViewCell {
 //        activityRings.ring3.progress = Double(arc4random() % 101) / 100
         
     
-        activityRings.ring1.progress = atSumModel.stepGoal.double / stepGoal.double
+        activityRings.ring1.progress = atSumModel.steps.double / stepGoal.double
         activityRings.ring2.progress = atSumModel.calories.double / calGoal.double
         activityRings.ring3.progress = (atSumModel.distance.double) / 1000 / distanceGoal.double
     }
