@@ -62,6 +62,11 @@ class XWHActivityCTVC: XWHCollectionViewBaseVC {
         
         view.backgroundColor = collectionBgColor
         collectionView.backgroundColor = collectionBgColor
+        collectionView.alwaysBounceVertical = true
+        
+        var inset = collectionView.contentInset
+        inset.bottom = 16
+        collectionView.contentInset = inset
     }
     
     override func relayoutSubViews() {
