@@ -16,16 +16,21 @@ class XWHActivityCTVC: XWHCollectionViewBaseVC {
     lazy var dateBtn = UIButton()
     lazy var arrowDownImage: UIImage = UIImage.iconFont(text: XWHIconFontOcticons.arrowDown.rawValue, size: 12, color: fontDarkColor)
     
+    lazy var sDayDate = Date()
+    
     var popMenuItems: [String] {
         [R.string.xwhHealthyText.设置目标(), R.string.xwhHealthyText.了解活动数据()]
     }
+    
+    var atSumUIModel: XWHActivitySumUIModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         titleBtn.titleForNormal = R.string.xwhHealthyText.每日活动()
-        let btnTitle = Date().localizedString(withFormat: XWHDate.yearMonthDayFormat)
-        dateBtn.set(image: arrowDownImage, title: btnTitle, titlePosition: .left, additionalSpacing: 3, state: .normal)
+        updateUI()
+        
+        getActivitySum()
     }
     
     override func setupNavigationItems() {
@@ -79,7 +84,10 @@ class XWHActivityCTVC: XWHCollectionViewBaseVC {
     
     override func registerViews() {
         collectionView.register(cellWithClass: XWHHealthActivityCTCell.self)
-        collectionView.register(cellWithClass: XWHActivityChartCTCell.self)
+        
+        collectionView.register(cellWithClass: XWHActivityStepCTCell.self)
+        collectionView.register(cellWithClass: XWHActivityCalCTCell.self)
+        collectionView.register(cellWithClass: XWHActivityDistanceCTCell.self)
         
 //        collectionView.register(supplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withClass: XWHHealthyCTReusableView.self)
     }
@@ -88,6 +96,18 @@ class XWHActivityCTVC: XWHCollectionViewBaseVC {
         
     }
 
+}
+
+// MARK: - UI
+extension XWHActivityCTVC {
+    
+    private func updateUI() {
+        let btnTitle = sDayDate.localizedString(withFormat: XWHDate.yearMonthDayFormat)
+        dateBtn.set(image: arrowDownImage, title: btnTitle, titlePosition: .left, additionalSpacing: 3, state: .normal)
+        
+        collectionView.reloadData()
+    }
+    
 }
 
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate
@@ -126,15 +146,28 @@ class XWHActivityCTVC: XWHCollectionViewBaseVC {
             cell.layer.cornerRadius = 0
             cell.layer.backgroundColor = nil
             
+            cell.update(atSumUIModel: atSumUIModel)
+            
+            return cell
+        } else if indexPath.row == 1 {
+            let cell = collectionView.dequeueReusableCell(withClass: XWHActivityStepCTCell.self, for: indexPath)
+            
+            cell.update(activityType: .step, atSumUIModel: atSumUIModel)
+            
+            return cell
+        } else if indexPath.row == 2 {
+            let cell = collectionView.dequeueReusableCell(withClass: XWHActivityCalCTCell.self, for: indexPath)
+            
+            cell.update(activityType: .cal, atSumUIModel: atSumUIModel)
+            
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withClass: XWHActivityDistanceCTCell.self, for: indexPath)
+            
+            cell.update(activityType: .distance, atSumUIModel: atSumUIModel)
+            
             return cell
         }
-        
-        let atTypes: [XWHActivityType] = [.step, .cal, .distance]
-        let cell = collectionView.dequeueReusableCell(withClass: XWHActivityChartCTCell.self, for: indexPath)
-        
-        cell.update(activityType: atTypes[row - 1])
-        
-        return cell
     }
     
 //    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
@@ -176,23 +209,6 @@ class XWHActivityCTVC: XWHCollectionViewBaseVC {
         
         let menuImages: [UIImage] = mItems.map({ _ in iImage })
         FTPopOverMenu.showForSender(sender: sender, with: mItems, menuImageArray: menuImages, popOverPosition: .alwaysUnderSender, config: config, done: completion, cancel: nil)
-        
-//        var senderRect = CGRect.zero
-//        if let superView = sender.superview {
-//            senderRect = superView.convert(sender.frame, to: view)
-//        }
-//        senderRect = CGRect(center: CGPoint(x: senderRect.center.x - 10, y: senderRect.center.y), size: senderRect.size)
-//        FTPopOverMenu.showFromSenderFrame(senderFrame: senderRect, with: menuItems, menuImageArray: menuImages, popOverPosition: .alwaysUnderSender, config: getPopMenuConfig()) { sIndex in
-//
-//        } cancel: {
-//
-//        }
-        
-//        FTPopOverMenu.showForSender(sender: sender, with: mItems, menuImageArray: menuImages, popOverPosition: .alwaysUnderSender, config: getPopMenuConfig()) { sIndex in
-//
-//        } cancel: {
-//
-//        }
     }
     
     func didSelectPopMenuItem(at index: Int) {
@@ -222,6 +238,42 @@ class XWHActivityCTVC: XWHCollectionViewBaseVC {
         // set 'ignoreImageOriginalColor' to YES, images color will be same as textColor
         
         return configuration
+    }
+    
+}
+
+// MARK: - Api
+extension XWHActivityCTVC {
+    
+    /// 获取每日数据概览
+    private func getActivitySum() {
+        if sDayDate.dayBegin == Date().dayBegin {
+            return
+        }
+        
+        XWHActivityVM().getActivity(date: sDayDate) { [unowned self] error in
+            log.error(error)
+            
+            if error.isExpiredUserToken {
+                XWHUser.handleExpiredUserTokenUI(self, nil)
+                return
+            }
+            
+            self.atSumUIModel = nil
+            self.collectionView.reloadData()
+        } successHandler: { [unowned self] response in
+            guard let retModel = response.data as? XWHActivitySumUIModel else {
+                log.debug("活动 - 获取数据为空")
+                
+                self.atSumUIModel = nil
+                self.collectionView.reloadData()
+                                
+                return
+            }
+            
+            self.atSumUIModel = retModel
+            self.collectionView.reloadData()
+        }
     }
     
 }

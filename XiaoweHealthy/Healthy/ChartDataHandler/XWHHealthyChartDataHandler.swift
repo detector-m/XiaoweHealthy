@@ -20,6 +20,86 @@ class XWHHealthyChartDataHandler {
     
 }
 
+// MARK: - 活动
+extension XWHHealthyChartDataHandler {
+    
+    class func getActivityChartDataModel(date: Date, activityType: XWHActivityType, rawItems: [XWHActivityItemUIModel]) -> XWHChartDataBaseModel {
+        let retModel = XWHChartDataBaseModel()
+        
+        var iXAxisValue = ""
+        var iRawValue: XWHActivityItemUIModel? = nil
+        let defaultIYValue: Double = 0
+        var iYValue = defaultIYValue
+        
+        configChartDataModel(date: date, dateType: .day, rawItems: rawItems, chartDataModel: retModel, dayParser: { (dateType, i, iDate, rawItems) -> (String, Double, XWHActivityItemUIModel?) in
+            iXAxisValue = ""
+            iYValue = defaultIYValue
+            iRawValue = nil
+            
+            (iYValue, iRawValue) = getChartRawValue(in: rawItems, where: { $0.timeAxis.date(withFormat: XWHDate.standardTimeAllFormat)?.hour == iDate.hour }, chartValueHandler: { $0.value.double }, defaultChartValue: defaultIYValue)
+            iXAxisValue = getDayXAxisValue(i: i, iDate: iDate)
+            
+            return (iXAxisValue, iYValue, iRawValue)
+        }, weekParser: { dateType, i, iDate, rawItems in
+            iXAxisValue = ""
+            iYValue = defaultIYValue
+            iRawValue = nil
+
+            return (iXAxisValue, iYValue, iRawValue)
+        }, monthParser: { dateType, i, iDate, rawItems in
+            iXAxisValue = ""
+            iYValue = defaultIYValue
+            iRawValue = nil
+
+            return (iXAxisValue, iYValue, iRawValue)
+        }, yearParser: { dateType, i, iDate, rawItems in
+            iXAxisValue = ""
+            iYValue = defaultIYValue
+            iRawValue = nil
+            
+            return (iXAxisValue, iYValue, iRawValue)
+        }, yAxisHandler: { yValues, yAxisLabelCount in
+            return getActivityYAxisResult(activityType: activityType, yValues: yValues, yAxisLabelCount: yAxisLabelCount)
+        }, yAxisLabelCount: 5)
+        
+        return retModel
+    }
+    
+    private class func getActivityYAxisResult(activityType: XWHActivityType, yValues: [Double], yAxisLabelCount: Int) -> XWHChartDataYAxisResult<[Double]> {
+        let yAxisCount: Double = yAxisLabelCount <= 1 ? 1 : yAxisLabelCount.double
+        var max = yValues.max() ?? 0
+        
+        if activityType == .step {
+            if max < 2000 {
+                max = 2000
+            } else {
+                // 防止不弹出marker
+                max += 1
+            }
+        } else if activityType == .cal {
+            if max < 80 {
+                max = 80
+            } else {
+                max += 1
+            }
+        } else {
+            if max < 3000 {
+                max = 3000
+            } else {
+                max /= 1000
+                max += 1
+                max = ceil(max) * 1000
+            }
+        }
+        
+        let granularity = ceil(max / yAxisCount)
+        max = granularity * yAxisCount
+        
+        return (max, granularity, [])
+    }
+    
+}
+
 // MARK: - 情绪
 extension XWHHealthyChartDataHandler {
     

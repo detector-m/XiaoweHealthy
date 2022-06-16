@@ -40,7 +40,7 @@ class XWHRoundedCornersBarChartBaseCTCell: XWHChartBaseCTCell {
         chartView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.top.equalToSuperview().offset(12)
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-12)
         }
     }
     

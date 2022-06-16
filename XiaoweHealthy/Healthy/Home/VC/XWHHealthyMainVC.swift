@@ -603,6 +603,7 @@ extension XWHHealthyMainVC {
     /// 每日活动
     private func gotoActivity() {
         let vc = XWHActivityCTVC()
+        vc.atSumUIModel = atSumUIModel
         navigationController?.pushViewController(vc, animated: true)
     }
     

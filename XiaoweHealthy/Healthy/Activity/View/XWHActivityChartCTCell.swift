@@ -51,70 +51,93 @@ class XWHActivityChartCTCell: XWHRoundedCornersBarChartBaseCTCell {
         layer.backgroundColor = UIColor.white.cgColor
     }
     
-    func update(activityType: XWHActivityType) {
+    override func configYAxis() {
+        super.configYAxis()
+        
+        chartView.leftAxis.labelCount = 5
+        chartView.rightAxis.labelCount = 5
+        chartView.leftAxis.forceLabelsEnabled = true
+        chartView.rightAxis.forceLabelsEnabled = true
+    }
+    
+    func update(activityType: XWHActivityType, atSumUIModel: XWHActivitySumUIModel?) {
         atType = activityType
         
-        var rawItems: [XWHChartUIChartItemModel] = []
-
-        let sDate = Date()
-        
-        detailLb.text = sDate.string(withFormat: XWHDate.monthDayFormat)
-        
-        let sEDate = sDate.dayBegin
-        for i in 0 ..< 24 {
-            let item = XWHChartUIChartItemModel()
-            
-            item.lowest = Int(arc4random() % 51) + 40
-            item.highest = item.lowest + Int(arc4random() % 51)
-            
-            let iDate = sEDate.adding(.hour, value: i)
-            item.timeAxis = iDate.string(withFormat: XWHDate.standardTimeAllFormat)
-            
-            rawItems.append(item)
-        }
-        
-        let chartDataModel = XWHHealthyChartDataHandler.getHeartChartDataModel(date: sDate, dateType: .day, rawItems: rawItems)
-        self.chartDataModel = chartDataModel
-        
-        chartView.rightAxis.axisMaximum = chartDataModel.max
-        chartView.rightAxis.axisMinimum = chartDataModel.min
-        chartView.rightAxis.granularity = chartDataModel.granularity
-        
-        chartView.leftAxis.axisMaximum = chartDataModel.max
-        chartView.leftAxis.axisMinimum = chartDataModel.min
-        chartView.leftAxis.granularity = chartDataModel.granularity
-        
+        let sDate = atSumUIModel?.collectDate.date(withFormat: XWHDate.standardYearMonthDayFormat) ?? Date()
         var valueString = ""
         var targetString = ""
         var text = ""
         
         if activityType == .step {
-            let stepValue = 1000
+            let stepValue = atSumUIModel?.totalSteps ?? 0
             valueString = stepValue.string
             targetString = R.string.xwhHealthyText.步()
             text = valueString + targetString
             
             textLb.attributedText = NSAttributedString(string: text).applying(attributes: [.font: valueFont, .foregroundColor: fontDarkColor], toOccurrencesOf: valueString).applying(attributes: [.font: unitFont, .foregroundColor: fontDarkColor], toOccurrencesOf: targetString)
             
-            detailLb.text = "目标步数8000步"
+            detailLb.text = "目标步数\(atSumUIModel?.stepGoal ?? 8000)步"
+            
+            let chartDataModel = XWHHealthyChartDataHandler.getActivityChartDataModel(date: sDate, activityType: .step, rawItems: atSumUIModel?.steps ?? [])
+            self.chartDataModel = chartDataModel
+            
+            chartView.rightAxis.axisMaximum = chartDataModel.max
+            chartView.rightAxis.axisMinimum = chartDataModel.min
+            chartView.rightAxis.granularity = chartDataModel.granularity
+            
+            chartView.leftAxis.axisMaximum = chartDataModel.max
+            chartView.leftAxis.axisMinimum = chartDataModel.min
+            chartView.leftAxis.granularity = chartDataModel.granularity
 
             chartView.data = getStepChartData(chartDataModel: chartDataModel)
         } else if activityType == .cal {
-            valueString = 100.string
+            let value = atSumUIModel?.totalCalories ?? 0
+            valueString = value.string
             targetString = R.string.xwhHealthyText.千卡()
             text = valueString + targetString
             textLb.attributedText = NSAttributedString(string: text).applying(attributes: [.font: valueFont, .foregroundColor: fontDarkColor], toOccurrencesOf: valueString).applying(attributes: [.font: unitFont, .foregroundColor: fontDarkColor], toOccurrencesOf: targetString)
             
-            detailLb.text = "目标消耗100千卡"
+            detailLb.text = "目标消耗\(atSumUIModel?.caloriesGoal ?? 300)千卡"
+            
+            let chartDataModel = XWHHealthyChartDataHandler.getActivityChartDataModel(date: sDate, activityType: .cal, rawItems: atSumUIModel?.calories ?? [])
+            self.chartDataModel = chartDataModel
+            
+            chartView.rightAxis.axisMaximum = chartDataModel.max
+            chartView.rightAxis.axisMinimum = chartDataModel.min
+            chartView.rightAxis.granularity = chartDataModel.granularity
+            
+            chartView.leftAxis.axisMaximum = chartDataModel.max
+            chartView.leftAxis.axisMinimum = chartDataModel.min
+            chartView.leftAxis.granularity = chartDataModel.granularity
             
             chartView.data = getCalChartData(chartDataModel: chartDataModel)
         } else {
-            valueString = 3.33.string
+            let value = atSumUIModel?.totalDistance ?? 0
+            let kmValue = UnitHandler.getKm(m: value)
+
+            valueString = kmValue.string
             targetString = R.string.xwhHealthyText.公里()
             text = valueString + targetString
             textLb.attributedText = NSAttributedString(string: text).applying(attributes: [.font: valueFont, .foregroundColor: fontDarkColor], toOccurrencesOf: valueString).applying(attributes: [.font: unitFont, .foregroundColor: fontDarkColor], toOccurrencesOf: targetString)
             
-            detailLb.text = "目标距离5公里"
+            let distanceGoal = (atSumUIModel?.distanceGoal ?? 3000) / 1000
+            detailLb.text = "目标距离\(distanceGoal)公里"
+            
+            let chartDataModel = XWHHealthyChartDataHandler.getActivityChartDataModel(date: sDate, activityType: .distance, rawItems: atSumUIModel?.distance ?? [])
+            self.chartDataModel = chartDataModel
+            
+            chartView.rightAxis.axisMaximum = chartDataModel.max
+            chartView.rightAxis.axisMinimum = chartDataModel.min
+            chartView.rightAxis.granularity = chartDataModel.granularity
+            
+            chartView.leftAxis.axisMaximum = chartDataModel.max
+            chartView.leftAxis.axisMinimum = chartDataModel.min
+            chartView.leftAxis.granularity = chartDataModel.granularity
+            
+            chartView.rightAxis.valueFormatter = DefaultAxisValueFormatter(block: { value, axis in
+                let kmValue = UnitHandler.getKm(m: value.int)
+                return kmValue.string
+            })
             
             chartView.data = getDistanceChartData(chartDataModel: chartDataModel)
         }
@@ -143,19 +166,11 @@ class XWHActivityChartCTCell: XWHRoundedCornersBarChartBaseCTCell {
     
     func getChartDataSet(values: [Any]) -> RoundedCornersBarChartDataSet {
         var dataEntries: [BarChartDataEntry] = []
-//        let yValues: [Double] = values as? [Double] ?? []
-//        
-//        for (i, iYValue) in yValues.enumerated() {
-//            let entry = BarChartDataEntry(x: i.double, y: iYValue)
-//            dataEntries.append(entry)
-//        }
         
-        let yValues: [[Double]] = values as? [[Double]] ?? []
+        let yValues: [Double] = values as? [Double] ?? []
         
         for (i, iYValue) in yValues.enumerated() {
-            let high = iYValue[1]
-//            let low = iYValue[0]
-            let entry = BarChartDataEntry(x: i.double, y: high)
+            let entry = BarChartDataEntry(x: i.double, y: iYValue)
             dataEntries.append(entry)
         }
         
@@ -169,7 +184,7 @@ class XWHActivityChartCTCell: XWHRoundedCornersBarChartBaseCTCell {
     }
     
     override func showMarker(with rawValue: Any) {
-        guard let iItem = rawValue as? XWHChartUIChartItemModel else {
+        guard let iItem = rawValue as? XWHActivityItemUIModel else {
             chartView.highlightValue(nil)
             return
         }
@@ -179,20 +194,21 @@ class XWHActivityChartCTCell: XWHRoundedCornersBarChartBaseCTCell {
         var text = ""
         
         if atType == .step {
-            let stepValue = iItem.highest
+            let stepValue = iItem.value
             valueString = stepValue.string
             targetString = R.string.xwhHealthyText.步()
             text = valueString + targetString
             
             markerView.textLb.attributedText = NSAttributedString(string: text).applying(attributes: [.font: markerValueFont, .foregroundColor: fontDarkColor], toOccurrencesOf: valueString).applying(attributes: [.font: markerUnitFont, .foregroundColor: fontDarkColor], toOccurrencesOf: targetString)
         } else if atType == .cal {
-            valueString = iItem.highest.string
+            valueString = iItem.value.string
             targetString = R.string.xwhHealthyText.千卡()
             text = valueString + targetString
             
             markerView.textLb.attributedText = NSAttributedString(string: text).applying(attributes: [.font: markerValueFont, .foregroundColor: fontDarkColor], toOccurrencesOf: valueString).applying(attributes: [.font: markerUnitFont, .foregroundColor: fontDarkColor], toOccurrencesOf: targetString)
         } else {
-            valueString = iItem.highest.string
+            let kmValue = UnitHandler.getKm(m: iItem.value)
+            valueString = kmValue.string
             targetString = R.string.xwhHealthyText.公里()
             text = valueString + targetString
             
