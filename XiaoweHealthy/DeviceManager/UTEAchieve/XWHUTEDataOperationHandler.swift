@@ -527,6 +527,20 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             iSum.stepGoal = user.stepGoal
             iSum.caloriesGoal = user.caloriesGoal
             iSum.distanceGoal = user.distanceGoal
+            
+            var totalSteps = 0
+            var totalCalories = 0
+            var totalDistance = 0
+            
+            for iItem in iSum.items {
+                totalSteps += iItem.steps
+                totalCalories += iItem.calories
+                totalDistance += iItem.distance
+            }
+            
+            iSum.steps = totalSteps
+            iSum.calories = totalCalories
+            iSum.distance = totalDistance
         }
 
         log.debug("同步活动原始数据 \(parsedAtArray)")

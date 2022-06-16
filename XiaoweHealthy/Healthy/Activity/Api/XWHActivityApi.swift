@@ -26,10 +26,10 @@ extension XWHActivityApi: XWHServiceTargetType {
     var path: String {
         switch self {
         case .getActivitySums:
-            return "/device/query_step_data"
+            return "/device/step_data_exist"
             
         case .getActivity:
-            return "/device/step_data_exist"
+            return "/device/query_step_data"
             
         }
     }

@@ -170,7 +170,7 @@ class XWHHealthActivityCTCell: UICollectionViewCell {
         }
     }
     
-    func update(atSumModel: XWHActivitySumModel?) {
+    func update(atSumUIModel: XWHActivitySumUIModel?) {
         stepTitleLb.text = R.string.xwhHealthyText.步数()
         calTitleLb.text = R.string.xwhHealthyText.消耗()
         distanceTitleLb.text = R.string.xwhHealthyText.距离()
@@ -179,41 +179,36 @@ class XWHHealthActivityCTCell: UICollectionViewCell {
         calValueLb.text = "0"
         distanceValueLb.text = "0"
         
-        guard let atSumModel = atSumModel else {
+        guard let atSumUIModel = atSumUIModel else {
             return
         }
         
-        let stepGoal = atSumModel.stepGoal > 0 ? atSumModel.stepGoal : 8000
-        let calGoal = atSumModel.caloriesGoal > 0 ? atSumModel.caloriesGoal : 300
-        let distanceGoal = (atSumModel.distanceGoal > 0 ? atSumModel.distanceGoal : 3000) / 1000
+        let stepGoal = atSumUIModel.stepGoal > 0 ? atSumUIModel.stepGoal : 8000
+        let calGoal = atSumUIModel.caloriesGoal > 0 ? atSumUIModel.caloriesGoal : 300
+        let distanceGoal = (atSumUIModel.distanceGoal > 0 ? atSumUIModel.distanceGoal : 3000) / 1000
         
-        let stepValue = atSumModel.steps
+        let stepValue = atSumUIModel.totalSteps
         var valueString = stepValue.string
         var targetString = " /" + stepGoal.string + R.string.xwhHealthyText.步()
         var text = valueString + targetString
         stepValueLb.attributedText = NSAttributedString(string: text).applying(attributes: [.font: valueFont, .foregroundColor: fontDarkColor], toOccurrencesOf: valueString).applying(attributes: [.font: titleFont, .foregroundColor: titleColor], toOccurrencesOf: targetString)
         
 
-        valueString = atSumModel.calories.string
+        valueString = atSumUIModel.totalCalories.string
         targetString = " /" + calGoal.string + R.string.xwhHealthyText.千卡()
         text = valueString + targetString
         calValueLb.attributedText = NSAttributedString(string: text).applying(attributes: [.font: valueFont, .foregroundColor: fontDarkColor], toOccurrencesOf: valueString).applying(attributes: [.font: titleFont, .foregroundColor: titleColor], toOccurrencesOf: targetString)
         
 
-        let distance = (atSumModel.distance.double / 1000).rounded(numberOfDecimalPlaces: 2, rule: .toNearestOrAwayFromZero)
+        let distance = (atSumUIModel.totalDistance.double / 1000).rounded(numberOfDecimalPlaces: 2, rule: .toNearestOrAwayFromZero)
         valueString = distance.string
         targetString = " /" + distanceGoal.string + R.string.xwhHealthyText.公里()
         text = valueString + targetString
         distanceValueLb.attributedText = NSAttributedString(string: text).applying(attributes: [.font: valueFont, .foregroundColor: fontDarkColor], toOccurrencesOf: valueString).applying(attributes: [.font: titleFont, .foregroundColor: titleColor], toOccurrencesOf: targetString)
         
-//        activityRings.ring1.progress = Double(arc4random() % 101) / 100
-//        activityRings.ring2.progress = Double(arc4random() % 101) / 100
-//        activityRings.ring3.progress = Double(arc4random() % 101) / 100
-        
-    
-        activityRings.ring1.progress = atSumModel.steps.double / stepGoal.double
-        activityRings.ring2.progress = atSumModel.calories.double / calGoal.double
-        activityRings.ring3.progress = (atSumModel.distance.double) / 1000 / distanceGoal.double
+        activityRings.ring1.progress = atSumUIModel.totalSteps.double / stepGoal.double
+        activityRings.ring2.progress = atSumUIModel.totalCalories.double / calGoal.double
+        activityRings.ring3.progress = (atSumUIModel.totalDistance.double) / 1000 / distanceGoal.double
     }
     
 }

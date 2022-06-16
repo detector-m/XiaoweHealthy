@@ -34,7 +34,7 @@ class XWHActivityVM {
             let cId = "Healthy.getActivity"
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
                 
-                response.data = XWHActivitySumModel.deserialize(from: json.arrayValue.first?.dictionaryObject)
+                response.data = XWHActivitySumUIModel.deserialize(from: json.dictionaryObject)
                 return nil
             }
         }

@@ -38,7 +38,7 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
     private var msUIModel: XWHMentalStressUIStressModel?
     private var moodUIModel: XWHMoodUIMoodModel?
 
-    private var atSumModel: XWHActivitySumModel?
+    private var atSumUIModel: XWHActivitySumUIModel?
 
     deinit {
         XWHDevice.shared.removeObserver(observer: self)
@@ -222,14 +222,9 @@ extension XWHHealthyMainVC: XWHDeviceObserverProtocol {
     }
     
     func updateSyncState(_ syncState: XWHDevDataTransferState) {
-//        if syncState == .succeed {
-//            XWHDevice.shared.updateDeviceInfo(completion: nil)
-//            view.makeInsetToast(R.string.xwhDeviceText.同步成功())
-//        } else if syncState == .failed {
-//            view.makeInsetToast(R.string.xwhDeviceText.同步失败())
-//        }
-//
-//        reloadAll()
+        if syncState == .succeed {
+            loadDatas()
+        }
     }
     
 }
@@ -285,7 +280,7 @@ extension XWHHealthyMainVC: XWHDeviceObserverProtocol {
         if iDeployItem.type == .activity {
             let cell = collectionView.dequeueReusableCell(withClass: XWHHealthActivityCTCell.self, for: indexPath)
             
-            cell.update(atSumModel: atSumModel)
+            cell.update(atSumUIModel: atSumUIModel)
             return cell
         }
         
@@ -436,19 +431,19 @@ extension XWHHealthyMainVC {
                 return
             }
             
-            self.atSumModel = nil
+            self.atSumUIModel = nil
             self.collectionView.reloadData()
         } successHandler: { [unowned self] response in
-            guard let retModel = response.data as? XWHActivitySumModel else {
+            guard let retModel = response.data as? XWHActivitySumUIModel else {
                 log.debug("活动 - 获取数据为空")
                 
-                self.atSumModel = nil
+                self.atSumUIModel = nil
                 self.collectionView.reloadData()
                                 
                 return
             }
             
-            self.atSumModel = retModel
+            self.atSumUIModel = retModel
             self.collectionView.reloadData()
         }
     }
