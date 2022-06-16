@@ -98,7 +98,7 @@ class XWHActivityCTVC: XWHCollectionViewBaseVC {
     }
     
     @objc func clickDateBtn() {
-        
+        gotoActivityCalendar()
     }
 
 }
@@ -285,6 +285,18 @@ extension XWHActivityCTVC {
 
 // MARK: - Jump UI
 extension XWHActivityCTVC {
+    
+    /// 查看活动日历
+    private func gotoActivityCalendar() {
+        let vc = XWHActivityCalendarVC()
+        vc.sDayDate = sDayDate
+        vc.clickHandler = { [unowned self] cDate in
+            self.sDayDate = cDate
+            self.updateUI()
+            self.getActivitySum()
+        }
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
     /// 设置目标
     private func gotoSetGoal() {

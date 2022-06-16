@@ -12,16 +12,11 @@ class XWHActivityVM {
     
     /// 每日活动数据概览
     func getActivitySums(date: Date, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
-        activityProvider.request(.getActivitySums(date.year, date.month, XWHHealthyDateSegmentType.day.rawValue)) { result in
+        activityProvider.request(.getActivitySums(date.year, date.month, XWHHealthyDateSegmentType.month.rawValue)) { result in
             let cId = "Healthy.getActivitySums"
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
                 
-                guard let items = json.arrayObject as? [String] else {
-                    log.error("\(cId) 获取用户活动数据概览错误")
-                    return nil
-                }
-                
-                response.data = [XWHActivitySumModel].deserialize(from: items)
+                response.data = [XWHActivitySumUIModel].deserialize(from: json.arrayObject)
                 
                 return nil
             }

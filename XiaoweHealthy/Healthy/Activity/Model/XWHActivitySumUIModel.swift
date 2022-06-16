@@ -12,6 +12,7 @@ class XWHActivitySumUIModel: HandyJSON {
 
     /// "2022-04-06"
     var collectDate = ""
+    var calendarDate = ""
     var totalSteps = 0
     var totalCalories = 0
     var totalDistance = 0
