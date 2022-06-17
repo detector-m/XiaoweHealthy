@@ -108,7 +108,7 @@ target 'XiaoweHealthy' do
   pod 'KDCircularProgress'
   
   # 三环
-  pod 'MKRingProgressView'
+#  pod 'MKRingProgressView'
   
   # 文件下载管理
   pod 'Tiercel'
@@ -121,6 +121,7 @@ target 'XiaoweHealthy' do
   
   # 日历
   pod 'JTAppleCalendar'
+  pod 'FSCalendar'
   
   # 文件管理
 #  pod 'Files'

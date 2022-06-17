@@ -24,9 +24,15 @@ class XWHActivityCalendarMonthView: XWHBaseView {
     /// 日历的结束时间
     lazy var endDate = Date()
     
-    lazy var sDayDate = Date()
+    lazy var sDayDate = Date() {
+        didSet {
+            curBMontDate = sDayDate.monthBegin
+        }
+    }
     var clickDateHandler: ((Date) -> Void)?
     var didScrollToStartDate: ((Date) -> Void)?
+    
+    lazy var curBMontDate: Date = Date().monthBegin
     
     lazy var atSums: [XWHActivitySumUIModel] = []
     
@@ -66,7 +72,7 @@ class XWHActivityCalendarMonthView: XWHBaseView {
     }
     
     @objc func registerViews() {
-        monthView.register(cellWithClass: XWHActivityCalendarDayCell.self)
+        monthView.register(cellWithClass: XWHActivityCalendarMonthDayCell.self)
     }
     
     func setSelectDate(_ date: Date) {
@@ -82,20 +88,26 @@ extension XWHActivityCalendarMonthView: JTACMonthViewDataSource & JTACMonthViewD
     
     // MARK: - JTACMonthViewDataSource & JTACMonthViewDelegate
     func configureCalendar(_ calendar: JTACMonthView) -> ConfigurationParameters {
-        let parameters = ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: numberOfRows, calendar: Calendar.current, generateInDates: .forAllMonths, generateOutDates: .tillEndOfGrid, firstDayOfWeek: XWHCalendarHelper.firstDayOfWeek, hasStrictBoundaries: nil)
+        let parameters = ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: numberOfRows, calendar: Calendar.current, generateInDates: .forAllMonths, generateOutDates: .tillEndOfGrid, firstDayOfWeek: XWHCalendarHelper.firstDayOfWeek, hasStrictBoundaries: true)
 
         return parameters
     }
     
     func calendar(_ calendar: JTACMonthView, willDisplay cell: JTACDayCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
+        guard let cell = cell as? XWHActivityCalendarMonthDayCell else {
+            return
+        }
+        
+        cell.updateActivityRings(atSumUIModel: nil)
     }
     
     func calendar(_ calendar: JTACMonthView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTACDayCell {
-        let cell = calendar.dequeueReusableCell(withClass: XWHActivityCalendarDayCell.self, for: indexPath)
+        let cell = calendar.dequeueReusableCell(withClass: XWHActivityCalendarMonthDayCell.self, for: indexPath)
+        
+        cell.updateActivityRings(atSumUIModel: nil)
         if cellState.dateBelongsTo != .thisMonth {
             cell.isHidden = true
             return cell
-            
         }
         
         cell.textLb.text = cellState.text
@@ -109,10 +121,10 @@ extension XWHActivityCalendarMonthView: JTACMonthViewDataSource & JTACMonthViewD
         } else if cellState.date.dayBegin == sDayDate.dayBegin  {
             cell.indicator.isHidden = false
         }
-        
-        let iSum = atSums.first(where: { cellState.date.dayBegin == ($0.calendarDate.date(withFormat: XWHDate.standardYearMonthDayFormat) ?? Date()).dayBegin })
-        
-        cell.updateActivityRings(atSumUIModel: iSum)
+
+        if let iSum = atSums.first(where: { cellState.date.dayBegin == ($0.calendarDate.date(withFormat: XWHDate.standardYearMonthDayFormat) ?? Date()).dayBegin }) {
+            cell.updateActivityRings(atSumUIModel: iSum)
+        }
 
         return cell
     }
@@ -144,7 +156,14 @@ extension XWHActivityCalendarMonthView: JTACMonthViewDataSource & JTACMonthViewD
             return
         }
         
-        didScrollToStartDate?(fDate.dayBegin)
+        let fBDate = fDate.monthBegin
+        if fBDate == curBMontDate {
+            return
+        }
+        
+        curBMontDate = fBDate
+        
+        didScrollToStartDate?(curBMontDate)
     }
     
 //    func sizeOfDecorationView(indexPath: IndexPath) -> CGRect {

@@ -22,7 +22,6 @@
  THE SOFTWARE.
  */
 
-import MKRingProgressView
 import UIKit
 
 @IBDesignable

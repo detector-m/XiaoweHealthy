@@ -7,7 +7,6 @@
 
 import UIKit
 import KDCircularProgress
-import MKRingProgressView
 
 class XWHHealthActivityCTCell: UICollectionViewCell {
     
@@ -243,16 +242,13 @@ private extension XWHHealthActivityCTCell {
         activityRings.ring2.hidesRingForZeroProgress = true
         activityRings.ring3.hidesRingForZeroProgress = true
         
+        activityRings.ring1.ringProgressLayer.disableProgressAnimation = true
+        activityRings.ring2.ringProgressLayer.disableProgressAnimation = true
+        activityRings.ring3.ringProgressLayer.disableProgressAnimation = true
         
-        if let progressLayer = activityRings.ring1.layer as? RingProgressLayer {
-            progressLayer.endShadowOpacity = 0
-        }
-        if let progressLayer = activityRings.ring2.layer as? RingProgressLayer {
-            progressLayer.endShadowOpacity = 0
-        }
-        if let progressLayer = activityRings.ring3.layer as? RingProgressLayer {
-            progressLayer.endShadowOpacity = 0
-        }
+        activityRings.ring1.endShadowOpacity = 0
+        activityRings.ring2.endShadowOpacity = 0
+        activityRings.ring3.endShadowOpacity = 0
     }
     
 }

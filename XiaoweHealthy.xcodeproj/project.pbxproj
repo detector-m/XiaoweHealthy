@@ -56,6 +56,9 @@
 		9651EE2C27EC5B1B0043FE52 /* UMAnalyticsSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651EE2B27EC5B1B0043FE52 /* UMAnalyticsSwift.swift */; };
 		9651EE2E27EC5BD30043FE52 /* UMShareSwiftInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651EE2D27EC5BD30043FE52 /* UMShareSwiftInterface.swift */; };
 		9651EE3027EC5C7E0043FE52 /* XWHUMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9651EE2F27EC5C7E0043FE52 /* XWHUMManager.swift */; };
+		96522C24285C3FAA00C2A208 /* MKGradientGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96522C20285C3FAA00C2A208 /* MKGradientGenerator.swift */; };
+		96522C25285C3FAA00C2A208 /* MKRingProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96522C22285C3FAA00C2A208 /* MKRingProgressView.swift */; };
+		96522C26285C3FAA00C2A208 /* MKRingProgressLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96522C23285C3FAA00C2A208 /* MKRingProgressLayer.swift */; };
 		9653E48927F54D5900EE55FF /* XWHDataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9653E48827F54D5900EE55FF /* XWHDataExtension.swift */; };
 		9653E49027F552E300EE55FF /* XWHDevSetBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9653E48F27F552E300EE55FF /* XWHDevSetBaseVC.swift */; };
 		9653E49227F5545100EE55FF /* XWHDevSetChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9653E49127F5545100EE55FF /* XWHDevSetChatVC.swift */; };
@@ -195,7 +198,7 @@
 		9684024B285AECB80079923C /* UnitHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684024A285AECB70079923C /* UnitHandler.swift */; };
 		9684024E285B165F0079923C /* XWHActivityCalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684024D285B165F0079923C /* XWHActivityCalendarVC.swift */; };
 		96840250285B27720079923C /* XWHActivityCalendarMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684024F285B27720079923C /* XWHActivityCalendarMonthView.swift */; };
-		96840252285B2BB00079923C /* XWHActivityCalendarDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96840251285B2BB00079923C /* XWHActivityCalendarDayCell.swift */; };
+		96840252285B2BB00079923C /* XWHActivityCalendarMonthDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96840251285B2BB00079923C /* XWHActivityCalendarMonthDayCell.swift */; };
 		968489FD2840F52100821E24 /* XWHMoodRangeCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */; };
 		96848A012841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96848A002841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift */; };
 		968CB8A327F3FB8800E549AC /* UITableViewRoundedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */; };
@@ -496,6 +499,10 @@
 		9651EE2B27EC5B1B0043FE52 /* UMAnalyticsSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UMAnalyticsSwift.swift; sourceTree = "<group>"; };
 		9651EE2D27EC5BD30043FE52 /* UMShareSwiftInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UMShareSwiftInterface.swift; sourceTree = "<group>"; };
 		9651EE2F27EC5C7E0043FE52 /* XWHUMManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUMManager.swift; sourceTree = "<group>"; };
+		96522C20285C3FAA00C2A208 /* MKGradientGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKGradientGenerator.swift; sourceTree = "<group>"; };
+		96522C21285C3FAA00C2A208 /* MKRingProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKRingProgressView.h; sourceTree = "<group>"; };
+		96522C22285C3FAA00C2A208 /* MKRingProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKRingProgressView.swift; sourceTree = "<group>"; };
+		96522C23285C3FAA00C2A208 /* MKRingProgressLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKRingProgressLayer.swift; sourceTree = "<group>"; };
 		9653E48827F54D5900EE55FF /* XWHDataExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataExtension.swift; sourceTree = "<group>"; };
 		9653E48F27F552E300EE55FF /* XWHDevSetBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetBaseVC.swift; sourceTree = "<group>"; };
 		9653E49127F5545100EE55FF /* XWHDevSetChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetChatVC.swift; sourceTree = "<group>"; };
@@ -634,7 +641,7 @@
 		9684024A285AECB70079923C /* UnitHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitHandler.swift; sourceTree = "<group>"; };
 		9684024D285B165F0079923C /* XWHActivityCalendarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHActivityCalendarVC.swift; sourceTree = "<group>"; };
 		9684024F285B27720079923C /* XWHActivityCalendarMonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHActivityCalendarMonthView.swift; sourceTree = "<group>"; };
-		96840251285B2BB00079923C /* XWHActivityCalendarDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHActivityCalendarDayCell.swift; sourceTree = "<group>"; };
+		96840251285B2BB00079923C /* XWHActivityCalendarMonthDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHActivityCalendarMonthDayCell.swift; sourceTree = "<group>"; };
 		968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMoodRangeCTCell.swift; sourceTree = "<group>"; };
 		96848A002841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyMainCommonCTCell.swift; sourceTree = "<group>"; };
 		968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewRoundedProtocol.swift; sourceTree = "<group>"; };
@@ -1162,6 +1169,17 @@
 			path = UM;
 			sourceTree = "<group>";
 		};
+		96522C1F285C3FAA00C2A208 /* MKRingProgressView */ = {
+			isa = PBXGroup;
+			children = (
+				96522C20285C3FAA00C2A208 /* MKGradientGenerator.swift */,
+				96522C21285C3FAA00C2A208 /* MKRingProgressView.h */,
+				96522C22285C3FAA00C2A208 /* MKRingProgressView.swift */,
+				96522C23285C3FAA00C2A208 /* MKRingProgressLayer.swift */,
+			);
+			path = MKRingProgressView;
+			sourceTree = "<group>";
+		};
 		9653E48A27F5519E00EE55FF /* DeviceSettings */ = {
 			isa = PBXGroup;
 			children = (
@@ -1336,6 +1354,7 @@
 		96617A6F27E1E06700139B03 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				96522C1F285C3FAA00C2A208 /* MKRingProgressView */,
 				969B88462812A8F7009952E7 /* Date */,
 				96F1D67428082B270067DBFD /* Location */,
 				96AD2858280144E40092B843 /* Log */,
@@ -1789,7 +1808,7 @@
 				96840247285ACC190079923C /* XWHActivityDistanceCTCell.swift */,
 				968379862858893F0034DB98 /* XWHActivitySetGoalTBCell.swift */,
 				9684024F285B27720079923C /* XWHActivityCalendarMonthView.swift */,
-				96840251285B2BB00079923C /* XWHActivityCalendarDayCell.swift */,
+				96840251285B2BB00079923C /* XWHActivityCalendarMonthDayCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3208,6 +3227,7 @@
 				969B8824280FE7BB009952E7 /* XWHDateSegmentView.swift in Sources */,
 				96617AAF27E3457100139B03 /* XWHRegisterFillInfoBaseVC.swift in Sources */,
 				96F3588527FE7F1800783614 /* XWHDeviceManagerEnum.swift in Sources */,
+				96522C24285C3FAA00C2A208 /* MKGradientGenerator.swift in Sources */,
 				9653E4A827F5B1F800EE55FF /* XWHComLineBaseTBCell.swift in Sources */,
 				96786282282F90C8003E5730 /* XWHHeartChartCTCell.swift in Sources */,
 				96DEA2162809B11800723D11 /* XWHDialApi.swift in Sources */,
@@ -3224,6 +3244,7 @@
 				96617A6C27E1DFE100139B03 /* XWHBaseView.swift in Sources */,
 				96786280282E7120003E5730 /* XWHChartMarkerView.swift in Sources */,
 				96E79EB5284F00020063647C /* XWHPersonInfoTBCell.swift in Sources */,
+				96522C26285C3FAA00C2A208 /* MKRingProgressLayer.swift in Sources */,
 				96C67AFA28047416001ACA81 /* XWHDataBloodPressureSetManager.swift in Sources */,
 				969B883628110DA4009952E7 /* XWHBaseCTReusableView.swift in Sources */,
 				969072352812E7940056CE4F /* XWHHeartIntroductionTXVC.swift in Sources */,
@@ -3370,7 +3391,7 @@
 				969F01C227F6DDF800CA4DA4 /* XWHDevSetUpdateHeaderView.swift in Sources */,
 				96AD28682801C5BA0092B843 /* XWHDataDeviceManager.swift in Sources */,
 				96E79EB7284F1EED0063647C /* XWHTBButtonFooter.swift in Sources */,
-				96840252285B2BB00079923C /* XWHActivityCalendarDayCell.swift in Sources */,
+				96840252285B2BB00079923C /* XWHActivityCalendarMonthDayCell.swift in Sources */,
 				96F1D68828096E6B0067DBFD /* XWHDialCTCell.swift in Sources */,
 				9690725128152CC50056CE4F /* XWHHeartDataDetailTBVC.swift in Sources */,
 				969B884B2812B769009952E7 /* XWHHealthyApi.swift in Sources */,
@@ -3474,6 +3495,7 @@
 				967F867F283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift in Sources */,
 				96617AA327E3110E00139B03 /* XWHPasswordLoginVC.swift in Sources */,
 				9693104D2824C01700133626 /* XWHHealthyMentalStressCTVC.swift in Sources */,
+				96522C25285C3FAA00C2A208 /* MKRingProgressView.swift in Sources */,
 				96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */,
 				96127D162842100E00940132 /* PullToRefreshHeader.swift in Sources */,
 				96907262281564C90056CE4F /* XWHBOUIBloodOxygenModel.swift in Sources */,

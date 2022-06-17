@@ -1,5 +1,5 @@
 //
-//  XWHActivityCalendarDayCell.swift
+//  XWHActivityCalendarMonthDayCell.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/6/16.
@@ -7,9 +7,8 @@
 
 import UIKit
 import JTAppleCalendar
-import MKRingProgressView
 
-class XWHActivityCalendarDayCell: JTACDayCell {
+class XWHActivityCalendarMonthDayCell: JTACDayCell {
     
     lazy var textLb = UILabel()
     lazy var indicator = UIView()
@@ -97,7 +96,7 @@ class XWHActivityCalendarDayCell: JTACDayCell {
     
 }
 
-extension XWHActivityCalendarDayCell {
+extension XWHActivityCalendarMonthDayCell {
     
     func config(activityRings: RingProgressGroupView) {
         activityRings.ringWidth = 3
@@ -113,16 +112,13 @@ extension XWHActivityCalendarDayCell {
         activityRings.ring2.hidesRingForZeroProgress = true
         activityRings.ring3.hidesRingForZeroProgress = true
         
+        activityRings.ring1.ringProgressLayer.disableProgressAnimation = true
+        activityRings.ring2.ringProgressLayer.disableProgressAnimation = true
+        activityRings.ring3.ringProgressLayer.disableProgressAnimation = true
         
-        if let progressLayer = activityRings.ring1.layer as? RingProgressLayer {
-            progressLayer.endShadowOpacity = 0
-        }
-        if let progressLayer = activityRings.ring2.layer as? RingProgressLayer {
-            progressLayer.endShadowOpacity = 0
-        }
-        if let progressLayer = activityRings.ring3.layer as? RingProgressLayer {
-            progressLayer.endShadowOpacity = 0
-        }
+        activityRings.ring1.endShadowOpacity = 0
+        activityRings.ring2.endShadowOpacity = 0
+        activityRings.ring3.endShadowOpacity = 0
     }
     
 }

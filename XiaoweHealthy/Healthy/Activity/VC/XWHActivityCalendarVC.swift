@@ -138,6 +138,9 @@ extension XWHActivityCalendarVC {
                 return
             }
             
+            if retModel.isEmpty {
+                return
+            }
             self.handleAtSums(retModel)
             self.monthView.atSums = self.atSums
             self.monthView.monthView.reloadData()
