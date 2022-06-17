@@ -28,7 +28,7 @@ class XWHActivityCalendarVC: XWHBaseVC {
         super.viewDidLoad()
         
         configEvent()
-        getActivitySum(bMonthDate: sDayDate)
+        getActivitySums(bMonthDate: sDayDate)
     }
     
     override func setupNavigationItems() {
@@ -111,7 +111,7 @@ class XWHActivityCalendarVC: XWHBaseVC {
         monthView.didScrollToStartDate = { [unowned self] cDate in
             self.titleLb.text = cDate.localizedString(withFormat: XWHDate.yearMonthFormat)
             
-            self.getActivitySum(bMonthDate: cDate)
+            self.getActivitySums(bMonthDate: cDate)
         }
     }
 
@@ -121,7 +121,7 @@ class XWHActivityCalendarVC: XWHBaseVC {
 extension XWHActivityCalendarVC {
     
     /// 获取每日数据概览
-    private func getActivitySum(bMonthDate: Date) {
+    private func getActivitySums(bMonthDate: Date) {
         XWHActivityVM().getActivitySums(date: bMonthDate) { [unowned self] error in
             log.error(error)
             

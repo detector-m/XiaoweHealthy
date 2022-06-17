@@ -16,12 +16,16 @@ class XWHActivityCTVC: XWHCollectionViewBaseVC {
     lazy var dateBtn = UIButton()
     lazy var arrowDownImage: UIImage = UIImage.iconFont(text: XWHIconFontOcticons.arrowDown.rawValue, size: 12, color: fontDarkColor)
     
+    lazy var weekIndicatiorView = XWHCalendarWeekIndicatorView(config: .init())
+    lazy var weekView = XWHWeekCalendarView()
+    
     lazy var sDayDate = Date()
     
     var popMenuItems: [String] {
         [R.string.xwhHealthyText.设置目标(), R.string.xwhHealthyText.了解活动数据()]
     }
     
+    lazy var atSums: [XWHActivitySumUIModel] = []
     var atSumUIModel: XWHActivitySumUIModel?
 
     override func viewDidLoad() {
@@ -30,7 +34,10 @@ class XWHActivityCTVC: XWHCollectionViewBaseVC {
         titleBtn.titleForNormal = R.string.xwhHealthyText.每日活动()
         updateUI()
         
+        getActivitySums(bMonthDate: sDayDate.monthBegin)
         getActivitySum()
+        
+        configEvent()
     }
     
     override func setupNavigationItems() {
@@ -60,9 +67,14 @@ class XWHActivityCTVC: XWHCollectionViewBaseVC {
         dateBtn.setTitleColor(fontDarkColor, for: .normal)
         view.addSubview(dateBtn)
         
+        view.addSubview(weekIndicatiorView)
+        view.addSubview(weekView)
+        
         view.backgroundColor = collectionBgColor
         collectionView.backgroundColor = collectionBgColor
         collectionView.alwaysBounceVertical = true
+        
+        weekIndicatiorView.backgroundColor = collectionBgColor
         
         var inset = collectionView.contentInset
         inset.bottom = 16
@@ -71,9 +83,21 @@ class XWHActivityCTVC: XWHCollectionViewBaseVC {
     
     override func relayoutSubViews() {
         relayoutDateBtn()
+        
+        weekIndicatiorView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(16)
+            make.height.equalTo(56)
+            make.top.equalTo(dateBtn.snp.bottom).offset(12)
+        }
+        weekView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(16)
+            make.top.equalTo(weekIndicatiorView.snp.bottom)
+            make.height.equalTo(52)
+        }
+        
         collectionView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(16)
-            make.top.equalTo(dateBtn.snp.bottom)
+            make.top.equalTo(weekView.snp.bottom)
             make.bottom.equalToSuperview()
         }
     }
@@ -99,6 +123,19 @@ class XWHActivityCTVC: XWHCollectionViewBaseVC {
     
     @objc func clickDateBtn() {
         gotoActivityCalendar()
+    }
+    
+    func configEvent() {
+        weekView.clickDateHandler = { [unowned self] cDate in
+            self.sDayDate = cDate
+            
+            self.updateUI()
+            self.getActivitySum()
+        }
+        
+        weekView.didScrollToStartDate = { [unowned self] cDate in
+            self.getActivitySums(bMonthDate: cDate)
+        }
     }
 
 }
@@ -251,6 +288,45 @@ extension XWHActivityCTVC {
 extension XWHActivityCTVC {
     
     /// 获取每日数据概览
+    private func getActivitySums(bMonthDate: Date) {
+        XWHActivityVM().getActivitySums(date: bMonthDate) { [unowned self] error in
+            log.error(error)
+            
+            if error.isExpiredUserToken {
+                XWHUser.handleExpiredUserTokenUI(self, nil)
+                return
+            }
+            
+            self.weekView.reloadData()
+        } successHandler: { [unowned self] response in
+            guard let retModel = response.data as? [XWHActivitySumUIModel] else {
+                log.debug("活动 - 获取数据为空")
+                                
+                return
+            }
+            
+            if retModel.isEmpty {
+                return
+            }
+            self.handleAtSums(retModel)
+            self.weekView.atSums = self.atSums
+            self.weekView.reloadData()
+        }
+    }
+    
+    private func handleAtSums(_ sums: [XWHActivitySumUIModel]) {
+        if sums.isEmpty {
+            return
+        }
+        
+        for iSums in sums {
+            atSums.removeAll(where: { $0.collectDate == iSums.collectDate })
+        }
+        
+        atSums.append(contentsOf: sums)
+    }
+    
+    /// 获取每日数据概览
     private func getActivitySum() {
         if sDayDate.dayBegin == Date().dayBegin {
             return
@@ -292,6 +368,8 @@ extension XWHActivityCTVC {
         vc.sDayDate = sDayDate
         vc.clickHandler = { [unowned self] cDate in
             self.sDayDate = cDate
+            self.weekView.sDayDate = cDate
+            self.weekView.reloadData()
             self.updateUI()
             self.getActivitySum()
         }
