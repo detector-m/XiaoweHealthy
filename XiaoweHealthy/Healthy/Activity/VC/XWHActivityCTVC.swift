@@ -79,6 +79,9 @@ class XWHActivityCTVC: XWHCollectionViewBaseVC {
         var inset = collectionView.contentInset
         inset.bottom = 16
         collectionView.contentInset = inset
+        
+        weekIndicatiorView.curWeekDates = weekView.curWeekDates
+        weekIndicatiorView.indicatorDate = weekView.sDayDate
     }
     
     override func relayoutSubViews() {
@@ -129,11 +132,16 @@ class XWHActivityCTVC: XWHCollectionViewBaseVC {
         weekView.clickDateHandler = { [unowned self] cDate in
             self.sDayDate = cDate
             
+            self.weekIndicatiorView.curWeekDates = self.weekView.curWeekDates
+            self.weekIndicatiorView.indicatorDate = self.weekView.sDayDate
+            
             self.updateUI()
             self.getActivitySum()
         }
         
         weekView.didScrollToStartDate = { [unowned self] cDate in
+            self.weekIndicatiorView.curWeekDates = self.weekView.curWeekDates
+            
             self.getActivitySums(bMonthDate: cDate)
         }
     }
@@ -370,6 +378,10 @@ extension XWHActivityCTVC {
             self.sDayDate = cDate
             self.weekView.sDayDate = cDate
             self.weekView.reloadData()
+            
+            self.weekIndicatiorView.curWeekDates = self.weekView.curWeekDates
+            self.weekIndicatiorView.indicatorDate = self.weekView.sDayDate
+            
             self.updateUI()
             self.getActivitySum()
         }

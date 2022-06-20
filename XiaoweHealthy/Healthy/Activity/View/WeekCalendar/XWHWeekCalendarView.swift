@@ -36,6 +36,7 @@ class XWHWeekCalendarView: UIView {
 
         }
     }
+    lazy var curWeekDates: [Date] = []
     
     var clickDateHandler: ((Date) -> Void)?
     var didScrollToStartDate: ((Date) -> Void)?
@@ -106,17 +107,21 @@ extension XWHWeekCalendarView {
     }
     
     private func scrollTo() {
+        var toSection = 0
+        let sDayDateBegin = self.sDayDate.dayBegin
+        for (i, iDates) in self.dateList.enumerated() {
+            if iDates.contains(where: { $0 == sDayDateBegin }) {
+                toSection = i
+                break
+            }
+        }
+        if !dateList.isEmpty {
+            curWeekDates = dateList[toSection]
+        }
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [weak self] in
             guard let self = self else {
                 return
-            }
-            var toSection = 0
-            let sDayDateBegin = self.sDayDate.dayBegin
-            for (i, iDates) in self.dateList.enumerated() {
-                if iDates.contains(where: { $0 == sDayDateBegin }) {
-                    toSection = i
-                    break
-                }
             }
             self.collectionView.isPagingEnabled = false
             self.collectionView.scrollToItem(at: IndexPath(row: 0, section: toSection), at: .left, animated: false)
@@ -208,6 +213,7 @@ extension XWHWeekCalendarView {
         }
         
         sDayDate = iDate
+        curWeekDates = dateList[indexPaths[0].section]
         didScrollToStartDate?(iDate)
     }
     

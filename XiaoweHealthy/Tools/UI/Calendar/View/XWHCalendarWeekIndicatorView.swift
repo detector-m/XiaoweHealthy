@@ -11,7 +11,6 @@ import JTAppleCalendar
 class XWHCalendarWeekIndicatorView: UIView {
     
     // MARK: - Outlets
-
     public lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.backgroundColor = .clear
@@ -21,13 +20,41 @@ class XWHCalendarWeekIndicatorView: UIView {
         stackView.alignment = .center
         return stackView
     }()
+    
+    var indicatorDate: Date? {
+        didSet {
+            reloadIndicatorData()
+        }
+    }
+    var curWeekDates: [Date] = [] {
+        didSet {
+            reloadIndicatorData()
+        }
+    }
+    private var indicatorIndex: Int? {
+        guard var inDate = indicatorDate else {
+            return nil
+        }
+        
+        inDate = inDate.dayBegin
+        
+        for (i, iDate) in curWeekDates.enumerated() {
+            if iDate.dayBegin == inDate {
+                return i
+            }
+        }
+        
+        return nil
+    }
+    
+    private var contentHeight: CGFloat {
+        32
+    }
 
     // MARK: - Variables
-
     private let config: XWHCalendarWeekIndicatorView.WeekIndicatorConfig
 
     // MARK: - Lifecycle
-
     init(config: XWHCalendarWeekIndicatorView.WeekIndicatorConfig) {
         self.config = config
         super.init(frame: .zero)
@@ -39,9 +66,51 @@ class XWHCalendarWeekIndicatorView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    private func reloadIndicatorData() {
+        if stackView.arrangedSubviews.count != curWeekDates.count {
+            return
+        }
+        
+        let inIndex = indicatorIndex
+        let cr = contentHeight / 2
+        
+        let norFont = XWHFont.harmonyOSSans(ofSize: 12, weight: .regular)
+        let norColor = fontDarkColor
+        
+        let inFont = XWHFont.harmonyOSSans(ofSize: 16, weight: .medium)
+        
+        let futureColor = fontDarkColor.withAlphaComponent(0.35)
+        for (i, iView) in stackView.arrangedSubviews.enumerated() {
+            guard let iLabel = iView as? UILabel else {
+                return
+            }
+            
+            let iDate = curWeekDates[i]
+            
+            if let iIndex = inIndex, iIndex == i {
+                iLabel.font = inFont
+                if iDate.isInFuture {
+                    iLabel.textColor = futureColor
+                } else {
+                    iLabel.textColor = norColor
+                }
+                iView.layer.cornerRadius = cr
+                iView.layer.backgroundColor = UIColor.white.cgColor
+            } else {
+                iLabel.font = norFont
+                if iDate.isInFuture {
+                    iLabel.textColor = futureColor
+                } else {
+                    iLabel.textColor = norColor
+                }
+                iView.layer.cornerRadius = 0
+                iView.layer.backgroundColor = nil
+            }
+        }
+    }
 
     // MARK: - Configuration
-
     private func configureUI() {
         self.backgroundColor = self.config.backgroundColor
         self.layer.cornerRadius = self.config.cornerRadius
@@ -50,7 +119,11 @@ class XWHCalendarWeekIndicatorView: UIView {
     private func configureSubviews() {
         let weekDays = getWeekDays()
         for weekdaySimbol in weekDays {
-            self.stackView.addArrangedSubview(self.makeWeekLabel(for: weekdaySimbol))
+            let cLabel = makeWeekLabel(for: weekdaySimbol)
+            self.stackView.addArrangedSubview(cLabel)
+            cLabel.snp.makeConstraints { make in
+                make.height.equalTo(contentHeight)
+            }
         }
         self.addSubview(self.stackView)
     }
