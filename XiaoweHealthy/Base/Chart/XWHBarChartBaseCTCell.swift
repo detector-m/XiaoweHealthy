@@ -37,7 +37,9 @@ extension XWHBarChartBaseCTCell {
         chartView.scaleXEnabled = false
         chartView.scaleYEnabled = false
         chartView.doubleTapToZoomEnabled = false
-        chartView.dragEnabled = false
+        
+        // 拖动效果高亮
+        chartView.dragEnabled = true
         
         chartView.gridBackgroundColor = .clear
         
