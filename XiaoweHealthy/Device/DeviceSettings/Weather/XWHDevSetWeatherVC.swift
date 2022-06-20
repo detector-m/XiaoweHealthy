@@ -41,8 +41,8 @@ class XWHDevSetWeatherVC: XWHDevSetBloodPressureVC {
                     if isOk {
                         ddManager.saveWeatherSet(weatherSet)
 
-                        isOnWeather = isOn
-                        cell.button.isSelected = isOnWeather
+                        self.isOnWeather = isOn
+                        cell.button.isSelected = self.isOnWeather
                     }
                 }
             } else {

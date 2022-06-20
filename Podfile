@@ -121,7 +121,7 @@ target 'XiaoweHealthy' do
   
   # 日历
   pod 'JTAppleCalendar'
-  pod 'FSCalendar'
+#  pod 'FSCalendar'
   
   # 文件管理
 #  pod 'Files'

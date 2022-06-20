@@ -43,6 +43,11 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
     private var moodUIModel: XWHMoodUIMoodModel?
 
     private var atSumUIModel: XWHActivitySumUIModel?
+    
+    private var isGpsStarting: Bool = false
+    private var weatherInfo: XWHWeatherInfoModel?
+    
+    private var isGpsOk: Bool = false
 
     deinit {
         XWHDevice.shared.removeObserver(observer: self)
@@ -197,6 +202,10 @@ extension XWHHealthyMainVC {
                 }
             }
         }
+        
+        if !XWHLocation.isFirtTimeRequestAuthorization(), XWHLocation.shared.locationEnabled() {
+            getWeathInfo()
+        }
     }
     
 }
@@ -290,7 +299,23 @@ extension XWHHealthyMainVC: XWHDeviceObserverProtocol {
         if iDeployItem.type == .weather {
             let cell = collectionView.dequeueReusableCell(withClass: XWHHomeWeatherCTCell.self, for: indexPath)
             
-            cell.textLb.text = "开启定位获取天气"
+            if XWHLocation.isFirtTimeRequestAuthorization() || !XWHLocation.shared.locationEnabled(), !isGpsOk {
+                cell.textLb.text = "开启定位获取天气"
+            } else {
+                if isGpsStarting {
+                    cell.textLb.text = "开启中..."
+                } else if let wInfo = weatherInfo {
+                    let dStr = Date().localizedString(withFormat: XWHDate.monthDayWeekFormat)
+                    
+                    var text = dStr + "，" + wInfo.cityName
+                    if let wFirstInfo = wInfo.items.first {
+                        text += " " + "\(wFirstInfo.minTemp)~\(wFirstInfo.maxTemp)℃" + " " + XWHWeather.getWeatherName(code: wFirstInfo.code)
+                    }
+                    cell.textLb.text = text
+                } else {
+                    cell.textLb.text = Date().localizedString(withFormat: XWHDate.monthDayWeekFormat)
+                }
+            }
             
             return cell
         }
@@ -606,6 +631,24 @@ extension XWHHealthyMainVC {
         }
     }
     
+    /// 获取天气信息
+    private func getWeathInfo() {
+        XWHWeather.checkLocationState { [weak self] isOk in
+            self?.isGpsStarting = false
+            self?.isGpsOk = isOk
+            
+            if isOk {
+                XWHWeather.getWeatherInfo { [weak self]  cInfo in
+                    self?.weatherInfo = cInfo
+                    
+                    self?.collectionView.reloadData()
+                }
+            }
+            
+            self?.collectionView.reloadData()
+        }
+    }
+    
 }
 
 // MARK: - Jump UI
@@ -613,7 +656,25 @@ extension XWHHealthyMainVC {
     
     /// 获取天气
     private func gotoGetWeatherInfo() {
-        
+        isGpsStarting = true
+        XWHWeather.checkLocationState { [weak self] isOk in
+            self?.isGpsStarting = false
+            self?.isGpsOk = isOk
+            
+            if isOk {
+                XWHWeather.getWeatherInfo { [weak self]  cInfo in
+                    self?.weatherInfo = cInfo
+                    
+                    self?.collectionView.reloadData()
+                }
+            } else {
+                if XWHLocation.shared.locationStatus == .denied {
+                    RLBLEPermissions.openAppSettings()
+                }
+            }
+            
+            self?.collectionView.reloadData()
+        }
     }
     
     /// 去登录
