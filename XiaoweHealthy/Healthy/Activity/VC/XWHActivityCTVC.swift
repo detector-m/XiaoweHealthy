@@ -25,8 +25,18 @@ class XWHActivityCTVC: XWHCollectionViewBaseVC {
         [R.string.xwhHealthyText.设置目标(), R.string.xwhHealthyText.了解活动数据()]
     }
     
-    lazy var atSums: [XWHActivitySumUIModel] = []
     var atSumUIModel: XWHActivitySumUIModel?
+    
+    var atSums: [XWHActivitySumUIModel] {
+        var _sums = [XWHActivitySumUIModel]()
+        for iValue in existAtSums {
+            _sums.append(contentsOf: iValue.value)
+        }
+        
+        return _sums
+    }
+    
+    lazy var existAtSums: [String: [XWHActivitySumUIModel]] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -298,6 +308,12 @@ extension XWHActivityCTVC {
     
     /// 获取每日数据概览
     private func getActivitySums(bMonthDate: Date) {
+        if XWHActivityVM.existAtSums(bMonthDate: bMonthDate, curMonthAtSums: existAtSums) {
+            log.debug("当前已存在该记录 \(bMonthDate.string(withFormat: XWHDate.standardYearMonthFormat))")
+            
+            return
+        }
+        
         XWHActivityVM().getActivitySums(date: bMonthDate) { [unowned self] error in
             log.error(error)
             
@@ -308,31 +324,18 @@ extension XWHActivityCTVC {
             
             self.weekView.reloadData()
         } successHandler: { [unowned self] response in
-            guard let retModel = response.data as? [XWHActivitySumUIModel] else {
+            var retSums: [XWHActivitySumUIModel]
+            if let retModel = response.data as? [XWHActivitySumUIModel] {
+                retSums = retModel
+            } else {
                 log.debug("活动 - 获取数据为空")
-                                
-                return
+                retSums = []
             }
             
-            if retModel.isEmpty {
-                return
-            }
-            self.handleAtSums(retModel)
+            self.existAtSums = XWHActivityVM.handleExistAtSums(bMonthDate: bMonthDate, sums: retSums, curMonthAtSums: self.existAtSums)
             self.weekView.atSums = self.atSums
             self.weekView.reloadData()
         }
-    }
-    
-    private func handleAtSums(_ sums: [XWHActivitySumUIModel]) {
-        if sums.isEmpty {
-            return
-        }
-        
-        for iSums in sums {
-            atSums.removeAll(where: { $0.collectDate == iSums.collectDate })
-        }
-        
-        atSums.append(contentsOf: sums)
     }
     
     /// 获取每日数据概览

@@ -13,7 +13,7 @@ class XWHLocation: NSObject {
     
     static let shared = XWHLocation()
     
-    static let kLocationFirstTimeKey = "LocationFirstTimeKey"
+    static let kLocationRequestAuthorizationKey = "LocationRequestAuthorizationKey"
     
     fileprivate lazy var locationManager: CLLocationManager = {
         let manager = CLLocationManager()
@@ -60,9 +60,9 @@ class XWHLocation: NSObject {
 
 extension XWHLocation {
     
-    /// 是否是第一次获取开启定位
-    class func isFirtTimeRequestAuthorization() -> Bool {
-        UserDefaults.standard.bool(forKey: Self.kLocationFirstTimeKey)
+    /// 是否请求过定位权限
+    class func isRequestedAuthorization() -> Bool {
+        UserDefaults.standard.bool(forKey: Self.kLocationRequestAuthorizationKey)
     }
     
     /// 定位是否打开
@@ -132,7 +132,7 @@ extension XWHLocation: CLLocationManagerDelegate {
     func locationManager(_: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         locationStatus = status
         
-        UserDefaults.standard.set(true, forKey: Self.kLocationFirstTimeKey)
+        UserDefaults.standard.set(true, forKey: Self.kLocationRequestAuthorizationKey)
         
         log.info("当前定位权限\(status.rawValue)(0:未授权 1:设备不支持 2:拒绝 3:始终 4:使用期间)")
         

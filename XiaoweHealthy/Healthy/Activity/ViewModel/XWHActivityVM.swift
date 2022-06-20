@@ -12,7 +12,7 @@ class XWHActivityVM {
     
     /// 每日活动数据概览
     func getActivitySums(date: Date, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
-        activityProvider.request(.getActivitySums(date.year, date.month, XWHHealthyDateSegmentType.month.rawValue)) { result in
+        activityProvider.request(.getActivitySums(date.year, date.month, XWHHealthyDateSegmentType.day.rawValue)) { result in
             let cId = "Healthy.getActivitySums"
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
                 
@@ -33,6 +33,30 @@ class XWHActivityVM {
                 return nil
             }
         }
+    }
+    
+}
+
+extension XWHActivityVM {
+    
+    class func handleExistAtSums(bMonthDate: Date, sums: [XWHActivitySumUIModel], curMonthAtSums: [String: [XWHActivitySumUIModel]]) -> [String: [XWHActivitySumUIModel]] {
+        var monthAtSums = curMonthAtSums
+        
+        let monthKey = bMonthDate.string(withFormat: XWHDate.standardYearMonthFormat)
+        
+        monthAtSums[monthKey] = sums
+        
+        return monthAtSums
+    }
+    
+    class func existAtSums(bMonthDate: Date, curMonthAtSums: [String: [XWHActivitySumUIModel]]) -> Bool {
+        let monthKey = bMonthDate.string(withFormat: XWHDate.standardYearMonthFormat)
+        
+        if curMonthAtSums[monthKey] != nil {
+            return true
+        }
+        
+        return false
     }
     
 }

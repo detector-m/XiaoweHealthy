@@ -170,12 +170,17 @@ class XWHHomeMoodCTCell: XWHCommonBaseCTCell {
     }
     
     func update(moodUIModel: XWHMoodUIMoodModel?) {
+        detailLb.text = R.string.xwhHealthyText.暂无数据()
+
         guard let moodUIModel = moodUIModel else {
             curLevelLine.isHidden = true
             curLevelDot.isHidden = true
             
             return
         }
+        
+        let sDate = Date()
+        detailLb.text = sDate.string(withFormat: XWHDate.monthDayFormat)
         
         curLevelLine.isHidden = false
         curLevelDot.isHidden = false

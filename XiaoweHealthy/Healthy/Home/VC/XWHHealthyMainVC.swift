@@ -203,7 +203,7 @@ extension XWHHealthyMainVC {
             }
         }
         
-        if !XWHLocation.isFirtTimeRequestAuthorization(), XWHLocation.shared.locationEnabled() {
+        if XWHLocation.isRequestedAuthorization(), XWHLocation.shared.locationEnabled() {
             getWeathInfo()
         }
     }
@@ -299,7 +299,7 @@ extension XWHHealthyMainVC: XWHDeviceObserverProtocol {
         if iDeployItem.type == .weather {
             let cell = collectionView.dequeueReusableCell(withClass: XWHHomeWeatherCTCell.self, for: indexPath)
             
-            if XWHLocation.isFirtTimeRequestAuthorization() || !XWHLocation.shared.locationEnabled(), !isGpsOk {
+            if !XWHLocation.isRequestedAuthorization() || !XWHLocation.shared.locationEnabled(), !isGpsOk {
                 cell.textLb.text = "开启定位获取天气"
             } else {
                 if isGpsStarting {
