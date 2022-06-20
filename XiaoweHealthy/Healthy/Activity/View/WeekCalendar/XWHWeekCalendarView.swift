@@ -198,6 +198,9 @@ extension XWHWeekCalendarView {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let iDate = dateList[indexPath.section][indexPath.item]
+        if iDate.isInFuture {
+            return
+        }
         sDayDate = iDate
         clickDateHandler?(iDate)
     }
