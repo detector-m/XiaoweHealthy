@@ -65,6 +65,7 @@ class XWHActivityCTVC: XWHCollectionViewBaseVC {
                 
         dateBtn.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 14)
         dateBtn.setTitleColor(fontDarkColor, for: .normal)
+        dateBtn.addTarget(self, action: #selector(clickDateBtn), for: .touchUpInside)
         view.addSubview(dateBtn)
         
         view.addSubview(weekIndicatiorView)

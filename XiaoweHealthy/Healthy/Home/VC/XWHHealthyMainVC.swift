@@ -14,6 +14,10 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
         UIScreen.main.bounds.width - 32
     }
     
+    override var largeTitleHeight: CGFloat {
+        40
+    }
+    
     override var topContentInset: CGFloat {
         66
     }
@@ -128,6 +132,8 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
     }
     
     override func registerViews() {
+        collectionView.register(cellWithClass: XWHHomeWeatherCTCell.self)
+        
         collectionView.register(cellWithClass: XWHHomeMoodCTCell.self)
         collectionView.register(cellWithClass: XWHHomeSleepCTCell.self)
 //        collectionView.register(cellWithClass: XWHHomeColumnRangeBarChartCTCell.self)
@@ -255,6 +261,10 @@ extension XWHHealthyMainVC: XWHDeviceObserverProtocol {
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let iDeployItem = deployItems[indexPath.section]
+        if iDeployItem.type == .weather {
+            return CGSize(width: collectionView.width, height: 38)
+        }
+        
         if iDeployItem.type == .activity {
             return CGSize(width: collectionView.width, height: 205)
         }
@@ -276,6 +286,14 @@ extension XWHHealthyMainVC: XWHDeviceObserverProtocol {
         let row = indexPath.item
         
         let iDeployItem = deployItems[section]
+        
+        if iDeployItem.type == .weather {
+            let cell = collectionView.dequeueReusableCell(withClass: XWHHomeWeatherCTCell.self, for: indexPath)
+            
+            cell.textLb.text = "开启定位获取天气"
+            
+            return cell
+        }
         
         if iDeployItem.type == .activity {
             let cell = collectionView.dequeueReusableCell(withClass: XWHHealthActivityCTCell.self, for: indexPath)
@@ -375,6 +393,9 @@ extension XWHHealthyMainVC: XWHDeviceObserverProtocol {
         let iDeployItem = deployItems[section]
         
         switch iDeployItem.type {
+        case .weather:
+            gotoGetWeatherInfo()
+            
         case .activity:
             gotoActivity()
             
@@ -589,6 +610,11 @@ extension XWHHealthyMainVC {
 
 // MARK: - Jump UI
 extension XWHHealthyMainVC {
+    
+    /// 获取天气
+    private func gotoGetWeatherInfo() {
+        
+    }
     
     /// 去登录
     private func gotoLogin() {

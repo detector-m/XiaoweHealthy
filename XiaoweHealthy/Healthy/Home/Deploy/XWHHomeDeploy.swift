@@ -10,6 +10,9 @@ import Foundation
 // MARK: - 首页模块类型
 enum XWHHomeDeployType {
     
+    /// 天气
+    case weather
+    
     /// 活动
     case activity
     
@@ -27,6 +30,9 @@ enum XWHHomeDeployType {
     
     var name: String {
         switch self {
+        case .weather:
+            return "天气"
+            
         case .activity:
             return "活动"
             
@@ -69,7 +75,10 @@ class XWHHomeDeploy {
     func loadDeploys(rawData: [String]) -> [XWHHomeDeployItemModel] {
         var deploys = [XWHHomeDeployItemModel]()
         
-        var iItem = XWHHomeDeployItemModel(type: .activity)
+        var iItem = XWHHomeDeployItemModel(type: .weather)
+        deploys.append(iItem)
+        
+        iItem = XWHHomeDeployItemModel(type: .activity)
         deploys.append(iItem)
         
         if !XWHUser.isLogined {

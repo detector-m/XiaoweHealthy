@@ -203,6 +203,7 @@
 		96840252285B2BB00079923C /* XWHActivityCalendarMonthDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96840251285B2BB00079923C /* XWHActivityCalendarMonthDayCell.swift */; };
 		968489FD2840F52100821E24 /* XWHMoodRangeCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */; };
 		96848A012841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96848A002841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift */; };
+		9685B47628601D6600095078 /* XWHHomeWeatherCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685B47528601D6600095078 /* XWHHomeWeatherCTCell.swift */; };
 		968CB8A327F3FB8800E549AC /* UITableViewRoundedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */; };
 		968CB8A627F40B5A00E549AC /* XWHDeviceDeploy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */; };
 		968CB8A827F42A8C00E549AC /* XWHCommonBaseTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A727F42A8C00E549AC /* XWHCommonBaseTBCell.swift */; };
@@ -648,6 +649,7 @@
 		96840251285B2BB00079923C /* XWHActivityCalendarMonthDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHActivityCalendarMonthDayCell.swift; sourceTree = "<group>"; };
 		968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMoodRangeCTCell.swift; sourceTree = "<group>"; };
 		96848A002841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyMainCommonCTCell.swift; sourceTree = "<group>"; };
+		9685B47528601D6600095078 /* XWHHomeWeatherCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHomeWeatherCTCell.swift; sourceTree = "<group>"; };
 		968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewRoundedProtocol.swift; sourceTree = "<group>"; };
 		968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceDeploy.swift; sourceTree = "<group>"; };
 		968CB8A727F42A8C00E549AC /* XWHCommonBaseTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCommonBaseTBCell.swift; sourceTree = "<group>"; };
@@ -1869,6 +1871,7 @@
 				967E97E82859E689001F9782 /* XWHHomeHeartCTCell.swift */,
 				967E97EA2859E69E001F9782 /* XWHHomeBOCTCell.swift */,
 				967E97EC2859E6B1001F9782 /* XWHHomeMSCTCell.swift */,
+				9685B47528601D6600095078 /* XWHHomeWeatherCTCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3282,6 +3285,7 @@
 				96D68D0328544B9F0027DB46 /* XWHHomeDeploy.swift in Sources */,
 				969072372812F3980056CE4F /* XWHBOIntroductionTXVC.swift in Sources */,
 				9679E9FB281A7918003C6351 /* XWHHealthyExistDataDateModel.swift in Sources */,
+				9685B47628601D6600095078 /* XWHHomeWeatherCTCell.swift in Sources */,
 				96DC429A27FD34C7009BF300 /* RLBLEPermissions.swift in Sources */,
 				96F1D67C28091A8E0067DBFD /* XWHDialVC.swift in Sources */,
 				96C67AF228043362001ACA81 /* XWHDataHeartSetManager.swift in Sources */,
