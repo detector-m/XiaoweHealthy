@@ -195,8 +195,12 @@ extension XWHPasswordLoginVC {
             XWHProgressHUD.hideLogin()
             
             self?.view.makeInsetToast(error.message)
-        } successHandler: { [unowned self] response in
+        } successHandler: { [weak self] response in
             XWHProgressHUD.hideLogin()
+            
+            guard let self = self else {
+                return
+            }
             
             if let cRes = response.data as? JSON {
                 if let token = cRes["token"].string, !token.isEmpty {

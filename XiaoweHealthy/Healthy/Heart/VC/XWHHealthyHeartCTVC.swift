@@ -186,16 +186,23 @@ extension XWHHealthyHeartCTVC {
         if sDateType == .week {
             rDateType = .day
         }
-        XWHHealthyVM().getHeartExistDate(date: sDate, dateType: rDateType) { [unowned self] error in
+        XWHHealthyVM().getHeartExistDate(date: sDate, dateType: rDateType) { [weak self] error in
             XWHProgressHUD.hide()
             log.error(error)
+            guard let self = self else {
+                return
+            }
             
             if error.isExpiredUserToken {
                 XWHUser.handleExpiredUserTokenUI(self, nil)
                 return
             }
-        } successHandler: { [unowned self] response in
+        } successHandler: { [weak self] response in
             XWHProgressHUD.hide()
+            
+            guard let self = self else {
+                return
+            }
             
             guard let retModel = response.data as? XWHHealthyExistDataDateModel else {
                 log.debug("心率 - 获取存在数据日期为空")
@@ -203,7 +210,7 @@ extension XWHHealthyHeartCTVC {
                 return
             }
             
-            updateExistDataDateItem(retModel)
+            self.updateExistDataDateItem(retModel)
             
             completion?(false)
         }
@@ -212,10 +219,12 @@ extension XWHHealthyHeartCTVC {
     private func getData() {
         XWHProgressHUD.show()
         let cDate = getSelectedDate()
-        XWHHealthyVM().getHeart(date: cDate, dateType: dateType) { [unowned self] error in
+        XWHHealthyVM().getHeart(date: cDate, dateType: dateType) { [weak self] error in
             XWHProgressHUD.hide()
             log.error(error)
-            
+            guard let self = self else {
+                return
+            }
             if error.isExpiredUserToken {
                 XWHUser.handleExpiredUserTokenUI(self, nil)
                 return
@@ -224,8 +233,12 @@ extension XWHHealthyHeartCTVC {
             self.heartUIModel = nil
 //            self.loadUIItems()
             self.cleanUIItems()
-        } successHandler: { [unowned self] response in
+        } successHandler: { [weak self] response in
             XWHProgressHUD.hide()
+            
+            guard let self = self else {
+                return
+            }
             
             guard let retModel = response.data as? XWHHeartUIHeartModel else {
                 log.debug("心率 - 获取数据为空")

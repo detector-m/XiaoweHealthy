@@ -55,8 +55,12 @@ extension XWHMentalStressDataDetailTBVC {
         XWHHealthyVM().getMentalStressDetail(rId: detailId, failureHandler: { error in
             XWHProgressHUD.hide()
             log.error(error)
-        }, successHandler: { [unowned self] response in
+        }, successHandler: { [weak self] response in
             XWHProgressHUD.hide()
+            
+            guard let self = self else {
+                return
+            }
             
             guard let retModel = response.data as? XWHMentalStressModel else {
                 log.error("精神压力 - 获取详情数据错误")

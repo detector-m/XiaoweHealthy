@@ -110,8 +110,12 @@ extension XWHMoodAllDataTBVC {
         XWHHealthyVM().getYearMoodHistory(date: Date(), failureHandler: { error in
             XWHProgressHUD.hide()
             log.error(error)
-        }, successHandler: { [unowned self] response in
+        }, successHandler: { [weak self] response in
             XWHProgressHUD.hide()
+            
+            guard let self = self else {
+                return
+            }
             
             guard let retModel = response.data as? [XWHMoodUIAllDataItemModel] else {
                 log.error("情绪 - 获取年的数据错误")

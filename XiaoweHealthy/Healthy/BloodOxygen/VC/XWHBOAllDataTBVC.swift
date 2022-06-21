@@ -100,8 +100,12 @@ extension XWHBOAllDataTBVC {
         XWHHealthyVM().getYearBloodOxygenHistory(date: Date(), failureHandler: { error in
             XWHProgressHUD.hide()
             log.error(error)
-        }, successHandler: { [unowned self] response in
+        }, successHandler: { [weak self] response in
             XWHProgressHUD.hide()
+            
+            guard let self = self else {
+                return
+            }
             
             guard let retModel = response.data as? [XWHBOUIBloodOxygenAllDataItemModel] else {
                 log.error("血氧 - 获取所有血氧错误")

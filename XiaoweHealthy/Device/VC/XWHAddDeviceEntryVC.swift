@@ -178,7 +178,11 @@ extension XWHAddDeviceEntryVC {
             return
         }
         
-        RLBLEPermissions.shared.getState { [unowned self] bleState in
+        RLBLEPermissions.shared.getState { [weak self] bleState in
+            guard let self = self else {
+                return
+            }
+            
             switch bleState {
             case .poweredOff:
                 break
@@ -204,7 +208,11 @@ extension XWHAddDeviceEntryVC {
     fileprivate func getDeviceList() {
         XWHDeviceVM().list { error in
 
-        } successHandler: { [unowned self] response in
+        } successHandler: { [weak self] response in
+            guard let self = self else {
+                return
+            }
+            
             if let cDevice = response.data as? [XWHDeviceProductModel] {
                 var devProducts: [XWHDeviceProductModel] = []
                 

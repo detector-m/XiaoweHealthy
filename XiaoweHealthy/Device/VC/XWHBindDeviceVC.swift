@@ -116,7 +116,11 @@ extension XWHBindDeviceVC {
         isBindSuccess = true
         XWHDataDeviceManager.setCurrent(device: bindDevice)
         
-        updateDeviceInfo { [unowned self] connDev in
+        updateDeviceInfo { [weak self] connDev in
+            guard let self = self else {
+                return
+            }
+            
             self.bindDeviceSuccessUI()
             
             self.uploadBindDevice(connDev)
@@ -217,7 +221,11 @@ extension XWHBindDeviceVC {
     }
     
     private func updateDeviceInfo(_ completion: ((XWHDevWatchModel) -> Void)? = nil) {
-        XWHDDMShared.getDeviceInfo { [unowned self] result in
+        XWHDDMShared.getDeviceInfo { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
             switch result {
             case .success(let cModel):
                 guard let connModel = cModel?.data as? XWHDevWatchModel else {

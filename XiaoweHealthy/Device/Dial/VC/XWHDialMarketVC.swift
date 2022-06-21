@@ -85,11 +85,20 @@ extension XWHDialMarketVC {
     
     private func getMarketCategoryDial() {
         XWHProgressHUD.show(title: nil)
-        XWHDialVM().getMarketDialCategory(deviceSn: deviceSn) { [unowned self] error in
+        XWHDialVM().getMarketDialCategory(deviceSn: deviceSn) { [weak self] error in
             XWHProgressHUD.hide()
+            
+            guard let self = self else {
+                return
+            }
+            
             self.view.makeInsetToast(error.message)
-        } successHandler: { [unowned self] response in
+        } successHandler: { [weak self] response in
             XWHProgressHUD.hide()
+            
+            guard let self = self else {
+                return
+            }
             
             guard let cCategories = response.data as? [XWHDialCategoryModel] else {
                 self.view.makeInsetToast("数据解析错误")

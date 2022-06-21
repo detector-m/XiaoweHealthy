@@ -136,8 +136,12 @@ extension XWHActivityCalendarVC {
             
             return
         }
-        XWHActivityVM().getActivitySums(date: bMonthDate) { [unowned self] error in
+        XWHActivityVM().getActivitySums(date: bMonthDate) { [weak self] error in
             log.error(error)
+            
+            guard let self = self else {
+                return
+            }
             
             if error.isExpiredUserToken {
                 XWHUser.handleExpiredUserTokenUI(self, nil)
@@ -145,7 +149,11 @@ extension XWHActivityCalendarVC {
             }
             
             self.monthView.monthView.reloadData()
-        } successHandler: { [unowned self] response in
+        } successHandler: { [weak self] response in
+            guard let self = self else {
+                return
+            }
+            
             var retSums: [XWHActivitySumUIModel]
             if let retModel = response.data as? [XWHActivitySumUIModel] {
                 retSums = retModel

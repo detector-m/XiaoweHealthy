@@ -55,8 +55,12 @@ extension XWHBODataDetailTBVC {
         XWHHealthyVM().getBloodOxygenDetail(rId: detailId, failureHandler: { error in
             XWHProgressHUD.hide()
             log.error(error)
-        }, successHandler: { [unowned self] response in
+        }, successHandler: { [weak self] response in
             XWHProgressHUD.hide()
+            
+            guard let self = self else {
+                return
+            }
             
             guard let retModel = response.data as? XWHBloodOxygenModel else {
                 log.error("血氧 - 获取详情数据错误")

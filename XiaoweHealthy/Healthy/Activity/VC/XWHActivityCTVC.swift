@@ -314,8 +314,12 @@ extension XWHActivityCTVC {
             return
         }
         
-        XWHActivityVM().getActivitySums(date: bMonthDate) { [unowned self] error in
+        XWHActivityVM().getActivitySums(date: bMonthDate) { [weak self] error in
             log.error(error)
+            
+            guard let self = self else {
+                return
+            }
             
             if error.isExpiredUserToken {
                 XWHUser.handleExpiredUserTokenUI(self, nil)
@@ -323,7 +327,11 @@ extension XWHActivityCTVC {
             }
             
             self.weekView.reloadData()
-        } successHandler: { [unowned self] response in
+        } successHandler: { [weak self] response in
+            guard let self = self else {
+                return
+            }
+            
             var retSums: [XWHActivitySumUIModel]
             if let retModel = response.data as? [XWHActivitySumUIModel] {
                 retSums = retModel
@@ -344,8 +352,12 @@ extension XWHActivityCTVC {
             return
         }
         
-        XWHActivityVM().getActivity(date: sDayDate) { [unowned self] error in
+        XWHActivityVM().getActivity(date: sDayDate) { [weak self] error in
             log.error(error)
+            
+            guard let self = self else {
+                return
+            }
             
             if error.isExpiredUserToken {
                 XWHUser.handleExpiredUserTokenUI(self, nil)
@@ -354,7 +366,11 @@ extension XWHActivityCTVC {
             
             self.atSumUIModel = nil
             self.collectionView.reloadData()
-        } successHandler: { [unowned self] response in
+        } successHandler: { [weak self] response in
+            guard let self = self else {
+                return
+            }
+            
             guard let retModel = response.data as? XWHActivitySumUIModel else {
                 log.debug("活动 - 获取数据为空")
                 

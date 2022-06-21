@@ -187,16 +187,26 @@ extension XWHDevSetUpdateVC {
 
 //        XWHProgressHUD.show(title: R.string.xwhDeviceText.固件更新中())
         
-        downloader.download(url: fileUrl) { [unowned self] pRes in
+        downloader.download(url: fileUrl) { [weak self] pRes in
+            guard let self = self else {
+                return
+            }
+            
             let cProgress = pRes.progress / 2
             self.button.progressView.progressValue = cProgress.cgFloat
-        } failureHandler: { [unowned self] error in
+        } failureHandler: { [weak self] error in
 //            XWHProgressHUD.hide()
-            
+            guard let self = self else {
+                return
+            }
             self.isInstalling = false
             self.allowInstallUI()
             self.view.makeInsetToast(R.string.xwhDeviceText.下载固件包失败())
-        } successHandler: { [unowned self] sRes in
+        } successHandler: { [weak self] sRes in
+            guard let self = self else {
+                return
+            }
+            
             if let fileUrl = sRes.data as? URL {
                 self.install(fileUrl)
             } else {

@@ -421,11 +421,19 @@ extension XWHDeviceMainVC {
         }
         deviceSn = XWHDeviceHelper.getStandardDeviceSn(deviceSn)
         
-        XWHDialVM().getMyDial(deviceSn: deviceSn) { [unowned self] error in
+        XWHDialVM().getMyDial(deviceSn: deviceSn) { [weak self] error in
+            guard let self = self else {
+                return
+            }
+            
             self.dials = []
             self.tableView.reloadData()
-        } successHandler: { [unowned self] response in
+        } successHandler: { [weak self] response in
             XWHProgressHUD.hide()
+            
+            guard let self = self else {
+                return
+            }
             
             guard let cDials = response.data as? [XWHDialModel] else {
                 self.view.makeInsetToast("数据解析错误")
@@ -465,9 +473,17 @@ extension XWHDeviceMainVC {
         }
         deviceSn = XWHDeviceHelper.getStandardDeviceSn(deviceSn)
 
-        XWHDeviceVM().firmwareUpdate(deviceSn: deviceSn, version: firmwareVersion) { [unowned self] error in
+        XWHDeviceVM().firmwareUpdate(deviceSn: deviceSn, version: firmwareVersion) { [weak self] error in
+            guard let self = self else {
+                return
+            }
+            
             self.view.makeInsetToast(error.message)
-        } successHandler: { [unowned self] response in
+        } successHandler: { [weak self] response in
+            guard let self = self else {
+                return
+            }
+            
             guard let cJson = response.data as? JSON else {
                 self.view.makeInsetToast(R.string.xwhDeviceText.当前已经是最新版本())
                 return

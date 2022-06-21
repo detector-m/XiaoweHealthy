@@ -195,11 +195,15 @@ class XWHSelectContactVC: XWHContactBaseVC {
 extension XWHSelectContactVC {
     
     private func loadContacts() {
-        fetchContacts { [unowned self] result in
+        fetchContacts { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
             switch result {
             case let .success(contacts):
                 self.parseCNContacts(contacts)
-                updateBeforeSyncUI()
+                self.updateBeforeSyncUI()
                 self.tableView.reloadData()
                 
             case let .failure(error):

@@ -469,8 +469,12 @@ extension XWHHealthyMainVC {
     
     /// 获取每日数据概览
     private func getActivitySum() {
-        XWHActivityVM().getActivity(date: Date()) { [unowned self] error in
+        XWHActivityVM().getActivity(date: Date()) { [weak self] error in
             log.error(error)
+            
+            guard let self = self else {
+                return
+            }
             
             if error.isExpiredUserToken {
                 XWHUser.handleExpiredUserTokenUI(self, nil)
@@ -479,7 +483,11 @@ extension XWHHealthyMainVC {
             
             self.atSumUIModel = nil
             self.collectionView.reloadData()
-        } successHandler: { [unowned self] response in
+        } successHandler: { [weak self] response in
+            guard let self = self else {
+                return
+            }
+            
             guard let retModel = response.data as? XWHActivitySumUIModel else {
                 log.debug("活动 - 获取数据为空")
                 
@@ -497,8 +505,12 @@ extension XWHHealthyMainVC {
     /// 睡眠
     private func getSleepData() {
         let cDate = Date()
-        XWHHealthyVM().getSleep(date: cDate, dateType: .day) { [unowned self] error in
+        XWHHealthyVM().getSleep(date: cDate, dateType: .day) { [weak self] error in
             log.error(error)
+            
+            guard let self = self else {
+                return
+            }
             
             if error.isExpiredUserToken {
                 XWHUser.handleExpiredUserTokenUI(self, nil)
@@ -507,7 +519,11 @@ extension XWHHealthyMainVC {
             
             self.sleepUIModel = nil
             self.collectionView.reloadData()
-        } successHandler: { [unowned self] response in
+        } successHandler: { [weak self] response in
+            guard let self = self else {
+                return
+            }
+            
             guard let retModel = response.data as? XWHHealthySleepUISleepModel else {
                 log.debug("睡眠 - 获取数据为空")
                 
@@ -525,8 +541,12 @@ extension XWHHealthyMainVC {
     /// 精神压力
     private func getMentalStressData() {
         let cDate = Date()
-        XWHHealthyVM().getMentalStress(date: cDate, dateType: .day) { [unowned self] error in
+        XWHHealthyVM().getMentalStress(date: cDate, dateType: .day) { [weak self] error in
             log.error(error)
+            
+            guard let self = self else {
+                return
+            }
             
             if error.isExpiredUserToken {
                 XWHUser.handleExpiredUserTokenUI(self, nil)
@@ -535,7 +555,11 @@ extension XWHHealthyMainVC {
             
             self.msUIModel = nil
             self.collectionView.reloadData()
-        } successHandler: { [unowned self] response in
+        } successHandler: { [weak self] response in
+            guard let self = self else {
+                return
+            }
+            
             guard let retModel = response.data as? XWHMentalStressUIStressModel else {
                 log.debug("精神压力 - 获取数据为空")
                 self.msUIModel = nil
@@ -552,9 +576,12 @@ extension XWHHealthyMainVC {
     /// 血氧
     private func getBOData() {
         let cDate = Date()
-        XWHHealthyVM().getBloodOxygen(date: cDate, dateType: .day) { [unowned self] error in
+        XWHHealthyVM().getBloodOxygen(date: cDate, dateType: .day) { [weak self] error in
             log.error(error)
             
+            guard let self = self else {
+                return
+            }
             if error.isExpiredUserToken {
                 XWHUser.handleExpiredUserTokenUI(self, nil)
                 return
@@ -562,7 +589,11 @@ extension XWHHealthyMainVC {
             
             self.boUIModel = nil
             self.collectionView.reloadData()
-        } successHandler: { [unowned self] response in
+        } successHandler: { [weak self] response in
+            guard let self = self else {
+                return
+            }
+            
             guard let retModel = response.data as? XWHBOUIBloodOxygenModel else {
                 log.debug("血氧 - 获取数据为空")
                 self.boUIModel = nil
@@ -579,9 +610,12 @@ extension XWHHealthyMainVC {
     /// 心率
     private func getHeartData() {
         let cDate = Date()
-        XWHHealthyVM().getHeart(date: cDate, dateType: .day) { [unowned self] error in
+        XWHHealthyVM().getHeart(date: cDate, dateType: .day) { [weak self] error in
             log.error(error)
             
+            guard let self = self else {
+                return
+            }
             if error.isExpiredUserToken {
                 XWHUser.handleExpiredUserTokenUI(self, nil)
                 return
@@ -589,7 +623,11 @@ extension XWHHealthyMainVC {
             
             self.heartUIModel = nil
             self.collectionView.reloadData()
-        } successHandler: { [unowned self] response in
+        } successHandler: { [weak self] response in
+            guard let self = self else {
+                return
+            }
+            
             guard let retModel = response.data as? XWHHeartUIHeartModel else {
                 log.debug("心率 - 获取数据为空")
 
@@ -607,9 +645,11 @@ extension XWHHealthyMainVC {
     /// 情绪
     private func getMoodData() {
         let cDate = Date()
-        XWHHealthyVM().getMood(date: cDate, dateType: .day) { [unowned self] error in
+        XWHHealthyVM().getMood(date: cDate, dateType: .day) { [weak self] error in
             log.error(error)
-            
+            guard let self = self else {
+                return
+            }
             if error.isExpiredUserToken {
                 XWHUser.handleExpiredUserTokenUI(self, nil)
                 return
@@ -617,7 +657,10 @@ extension XWHHealthyMainVC {
             
             self.moodUIModel = nil
             self.collectionView.reloadData()
-        } successHandler: { [unowned self] response in
+        } successHandler: { [weak self] response in
+            guard let self = self else {
+                return
+            }
             guard let retModel = response.data as? XWHMoodUIMoodModel else {
                 log.debug("情绪 - 获取数据为空")
                 self.moodUIModel = nil

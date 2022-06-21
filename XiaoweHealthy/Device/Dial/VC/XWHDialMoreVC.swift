@@ -34,11 +34,20 @@ extension XWHDialMoreVC {
     
     private func getMarketCategoryDial() {
         XWHProgressHUD.show(title: nil)
-        XWHDialVM().getMarketCategoryDial(categoryId: category.categoryId, deviceSn: deviceSn, page: page, pageSize: pageSize) { [unowned self] error in
+        XWHDialVM().getMarketCategoryDial(categoryId: category.categoryId, deviceSn: deviceSn, page: page, pageSize: pageSize) { [weak self] error in
             XWHProgressHUD.hide()
+            
+            guard let self = self else {
+                return
+            }
+            
             self.view.makeInsetToast(error.message)
-        } successHandler: { [unowned self] response in
+        } successHandler: { [weak self] response in
             XWHProgressHUD.hide()
+            
+            guard let self = self else {
+                return
+            }
             
             guard let cDials = response.data as? [XWHDialModel] else {
                 self.view.makeInsetToast("数据解析错误")

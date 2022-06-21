@@ -132,9 +132,16 @@ extension XWHLoginRegisterBaseVC {
     }
     
     func getApplePlatformUserInfo() {
-        SignInWithApple.shared.getUserInfo(at: self) { [unowned self] cError in
+        SignInWithApple.shared.getUserInfo(at: self) { [weak self] cError in
+            guard let self = self else {
+                return
+            }
             self.view.makeInsetToast(cError.message)
-        } successHandler: { [unowned self] cResponse in
+        } successHandler: { [weak self] cResponse in
+            guard let self = self else {
+                return
+            }
+            
             guard let info = cResponse.data as? SignInWithAppleUserModel else {
                 self.view.makeInsetToast(R.string.xwhDisplayText.授权失败())
 
@@ -158,9 +165,17 @@ extension XWHLoginRegisterBaseVC {
             return
         }
         
-        XWHUMManager.getUserInfo(pType: pType, vc: self) { [unowned self] cError in
+        XWHUMManager.getUserInfo(pType: pType, vc: self) { [weak self] cError in
+            guard let self = self else {
+                return
+            }
+            
             self.view.makeInsetToast(cError.message)
-        } successHandler: { [unowned self] cResponse in
+        } successHandler: { [weak self] cResponse in
+            guard let self = self else {
+                return
+            }
+            
             guard let info = cResponse.data as? UMSocialUserInfoResponse else {
                 self.view.makeInsetToast(R.string.xwhDisplayText.授权失败())
 
@@ -209,8 +224,11 @@ extension XWHLoginRegisterBaseVC {
             
 //            self?.gotoBindPhone(loginType: loginType, nickname: nickname, avatar: avatar, wxOpenid: thirdOpenId, qqOpenid: thirdOpenId)
             self?.gotoBindPhone(loginType: loginType, nickname: nickname, avatar: avatar, thirdOpenId: thirdOpenId)
-        } successHandler: { [unowned self] response in
+        } successHandler: { [weak self] response in
             XWHProgressHUD.hideLogin()
+            guard let self = self else {
+                return
+            }
             if let cRes = response.data as? JSON {
                 if let token = cRes["token"].string, !token.isEmpty {
                     XWHUser.setToken(token: token)

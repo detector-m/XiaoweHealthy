@@ -187,23 +187,31 @@ extension XWHHealthyBloodOxygenCTVC {
         if sDateType == .week {
             rDateType = .day
         }
-        XWHHealthyVM().getBloodOxygenExistDate(date: sDate, dateType: rDateType) { [unowned self] error in
+        XWHHealthyVM().getBloodOxygenExistDate(date: sDate, dateType: rDateType) { [weak self] error in
             XWHProgressHUD.hide()
             log.error(error)
+            
+            guard let self = self else {
+                return
+            }
             
             if error.isExpiredUserToken {
                 XWHUser.handleExpiredUserTokenUI(self, nil)
                 return
             }
-        } successHandler: { [unowned self] response in
+        } successHandler: { [weak self] response in
             XWHProgressHUD.hide()
+            
+            guard let self = self else {
+                return
+            }
             
             guard let retModel = response.data as? XWHHealthyExistDataDateModel else {
                 log.debug("血氧 - 获取存在数据日期为空")
                 return
             }
             
-            updateExistDataDateItem(retModel)
+            self.updateExistDataDateItem(retModel)
             
             completion?(false)
         }
@@ -212,9 +220,13 @@ extension XWHHealthyBloodOxygenCTVC {
     private func getData() {
         XWHProgressHUD.show()
         let cDate = getSelectedDate()
-        XWHHealthyVM().getBloodOxygen(date: cDate, dateType: dateType) { [unowned self] error in
+        XWHHealthyVM().getBloodOxygen(date: cDate, dateType: dateType) { [weak self] error in
             XWHProgressHUD.hide()
             log.error(error)
+            
+            guard let self = self else {
+                return
+            }
             
             if error.isExpiredUserToken {
                 XWHUser.handleExpiredUserTokenUI(self, nil)
@@ -224,8 +236,12 @@ extension XWHHealthyBloodOxygenCTVC {
             self.boUIModel = nil
 //            self.loadUIItems()
             self.cleanUIItems()
-        } successHandler: { [unowned self] response in
+        } successHandler: { [weak self] response in
             XWHProgressHUD.hide()
+            
+            guard let self = self else {
+                return
+            }
             
             guard let retModel = response.data as? XWHBOUIBloodOxygenModel else {
                 log.debug("血氧 - 获取数据为空")

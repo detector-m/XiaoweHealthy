@@ -76,9 +76,12 @@ extension XWHMoodDataDetailListTBVC {
         XWHHealthyVM().getDayMoodHistory(date: sDate, failureHandler: { error in
             XWHProgressHUD.hide()
             log.error(error)
-        }, successHandler: { [unowned self] response in
+        }, successHandler: { [weak self] response in
             XWHProgressHUD.hide()
             
+            guard let self = self else {
+                return
+            }
             guard let retModel = response.data as? [XWHMoodUIAllDataItemMoodModel] else {
                 log.error("情绪 - 获取天的数据错误")
                 return

@@ -241,7 +241,11 @@ class XWHContactVC: XWHContactBaseVC {
     
     @objc override func clickButton() {
         if uiEditState == .normal {
-            requestAccess { [unowned self] result in
+            requestAccess { [weak self] result in
+                guard let self = self else {
+                    return
+                }
+                
                 DispatchQueue.main.async {
                     switch result {
                     case let .success(isOk):

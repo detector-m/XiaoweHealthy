@@ -83,7 +83,11 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
         log.debug("扫描创建计时器")
 
         scanTimerInvalidate()
-        _scanTimer = Timer.scheduledTimer(withTimeInterval: searchTime, repeats: false, block: { [unowned self] cTimer in
+        _scanTimer = Timer.scheduledTimer(withTimeInterval: searchTime, repeats: false, block: { [weak self] cTimer in
+            guard let self = self else {
+                return
+            }
+            
             log.debug("扫描计时器\(self.searchTime)s，刷新回调")
             
             self.stopScan()

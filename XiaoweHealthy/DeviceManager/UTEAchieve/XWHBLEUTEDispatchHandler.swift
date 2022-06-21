@@ -71,7 +71,11 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
         
 //        uteDevices = []
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.02) { [unowned self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.02) { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
             self.manager.startScanDevices()
         }
     }

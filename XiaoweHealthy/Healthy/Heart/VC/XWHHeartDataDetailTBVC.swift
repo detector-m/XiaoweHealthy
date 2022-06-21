@@ -56,9 +56,12 @@ extension XWHHeartDataDetailTBVC {
         XWHHealthyVM().getHeartDetail(rId: detailId, failureHandler: { error in
             XWHProgressHUD.hide()
             log.error(error)
-        }, successHandler: { [unowned self] response in
+        }, successHandler: { [weak self] response in
             XWHProgressHUD.hide()
             
+            guard let self = self else {
+                return
+            }
             guard let retModel = response.data as? XWHHeartModel else {
                 log.error("心率 - 获取详情数据错误")
                 return

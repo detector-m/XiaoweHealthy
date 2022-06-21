@@ -109,8 +109,12 @@ extension XWHSleepAllDataTBVC {
         XWHHealthyVM().getYearSleepHistory(date: Date(), failureHandler: { error in
             XWHProgressHUD.hide()
             log.error(error)
-        }, successHandler: { [unowned self] response in
+        }, successHandler: { [weak self] response in
             XWHProgressHUD.hide()
+            
+            guard let self = self else {
+                return
+            }
             
             guard let retModel = response.data as? [XWHSleepUIAllDataItemModel] else {
                 log.error("睡眠 - 获取所有数据错误")

@@ -117,10 +117,10 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             }
             cp = ((5 / itemMax) * 100).int
             self.handleProgress(cp)
-            
-            self._state = .succeed
 
-            DispatchQueue.main.async {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                self._state = .succeed
+                
                 self.handleResult(.none, self._state, .success(nil))
             }
         }
@@ -546,7 +546,17 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
         log.debug("同步活动原始数据 \(parsedAtArray)")
         if !parsedAtArray.isEmpty {
             let postDevMac = deviceMac.replacingOccurrences(of: ":", with: "")
-            XWHServerDataManager.postActivity(deviceMac: postDevMac, deviceSn: deviceSn, data: parsedAtArray, failureHandler: nil, successHandler: nil)
+//            XWHServerDataManager.postActivity(deviceMac: postDevMac, deviceSn: deviceSn, data: parsedAtArray, failureHandler: nil, successHandler: nil)
+            XWHServerDataManager.postActivity(deviceMac: postDevMac, deviceSn: deviceSn, data: parsedAtArray) { _ in
+            } successHandler: { [weak self] _ in
+                guard let self = self, self._state == .succeed else {
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    self.handleResult(.none, self._state, .success(nil))
+                }
+            }
         }
         
         return parsedAtArray
