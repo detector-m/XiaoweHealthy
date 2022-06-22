@@ -90,16 +90,7 @@ enum XWHDevSyncDataType: String {
     
 }
 
-
 // MARK: - 运动(Sport)
-
-/// 运动类型
-enum XWHSportType {
-    
-    /// none
-    case none
-    
-}
 
 /// 运动状态
 enum XWHSportState {

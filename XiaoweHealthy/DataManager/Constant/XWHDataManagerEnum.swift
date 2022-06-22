@@ -28,3 +28,25 @@ enum XWHDeviceType: String {
     case skyworthWatchS2 = "SKYWORTH Watch S2"
     
 }
+
+// MARK: - 运动(Sport)
+
+/// 运动类型
+enum XWHSportType {
+    
+    /// 无类型
+    case none
+    
+    /// 跑步
+    case run
+    
+    /// 走路
+    case walk
+    
+    /// 骑行
+    case ride
+    
+    /// 爬山
+    case climb
+    
+}
