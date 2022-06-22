@@ -11,11 +11,21 @@ class XWHSportRecordCTCell: XWHCommonBaseCTCell {
     
     lazy var subImageView = UIImageView()
     
+    lazy var titleValueView1 = XWHTitleValueView()
+    lazy var titleValueView2 = XWHTitleValueView()
+    lazy var titleValueView3 = XWHTitleValueView()
+    lazy var titleValueView4 = XWHTitleValueView()
+    
     override func addSubViews() {
         super.addSubViews()
         
-        addSubview(subImageView)
+        contentView.addSubview(subImageView)
         contentView.addSubview(imageView)
+        
+        contentView.addSubview(titleValueView1)
+        contentView.addSubview(titleValueView2)
+        contentView.addSubview(titleValueView3)
+        contentView.addSubview(titleValueView4)
         
         layer.cornerRadius = 16
         layer.backgroundColor = UIColor.white.cgColor
@@ -28,6 +38,11 @@ class XWHSportRecordCTCell: XWHCommonBaseCTCell {
         
         detailLb.textColor = fontDarkColor.withAlphaComponent(0.4)
         detailLb.font = XWHFont.harmonyOSSans(ofSize: 14, weight: .regular)
+        
+        titleValueView1.type = .valueUp
+        titleValueView2.type = .valueUp
+        titleValueView3.type = .valueUp
+        titleValueView4.type = .valueUp
     }
     
     override func relayoutSubViews() {
@@ -54,12 +69,46 @@ class XWHSportRecordCTCell: XWHCommonBaseCTCell {
             make.height.equalTo(21)
             make.left.right.equalTo(textLb)
         }
+        
+        titleValueView1.snp.makeConstraints { make in
+            make.left.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.25)
+            make.bottom.equalToSuperview().inset(6)
+            make.height.equalTo(64)
+        }
+        
+        titleValueView2.snp.makeConstraints { make in
+            make.left.equalTo(titleValueView1.snp.right)
+            make.width.height.centerY.equalTo(titleValueView1)
+        }
+        
+        titleValueView3.snp.makeConstraints { make in
+            make.left.equalTo(titleValueView2.snp.right)
+            make.width.height.centerY.equalTo(titleValueView1)
+        }
+        
+        titleValueView4.snp.makeConstraints { make in
+            make.left.equalTo(titleValueView3.snp.right)
+            make.width.height.centerY.equalTo(titleValueView1)
+        }
     }
     
     func update() {
         imageView.image = R.image.sport_climb()
         textLb.text = R.string.xwhSportText.爬山()
         detailLb.text = Date().localizedString(withFormat: XWHDate.YearMonthDayHourMinuteFormat)
+        
+        titleValueView1.titleLb.text = "公里"
+        titleValueView1.valueLb.text = "--"
+        
+        titleValueView2.titleLb.text = "时长(分)"
+        titleValueView2.valueLb.text = "--"
+        
+        titleValueView3.titleLb.text = "千卡"
+        titleValueView3.valueLb.text = "--"
+        
+        titleValueView4.titleLb.text = "心率"
+        titleValueView4.valueLb.text = "--"
     }
     
 }

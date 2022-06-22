@@ -258,6 +258,7 @@
 		969A14D02862AAD800B61CEB /* XWHSportMainSportCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A14CF2862AAD800B61CEB /* XWHSportMainSportCTCell.swift */; };
 		969A14D22862AD5900B61CEB /* XWHSportCTReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A14D12862AD5900B61CEB /* XWHSportCTReusableView.swift */; };
 		969A14D42862AF2800B61CEB /* XWHSportRecordCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A14D32862AF2800B61CEB /* XWHSportRecordCTCell.swift */; };
+		969A14D62862C0D100B61CEB /* XWHTitleValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A14D52862C0D100B61CEB /* XWHTitleValueView.swift */; };
 		969A4CF8280E8A630049BC07 /* XWHLargeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */; };
 		969ACEF12834E85E00DC4E3C /* XWHDeviceObserverProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969ACEF02834E85E00DC4E3C /* XWHDeviceObserverProtocol.swift */; };
 		969B8816280FE11A009952E7 /* XWHHealthyBaseCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */; };
@@ -709,6 +710,7 @@
 		969A14CF2862AAD800B61CEB /* XWHSportMainSportCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportMainSportCTCell.swift; sourceTree = "<group>"; };
 		969A14D12862AD5900B61CEB /* XWHSportCTReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportCTReusableView.swift; sourceTree = "<group>"; };
 		969A14D32862AF2800B61CEB /* XWHSportRecordCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportRecordCTCell.swift; sourceTree = "<group>"; };
+		969A14D52862C0D100B61CEB /* XWHTitleValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTitleValueView.swift; sourceTree = "<group>"; };
 		969A4CF7280E8A630049BC07 /* XWHLargeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLargeTitleView.swift; sourceTree = "<group>"; };
 		969ACEF02834E85E00DC4E3C /* XWHDeviceObserverProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceObserverProtocol.swift; sourceTree = "<group>"; };
 		969B8815280FE11A009952E7 /* XWHHealthyBaseCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyBaseCTVC.swift; sourceTree = "<group>"; };
@@ -1793,6 +1795,7 @@
 				969A14D12862AD5900B61CEB /* XWHSportCTReusableView.swift */,
 				969A14D32862AF2800B61CEB /* XWHSportRecordCTCell.swift */,
 				9680D81D2851CF3A00FA6F9C /* XWHSRLSportRecordTBCell.swift */,
+				969A14D52862C0D100B61CEB /* XWHTitleValueView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3533,6 +3536,7 @@
 				96E23C2A27E1A55E009EF208 /* XWHHealthyMainVC.swift in Sources */,
 				9672B26227EF06FB00DC80D6 /* XWHAddBrandDeviceVC.swift in Sources */,
 				9651EDEF27E849740043FE52 /* RLPopupView.swift in Sources */,
+				969A14D62862C0D100B61CEB /* XWHTitleValueView.swift in Sources */,
 				9678627A282DE91D003E5730 /* XWHBarChartBaseCTCell.swift in Sources */,
 				96617AB727E34FAA00139B03 /* XWHBirthdaySelectVC.swift in Sources */,
 				969B882828100F6C009952E7 /* XWHCommonBaseCTCell.swift in Sources */,
