@@ -10,18 +10,6 @@ import Foundation
 
 class XWHWeather {
     
-    static func checkLocationState(_ completion: ((Bool) -> Void)?) {
-        if !XWHLocation.shared.locationEnabled() {
-            log.error("未开启定位功能")
-            completion?(false)
-            return
-        }
-        
-        XWHLocation.shared.checkState { isOk in
-            completion?(isOk)
-        }
-    }
-    
     static func getWeatherInfo(_ completion: ((XWHWeatherInfoModel?) -> Void)?) {
         guard let loc = XWHLocation.shared.currentLocation else {
             log.error("未定位到坐标")

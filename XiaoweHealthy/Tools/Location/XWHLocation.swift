@@ -15,6 +15,8 @@ class XWHLocation: NSObject {
     
     static let kLocationRequestAuthorizationKey = "LocationRequestAuthorizationKey"
     
+    typealias XWHLocationEnableAndAuthorizationHandler = (_ isEnable: Bool, _ authStatus: CLAuthorizationStatus) -> Void
+    
     fileprivate lazy var locationManager: CLLocationManager = {
         let manager = CLLocationManager()
         
@@ -44,8 +46,11 @@ class XWHLocation: NSObject {
     /// 授权状态回调
     fileprivate var statusClosure: ((Bool) -> Void)?
     
+    /// 定位开关和授权状态回调
+    private var locationEnableAndAuthorizationHandler: XWHLocationEnableAndAuthorizationHandler?
+    
     /// 定位授权状态
-    lazy var locationStatus = CLLocationManager.authorizationStatus()
+    lazy var locationStatus: CLAuthorizationStatus = CLLocationManager.authorizationStatus()
     
     
     /// 是否正在定位
@@ -97,6 +102,21 @@ extension XWHLocation {
         statusClosure = completion
     }
     
+    /// 请求定位是否开启和权限
+    func requestLocationEnableAndAuthorize(handler: XWHLocationEnableAndAuthorizationHandler? = nil) {
+        if !locationEnabled() {
+            log.error("未开启定位功能")
+            
+            handler?(false, .denied)
+            
+            return
+        }
+        locationManager.requestAlwaysAuthorization()
+        locationEnableAndAuthorizationHandler = handler
+        
+        locationEnableAndAuthorizationHandler?(true, locationStatus)
+    }
+    
     
     /// 停止定位
     func stopUpdatingLocation() {
@@ -131,20 +151,15 @@ extension XWHLocation: CLLocationManagerDelegate {
     
     func locationManager(_: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         locationStatus = status
-        
-        UserDefaults.standard.set(true, forKey: Self.kLocationRequestAuthorizationKey)
-        
+                
         log.info("当前定位权限\(status.rawValue)(0:未授权 1:设备不支持 2:拒绝 3:始终 4:使用期间)")
         
-        let state = status == .authorizedWhenInUse || status == .authorizedAlways
-//        if !state {
-//
-//        } else {
-//            locationManager.requestAlwaysAuthorization()
-//        }
-
-        statusClosure?(state)
+        locationEnableAndAuthorizationHandler?(true, locationStatus)
+        
+        statusClosure?(locationStatus.isAuthorized)
         statusClosure = nil
+        
+        UserDefaults.standard.set(true, forKey: Self.kLocationRequestAuthorizationKey)
     }
     
     func locationManager(_: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -164,6 +179,18 @@ extension XWHLocation: CLLocationManagerDelegate {
         log.error("定位出错:\(error.localizedDescription)")
 
         faileClosure?()
+    }
+    
+}
+
+extension CLAuthorizationStatus {
+    
+    var isAuthorized: Bool {
+        if self == .authorizedWhenInUse || self == .authorizedAlways {
+            return true
+        }
+        
+        return false
     }
     
 }

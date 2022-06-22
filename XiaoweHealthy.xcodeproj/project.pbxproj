@@ -12,6 +12,7 @@
 		8CBF5AE85A9444D903AE1BC2 /* Pods_XiaoweHealthy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF4A353C734F593A2D13B536 /* Pods_XiaoweHealthy.framework */; };
 		960A836A28025EFD00FC1B5F /* XWHDevCmdOperationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A836928025EFD00FC1B5F /* XWHDevCmdOperationProtocol.swift */; };
 		960A836C2802635C00FC1B5F /* XWHUTECmdOperationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A836B2802635C00FC1B5F /* XWHUTECmdOperationHandler.swift */; };
+		960C47952863007700EE693A /* HealthKitSetupAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960C47942863007700EE693A /* HealthKitSetupAssistant.swift */; };
 		960E768027F00BB700A0DA25 /* XWHAddBrandDeviceCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960E767F27F00BB700A0DA25 /* XWHAddBrandDeviceCTCell.swift */; };
 		960E768227F0574200A0DA25 /* XWHBaseCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960E768127F0574200A0DA25 /* XWHBaseCTCell.swift */; };
 		960E768527F0B17D00A0DA25 /* XWHSafari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960E768427F0B17D00A0DA25 /* XWHSafari.swift */; };
@@ -459,6 +460,7 @@
 		95FEB00539882EA5F45C9693 /* Pods-XiaoweHealthyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XiaoweHealthyTests.release.xcconfig"; path = "Target Support Files/Pods-XiaoweHealthyTests/Pods-XiaoweHealthyTests.release.xcconfig"; sourceTree = "<group>"; };
 		960A836928025EFD00FC1B5F /* XWHDevCmdOperationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevCmdOperationProtocol.swift; sourceTree = "<group>"; };
 		960A836B2802635C00FC1B5F /* XWHUTECmdOperationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHUTECmdOperationHandler.swift; sourceTree = "<group>"; };
+		960C47942863007700EE693A /* HealthKitSetupAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitSetupAssistant.swift; sourceTree = "<group>"; };
 		960E767F27F00BB700A0DA25 /* XWHAddBrandDeviceCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHAddBrandDeviceCTCell.swift; sourceTree = "<group>"; };
 		960E768127F0574200A0DA25 /* XWHBaseCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBaseCTCell.swift; sourceTree = "<group>"; };
 		960E768427F0B17D00A0DA25 /* XWHSafari.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSafari.swift; sourceTree = "<group>"; };
@@ -922,6 +924,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		960C47932863005800EE693A /* HealthKit */ = {
+			isa = PBXGroup;
+			children = (
+				960C47942863007700EE693A /* HealthKitSetupAssistant.swift */,
+			);
+			path = HealthKit;
+			sourceTree = "<group>";
+		};
 		960E768327F0B0F900A0DA25 /* Safari */ = {
 			isa = PBXGroup;
 			children = (
@@ -933,6 +943,7 @@
 		96127D11284202AA00940132 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
+				960C47932863005800EE693A /* HealthKit */,
 				96840249285AEC8E0079923C /* UnitHandler */,
 				9680104328477383004C45C9 /* BluetoothStateHandler */,
 				967E8B9A28447256008E65FF /* AppUserGuide */,
@@ -3378,6 +3389,7 @@
 				96C67AFC2804742D001ACA81 /* XWHDataBloodOxygenSetManager.swift in Sources */,
 				9651EE2E27EC5BD30043FE52 /* UMShareSwiftInterface.swift in Sources */,
 				96F1D68A28096F370067DBFD /* XWHDialTitleCTCell.swift in Sources */,
+				960C47952863007700EE693A /* HealthKitSetupAssistant.swift in Sources */,
 				96837971285829090034DB98 /* XWHActivityCTVC.swift in Sources */,
 				96A10CAB2828EF1A00C1E18F /* XWHSleepUIAllDataItemModel.swift in Sources */,
 				9679E9CF28159105003C6351 /* XWHHeartUIAllDataItemModel.swift in Sources */,

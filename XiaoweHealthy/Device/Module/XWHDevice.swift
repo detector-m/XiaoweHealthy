@@ -65,11 +65,11 @@ extension XWHDevice {
             }
         }
         
+        XWHDDMShared.setMonitorHandler(device: nil) { [weak self] _, _ in
+            self?.notifyAllObserverUpdateConnectBindState()
+        }
         if let connWatch = XWHDataDeviceManager.getCurrentWatch() {
             XWHDDMShared.config(device: connWatch)
-            XWHDDMShared.setMonitorHandler(device: connWatch) { [weak self] _, _ in
-                self?.notifyAllObserverUpdateConnectBindState()
-            }
         }
     }
 

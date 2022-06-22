@@ -27,10 +27,13 @@ class XWHUser {
     }
     
     class func setToken(token: String?) {
+        let preToken = getToken()
         XWHDataUserManager.setToken(token: token)
         
         if token == nil {
-            XWHLogin.postNotification(isLogin: false)
+            if preToken != nil {
+                XWHLogin.postNotification(isLogin: false)
+            }
         } else {
             XWHLogin.postNotification(isLogin: true)
         }

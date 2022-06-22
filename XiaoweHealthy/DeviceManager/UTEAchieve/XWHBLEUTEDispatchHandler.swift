@@ -122,6 +122,12 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
         manager.disConnect(devModel)
         
         connectBindState = .disconnected
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.handleMonitor(connectBindState: self.connectBindState)
+        }
     }
     
     /// 重连设备

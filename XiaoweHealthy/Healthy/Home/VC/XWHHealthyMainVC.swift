@@ -61,6 +61,8 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
         loadDatas()
         configNotifications()
         XWHDevice.shared.addObserver(observer: self)
+        
+        gotoRequestHealthKitAuthorize()
     }
     
     override func setupNavigationItems() {
@@ -204,7 +206,7 @@ extension XWHHealthyMainVC {
         }
         
         if XWHLocation.isRequestedAuthorization(), XWHLocation.shared.locationEnabled() {
-            getWeathInfo()
+            getWeathInfo(isAuto: true)
         }
     }
     
@@ -675,20 +677,45 @@ extension XWHHealthyMainVC {
     }
     
     /// 获取天气信息
-    private func getWeathInfo() {
-        XWHWeather.checkLocationState { [weak self] isOk in
-            self?.isGpsStarting = false
-            self?.isGpsOk = isOk
+    private func getWeathInfo(isAuto: Bool) {
+        XWHLocation.shared.requestLocationEnableAndAuthorize { [weak self] isEnable, authStatus in
+            self?.isGpsOk = authStatus.isAuthorized
             
-            if isOk {
+            if authStatus.isAuthorized {
+                self?.isGpsStarting = false
+                
                 XWHWeather.getWeatherInfo { [weak self]  cInfo in
                     self?.weatherInfo = cInfo
                     
                     self?.collectionView.reloadData()
                 }
+            } else {
+                if !isAuto {
+                    if authStatus == .denied {
+                        RLBLEPermissions.openAppSettings()
+                    } else if authStatus == .notDetermined {
+                        guard let self = self else {
+                            return
+                        }
+                        
+//                        self.collectionView.reloadData()
+
+                        if !self.isGpsStarting {
+                            return
+                        }
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
+                            self.isGpsStarting = false
+                            self.collectionView.reloadData()
+                        }
+                        
+                        return
+                    }
+                }
+                
+                self?.isGpsStarting = false
+                self?.collectionView.reloadData()
             }
-            
-            self?.collectionView.reloadData()
         }
     }
     
@@ -697,27 +724,32 @@ extension XWHHealthyMainVC {
 // MARK: - Jump UI
 extension XWHHealthyMainVC {
     
-    /// 获取天气
-    private func gotoGetWeatherInfo() {
-        isGpsStarting = true
-        XWHWeather.checkLocationState { [weak self] isOk in
-            self?.isGpsStarting = false
-            self?.isGpsOk = isOk
-            
-            if isOk {
-                XWHWeather.getWeatherInfo { [weak self]  cInfo in
-                    self?.weatherInfo = cInfo
+    /// 运动健康授权
+    private func gotoRequestHealthKitAuthorize() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            HealthKitSetupAssistant.requestAuthorize { success, setupError in
+                if !success {
+                    log.error(setupError)
                     
-                    self?.collectionView.reloadData()
-                }
-            } else {
-                if XWHLocation.shared.locationStatus == .denied {
-                    RLBLEPermissions.openAppSettings()
+                    XWHAlert.show(title: nil, message: "运动健康未授权", cancelTitle: nil, confirmTitle: "去授权") { aType in
+                        if aType == .confirm {
+                            RLBLEPermissions.openAppSettings()
+                        }
+                    }
                 }
             }
-            
-            self?.collectionView.reloadData()
         }
+    }
+    
+    /// 获取天气
+    private func gotoGetWeatherInfo() {
+        if let _ = weatherInfo {
+            return
+        }
+        isGpsStarting = true
+        collectionView.reloadData()
+
+        getWeathInfo(isAuto: false)
     }
     
     /// 去登录
