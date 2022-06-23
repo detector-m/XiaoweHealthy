@@ -22,6 +22,12 @@ class XWHBindDeviceVC: XWHSearchBindDevBaseVC {
         startBindDevice()
     }
     
+    override func setupNavigationItems() {
+        super.setupNavigationItems()
+        
+        rt_disableInteractivePop = true
+    }
+    
     override func addSubViews() {
         super.addSubViews()
         
