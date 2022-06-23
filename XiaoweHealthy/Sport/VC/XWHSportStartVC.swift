@@ -72,6 +72,7 @@ class XWHSportStartVC: XWHBaseVC {
         
         locationBtn.setImage(R.image.gps_current(), for: .normal)
         locationBtn.layer.cornerRadius = 25
+        locationBtn.adjustsImageWhenHighlighted = false
         locationBtn.layer.backgroundColor = UIColor.white.cgColor
         locationBtn.addTarget(self, action: #selector(clickTotalBtn), for: .touchUpInside)
         
