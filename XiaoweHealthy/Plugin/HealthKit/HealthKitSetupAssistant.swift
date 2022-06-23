@@ -56,8 +56,31 @@ class HealthKitSetupAssistant {
         let writeTypesSet: Set<HKSampleType> = [stepCount, heartRate, activityEnergy, workout, sleep]
         let readTypesSet: Set<HKObjectType> = [stepCount, heartRate, activityEnergy, workout, sleep]
         
+        let hkStore = HKHealthStore()
         // 4. Request Authorization
-        HKHealthStore().requestAuthorization(toShare: writeTypesSet, read: readTypesSet) { success, error in
+        hkStore.requestAuthorization(toShare: writeTypesSet, read: readTypesSet) { success, error in
+            // Determine if the user saw the permission view
+//            if success {
+//                print("User was shown permission view")
+//                
+//                // ** IMPORTANT
+//                // Check for access to your HealthKit Type(s). This is an example of using BodyMass.
+//                for i in writeTypesSet {
+//                    if hkStore.authorizationStatus(for: i) == .sharingAuthorized {
+//                        print("Permission Granted to Access BodyMass")
+//                    } else {
+//                        print("Permission Denied to Access BodyMass")
+//                    }
+//                }
+//                
+//            } else {
+//                print("User was not shown permission view")
+//                
+//                // An error occurred
+//                if let e = error {
+//                    print(e)
+//                }
+//            }
             completion(success, error)
         }
 
