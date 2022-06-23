@@ -249,6 +249,11 @@ class XWHSportMainVC: XWHCollectionViewBaseVC {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let section = indexPath.section
         let row = indexPath.item
+        
+        if section == 0 {
+            let sportTypes: [XWHSportType] = [.run, .walk, .ride, .climb]
+            gotoSportStart(sType: sportTypes[row])
+        }
     }
     
     // MARK: - UIScrollViewDeletate
@@ -261,6 +266,13 @@ class XWHSportMainVC: XWHCollectionViewBaseVC {
 
 // MARK: - UI Jump
 extension XWHSportMainVC {
+    
+    /// 运动开始
+    private func gotoSportStart(sType: XWHSportType) {
+        let vc = XWHSportStartVC()
+        vc.sportType = sType
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
     /// 运动记录列表
     private func gotoSportRecordList() {
