@@ -111,7 +111,7 @@ extension AppDelegate {
     }
     
     fileprivate func configLog() {
-        XWHLog.configLog()
+        AppLogManager.configLog()
     }
     
     // 配置数据库

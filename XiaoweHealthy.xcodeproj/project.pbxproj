@@ -176,6 +176,7 @@
 		967E97E92859E689001F9782 /* XWHHomeHeartCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967E97E82859E689001F9782 /* XWHHomeHeartCTCell.swift */; };
 		967E97EB2859E69E001F9782 /* XWHHomeBOCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967E97EA2859E69E001F9782 /* XWHHomeBOCTCell.swift */; };
 		967E97ED2859E6B1001F9782 /* XWHHomeMSCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967E97EC2859E6B1001F9782 /* XWHHomeMSCTCell.swift */; };
+		967F0F1B28655633005E74DC /* AppLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F0F1A28655633005E74DC /* AppLocationManager.swift */; };
 		967F867D283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F867C283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift */; };
 		967F867F283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F867E283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift */; };
 		9680104528477435004C45C9 /* BluetoothStateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9680104428477435004C45C9 /* BluetoothStateHandler.swift */; };
@@ -317,7 +318,7 @@
 		96A10CC4282A6D4200C1E18F /* XWHGradientBaseCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A10CC3282A6D4200C1E18F /* XWHGradientBaseCTCell.swift */; };
 		96A5EC0D281B955B0048125A /* XWHHealthyDataBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A5EC0C281B955B0048125A /* XWHHealthyDataBaseModel.swift */; };
 		96AD2857280139670092B843 /* AppDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD2856280139670092B843 /* AppDatabase.swift */; };
-		96AD285A280144F40092B843 /* XWHLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD2859280144F40092B843 /* XWHLog.swift */; };
+		96AD285A280144F40092B843 /* AppLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD2859280144F40092B843 /* AppLogManager.swift */; };
 		96AD285C28016BB30092B843 /* XWHTestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD285B28016BB30092B843 /* XWHTestModel.swift */; };
 		96AD28662801C5AA0092B843 /* XWHDataUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD28652801C5AA0092B843 /* XWHDataUserManager.swift */; };
 		96AD28682801C5BA0092B843 /* XWHDataDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD28672801C5BA0092B843 /* XWHDataDeviceManager.swift */; };
@@ -631,6 +632,7 @@
 		967E97E82859E689001F9782 /* XWHHomeHeartCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHomeHeartCTCell.swift; sourceTree = "<group>"; };
 		967E97EA2859E69E001F9782 /* XWHHomeBOCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHomeBOCTCell.swift; sourceTree = "<group>"; };
 		967E97EC2859E6B1001F9782 /* XWHHomeMSCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHomeMSCTCell.swift; sourceTree = "<group>"; };
+		967F0F1A28655633005E74DC /* AppLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLocationManager.swift; sourceTree = "<group>"; };
 		967F867C283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceConnectBindHelpTBVC.swift; sourceTree = "<group>"; };
 		967F867E283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceUseGuideTBVC.swift; sourceTree = "<group>"; };
 		9680104428477435004C45C9 /* BluetoothStateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothStateHandler.swift; sourceTree = "<group>"; };
@@ -772,7 +774,7 @@
 		96A10CC3282A6D4200C1E18F /* XWHGradientBaseCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHGradientBaseCTCell.swift; sourceTree = "<group>"; };
 		96A5EC0C281B955B0048125A /* XWHHealthyDataBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyDataBaseModel.swift; sourceTree = "<group>"; };
 		96AD2856280139670092B843 /* AppDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDatabase.swift; sourceTree = "<group>"; };
-		96AD2859280144F40092B843 /* XWHLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLog.swift; sourceTree = "<group>"; };
+		96AD2859280144F40092B843 /* AppLogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogManager.swift; sourceTree = "<group>"; };
 		96AD285B28016BB30092B843 /* XWHTestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTestModel.swift; sourceTree = "<group>"; };
 		96AD28652801C5AA0092B843 /* XWHDataUserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataUserManager.swift; sourceTree = "<group>"; };
 		96AD28672801C5BA0092B843 /* XWHDataDeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataDeviceManager.swift; sourceTree = "<group>"; };
@@ -947,6 +949,8 @@
 		96127D11284202AA00940132 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
+				967F0F1C286560C0005E74DC /* Log */,
+				967F0F19286555E3005E74DC /* Location */,
 				960C47932863005800EE693A /* HealthKit */,
 				96840249285AEC8E0079923C /* UnitHandler */,
 				9680104328477383004C45C9 /* BluetoothStateHandler */,
@@ -1399,8 +1403,6 @@
 				9685B47728604C7B00095078 /* Weather */,
 				96522C1F285C3FAA00C2A208 /* MKRingProgressView */,
 				969B88462812A8F7009952E7 /* Date */,
-				96F1D67428082B270067DBFD /* Location */,
-				96AD2858280144E40092B843 /* Log */,
 				9651EE0527EAF5980043FE52 /* Network */,
 				96DC42A527FD9F5E009BF300 /* DownloadManager */,
 				96DC42A227FD875A009BF300 /* FileManager */,
@@ -1794,6 +1796,23 @@
 				967E97E62859DD10001F9782 /* XWHActivityVM.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		967F0F19286555E3005E74DC /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				967F0F1A28655633005E74DC /* AppLocationManager.swift */,
+				96F1D67428082B270067DBFD /* Location */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
+		967F0F1C286560C0005E74DC /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				96AD2859280144F40092B843 /* AppLogManager.swift */,
+			);
+			path = Log;
 			sourceTree = "<group>";
 		};
 		9680104328477383004C45C9 /* BluetoothStateHandler */ = {
@@ -2370,14 +2389,6 @@
 				96AD2856280139670092B843 /* AppDatabase.swift */,
 			);
 			path = Database;
-			sourceTree = "<group>";
-		};
-		96AD2858280144E40092B843 /* Log */ = {
-			isa = PBXGroup;
-			children = (
-				96AD2859280144F40092B843 /* XWHLog.swift */,
-			);
-			path = Log;
 			sourceTree = "<group>";
 		};
 		96AD285D280183A30092B843 /* Model */ = {
@@ -3351,7 +3362,7 @@
 				96C67AFE2804743D001ACA81 /* XWHDataRaiseWristSetManager.swift in Sources */,
 				96168CB5281BED5300F79C2A /* XWHUTEDataOperationHandler.swift in Sources */,
 				96C67AF428047249001ACA81 /* XWHBloodPressureSetModel.swift in Sources */,
-				96AD285A280144F40092B843 /* XWHLog.swift in Sources */,
+				96AD285A280144F40092B843 /* AppLogManager.swift in Sources */,
 				9653E49427F5556300EE55FF /* XWHDevSetCallVC.swift in Sources */,
 				969E7118280AB51F00BDA401 /* XWHDialManager.swift in Sources */,
 				96C67AE02803D79E001ACA81 /* XWHDataNoticeSetManager.swift in Sources */,
@@ -3523,6 +3534,7 @@
 				9613E78527F4A0BC007A1589 /* XWHThemeConfig.swift in Sources */,
 				9653E49627F55D1B00EE55FF /* XWHDevSetSwitchTBCell.swift in Sources */,
 				96AD2AE3283F156B0024AF5B /* SignInWithApple.swift in Sources */,
+				967F0F1B28655633005E74DC /* AppLocationManager.swift in Sources */,
 				969A4CF8280E8A630049BC07 /* XWHLargeTitleView.swift in Sources */,
 				9690723D2814E9A90056CE4F /* XWHHealthyAllDataBaseTBVC.swift in Sources */,
 				967E97E72859DD10001F9782 /* XWHActivityVM.swift in Sources */,

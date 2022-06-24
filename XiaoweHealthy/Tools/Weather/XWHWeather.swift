@@ -11,7 +11,7 @@ import Foundation
 class XWHWeather {
     
     static func getWeatherInfo(_ completion: ((XWHWeatherInfoModel?) -> Void)?) {
-        guard let loc = XWHLocation.shared.currentLocation else {
+        guard let loc = AppLocationManager.shared.lastLocation else {
             log.error("未定位到坐标")
             completion?(nil)
             return

@@ -1,5 +1,5 @@
 //
-//  XWHLog.swift
+//  AppLogManager.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/4/9.
@@ -9,7 +9,7 @@ import Foundation
 
 let log = XCGLogger.default
 
-class XWHLog {
+class AppLogManager {
     
     private static var logDir: URL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
     private static var logSufix = "-log.txt"

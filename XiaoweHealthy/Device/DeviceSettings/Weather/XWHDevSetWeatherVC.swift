@@ -63,24 +63,26 @@ class XWHDevSetWeatherVC: XWHDevSetBloodPressureVC {
 extension XWHDevSetWeatherVC {
     
     private func checkLocationState(_ completion: ((Bool) -> Void)?) {
-        if !XWHLocation.shared.locationEnabled() {
-            view.makeInsetToast("未开启定位功能")
-            return
-        }
-        
-        XWHLocation.shared.checkState { [weak self] isOk in
-            if isOk {
-                completion?(isOk)
+        AppLocationManager.shared.requestAuthorizationOneTime { [weak self] isEnable, authStatus in
+            if !isEnable {
+                self?.view.makeInsetToast("未开启定位功能")
+                
+                return
+            }
+            
+            if authStatus.isAuthorized {
+                completion?(authStatus.isAuthorized)
                 self?.sendWeatherInfo()
             } else {
                 self?.view.makeInsetToast("未授权定位功能")
             }
+            
         }
     }
     
     private func sendWeatherInfo() {
         // "CN101010100"
-        guard let loc = XWHLocation.shared.currentLocation else {
+        guard let loc = AppLocationManager.shared.lastLocation else {
             view.makeInsetToast("未定位到坐标")
             return
         }

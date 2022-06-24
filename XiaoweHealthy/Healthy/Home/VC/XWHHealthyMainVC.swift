@@ -205,7 +205,7 @@ extension XWHHealthyMainVC {
             }
         }
         
-        if XWHLocation.isRequestedAuthorization(), XWHLocation.shared.locationEnabled() {
+        if AppLocationManager.isAuthorized, AppLocationManager.shared.isEnable {
             getWeathInfo(isAuto: true)
         }
     }
@@ -301,7 +301,7 @@ extension XWHHealthyMainVC: XWHDeviceObserverProtocol {
         if iDeployItem.type == .weather {
             let cell = collectionView.dequeueReusableCell(withClass: XWHHomeWeatherCTCell.self, for: indexPath)
             
-            if !XWHLocation.isRequestedAuthorization() || !XWHLocation.shared.locationEnabled(), !isGpsOk {
+            if !AppLocationManager.isAuthorized || !AppLocationManager.shared.isEnable, !isGpsOk {
                 cell.textLb.text = "开启定位获取天气"
             } else {
                 if isGpsStarting {
@@ -678,7 +678,7 @@ extension XWHHealthyMainVC {
     
     /// 获取天气信息
     private func getWeathInfo(isAuto: Bool) {
-        XWHLocation.shared.requestLocationEnableAndAuthorize { [weak self] isEnable, authStatus in
+        AppLocationManager.shared.requestAuthorizationOneTime { [weak self] isEnable, authStatus in
             self?.isGpsOk = authStatus.isAuthorized
             
             if authStatus.isAuthorized {
