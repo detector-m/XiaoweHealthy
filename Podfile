@@ -60,6 +60,9 @@ target 'XiaoweHealthy' do
   # 缓存
   pod 'Cache'
   
+  # GPS 定位
+#  pod 'SwiftLocation/Core'
+  
   # 图表
 #  pod 'Charts'
 #  pod 'AAInfographics'

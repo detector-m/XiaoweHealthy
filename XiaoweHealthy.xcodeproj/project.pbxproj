@@ -3830,9 +3830,13 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "小维健康";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "需要访问您的健康数据以保存此应用构建的锻炼";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "需要访问您的健康数据以保存此应用构建的锻炼";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "需要定位权限以测试校准。";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "需要定位权限以测试校准。";
 				INFOPLIST_KEY_NSLocationUsageDescription = "需要定位权限以测试校准。";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "需要定位权限以测试校准。";
+				INFOPLIST_KEY_NSMotionUsageDescription = "需要运动相关的跟踪功能来记录锻炼过程中的步数等数据";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -3872,9 +3876,13 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "小维健康";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "需要访问您的健康数据以保存此应用构建的锻炼";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "需要访问您的健康数据以保存此应用构建的锻炼";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "需要定位权限以测试校准。";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "需要定位权限以测试校准。";
 				INFOPLIST_KEY_NSLocationUsageDescription = "需要定位权限以测试校准。";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "需要定位权限以测试校准。";
+				INFOPLIST_KEY_NSMotionUsageDescription = "需要运动相关的跟踪功能来记录锻炼过程中的步数等数据";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
