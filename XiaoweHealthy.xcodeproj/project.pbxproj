@@ -177,6 +177,8 @@
 		967E97ED2859E6B1001F9782 /* XWHHomeMSCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967E97EC2859E6B1001F9782 /* XWHHomeMSCTCell.swift */; };
 		967F0F1B28655633005E74DC /* AppLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F0F1A28655633005E74DC /* AppLocationManager.swift */; };
 		967F0F202865950F005E74DC /* HealthKitServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F0F1F2865950F005E74DC /* HealthKitServiceManager.swift */; };
+		967F0F222865A946005E74DC /* XWHSRLSectionHeaderTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F0F212865A946005E74DC /* XWHSRLSectionHeaderTBCell.swift */; };
+		967F0F242865A9BF005E74DC /* XWHSRLSportRecordSummaryTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F0F232865A9BF005E74DC /* XWHSRLSportRecordSummaryTBCell.swift */; };
 		967F867D283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F867C283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift */; };
 		967F867F283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F867E283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift */; };
 		9680104528477435004C45C9 /* BluetoothStateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9680104428477435004C45C9 /* BluetoothStateHandler.swift */; };
@@ -185,7 +187,6 @@
 		9680D81C2851A4FB00FA6F9C /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9680D81B2851A4FB00FA6F9C /* HealthKit.framework */; };
 		9680D81E2851CF3A00FA6F9C /* XWHSRLSportRecordTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9680D81D2851CF3A00FA6F9C /* XWHSRLSportRecordTBCell.swift */; };
 		9680D8202851EB3600FA6F9C /* XWHSportRecordDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9680D81F2851EB3600FA6F9C /* XWHSportRecordDetailVC.swift */; };
-		9680D8232851EDDA00FA6F9C /* XWHSportRecordListDeploy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9680D8222851EDDA00FA6F9C /* XWHSportRecordListDeploy.swift */; };
 		968379642856DB360034DB98 /* XWHHomeColumnRangeBarChartCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968379632856DB360034DB98 /* XWHHomeColumnRangeBarChartCTCell.swift */; };
 		968379662856DD3A0034DB98 /* XWHHomeSleepCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968379652856DD3A0034DB98 /* XWHHomeSleepCTCell.swift */; };
 		968379682856DD7F0034DB98 /* XWHHomeMoodCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968379672856DD7F0034DB98 /* XWHHomeMoodCTCell.swift */; };
@@ -633,6 +634,8 @@
 		967E97EC2859E6B1001F9782 /* XWHHomeMSCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHomeMSCTCell.swift; sourceTree = "<group>"; };
 		967F0F1A28655633005E74DC /* AppLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLocationManager.swift; sourceTree = "<group>"; };
 		967F0F1F2865950F005E74DC /* HealthKitServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitServiceManager.swift; sourceTree = "<group>"; };
+		967F0F212865A946005E74DC /* XWHSRLSectionHeaderTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSRLSectionHeaderTBCell.swift; sourceTree = "<group>"; };
+		967F0F232865A9BF005E74DC /* XWHSRLSportRecordSummaryTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSRLSportRecordSummaryTBCell.swift; sourceTree = "<group>"; };
 		967F867C283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceConnectBindHelpTBVC.swift; sourceTree = "<group>"; };
 		967F867E283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceUseGuideTBVC.swift; sourceTree = "<group>"; };
 		9680104428477435004C45C9 /* BluetoothStateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothStateHandler.swift; sourceTree = "<group>"; };
@@ -641,7 +644,6 @@
 		9680D81B2851A4FB00FA6F9C /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		9680D81D2851CF3A00FA6F9C /* XWHSRLSportRecordTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSRLSportRecordTBCell.swift; sourceTree = "<group>"; };
 		9680D81F2851EB3600FA6F9C /* XWHSportRecordDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportRecordDetailVC.swift; sourceTree = "<group>"; };
-		9680D8222851EDDA00FA6F9C /* XWHSportRecordListDeploy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportRecordListDeploy.swift; sourceTree = "<group>"; };
 		968379632856DB360034DB98 /* XWHHomeColumnRangeBarChartCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHomeColumnRangeBarChartCTCell.swift; sourceTree = "<group>"; };
 		968379652856DD3A0034DB98 /* XWHHomeSleepCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHomeSleepCTCell.swift; sourceTree = "<group>"; };
 		968379672856DD7F0034DB98 /* XWHHomeMoodCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHomeMoodCTCell.swift; sourceTree = "<group>"; };
@@ -1829,6 +1831,8 @@
 				969A14CF2862AAD800B61CEB /* XWHSportMainSportCTCell.swift */,
 				969A14D12862AD5900B61CEB /* XWHSportCTReusableView.swift */,
 				969A14D32862AF2800B61CEB /* XWHSportRecordCTCell.swift */,
+				967F0F212865A946005E74DC /* XWHSRLSectionHeaderTBCell.swift */,
+				967F0F232865A9BF005E74DC /* XWHSRLSportRecordSummaryTBCell.swift */,
 				9680D81D2851CF3A00FA6F9C /* XWHSRLSportRecordTBCell.swift */,
 				969A14D52862C0D100B61CEB /* XWHTitleValueView.swift */,
 				960C4798286454C100EE693A /* XWHGPSSignalView.swift */,
@@ -1839,7 +1843,6 @@
 		9680D8212851ED7F00FA6F9C /* Deploy */ = {
 			isa = PBXGroup;
 			children = (
-				9680D8222851EDDA00FA6F9C /* XWHSportRecordListDeploy.swift */,
 			);
 			path = Deploy;
 			sourceTree = "<group>";
@@ -3389,6 +3392,7 @@
 				96617A9227E23EAD00139B03 /* XWHColorExtension.swift in Sources */,
 				969B881D280FE2B7009952E7 /* XWHHealthyConstant.swift in Sources */,
 				9693106C28252CA600133626 /* XWHSleepScoreCTCell.swift in Sources */,
+				967F0F242865A9BF005E74DC /* XWHSRLSportRecordSummaryTBCell.swift in Sources */,
 				96C67AE3280415DD001ACA81 /* XWHLongSitSetModel.swift in Sources */,
 				9679E9F828198A1E003C6351 /* XWHCalendar.swift in Sources */,
 				9685B47928604C9800095078 /* XWHWeather.swift in Sources */,
@@ -3407,6 +3411,7 @@
 				9651EE2E27EC5BD30043FE52 /* UMShareSwiftInterface.swift in Sources */,
 				96F1D68A28096F370067DBFD /* XWHDialTitleCTCell.swift in Sources */,
 				96837971285829090034DB98 /* XWHActivityCTVC.swift in Sources */,
+				967F0F222865A946005E74DC /* XWHSRLSectionHeaderTBCell.swift in Sources */,
 				960C4799286454C100EE693A /* XWHGPSSignalView.swift in Sources */,
 				96A10CAB2828EF1A00C1E18F /* XWHSleepUIAllDataItemModel.swift in Sources */,
 				9679E9CF28159105003C6351 /* XWHHeartUIAllDataItemModel.swift in Sources */,
@@ -3554,7 +3559,6 @@
 				9679E9F628191337003C6351 /* XWHCalendarWeekCTCell.swift in Sources */,
 				966F53C927F1E8B200411D38 /* XWHBindDeviceVC.swift in Sources */,
 				96617A7227E1E12E00139B03 /* XWHExported.swift in Sources */,
-				9680D8232851EDDA00FA6F9C /* XWHSportRecordListDeploy.swift in Sources */,
 				9693106E28253B4A00133626 /* XWHSleepIntroductionTXVC.swift in Sources */,
 				9618B6EA28339894003D5770 /* XWHBOChartCTCell.swift in Sources */,
 				96D68D05285475AD0027DB46 /* XWHHealthActivityCTCell.swift in Sources */,
