@@ -57,6 +57,9 @@ target 'XiaoweHealthy' do
 #  pod 'ObjectMapper'
   pod 'HandyJSON'
   
+  # HealthKitReporter
+  pod 'HealthKitReporter'
+  
   # 缓存
   pod 'Cache'
   

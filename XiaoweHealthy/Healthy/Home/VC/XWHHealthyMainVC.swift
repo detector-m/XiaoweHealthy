@@ -185,8 +185,10 @@ extension XWHHealthyMainVC {
     }
     
     private func loadServerDatas() {
-        if let _ = deployItems.first(where: { $0.type == .activity }) {
-            getActivitySum()
+        if XWHUser.isLogined {
+            if let _ = deployItems.first(where: { $0.type == .activity }) {
+                getActivitySum()
+            }
         }
             
         if let iDeployItem = deployItems.first(where: { $0.type == .health }) {
@@ -727,11 +729,9 @@ extension XWHHealthyMainVC {
     /// 运动健康授权
     private func gotoRequestHealthKitAuthorize() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            HealthKitSetupAssistant.requestAuthorize { success, setupError in
+            hkServiceManager.requestAuthorization { success, setupError in
                 if !success {
-                    log.error(setupError)
-                    
-                    XWHAlert.show(title: nil, message: "运动健康未授权", cancelTitle: nil, confirmTitle: "去授权") { aType in
+                    XWHAlert.show(title: nil, message: "运动健康未授权，请到运动健康App授权", cancelTitle: R.string.xwhDisplayText.取消(), confirmTitle: "去授权") { aType in
                         if aType == .confirm {
                             RLBLEPermissions.openAppSettings()
                         }
