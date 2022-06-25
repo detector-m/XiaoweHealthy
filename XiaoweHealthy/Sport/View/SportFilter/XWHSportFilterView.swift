@@ -15,11 +15,9 @@ class XWHPopupSportFilter {
         window.addSubview(popupPick)
 
         popupPick.show(pickItems: pickItems, sIndex: sIndex) { [unowned popupPick] cType in
-//            if let contentView = popupPick.contentView as? XWHPopupSportFilterContentView {
-//                action?(cType, contentView.pickerView.selectedRow(inComponent: 0))
-//            } else {
-//                action?(cType, 0)
-//            }
+            if let contentView = popupPick.contentView as? XWHPopupSportFilterContentView {
+                action?(cType, contentView.sIndex)
+            }
         }
     }
     
@@ -57,7 +55,7 @@ class XWHPopupSportFilterView: RLPopupBaseView {
         _contentView.snp.remakeConstraints { make in
             make.left.right.equalToSuperview()
             make.top.equalToSuperview()
-            make.height.equalTo(232 + 44 + safeAreaInsets.top)
+            make.height.equalTo(232 + 44 + safeAreaInsets.top + 24)
         }
         
         _contentView.relayoutSubViews(topInset: safeAreaInsets.top)
@@ -69,7 +67,7 @@ class XWHPopupSportFilterView: RLPopupBaseView {
     }
     
     @objc func backgroundViewClicked() {
-        hideAnimation()
+        clickCallback?(.cancel)
     }
     
 }
@@ -162,7 +160,9 @@ class XWHPopupSportFilterContentView: RLPopupContentBaseView, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        sIndex = indexPath.row
         
+        clickCallback?(.confirm)
     }
     
 }

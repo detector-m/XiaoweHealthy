@@ -16,10 +16,19 @@ class XWHSportRecordListTBVC: XWHTableViewBaseVC {
     
     private(set) lazy var openImage: UIImage = UIImage.iconFont(text: XWHIconFontOcticons.arrowDown.rawValue, size: 16, color: fontDarkColor)
     
+    
     private lazy var expandStates: [Bool] = []
     private lazy var dataItems: [String] = []
+    
+    lazy var sIndex: Int = 0
+    lazy var sportItems: [XWHSportType] = [.none, .run, .walk, .ride, .climb]
+    lazy var filterSportNames: [String] = [R.string.xwhSportText.所有运动(), R.string.xwhSportText.跑步(), R.string.xwhSportText.步行(), R.string.xwhSportText.骑行(), R.string.xwhSportText.爬山()]
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
+//        if !titleBtn.isSelected {
+//            return .lightContent
+//        }
+        
         return .default
     }
     
@@ -38,16 +47,32 @@ class XWHSportRecordListTBVC: XWHTableViewBaseVC {
         titleBtn.frame = CGRect(x: 0, y: 0, width: 160, height: 44)
         titleBtn.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 17, weight: .medium)
         titleBtn.setTitleColor(fontDarkColor, for: .normal)
-        titleBtn.set(image: openImage, title: R.string.xwhSportText.所有运动(), titlePosition: .left, additionalSpacing: 5, state: .normal)
         titleBtn.addTarget(self, action: #selector(clickTitleBtn), for: .touchUpInside)
+        
+        updateTitleBtn()
         
         navigationItem.titleView = titleBtn
     }
     
+    private func updateTitleBtn() {
+        let titleText = filterSportNames[sIndex]
+        titleBtn.set(image: openImage, title: titleText, titlePosition: .left, additionalSpacing: 5, state: .normal)
+    }
+    
     @objc private func clickTitleBtn() {
         titleBtn.isSelected = !titleBtn.isSelected
-        
-        XWHPopupSportFilter.show(pickItems: ["1", "2", "3"], sIndex: 0)
+        setNeedsStatusBarAppearanceUpdate()
+        XWHPopupSportFilter.show(pickItems: filterSportNames, sIndex: sIndex) { [unowned self] aType, row in
+            self.titleBtn.isSelected = !self.titleBtn.isSelected
+            
+            self.setNeedsStatusBarAppearanceUpdate()
+
+            if aType == .cancel {
+            } else {
+                self.sIndex = row
+                self.updateTitleBtn()
+            }
+        }
     }
     
     override func addSubViews() {
