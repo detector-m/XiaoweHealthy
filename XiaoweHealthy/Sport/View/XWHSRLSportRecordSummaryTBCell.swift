@@ -17,6 +17,20 @@ class XWHSRLSportRecordSummaryTBCell: UITableViewCell {
     lazy var titleValueView1 = XWHTitleValueView()
     lazy var titleValueView2 = XWHTitleValueView()
     lazy var titleValueView3 = XWHTitleValueView()
+    
+    override var frame: CGRect {
+        get {
+            return super.frame
+        }
+        
+        set {
+            var newFrame = newValue
+            newFrame.origin.x = 16
+            newFrame.size.width -= 32
+            
+            super.frame = newFrame
+        }
+    }
 
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

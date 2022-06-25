@@ -17,6 +17,20 @@ class XWHSRLSportRecordTBCell: XWHCommonBaseTBCell {
     lazy var paceIcon = UIImageView()
     lazy var paceLb = UILabel()
     
+    override var frame: CGRect {
+        get {
+            return super.frame
+        }
+        
+        set {
+            var newFrame = newValue
+            newFrame.origin.x = 16
+            newFrame.size.width -= 32
+            
+            super.frame = newFrame
+        }
+    }
+    
     override func addSubViews() {
         super.addSubViews()
         

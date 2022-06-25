@@ -63,8 +63,12 @@ class XWHSRLAllRecordSummaryView: XWHBaseView {
     }
     
     override func relayoutSubViews() {
+        
+    }
+    
+    func relayoutSubViews(topInset: CGFloat) {
         titleValueView1.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(7)
+            make.top.equalToSuperview().inset(topInset + 7)
             make.height.equalTo(85)
             make.left.right.equalToSuperview().inset(16)
         }

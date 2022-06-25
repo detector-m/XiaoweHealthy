@@ -68,6 +68,7 @@ class XWHPopupSportFilterView: RLPopupBaseView {
     
     @objc func backgroundViewClicked() {
         clickCallback?(.cancel)
+        hideAnimation()
     }
     
 }
