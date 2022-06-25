@@ -81,6 +81,11 @@ class XWHSportRecordListTBVC: XWHTableViewBaseVC {
         view.backgroundColor = collectionBgColor
         tableView.backgroundColor = collectionBgColor
         tableView.separatorStyle = .none
+        
+        let allSummaryView = XWHSRLAllRecordSummaryView()
+        allSummaryView.frame = CGRect(x: -16, y: 0, width: view.width, height: 172)
+        allSummaryView.update()
+        tableView.tableHeaderView = allSummaryView
     }
     
     override func relayoutSubViews() {

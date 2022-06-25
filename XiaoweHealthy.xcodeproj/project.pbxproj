@@ -198,6 +198,7 @@
 		96837983285884EA0034DB98 /* XWHActivitySetGoalTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96837982285884EA0034DB98 /* XWHActivitySetGoalTBVC.swift */; };
 		96837985285886470034DB98 /* XWHActivityIntroductionTXVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96837984285886470034DB98 /* XWHActivityIntroductionTXVC.swift */; };
 		968379872858893F0034DB98 /* XWHActivitySetGoalTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968379862858893F0034DB98 /* XWHActivitySetGoalTBCell.swift */; };
+		96837EA32866AF1E005158A0 /* XWHSRLAllRecordSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96837EA22866AF1E005158A0 /* XWHSRLAllRecordSummaryView.swift */; };
 		96840240285ABF0B0079923C /* XWHActivitySumUIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684023F285ABF0B0079923C /* XWHActivitySumUIModel.swift */; };
 		96840242285AC1050079923C /* XWHActivityItemUIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96840241285AC1050079923C /* XWHActivityItemUIModel.swift */; };
 		96840244285ACBD90079923C /* XWHActivityStepCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96840243285ACBD90079923C /* XWHActivityStepCTCell.swift */; };
@@ -656,6 +657,7 @@
 		96837982285884EA0034DB98 /* XWHActivitySetGoalTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHActivitySetGoalTBVC.swift; sourceTree = "<group>"; };
 		96837984285886470034DB98 /* XWHActivityIntroductionTXVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHActivityIntroductionTXVC.swift; sourceTree = "<group>"; };
 		968379862858893F0034DB98 /* XWHActivitySetGoalTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHActivitySetGoalTBCell.swift; sourceTree = "<group>"; };
+		96837EA22866AF1E005158A0 /* XWHSRLAllRecordSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSRLAllRecordSummaryView.swift; sourceTree = "<group>"; };
 		9684023F285ABF0B0079923C /* XWHActivitySumUIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHActivitySumUIModel.swift; sourceTree = "<group>"; };
 		96840241285AC1050079923C /* XWHActivityItemUIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHActivityItemUIModel.swift; sourceTree = "<group>"; };
 		96840243285ACBD90079923C /* XWHActivityStepCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHActivityStepCTCell.swift; sourceTree = "<group>"; };
@@ -1847,6 +1849,7 @@
 				9680D81D2851CF3A00FA6F9C /* XWHSRLSportRecordTBCell.swift */,
 				969A14D52862C0D100B61CEB /* XWHTitleValueView.swift */,
 				960C4798286454C100EE693A /* XWHGPSSignalView.swift */,
+				96837EA22866AF1E005158A0 /* XWHSRLAllRecordSummaryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3625,6 +3628,7 @@
 				966A60F828001F6100CBE915 /* XWHLoginProgressHUDContentView.swift in Sources */,
 				9679E9D428169338003C6351 /* XWHCalendarPopupContainer.swift in Sources */,
 				96A10CC4282A6D4200C1E18F /* XWHGradientBaseCTCell.swift in Sources */,
+				96837EA32866AF1E005158A0 /* XWHSRLAllRecordSummaryView.swift in Sources */,
 				9651EE0727EAF6CE0043FE52 /* XWHServiceTargetType.swift in Sources */,
 				969F01C027F6DBB600CA4DA4 /* XWHDevSetUpdateVC.swift in Sources */,
 				96A10CC0282A67B500C1E18F /* XWHChartLegendView.swift in Sources */,
