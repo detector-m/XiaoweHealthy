@@ -120,7 +120,7 @@ extension XWHBindDeviceVC {
     private func bindDeviceSuccess(bindDevice: XWHDevWatchModel) {
         bindDevice.isCurrent = true
         isBindSuccess = true
-        XWHDataDeviceManager.setCurrent(device: bindDevice)
+        XWHDeviceDataManager.setCurrent(device: bindDevice)
         
         updateDeviceInfo { [weak self] connDev in
             guard let self = self else {
@@ -237,13 +237,13 @@ extension XWHBindDeviceVC {
                 guard let connModel = cModel?.data as? XWHDevWatchModel else {
                     return
                 }
-                if let curModel = XWHDataDeviceManager.getCurrentWatch() {
+                if let curModel = XWHDeviceDataManager.getCurrentWatch() {
                     connModel.isCurrent = curModel.isCurrent
                     connModel.type = curModel.type
                     connModel.category = curModel.category
                 }
                 
-                XWHDataDeviceManager.setCurrent(device: connModel)
+                XWHDeviceDataManager.setCurrent(device: connModel)
                 completion?(connModel)
                 
             case .failure(let error):

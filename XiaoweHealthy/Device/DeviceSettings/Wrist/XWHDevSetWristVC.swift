@@ -127,7 +127,7 @@ extension XWHDevSetWristVC {
             
             raiseWristSet.duration = self.brightTimes[index]
             self.setRaiseWristSet(raiseWristSet, user) {
-                XWHDataDeviceManager.saveRaiseWristSet(raiseWristSet)
+                XWHDeviceDataManager.saveRaiseWristSet(raiseWristSet)
                 
                 self.sIndex = index
                 self.tableView.reloadData()

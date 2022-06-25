@@ -84,7 +84,7 @@ class XWHDevSetBloodOxygenVC: XWHDevSetBaseVC {
                 boSet.isOn = isOn
                 
                 self.setBloodOxygen(boSet) {
-                    XWHDataDeviceManager.saveBloodOxygenSet(boSet)
+                    XWHDeviceDataManager.saveBloodOxygenSet(boSet)
                     self.isOxygenOn = isOn
                     self.tableView.reloadData()
                 }
@@ -134,7 +134,7 @@ extension XWHDevSetBloodOxygenVC {
             
             boSet.duration = self.monitorTimes[index]
             self.setBloodOxygen(boSet) {
-                XWHDataDeviceManager.saveBloodOxygenSet(boSet)
+                XWHDeviceDataManager.saveBloodOxygenSet(boSet)
                 
                 self.sIndex = index
                 self.tableView.reloadData()

@@ -55,7 +55,7 @@ class XWHDevSetCallVC: XWHDevSetBloodPressureVC {
                     XWHAlert.show(title: R.string.xwhDeviceText.授权说明(), message: R.string.xwhDeviceText.在使用过程中本应用需要访问通讯录权限以便在设备上显示来电联系人姓名(), cancelTitle: R.string.xwhDeviceText.拒绝(), confirmTitle: R.string.xwhDeviceText.允许()) { cType in
                         if cType == .confirm {
                             self.setNoticeSet(noticeSet) {
-                                XWHDataDeviceManager.saveNoticeSet(noticeSet)
+                                XWHDeviceDataManager.saveNoticeSet(noticeSet)
                                 
                                 isOnCall = isOn
                                 cell.button.isSelected = isOnCall
@@ -70,7 +70,7 @@ class XWHDevSetCallVC: XWHDevSetBloodPressureVC {
             }
             
             self.setNoticeSet(noticeSet) {
-                XWHDataDeviceManager.saveNoticeSet(noticeSet)
+                XWHDeviceDataManager.saveNoticeSet(noticeSet)
                 
                 isOnCall = isOn
                 cell.button.isSelected = isOnCall

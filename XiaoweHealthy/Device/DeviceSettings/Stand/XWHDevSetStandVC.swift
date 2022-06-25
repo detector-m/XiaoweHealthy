@@ -97,7 +97,7 @@ class XWHDevSetStandVC: XWHDevSetBaseVC {
                 }
                 
                 self.setLongSitSet(longSitSet) {
-                    XWHDataDeviceManager.saveLongSitSet(longSitSet)
+                    XWHDeviceDataManager.saveLongSitSet(longSitSet)
 
                     if indexPath.section == 0 {
                         self.isStandOn = isOn
@@ -153,7 +153,7 @@ extension XWHDevSetStandVC {
             }
             longSitSet.duration = self.warnTimes[index]
             self.setLongSitSet(longSitSet) {
-                XWHDataDeviceManager.saveLongSitSet(longSitSet)
+                XWHDeviceDataManager.saveLongSitSet(longSitSet)
                 
                 self.sIndex = index
                 self.tableView.reloadData()

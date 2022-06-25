@@ -31,6 +31,12 @@ class XWHSportRecordListTBVC: XWHTableViewBaseVC {
     private lazy var expandStates: [Bool] = []
     private lazy var dataItems: [String] = []
     
+    lazy var sSportType: XWHSportType = .none {
+        didSet {
+            sIndex = sportItems.firstIndex(of: sSportType) ?? 0
+        }
+    }
+    
     lazy var sIndex: Int = 0
     lazy var sportItems: [XWHSportType] = [.none, .run, .walk, .ride, .climb]
     lazy var filterSportNames: [String] = [R.string.xwhSportText.所有运动(), R.string.xwhSportText.跑步(), R.string.xwhSportText.步行(), R.string.xwhSportText.骑行(), R.string.xwhSportText.爬山()]

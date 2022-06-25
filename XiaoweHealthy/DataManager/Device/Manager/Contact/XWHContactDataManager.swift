@@ -1,5 +1,5 @@
 //
-//  XWHDataContactManager.swift
+//  XWHContactDataManager.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/4/17.
@@ -10,7 +10,7 @@ import GRDB
 
 
 // MARK: - 联系人数据管理器
-class XWHDataContactManager {
+class XWHContactDataManager {
     
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
     ///  - Parameter db: 数据库handler

@@ -1,5 +1,5 @@
 //
-//  XWHDataDeviceManager.swift
+//  XWHDeviceDataManager.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/4/9.
@@ -9,11 +9,11 @@ import Foundation
 import GRDB
 
 
-let ddManager = XWHDataDeviceManager.self
+let ddManager = XWHDeviceDataManager.self
 
 // MARK: - 设备数据管理
 
-class XWHDataDeviceManager {
+class XWHDeviceDataManager {
     
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
     ///  - Parameter db: 数据库handler
@@ -53,7 +53,7 @@ class XWHDataDeviceManager {
 }
 
 // MARK: - 设备（Device）
-extension XWHDataDeviceManager {
+extension XWHDeviceDataManager {
     
     /// 设置当前设备
     /// - Parameters:
@@ -122,7 +122,7 @@ extension XWHDataDeviceManager {
     }
     
     class func getCurrentDevice() -> XWHDevWatchModel? {
-        XWHDataWatchManager.getCurrentWatch()
+        XWHWatchDataManager.getCurrentWatch()
     }
     
     class func getCurrentDeviceIdentifier() -> String? {
@@ -303,28 +303,28 @@ extension XWHDataDeviceManager {
 }
 
 // MARK: - 手表 （Watch）
-extension XWHDataDeviceManager {
+extension XWHDeviceDataManager {
     
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
     ///  - Parameter db: 数据库handler
     class func createWatchTable(_ db: Database) throws {
-        try XWHDataWatchManager.createWatchTable(db)
+        try XWHWatchDataManager.createWatchTable(db)
     }
     
     class func saveWatch(_ watch: XWHDevWatchModel) {
-        XWHDataWatchManager.saveWatch(watch)
+        XWHWatchDataManager.saveWatch(watch)
     }
     
     class func getWatch(identifier: String) -> XWHDevWatchModel? {
-        XWHDataWatchManager.getWatch(identifier: identifier)
+        XWHWatchDataManager.getWatch(identifier: identifier)
     }
     
     private class func deleteWatch(identifier: String) {
-        XWHDataWatchManager.deleteWatch(identifier: identifier)
+        XWHWatchDataManager.deleteWatch(identifier: identifier)
     }
     
     class func getCurrentWatch() -> XWHDevWatchModel? {
-        XWHDataWatchManager.getCurrentWatch()
+        XWHWatchDataManager.getCurrentWatch()
     }
     
     class func getCurrentWatchIdentifier() -> String? {
@@ -334,7 +334,7 @@ extension XWHDataDeviceManager {
 }
 
 // MARK: - Device Settings (Device Sets)
-extension XWHDataDeviceManager {
+extension XWHDeviceDataManager {
     
     /// 初始化设备设置项
     /// - Parameters:
@@ -412,7 +412,7 @@ extension XWHDataDeviceManager {
 }
 
 // MARK: - RaiseWristSet
-extension XWHDataDeviceManager {
+extension XWHDeviceDataManager {
     
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
     ///  - Parameter db: 数据库handler
@@ -435,7 +435,7 @@ extension XWHDataDeviceManager {
 }
 
 // MARK: - NoticeSet
-extension XWHDataDeviceManager {
+extension XWHDeviceDataManager {
     
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
     ///  - Parameter db: 数据库handler
@@ -458,7 +458,7 @@ extension XWHDataDeviceManager {
 }
 
 // MARK: - LongSitSet
-extension XWHDataDeviceManager {
+extension XWHDeviceDataManager {
     
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
     ///  - Parameter db: 数据库handler
@@ -481,7 +481,7 @@ extension XWHDataDeviceManager {
 }
 
 // MARK: - BloodPressureSet
-extension XWHDataDeviceManager {
+extension XWHDeviceDataManager {
     
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
     ///  - Parameter db: 数据库handler
@@ -504,7 +504,7 @@ extension XWHDataDeviceManager {
 }
 
 // MARK: - MentalStressSet
-extension XWHDataDeviceManager {
+extension XWHDeviceDataManager {
     
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
     ///  - Parameter db: 数据库handler
@@ -528,7 +528,7 @@ extension XWHDataDeviceManager {
 
 
 // MARK: - BloodOxygenSet
-extension XWHDataDeviceManager {
+extension XWHDeviceDataManager {
     
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
     ///  - Parameter db: 数据库handler
@@ -552,7 +552,7 @@ extension XWHDataDeviceManager {
 
 
 // MARK: - HeartSet
-extension XWHDataDeviceManager {
+extension XWHDeviceDataManager {
     
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
     ///  - Parameter db: 数据库handler
@@ -575,7 +575,7 @@ extension XWHDataDeviceManager {
 }
 
 // MARK: - DisturbSet
-extension XWHDataDeviceManager {
+extension XWHDeviceDataManager {
     
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
     ///  - Parameter db: 数据库handler
@@ -599,7 +599,7 @@ extension XWHDataDeviceManager {
 
 
 // MARK: - WeatherSet
-extension XWHDataDeviceManager {
+extension XWHDeviceDataManager {
     
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
     ///  - Parameter db: 数据库handler
@@ -623,36 +623,36 @@ extension XWHDataDeviceManager {
 
 
 // MARK: - Contact
-extension XWHDataDeviceManager {
+extension XWHDeviceDataManager {
     
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
     ///  - Parameter db: 数据库handler
     class func createContactTable(_ db: Database) throws {
-        try XWHDataContactManager.createContactTable(db)
+        try XWHContactDataManager.createContactTable(db)
     }
     
     class func saveContacts(_ contacts: [XWHDevContactModel]) {
-        XWHDataContactManager.saveContacts(contacts)
+        XWHContactDataManager.saveContacts(contacts)
     }
 
     class func getContacts(identifier: String) -> [XWHDevContactModel]? {
-        XWHDataContactManager.getContacts(identifier: identifier)
+        XWHContactDataManager.getContacts(identifier: identifier)
     }
     
     class func deleteContacts(identifier: String) {
-        XWHDataContactManager.deleteContacts(identifier: identifier)
+        XWHContactDataManager.deleteContacts(identifier: identifier)
     }
     
     class func saveContact(_ contact: XWHDevContactModel) {
-        XWHDataContactManager.saveContact(contact)
+        XWHContactDataManager.saveContact(contact)
     }
     
     class func deleteContact(_ contact: XWHDevContactModel) {
-        XWHDataContactManager.deleteContact(contact)
+        XWHContactDataManager.deleteContact(contact)
     }
     
 //    class func deleteAllContacts() {
-//        XWHDataContactManager.deleteAllContacts()
+//        XWHContactDataManager.deleteAllContacts()
 //    }
     
 }

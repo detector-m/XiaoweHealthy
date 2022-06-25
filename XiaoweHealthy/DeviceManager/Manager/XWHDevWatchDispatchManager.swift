@@ -60,7 +60,7 @@ class XWHDevWatchDispatchManager {
 //                    return
 //                }
 //                
-//                guard let devModel = XWHDataDeviceManager.getCurrentDevice() else {
+//                guard let devModel = XWHDeviceDataManager.getCurrentDevice() else {
 //                    return
 //                }
 //                

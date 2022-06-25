@@ -39,7 +39,7 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
         setTime(handler: handler)
         setUnit(handler: handler)
         
-        if let user = XWHDataUserManager.getCurrentUser() {
+        if let user = XWHUserDataManager.getCurrentUser() {
             setUserInfo(user, raiseWristSet, handler: handler)
         } else {
             log.error("UTE 获取用户信息失败")
@@ -52,7 +52,7 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
         }
         
         var noticeSet: XWHNoticeSetModel
-        if let cNoticeSet = XWHDataDeviceManager.getCurrentNoticeSet() {
+        if let cNoticeSet = XWHDeviceDataManager.getCurrentNoticeSet() {
             noticeSet = cNoticeSet
         } else {
             noticeSet = XWHNoticeSetModel()

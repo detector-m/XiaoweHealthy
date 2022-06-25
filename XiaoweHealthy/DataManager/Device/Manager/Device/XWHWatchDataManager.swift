@@ -1,5 +1,5 @@
 //
-//  XWHDataWatchManager.swift
+//  XWHWatchDataManager.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/4/13.
@@ -9,7 +9,7 @@ import Foundation
 import GRDB
 
 
-class XWHDataWatchManager {
+class XWHWatchDataManager {
     
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
     ///  - Parameter db: 数据库handler

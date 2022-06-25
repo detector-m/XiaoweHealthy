@@ -92,7 +92,7 @@ class XWHHomeDeploy {
         }
         
         let cardMsg = XWHHealthCardManager()
-        let healthCards = cardMsg.loadShowCards(userId: XWHDataUserManager.getCurrentUser()?.mobile ?? "")
+        let healthCards = cardMsg.loadShowCards(userId: XWHUserDataManager.getCurrentUser()?.mobile ?? "")
         if !healthCards.isEmpty {
             iItem = XWHHomeDeployItemModel(type: .health)
             

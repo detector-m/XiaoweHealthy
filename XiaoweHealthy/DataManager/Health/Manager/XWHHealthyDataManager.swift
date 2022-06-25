@@ -23,7 +23,7 @@ class XWHHealthyDataManager {
     }
     
     class func removeCurrent() {
-        guard let cId = XWHDataDeviceManager.getCurrentDeviceIdentifier() else {
+        guard let cId = XWHDeviceDataManager.getCurrentDeviceIdentifier() else {
             log.error("当前不存在设备")
             
             return
@@ -39,7 +39,7 @@ class XWHHealthyDataManager {
     }
     
     class func getCurrentHeart() -> XWHHeartModel? {
-        guard let cId = XWHDataDeviceManager.getCurrentDeviceIdentifier() else {
+        guard let cId = XWHDeviceDataManager.getCurrentDeviceIdentifier() else {
             log.error("当前不存在设备")
 
             return nil
@@ -49,7 +49,7 @@ class XWHHealthyDataManager {
     }
     
     class func getCurrentBloodOxygen() -> XWHHeartModel? {
-        guard let cId = XWHDataDeviceManager.getCurrentDeviceIdentifier() else {
+        guard let cId = XWHDeviceDataManager.getCurrentDeviceIdentifier() else {
             log.error("当前不存在设备")
 
             return nil
@@ -59,7 +59,7 @@ class XWHHealthyDataManager {
     }
     
     class func getCurrentMentalState() -> XWHMentalStateModel? {
-        guard let cId = XWHDataDeviceManager.getCurrentDeviceIdentifier() else {
+        guard let cId = XWHDeviceDataManager.getCurrentDeviceIdentifier() else {
             log.error("当前不存在设备")
 
             return nil

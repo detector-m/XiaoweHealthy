@@ -25,7 +25,7 @@ class XWHDeviceMainVC: XWHTableViewBaseVC, XWHDeviceObserverProtocol {
     private lazy var deviceItems = [[XWHDeviceDeployItemModel]]()
     
     private var connWatchModel: XWHDevWatchModel? {
-        XWHDataDeviceManager.getCurrentWatch()
+        XWHDeviceDataManager.getCurrentWatch()
     }
     
     lazy var dials = [XWHDialModel]()
@@ -618,7 +618,7 @@ extension XWHDeviceMainVC {
                     switch result {
                     case .success(_):
 //                        if let cModel = self.connWatchModel {
-//                            XWHDataDeviceManager.remove(device: cModel)
+//                            XWHDeviceDataManager.remove(device: cModel)
 //                            self.unbindDeviceToServer()
 //                        }
 //                        self.gotoAddDeviceEntry()
@@ -653,7 +653,7 @@ extension XWHDeviceMainVC {
 //                self.view.makeInsetToast("已经解除绑定")
                 if let cModel = self.connWatchModel {
                     XWHDDMShared.disconnect(device: cModel)
-                    XWHDataDeviceManager.remove(device: cModel)
+                    XWHDeviceDataManager.remove(device: cModel)
                     
                     self.unbindDeviceToServer()
                     

@@ -425,7 +425,7 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
     
     /// 处理活动数据
     func handleActivityData(_ rawData: Any?) -> Any? {
-        guard let user = XWHDataUserManager.getCurrentUser() else {
+        guard let user = XWHUserDataManager.getCurrentUser() else {
             log.error("未获取用户信息")
             return nil
         }

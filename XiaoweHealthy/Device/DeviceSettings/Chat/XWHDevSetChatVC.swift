@@ -147,7 +147,7 @@ extension XWHDevSetChatVC {
         noticeSet.isOn = isOn
         
         setNoticeSet(noticeSet) { [unowned self] in
-            XWHDataDeviceManager.saveNoticeSet(noticeSet)
+            XWHDeviceDataManager.saveNoticeSet(noticeSet)
             
             self.isChatOn = isOn
             self.tableView.reloadData()
@@ -186,7 +186,7 @@ extension XWHDevSetChatVC {
         }
         
         setNoticeSet(noticeSet) { [unowned self] in
-            XWHDataDeviceManager.saveNoticeSet(noticeSet)
+            XWHDeviceDataManager.saveNoticeSet(noticeSet)
             item.isOn = isOn
             if let cell = self.tableView.cellForRow(at: IndexPath(row: row, section: 1)) as? XWHDevSetSwitchTBCell {
                 cell.button.isSelected = isOn

@@ -19,8 +19,8 @@ class XWHUserVM {
                 response.data = userModel
                 
                 if var cUser = userModel {
-                    XWHDataUserManager.deleteUser(cUser)
-                    XWHDataUserManager.saveUser(&cUser)
+                    XWHUserDataManager.deleteUser(cUser)
+                    XWHUserDataManager.saveUser(&cUser)
                 }
                 
                 return userModel

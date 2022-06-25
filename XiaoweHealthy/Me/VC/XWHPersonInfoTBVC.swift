@@ -21,7 +21,7 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
     
     lazy var userModel: XWHUserModel = {
         var user: XWHUserModel = XWHUserModel()
-        if let cUser = XWHDataUserManager.getCurrentUser() {
+        if let cUser = XWHUserDataManager.getCurrentUser() {
             user = cUser
         }
         
@@ -223,7 +223,7 @@ extension XWHPersonInfoTBVC {
     /// 更新用户信息
     private func updatePersonInfo() {
         XWHUserVM().update(userModel: userModel)
-        XWHDataUserManager.saveUser(&userModel)
+        XWHUserDataManager.saveUser(&userModel)
     }
     
 }

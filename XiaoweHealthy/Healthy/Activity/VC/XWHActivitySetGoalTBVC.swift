@@ -97,7 +97,7 @@ extension XWHActivitySetGoalTBVC {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: XWHActivitySetGoalTBCell.self, for: indexPath)
         
-        let user = XWHDataUserManager.getCurrentUser()
+        let user = XWHUserDataManager.getCurrentUser()
         
         if indexPath.section == 0 {
             cell.titleLb.text = R.string.xwhHealthyText.步数目标()
@@ -127,7 +127,7 @@ extension XWHActivitySetGoalTBVC {
     
     /// 选择目标数
     private func gotoPickGoalValue() {
-        guard var user = XWHDataUserManager.getCurrentUser() else {
+        guard var user = XWHUserDataManager.getCurrentUser() else {
             log.error("未获取用户信息")
             return
         }
@@ -167,7 +167,7 @@ extension XWHActivitySetGoalTBVC {
                 user.distanceGoal = distanceGoalValues[index]
             }
             
-            XWHDataUserManager.saveUser(&user)
+            XWHUserDataManager.saveUser(&user)
             
             self.tableView.reloadData()
         }

@@ -90,7 +90,7 @@ class XWHSportStartVC: XWHBaseVC {
     }
     
     @objc private func clickTotalBtn() {
-        
+        gotoSportRecordList()
     }
     
     @objc private func clickLocationBtn() {
@@ -98,7 +98,7 @@ class XWHSportStartVC: XWHBaseVC {
     }
     
     @objc private func clickSettingBtn() {
-        
+        gotoSportSettings()
     }
     
     @objc private func clickGoBtn() {
@@ -154,4 +154,22 @@ class XWHSportStartVC: XWHBaseVC {
         }
     }
 
+}
+
+// MARK: - Jump UI
+extension XWHSportStartVC {
+    
+    /// 运动记录列表
+    private func gotoSportRecordList() {
+        let vc = XWHSportRecordListTBVC()
+        vc.sSportType = sportType
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    /// 运动设置
+    private func gotoSportSettings() {
+        let vc = XWHSportSettingsTBVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }

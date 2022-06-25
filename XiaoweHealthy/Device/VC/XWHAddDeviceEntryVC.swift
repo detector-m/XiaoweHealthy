@@ -116,7 +116,7 @@ class XWHAddDeviceEntryVC: XWHSearchBindDevBaseVC, FSPagerViewDataSource, FSPage
         super.viewWillAppear(animated)
         
         navigationController?.setNavigationBarHidden(false, animated: false)
-        if XWHUser.isLogined, let _ = XWHDataDeviceManager.getCurrentWatch() {
+        if XWHUser.isLogined, let _ = XWHDeviceDataManager.getCurrentWatch() {
             gotoDeviceMainVC()
         }
         

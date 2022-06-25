@@ -1,5 +1,5 @@
 //
-//  XWHDataUserManager.swift
+//  XWHUserDataManager.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/4/9.
@@ -10,7 +10,7 @@ import GRDB
 
 
 // MARK: - 用户数据管理
-class XWHDataUserManager {
+class XWHUserDataManager {
     
     class func getCurrentUser() -> XWHUserModel? {
         guard let cUser = getUser() else {
@@ -82,7 +82,7 @@ class XWHDataUserManager {
 }
 
 // Login
-extension XWHDataUserManager {
+extension XWHUserDataManager {
     
     private static let kToken = "kToken"
     
@@ -120,7 +120,7 @@ extension XWHDataUserManager {
     
 }
 
-extension XWHDataUserManager {
+extension XWHUserDataManager {
     
     class func test() {
         var user = XWHUserModel(mobile: "15000847202", nickname: "Riven", avatar: "", gender: 1, height: 168, weight: 57, birthday: "1990-03-16", stepGoal: 9000)

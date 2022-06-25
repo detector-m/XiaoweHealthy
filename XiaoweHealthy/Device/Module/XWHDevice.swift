@@ -68,7 +68,7 @@ extension XWHDevice {
         XWHDDMShared.setMonitorHandler(device: nil) { [weak self] _, _ in
             self?.notifyAllObserverUpdateConnectBindState()
         }
-        if let connWatch = XWHDataDeviceManager.getCurrentWatch() {
+        if let connWatch = XWHDeviceDataManager.getCurrentWatch() {
             XWHDDMShared.config(device: connWatch)
         }
     }
@@ -82,7 +82,7 @@ extension XWHDevice {
     }
 
     private func reconnect() {
-        guard let connWatch = XWHDataDeviceManager.getCurrentWatch() else {
+        guard let connWatch = XWHDeviceDataManager.getCurrentWatch() else {
             return
         }
         
@@ -112,11 +112,11 @@ extension XWHDevice {
         XWHDDMShared.getDeviceInfo { result in
             switch result {
             case .success(let cModel):
-                if let connModel = cModel?.data as? XWHDevWatchModel, let curModel = XWHDataDeviceManager.getCurrentWatch() {
+                if let connModel = cModel?.data as? XWHDevWatchModel, let curModel = XWHDeviceDataManager.getCurrentWatch() {
                     connModel.isCurrent = curModel.isCurrent
                     connModel.type = curModel.type
                     connModel.category = curModel.category
-                    XWHDataDeviceManager.setCurrent(device: connModel)
+                    XWHDeviceDataManager.setCurrent(device: connModel)
                 }
                 
                 completion?()
@@ -137,7 +137,7 @@ extension XWHDevice {
             return
         }
         
-        guard let devModel = XWHDataDeviceManager.getCurrentWatch() else {
+        guard let devModel = XWHDeviceDataManager.getCurrentWatch() else {
             return
         }
         
@@ -181,7 +181,7 @@ extension XWHDevice {
     }
     
     class func getRootVC() -> UIViewController {
-        if XWHUser.isLogined, let _ = XWHDataDeviceManager.getCurrentWatch() {
+        if XWHUser.isLogined, let _ = XWHDeviceDataManager.getCurrentWatch() {
             return XWHDeviceMainVC()
         }
         

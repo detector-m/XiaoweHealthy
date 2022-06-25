@@ -35,7 +35,7 @@ class XWHHealthCardEditTBVC: XWHTableViewBaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let userId = XWHDataUserManager.getCurrentUser()?.mobile ?? ""
+        let userId = XWHUserDataManager.getCurrentUser()?.mobile ?? ""
         cards = cardMsg.loadCards(userId: userId)
     }
     
@@ -296,7 +296,7 @@ class XWHHealthCardEditTBVC: XWHTableViewBaseVC {
         }
         
         cards = cShowCards + cHideCards
-        let userId = XWHDataUserManager.getCurrentUser()?.mobile ?? ""
+        let userId = XWHUserDataManager.getCurrentUser()?.mobile ?? ""
         cardMsg.saveCards(userId: userId, cards: cards)
 //        cards = cardMsg.loadCards(userId: userId)
         
@@ -337,7 +337,7 @@ class XWHHealthCardEditTBVC: XWHTableViewBaseVC {
         
         cards = cShowCards + hideCards
         
-        let userId = XWHDataUserManager.getCurrentUser()?.mobile ?? ""
+        let userId = XWHUserDataManager.getCurrentUser()?.mobile ?? ""
         cardMsg.saveCards(userId: userId, cards: cards)
         
         tableView.reloadData()

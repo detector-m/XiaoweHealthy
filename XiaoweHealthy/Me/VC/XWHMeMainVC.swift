@@ -115,7 +115,7 @@ class XWHMeMainVC: XWHTableViewBaseVC {
             return cell
         } else if item.type == .profile {
             let cell = tableView.dequeueReusableCell(withClass: XWHMeProfileTBCell.self, for: indexPath)
-            cell.titleLb.text = XWHDataUserManager.getCurrentUser()?.nickname ?? ""
+            cell.titleLb.text = XWHUserDataManager.getCurrentUser()?.nickname ?? ""
             
             return cell
         } else {

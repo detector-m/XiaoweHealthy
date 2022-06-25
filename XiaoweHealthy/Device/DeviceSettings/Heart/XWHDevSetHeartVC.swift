@@ -98,7 +98,7 @@ class XWHDevSetHeartVC: XWHDevSetBaseVC {
                     heartSet.isOn = isOn
                     
                     self.setHeartSet(heartSet, nil) {
-                        XWHDataDeviceManager.saveHeartSet(heartSet)
+                        XWHDeviceDataManager.saveHeartSet(heartSet)
                         
                         self.isHeartOn = isOn
                         self.tableView.reloadData()
@@ -106,9 +106,9 @@ class XWHDevSetHeartVC: XWHDevSetBaseVC {
                 } else {
                     heartSet.optionType = .highWarn
                     heartSet.isHighWarn = isOn
-                    let user = XWHDataUserManager.getCurrentUser()
+                    let user = XWHUserDataManager.getCurrentUser()
                     self.setHeartSet(heartSet, user) {
-                        XWHDataDeviceManager.saveHeartSet(heartSet)
+                        XWHDeviceDataManager.saveHeartSet(heartSet)
                         
                         self.isHeartHighWarn = isOn
                         self.tableView.reloadData()
@@ -157,9 +157,9 @@ extension XWHDevSetHeartVC {
             heartSet.optionType = .highWarn
             heartSet.highWarnValue = valueItems[index]
             
-            let user = XWHDataUserManager.getCurrentUser()
+            let user = XWHUserDataManager.getCurrentUser()
             self.setHeartSet(heartSet, user) {
-                XWHDataDeviceManager.saveHeartSet(heartSet)
+                XWHDeviceDataManager.saveHeartSet(heartSet)
                 
                 self.sIndex = index
                 self.tableView.reloadData()

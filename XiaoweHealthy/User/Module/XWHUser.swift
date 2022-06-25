@@ -11,11 +11,11 @@ import Foundation
 class XWHUser {
     
     static var isHasToken: Bool {
-        return XWHDataUserManager.isHasToken
+        return XWHUserDataManager.isHasToken
     }
     
     static var isLogined: Bool {
-        return XWHDataUserManager.isLogined
+        return XWHUserDataManager.isLogined
     }
     
     class func logout() {
@@ -23,12 +23,12 @@ class XWHUser {
     }
     
     class func getToken() -> String? {
-        return XWHDataUserManager.getToken()
+        return XWHUserDataManager.getToken()
     }
     
     class func setToken(token: String?) {
         let preToken = getToken()
-        XWHDataUserManager.setToken(token: token)
+        XWHUserDataManager.setToken(token: token)
         
         if token == nil {
             if preToken != nil {
