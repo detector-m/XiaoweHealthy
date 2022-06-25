@@ -179,6 +179,7 @@
 		967F0F202865950F005E74DC /* HealthKitServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F0F1F2865950F005E74DC /* HealthKitServiceManager.swift */; };
 		967F0F222865A946005E74DC /* XWHSRLSectionHeaderTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F0F212865A946005E74DC /* XWHSRLSectionHeaderTBCell.swift */; };
 		967F0F242865A9BF005E74DC /* XWHSRLSportRecordSummaryTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F0F232865A9BF005E74DC /* XWHSRLSportRecordSummaryTBCell.swift */; };
+		967F0F272865C9D7005E74DC /* XWHSportFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F0F262865C9D7005E74DC /* XWHSportFilterView.swift */; };
 		967F867D283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F867C283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift */; };
 		967F867F283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F867E283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift */; };
 		9680104528477435004C45C9 /* BluetoothStateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9680104428477435004C45C9 /* BluetoothStateHandler.swift */; };
@@ -636,6 +637,7 @@
 		967F0F1F2865950F005E74DC /* HealthKitServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitServiceManager.swift; sourceTree = "<group>"; };
 		967F0F212865A946005E74DC /* XWHSRLSectionHeaderTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSRLSectionHeaderTBCell.swift; sourceTree = "<group>"; };
 		967F0F232865A9BF005E74DC /* XWHSRLSportRecordSummaryTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSRLSportRecordSummaryTBCell.swift; sourceTree = "<group>"; };
+		967F0F262865C9D7005E74DC /* XWHSportFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportFilterView.swift; sourceTree = "<group>"; };
 		967F867C283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceConnectBindHelpTBVC.swift; sourceTree = "<group>"; };
 		967F867E283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceUseGuideTBVC.swift; sourceTree = "<group>"; };
 		9680104428477435004C45C9 /* BluetoothStateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothStateHandler.swift; sourceTree = "<group>"; };
@@ -951,6 +953,7 @@
 		96127D11284202AA00940132 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
+				968CB8A127F3FB3700E549AC /* UITableViewRoundedProtocol */,
 				967F0F1C286560C0005E74DC /* Log */,
 				967F0F19286555E3005E74DC /* Location */,
 				960C47932863005800EE693A /* HealthKit */,
@@ -1424,7 +1427,6 @@
 				96931060282500E500133626 /* MultiColorLinearView */,
 				9679E9D228168930003C6351 /* Calendar */,
 				9644928627F7EAC9001CA321 /* ProgressButton */,
-				968CB8A127F3FB3700E549AC /* UITableViewRoundedProtocol */,
 				9678257A27F2F40A004F66FB /* RadarView */,
 				9678257727F2EE8A004F66FB /* Common */,
 				969F01BB27F69D5500CA4DA4 /* PopupPick */,
@@ -1817,6 +1819,14 @@
 			path = Log;
 			sourceTree = "<group>";
 		};
+		967F0F252865C915005E74DC /* SportFilter */ = {
+			isa = PBXGroup;
+			children = (
+				967F0F262865C9D7005E74DC /* XWHSportFilterView.swift */,
+			);
+			path = SportFilter;
+			sourceTree = "<group>";
+		};
 		9680104328477383004C45C9 /* BluetoothStateHandler */ = {
 			isa = PBXGroup;
 			children = (
@@ -1828,6 +1838,7 @@
 		9680D8162851A1D600FA6F9C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				967F0F252865C915005E74DC /* SportFilter */,
 				969A14CF2862AAD800B61CEB /* XWHSportMainSportCTCell.swift */,
 				969A14D12862AD5900B61CEB /* XWHSportCTReusableView.swift */,
 				969A14D32862AF2800B61CEB /* XWHSportRecordCTCell.swift */,
@@ -3606,6 +3617,7 @@
 				9653E4A027F5A32000EE55FF /* XWHDevSetBloodPressureVC.swift in Sources */,
 				968379682856DD7F0034DB98 /* XWHHomeMoodCTCell.swift in Sources */,
 				969B883F2811A050009952E7 /* XWHBOCommonCTCell.swift in Sources */,
+				967F0F272865C9D7005E74DC /* XWHSportFilterView.swift in Sources */,
 				9678627E282E69A1003E5730 /* XWHChartDataBaseModel.swift in Sources */,
 				968CB8AE27F45DB100E549AC /* XWHDeviceInfoTBCell.swift in Sources */,
 				96759D8427F34D2E0098CA92 /* XWHBaseTBCell.swift in Sources */,

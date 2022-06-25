@@ -9,16 +9,20 @@ import UIKit
 
 class XWHSportRecordListTBVC: XWHTableViewBaseVC {
     
-    override var titleText: String {
-        return R.string.xwhSportText.运动记录()
-    }
+    lazy var titleBtn = UIButton()
     
     /// ["2022-06-24": true]
 //    private lazy var expandStates: [String: Bool] = [:]
     
+    private(set) lazy var openImage: UIImage = UIImage.iconFont(text: XWHIconFontOcticons.arrowDown.rawValue, size: 16, color: fontDarkColor)
+    
     private lazy var expandStates: [Bool] = []
     private lazy var dataItems: [String] = []
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,10 +33,21 @@ class XWHSportRecordListTBVC: XWHTableViewBaseVC {
     
     override func setupNavigationItems() {
         super.setupNavigationItems()
-        
         setNav(color: .white)
         
-        navigationItem.title = titleText
+        titleBtn.frame = CGRect(x: 0, y: 0, width: 160, height: 44)
+        titleBtn.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 17, weight: .medium)
+        titleBtn.setTitleColor(fontDarkColor, for: .normal)
+        titleBtn.set(image: openImage, title: R.string.xwhSportText.所有运动(), titlePosition: .left, additionalSpacing: 5, state: .normal)
+        titleBtn.addTarget(self, action: #selector(clickTitleBtn), for: .touchUpInside)
+        
+        navigationItem.titleView = titleBtn
+    }
+    
+    @objc private func clickTitleBtn() {
+        titleBtn.isSelected = !titleBtn.isSelected
+        
+        XWHPopupSportFilter.show(pickItems: ["1", "2", "3"], sIndex: 0)
     }
     
     override func addSubViews() {
