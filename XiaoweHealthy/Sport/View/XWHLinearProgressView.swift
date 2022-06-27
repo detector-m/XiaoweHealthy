@@ -37,7 +37,7 @@ class XWHLinearProgressView: XWHBaseView {
         valueLb.textColor = .white
         
 //        distanceTitleLb.textAlignment = .center
-        titleLb.textAlignment = .left
+        titleLb.textAlignment = .center
         valueLb.textAlignment = .right
         
 //        distanceTitleLb.text = "公里"
