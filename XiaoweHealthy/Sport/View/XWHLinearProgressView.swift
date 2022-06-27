@@ -52,7 +52,7 @@ class XWHLinearProgressView: XWHBaseView {
     override func relayoutSubViews() {
         titleLb.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(16)
-            make.width.lessThanOrEqualTo(30)
+            make.width.equalTo(30)
             make.height.equalTo(20)
             make.centerY.equalToSuperview()
         }

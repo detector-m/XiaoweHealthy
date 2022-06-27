@@ -62,7 +62,7 @@ class XWHSportDetailPaceTBCell: XWHBaseTBCell {
         
         distanceTitleLb.snp.makeConstraints { make in
             make.left.equalTo(iconView)
-            make.width.lessThanOrEqualTo(30)
+            make.width.equalTo(30)
             make.top.equalTo(iconView.snp.bottom).offset(12)
             make.height.equalTo(20)
         }
