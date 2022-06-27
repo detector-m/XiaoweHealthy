@@ -181,6 +181,9 @@
 		967F0F242865A9BF005E74DC /* XWHSRLSportRecordSummaryTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F0F232865A9BF005E74DC /* XWHSRLSportRecordSummaryTBCell.swift */; };
 		967F0F272865C9D7005E74DC /* XWHSportFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F0F262865C9D7005E74DC /* XWHSportFilterView.swift */; };
 		967F80492869881D00A17B6F /* XWHSportDetailSummaryTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F80482869881D00A17B6F /* XWHSportDetailSummaryTBCell.swift */; };
+		967F804B2869A95700A17B6F /* XWHSportDetailDataDetailTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F804A2869A95700A17B6F /* XWHSportDetailDataDetailTBCell.swift */; };
+		967F804D2869B45F00A17B6F /* XWHSportDetailPaceTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F804C2869B45F00A17B6F /* XWHSportDetailPaceTBCell.swift */; };
+		967F804F2869BC7400A17B6F /* XWHLinearProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F804E2869BC7400A17B6F /* XWHLinearProgressView.swift */; };
 		967F867D283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F867C283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift */; };
 		967F867F283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F867E283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift */; };
 		9680104528477435004C45C9 /* BluetoothStateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9680104428477435004C45C9 /* BluetoothStateHandler.swift */; };
@@ -646,6 +649,9 @@
 		967F0F232865A9BF005E74DC /* XWHSRLSportRecordSummaryTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSRLSportRecordSummaryTBCell.swift; sourceTree = "<group>"; };
 		967F0F262865C9D7005E74DC /* XWHSportFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportFilterView.swift; sourceTree = "<group>"; };
 		967F80482869881D00A17B6F /* XWHSportDetailSummaryTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportDetailSummaryTBCell.swift; sourceTree = "<group>"; };
+		967F804A2869A95700A17B6F /* XWHSportDetailDataDetailTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportDetailDataDetailTBCell.swift; sourceTree = "<group>"; };
+		967F804C2869B45F00A17B6F /* XWHSportDetailPaceTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportDetailPaceTBCell.swift; sourceTree = "<group>"; };
+		967F804E2869BC7400A17B6F /* XWHLinearProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLinearProgressView.swift; sourceTree = "<group>"; };
 		967F867C283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceConnectBindHelpTBVC.swift; sourceTree = "<group>"; };
 		967F867E283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceUseGuideTBVC.swift; sourceTree = "<group>"; };
 		9680104428477435004C45C9 /* BluetoothStateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothStateHandler.swift; sourceTree = "<group>"; };
@@ -1866,6 +1872,9 @@
 				96837EA62866FB21005158A0 /* XWHSportSettingsSwitchTBCell.swift */,
 				96837EAF28670F7A005158A0 /* XWHSportSettingsCommponTBCell.swift */,
 				967F80482869881D00A17B6F /* XWHSportDetailSummaryTBCell.swift */,
+				967F804A2869A95700A17B6F /* XWHSportDetailDataDetailTBCell.swift */,
+				967F804C2869B45F00A17B6F /* XWHSportDetailPaceTBCell.swift */,
+				967F804E2869BC7400A17B6F /* XWHLinearProgressView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3356,6 +3365,7 @@
 				966A60F627FFD5DE00CBE915 /* XWHDeviceProductModel.swift in Sources */,
 				9653E48927F54D5900EE55FF /* XWHDataExtension.swift in Sources */,
 				96840246285ACC090079923C /* XWHActivityCalCTCell.swift in Sources */,
+				967F804D2869B45F00A17B6F /* XWHSportDetailPaceTBCell.swift in Sources */,
 				96A10CB7282919FE00C1E18F /* XWHMentalStressModel.swift in Sources */,
 				96522C32285C78A800C2A208 /* XWHWeekCalendarView.swift in Sources */,
 				967E8B9C2844738F008E65FF /* AppUserGuideVC.swift in Sources */,
@@ -3402,6 +3412,7 @@
 				969B8832281102FD009952E7 /* XWHHeartGradientCTCell.swift in Sources */,
 				969A14D02862AAD800B61CEB /* XWHSportMainSportCTCell.swift in Sources */,
 				96AD28662801C5AA0092B843 /* XWHUserDataManager.swift in Sources */,
+				967F804F2869BC7400A17B6F /* XWHLinearProgressView.swift in Sources */,
 				967E97E92859E689001F9782 /* XWHHomeHeartCTCell.swift in Sources */,
 				9653E49827F58C4D00EE55FF /* XWHDevSetChatDeploy.swift in Sources */,
 				969B88452812A6B1009952E7 /* XWHDateExtension.swift in Sources */,
@@ -3556,6 +3567,7 @@
 				96837983285884EA0034DB98 /* XWHActivitySetGoalTBVC.swift in Sources */,
 				9676489F2827B90600DE9AFF /* XWHDeviceHelper.swift in Sources */,
 				96E79EAC284EE8260063647C /* XWHMeDeploy.swift in Sources */,
+				967F804B2869A95700A17B6F /* XWHSportDetailDataDetailTBCell.swift in Sources */,
 				9674A131282B6C2F0021724C /* XWHHealthyChartDataHandler.swift in Sources */,
 				96848A012841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift in Sources */,
 				969B883828111CCD009952E7 /* XWHHealthyCTReusableView.swift in Sources */,

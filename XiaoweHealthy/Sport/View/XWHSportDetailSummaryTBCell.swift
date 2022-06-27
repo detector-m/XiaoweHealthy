@@ -66,6 +66,7 @@ class XWHSportDetailSummaryTBCell: XWHSRLSportRecordSummaryTBCell {
         
         timeLb.font = XWHFont.harmonyOSSans(ofSize: 14, weight: .regular)
         timeLb.textColor = fontDarkColor.withAlphaComponent(0.4)
+        titleLb.textAlignment = .right
         
         nicknameLb.font = XWHFont.harmonyOSSans(ofSize: 14, weight: .medium)
         nicknameLb.textAlignment = .right

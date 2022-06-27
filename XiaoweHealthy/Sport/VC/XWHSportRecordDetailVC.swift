@@ -59,7 +59,7 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
         super.addSubViews()
         
         view.backgroundColor = collectionBgColor
-        tableView.backgroundColor = btnBgColor
+        tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         tableView.clipsToBounds = false
     }
@@ -70,6 +70,8 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
     
     override func registerViews() {
         tableView.register(cellWithClass: XWHSportDetailSummaryTBCell.self)
+        tableView.register(cellWithClass: XWHSportDetailDataDetailTBCell.self)
+        tableView.register(cellWithClass: XWHSportDetailPaceTBCell.self)
     }
 
 }
@@ -108,9 +110,15 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
             
             return cell
         } else if section == 1 {
-            return UITableViewCell()
+            let cell = tableView.dequeueReusableCell(withClass: XWHSportDetailPaceTBCell.self)
+            cell.update()
+            
+            return cell
         } else {
-            return UITableViewCell()
+            let cell = tableView.dequeueReusableCell(withClass: XWHSportDetailDataDetailTBCell.self)
+            cell.update()
+            
+            return cell
         }
     }
     

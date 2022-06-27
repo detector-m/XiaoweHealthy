@@ -18,6 +18,10 @@ class XWHSRLSportRecordSummaryTBCell: UITableViewCell {
     lazy var titleValueView2 = XWHTitleValueView()
     lazy var titleValueView3 = XWHTitleValueView()
     
+    var separatorColor: UIColor {
+        UIColor(hex: 0x979797).withAlphaComponent(0.2)
+    }
+    
     override var frame: CGRect {
         get {
             return super.frame
@@ -60,9 +64,9 @@ class XWHSRLSportRecordSummaryTBCell: UITableViewCell {
         contentView.addSubview(titleValueView2)
         contentView.addSubview(titleValueView3)
         
-        hSeparateLine1.backgroundColor = UIColor(hex: 0x979797).withAlphaComponent(0.2)
-        vSeparateLine1.backgroundColor = UIColor(hex: 0x979797).withAlphaComponent(0.2)
-        vSeparateLine2.backgroundColor = UIColor(hex: 0x979797).withAlphaComponent(0.2)
+        hSeparateLine1.backgroundColor = separatorColor
+        vSeparateLine1.backgroundColor = separatorColor
+        vSeparateLine2.backgroundColor = separatorColor
 
         config(titleValueView: titleValueView1)
         config(titleValueView: titleValueView2)
