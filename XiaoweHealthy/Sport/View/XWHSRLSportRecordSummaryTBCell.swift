@@ -9,10 +9,10 @@ import UIKit
 
 class XWHSRLSportRecordSummaryTBCell: UITableViewCell {
     
-    lazy var topLine = UIView()
+    lazy var hSeparateLine1 = UIView()
     
-    lazy var separateLine1 = UIView()
-    lazy var separateLine2 = UIView()
+    lazy var vSeparateLine1 = UIView()
+    lazy var vSeparateLine2 = UIView()
     
     lazy var titleValueView1 = XWHTitleValueView()
     lazy var titleValueView2 = XWHTitleValueView()
@@ -24,11 +24,7 @@ class XWHSRLSportRecordSummaryTBCell: UITableViewCell {
         }
         
         set {
-            var newFrame = newValue
-            newFrame.origin.x = 16
-            newFrame.size.width -= 32
-            
-            super.frame = newFrame
+            super.frame = getCurrentFrame(newValue)
         }
     }
 
@@ -46,40 +42,31 @@ class XWHSRLSportRecordSummaryTBCell: UITableViewCell {
         super.init(coder: coder)
     }
     
-    func addSubViews() {
-        contentView.addSubview(topLine)
+    @objc func getCurrentFrame(_ frame: CGRect) -> CGRect {
+        var newFrame = frame
+        newFrame.origin.x = 16
+        newFrame.size.width -= 32
         
-        contentView.addSubview(separateLine1)
-        contentView.addSubview(separateLine2)
+        return newFrame
+    }
+    
+    func addSubViews() {
+        contentView.addSubview(hSeparateLine1)
+        
+        contentView.addSubview(vSeparateLine1)
+        contentView.addSubview(vSeparateLine2)
         
         contentView.addSubview(titleValueView1)
         contentView.addSubview(titleValueView2)
         contentView.addSubview(titleValueView3)
         
-        topLine.backgroundColor = UIColor(hex: 0x979797).withAlphaComponent(0.2)
-        separateLine1.backgroundColor = UIColor(hex: 0x979797).withAlphaComponent(0.2)
-        separateLine2.backgroundColor = UIColor(hex: 0x979797).withAlphaComponent(0.2)
+        hSeparateLine1.backgroundColor = UIColor(hex: 0x979797).withAlphaComponent(0.2)
+        vSeparateLine1.backgroundColor = UIColor(hex: 0x979797).withAlphaComponent(0.2)
+        vSeparateLine2.backgroundColor = UIColor(hex: 0x979797).withAlphaComponent(0.2)
 
-        titleValueView1.type = .titleUp
-        titleValueView2.type = .titleUp
-        titleValueView3.type = .titleUp
-        
-        titleValueView1.titleLb.font = XWHFont.harmonyOSSans(ofSize: 12)
-        titleValueView2.titleLb.font = titleValueView1.titleLb.font
-        titleValueView3.titleLb.font = titleValueView1.titleLb.font
-
-        titleValueView1.titleLb.textColor = fontDarkColor.withAlphaComponent(0.4)
-        titleValueView2.titleLb.textColor = fontDarkColor.withAlphaComponent(0.4)
-        titleValueView3.titleLb.textColor = fontDarkColor.withAlphaComponent(0.4)
-
-        
-        titleValueView1.valueLb.font = XWHFont.harmonyOSSans(ofSize: 17, weight: .bold)
-        titleValueView2.valueLb.font = titleValueView1.valueLb.font
-        titleValueView3.valueLb.font = titleValueView1.valueLb.font
-        
-        titleValueView1.valueLb.textColor = fontDarkColor
-        titleValueView2.valueLb.textColor = fontDarkColor
-        titleValueView3.valueLb.textColor = fontDarkColor
+        config(titleValueView: titleValueView1)
+        config(titleValueView: titleValueView2)
+        config(titleValueView: titleValueView3)
 
         titleValueView1.titleLb.text = "运动(公里)"
         titleValueView2.titleLb.text = "热量(千卡)"
@@ -87,7 +74,7 @@ class XWHSRLSportRecordSummaryTBCell: UITableViewCell {
     }
     
     func relayoutSubViews() {
-        topLine.snp.makeConstraints { make in
+        hSeparateLine1.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(16)
             make.top.equalToSuperview()
             make.height.equalTo(0.5)
@@ -100,7 +87,7 @@ class XWHSRLSportRecordSummaryTBCell: UITableViewCell {
             make.centerY.equalToSuperview()
         }
         
-        separateLine1.snp.makeConstraints { make in
+        vSeparateLine1.snp.makeConstraints { make in
             make.left.equalTo(titleValueView1.snp.right)
             make.centerY.equalTo(titleValueView1)
             make.width.equalTo(0.5)
@@ -108,11 +95,11 @@ class XWHSRLSportRecordSummaryTBCell: UITableViewCell {
         }
         
         titleValueView2.snp.makeConstraints { make in
-            make.left.equalTo(separateLine1.snp.right)
+            make.left.equalTo(vSeparateLine1.snp.right)
             make.width.height.centerY.equalTo(titleValueView1)
         }
         
-        separateLine2.snp.makeConstraints { make in
+        vSeparateLine2.snp.makeConstraints { make in
             make.left.equalTo(titleValueView2.snp.right)
             make.centerY.equalTo(titleValueView1)
             make.width.equalTo(0.5)
@@ -120,10 +107,9 @@ class XWHSRLSportRecordSummaryTBCell: UITableViewCell {
         }
         
         titleValueView3.snp.makeConstraints { make in
-            make.left.equalTo(separateLine2.snp.right)
+            make.left.equalTo(vSeparateLine2.snp.right)
             make.width.height.centerY.equalTo(titleValueView1)
         }
-        
     }
     
     func update() {
@@ -132,4 +118,18 @@ class XWHSRLSportRecordSummaryTBCell: UITableViewCell {
         titleValueView3.valueLb.text = "2"
     }
 
+}
+
+extension XWHSRLSportRecordSummaryTBCell {
+    
+    @objc func config(titleValueView: XWHTitleValueView) {
+        titleValueView.type = .titleUp
+        
+        titleValueView.titleLb.font = XWHFont.harmonyOSSans(ofSize: 12)
+        titleValueView.titleLb.textColor = fontDarkColor.withAlphaComponent(0.4)
+
+        titleValueView.valueLb.font = XWHFont.harmonyOSSans(ofSize: 17, weight: .bold)
+        titleValueView.valueLb.textColor = fontDarkColor
+    }
+    
 }

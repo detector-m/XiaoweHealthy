@@ -14,6 +14,22 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
     override var titleText: String {
         return "运动详情"
     }
+    
+    private var tbXOffset: CGFloat {
+        16
+    }
+    private var tbWidth: CGFloat {
+        view.width - tbXOffset * 2
+    }
+    private var tbHeigth: CGFloat {
+        view.height - view.safeAreaInsets.top
+    }
+    private var safeAreaTop: CGFloat {
+        view.safeAreaInsets.top
+    }
+    private var topOffset: CGFloat {
+        242
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +38,7 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
     override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()
         
-        tableView.frame = CGRect(x: 0, y: 242 + view.safeAreaInsets.top, width: view.width, height: view.height)
+        tableView.frame = CGRect(x: tbXOffset, y: safeAreaTop + topOffset, width: tbWidth, height: tbHeigth)
     }
     
     override func setupNavigationItems() {
@@ -45,14 +61,15 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
         view.backgroundColor = collectionBgColor
         tableView.backgroundColor = btnBgColor
         tableView.separatorStyle = .none
+        tableView.clipsToBounds = false
     }
     
     override func relayoutSubViews() {
-        tableView.frame = CGRect(x: 0, y: 240, width: view.width, height: view.height)
+//        tableView.frame = CGRect(x: 0, y: 240, width: view.width, height: view.height)
     }
     
     override func registerViews() {
-        
+        tableView.register(cellWithClass: XWHSportDetailSummaryTBCell.self)
     }
 
 }
@@ -61,25 +78,40 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
 @objc extension XWHSportRecordDetailVC {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 3
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let section = indexPath.section
+        let section = indexPath.section
 //        let row = indexPath.row
-         
-        return 71
+
+        if section == 0 {
+            return 300
+        } else if section == 1 {
+            return 291
+        } else {
+            return 481
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = indexPath.section
-        let row = indexPath.row
-         
-        return UITableViewCell()
+//        let row = indexPath.row
+        
+        if section == 0 {
+            let cell = tableView.dequeueReusableCell(withClass: XWHSportDetailSummaryTBCell.self)
+            cell.update()
+            
+            return cell
+        } else if section == 1 {
+            return UITableViewCell()
+        } else {
+            return UITableViewCell()
+        }
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -87,33 +119,32 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section != 0 {
-            return 0.001
+        if section == 0 {
+            return 30
         }
-        
-        return 12
+        return 0.001
     }
 
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section != 0 {
-            return nil
-        }
-        let cView = UIView()
-        cView.backgroundColor = collectionBgColor
-
-        return cView
-    }
+//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        if section != 0 {
+//            return nil
+//        }
+//        let cView = UIView()
+//        cView.backgroundColor = collectionBgColor
+//
+//        return cView
+//    }
 
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 12
     }
 
-    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let cView = UIView()
-        cView.backgroundColor = collectionBgColor
-
-        return cView
-    }
+//    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        let cView = UIView()
+//        cView.backgroundColor = collectionBgColor
+//
+//        return cView
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -121,15 +152,43 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
     
     // MARK: - UIScrollViewDeletate
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        var sOffset = scrollView.contentOffset.y
+        let sOffset = scrollView.contentOffset.y
         
-        if sOffset >= 242 {
-            sOffset = 242
-        } else if sOffset <= 0 {
-            sOffset = 0
+        if sOffset > 0 {
+            if tableView.y == safeAreaTop {
+                return
+            }
+            
+            scrollView.touchesShouldCancel(in: scrollView)
+            UIView.animate(withDuration: 0.25, delay: 0, options: .curveLinear) { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                self.tableView.frame = CGRect(x: self.tbXOffset, y: self.safeAreaTop, width: self.tbWidth, height: self.tbHeigth)
+                self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+            } completion: { _ in }
+        } else if sOffset < -64 {
+            if tableView.y == topOffset + safeAreaTop {
+                return
+            }
+            
+            scrollView.touchesShouldCancel(in: scrollView)
+            UIView.animate(withDuration: 0.25, delay: 0, options: .curveLinear) { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                self.tableView.frame = CGRect(x: self.tbXOffset, y: self.topOffset + self.safeAreaTop, width: self.tbWidth, height: self.tbHeigth)
+                self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+            } completion: { _ in }
         }
         
-        tableView.frame = CGRect(x: 0, y: 242 + view.safeAreaInsets.top - sOffset, width: view.width, height: view.height)
+//        if sOffset >= 242 {
+//            sOffset = 242
+//        } else if sOffset <= 0 {
+//            sOffset = 0
+//        }
+//
+//        tableView.frame = CGRect(x: 0, y: 242 + view.safeAreaInsets.top - sOffset, width: view.width, height: view.height)
     }
     
 }

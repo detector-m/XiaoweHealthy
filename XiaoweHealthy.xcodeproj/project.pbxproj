@@ -180,6 +180,7 @@
 		967F0F222865A946005E74DC /* XWHSRLSectionHeaderTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F0F212865A946005E74DC /* XWHSRLSectionHeaderTBCell.swift */; };
 		967F0F242865A9BF005E74DC /* XWHSRLSportRecordSummaryTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F0F232865A9BF005E74DC /* XWHSRLSportRecordSummaryTBCell.swift */; };
 		967F0F272865C9D7005E74DC /* XWHSportFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F0F262865C9D7005E74DC /* XWHSportFilterView.swift */; };
+		967F80492869881D00A17B6F /* XWHSportDetailSummaryTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F80482869881D00A17B6F /* XWHSportDetailSummaryTBCell.swift */; };
 		967F867D283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F867C283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift */; };
 		967F867F283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F867E283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift */; };
 		9680104528477435004C45C9 /* BluetoothStateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9680104428477435004C45C9 /* BluetoothStateHandler.swift */; };
@@ -644,6 +645,7 @@
 		967F0F212865A946005E74DC /* XWHSRLSectionHeaderTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSRLSectionHeaderTBCell.swift; sourceTree = "<group>"; };
 		967F0F232865A9BF005E74DC /* XWHSRLSportRecordSummaryTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSRLSportRecordSummaryTBCell.swift; sourceTree = "<group>"; };
 		967F0F262865C9D7005E74DC /* XWHSportFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportFilterView.swift; sourceTree = "<group>"; };
+		967F80482869881D00A17B6F /* XWHSportDetailSummaryTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportDetailSummaryTBCell.swift; sourceTree = "<group>"; };
 		967F867C283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceConnectBindHelpTBVC.swift; sourceTree = "<group>"; };
 		967F867E283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceUseGuideTBVC.swift; sourceTree = "<group>"; };
 		9680104428477435004C45C9 /* BluetoothStateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothStateHandler.swift; sourceTree = "<group>"; };
@@ -1863,6 +1865,7 @@
 				96837EA22866AF1E005158A0 /* XWHSRLAllRecordSummaryView.swift */,
 				96837EA62866FB21005158A0 /* XWHSportSettingsSwitchTBCell.swift */,
 				96837EAF28670F7A005158A0 /* XWHSportSettingsCommponTBCell.swift */,
+				967F80482869881D00A17B6F /* XWHSportDetailSummaryTBCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3687,6 +3690,7 @@
 				9679E9F22818DDAD003C6351 /* XWHCalendarHelper.swift in Sources */,
 				96DC42A927FDA3C7009BF300 /* XWHTimeoutHandler.swift in Sources */,
 				96AD2AE5283F6BCF0024AF5B /* XWHStringExtension.swift in Sources */,
+				967F80492869881D00A17B6F /* XWHSportDetailSummaryTBCell.swift in Sources */,
 				967823AB27F2C9B5004F66FB /* XWHUIImageExtension.swift in Sources */,
 				96F3589027FE940300783614 /* XWHDevWatchDispatchManager.swift in Sources */,
 				960A836A28025EFD00FC1B5F /* XWHDevCmdOperationProtocol.swift in Sources */,

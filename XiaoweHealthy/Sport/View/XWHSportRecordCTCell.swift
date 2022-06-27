@@ -96,7 +96,7 @@ class XWHSportRecordCTCell: XWHCommonBaseCTCell {
     func update() {
         imageView.image = R.image.sport_climb()
         textLb.text = R.string.xwhSportText.爬山()
-        detailLb.text = Date().localizedString(withFormat: XWHDate.YearMonthDayHourMinuteFormat)
+        detailLb.text = Date().localizedString(withFormat: XWHDate.yearMonthDayHourMinuteFormat)
         
         titleValueView1.titleLb.text = "公里"
         titleValueView1.valueLb.text = "--"
