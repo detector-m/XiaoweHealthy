@@ -66,17 +66,31 @@ class XWHLinearProgressView: XWHBaseView {
     }
     
     func update(value: Int) {
-        titleLb.text = "1"
-        valueLb.text = "6'22\""
+//        titleLb.text = "1"
+//        valueLb.text = "6'22\""
         
         let doubleValue = value.double
         progressView.progressValue = doubleValue
         let rate = doubleValue / 100
+        
         valueLb.snp.remakeConstraints { make in
             make.left.height.centerY.equalTo(progressView)
-            make.width.greaterThanOrEqualTo(30).priority(.medium)
-            make.width.equalTo(progressView).multipliedBy(rate).priority(.required)
+            make.width.greaterThanOrEqualTo(30).priority(.required)
+            make.width.equalTo(progressView).multipliedBy(rate).priority(.medium)
         }
+        
+//        if value == 0 {
+//            valueLb.snp.remakeConstraints { make in
+//                make.left.height.centerY.equalTo(progressView)
+//                make.width.greaterThanOrEqualTo(30).priority(.required)
+//            }
+//        } else {
+//            valueLb.snp.remakeConstraints { make in
+//                make.left.height.centerY.equalTo(progressView)
+//                make.width.greaterThanOrEqualTo(30).priority(.required)
+//                make.width.equalTo(progressView).multipliedBy(rate).priority(.medium)
+//            }
+//        }
     }
     
 }

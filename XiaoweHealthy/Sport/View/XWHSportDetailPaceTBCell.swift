@@ -13,16 +13,12 @@ class XWHSportDetailPaceTBCell: XWHBaseTBCell {
     lazy var paceTitleLb = UILabel()
     lazy var averagePaceLb = UILabel()
     
-    lazy var progressView = XWHLinearProgressView()
-    
     override func addSubViews() {
         super.addSubViews()
         
         contentView.addSubview(distanceTitleLb)
         contentView.addSubview(paceTitleLb)
         contentView.addSubview(averagePaceLb)
-        
-        contentView.addSubview(progressView)
         
         iconView.image = R.image.sport_pace_icon()
         
@@ -78,19 +74,83 @@ class XWHSportDetailPaceTBCell: XWHBaseTBCell {
             make.left.equalTo(paceTitleLb.snp.right).offset(2)
             make.centerY.height.equalTo(paceTitleLb)
         }
-        
-        progressView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
-            make.top.equalTo(distanceTitleLb.snp.bottom).offset(5)
-            make.height.equalTo(34)
-        }
     }
     
     func update() {
         averagePaceLb.text = "平均配速：6’23”"
         
 //        progressView.progressView.progressValue = 60
-        progressView.update(value: 60)
+        
+        createProgressView()
     }
 
+}
+
+extension XWHSportDetailPaceTBCell {
+    
+    private func createProgressView() {
+        contentView.subviews.forEach { cView in
+            if let progress = cView as? XWHLinearProgressView {
+                progress.removeFromSuperview()
+            }
+        }
+        for i in 0 ..< 5 {
+            let progress = XWHLinearProgressView()
+            contentView.addSubview(progress)
+            
+            let offsetY = 5 + i * (34 + 5)
+            progress.snp.makeConstraints { make in
+                make.left.right.equalToSuperview()
+                make.top.equalTo(distanceTitleLb.snp.bottom).offset(offsetY)
+                make.height.equalTo(34)
+            }
+            
+            if i == 2 {
+                config(progressView: progress, isFast: true, isOneKm: true, index: i, value: 40)
+            } else if i == 4 {
+                config(progressView: progress, isFast: false, isOneKm: false, index: i, value: 0)
+            } else {
+                config(progressView: progress, isFast: false, isOneKm: true, index: i, value: 50 + Int(arc4random()) % 50)
+            }
+        }
+    }
+    
+    private func config(progressView: XWHLinearProgressView, isFast: Bool, isOneKm: Bool, index: Int, value: Int) {
+        if !isOneKm {
+            progressView.titleLb.text = ""
+            progressView.valueLb.text = "不足一公里，用时 6'22\""
+            progressView.valueLb.textColor = fontDarkColor
+            
+            progressView.progressView.trackColor = btnBgColor.withAlphaComponent(0.07)
+            progressView.progressView.barColor = btnBgColor
+            
+            progressView.update(value: 0)
+            
+            return
+        }
+        
+        if isFast {
+            progressView.titleLb.text = "\(index + 1)"
+            progressView.valueLb.text = "6'22\""
+            progressView.valueLb.textColor = UIColor.white
+            
+            let fastColor = UIColor(hex: 0xF8CA52)!
+            progressView.progressView.trackColor = fastColor.withAlphaComponent(0.07)
+            progressView.progressView.barColor = fastColor
+            
+            progressView.update(value: value)
+            
+            return
+        }
+        
+        progressView.titleLb.text = "\(index)"
+        progressView.valueLb.text = "6'22\""
+        progressView.valueLb.textColor = UIColor.white
+        
+        progressView.progressView.trackColor = btnBgColor.withAlphaComponent(0.07)
+        progressView.progressView.barColor = btnBgColor
+        
+        progressView.update(value: value)
+    }
+    
 }

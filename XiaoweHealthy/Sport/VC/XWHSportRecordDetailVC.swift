@@ -94,7 +94,7 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
         if section == 0 {
             return 300
         } else if section == 1 {
-            return 291
+            return 85 + 11 + (34 + 5) * 5
         } else {
             return 481
         }
