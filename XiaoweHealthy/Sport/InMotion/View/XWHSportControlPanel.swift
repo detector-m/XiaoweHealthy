@@ -35,6 +35,14 @@ class XWHSportControlPanel: XWHBaseView {
     lazy var voiceBtn = UIButton()
     
     lazy var pauseBtn = UIButton()
+    
+    lazy var stopBtn = LongPressButton(frame: CGRect(x: 0, y: 0, width: longPressBtnSize, height: longPressBtnSize))
+    
+    var stopCompletion: (() -> Void)?
+    
+    private var longPressBtnSize: CGFloat {
+        return 112
+    }
 
     private(set) lazy var openImage: UIImage = UIImage.iconFont(text: XWHIconFontOcticons.arrowDown.rawValue, size: 24, color: fontDarkColor)
     private(set) lazy var closeImage: UIImage = UIImage.iconFont(text: XWHIconFontOcticons.arrowUp.rawValue, size: 24, color: fontDarkColor)
@@ -68,6 +76,8 @@ class XWHSportControlPanel: XWHBaseView {
         addSubview(voiceBtn)
         
         addSubview(pauseBtn)
+        
+        addSubview(stopBtn)
         
         settingBtn.setImage(R.image.sport_setting(), for: .normal)
         
@@ -117,6 +127,10 @@ class XWHSportControlPanel: XWHBaseView {
         lockBtn.addTarget(self, action: #selector(clickLockBtn), for: .touchUpInside)
         voiceBtn.addTarget(self, action: #selector(clickVoiceBtn), for: .touchUpInside)
         pauseBtn.addTarget(self, action: #selector(clickPauseBtn), for: .touchUpInside)
+        
+        pauseBtn.isHidden = true
+        
+        config(stopBtn: stopBtn)
     }
     
     override func relayoutSubViews() {
@@ -232,6 +246,12 @@ class XWHSportControlPanel: XWHBaseView {
             make.centerX.equalToSuperview()
             make.centerY.equalTo(lockBtn)
         }
+        
+        stopBtn.snp.makeConstraints { make in
+            make.size.equalTo(longPressBtnSize)
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(340 - 9)
+        }
     }
     
     @objc private func clickLockBtn() {
@@ -277,6 +297,27 @@ extension XWHSportControlPanel {
         valueLabel.font = valueFont
         valueLabel.textColor = fontDarkColor
         valueLabel.textAlignment = .left
+    }
+    
+    private func config(stopBtn: LongPressButton) {
+//        let cSize = CGSize(width: 94, height: 94)
+        let color = UIColor(hex: 0xE35E2C)!
+
+        stopBtn.innerButn.setTitleColor(.white, for: .normal)
+        stopBtn.innerButn.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 15, weight: .regular)
+        stopBtn.innerButn.adjustsImageWhenHighlighted  = false
+        stopBtn.innerButn.set(image: R.image.sport_pause_icon(), title: "长按结束", titlePosition: .bottom, additionalSpacing: 2, state: .normal)
+        stopBtn.innerButn.layer.cornerRadius = longPressBtnSize / 2 * 0.8
+        stopBtn.innerButn.layer.backgroundColor = color.cgColor
+        
+        stopBtn.progressView.trackColor = color.withAlphaComponent(0.1)
+        stopBtn.progressView.set(colors: color)
+        
+        stopBtn.completion = { [unowned self] in
+            self.stopCompletion?()
+        }
+        
+//        stopBtn.progressView.size = cSize
     }
     
 }

@@ -223,6 +223,7 @@
 		9685B47928604C9800095078 /* XWHWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685B47828604C9800095078 /* XWHWeather.swift */; };
 		96863E3F286AA69C004C0841 /* XWHSportInMotionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96863E3E286AA69C004C0841 /* XWHSportInMotionVC.swift */; };
 		96863E42286AAC2A004C0841 /* XWHSportControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96863E41286AAC2A004C0841 /* XWHSportControlPanel.swift */; };
+		96863E45286AFF98004C0841 /* LongPressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96863E44286AFF98004C0841 /* LongPressButton.swift */; };
 		968CB8A327F3FB8800E549AC /* UITableViewRoundedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */; };
 		968CB8A627F40B5A00E549AC /* XWHDeviceDeploy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */; };
 		968CB8A827F42A8C00E549AC /* XWHCommonBaseTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A727F42A8C00E549AC /* XWHCommonBaseTBCell.swift */; };
@@ -693,6 +694,7 @@
 		9685B47828604C9800095078 /* XWHWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHWeather.swift; sourceTree = "<group>"; };
 		96863E3E286AA69C004C0841 /* XWHSportInMotionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportInMotionVC.swift; sourceTree = "<group>"; };
 		96863E41286AAC2A004C0841 /* XWHSportControlPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportControlPanel.swift; sourceTree = "<group>"; };
+		96863E44286AFF98004C0841 /* LongPressButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongPressButton.swift; sourceTree = "<group>"; };
 		968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewRoundedProtocol.swift; sourceTree = "<group>"; };
 		968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceDeploy.swift; sourceTree = "<group>"; };
 		968CB8A727F42A8C00E549AC /* XWHCommonBaseTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCommonBaseTBCell.swift; sourceTree = "<group>"; };
@@ -2029,6 +2031,7 @@
 		96863E3D286AA661004C0841 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				96863E43286AFF34004C0841 /* LongPressButton */,
 				96863E41286AAC2A004C0841 /* XWHSportControlPanel.swift */,
 			);
 			path = View;
@@ -2039,6 +2042,14 @@
 			children = (
 			);
 			path = Module;
+			sourceTree = "<group>";
+		};
+		96863E43286AFF34004C0841 /* LongPressButton */ = {
+			isa = PBXGroup;
+			children = (
+				96863E44286AFF98004C0841 /* LongPressButton.swift */,
+			);
+			path = LongPressButton;
 			sourceTree = "<group>";
 		};
 		968CB8A127F3FB3700E549AC /* UITableViewRoundedProtocol */ = {
@@ -3598,6 +3609,7 @@
 				9693105B2824EDAA00133626 /* XWHMentalStressDataDetailTBVC.swift in Sources */,
 				96C67AE92804174B001ACA81 /* XWHHeartSetModel.swift in Sources */,
 				967E8BA02844D4F1008E65FF /* XWHMoodGradientCTCell.swift in Sources */,
+				96863E45286AFF98004C0841 /* LongPressButton.swift in Sources */,
 				969310442824AF9C00133626 /* XWHServerDataApi.swift in Sources */,
 				9651EDFA27E9A3130043FE52 /* RLOverlayerBgView.swift in Sources */,
 				96A10CBB2829F8CD00C1E18F /* XWHMentalStressUIStressModel.swift in Sources */,
