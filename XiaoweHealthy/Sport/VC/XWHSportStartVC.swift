@@ -11,18 +11,18 @@ class XWHSportStartVC: XWHBaseVC {
     
     var sportType: XWHSportType = .none
     
-    var totalBtn = UIButton()
-    var totalArrowBtn = UIButton()
+    lazy var totalBtn = UIButton()
+    lazy var totalArrowBtn = UIButton()
     
-    var totalLb = UILabel()
+    lazy var totalLb = UILabel()
     
-    var mapView = UIView()
+    lazy var mapView = UIView()
     
-    var locationBtn = UIButton()
-    var goBtn = UIButton()
-    var settingBtn = UIButton()
+    lazy var locationBtn = UIButton()
+    lazy var goBtn = UIButton()
+    lazy var settingBtn = UIButton()
     
-    var gpsSignalView = XWHGPSSignalView()
+    lazy var gpsSignalView = XWHGPSSignalView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,7 +102,7 @@ class XWHSportStartVC: XWHBaseVC {
     }
     
     @objc private func clickGoBtn() {
-        
+        gotoStartSport()
     }
     
     override func relayoutSubViews() {
@@ -158,6 +158,14 @@ class XWHSportStartVC: XWHBaseVC {
 
 // MARK: - Jump UI
 extension XWHSportStartVC {
+    
+    /// 开始运动
+    private func gotoStartSport() {
+        let vc = XWHSportInMotionVC()
+        let nav = XWHBaseNavigationVC(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
+    }
     
     /// 运动记录列表
     private func gotoSportRecordList() {
