@@ -88,6 +88,9 @@ target 'XiaoweHealthy' do
   # 弹出菜单
   pod 'FTPopOverMenu_Swift'
   
+  # 弹出tip
+  pod 'AMPopTip'
+  
   # 键盘管理
   pod 'IQKeyboardManagerSwift'
   

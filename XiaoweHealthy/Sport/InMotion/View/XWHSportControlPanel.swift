@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AMPopTip
 
 class XWHSportControlPanel: XWHBaseView {
         
@@ -45,6 +46,9 @@ class XWHSportControlPanel: XWHBaseView {
     
     /// 解锁
     lazy var unlockBnt = LongPressButton(frame: CGRect(x: 0, y: 0, width: longPressBtnSize, height: longPressBtnSize))
+    
+    /// 弹出tip
+    lazy private var popTip = PopTip()
     
     var stopCompletion: (() -> Void)?
     
@@ -239,6 +243,8 @@ class XWHSportControlPanel: XWHBaseView {
         relayoutNormalControlPanel()
         relayoutLockControlPanel()
         relayoutPauseControlPanel()
+        
+        configPopTip()
     }
     
     
@@ -292,7 +298,7 @@ class XWHSportControlPanel: XWHBaseView {
     }
     
     @objc private func clickVoiceBtn() {
-        
+        popTip.show(text: "GPS信号较弱时，将由计步器估算", direction: .down, maxWidth: 140, in: self, from: gpsSignalView.frame)
     }
     
     @objc private func clickPauseBtn() {
@@ -426,6 +432,12 @@ extension XWHSportControlPanel {
         unlockBtn.completion = { [unowned self] in
 //            self.stopCompletion?()
         }
+    }
+    
+    private func configPopTip() {
+        popTip.bubbleColor = btnBgColor
+        popTip.font = XWHFont.harmonyOSSans(ofSize: 8, weight: .regular)
+        popTip.textColor = .white
     }
     
 }
