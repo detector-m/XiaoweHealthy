@@ -18,6 +18,10 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
     private var progressHandler: DevSyncDataProgressHandler?
     private var resultHandler: XWHDevDataOperationHandler?
     
+    private var isSyncOnlySport = false
+    private var sportProgressHandler: DevSyncDataProgressHandler?
+    private var sportResultHandler: XWHDevDataOperationHandler?
+    
     /// 信号量同步处理
     private lazy var semaphore = DispatchSemaphore(value: 0)
     
@@ -117,6 +121,17 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             }
             cp = ((5 / itemMax) * 100).int
             self.handleProgress(cp)
+            
+            // 6
+            if !self.syncSport() {
+                return
+            }
+            if self.semaphoreWait() {
+                self.handleTimeoutError()
+                return
+            }
+//            cp = ((6 / itemMax) * 100).int
+            self.handleProgress(cp)
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 self._state = .succeed
@@ -125,6 +140,16 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             }
         }
     }
+    
+    // MARK: - Sport
+    /// 同步运动数据
+    func syncSportData(progressHandler: DevSyncDataProgressHandler?, resultHandler: XWHDevDataOperationHandler?) {
+        sportProgressHandler = progressHandler
+        sportResultHandler = resultHandler
+        isSyncOnlySport = true
+        let _ = syncSport()
+    }
+    
     
     // MARK: - 数据处理
     @discardableResult
@@ -144,6 +169,9 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             
         case .activity:
             return handleActivityData(rawData)
+            
+        case .sport:
+            return handleSportData(rawData)
             
         case .none:
             return nil
@@ -168,6 +196,14 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             
         default:
             break
+        }
+        
+        if dataType == .sport, isSyncOnlySport {
+            sportResultHandler = nil
+            sportProgressHandler = nil
+            isSyncOnlySport = false
+            
+            return
         }
         
         semaphoreSignal()
@@ -562,6 +598,39 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
         return parsedAtArray
     }
     
+    /// 处理运动数据
+    func handleSportData(_ rawData: Any?) -> Any? {
+        guard let user = XWHUserDataManager.getCurrentUser() else {
+            log.error("未获取用户信息")
+            return nil
+        }
+        
+        guard let connDev = manager.connectedDevicesModel else {
+            log.error("未获取到连接设备")
+            return nil
+        }
+        
+        guard let deviceSn = connDev.identifier, !deviceSn.isEmpty else {
+            log.error("未获取到设备标识符")
+            return nil
+        }
+        
+        guard let deviceMac = getUTEDeviceMac() else {
+            return nil
+        }
+        
+        guard let rawDic = rawData as? [AnyHashable: Any] else {
+            return nil
+        }
+        
+        guard let sportArray = rawDic[kUTEQuerySportHRMData] as? [UTEModelSportHRMData] else {
+            return nil
+        }
+//        kUTEQuerySportHRMData
+        
+        return nil
+    }
+    
     private func handleProgress(_ cp: Int) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
@@ -602,6 +671,9 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             
         case .activity:
             msg = "同步活动数据超时"
+            
+        case .sport:
+            msg = "同步运动数据超时"
         }
         
         _state = .failed
@@ -760,6 +832,27 @@ extension XWHUTEDataOperationHandler {
         return true
     }
     
+    /// 同步运动数据
+    private func syncSport() -> Bool {
+        dataType = .sport
+        guard let conDev = manager.connectedDevicesModel, conDev.isHasSportHRM else {
+            if !isSyncOnlySport {
+                handleUTENotConnectBindError(type: dataType)
+            } else {
+                handleSportUTEError()
+            }
+            
+            dataType = .none
+            return false
+        }
+        
+//            let cTime = Date().string(withFormat: "yyyy-MM-dd-HH-mm")
+        let cTime = "2020-06-06-06-06"
+        manager.syncDataCustomTime(cTime, type: .sportHRM)
+        
+        return true
+    }
+    
     
     private func isUTEConnectBind() -> Bool {
         if let _ = manager.connectedDevicesModel {
@@ -791,6 +884,18 @@ extension XWHUTEDataOperationHandler {
         let error = XWHError(message: errorMsg)
         log.error(error)
         handleResult(type, .failed, .failure(error))
+    }
+    
+    private func handleSportUTEError() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            let error = XWHError(message: "不支持该功能")
+            log.error(error)
+            self.sportResultHandler?(.sport, .failed, .failure(error))
+        }
     }
     
 }

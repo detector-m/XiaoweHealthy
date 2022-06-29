@@ -31,4 +31,7 @@ protocol XWHDevDataOperationProtocol {
     /// 同步数据
     func syncData()
     
+//    /// 同步运动数据
+//    func syncSportData(progressHandler: DevSyncDataProgressHandler?, resultHandler: XWHDevDataOperationHandler?)
+    
 }

@@ -88,6 +88,9 @@ enum XWHDevSyncDataType: String {
     /// 活动
     case activity
     
+    /// 运动
+    case sport
+    
 }
 
 // MARK: - 运动(Sport)
