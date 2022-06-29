@@ -34,9 +34,17 @@ class XWHSportControlPanel: XWHBaseView {
     lazy var lockBtn = UIButton()
     lazy var voiceBtn = UIButton()
     
+    /// 暂停
     lazy var pauseBtn = UIButton()
     
+    /// 停止
     lazy var stopBtn = LongPressButton(frame: CGRect(x: 0, y: 0, width: longPressBtnSize, height: longPressBtnSize))
+    
+    /// 继续
+    lazy var continueBtn = UIButton()
+    
+    /// 解锁
+    lazy var unlockBnt = LongPressButton(frame: CGRect(x: 0, y: 0, width: longPressBtnSize, height: longPressBtnSize))
     
     var stopCompletion: (() -> Void)?
     
@@ -79,6 +87,9 @@ class XWHSportControlPanel: XWHBaseView {
         
         addSubview(stopBtn)
         
+        addSubview(continueBtn)
+        addSubview(unlockBnt)
+        
         settingBtn.setImage(R.image.sport_setting(), for: .normal)
         
         foldBtn.setImage(openImage, for: .normal)
@@ -116,21 +127,17 @@ class XWHSportControlPanel: XWHBaseView {
         voiceBtn.setImage(R.image.sport_voice_icon(), for: .normal)
         voiceBtn.setImage(R.image.sport_voice_close_icon(), for: .selected)
         
-        pauseBtn.setTitleColor(.white, for: .normal)
-        pauseBtn.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 15, weight: .regular)
-        pauseBtn.adjustsImageWhenHighlighted  = false
-        pauseBtn.size = CGSize(width: 94, height: 94)
-        pauseBtn.set(image: R.image.sport_pause_icon(), title: "暂停", titlePosition: .bottom, additionalSpacing: 2, state: .normal)
-        pauseBtn.layer.cornerRadius = 47
-        pauseBtn.layer.backgroundColor = btnBgColor.cgColor
+        config(pauseBtn: pauseBtn)
+        config(stopBtn: stopBtn)
+        config(continueBtn: continueBtn)
+        config(unlockBtn: unlockBnt)
+        
+        configNormalControlPanel()
         
         lockBtn.addTarget(self, action: #selector(clickLockBtn), for: .touchUpInside)
         voiceBtn.addTarget(self, action: #selector(clickVoiceBtn), for: .touchUpInside)
         pauseBtn.addTarget(self, action: #selector(clickPauseBtn), for: .touchUpInside)
-        
-        pauseBtn.isHidden = true
-        
-        config(stopBtn: stopBtn)
+        continueBtn.addTarget(self, action: #selector(clickContinueBtn), for: .touchUpInside)
     }
     
     override func relayoutSubViews() {
@@ -229,33 +236,59 @@ class XWHSportControlPanel: XWHBaseView {
             make.centerY.equalTo(heartIcon)
         }
         
+        relayoutNormalControlPanel()
+        relayoutLockControlPanel()
+        relayoutPauseControlPanel()
+    }
+    
+    
+    /// 正常情况控制面板
+    private func relayoutNormalControlPanel() {
+        pauseBtn.snp.makeConstraints { make in
+            make.size.equalTo(94)
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(340)
+        }
+        
         lockBtn.snp.makeConstraints { make in
             make.size.equalTo(46)
-            make.top.equalToSuperview().offset(365)
+            make.centerY.equalTo(pauseBtn)
             make.right.equalTo(self.snp.centerX).offset(-38 - 37)
         }
         
         voiceBtn.snp.makeConstraints { make in
             make.size.equalTo(46)
-            make.top.equalToSuperview().offset(365)
+            make.centerY.equalTo(pauseBtn)
             make.left.equalTo(self.snp.centerX).offset(38 + 37)
         }
-        
-        pauseBtn.snp.makeConstraints { make in
-            make.size.equalTo(94)
-            make.centerX.equalToSuperview()
-            make.centerY.equalTo(lockBtn)
-        }
-        
-        stopBtn.snp.makeConstraints { make in
+    }
+    
+    /// 锁定控制面板
+    private func relayoutLockControlPanel() {
+        unlockBnt.snp.makeConstraints { make in
             make.size.equalTo(longPressBtnSize)
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(340 - 9)
         }
     }
     
-    @objc private func clickLockBtn() {
+    ///  暂停控制面板
+    private func relayoutPauseControlPanel() {
+        continueBtn.snp.makeConstraints { make in
+            make.size.equalTo(94)
+            make.right.equalTo(self.snp.centerX).offset(-36)
+            make.top.equalToSuperview().offset(340)
+        }
         
+        stopBtn.snp.makeConstraints { make in
+            make.size.equalTo(longPressBtnSize)
+            make.left.equalTo(self.snp.centerX).offset(36)
+            make.top.equalToSuperview().offset(340 - 9)
+        }
+    }
+    
+    @objc private func clickLockBtn() {
+        configLockControlPanel()
     }
     
     @objc private func clickVoiceBtn() {
@@ -263,7 +296,44 @@ class XWHSportControlPanel: XWHBaseView {
     }
     
     @objc private func clickPauseBtn() {
+        configPauseControlPanel()
+    }
+    
+    @objc private func clickContinueBtn() {
+        configNormalControlPanel()
+    }
+    
+    private func configNormalControlPanel() {
+        pauseBtn.isHidden = false
+        lockBtn.isHidden = false
+        voiceBtn.isHidden = false
         
+        stopBtn.isHidden = true
+        continueBtn.isHidden = true
+        
+        unlockBnt.isHidden = true
+    }
+    
+    private func configLockControlPanel() {
+        pauseBtn.isHidden = true
+        lockBtn.isHidden = true
+        voiceBtn.isHidden = true
+        
+        stopBtn.isHidden = true
+        continueBtn.isHidden = true
+        
+        unlockBnt.isHidden = false
+    }
+    
+    private func configPauseControlPanel() {
+        pauseBtn.isHidden = true
+        lockBtn.isHidden = true
+        voiceBtn.isHidden = true
+        
+        stopBtn.isHidden = false
+        continueBtn.isHidden = false
+        
+        unlockBnt.isHidden = true
     }
     
     func update() {
@@ -299,6 +369,26 @@ extension XWHSportControlPanel {
         valueLabel.textAlignment = .left
     }
     
+    private func config(pauseBtn: UIButton) {
+        pauseBtn.setTitleColor(.white, for: .normal)
+        pauseBtn.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 15, weight: .regular)
+        pauseBtn.adjustsImageWhenHighlighted  = false
+        pauseBtn.size = CGSize(width: 94, height: 94)
+        pauseBtn.set(image: R.image.sport_pause_icon(), title: "暂停", titlePosition: .bottom, additionalSpacing: 2, state: .normal)
+        pauseBtn.layer.cornerRadius = 47
+        pauseBtn.layer.backgroundColor = btnBgColor.cgColor
+    }
+    
+    private func config(continueBtn: UIButton) {
+        continueBtn.setTitleColor(.white, for: .normal)
+        continueBtn.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 15, weight: .regular)
+        continueBtn.adjustsImageWhenHighlighted  = false
+        continueBtn.size = CGSize(width: 94, height: 94)
+        continueBtn.set(image: R.image.sport_continue_icon(), title: "继续", titlePosition: .bottom, additionalSpacing: 2, state: .normal)
+        continueBtn.layer.cornerRadius = 47
+        continueBtn.layer.backgroundColor = btnBgColor.cgColor
+    }
+    
     private func config(stopBtn: LongPressButton) {
 //        let cSize = CGSize(width: 94, height: 94)
         let color = UIColor(hex: 0xE35E2C)!
@@ -318,6 +408,24 @@ extension XWHSportControlPanel {
         }
         
 //        stopBtn.progressView.size = cSize
+    }
+    
+    private func config(unlockBtn: LongPressButton) {
+        let color = btnBgColor
+
+        unlockBtn.innerButn.setTitleColor(.white, for: .normal)
+        unlockBtn.innerButn.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 15, weight: .regular)
+        unlockBtn.innerButn.adjustsImageWhenHighlighted  = false
+        unlockBtn.innerButn.set(image: R.image.sport_unlock_icon(), title: "长按解锁", titlePosition: .bottom, additionalSpacing: 2, state: .normal)
+        unlockBtn.innerButn.layer.cornerRadius = longPressBtnSize / 2 * 0.8
+        unlockBtn.innerButn.layer.backgroundColor = color.cgColor
+        
+        unlockBtn.progressView.trackColor = color.withAlphaComponent(0.1)
+        unlockBtn.progressView.set(colors: color)
+        
+        unlockBtn.completion = { [unowned self] in
+//            self.stopCompletion?()
+        }
     }
     
 }
