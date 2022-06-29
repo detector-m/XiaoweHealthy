@@ -47,7 +47,7 @@ class XWHSportInMotionVC: XWHBaseVC {
         
         controlPanel.layer.cornerRadius = 16
         controlPanel.layer.backgroundColor = UIColor.white.cgColor
-        controlPanel.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        controlPanel.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
         controlPanel.update()
     }

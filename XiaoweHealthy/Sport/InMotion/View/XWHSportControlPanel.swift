@@ -9,6 +9,8 @@ import UIKit
 import AMPopTip
 
 class XWHSportControlPanel: XWHBaseView {
+    
+    typealias XWHActionCompletion = (() -> Void)
         
     lazy var gpsSignalView = XWHGPSSignalView()
     lazy var settingBtn = UIButton()
@@ -50,10 +52,24 @@ class XWHSportControlPanel: XWHBaseView {
     /// 弹出tip
     lazy private var popTip = PopTip()
     
-    var stopCompletion: (() -> Void)?
+    /// 停止回调
+    var stopCompletion: XWHActionCompletion?
+    
+    /// 暂停回调
+    var pauseCompletion: XWHActionCompletion?
+    
+    /// 继续回调
+    var continueCompletion: XWHActionCompletion?
+    
+    /// 解锁回调
+    var unlockCompletion: XWHActionCompletion?
+    
+    
+    /// 点击声音回调
+    var voiceCompletion: XWHActionCompletion?
     
     private var longPressBtnSize: CGFloat {
-        return 112
+        return 118
     }
 
     private(set) lazy var openImage: UIImage = UIImage.iconFont(text: XWHIconFontOcticons.arrowDown.rawValue, size: 24, color: fontDarkColor)
@@ -274,7 +290,7 @@ class XWHSportControlPanel: XWHBaseView {
         unlockBnt.snp.makeConstraints { make in
             make.size.equalTo(longPressBtnSize)
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(340 - 9)
+            make.top.equalToSuperview().offset(340 - 12)
         }
     }
     
@@ -288,8 +304,8 @@ class XWHSportControlPanel: XWHBaseView {
         
         stopBtn.snp.makeConstraints { make in
             make.size.equalTo(longPressBtnSize)
-            make.left.equalTo(self.snp.centerX).offset(36)
-            make.top.equalToSuperview().offset(340 - 9)
+            make.left.equalTo(self.snp.centerX).offset(36 - 12)
+            make.top.equalToSuperview().offset(340 - 12)
         }
     }
     
@@ -430,7 +446,8 @@ extension XWHSportControlPanel {
         unlockBtn.progressView.set(colors: color)
         
         unlockBtn.completion = { [unowned self] in
-//            self.stopCompletion?()
+            self.configNormalControlPanel()
+            self.unlockCompletion?()
         }
     }
     
