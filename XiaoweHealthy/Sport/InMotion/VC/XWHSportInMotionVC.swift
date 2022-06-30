@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 /// 运动中
 class XWHSportInMotionVC: XWHBaseVC {
@@ -19,13 +20,28 @@ class XWHSportInMotionVC: XWHBaseVC {
         return 508
     }
     
+    private lazy var sportModel: XWHSportModel = {
+        let _sportModel = XWHSportModel()
+        _sportModel.uuid = UUID().uuidString
+        
+        return _sportModel
+    }()
+    
     // 运动控制
+    /// 时间管理器
     lazy var timeManager = TimeManager(delegate: self)
+    /// 定位管理器
+    lazy var locationManager: AppLocationManager = {
+        let _locationManager = AppLocationManager.shared
+        _locationManager.delegate = self
+        
+        return _locationManager
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        controlPanel.update(time: 0)
+        controlPanel.update(sportModel: sportModel)
         DispatchQueue.main.async { [weak self] in
             self?.start()
         }
@@ -91,26 +107,57 @@ extension XWHSportInMotionVC {
     
     func start() {
         timeManager.start()
+        locationManager.start()
     }
     
     func stop() {
         timeManager.stop()
+        locationManager.stop()
     }
     
     func pause() {
         timeManager.pause()
+        locationManager.stop()
     }
     
     func resume() {
         timeManager.resume()
+        locationManager.start()
     }
     
 }
 
+
 extension XWHSportInMotionVC: TimeManagerProtocol {
     
     func clockTick(time: Int) {
-        controlPanel.update(time: time)
+        sportModel.duration = time
+        controlPanel.update(sportModel: sportModel)
+    }
+    
+}
+
+extension XWHSportInMotionVC: AppLocationManagerProtocol {
+    
+    func locationManager(_ manager: AppLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let newLocation = locations.last else {
+            return
+        }
+        
+        let howRecent = newLocation.timestamp.timeIntervalSinceNow
+        let horizontalAccuracy = newLocation.horizontalAccuracy
+        
+        controlPanel.updateGPSSingal(horizontalAccuracy)
+        
+        guard horizontalAccuracy < 60 && abs(howRecent) < 10 else { return }
+        
+        if let lastLocation = sportModel.locations.last {
+            let delta = newLocation.distance(from: lastLocation)
+            sportModel.distance = sportModel.distance + delta.int
+            sportModel.cal = XWHSportFunction.getCal(sportTime: sportModel.duration, distance: sportModel.distance)
+        }
+
+        sportModel.locations.append(newLocation)
     }
     
 }

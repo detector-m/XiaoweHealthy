@@ -119,7 +119,7 @@ class XWHSportControlPanel: XWHBaseView {
         
         timeIcon.image = R.image.sport_time_icon()
         calIcon.image = R.image.sport_cal_icon()
-        paceIcon.image = R.image.sport_pace_icon()
+        paceIcon.image = R.image.sport_pace_control_icon()
         heartIcon.image = R.image.sport_heart_icon()
         
         
@@ -362,19 +362,42 @@ class XWHSportControlPanel: XWHBaseView {
         unlockBnt.isHidden = true
     }
     
-    func update(time: Int) {
-        let value = "12.98"
+    func update(sportModel: XWHSportModel) {
+        let value = (sportModel.distance.double / 1000).rounded(numberOfDecimalPlaces: 2, rule: .toNearestOrAwayFromZero).string
         let unit = " 公里"
+        
         let text = value + unit
         valueLb.attributedText = text.colored(with: fontDarkColor).applying(attributes: [.font: XWHFont.harmonyOSSans(ofSize: 60, weight: .bold)], toOccurrencesOf: value).applying(attributes: [.font: XWHFont.harmonyOSSans(ofSize: 16, weight: .medium)], toOccurrencesOf: unit)
         
         
-        let bDate = Date().dayBegin.adding(.second, value: time)
+        let bDate = Date().dayBegin.adding(.second, value: sportModel.duration)
         
         timeValueLb.text = bDate.string(withFormat: XWHDate.timeAllFormat)
-        calValueLb.text = "111"
-        paceValueLb.text = "8'88\""
-        heartValueLb.text = "122"
+        calValueLb.text = sportModel.cal.string
+        
+        var pace: Double = 0
+        if sportModel.distance > 0 {
+            pace = sportModel.duration.double / sportModel.distance.double
+            pace *= 1000
+        }
+        
+        paceValueLb.text = "\(pace.int / 60)'\(pace.int % 60)\""
+        
+        heartValueLb.text = "--"
+    }
+    
+    func updateGPSSingal(_ gpsSingal: Double) {
+        if gpsSingal < 0 {
+            gpsSignalView.update(0)
+        } else if gpsSingal >= 200 {
+            gpsSignalView.update(1)
+        } else if gpsSingal >= 60 {
+            gpsSignalView.update(2)
+        } else if gpsSingal >= 30 {
+            gpsSignalView.update(3)
+        } else {
+            gpsSignalView.update(4)
+        }
     }
 
 }

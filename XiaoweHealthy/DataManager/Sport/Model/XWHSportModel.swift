@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 
 /// 运动模型
@@ -32,5 +33,8 @@ class XWHSportModel: XWHDataBaseModel {
     
     /// 消耗 (KAL)
     var cal = 0
+    
+    /// 轨迹列表
+    var locations: [CLLocation] = []
     
 }

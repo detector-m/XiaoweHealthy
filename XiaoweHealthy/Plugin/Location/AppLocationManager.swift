@@ -8,6 +8,12 @@
 import Foundation
 import CoreLocation
 
+protocol AppLocationManagerProtocol: AnyObject {
+    
+    func locationManager(_ manager: AppLocationManager, didUpdateLocations locations: [CLLocation])
+    
+}
+
 /// 定位管理器
 class AppLocationManager: NSObject {
     
@@ -26,21 +32,19 @@ class AppLocationManager: NSObject {
         let manager = CLLocationManager()
         
         manager.activityType = .fitness
-        
         manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-        
         manager.distanceFilter = 5
-        
         manager.allowsBackgroundLocationUpdates = true
-        
-        manager.pausesLocationUpdatesAutomatically = false
-        
-        manager.delegate = self
-
+        manager.pausesLocationUpdatesAutomatically = true
         manager.showsBackgroundLocationIndicator = true
+
+        manager.delegate = self
         
         return manager
     }()
+    
+    /// 代理
+    weak var delegate: AppLocationManagerProtocol?
     
     /// 定位是否打开
     var isEnable: Bool {
@@ -100,7 +104,7 @@ extension AppLocationManager {
     
     /// 开始定位
     func start() {
-        if isEnable {
+        if !isEnable {
             return
         }
         
@@ -128,7 +132,7 @@ extension AppLocationManager: CLLocationManagerDelegate {
     }
     
     func locationManager(_: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else {
+        guard let _ = locations.last else {
             return
         }
         if !isRunning {
@@ -136,6 +140,7 @@ extension AppLocationManager: CLLocationManagerDelegate {
         }
 
 //        locationClosure?(location)
+        delegate?.locationManager(self, didUpdateLocations: locations)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
