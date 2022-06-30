@@ -50,3 +50,23 @@ enum XWHSportType {
     case climb
     
 }
+
+// MARK: - 运动(Sport)
+
+/// 运动状态
+enum XWHSportState {
+    
+    /// 停止
+    case stop
+    
+    /// 开始
+    case start
+    
+    /// 暂停
+    case pause
+    
+    /// 继续
+    case  `continue`
+    
+}
+
