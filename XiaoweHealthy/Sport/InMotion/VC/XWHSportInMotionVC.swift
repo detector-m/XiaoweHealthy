@@ -18,9 +18,17 @@ class XWHSportInMotionVC: XWHBaseVC {
     private var panelHeight: CGFloat {
         return 508
     }
+    
+    // 运动控制
+    lazy var timeManager = TimeManager(delegate: self)
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        controlPanel.update(time: 0)
+        DispatchQueue.main.async { [weak self] in
+            self?.start()
+        }
     }
     
     override func viewSafeAreaInsetsDidChange() {
@@ -49,7 +57,7 @@ class XWHSportInMotionVC: XWHBaseVC {
         controlPanel.layer.backgroundColor = UIColor.white.cgColor
         controlPanel.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
-        controlPanel.update()
+        configEvent()
     }
     
     override func relayoutSubViews() {
@@ -57,5 +65,52 @@ class XWHSportInMotionVC: XWHBaseVC {
         
         controlPanel.frame = CGRect(x: 0, y: view.height - panelHeight, width: view.width, height: panelHeight)
     }
+    
+    private func configEvent() {
+        controlPanel.stopCompletion = { [unowned self] in
+            self.stop()
+        }
+        
+        controlPanel.pauseCompletion = { [unowned self] in
+            self.pause()
+        }
+        
+        controlPanel.continueCompletion = { [unowned self] in
+            self.resume()
+        }
+        
+        controlPanel.unlockCompletion = { [unowned self] in
+            
+        }
+    }
 
+}
+
+// MARK: - 运动控制
+extension XWHSportInMotionVC {
+    
+    func start() {
+        timeManager.start()
+    }
+    
+    func stop() {
+        timeManager.stop()
+    }
+    
+    func pause() {
+        timeManager.pause()
+    }
+    
+    func resume() {
+        timeManager.resume()
+    }
+    
+}
+
+extension XWHSportInMotionVC: TimeManagerProtocol {
+    
+    func clockTick(time: Int) {
+        controlPanel.update(time: time)
+    }
+    
 }

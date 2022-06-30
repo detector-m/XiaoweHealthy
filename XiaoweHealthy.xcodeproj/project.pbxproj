@@ -193,6 +193,7 @@
 		9680D81E2851CF3A00FA6F9C /* XWHSRLSportRecordTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9680D81D2851CF3A00FA6F9C /* XWHSRLSportRecordTBCell.swift */; };
 		9680D8202851EB3600FA6F9C /* XWHSportRecordDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9680D81F2851EB3600FA6F9C /* XWHSportRecordDetailVC.swift */; };
 		968315F9286D41F800B444AD /* XWHSportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968315F8286D41F800B444AD /* XWHSportModel.swift */; };
+		968315FC286D7E0400B444AD /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968315FB286D7E0400B444AD /* TimeManager.swift */; };
 		968379642856DB360034DB98 /* XWHHomeColumnRangeBarChartCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968379632856DB360034DB98 /* XWHHomeColumnRangeBarChartCTCell.swift */; };
 		968379662856DD3A0034DB98 /* XWHHomeSleepCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968379652856DD3A0034DB98 /* XWHHomeSleepCTCell.swift */; };
 		968379682856DD7F0034DB98 /* XWHHomeMoodCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968379672856DD7F0034DB98 /* XWHHomeMoodCTCell.swift */; };
@@ -665,6 +666,7 @@
 		9680D81D2851CF3A00FA6F9C /* XWHSRLSportRecordTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSRLSportRecordTBCell.swift; sourceTree = "<group>"; };
 		9680D81F2851EB3600FA6F9C /* XWHSportRecordDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportRecordDetailVC.swift; sourceTree = "<group>"; };
 		968315F8286D41F800B444AD /* XWHSportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportModel.swift; sourceTree = "<group>"; };
+		968315FB286D7E0400B444AD /* TimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
 		968379632856DB360034DB98 /* XWHHomeColumnRangeBarChartCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHomeColumnRangeBarChartCTCell.swift; sourceTree = "<group>"; };
 		968379652856DD3A0034DB98 /* XWHHomeSleepCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHomeSleepCTCell.swift; sourceTree = "<group>"; };
 		968379672856DD7F0034DB98 /* XWHHomeMoodCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHomeMoodCTCell.swift; sourceTree = "<group>"; };
@@ -981,6 +983,7 @@
 		96127D11284202AA00940132 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
+				968315FA286D765900B444AD /* TimeManager */,
 				968CB8A127F3FB3700E549AC /* UITableViewRoundedProtocol */,
 				967F0F1C286560C0005E74DC /* Log */,
 				967F0F19286555E3005E74DC /* Location */,
@@ -1892,6 +1895,14 @@
 			children = (
 			);
 			path = Deploy;
+			sourceTree = "<group>";
+		};
+		968315FA286D765900B444AD /* TimeManager */ = {
+			isa = PBXGroup;
+			children = (
+				968315FB286D7E0400B444AD /* TimeManager.swift */,
+			);
+			path = TimeManager;
 			sourceTree = "<group>";
 		};
 		9683796D285827450034DB98 /* Activity */ = {
@@ -3415,6 +3426,7 @@
 				9651EE0427EAF3100043FE52 /* XWHApiConfig.swift in Sources */,
 				96863E42286AAC2A004C0841 /* XWHSportControlPanel.swift in Sources */,
 				96F1D680280947580067DBFD /* XWHDialContentBaseVC.swift in Sources */,
+				968315FC286D7E0400B444AD /* TimeManager.swift in Sources */,
 				966A60F627FFD5DE00CBE915 /* XWHDeviceProductModel.swift in Sources */,
 				9653E48927F54D5900EE55FF /* XWHDataExtension.swift in Sources */,
 				96840246285ACC090079923C /* XWHActivityCalCTCell.swift in Sources */,

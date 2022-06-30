@@ -319,10 +319,14 @@ class XWHSportControlPanel: XWHBaseView {
     
     @objc private func clickPauseBtn() {
         configPauseControlPanel()
+        
+        pauseCompletion?()
     }
     
     @objc private func clickContinueBtn() {
         configNormalControlPanel()
+        
+        continueCompletion?()
     }
     
     private func configNormalControlPanel() {
@@ -358,13 +362,16 @@ class XWHSportControlPanel: XWHBaseView {
         unlockBnt.isHidden = true
     }
     
-    func update() {
+    func update(time: Int) {
         let value = "12.98"
         let unit = " 公里"
         let text = value + unit
         valueLb.attributedText = text.colored(with: fontDarkColor).applying(attributes: [.font: XWHFont.harmonyOSSans(ofSize: 60, weight: .bold)], toOccurrencesOf: value).applying(attributes: [.font: XWHFont.harmonyOSSans(ofSize: 16, weight: .medium)], toOccurrencesOf: unit)
         
-        timeValueLb.text = "00:00:45"
+        
+        let bDate = Date().dayBegin.adding(.second, value: time)
+        
+        timeValueLb.text = bDate.string(withFormat: XWHDate.timeAllFormat)
         calValueLb.text = "111"
         paceValueLb.text = "8'88\""
         heartValueLb.text = "122"
