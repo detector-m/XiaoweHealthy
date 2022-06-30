@@ -205,7 +205,7 @@
 		96837EA32866AF1E005158A0 /* XWHSRLAllRecordSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96837EA22866AF1E005158A0 /* XWHSRLAllRecordSummaryView.swift */; };
 		96837EA52866F510005158A0 /* XWHSportSettingsTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96837EA42866F510005158A0 /* XWHSportSettingsTBVC.swift */; };
 		96837EA72866FB21005158A0 /* XWHSportSettingsSwitchTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96837EA62866FB21005158A0 /* XWHSportSettingsSwitchTBCell.swift */; };
-		96837EAC28670021005158A0 /* XWHSportSetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96837EAB28670021005158A0 /* XWHSportSetModel.swift */; };
+		96837EAC28670021005158A0 /* XWHSportVoiceSpeechSetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96837EAB28670021005158A0 /* XWHSportVoiceSpeechSetModel.swift */; };
 		96837EAE28670052005158A0 /* XWHSportDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96837EAD28670052005158A0 /* XWHSportDataManager.swift */; };
 		96837EB028670F7A005158A0 /* XWHSportSettingsCommponTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96837EAF28670F7A005158A0 /* XWHSportSettingsCommponTBCell.swift */; };
 		96840240285ABF0B0079923C /* XWHActivitySumUIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684023F285ABF0B0079923C /* XWHActivitySumUIModel.swift */; };
@@ -676,7 +676,7 @@
 		96837EA22866AF1E005158A0 /* XWHSRLAllRecordSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSRLAllRecordSummaryView.swift; sourceTree = "<group>"; };
 		96837EA42866F510005158A0 /* XWHSportSettingsTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportSettingsTBVC.swift; sourceTree = "<group>"; };
 		96837EA62866FB21005158A0 /* XWHSportSettingsSwitchTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportSettingsSwitchTBCell.swift; sourceTree = "<group>"; };
-		96837EAB28670021005158A0 /* XWHSportSetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportSetModel.swift; sourceTree = "<group>"; };
+		96837EAB28670021005158A0 /* XWHSportVoiceSpeechSetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportVoiceSpeechSetModel.swift; sourceTree = "<group>"; };
 		96837EAD28670052005158A0 /* XWHSportDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportDataManager.swift; sourceTree = "<group>"; };
 		96837EAF28670F7A005158A0 /* XWHSportSettingsCommponTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportSettingsCommponTBCell.swift; sourceTree = "<group>"; };
 		9684023F285ABF0B0079923C /* XWHActivitySumUIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHActivitySumUIModel.swift; sourceTree = "<group>"; };
@@ -1950,7 +1950,7 @@
 		96837EAA2867000F005158A0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				96837EAB28670021005158A0 /* XWHSportSetModel.swift */,
+				96837EAB28670021005158A0 /* XWHSportVoiceSpeechSetModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3481,7 +3481,7 @@
 				9683796C2857241A0034DB98 /* MKRingProgressGroupView.swift in Sources */,
 				96C67AFE2804743D001ACA81 /* XWHDataRaiseWristSetManager.swift in Sources */,
 				96168CB5281BED5300F79C2A /* XWHUTEDataOperationHandler.swift in Sources */,
-				96837EAC28670021005158A0 /* XWHSportSetModel.swift in Sources */,
+				96837EAC28670021005158A0 /* XWHSportVoiceSpeechSetModel.swift in Sources */,
 				96C67AF428047249001ACA81 /* XWHBloodPressureSetModel.swift in Sources */,
 				96AD285A280144F40092B843 /* AppLogManager.swift in Sources */,
 				9653E49427F5556300EE55FF /* XWHDevSetCallVC.swift in Sources */,

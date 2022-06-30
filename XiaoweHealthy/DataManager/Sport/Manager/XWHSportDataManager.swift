@@ -13,7 +13,7 @@ class XWHSportDataManager {
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
     ///  - Parameter db: 数据库handler
     class func createTables(_ db: Database) throws {
-        try createSportSetTable(db)
+        try createSportVoiceSpeechSetTable(db)
     }
     
 }
@@ -23,30 +23,30 @@ extension XWHSportDataManager {
     
     /// 创建设备模型表 (由于 AppDatabase还未初始化，所以当前使用的是在初始化过程中生成的db Handler)
     ///  - Parameter db: 数据库handler
-    class func createSportSetTable(_ db: Database) throws {
-        try db.create(table: XWHSportSetModel.databaseTableName, body: { t in
-            t.column(XWHSportSetModel.Columns.identifier.name, .text).primaryKey()
+    class func createSportVoiceSpeechSetTable(_ db: Database) throws {
+        try db.create(table: XWHSportVoiceSpeechSetModel.databaseTableName, body: { t in
+            t.column(XWHSportVoiceSpeechSetModel.Columns.identifier.name, .text).primaryKey()
 
-            t.column(XWHSportSetModel.Columns.isOn.name, .boolean)
+            t.column(XWHSportVoiceSpeechSetModel.Columns.isOn.name, .boolean)
             
-            t.column(XWHSportSetModel.Columns.isDistanceOn.name, .boolean)
-            t.column(XWHSportSetModel.Columns.isDurationOn.name, .boolean)
-            t.column(XWHSportSetModel.Columns.isPaceOn.name, .boolean)
-            t.column(XWHSportSetModel.Columns.isHeartOn.name, .boolean)
+            t.column(XWHSportVoiceSpeechSetModel.Columns.isDistanceOn.name, .boolean)
+            t.column(XWHSportVoiceSpeechSetModel.Columns.isDurationOn.name, .boolean)
+            t.column(XWHSportVoiceSpeechSetModel.Columns.isPaceOn.name, .boolean)
+            t.column(XWHSportVoiceSpeechSetModel.Columns.isHeartOn.name, .boolean)
             
-            t.column(XWHSportSetModel.Columns.timeInterval.name, .integer)
+            t.column(XWHSportVoiceSpeechSetModel.Columns.timeInterval.name, .integer)
         })
     }
     
-    class func getCurrentSportSet() -> XWHSportSetModel? {
+    class func getCurrentSportVoiceSpeechSet() -> XWHSportVoiceSpeechSetModel? {
         guard let user = XWHUserDataManager.getCurrentUser() else {
             return nil
         }
         
-        return getSportSet(identifier: user.mobile)
+        return getSportVoiceSpeechSet(identifier: user.mobile)
     }
     
-    class func saveCurrentSportSet(_ sportSet: XWHSportSetModel) {
+    class func saveCurrentSportVoiceSpeechSet(_ sportSet: XWHSportVoiceSpeechSetModel) {
         if sportSet.identifier.isEmpty {
             guard let user = XWHUserDataManager.getCurrentUser() else {
                 return
@@ -55,36 +55,36 @@ extension XWHSportDataManager {
             sportSet.identifier = user.mobile
         }
         
-        saveSportSet(sportSet)
+        saveSportVoiceSpeechSet(sportSet)
     }
     
-    class func saveSportSet(_ sportSet: XWHSportSetModel) {
+    class func saveSportVoiceSpeechSet(_ sportSet: XWHSportVoiceSpeechSetModel) {
         appDB.write { db in
             try sportSet.save(db)
         }
     }
     
-    class func getSportSet(identifier: String) -> XWHSportSetModel? {
+    class func getSportVoiceSpeechSet(identifier: String) -> XWHSportVoiceSpeechSetModel? {
         appDB.read { db in
-            try XWHSportSetModel.fetchOne(db, key: identifier)
+            try XWHSportVoiceSpeechSetModel.fetchOne(db, key: identifier)
         }
     }
     
-    class func deleteSportSet(identifier: String) {
+    class func deleteSportVoiceSpeechSet(identifier: String) {
         appDB.write { db in
-            try XWHSportSetModel.deleteOne(db, key: identifier)
+            try XWHSportVoiceSpeechSetModel.deleteOne(db, key: identifier)
         }
     }
     
-    class func deleteSportSet(_ sportSet: XWHSportSetModel) {
+    class func deleteSportVoiceSpeechSet(_ sportSet: XWHSportVoiceSpeechSetModel) {
         appDB.write { db in
             try sportSet.delete(db)
         }
     }
     
-    class func deleteAllSportSet() {
+    class func deleteAllSportVoiceSpeechSet() {
         appDB.write { db in
-            try XWHSportSetModel.deleteAll(db)
+            try XWHSportVoiceSpeechSetModel.deleteAll(db)
         }
     }
     

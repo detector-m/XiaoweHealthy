@@ -1,5 +1,5 @@
 //
-//  XWHSportSetModel.swift
+//  XWHSportVoiceSpeechSetModel.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/6/25.
@@ -8,7 +8,8 @@
 import UIKit
 import GRDB
 
-class XWHSportSetModel: XWHDataBaseModel {
+/// 运动语音播报设置
+class XWHSportVoiceSpeechSetModel: XWHDataBaseModel {
     
     enum Columns: String, ColumnExpression {
         case identifier, isOn, isDistanceOn, isDurationOn, isPaceOn, isHeartOn, timeInterval

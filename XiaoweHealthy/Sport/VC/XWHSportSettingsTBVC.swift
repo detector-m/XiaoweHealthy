@@ -17,7 +17,7 @@ class XWHSportSettingsTBVC: XWHTableViewBaseVC {
         R.string.xwhSportText.运动设置()
     }
     
-    private lazy var sportSet = XWHSportDataManager.getCurrentSportSet() ?? XWHSportSetModel()
+    private lazy var sportSet = XWHSportDataManager.getCurrentSportVoiceSpeechSet() ?? XWHSportVoiceSpeechSetModel()
     
     /// 语音播报开关
     private var isSpeechOpen: Bool {
@@ -210,7 +210,7 @@ class XWHSportSettingsTBVC: XWHTableViewBaseVC {
                     sportSet.isHeartOn = isOk
                 }
                 
-                XWHSportDataManager.saveCurrentSportSet(self.sportSet)
+                XWHSportDataManager.saveCurrentSportVoiceSpeechSet(self.sportSet)
 
                 self.tableView.reloadData()
             }
@@ -296,7 +296,7 @@ extension XWHSportSettingsTBVC {
             
             self.sSpeechTimeIndex = index
             self.sportSet.timeInterval = self.speechTimeIntervalValues[index]
-            XWHSportDataManager.saveCurrentSportSet(self.sportSet)
+            XWHSportDataManager.saveCurrentSportVoiceSpeechSet(self.sportSet)
             
             self.tableView.reloadData()
         }
