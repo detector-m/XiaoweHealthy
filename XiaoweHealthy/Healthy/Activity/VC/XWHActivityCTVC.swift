@@ -348,9 +348,9 @@ extension XWHActivityCTVC {
     
     /// 获取每日数据概览
     private func getActivitySum() {
-        if sDayDate.dayBegin == Date().dayBegin {
-            return
-        }
+//        if sDayDate.dayBegin == Date().dayBegin {
+//            return
+//        }
         
         XWHActivityVM().getActivity(date: sDayDate) { [weak self] error in
             log.error(error)
