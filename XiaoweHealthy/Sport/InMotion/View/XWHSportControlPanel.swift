@@ -386,18 +386,8 @@ class XWHSportControlPanel: XWHBaseView {
         heartValueLb.text = "--"
     }
     
-    func updateGPSSingal(_ gpsSingal: Double) {
-        if gpsSingal < 0 {
-            gpsSignalView.update(0)
-        } else if gpsSingal >= 200 {
-            gpsSignalView.update(1)
-        } else if gpsSingal >= 60 {
-            gpsSignalView.update(2)
-        } else if gpsSingal >= 30 {
-            gpsSignalView.update(3)
-        } else {
-            gpsSignalView.update(4)
-        }
+    func updateGPSSingal(_ gpsSignal: Double) {
+        gpsSignalView.update(XWHSportFunction.getGpsLevel(gpsSignal: gpsSignal))
     }
 
 }

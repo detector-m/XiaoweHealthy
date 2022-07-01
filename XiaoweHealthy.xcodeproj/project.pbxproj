@@ -230,6 +230,7 @@
 		96870617286E904C00A83B6D /* XWHSportEachPartSportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96870616286E904C00A83B6D /* XWHSportEachPartSportModel.swift */; };
 		9687061A286EA6B400A83B6D /* XWHSportVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96870619286EA6B400A83B6D /* XWHSportVM.swift */; };
 		9687061D286EA6E900A83B6D /* XWHSportApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9687061C286EA6E800A83B6D /* XWHSportApi.swift */; };
+		96870622286EDD2D00A83B6D /* AppPedometerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96870621286EDD2D00A83B6D /* AppPedometerManager.swift */; };
 		968CB8A327F3FB8800E549AC /* UITableViewRoundedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */; };
 		968CB8A627F40B5A00E549AC /* XWHDeviceDeploy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */; };
 		968CB8A827F42A8C00E549AC /* XWHCommonBaseTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A727F42A8C00E549AC /* XWHCommonBaseTBCell.swift */; };
@@ -707,6 +708,7 @@
 		96870616286E904C00A83B6D /* XWHSportEachPartSportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportEachPartSportModel.swift; sourceTree = "<group>"; };
 		96870619286EA6B400A83B6D /* XWHSportVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportVM.swift; sourceTree = "<group>"; };
 		9687061C286EA6E800A83B6D /* XWHSportApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportApi.swift; sourceTree = "<group>"; };
+		96870621286EDD2D00A83B6D /* AppPedometerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPedometerManager.swift; sourceTree = "<group>"; };
 		968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewRoundedProtocol.swift; sourceTree = "<group>"; };
 		968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceDeploy.swift; sourceTree = "<group>"; };
 		968CB8A727F42A8C00E549AC /* XWHCommonBaseTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCommonBaseTBCell.swift; sourceTree = "<group>"; };
@@ -991,6 +993,7 @@
 		96127D11284202AA00940132 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
+				9687061E286ECC7000A83B6D /* MotionTrackerManager */,
 				968315FA286D765900B444AD /* TimeManager */,
 				968CB8A127F3FB3700E549AC /* UITableViewRoundedProtocol */,
 				967F0F1C286560C0005E74DC /* Log */,
@@ -2097,6 +2100,14 @@
 				9687061C286EA6E800A83B6D /* XWHSportApi.swift */,
 			);
 			path = Api;
+			sourceTree = "<group>";
+		};
+		9687061E286ECC7000A83B6D /* MotionTrackerManager */ = {
+			isa = PBXGroup;
+			children = (
+				96870621286EDD2D00A83B6D /* AppPedometerManager.swift */,
+			);
+			path = MotionTrackerManager;
 			sourceTree = "<group>";
 		};
 		968CB8A127F3FB3700E549AC /* UITableViewRoundedProtocol */ = {
@@ -3794,6 +3805,7 @@
 				969072432814EC320056CE4F /* XWHHeartDataDetailListTBVC.swift in Sources */,
 				96E23C2027E1A22C009EF208 /* R.generated.swift in Sources */,
 				9653E4A627F5A6D700EE55FF /* XWHDevSetBloodOxygenVC.swift in Sources */,
+				96870622286EDD2D00A83B6D /* AppPedometerManager.swift in Sources */,
 				9678257627F2DD0C004F66FB /* XWHIconFont.swift in Sources */,
 				96F1D6732808002F0067DBFD /* XWHWeatherInfoOneDayModel.swift in Sources */,
 				969F01BD27F69D8B00CA4DA4 /* XWHPopupPick.swift in Sources */,

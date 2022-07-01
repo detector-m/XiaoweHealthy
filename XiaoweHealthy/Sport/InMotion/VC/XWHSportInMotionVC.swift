@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreLocation
+import CoreMotion
 
 /// 运动中
 class XWHSportInMotionVC: XWHBaseVC {
@@ -23,11 +24,15 @@ class XWHSportInMotionVC: XWHBaseVC {
     private lazy var sportModel: XWHSportModel = {
         let _sportModel = XWHSportModel()
         _sportModel.uuid = UUID().uuidString
+        if let conDev = XWHDeviceDataManager.getCurrentDevice() {
+            _sportModel.identifier = conDev.identifier
+            _sportModel.mac = conDev.mac
+        }
         
         return _sportModel
     }()
     
-    // 运动控制
+    // MARK: - 运动控制
     /// 时间管理器
     lazy var timeManager = TimeManager(delegate: self)
     /// 定位管理器
@@ -36,6 +41,13 @@ class XWHSportInMotionVC: XWHBaseVC {
         _locationManager.delegate = self
         
         return _locationManager
+    }()
+    /// 运动步数管理器
+    lazy var stepManager: AppPedometerManager = {
+        let _stepManager = AppPedometerManager.shared
+        _stepManager.delegate = self
+        
+        return _stepManager
     }()
 
     override func viewDidLoad() {
@@ -84,7 +96,7 @@ class XWHSportInMotionVC: XWHBaseVC {
     
     private func configEvent() {
         controlPanel.stopCompletion = { [unowned self] in
-            self.stop()
+            self.stopSport()
         }
         
         controlPanel.pauseCompletion = { [unowned self] in
@@ -102,27 +114,57 @@ class XWHSportInMotionVC: XWHBaseVC {
 
 }
 
+extension XWHSportInMotionVC {
+    
+    private func stopSport() {
+        if sportModel.distance < 500 {
+            self.pause()
+            
+            XWHAlert.show(title: nil, message: "本次运动距离太短，将不保存记录", cancelTitle: "知道了", confirmTitle: "继续运动") { [unowned self] aType in
+                if aType == .confirm {
+                    self.resume()
+                } else {
+                    self.stop()
+                    self.dismiss(animated: true)
+                }
+            }
+            
+            return
+        }
+        
+        stop()
+        
+        postSport()
+        dismiss(animated: true)
+    }
+    
+}
+
 // MARK: - 运动控制
 extension XWHSportInMotionVC {
     
     func start() {
         timeManager.start()
         locationManager.start()
+        stepManager.start()
     }
     
     func stop() {
         timeManager.stop()
         locationManager.stop()
+        stepManager.stop()
     }
     
     func pause() {
         timeManager.pause()
         locationManager.stop()
+        stepManager.pause()
     }
     
     func resume() {
         timeManager.resume()
         locationManager.start()
+        stepManager.resume()
     }
     
 }
@@ -149,7 +191,9 @@ extension XWHSportInMotionVC: AppLocationManagerProtocol {
         
         controlPanel.updateGPSSingal(horizontalAccuracy)
         
-        guard horizontalAccuracy < 60 && abs(howRecent) < 10 else { return }
+        guard horizontalAccuracy < 60 && abs(howRecent) < 10 else {
+            return
+        }
         
         if let lastLocation = sportModel.locations.last {
             let delta = newLocation.distance(from: lastLocation)
@@ -158,6 +202,24 @@ extension XWHSportInMotionVC: AppLocationManagerProtocol {
         }
 
         sportModel.locations.append(newLocation)
+    }
+    
+}
+
+extension XWHSportInMotionVC: AppPedometerManagerProtocol {
+
+    func update(stepCount: Int) {
+        sportModel.step = stepCount
+    }
+    
+}
+
+
+// MARK: - Api
+extension XWHSportInMotionVC {
+    
+    private func postSport() {
+        XWHServerDataManager.postSport(deviceMac: sportModel.identifier, deviceSn: sportModel.mac, data: [sportModel])
     }
     
 }
