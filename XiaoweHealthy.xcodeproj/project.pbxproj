@@ -228,6 +228,8 @@
 		96863E42286AAC2A004C0841 /* XWHSportControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96863E41286AAC2A004C0841 /* XWHSportControlPanel.swift */; };
 		96863E45286AFF98004C0841 /* LongPressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96863E44286AFF98004C0841 /* LongPressButton.swift */; };
 		96870617286E904C00A83B6D /* XWHSportEachPartSportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96870616286E904C00A83B6D /* XWHSportEachPartSportModel.swift */; };
+		9687061A286EA6B400A83B6D /* XWHSportVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96870619286EA6B400A83B6D /* XWHSportVM.swift */; };
+		9687061D286EA6E900A83B6D /* XWHSportApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9687061C286EA6E800A83B6D /* XWHSportApi.swift */; };
 		968CB8A327F3FB8800E549AC /* UITableViewRoundedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */; };
 		968CB8A627F40B5A00E549AC /* XWHDeviceDeploy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */; };
 		968CB8A827F42A8C00E549AC /* XWHCommonBaseTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A727F42A8C00E549AC /* XWHCommonBaseTBCell.swift */; };
@@ -703,6 +705,8 @@
 		96863E41286AAC2A004C0841 /* XWHSportControlPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportControlPanel.swift; sourceTree = "<group>"; };
 		96863E44286AFF98004C0841 /* LongPressButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongPressButton.swift; sourceTree = "<group>"; };
 		96870616286E904C00A83B6D /* XWHSportEachPartSportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportEachPartSportModel.swift; sourceTree = "<group>"; };
+		96870619286EA6B400A83B6D /* XWHSportVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportVM.swift; sourceTree = "<group>"; };
+		9687061C286EA6E800A83B6D /* XWHSportApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportApi.swift; sourceTree = "<group>"; };
 		968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewRoundedProtocol.swift; sourceTree = "<group>"; };
 		968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceDeploy.swift; sourceTree = "<group>"; };
 		968CB8A727F42A8C00E549AC /* XWHCommonBaseTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCommonBaseTBCell.swift; sourceTree = "<group>"; };
@@ -2079,6 +2083,22 @@
 			path = LongPressButton;
 			sourceTree = "<group>";
 		};
+		96870618286EA68400A83B6D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				96870619286EA6B400A83B6D /* XWHSportVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9687061B286EA6C900A83B6D /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				9687061C286EA6E800A83B6D /* XWHSportApi.swift */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
 		968CB8A127F3FB3700E549AC /* UITableViewRoundedProtocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -2888,8 +2908,10 @@
 		96E23C2227E1A322009EF208 /* Sport */ = {
 			isa = PBXGroup;
 			children = (
-				968315FD286DC5AB00B444AD /* SportFunction */,
 				9680D8212851ED7F00FA6F9C /* Deploy */,
+				96870618286EA68400A83B6D /* ViewModel */,
+				9687061B286EA6C900A83B6D /* Api */,
+				968315FD286DC5AB00B444AD /* SportFunction */,
 				96863E3B286AA5DF004C0841 /* InMotion */,
 				9680D8162851A1D600FA6F9C /* View */,
 				96617A9927E2BFE300139B03 /* VC */,
@@ -3423,6 +3445,7 @@
 				969A14D22862AD5900B61CEB /* XWHSportCTReusableView.swift in Sources */,
 				967AF4C327EF545800235E08 /* XWHDeviceVM.swift in Sources */,
 				9653E49027F552E300EE55FF /* XWHDevSetBaseVC.swift in Sources */,
+				9687061D286EA6E900A83B6D /* XWHSportApi.swift in Sources */,
 				96F1D6662806BE960067DBFD /* XWHDevContactModel.swift in Sources */,
 				969310472824B15500133626 /* XWHServerDataManager.swift in Sources */,
 				96F3588E27FE92C900783614 /* XWHBLEUTEDispatchHandler.swift in Sources */,
@@ -3751,6 +3774,7 @@
 				969B8821280FE670009952E7 /* XWHHealthyBloodOxygenCTVC.swift in Sources */,
 				969B88432811A1A0009952E7 /* XWHBOTipCTCell.swift in Sources */,
 				9651EE0C27EB024B0043FE52 /* XWHNetworkHelper.swift in Sources */,
+				9687061A286EA6B400A83B6D /* XWHSportVM.swift in Sources */,
 				9653E4A027F5A32000EE55FF /* XWHDevSetBloodPressureVC.swift in Sources */,
 				968379682856DD7F0034DB98 /* XWHHomeMoodCTCell.swift in Sources */,
 				969B883F2811A050009952E7 /* XWHBOCommonCTCell.swift in Sources */,

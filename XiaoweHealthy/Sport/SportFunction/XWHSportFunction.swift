@@ -34,5 +34,24 @@ class XWHSportFunction {
         let cal = weight * hTime * k
         return cal.int
     }
+ 
+    class func getSportIndexToServer(sType: XWHSportType) -> Int {
+        switch sType {
+        case .none:
+            return 0
+            
+        case .run:
+            return 1
+        
+        case .walk:
+            return 2
+            
+        case .ride:
+            return 3
+            
+        case .climb:
+            return 4
+        }
+    }
     
 }
