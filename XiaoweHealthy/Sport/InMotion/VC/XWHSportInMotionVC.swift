@@ -116,10 +116,9 @@ class XWHSportInMotionVC: XWHBaseVC {
 extension XWHSportInMotionVC {
     
     private func stopSport() {
-        if sportModel.distance < 500 {            
+        if sportModel.distance < 500 {
             XWHAlert.show(title: nil, message: "本次运动距离太短，将不保存记录", messageAlignment: .center, cancelTitle: "知道了", confirmTitle: "继续运动") { [unowned self] aType in
                 if aType == .confirm {
-//                    self.resume()
                     self.controlPanel.clickContinueBtn()
                 } else {
                     self.stop()
