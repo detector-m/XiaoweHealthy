@@ -51,6 +51,8 @@ class XWHSportEachPartSportModel: XWHDataBaseModel {
     
     var coordinates: [CLLocationCoordinate2D] = []
     
+    var locations: [CLLocation] = []
+    
     required init() {
         super.init()
     }

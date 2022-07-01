@@ -91,7 +91,7 @@ class XWHSportModel: XWHDataBaseModel {
     var eachPartItems: [XWHSportEachPartSportModel] = []
     
     /// 轨迹列表
-    var locations: [CLLocation] = []
+//    var locations: [CLLocation] = []
     
     required init() {
         super.init()

@@ -116,7 +116,7 @@ class XWHSportInMotionVC: XWHBaseVC {
 extension XWHSportInMotionVC {
     
     private func stopSport() {
-        if sportModel.distance < 500 {
+        if sportModel.distance < 150 {
             XWHAlert.show(title: nil, message: "本次运动距离太短，将不保存记录", messageAlignment: .center, cancelTitle: "知道了", confirmTitle: "继续运动") { [unowned self] aType in
                 if aType == .confirm {
                     self.controlPanel.clickContinueBtn()
@@ -192,13 +192,40 @@ extension XWHSportInMotionVC: AppLocationManagerProtocol {
             return
         }
         
-        if let lastLocation = sportModel.locations.last {
+//        if let lastLocation = sportModel.locations.last {
+//            let delta = newLocation.distance(from: lastLocation)
+//            sportModel.distance = sportModel.distance + delta.int
+//            sportModel.cal = XWHSportFunction.getCal(sportTime: sportModel.duration, distance: sportModel.distance)
+//        }
+//
+//        sportModel.locations.append(newLocation)
+        
+        var tmpLastLocation: CLLocation?
+        var lastItem: XWHSportEachPartSportModel
+        if let lastSportItem = sportModel.eachPartItems.last {
+            tmpLastLocation = lastSportItem.locations.last
+            if sportModel.distance <= lastSportItem.startMileage + 1000 {
+                lastItem = lastSportItem
+                lastItem.endMileage = sportModel.distance
+            } else {
+                lastItem = XWHSportEachPartSportModel()
+                sportModel.eachPartItems.append(lastItem)
+                lastItem.startMileage = sportModel.distance
+            }
+        } else {
+            lastItem = XWHSportEachPartSportModel()
+            sportModel.eachPartItems.append(lastItem)
+            lastItem.startMileage = sportModel.distance
+        }
+        
+        if let lastLocation = tmpLastLocation {
             let delta = newLocation.distance(from: lastLocation)
             sportModel.distance = sportModel.distance + delta.int
             sportModel.cal = XWHSportFunction.getCal(sportTime: sportModel.duration, distance: sportModel.distance)
         }
-
-        sportModel.locations.append(newLocation)
+        
+        lastItem.locations.append(newLocation)
+        lastItem.coordinates.append(newLocation.coordinate)
     }
     
 }
