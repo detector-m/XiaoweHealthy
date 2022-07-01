@@ -54,6 +54,15 @@ enum XWHServerDataApi {
     ///     - data: 上传的数据 （必选）
     case postActivity(_ deviceMac: String, _ deviceSn: String, _ data: [[String: Any]])
     
+    // MARK: - Sport(运动数据)
+    /// 上传运动数据 （步数、卡路里、距离）
+    /// - Parameters:
+    ///     - deviceMac: 设备的mac 地址 （必选）
+    ///     - deviceSn: 设备唯一标识码 (可选)
+    ///     - data: 上传的数据 （必选）
+    case postSport(_ deviceMac: String, _ deviceSn: String, _ data: [[String: Any]])
+
+    
 }
 
 
@@ -75,12 +84,15 @@ extension XWHServerDataApi: XWHServiceTargetType {
             
         case .postActivity:
             return "/device/post_step_data"
+            
+        case .postSport:
+            return "/sport/post_exercise_data"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .postHeart, .postBloodOxygen, .postSleep, .postMentalState, .postActivity:
+        case .postHeart, .postBloodOxygen, .postSleep, .postMentalState, .postActivity, .postSport:
             return .post
         }
     }
@@ -97,6 +109,9 @@ extension XWHServerDataApi: XWHServiceTargetType {
             
         case .postActivity(let deviceMac, let deviceSn, let data):
             param = ["mac": deviceMac, "deviceSn": deviceSn, "items": data]
+            
+        case .postSport(let deviceMac, let deviceSn, let data):
+            param = data[0]
         }
         
         log.debug("url: \(baseURL.absoluteString + path) param: \(param)")

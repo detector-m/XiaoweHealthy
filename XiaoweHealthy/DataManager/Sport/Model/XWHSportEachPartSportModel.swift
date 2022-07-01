@@ -1,67 +1,29 @@
 //
-//  XWHSportModel.swift
+//  XWHSportEachPartSportModel.swift
 //  XiaoweHealthy
 //
-//  Created by Riven on 2022/6/30.
+//  Created by Riven on 2022/7/1.
 //
 
 import UIKit
 import GRDB
-
 import CoreLocation
+import HandyJSON
 
 
-/// 运动模型
-class XWHSportModel: XWHDataBaseModel {
+/// 每段运动的模型（每公里）
+class XWHSportEachPartSportModel: XWHDataBaseModel {
     
-    var uuid = ""
-    
-    var type: XWHSportType = .none
-    var state: XWHSportState = .stop
-    
-    var intType: Int {
-        get {
-            switch type {
-            case .none:
-                return 0
-                
-            case .run:
-                return 1
-            
-            case .walk:
-                return 2
-                
-            case .ride:
-                return 3
-                
-            case .climb:
-                return 4
-            }
-        }
-        set {
-            switch newValue {
-            case 1:
-                type = .run
-                
-            case 2:
-                type = .walk
-                
-            case 3:
-                type = .ride
-            
-            case 4:
-                type = .climb
-                
-            default:
-                type = .none
-            }
-        }
-    }
+    var sportId = 0
     
     /// 开始时间
     var bTime = ""
     /// 结束时间
     var eTime = ""
+    
+    /// 开始/结束里程
+    var startMileage = 0
+    var endMileage = 0
     
     /// 持续时间 (s)
     var duration = 0
@@ -87,11 +49,7 @@ class XWHSportModel: XWHDataBaseModel {
     /// 步幅 cm
     var stepWidth = 70
     
-    /// each parts
-    var eachPartItems: [XWHSportEachPartSportModel] = []
-    
-    /// 轨迹列表
-    var locations: [CLLocation] = []
+    var coordinates: [CLLocationCoordinate2D] = []
     
     required init() {
         super.init()
@@ -109,12 +67,12 @@ class XWHSportModel: XWHDataBaseModel {
             identifier <-- "deviceSn"
         
         mapper <<<
-            eTime <-- "exerciseTime"
+            eTime <-- "startTime"
+        mapper <<<
+            eTime <-- "endTime"
 
         mapper <<<
-            intType <-- "exerciseType"
-        mapper <<<
-            duration <-- "duration"
+            duration <-- "timeConsuming"
 
         mapper <<<
             distance <-- "distance"
@@ -126,16 +84,13 @@ class XWHSportModel: XWHDataBaseModel {
             step <-- "stepCount"
 
         mapper <<<
-            pace <-- "avgPace"
+            pace <-- "currentPace"
         
         mapper <<<
             speed <-- "avgSpeed"
         
         mapper <<<
             stepWidth <-- "avgStepWidth"
-        
-        mapper <<<
-            eachPartItems <-- "kilometers"
     }
     
     // MARK: - Encodable
@@ -153,11 +108,15 @@ class XWHSportModel: XWHDataBaseModel {
         super.init()
         
 //        let container = try decoder.container(keyedBy: Columns.self)
-//        
+//
 //        identifier = try container.decode(String.self, forKey: .identifier)
 //        mac = try container.decode(String.self, forKey: .mac)
 //        time = try container.decode(String.self, forKey: .time)
 //        value = try container.decode(Int.self, forKey: .value)
     }
+
+}
+
+extension CLLocationCoordinate2D: HandyJSON {
     
 }
