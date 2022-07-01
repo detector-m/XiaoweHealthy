@@ -132,6 +132,9 @@ class XWHSportModel: XWHDataBaseModel {
             speed <-- "avgSpeed"
         
         mapper <<<
+            heartRate <-- "avgHeartRate"
+        
+        mapper <<<
             stepWidth <-- "avgStepWidth"
         
         mapper <<<

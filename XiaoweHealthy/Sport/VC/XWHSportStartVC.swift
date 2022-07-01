@@ -162,6 +162,8 @@ extension XWHSportStartVC {
     /// 开始运动
     private func gotoStartSport() {
         let vc = XWHSportInMotionVC()
+        vc.sportType = sportType
+        
         let nav = XWHBaseNavigationVC(rootViewController: vc)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)

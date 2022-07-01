@@ -21,9 +21,12 @@ class XWHSportInMotionVC: XWHBaseVC {
         return 508
     }
     
+    lazy var sportType = XWHSportType.none
+    
     private lazy var sportModel: XWHSportModel = {
         let _sportModel = XWHSportModel()
         _sportModel.uuid = UUID().uuidString
+        _sportModel.type = sportType
         if let conDev = XWHDeviceDataManager.getCurrentDevice() {
             _sportModel.identifier = conDev.identifier
             _sportModel.mac = conDev.mac
