@@ -11,12 +11,12 @@ import UIKit
 
 class XWHAlert {
     
-    class func show(title: String? = nil, message: String?, cancelTitle: String? = R.string.xwhDisplayText.取消(), confirmTitle: String? = R.string.xwhDisplayText.确定(), action: ((RLPopupContentBaseView.ActionType) -> Void)? = nil) {
+    class func show(title: String? = nil, message: String?, messageAlignment: NSTextAlignment = .left, cancelTitle: String? = R.string.xwhDisplayText.取消(), confirmTitle: String? = R.string.xwhDisplayText.确定(), action: ((RLPopupContentBaseView.ActionType) -> Void)? = nil) {
         let window = UIApplication.shared.keyWindow!
         let alertView = XWHAlertView(frame: window.bounds)
         window.addSubview(alertView)
 
-        alertView.show(title: title, message: message, cancelTitle: cancelTitle, confirmTitle: confirmTitle, action: action)
+        alertView.show(title: title, message: message, messageAlignment: messageAlignment, cancelTitle: cancelTitle, confirmTitle: confirmTitle, action: action)
     }
     
 }
@@ -45,9 +45,10 @@ class XWHAlertView: RLPopupBaseView {
 //        }
 //    }
     
-    func show(title: String? = nil, message: String?, cancelTitle: String? = R.string.xwhDisplayText.取消(), confirmTitle: String? = R.string.xwhDisplayText.确定(), action: ((RLPopupContentBaseView.ActionType) -> Void)? = nil) {
+    func show(title: String? = nil, message: String?, messageAlignment: NSTextAlignment = .left, cancelTitle: String? = R.string.xwhDisplayText.取消(), confirmTitle: String? = R.string.xwhDisplayText.确定(), action: ((RLPopupContentBaseView.ActionType) -> Void)? = nil) {
         contentView.titleLb.text = title
         contentView.detailLb.text = message
+        contentView.detailLb.textAlignment = messageAlignment
         contentView.cancelBtn.setTitle(cancelTitle, for: .normal)
         contentView.confirmBtn.setTitle(confirmTitle, for: .normal)
         clickCallback = action
