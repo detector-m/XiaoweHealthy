@@ -110,8 +110,11 @@ extension XWHServerDataApi: XWHServiceTargetType {
         case .postActivity(let deviceMac, let deviceSn, let data):
             param = ["mac": deviceMac, "deviceSn": deviceSn, "items": data]
             
-        case .postSport(let deviceMac, let deviceSn, let data):
+        case .postSport( _, _, let data):
             param = data[0]
+            if (param["avgHeartRate"] as! Int) == 0 {
+                param["avgHeartRate"] = nil
+            }
         }
         
         log.debug("url: \(baseURL.absoluteString + path) param: \(param)")

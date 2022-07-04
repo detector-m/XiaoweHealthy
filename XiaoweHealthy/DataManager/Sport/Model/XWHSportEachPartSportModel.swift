@@ -69,7 +69,8 @@ class XWHSportEachPartSportModel: XWHDataBaseModel {
             identifier <-- "deviceSn"
         
         mapper <<<
-            eTime <-- "startTime"
+            bTime <-- "startTime"
+        
         mapper <<<
             eTime <-- "endTime"
 

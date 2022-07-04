@@ -10,7 +10,7 @@ import KDCircularProgress
 
 class LongPressButton: UIView {
     
-    let endTime: Double = 3
+    let endTime: Double = 1.5
     lazy var innerButn = UIButton()
     lazy var progressView = KDCircularProgress()
     

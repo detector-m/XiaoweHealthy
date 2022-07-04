@@ -16,47 +16,48 @@ class XWHSportModel: XWHDataBaseModel {
     
     var uuid = ""
     
-    var type: XWHSportType = .none
-    var state: XWHSportState = .stop
-    
-    var intType: Int {
+    var type: XWHSportType {
         get {
-            switch type {
-            case .none:
-                return 0
-                
-            case .run:
-                return 1
-            
-            case .walk:
-                return 2
-                
-            case .ride:
-                return 3
-                
-            case .climb:
-                return 4
-            }
-        }
-        set {
-            switch newValue {
+            switch intSportType {
             case 1:
-                type = .run
+                return .run
                 
             case 2:
-                type = .walk
+                return .walk
                 
             case 3:
-                type = .ride
+                return .ride
             
             case 4:
-                type = .climb
+                return .climb
                 
             default:
-                type = .none
+                return .none
+            }
+        }
+        
+        set {
+            switch newValue {
+            case .none:
+                intSportType = 0
+                
+            case .run:
+                intSportType = 1
+            
+            case .walk:
+                intSportType = 2
+                
+            case .ride:
+                intSportType = 3
+                
+            case .climb:
+                intSportType = 4
             }
         }
     }
+    var state: XWHSportState = .stop
+    
+    var intSportType: Int = 0
     
     /// 开始时间
     var bTime = ""
@@ -112,7 +113,8 @@ class XWHSportModel: XWHDataBaseModel {
             eTime <-- "exerciseTime"
 
         mapper <<<
-            intType <-- "exerciseType"
+            intSportType <-- "exerciseType"
+        
         mapper <<<
             duration <-- "duration"
 

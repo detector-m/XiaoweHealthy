@@ -58,6 +58,7 @@ class XWHSportInMotionVC: XWHBaseVC {
         
         controlPanel.update(sportModel: sportModel)
         DispatchQueue.main.async { [weak self] in
+            self?.sportModel.bTime = Date().string(withFormat: XWHDate.standardTimeAllFormat)
             self?.start()
         }
     }
@@ -119,7 +120,7 @@ class XWHSportInMotionVC: XWHBaseVC {
 extension XWHSportInMotionVC {
     
     private func stopSport() {
-        if sportModel.distance < 150 {
+        if sportModel.distance < 100 {
             XWHAlert.show(title: nil, message: "本次运动距离太短，将不保存记录", messageAlignment: .center, cancelTitle: "知道了", confirmTitle: "继续运动") { [unowned self] aType in
                 if aType == .confirm {
                     self.controlPanel.clickContinueBtn()
@@ -133,6 +134,24 @@ extension XWHSportInMotionVC {
         }
         
         stop()
+        
+        sportModel.eTime = Date().string(withFormat: XWHDate.standardTimeAllFormat)
+        sportModel.eachPartItems.last?.eTime = sportModel.eTime
+        if sportModel.step > 0 {
+            sportModel.stepWidth = (sportModel.distance.double * 100 / sportModel.step.double).int
+        }
+        if sportModel.distance > 0, sportModel.duration > 0 {
+            sportModel.pace = ((sportModel.duration.double / sportModel.distance.double) * 1000).int
+            sportModel.speed = (sportModel.distance.double / sportModel.duration.double).int
+            
+            if sportModel.pace == 0 {
+                sportModel.pace = 1
+            }
+            
+            if sportModel.speed == 0 {
+                sportModel.speed = 1
+            }
+        }
         
         postSport()
         dismiss(animated: true)
@@ -210,13 +229,35 @@ extension XWHSportInMotionVC: AppLocationManagerProtocol {
             if sportModel.distance <= lastSportItem.startMileage + 1000 {
                 lastItem = lastSportItem
                 lastItem.endMileage = sportModel.distance
+                lastItem.eTime = Date().string(withFormat: XWHDate.standardTimeAllFormat)
             } else {
                 lastItem = XWHSportEachPartSportModel()
+                lastItem.bTime = Date().string(withFormat: XWHDate.standardTimeAllFormat)
                 sportModel.eachPartItems.append(lastItem)
                 lastItem.startMileage = sportModel.distance
             }
+            
+            if lastItem.endMileage > 0 {
+                var lastDuration = 0
+                if let lastETime = lastItem.eTime.date(withFormat: XWHDate.standardTimeAllFormat), let lastBTime = lastItem.bTime.date(withFormat: XWHDate.standardTimeAllFormat) {
+                    lastDuration = lastETime.timeIntervalSince1970.int - lastBTime.timeIntervalSince1970.int
+                }
+                
+                if lastDuration < 0 {
+                    lastDuration = 0
+                }
+                
+                lastItem.duration = lastDuration
+                lastItem.distance = lastItem.endMileage - lastItem.startMileage
+                
+                lastItem.pace = ((lastItem.duration.double / lastItem.distance.double) * 1000).int
+                if lastItem.pace == 0 {
+                    lastItem.pace = 1
+                }
+            }
         } else {
             lastItem = XWHSportEachPartSportModel()
+            lastItem.bTime = Date().string(withFormat: XWHDate.standardTimeAllFormat)
             sportModel.eachPartItems.append(lastItem)
             lastItem.startMileage = sportModel.distance
         }
