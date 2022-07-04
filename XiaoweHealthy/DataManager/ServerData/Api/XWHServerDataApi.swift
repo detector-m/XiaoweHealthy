@@ -112,7 +112,7 @@ extension XWHServerDataApi: XWHServiceTargetType {
             
         case .postSport( _, _, let data):
             param = data[0]
-            if (param["avgHeartRate"] as! Int) == 0 {
+            if let avgHR = param["avgHeartRate"] as? Int, avgHR == 0 {
                 param["avgHeartRate"] = nil
             }
         }
