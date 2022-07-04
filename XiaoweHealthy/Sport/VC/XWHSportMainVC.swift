@@ -253,6 +253,8 @@ class XWHSportMainVC: XWHCollectionViewBaseVC {
         if section == 0 {
             let sportTypes: [XWHSportType] = [.run, .walk, .ride, .climb]
             gotoSportStart(sType: sportTypes[row])
+        } else if section == 1 {
+            gotoSportRecordDetail()
         }
     }
     
@@ -277,6 +279,12 @@ extension XWHSportMainVC {
     /// 运动记录列表
     private func gotoSportRecordList() {
         let vc = XWHSportRecordListTBVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    /// 运动记录详情
+    private func gotoSportRecordDetail() {
+        let vc = XWHSportRecordDetailVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     

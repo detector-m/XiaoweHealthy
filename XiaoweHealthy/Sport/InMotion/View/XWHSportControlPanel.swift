@@ -314,7 +314,7 @@ class XWHSportControlPanel: XWHBaseView {
     }
     
     @objc private func clickVoiceBtn() {
-        popTip.show(text: "GPS信号较弱时，将由计步器估算", direction: .down, maxWidth: 140, in: self, from: gpsSignalView.frame)
+
     }
     
     @objc private func clickPauseBtn() {
@@ -475,6 +475,14 @@ extension XWHSportControlPanel {
         popTip.bubbleColor = btnBgColor
         popTip.font = XWHFont.harmonyOSSans(ofSize: 8, weight: .regular)
         popTip.textColor = .white
+    }
+    
+}
+
+extension XWHSportControlPanel {
+    
+    func showGPSTip() {
+        popTip.show(text: "GPS信号较弱时，将由计步器估算", direction: .down, maxWidth: 140, in: self, from: gpsSignalView.frame)
     }
     
 }
