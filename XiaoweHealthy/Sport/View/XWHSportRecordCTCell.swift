@@ -43,6 +43,11 @@ class XWHSportRecordCTCell: XWHCommonBaseCTCell {
         titleValueView2.type = .valueUp
         titleValueView3.type = .valueUp
         titleValueView4.type = .valueUp
+        
+        titleValueView1.titleLb.text = "公里"
+        titleValueView2.titleLb.text = "时长(分)"
+        titleValueView3.titleLb.text = "千卡"
+        titleValueView4.titleLb.text = "心率"
     }
     
     override func relayoutSubViews() {
@@ -93,21 +98,52 @@ class XWHSportRecordCTCell: XWHCommonBaseCTCell {
         }
     }
     
-    func update() {
-        imageView.image = R.image.sport_climb()
-        textLb.text = R.string.xwhSportText.爬山()
+    func update(sportRecordItem: XWHSportMonthRecordItemsSubItemModel?) {
+        guard let rItem = sportRecordItem else {
+            updateDefault()
+            return
+        }
+        
+        let sType = XWHSportHelper.getSportType(sportIndex: rItem.exerciseType)
+        switch sType {
+        case .none:
+            updateDefault()
+            
+        case .run:
+            imageView.image = R.image.sport_run()
+            textLb.text = R.string.xwhSportText.跑步()
+            
+        case .walk:
+            imageView.image = R.image.sport_walk()
+            textLb.text = R.string.xwhSportText.步行()
+            
+        case .ride:
+            imageView.image = R.image.sport_ride()
+            textLb.text = R.string.xwhSportText.骑行()
+            
+        case .climb:
+            imageView.image = R.image.sport_climb()
+            textLb.text = R.string.xwhSportText.爬山()
+        }
+        
+        let sportDate = rItem.exerciseTime.date(withFormat: XWHDate.standardTimeAllFormat) ?? Date()
+        detailLb.text = sportDate.localizedString(withFormat: XWHDate.yearMonthDayHourMinuteFormat)
+        
+        titleValueView1.valueLb.text = XWHSportDataHelper.mToKm(rItem.distance).string
+        titleValueView2.valueLb.text = (rItem.duration / 60).string
+        titleValueView3.valueLb.text = rItem.calories.string
+        
+        titleValueView4.valueLb.text = "--"
+    }
+    
+    private func updateDefault() {
+        imageView.image = R.image.sport_run()
+        textLb.text = R.string.xwhSportText.跑步()
         detailLb.text = Date().localizedString(withFormat: XWHDate.yearMonthDayHourMinuteFormat)
         
-        titleValueView1.titleLb.text = "公里"
         titleValueView1.valueLb.text = "--"
-        
-        titleValueView2.titleLb.text = "时长(分)"
         titleValueView2.valueLb.text = "--"
-        
-        titleValueView3.titleLb.text = "千卡"
         titleValueView3.valueLb.text = "--"
-        
-        titleValueView4.titleLb.text = "心率"
         titleValueView4.valueLb.text = "--"
     }
     

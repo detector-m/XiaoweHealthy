@@ -31,7 +31,7 @@ extension UIScrollView {
         // 设置文字
         header.setTitle("下拉刷新", for: .idle)
         header.setTitle("释放更新", for: .pulling)
-        header.setTitle("设备连接中...", for: .refreshing)
+        header.setTitle("加载中...", for: .refreshing)
 
         //        header.arrowView.image =
         

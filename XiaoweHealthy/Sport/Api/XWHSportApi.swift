@@ -45,6 +45,9 @@ extension XWHSportApi: XWHServiceTargetType {
         switch self {
         case .getSports(let year, let type):
             param = ["year": year, "exercise_type": type]
+            if type == 0 {
+                param["exercise_type"] = nil
+            }
             
         case .getSportDetail(let sportId):
             param = ["sport_id": sportId]

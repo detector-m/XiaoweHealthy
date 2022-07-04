@@ -14,10 +14,10 @@ class XWHSportVM {
     func getSports(year: Int, type: XWHSportType, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
         let intType = XWHSportFunction.getSportIndexToServer(sType: type)
         sportProvider.request(.getSports(year, intType)) { result in
-            let cId = "Healthy.getSports"
+            let cId = "Sport.getSports"
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
                 
-//                response.data = XWHSportModel.deserialize(from: json.dictionaryObject)
+                response.data = [XWHSportMonthRecordModel].deserialize(from: json.arrayObject)
                 return nil
             }
         }
@@ -26,7 +26,7 @@ class XWHSportVM {
     /// 获取运动详情
     func getSportDetail(sportId: Int, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
         sportProvider.request(.getSportDetail(sportId)) { result in
-            let cId = "Healthy.getSportDetail"
+            let cId = "Sport.getSportDetail"
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
                 
 //                response.data = XWHSportModel.deserialize(from: json.dictionaryObject)

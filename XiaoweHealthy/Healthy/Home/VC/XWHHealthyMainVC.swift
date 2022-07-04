@@ -166,6 +166,7 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
         refreshHeader = collectionView.addHeader(contentInsetTop: topContentInset + largeTitleHeight, contentOffset: headerContentOffset) { [unowned self] in
             self.gotoReconnectOrSyncData()
         }
+        refreshHeader?.setTitle("设备连接中...", for: .refreshing)
     }
     
     // MARK: -

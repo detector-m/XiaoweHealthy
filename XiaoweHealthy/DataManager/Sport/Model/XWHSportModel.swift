@@ -18,41 +18,11 @@ class XWHSportModel: XWHDataBaseModel {
     
     var type: XWHSportType {
         get {
-            switch intSportType {
-            case 1:
-                return .run
-                
-            case 2:
-                return .walk
-                
-            case 3:
-                return .ride
-            
-            case 4:
-                return .climb
-                
-            default:
-                return .none
-            }
+            return XWHSportDataHelper.getSportType(sportIndex: intSportType)
         }
         
         set {
-            switch newValue {
-            case .none:
-                intSportType = 0
-                
-            case .run:
-                intSportType = 1
-            
-            case .walk:
-                intSportType = 2
-                
-            case .ride:
-                intSportType = 3
-                
-            case .climb:
-                intSportType = 4
-            }
+            intSportType = XWHSportDataHelper.getSportIndex(sportType: newValue)
         }
     }
     var state: XWHSportState = .stop

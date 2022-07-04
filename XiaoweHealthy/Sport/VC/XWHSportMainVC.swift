@@ -32,6 +32,13 @@ class XWHSportMainVC: XWHCollectionViewBaseVC {
     
     private lazy var gradientColors: [UIColor] = [UIColor(hex: 0xD5F9E1)!, UIColor(hex: 0xF8F8F8)!]
 
+    private var refreshHeader: PullToRefreshHeader?
+    
+    lazy var sportRecords: [XWHSportMonthRecordModel] = []
+    var lastSportItem: XWHSportMonthRecordItemsSubItemModel? {
+        return sportRecords.first?.record.items.first
+    }
+
     deinit {
 
     }
@@ -39,7 +46,13 @@ class XWHSportMainVC: XWHCollectionViewBaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        addHeaderRefresh()
+        addHeaderRefresh()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.collectionView.mj_header?.beginRefreshing()
+        }
     }
     
     override func setupNavigationItems() {
@@ -125,15 +138,13 @@ class XWHSportMainVC: XWHCollectionViewBaseVC {
         collectionView.register(supplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withClass: UICollectionReusableView.self)
     }
     
-//    func addHeaderRefresh() {
-//        let headerContentOffset = UIApplication.shared.statusBarFrame.height
-//
-//        collectionView.addHeader(contentInsetTop: topContentInset + largeTitleHeight, contentOffset: headerContentOffset) {
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [unowned self] in
-//                self.collectionView.mj_header?.endRefreshing()
-//            }
-//        }
-//    }
+    func addHeaderRefresh() {
+        let headerContentOffset = UIApplication.shared.statusBarFrame.height
+
+        refreshHeader = collectionView.addHeader(contentInsetTop: topContentInset + largeTitleHeight, contentOffset: headerContentOffset) { [unowned self] in
+            self.getSportRecordList()
+        }
+    }
     
     // MARK: -
     override func viewWillAppear(_ animated: Bool) {
@@ -211,7 +222,7 @@ class XWHSportMainVC: XWHCollectionViewBaseVC {
         } else {
             let cell = collectionView.dequeueReusableCell(withClass: XWHSportRecordCTCell.self, for: indexPath)
             
-            cell.update()
+            cell.update(sportRecordItem: lastSportItem)
             
             return cell
         }
@@ -270,12 +281,31 @@ extension XWHSportMainVC {
     
     private func getSportRecordList() {
         let cDate = Date()
-        XWHSportVM().getSports(year: cDate.year, type: .none) { error in
-        
-        } successHandler: { response in
+        XWHSportVM().getSports(year: cDate.year, type: .none) { [weak self] error in            
+            log.error(error)
+            guard let self = self else {
+                return
+            }
+            if error.isExpiredUserToken {
+                XWHUser.handleExpiredUserTokenUI(self, nil)
+                return
+            }
             
+            self.refreshHeader?.endRefreshing()
+            self.collectionView.reloadData()
+        } successHandler: { [weak self] response in
+            guard let self = self else {
+                return
+            }
+            guard let retModel = response.data as? [XWHSportMonthRecordModel] else {
+                log.debug("运动 - 运动列表数据为空")
+                return
+            }
+            
+            self.sportRecords = retModel
+            self.collectionView.reloadData()
+            self.refreshHeader?.endRefreshing()
         }
-
     }
     
 }
