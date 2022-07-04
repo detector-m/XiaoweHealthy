@@ -16,7 +16,8 @@ extension UIScrollView {
     /// 添加头部刷新
     /// - Parameters:
     ///     - refreshingBlock: 刷新回调
-    func addHeader(contentInsetTop: CGFloat = 0, contentOffset: CGFloat = 0, refreshingBlock: @escaping PullToRefreshRefreshingBlock) {
+    @discardableResult
+    func addHeader(contentInsetTop: CGFloat = 0, contentOffset: CGFloat = 0, refreshingBlock: @escaping PullToRefreshRefreshingBlock) -> PullToRefreshHeader {
         let header = PullToRefreshHeader(refreshingBlock: refreshingBlock, contentOffset: contentOffset)
         header.ignoredScrollViewContentInsetTop = contentInsetTop
         
@@ -30,17 +31,20 @@ extension UIScrollView {
         // 设置文字
         header.setTitle("下拉刷新", for: .idle)
         header.setTitle("释放更新", for: .pulling)
-        header.setTitle("加载中...", for: .refreshing)
+        header.setTitle("设备连接中...", for: .refreshing)
 
         //        header.arrowView.image =
         
         mj_header = header
+        
+        return header
     }
     
     /// 添加脚部刷新
     /// - Parameters:
     ///     - refreshingBlock: 刷新回调
-    func addFooter(refreshingBlock: @escaping PullToRefreshRefreshingBlock) {
+    @discardableResult
+    func addFooter(refreshingBlock: @escaping PullToRefreshRefreshingBlock) -> MJRefreshAutoNormalFooter {
         let footer = MJRefreshAutoNormalFooter(refreshingBlock: refreshingBlock)
         
         footer.stateLabel?.font = XWHFont.harmonyOSSans(ofSize: 14, weight: .regular)
@@ -50,6 +54,8 @@ extension UIScrollView {
         footer.setTitle("没有更多了", for: .noMoreData)
         
         mj_footer = footer
+        
+        return footer
     }
     
 }

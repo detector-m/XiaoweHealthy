@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MJRefresh
 
 /// 运动健康首页
 class XWHHealthyMainVC: XWHCollectionViewBaseVC {
@@ -30,6 +31,8 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
         gradientLayer.type = .axial
         return gradientLayer
     }()
+    
+    private var refreshHeader: PullToRefreshHeader?
     
     private lazy var gradientColors: [UIColor] = [UIColor(hex: 0xD5F9E1)!, UIColor(hex: 0xF8F8F8)!]
     
@@ -56,7 +59,7 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        addHeaderRefresh()
+        addHeaderRefresh()
         
         loadDatas()
         configNotifications()
@@ -160,10 +163,8 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
     func addHeaderRefresh() {
         let headerContentOffset = UIApplication.shared.statusBarFrame.height
 
-        collectionView.addHeader(contentInsetTop: topContentInset + largeTitleHeight, contentOffset: headerContentOffset) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [unowned self] in
-                self.collectionView.mj_header?.endRefreshing()
-            }
+        refreshHeader = collectionView.addHeader(contentInsetTop: topContentInset + largeTitleHeight, contentOffset: headerContentOffset) { [unowned self] in
+            self.gotoReconnectOrSyncData()
         }
     }
     
@@ -237,12 +238,30 @@ extension XWHHealthyMainVC {
 extension XWHHealthyMainVC: XWHDeviceObserverProtocol {
     
     func updateDeviceConnectBind() {
+        if XWHDDMShared.connectBindState == .disconnected {
+            refreshHeader?.setTitle("设备未连接", for: .refreshing)
+            refreshHeader?.endRefreshing()
+        } else if XWHDDMShared.connectBindState == .paired {
+            
+        } else {
+            refreshHeader?.beginRefreshing()
+        }
+        
         loadDatas()
     }
     
     func updateSyncState(_ syncState: XWHDevDataTransferState) {
-        if syncState == .succeed {
+        switch syncState {
+        case .failed:
+            collectionView.mj_header?.endRefreshing()
+            
+        case .succeed:
+            collectionView.mj_header?.endRefreshing()
+            
             loadDatas()
+            
+        case .inTransit:
+            refreshHeader?.setTitle("数据同步中...", for: .refreshing)
         }
     }
     
@@ -725,6 +744,26 @@ extension XWHHealthyMainVC {
 
 // MARK: - Jump UI
 extension XWHHealthyMainVC {
+    
+    // 重连设备或者同步数据
+    private func gotoReconnectOrSyncData() {
+        if XWHDevice.shared.isConnectBind {
+            if XWHDevice.shared.isSyncing {
+                view.makeInsetToast(R.string.xwhDeviceText.正在同步数据())
+                return
+            }
+            
+            XWHDevice.shared.syncData()
+        } else {
+            RLBLEPermissions.shared.getState { bleState in
+                if bleState == .poweredOn {
+                    XWHDevice.shared.connect()
+                } else {
+                    XWHAlert.show(message: R.string.xwhDeviceText.连接设备需要打开手机蓝牙要开启吗())
+                }
+            }
+        }
+    }
     
     /// 运动健康授权
     private func gotoRequestHealthKitAuthorize() {

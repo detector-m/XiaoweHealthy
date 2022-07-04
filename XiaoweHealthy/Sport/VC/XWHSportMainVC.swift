@@ -265,6 +265,21 @@ class XWHSportMainVC: XWHCollectionViewBaseVC {
     
 }
 
+// MARK: - Api
+extension XWHSportMainVC {
+    
+    private func getSportRecordList() {
+        let cDate = Date()
+        XWHSportVM().getSports(year: cDate.year, type: .none) { error in
+        
+        } successHandler: { response in
+            
+        }
+
+    }
+    
+}
+
 
 // MARK: - UI Jump
 extension XWHSportMainVC {
