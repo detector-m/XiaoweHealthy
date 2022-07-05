@@ -50,8 +50,31 @@ extension UIScrollView {
         footer.stateLabel?.font = XWHFont.harmonyOSSans(ofSize: 14, weight: .regular)
         footer.stateLabel?.textColor = fontDarkColor.withAlphaComponent(0.2)
         
+        footer.setTitle("上拉加载更多", for: .idle)
+        footer.setTitle("", for: .pulling)
+        footer.setTitle("", for: .willRefresh)
         footer.setTitle("加载中...", for: .refreshing)
         footer.setTitle("没有更多了", for: .noMoreData)
+        
+        mj_footer = footer
+        
+        return footer
+    }
+    
+    @discardableResult
+    func addAutoFooter(refreshingBlock: @escaping PullToRefreshRefreshingBlock) -> MJRefreshAutoFooter {
+        let footer = MJRefreshAutoFooter(refreshingBlock: refreshingBlock)
+        footer.triggerAutomaticallyRefreshPercent = 1
+        footer.autoTriggerTimes = 1
+        
+//        footer.stateLabel?.font = XWHFont.harmonyOSSans(ofSize: 14, weight: .regular)
+//        footer.stateLabel?.textColor = fontDarkColor.withAlphaComponent(0.2)
+        
+//        footer.setTitle("", for: .idle)
+//        footer.setTitle("", for: .pulling)
+//        footer.setTitle("", for: .willRefresh)
+//        footer.setTitle("加载中...", for: .refreshing)
+//        footer.setTitle("没有更多了", for: .noMoreData)
         
         mj_footer = footer
         
