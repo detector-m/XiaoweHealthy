@@ -21,7 +21,7 @@ extension UIScrollView {
         let header = PullToRefreshHeader(refreshingBlock: refreshingBlock, contentOffset: contentOffset)
         header.ignoredScrollViewContentInsetTop = contentInsetTop
         
-        header.mj_h = 64
+        header.mj_h = 64 + UIApplication.shared.statusBarFrame.height
         
         // 设置字体
         header.stateLabel?.font = XWHFont.harmonyOSSans(ofSize: 14, weight: .regular)
