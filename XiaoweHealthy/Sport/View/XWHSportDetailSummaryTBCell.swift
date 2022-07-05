@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class XWHSportDetailSummaryTBCell: XWHSRLSportRecordSummaryTBCell {
     
@@ -60,6 +61,7 @@ class XWHSportDetailSummaryTBCell: XWHSRLSportRecordSummaryTBCell {
         
         avatar.layer.cornerRadius = 27
         avatar.layer.masksToBounds = true
+        avatar.contentMode = .scaleAspectFit
         
         titleLb.font = XWHFont.harmonyOSSans(ofSize: 14, weight: .bold)
         titleLb.textColor = fontDarkColor
@@ -80,7 +82,7 @@ class XWHSportDetailSummaryTBCell: XWHSRLSportRecordSummaryTBCell {
 
         titleValueView1.titleLb.text = "总计时长"
         titleValueView2.titleLb.text = "消耗热量"
-        titleValueView3.titleLb.text = "跑步心率"
+        titleValueView3.titleLb.text = "运动心率"
         titleValueView4.titleLb.text = "平均配速"
     }
     
@@ -162,24 +164,60 @@ class XWHSportDetailSummaryTBCell: XWHSRLSportRecordSummaryTBCell {
         }
     }
     
-    func update() {
-        titleLb.text = "小维健康·跑步"
+    func update(sportDetail: XWHSportModel?) {
+        if let user = XWHUserDataManager.getCurrentUser() {
+            avatar.kf.setImage(with: user.avatar.url, placeholder: R.image.sport_avatar())
+            nicknameLb.text = user.nickname
+        }
         
-        let value = "12.98"
+        guard let sDetail = sportDetail else {
+            return
+        }
+        
+        var sTypeString = ""
+        let sType = XWHSportHelper.getSportType(sportIndex: sDetail.intSportType)
+        switch sType {
+        case .none:
+//            iconView.image = nil
+            titleLb.text = ""
+            
+        case .run:
+//            iconView.image = R.image.sport_run()
+            sTypeString = R.string.xwhSportText.跑步()
+            
+        case .walk:
+//            iconView.image = R.image.sport_walk()
+            sTypeString = R.string.xwhSportText.步行()
+            
+        case .ride:
+//            iconView.image = R.image.sport_ride()
+            sTypeString = R.string.xwhSportText.骑行()
+            
+        case .climb:
+//            iconView.image = R.image.sport_climb()
+            sTypeString = R.string.xwhSportText.爬山()
+        }
+        
+        let sportDate = sDetail.eTime.date(withFormat: XWHDate.standardTimeAllFormat) ?? Date()
+        timeLb.text = sportDate.localizedString(withFormat: XWHDate.yearMonthDayHourMinuteFormat)
+        
+        titleLb.text = "小维健康·\(sTypeString)"
+        
+        let value = XWHSportDataHelper.mToKm(sDetail.distance).string
         let unit = " 公里"
         let text = value + unit
         valueLb.attributedText = text.colored(with: fontDarkColor).applying(attributes: [.font: XWHFont.harmonyOSSans(ofSize: 40, weight: .bold)], toOccurrencesOf: value).applying(attributes: [.font: XWHFont.harmonyOSSans(ofSize: 14, weight: .medium)], toOccurrencesOf: unit)
         
-        avatar.image = R.image.sport_avatar()
         
-        nicknameLb.text = "xxxx"
+        titleValueView1.valueLb.text = XWHSportHelper.getDurationString(sDetail.duration)
+        titleValueView2.valueLb.text = sDetail.cal.string
+        if sDetail.heartRate > 0 {
+            titleValueView3.valueLb.text = sDetail.heartRate.string
+        } else {
+            titleValueView3.valueLb.text = "--"
+        }
         
-        timeLb.text = Date().localizedString(withFormat: XWHDate.yearMonthDayHourMinuteFormat)
-        
-        titleValueView1.valueLb.text = "00:00:45"
-        titleValueView2.valueLb.text = "100"
-        titleValueView3.valueLb.text = "122"
-        titleValueView4.valueLb.text = "8'88\""
+        titleValueView4.valueLb.text = XWHSportHelper.getPaceString(sDetail.pace)
     }
     
 }

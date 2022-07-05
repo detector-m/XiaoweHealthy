@@ -99,7 +99,8 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
         if section == 0 {
             return 300
         } else if section == 1 {
-            return 85 + 11 + (34 + 5) * 5
+            let paceCount = sportDetail?.eachPartItems.count ?? 0
+            return 85 + 11 + (34 + 5) * paceCount.cgFloat
         } else {
             return 481
         }
@@ -111,17 +112,17 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
         
         if section == 0 {
             let cell = tableView.dequeueReusableCell(withClass: XWHSportDetailSummaryTBCell.self)
-            cell.update()
+            cell.update(sportDetail: sportDetail)
             
             return cell
         } else if section == 1 {
             let cell = tableView.dequeueReusableCell(withClass: XWHSportDetailPaceTBCell.self)
-            cell.update()
+            cell.update(sportDetail: sportDetail)
             
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withClass: XWHSportDetailDataDetailTBCell.self)
-            cell.update()
+            cell.update(sportDetail: sportDetail)
             
             return cell
         }

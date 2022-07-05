@@ -76,25 +76,35 @@ class XWHSportDetailPaceTBCell: XWHBaseTBCell {
         }
     }
     
-    func update() {
-        averagePaceLb.text = "平均配速：6’23”"
+    func update(sportDetail: XWHSportModel?) {
+        let avgPace = XWHSportHelper.getPaceString(sportDetail?.pace ?? 0)
+        averagePaceLb.text = "平均配速：\(avgPace)"
         
 //        progressView.progressView.progressValue = 60
         
-        createProgressView()
+        createProgressView(sportDetail: sportDetail)
     }
 
 }
 
 extension XWHSportDetailPaceTBCell {
     
-    private func createProgressView() {
+    private func createProgressView(sportDetail: XWHSportModel?) {
         contentView.subviews.forEach { cView in
             if let progress = cView as? XWHLinearProgressView {
                 progress.removeFromSuperview()
             }
         }
-        for i in 0 ..< 5 {
+        
+        guard let sDetail = sportDetail, sDetail.pace > 0 else {
+            return
+        }
+        
+        let paceArray: [Int] = sDetail.eachPartItems.map({ $0.pace })
+        let minPace = paceArray.min()
+        for i in 0 ..< sDetail.eachPartItems.count {
+            let iItem = sDetail.eachPartItems[i]
+            
             let progress = XWHLinearProgressView()
             contentView.addSubview(progress)
             
@@ -105,12 +115,14 @@ extension XWHSportDetailPaceTBCell {
                 make.height.equalTo(34)
             }
             
-            if i == 2 {
-                config(progressView: progress, isFast: true, isOneKm: true, index: i, value: 40)
-            } else if i == 4 {
+            let value = (iItem.pace.double / sDetail.pace.double * 100).int
+            
+            if iItem.endMileage - iItem.startMileage < 1000 {
                 config(progressView: progress, isFast: false, isOneKm: false, index: i, value: 0)
+            } else if minPace == iItem.pace {
+                config(progressView: progress, isFast: true, isOneKm: true, index: i, value: value)
             } else {
-                config(progressView: progress, isFast: false, isOneKm: true, index: i, value: 50 + Int(arc4random()) % 50)
+                config(progressView: progress, isFast: false, isOneKm: true, index: i, value: value)
             }
         }
     }

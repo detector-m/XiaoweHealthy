@@ -330,6 +330,7 @@ extension XWHSportMainVC {
     /// 运动记录详情
     private func gotoSportRecordDetail() {
         let vc = XWHSportRecordDetailVC()
+        vc.sportId = lastSportItem?.sportId ?? -1
         navigationController?.pushViewController(vc, animated: true)
     }
     
