@@ -18,4 +18,15 @@ class XWHSportHelper {
         return XWHSportDataHelper.getSportType(sportIndex: sportIndex)
     }
     
+    class func getPaceString(_ pace: Int) -> String {
+        let m = pace / 60
+        let s = pace % 60
+        return "\(m)'\(s)\""
+    }
+    
+    class func getDurationString(_ duration: Int) -> String {
+        let tDate = Date().dayBegin.adding(.second, value: duration)
+        return tDate.string(withFormat: XWHDate.timeAllFormat)
+    }
+    
 }

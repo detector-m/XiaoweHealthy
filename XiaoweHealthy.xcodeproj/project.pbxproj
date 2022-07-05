@@ -263,6 +263,7 @@
 		9690725B28153C100056CE4F /* XWHBloodOxygenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690725A28153C100056CE4F /* XWHBloodOxygenModel.swift */; };
 		9690725F2815589F0056CE4F /* XWHHeartUIHeartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690725E2815589F0056CE4F /* XWHHeartUIHeartModel.swift */; };
 		96907262281564C90056CE4F /* XWHBOUIBloodOxygenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96907261281564C90056CE4F /* XWHBOUIBloodOxygenModel.swift */; };
+		9690EE3C2873CB3300B88727 /* XWHSportTotalRecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690EE3B2873CB3300B88727 /* XWHSportTotalRecordModel.swift */; };
 		9693103D2822282F00133626 /* XWHInnerDataHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693103C2822282F00133626 /* XWHInnerDataHandlerProtocol.swift */; };
 		969310442824AF9C00133626 /* XWHServerDataApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969310432824AF9C00133626 /* XWHServerDataApi.swift */; };
 		969310472824B15500133626 /* XWHServerDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969310462824B15500133626 /* XWHServerDataManager.swift */; };
@@ -745,6 +746,7 @@
 		9690725A28153C100056CE4F /* XWHBloodOxygenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBloodOxygenModel.swift; sourceTree = "<group>"; };
 		9690725E2815589F0056CE4F /* XWHHeartUIHeartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHeartUIHeartModel.swift; sourceTree = "<group>"; };
 		96907261281564C90056CE4F /* XWHBOUIBloodOxygenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHBOUIBloodOxygenModel.swift; sourceTree = "<group>"; };
+		9690EE3B2873CB3300B88727 /* XWHSportTotalRecordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportTotalRecordModel.swift; sourceTree = "<group>"; };
 		9693103C2822282F00133626 /* XWHInnerDataHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHInnerDataHandlerProtocol.swift; sourceTree = "<group>"; };
 		969310432824AF9C00133626 /* XWHServerDataApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHServerDataApi.swift; sourceTree = "<group>"; };
 		969310462824B15500133626 /* XWHServerDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHServerDataManager.swift; sourceTree = "<group>"; };
@@ -1937,6 +1939,7 @@
 			children = (
 				96831C7828730286003D7C9F /* XWHSportMonthRecordModel.swift */,
 				96831C7A2873031C003D7C9F /* XWHSportMonthRecordItemModel.swift */,
+				9690EE3B2873CB3300B88727 /* XWHSportTotalRecordModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3691,6 +3694,7 @@
 				9651EE2C27EC5B1B0043FE52 /* UMAnalyticsSwift.swift in Sources */,
 				9651EE1027EB30040043FE52 /* XWHKeyConfig.swift in Sources */,
 				96617AAB27E32C4100139B03 /* XWHBindPhoneVC.swift in Sources */,
+				9690EE3C2873CB3300B88727 /* XWHSportTotalRecordModel.swift in Sources */,
 				96617AB327E34CBB00139B03 /* XWHHeightSelectVC.swift in Sources */,
 				969B884E2812BAB1009952E7 /* XWHHealthyVM.swift in Sources */,
 				96F3588727FE815B00783614 /* XWHDeviceBaseModel.swift in Sources */,

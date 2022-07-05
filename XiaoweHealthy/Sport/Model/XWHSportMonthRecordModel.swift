@@ -14,6 +14,8 @@ class XWHSportMonthRecordModel: HandyJSON {
     var yearMonth = ""
     var record: XWHSportMonthRecordItemModel = XWHSportMonthRecordItemModel()
     
+    var isExpand = false
+    
     required init() {
         
     }

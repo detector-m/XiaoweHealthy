@@ -30,9 +30,14 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
     private var topOffset: CGFloat {
         242
     }
+    
+    var sportId: Int = -1
+    private var sportDetail: XWHSportModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getSportDetail()
     }
     
     override func viewSafeAreaInsetsDidChange() {
@@ -197,6 +202,47 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
 //        }
 //
 //        tableView.frame = CGRect(x: 0, y: 242 + view.safeAreaInsets.top - sOffset, width: view.width, height: view.height)
+    }
+    
+}
+
+// MARK: - Api
+extension XWHSportRecordDetailVC {
+    
+    private func getSportDetail() {
+        if sportId < 0 {
+            return
+        }
+        
+        XWHProgressHUD.show()
+        XWHSportVM().getSportDetail(sportId: sportId) { [weak self] error in
+            log.error(error)
+            
+            XWHProgressHUD.hide()
+            
+            guard let self = self else {
+                return
+            }
+            if error.isExpiredUserToken {
+                XWHUser.handleExpiredUserTokenUI(self, nil)
+                return
+            }
+            self.view.makeInsetToast("获取运动详情失败")
+        } successHandler: { [weak self] response in
+            XWHProgressHUD.hide()
+            
+            guard let self = self else {
+                return
+            }
+            guard let retModel = response.data as? XWHSportModel else {
+                self.view.makeInsetToast("获取运动详情失败")
+                
+                return
+            }
+            
+            self.sportDetail = retModel
+            self.tableView.reloadData()
+        }
     }
     
 }

@@ -116,10 +116,12 @@ class XWHSRLSportRecordSummaryTBCell: UITableViewCell {
         }
     }
     
-    func update() {
-        titleValueView1.valueLb.text = "20.12"
-        titleValueView2.valueLb.text = "120"
-        titleValueView3.valueLb.text = "2"
+    func update(monthRecord: XWHSportMonthRecordModel) {
+        let rec = monthRecord.record
+        
+        titleValueView1.valueLb.text = XWHSportDataHelper.mToKm(rec.totalDistance).string
+        titleValueView2.valueLb.text = rec.totalCalories.string
+        titleValueView3.valueLb.text = rec.totalTimes.string
     }
 
 }

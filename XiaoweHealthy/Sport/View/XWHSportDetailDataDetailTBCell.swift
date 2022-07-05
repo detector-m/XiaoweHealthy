@@ -192,7 +192,7 @@ class XWHSportDetailDataDetailTBCell: XWHSRLSportRecordSummaryTBCell {
         
     }
     
-    override func update() {
+    func update() {
         let value = "12.98"
         let unit = " 公里"
         let text = value + unit

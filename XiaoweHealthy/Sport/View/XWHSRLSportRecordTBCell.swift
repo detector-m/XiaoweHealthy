@@ -103,17 +103,51 @@ class XWHSRLSportRecordTBCell: XWHCommonBaseTBCell {
         }
     }
     
-    func update() {
-        titleLb.text = "今天  跑步"
-        let value = "0.90"
+    func update(recordItem: XWHSportMonthRecordItemsSubItemModel) {
+        let rItem = recordItem
+        
+        var sTypeString = ""
+        let sType = XWHSportHelper.getSportType(sportIndex: rItem.exerciseType)
+        switch sType {
+        case .none:
+            iconView.image = nil
+            titleLb.text = ""
+            
+        case .run:
+            iconView.image = R.image.sport_run()
+            sTypeString = R.string.xwhSportText.跑步()
+            
+        case .walk:
+            iconView.image = R.image.sport_walk()
+            sTypeString = R.string.xwhSportText.步行()
+            
+        case .ride:
+            iconView.image = R.image.sport_ride()
+            sTypeString = R.string.xwhSportText.骑行()
+            
+        case .climb:
+            iconView.image = R.image.sport_climb()
+            sTypeString = R.string.xwhSportText.爬山()
+        }
+        
+        let sportDate = rItem.exerciseTime.date(withFormat: XWHDate.standardTimeAllFormat) ?? Date()
+        
+        if sportDate.isInToday {
+            titleLb.text = "今天 \(sTypeString)"
+        } else if sportDate.isInYesterday {
+            titleLb.text = "昨天 \(sTypeString)"
+        } else {
+            let sDateString = sportDate.localizedString(withFormat: XWHDate.monthDayFormat)
+            titleLb.text = "\(sDateString) \(sTypeString)"
+        }
+        
+        sportTimeLb.text = XWHSportHelper.getDurationString(rItem.duration)
+        paceLb.text = XWHSportHelper.getPaceString(rItem.avgPace)
+        
+        let value = XWHSportDataHelper.mToKm(rItem.distance).string
         let unit = " 公里"
         let text = value + unit
         subTitleLb.attributedText = text.colored(with: fontDarkColor).applying(attributes: [.font: XWHFont.harmonyOSSans(ofSize: 20, weight: .bold)], toOccurrencesOf: value).applying(attributes: [.font: XWHFont.harmonyOSSans(ofSize: 10)], toOccurrencesOf: unit)
-        
-        iconView.image = R.image.sport_run()
-        
-        sportTimeLb.text = "00:03:23"
-        paceLb.text = "23'34\""
     }
 
 }

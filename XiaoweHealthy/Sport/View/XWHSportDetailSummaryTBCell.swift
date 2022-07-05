@@ -162,7 +162,7 @@ class XWHSportDetailSummaryTBCell: XWHSRLSportRecordSummaryTBCell {
         }
     }
     
-    override func update() {
+    func update() {
         titleLb.text = "小维健康·跑步"
         
         let value = "12.98"

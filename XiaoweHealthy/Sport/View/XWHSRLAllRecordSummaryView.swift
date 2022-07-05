@@ -60,6 +60,8 @@ class XWHSRLAllRecordSummaryView: XWHBaseView {
         
         titleValueView4.titleLb.textAlignment = .right
         titleValueView4.valueLb.textAlignment = .right
+        
+        updateTitles()
     }
     
     override func relayoutSubViews() {
@@ -91,22 +93,26 @@ class XWHSRLAllRecordSummaryView: XWHBaseView {
         }
     }
     
-    func update() {
-        titleValueView1.titleLb.text = "所有运动总公里"
-        titleValueView2.titleLb.text = "累计(次数)"
-        titleValueView3.titleLb.text = "累计(小时)"
-        titleValueView4.titleLb.text = "平均配速"
-        
-        let value = "48.67"
+    func update(sTotalRecord: XWHSportTotalRecordModel?) {
+        let value = XWHSportDataHelper.mToKm(sTotalRecord?.distance ?? 0).string
         let unit = " 公里"
         let text = value + unit
         let valueFont = XWHFont.harmonyOSSans(ofSize: 50, weight: .medium)
         let unitFont = XWHFont.harmonyOSSans(ofSize: 15, weight: .regular)
         titleValueView1.valueLb.attributedText = text.colored(with: .white).applying(attributes: [.font: valueFont], toOccurrencesOf: value).applying(attributes: [.font: unitFont], toOccurrencesOf: unit)
     
-        titleValueView2.valueLb.text = "23"
-        titleValueView3.valueLb.text = "12.34"
-        titleValueView4.valueLb.text = "12'23\""
+        var t: Double = sTotalRecord?.totalMinutes.double ?? 0
+        t = t / 3600
+        titleValueView2.valueLb.text = (sTotalRecord?.times ?? 0).string
+        titleValueView3.valueLb.text = t.rounded(numberOfDecimalPlaces: 2, rule: .toNearestOrAwayFromZero).string
+        titleValueView4.valueLb.text = XWHSportHelper.getPaceString(sTotalRecord?.averagePace ?? 0)
+    }
+    
+    private func updateTitles() {
+        titleValueView1.titleLb.text = "所有运动总公里"
+        titleValueView2.titleLb.text = "累计(次数)"
+        titleValueView3.titleLb.text = "累计(小时)"
+        titleValueView4.titleLb.text = "平均配速"
     }
 
 }

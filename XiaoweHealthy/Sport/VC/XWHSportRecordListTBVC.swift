@@ -23,13 +23,7 @@ class XWHSportRecordListTBVC: XWHTableViewBaseVC {
     
     lazy var allSummaryView = XWHSRLAllRecordSummaryView()
     
-    /// ["2022-06-24": true]
-//    private lazy var expandStates: [String: Bool] = [:]
-    
     private(set) lazy var openImage: UIImage = UIImage.iconFont(text: XWHIconFontOcticons.arrowDown.rawValue, size: 16, color: fontDarkColor)
-    
-    private lazy var expandStates: [Bool] = []
-    private lazy var dataItems: [String] = []
     
     lazy var sSportType: XWHSportType = .none {
         didSet {
@@ -37,9 +31,12 @@ class XWHSportRecordListTBVC: XWHTableViewBaseVC {
         }
     }
     
-    lazy var sIndex: Int = 0
-    lazy var sportItems: [XWHSportType] = [.none, .run, .walk, .ride, .climb]
-    lazy var filterSportNames: [String] = [R.string.xwhSportText.所有运动(), R.string.xwhSportText.跑步(), R.string.xwhSportText.步行(), R.string.xwhSportText.骑行(), R.string.xwhSportText.爬山()]
+    private lazy var sIndex: Int = 0
+    private lazy var sportItems: [XWHSportType] = [.none, .run, .walk, .ride, .climb]
+    private lazy var filterSportNames: [String] = [R.string.xwhSportText.所有运动(), R.string.xwhSportText.跑步(), R.string.xwhSportText.步行(), R.string.xwhSportText.骑行(), R.string.xwhSportText.爬山()]
+    
+    private var sportTotalRecord: XWHSportTotalRecordModel?
+    private lazy var sportRecords: [XWHSportMonthRecordModel] = []
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         if titleBtn.isSelected {
@@ -56,8 +53,10 @@ class XWHSportRecordListTBVC: XWHTableViewBaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dataItems = ["2022-07", "2022-06", "2022-05", "2022-04", "2022-03"]
-        expandStates = dataItems.map({ _ in false })
+//        getSportTotalRecord()
+//        getSportRecordList()
+        
+        syncGetSportRecords()
     }
     
     override func viewSafeAreaInsetsDidChange() {
@@ -67,7 +66,7 @@ class XWHSportRecordListTBVC: XWHTableViewBaseVC {
         self.allSummaryView.frame = c
         DispatchQueue.main.async {
             self.allSummaryView.relayoutSubViews(topInset: self.view.safeAreaInsets.top)
-            self.allSummaryView.update()
+            self.allSummaryView.update(sTotalRecord: self.sportTotalRecord)
             self.tableView.tableHeaderView = self.allSummaryView
             self.tableView.reloadData()
         }
@@ -153,14 +152,15 @@ class XWHSportRecordListTBVC: XWHTableViewBaseVC {
 @objc extension XWHSportRecordListTBVC {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return expandStates.count
+        return sportRecords.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let isExpand = expandStates[section]
+        let monthRecord = sportRecords[section]
+        let isExpand = monthRecord.isExpand
         
         if isExpand {
-            return 4 + 1
+            return monthRecord.record.items.count + 2
         } else {
            return 1
         }
@@ -176,24 +176,26 @@ class XWHSportRecordListTBVC: XWHTableViewBaseVC {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = indexPath.section
         let row = indexPath.row
+        
+        let monthRecord = sportRecords[section]
          
         if row == 0 {
             let cell = tableView.dequeueReusableCell(withClass: XWHSRLSectionHeaderTBCell.self, for: indexPath)
 
-            cell.titleLb.text = dataItems[section]
-            let isExpand = expandStates[section]
-            cell.isOpen = isExpand
+            cell.titleLb.text = monthRecord.yearMonth
+            cell.isOpen = monthRecord.isExpand
 
             return cell
         } else if row == 1 {
             let cell = tableView.dequeueReusableCell(withClass: XWHSRLSportRecordSummaryTBCell.self, for: indexPath)
-            cell.update()
+            cell.update(monthRecord: monthRecord)
             
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withClass: XWHSRLSportRecordTBCell.self, for: indexPath)
             
-            cell.update()
+            let sportRecordItem = monthRecord.record.items[row - 2]
+            cell.update(recordItem: sportRecordItem)
             
             return cell
         }
@@ -233,13 +235,19 @@ class XWHSportRecordListTBVC: XWHTableViewBaseVC {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let section = indexPath.section
+        let row = indexPath.row
+        
+        let monthRecord = sportRecords[section]
+        
         if indexPath.row  == 0 {
-            expandStates[indexPath.section] = !expandStates[indexPath.section]
+            monthRecord.isExpand = !monthRecord.isExpand
             tableView.reloadData()
         } else if indexPath.row == 1 {
             
         } else {
-            gotoSportRecordDetail()
+            let sportRecordItem = monthRecord.record.items[row - 2]
+            gotoSportRecordDetail(recordItem: sportRecordItem)
         }
     }
     
@@ -260,13 +268,117 @@ class XWHSportRecordListTBVC: XWHTableViewBaseVC {
     
 }
 
+// MARK: - Api
+extension XWHSportRecordListTBVC {
+    
+    // 同步获取运动记录
+    private func syncGetSportRecords() {
+        let group = DispatchGroup()
+        let queue = DispatchQueue(label: "request_queue")
+        
+        XWHProgressHUD.show()
+        
+        group.enter()
+        queue.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            self.getSportTotalRecord {
+                group.leave()
+            }
+        }
+        
+        group.enter()
+        queue.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            self.getSportRecordList {
+                group.leave()
+            }
+        }
+        
+        group.notify(queue: queue) { [weak self] in
+            guard let _ = self else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                XWHProgressHUD.hide()
+            }
+        }
+    }
+    
+    private func getSportTotalRecord(compeltion: (() -> Void)? = nil) {
+        XWHSportVM().getSportTotalRecord(type: sSportType) { [weak self] error in
+            log.error(error)
+            compeltion?()
+            guard let self = self else {
+                return
+            }
+            if error.isExpiredUserToken {
+                XWHUser.handleExpiredUserTokenUI(self, nil)
+                return
+            }
+        } successHandler: { [weak self] response in
+            compeltion?()
+            
+            guard let self = self else {
+                return
+            }
+            guard let retModel = response.data as? XWHSportTotalRecordModel else {
+                log.debug("运动 - 所有运动总结数据为空")
+                return
+            }
+            
+            self.sportTotalRecord = retModel
+            self.allSummaryView.update(sTotalRecord: self.sportTotalRecord)
+        }
+    }
+    
+    private func getSportRecordList(compeltion: (() -> Void)? = nil) {
+        let cDate = Date()
+        XWHSportVM().getSports(year: cDate.year, type: sSportType) { [weak self] error in
+            log.error(error)
+            compeltion?()
+            
+            guard let self = self else {
+                return
+            }
+            if error.isExpiredUserToken {
+                XWHUser.handleExpiredUserTokenUI(self, nil)
+                return
+            }
+            
+            self.tableView.reloadData()
+        } successHandler: { [weak self] response in
+            compeltion?()
+            
+            guard let self = self else {
+                return
+            }
+            guard let retModel = response.data as? [XWHSportMonthRecordModel] else {
+                log.debug("运动 - 运动列表数据为空")
+                return
+            }
+            
+            self.sportRecords = retModel
+            self.tableView.reloadData()
+        }
+    }
+    
+}
+
 
 // MARK: - UI Jump
 extension XWHSportRecordListTBVC {
     
     /// 运动详情
-    private func gotoSportRecordDetail() {
+    private func gotoSportRecordDetail(recordItem: XWHSportMonthRecordItemsSubItemModel) {
         let vc = XWHSportRecordDetailVC()
+        vc.sportId = recordItem.sportId
         navigationController?.pushViewController(vc, animated: true)
     }
     

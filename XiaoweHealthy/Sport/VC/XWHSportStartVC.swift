@@ -24,8 +24,13 @@ class XWHSportStartVC: XWHBaseVC {
     
     lazy var gpsSignalView = XWHGPSSignalView()
 
+    var sportTotalRecord: XWHSportTotalRecordModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        update()
+        getSportTotalRecord()
     }
 
     override func setupNavigationItems() {
@@ -52,20 +57,13 @@ class XWHSportStartVC: XWHBaseVC {
 
         totalBtn.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 12, weight: .regular)
         totalBtn.setTitleColor(fontDarkColor.withAlphaComponent(0.4), for: .normal)
-        let btnTitle = sportType.name + "总公里"
+        let btnTitle = sportType.name + "总距离"
         totalBtn.setTitle(btnTitle, for: .normal)
         totalBtn.addTarget(self, action: #selector(clickTotalBtn), for: .touchUpInside)
         
         let tImage = UIImage.iconFont(text: XWHIconFontOcticons.arrowRight.rawValue, size: 12, color: fontDarkColor.withAlphaComponent(0.2))
         totalArrowBtn.setImage(tImage, for: .normal)
         totalArrowBtn.addTarget(self, action: #selector(clickTotalBtn), for: .touchUpInside)
-        
-        let unit = " 公里"
-        let value = "100.12"
-        let text = value + unit
-        let valueFont = XWHFont.harmonyOSSans(ofSize: 40, weight: .bold)
-        let unitFont = XWHFont.harmonyOSSans(ofSize: 13, weight: .bold)
-        totalLb.attributedText = text.colored(with: fontDarkColor).applying(attributes: [.font: valueFont], toOccurrencesOf: value).applying(attributes: [.font: unitFont], toOccurrencesOf: unit)
         
         mapView.layer.cornerRadius = 16
         mapView.layer.backgroundColor = collectionBgColor.cgColor
@@ -153,7 +151,48 @@ class XWHSportStartVC: XWHBaseVC {
             make.left.equalTo(goBtn.snp.right).offset(30)
         }
     }
+    
+    private func update() {
+        let unit = " 公里"
+        let distance = XWHSportDataHelper.mToKm(sportTotalRecord?.distance ?? 0)
+        let value = distance.string
+        
+        let text = value + unit
+        let valueFont = XWHFont.harmonyOSSans(ofSize: 40, weight: .bold)
+        let unitFont = XWHFont.harmonyOSSans(ofSize: 13, weight: .bold)
+        totalLb.attributedText = text.colored(with: fontDarkColor).applying(attributes: [.font: valueFont], toOccurrencesOf: value).applying(attributes: [.font: unitFont], toOccurrencesOf: unit)
+    }
 
+}
+
+// MARK: - Api
+extension XWHSportStartVC {
+    
+    private func getSportTotalRecord() {
+        XWHSportVM().getSportTotalRecord(type: sportType) { [weak self] error in
+            log.error(error)
+            guard let self = self else {
+                return
+            }
+            if error.isExpiredUserToken {
+                XWHUser.handleExpiredUserTokenUI(self, nil)
+                return
+            }
+        } successHandler: { [weak self] response in
+            guard let self = self else {
+                return
+            }
+            guard let retModel = response.data as? XWHSportTotalRecordModel else {
+                log.debug("运动 - 所有运动总结数据为空")
+                return
+            }
+            
+            self.sportTotalRecord = retModel
+            self.update()
+        }
+
+    }
+    
 }
 
 // MARK: - Jump UI
