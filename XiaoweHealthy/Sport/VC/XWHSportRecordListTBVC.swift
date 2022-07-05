@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MJRefresh
 
 class XWHSportRecordListTBVC: XWHTableViewBaseVC {
     
@@ -25,12 +26,19 @@ class XWHSportRecordListTBVC: XWHTableViewBaseVC {
     
     private(set) lazy var openImage: UIImage = UIImage.iconFont(text: XWHIconFontOcticons.arrowDown.rawValue, size: 16, color: fontDarkColor)
     
-    lazy var sSportType: XWHSportType = .none {
-        didSet {
-            sIndex = sportItems.firstIndex(of: sSportType) ?? 0
+    private var refreshFooter: MJRefreshAutoNormalFooter?
+    
+    var sSportType: XWHSportType {
+        get {
+            sportItems[sIndex]
+        }
+        set {
+            sIndex = sportItems.firstIndex(of: newValue) ?? 0
         }
     }
     
+    private lazy var bYear: Int = Date().year
+    private lazy var sYear: Int = bYear
     private lazy var sIndex: Int = 0
     private lazy var sportItems: [XWHSportType] = [.none, .run, .walk, .ride, .climb]
     private lazy var filterSportNames: [String] = [R.string.xwhSportText.所有运动(), R.string.xwhSportText.跑步(), R.string.xwhSportText.步行(), R.string.xwhSportText.骑行(), R.string.xwhSportText.爬山()]
@@ -53,6 +61,7 @@ class XWHSportRecordListTBVC: XWHTableViewBaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addFooterRefresh()
 //        getSportTotalRecord()
 //        getSportRecordList()
         
@@ -111,6 +120,9 @@ class XWHSportRecordListTBVC: XWHTableViewBaseVC {
             } else {
                 self.sIndex = row
                 self.updateTitleBtn()
+                self.sYear = self.bYear
+                self.refreshFooter?.resetNoMoreData()
+                self.syncGetSportRecords()
             }
         }
     }
@@ -144,6 +156,17 @@ class XWHSportRecordListTBVC: XWHTableViewBaseVC {
         tableView.register(cellWithClass: XWHSRLSportRecordSummaryTBCell.self)
 
         tableView.register(cellWithClass: XWHSRLSportRecordTBCell.self)        
+    }
+    
+    func addFooterRefresh() {
+        refreshFooter = tableView.addFooter { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            self.sYear += 1
+            self.getSportRecordList()
+        }
     }
 
 }
@@ -339,14 +362,16 @@ extension XWHSportRecordListTBVC {
     }
     
     private func getSportRecordList(compeltion: (() -> Void)? = nil) {
-        let cDate = Date()
-        XWHSportVM().getSports(year: cDate.year, type: sSportType) { [weak self] error in
+        XWHSportVM().getSports(year: sYear, type: sSportType) { [weak self] error in
             log.error(error)
             compeltion?()
             
             guard let self = self else {
                 return
             }
+            
+            self.refreshFooter?.endRefreshing()
+            
             if error.isExpiredUserToken {
                 XWHUser.handleExpiredUserTokenUI(self, nil)
                 return
@@ -359,12 +384,26 @@ extension XWHSportRecordListTBVC {
             guard let self = self else {
                 return
             }
+            
             guard let retModel = response.data as? [XWHSportMonthRecordModel] else {
                 log.debug("运动 - 运动列表数据为空")
+                self.refreshFooter?.endRefreshing()
+
                 return
             }
             
-            self.sportRecords = retModel
+            if self.sYear == self.bYear {
+                self.sportRecords.removeAll()
+            }
+            
+            self.sportRecords.append(contentsOf: retModel)
+            
+            if self.sYear - self.bYear >= 4 || self.sportRecords.isEmpty {
+                self.refreshFooter?.endRefreshingWithNoMoreData()
+            } else {
+                self.refreshFooter?.endRefreshing()
+            }
+            
             self.tableView.reloadData()
         }
     }

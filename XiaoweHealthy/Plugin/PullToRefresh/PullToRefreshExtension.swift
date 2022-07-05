@@ -25,7 +25,7 @@ extension UIScrollView {
         
         // 设置字体
         header.stateLabel?.font = XWHFont.harmonyOSSans(ofSize: 14, weight: .regular)
-        header.stateLabel?.textColor = fontDarkColor
+        header.stateLabel?.textColor = fontDarkColor.withAlphaComponent(0.8)
         header.lastUpdatedTimeLabel?.isHidden = true
         
         // 设置文字
@@ -48,7 +48,7 @@ extension UIScrollView {
         let footer = MJRefreshAutoNormalFooter(refreshingBlock: refreshingBlock)
         
         footer.stateLabel?.font = XWHFont.harmonyOSSans(ofSize: 14, weight: .regular)
-        footer.stateLabel?.textColor = fontDarkColor
+        footer.stateLabel?.textColor = fontDarkColor.withAlphaComponent(0.2)
         
         footer.setTitle("加载中...", for: .refreshing)
         footer.setTitle("没有更多了", for: .noMoreData)
