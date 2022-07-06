@@ -7,17 +7,25 @@
 
 import UIKit
 import EmptyDataSet_Swift
+import MJRefresh
 
 class XWHMyDialVC: XWHDialContentBaseVC {
     
+    var refreshHeader: PullToRefreshHeader?
+    var refreshFooter: MJRefreshAutoNormalFooter?
+    
     lazy var page = 1
-    lazy var pageSize = 20
+    var pageSize: Int {
+        20
+    }
     
     lazy var dials = [XWHDialModel]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addHeaderRefresh()
+        addFooterRefresh()
         getDialsFromServer()
     }
     
@@ -36,6 +44,36 @@ class XWHMyDialVC: XWHDialContentBaseVC {
     
     override func registerViews() {
         collectionView.register(cellWithClass: XWHDialCTCell.self)
+    }
+    
+    func addHeaderRefresh() {
+         refreshHeader = collectionView.addHeader(contentInsetTop: 0, contentOffset: 0) { [weak self] in
+             guard let self = self else {
+                 return
+             }
+             
+             self.page = 1
+             self.refreshFooter?.resetNoMoreData()
+             self.getDialsFromServer()
+        }
+    }
+    
+    func addFooterRefresh() {
+        refreshFooter = collectionView.addFooter { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            self.getDialsFromServer()
+        }
+    }
+    
+    func removeHeaderRefresh() {
+        collectionView.removeHeader()
+    }
+    
+    func removeFooterRefresh() {
+        collectionView.removeFooter()
     }
     
     func getDialsFromServer() {
@@ -76,13 +114,18 @@ class XWHMyDialVC: XWHDialContentBaseVC {
 extension XWHMyDialVC {
     
     private func getMyDialFromServer() {
-        XWHProgressHUD.show(title: nil)
+        if page == 1 {
+            XWHProgressHUD.show(title: nil)
+        }
         XWHDialVM().getMyDial(deviceSn: deviceSn, page: page, pageSize: pageSize) { [weak self] error in
             XWHProgressHUD.hide()
             
             guard let self = self else {
                 return
             }
+            
+            self.refreshHeader?.endRefreshing()
+            self.refreshFooter?.endRefreshing()
             
             self.view.makeInsetToast(error.message)
         } successHandler: { [weak self] response in
@@ -92,17 +135,30 @@ extension XWHMyDialVC {
                 return
             }
             
+            self.refreshHeader?.endRefreshing()
+            self.refreshFooter?.endRefreshing()
             guard let cDials = response.data as? [XWHDialModel] else {
                 self.view.makeInsetToast("数据解析错误")
                 return
             }
             
-            self.dials = cDials
-            self.collectionView.reloadData()
+            if self.page == 1 {
+                self.dials.removeAll()
+            }
+            self.dials.append(contentsOf: cDials)
             
-            if cDials.isEmpty {
+            if cDials.count < self.pageSize {
+                self.refreshFooter?.endRefreshingWithNoMoreData()
+            } else {
+                self.page += 1
+            }
+            
+            if self.dials.isEmpty {
+                self.removeFooterRefresh()
                 self.collectionView.reloadEmptyDataSet()
             }
+            
+            self.collectionView.reloadData()
         }
     }
     

@@ -44,7 +44,15 @@ class XWHActivityCTVC: XWHCollectionViewBaseVC {
         titleBtn.titleForNormal = R.string.xwhHealthyText.每日活动()
         updateUI()
         
-        getActivitySums(bMonthDate: sDayDate.monthBegin)
+        let weekBegin = sDayDate.weekBegin
+        let mWeekBegin = weekBegin.monthBegin
+        let sMonthBegin = sDayDate.monthBegin
+        if mWeekBegin == sMonthBegin {
+            getActivitySums(bMonthDate: sMonthBegin)
+        } else {
+            getActivitySums(bMonthDate: sMonthBegin)
+            getActivitySums(bMonthDate: mWeekBegin)
+        }
         getActivitySum()
         
         configEvent()
@@ -141,6 +149,9 @@ class XWHActivityCTVC: XWHCollectionViewBaseVC {
     
     func configEvent() {
         weekView.clickDateHandler = { [unowned self] cDate in
+            if self.sDayDate == cDate {
+                return
+            }
             self.sDayDate = cDate
             
             self.weekIndicatiorView.curWeekDates = self.weekView.curWeekDates

@@ -21,11 +21,11 @@ extension UIScrollView {
         let header = PullToRefreshHeader(refreshingBlock: refreshingBlock, contentOffset: contentOffset)
         header.ignoredScrollViewContentInsetTop = contentInsetTop
         
-        header.mj_h = 64 + UIApplication.shared.statusBarFrame.height
+        header.mj_h = 64 + contentOffset
         
         // 设置字体
         header.stateLabel?.font = XWHFont.harmonyOSSans(ofSize: 14, weight: .regular)
-        header.stateLabel?.textColor = fontDarkColor.withAlphaComponent(0.8)
+        header.stateLabel?.textColor = fontDarkColor.withAlphaComponent(0.5)
         header.lastUpdatedTimeLabel?.isHidden = true
         
         // 设置文字
@@ -79,6 +79,16 @@ extension UIScrollView {
         mj_footer = footer
         
         return footer
+    }
+    
+    func removeHeader() {
+        mj_header?.endRefreshing()
+        mj_header = nil
+    }
+    
+    func removeFooter() {
+        mj_footer?.endRefreshing()
+        mj_footer = nil
     }
     
 }

@@ -163,7 +163,11 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
     func addHeaderRefresh() {
         let headerContentOffset = UIApplication.shared.statusBarFrame.height
 
-        refreshHeader = collectionView.addHeader(contentInsetTop: topContentInset + largeTitleHeight, contentOffset: headerContentOffset) { [unowned self] in
+        refreshHeader = collectionView.addHeader(contentInsetTop: topContentInset + largeTitleHeight, contentOffset: headerContentOffset) { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
             self.gotoReconnectOrSyncData()
         }
         refreshHeader?.setTitle("设备连接中...", for: .refreshing)
