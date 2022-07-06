@@ -118,7 +118,7 @@ extension XWHSportDetailPaceTBCell {
             let value = (iItem.pace.double / sDetail.pace.double * 100).int
             
             if iItem.endMileage - iItem.startMileage < 1000 {
-                config(progressView: progress, isFast: false, isOneKm: false, index: i, value: 0)
+                config(progressView: progress, isFast: false, isOneKm: false, index: i, value: sDetail.duration)
             } else if minPace == iItem.pace {
                 config(progressView: progress, isFast: true, isOneKm: true, index: i, value: value)
             } else {
@@ -128,9 +128,10 @@ extension XWHSportDetailPaceTBCell {
     }
     
     private func config(progressView: XWHLinearProgressView, isFast: Bool, isOneKm: Bool, index: Int, value: Int) {
+        let paceString = XWHSportHelper.getPaceString(value)
         if !isOneKm {
             progressView.titleLb.text = ""
-            progressView.valueLb.text = "不足一公里，用时 6'22\""
+            progressView.valueLb.text = "不足一公里，用时 \(paceString)"
             progressView.valueLb.textColor = fontDarkColor
             
             progressView.progressView.trackColor = btnBgColor.withAlphaComponent(0.07)
@@ -143,7 +144,7 @@ extension XWHSportDetailPaceTBCell {
         
         if isFast {
             progressView.titleLb.text = "\(index + 1)"
-            progressView.valueLb.text = "6'22\""
+            progressView.valueLb.text = paceString
             progressView.valueLb.textColor = UIColor.white
             
             let fastColor = UIColor(hex: 0xF8CA52)!
@@ -156,7 +157,7 @@ extension XWHSportDetailPaceTBCell {
         }
         
         progressView.titleLb.text = "\(index)"
-        progressView.valueLb.text = "6'22\""
+        progressView.valueLb.text = paceString
         progressView.valueLb.textColor = UIColor.white
         
         progressView.progressView.trackColor = btnBgColor.withAlphaComponent(0.07)

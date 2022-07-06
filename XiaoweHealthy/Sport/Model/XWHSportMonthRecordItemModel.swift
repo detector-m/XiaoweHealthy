@@ -33,6 +33,7 @@ class XWHSportMonthRecordItemsSubItemModel: HandyJSON {
     var duration = 0
     var avgPace = 0
     var calories = 0
+    var avgHeartRate = 0
     
     required init() {
         

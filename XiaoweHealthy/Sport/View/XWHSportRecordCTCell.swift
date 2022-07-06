@@ -133,7 +133,11 @@ class XWHSportRecordCTCell: XWHCommonBaseCTCell {
         titleValueView2.valueLb.text = (rItem.duration / 60).string
         titleValueView3.valueLb.text = rItem.calories.string
         
-        titleValueView4.valueLb.text = "--"
+        if rItem.avgHeartRate > 0 {
+            titleValueView4.valueLb.text = rItem.avgHeartRate.string
+        } else {
+            titleValueView4.valueLb.text = "--"
+        }
     }
     
     private func updateDefault() {
