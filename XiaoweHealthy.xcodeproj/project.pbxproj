@@ -187,6 +187,7 @@
 		967F867D283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F867C283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift */; };
 		967F867F283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F867E283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift */; };
 		9680104528477435004C45C9 /* BluetoothStateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9680104428477435004C45C9 /* BluetoothStateHandler.swift */; };
+		9680ADD328757A22006736CB /* XWHGaodeMapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9680ADD228757A22006736CB /* XWHGaodeMapManager.swift */; };
 		9680D8182851A23E00FA6F9C /* XWHSportRecordListTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9680D8172851A23E00FA6F9C /* XWHSportRecordListTBVC.swift */; };
 		9680D81A2851A3D100FA6F9C /* XWHSportText.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9680D8192851A3D100FA6F9C /* XWHSportText.strings */; };
 		9680D81C2851A4FB00FA6F9C /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9680D81B2851A4FB00FA6F9C /* HealthKit.framework */; };
@@ -670,6 +671,7 @@
 		967F867C283CABD600AFB1D0 /* XWHDeviceConnectBindHelpTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceConnectBindHelpTBVC.swift; sourceTree = "<group>"; };
 		967F867E283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceUseGuideTBVC.swift; sourceTree = "<group>"; };
 		9680104428477435004C45C9 /* BluetoothStateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothStateHandler.swift; sourceTree = "<group>"; };
+		9680ADD228757A22006736CB /* XWHGaodeMapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHGaodeMapManager.swift; sourceTree = "<group>"; };
 		9680D8172851A23E00FA6F9C /* XWHSportRecordListTBVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportRecordListTBVC.swift; sourceTree = "<group>"; };
 		9680D8192851A3D100FA6F9C /* XWHSportText.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = XWHSportText.strings; sourceTree = "<group>"; };
 		9680D81B2851A4FB00FA6F9C /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
@@ -1086,6 +1088,7 @@
 				969E7132280D0FA700BDA401 /* Constant */,
 				96E23C0827E18947009EF208 /* RootVC */,
 				96E23C0627E18003009EF208 /* AppEntry */,
+				9680ADD1287579F5006736CB /* GaodeMap */,
 				960E768327F0B0F900A0DA25 /* Safari */,
 				9661517227E46A07006781C1 /* Supplier */,
 				9651EE2A27EC5B030043FE52 /* UM */,
@@ -1886,6 +1889,14 @@
 				9680104428477435004C45C9 /* BluetoothStateHandler.swift */,
 			);
 			path = BluetoothStateHandler;
+			sourceTree = "<group>";
+		};
+		9680ADD1287579F5006736CB /* GaodeMap */ = {
+			isa = PBXGroup;
+			children = (
+				9680ADD228757A22006736CB /* XWHGaodeMapManager.swift */,
+			);
+			path = GaodeMap;
 			sourceTree = "<group>";
 		};
 		9680D8162851A1D600FA6F9C /* View */ = {
@@ -3860,6 +3871,7 @@
 				96AD2AE5283F6BCF0024AF5B /* XWHStringExtension.swift in Sources */,
 				967F80492869881D00A17B6F /* XWHSportDetailSummaryTBCell.swift in Sources */,
 				967823AB27F2C9B5004F66FB /* XWHUIImageExtension.swift in Sources */,
+				9680ADD328757A22006736CB /* XWHGaodeMapManager.swift in Sources */,
 				96F3589027FE940300783614 /* XWHDevWatchDispatchManager.swift in Sources */,
 				960A836A28025EFD00FC1B5F /* XWHDevCmdOperationProtocol.swift in Sources */,
 				96617AA727E3196A00139B03 /* XWHCheckProtocolView.swift in Sources */,

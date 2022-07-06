@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         configAppearance()
         
         configLog()
+        configGaodeMap()
         
 //        configAppDatabase()
         
@@ -166,6 +167,11 @@ extension AppDelegate {
         XWHUMManager.configUMCommon()
         
         XWHUMManager.configShare()
+    }
+    
+    // 配置gaode地图
+    fileprivate func configGaodeMap() {
+        XWHGaodeMapManager.config()
     }
     
 }

@@ -188,6 +188,11 @@ target 'XiaoweHealthy' do
   # 集成新浪微博(精简版1M)
 #  pod 'UMShare/Social/ReducedSina'
 
+  # 地图
+#  pod 'AMap2DMap-NO-IDFA'
+  pod 'AMap2DMap'
+
+
   target 'XiaoweHealthyTests' do
     inherit! :search_paths
     # Pods for testing

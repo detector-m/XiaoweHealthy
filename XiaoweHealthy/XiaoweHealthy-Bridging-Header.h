@@ -17,4 +17,7 @@
 //导入UShare的OC的头文件
 #import <UMShare/UMShare.h>
 
+// 导入高德地图
+#import <MAMapKit/MAMapKit.h>
+
 #endif /* XiaoweHealthy_Bridging_Header_h */

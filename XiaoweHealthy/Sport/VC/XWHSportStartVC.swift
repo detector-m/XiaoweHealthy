@@ -16,7 +16,19 @@ class XWHSportStartVC: XWHBaseVC {
     
     lazy var totalLb = UILabel()
     
-    lazy var mapView = UIView()
+    //当前位置
+    lazy var currentLocationRepresentation: MAUserLocationRepresentation = {
+        let r = MAUserLocationRepresentation()
+        r.showsAccuracyRing = true //精度圈是否显示
+        r.fillColor = btnBgColor.withAlphaComponent(0.2) //精度圈填充颜色
+        r.strokeColor = btnBgColor //调整精度圈边线颜色
+        r.showsHeadingIndicator = true //是否显示蓝点方向指向
+//        r.locationDotBgColor = btnBgColor
+        r.image = UIImage(named: "gps_icon") //定位图标, 与蓝色原点互斥
+        return r
+    }()
+    
+    lazy var mapView: MAMapView = MAMapView(frame: .zero)
     
     lazy var locationBtn = UIButton()
     lazy var goBtn = UIButton()
@@ -26,9 +38,12 @@ class XWHSportStartVC: XWHBaseVC {
 
     var sportTotalRecord: XWHSportTotalRecordModel?
     
+    private var curLocation: MAUserLocation?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configMapView()
         update()
         getSportTotalRecord()
     }
@@ -72,7 +87,7 @@ class XWHSportStartVC: XWHBaseVC {
         locationBtn.layer.cornerRadius = 25
         locationBtn.adjustsImageWhenHighlighted = false
         locationBtn.layer.backgroundColor = UIColor.white.cgColor
-        locationBtn.addTarget(self, action: #selector(clickTotalBtn), for: .touchUpInside)
+        locationBtn.addTarget(self, action: #selector(clickLocationBtn), for: .touchUpInside)
         
         settingBtn.setImage(R.image.sport_setting(), for: .normal)
         settingBtn.layer.cornerRadius = 25
@@ -87,12 +102,27 @@ class XWHSportStartVC: XWHBaseVC {
         goBtn.setTitle("GO", for: .normal)
     }
     
+    private func configMapView() {
+        mapView.backgroundColor = .white
+        mapView.delegate = self
+        mapView.isShowsUserLocation = true
+        mapView.showsScale = false
+        mapView.userTrackingMode = .follow
+        mapView.allowsBackgroundLocationUpdates = true
+        mapView.distanceFilter = 5
+        mapView.zoomLevel = 20
+//        mapView.compassOrigin = CGPoint(x: 20, y: 100)
+    }
+    
     @objc private func clickTotalBtn() {
         gotoSportRecordList()
     }
     
     @objc private func clickLocationBtn() {
-        
+        guard let curLoc = curLocation?.location else {
+            return
+        }
+        updateMapCoordinateRegion(location: curLoc)
     }
     
     @objc private func clickSettingBtn() {
@@ -163,6 +193,43 @@ class XWHSportStartVC: XWHBaseVC {
         totalLb.attributedText = text.colored(with: fontDarkColor).applying(attributes: [.font: valueFont], toOccurrencesOf: value).applying(attributes: [.font: unitFont], toOccurrencesOf: unit)
     }
 
+}
+
+// MARK: - MAMapDelegate
+extension XWHSportStartVC: MAMapViewDelegate {
+    
+    func mapView(_ mapView: MAMapView!, didUpdate userLocation: MAUserLocation!, updatingLocation: Bool) {
+        guard let newLocation = userLocation.location else {
+            return
+        }
+        
+        if curLocation == nil {
+            updateMapCoordinateRegion(location: newLocation)
+            mapView.update(currentLocationRepresentation)
+        }
+        curLocation = userLocation
+        
+//        let howRecent = newLocation.timestamp.timeIntervalSinceNow
+        let horizontalAccuracy = newLocation.horizontalAccuracy
+        
+        gpsSignalView.update(XWHSportFunction.getGpsLevel(gpsSignal: horizontalAccuracy))
+    }
+    
+}
+
+// MARK: - For Map
+extension XWHSportStartVC {
+    
+    private func updateMapCoordinateRegion(location: CLLocation) {
+        let span = MACoordinateSpanMake(0.00423, 0.00425)
+        // 设置地图中心点
+    //        mapView.setCenter(newLocation.coordinate, animated: true)
+        // 设置比例尺大小
+        let region = MACoordinateRegionMake(location.coordinate, span)
+//        mapView.region = MACoordinateRegionMake(location.coordinate, span)
+        mapView.setRegion(region, animated: true)
+    }
+    
 }
 
 // MARK: - Api

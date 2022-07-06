@@ -22,4 +22,6 @@ let kQQAppSecret = "43pNirmSvAAyYv4z"
 let kWechatUniversalLink = "\(kRedirectURL)/XiaoweHealth"
 let kQQUniversalLink = "\(kRedirectURL)/qq_conn/\(kQQAppKey)"
 
+let kGaodeMapAppKey = "69f458afd20c212df4bac2b84288e99a"
+
 
