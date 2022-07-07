@@ -118,7 +118,7 @@ class XWHSportInMotionVC: XWHBaseVC {
         
         //当前位置
         let r = MAUserLocationRepresentation()
-        r.showsAccuracyRing = true //精度圈是否显示
+        r.showsAccuracyRing = false //精度圈是否显示
         r.fillColor = btnBgColor.withAlphaComponent(0.2) //精度圈填充颜色
         r.strokeColor = btnBgColor //调整精度圈边线颜色
         r.lineWidth = 2
@@ -325,85 +325,112 @@ extension XWHSportInMotionVC: MAMapViewDelegate {
         
         lastItem.locations.append(newLocation)
         lastItem.coordinates.append(newLocation.coordinate)
+        
+        // 绘制轨迹
+        drawLocationPath()
+    }
+    
+    func mapView(_ mapView: MAMapView!, rendererFor overlay: MAOverlay?) -> MAOverlayRenderer? {
+        guard let overlay = overlay else {
+            return nil
+        }
+        
+        if overlay.isKind(of: MAPolyline.self) {
+            let renderer: MAPolylineRenderer = MAPolylineRenderer(overlay: overlay)
+            renderer.lineWidth = 3.0
+            renderer.strokeColor = btnBgColor
+            
+            return renderer
+        }
+        
+        return nil
+    }
+    
+    private func drawLocationPath() {
+        mapView.removeOverlays(mapView.overlays)
+        var allCoordinates = sportModel.eachPartItems.flatMap({ $0.coordinates })
+        let polyline: MAPolyline = MAPolyline(coordinates: &allCoordinates, count: UInt(allCoordinates.count))
+        
+        mapView.add(polyline)
     }
     
 }
 
-extension XWHSportInMotionVC: AppLocationManagerProtocol {
-    
-    func locationManager(_ manager: AppLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let newLocation = locations.last else {
-            return
-        }
-        
-        let howRecent = newLocation.timestamp.timeIntervalSinceNow
-        let horizontalAccuracy = newLocation.horizontalAccuracy
-        
-        controlPanel.updateGPSSingal(horizontalAccuracy)
-        
-        guard horizontalAccuracy < 60 && abs(howRecent) < 10 else {
-            return
-        }
-        
-//        if let lastLocation = sportModel.locations.last {
+//extension XWHSportInMotionVC: AppLocationManagerProtocol {
+//
+//    func locationManager(_ manager: AppLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        guard let newLocation = locations.last else {
+//            return
+//        }
+//
+//        let howRecent = newLocation.timestamp.timeIntervalSinceNow
+//        let horizontalAccuracy = newLocation.horizontalAccuracy
+//
+//        controlPanel.updateGPSSingal(horizontalAccuracy)
+//
+//        guard horizontalAccuracy < 60 && abs(howRecent) < 10 else {
+//            return
+//        }
+//
+////        if let lastLocation = sportModel.locations.last {
+////            let delta = newLocation.distance(from: lastLocation)
+////            sportModel.distance = sportModel.distance + delta.int
+////            sportModel.cal = XWHSportFunction.getCal(sportTime: sportModel.duration, distance: sportModel.distance)
+////        }
+////
+////        sportModel.locations.append(newLocation)
+//
+//        var tmpLastLocation: CLLocation?
+//        var lastItem: XWHSportEachPartSportModel
+//        if let lastSportItem = sportModel.eachPartItems.last {
+//            tmpLastLocation = lastSportItem.locations.last
+//            if sportModel.distance <= lastSportItem.startMileage + 1000 {
+//                lastItem = lastSportItem
+//                lastItem.endMileage = sportModel.distance
+//                lastItem.eTime = Date().string(withFormat: XWHDate.standardTimeAllFormat)
+//            } else {
+//                lastItem = XWHSportEachPartSportModel()
+//                lastItem.bTime = Date().string(withFormat: XWHDate.standardTimeAllFormat)
+//                sportModel.eachPartItems.append(lastItem)
+//                lastItem.startMileage = sportModel.distance
+//            }
+//
+//            if lastItem.endMileage > 0 {
+//                var lastDuration = 0
+//                if let lastETime = lastItem.eTime.date(withFormat: XWHDate.standardTimeAllFormat), let lastBTime = lastItem.bTime.date(withFormat: XWHDate.standardTimeAllFormat) {
+//                    lastDuration = lastETime.timeIntervalSince1970.int - lastBTime.timeIntervalSince1970.int
+//                }
+//
+//                if lastDuration < 0 {
+//                    lastDuration = 0
+//                }
+//
+//                lastItem.duration = lastDuration
+//                lastItem.distance = lastItem.endMileage - lastItem.startMileage
+//
+//                lastItem.pace = ((lastItem.duration.double / lastItem.distance.double) * 1000).int
+//                if lastItem.pace == 0 {
+//                    lastItem.pace = 1
+//                }
+//            }
+//        } else {
+//            lastItem = XWHSportEachPartSportModel()
+//            lastItem.bTime = Date().string(withFormat: XWHDate.standardTimeAllFormat)
+//            sportModel.eachPartItems.append(lastItem)
+//            lastItem.startMileage = sportModel.distance
+//        }
+//
+//        if let lastLocation = tmpLastLocation {
 //            let delta = newLocation.distance(from: lastLocation)
 //            sportModel.distance = sportModel.distance + delta.int
 //            sportModel.cal = XWHSportFunction.getCal(sportTime: sportModel.duration, distance: sportModel.distance)
 //        }
 //
-//        sportModel.locations.append(newLocation)
-        
-        var tmpLastLocation: CLLocation?
-        var lastItem: XWHSportEachPartSportModel
-        if let lastSportItem = sportModel.eachPartItems.last {
-            tmpLastLocation = lastSportItem.locations.last
-            if sportModel.distance <= lastSportItem.startMileage + 1000 {
-                lastItem = lastSportItem
-                lastItem.endMileage = sportModel.distance
-                lastItem.eTime = Date().string(withFormat: XWHDate.standardTimeAllFormat)
-            } else {
-                lastItem = XWHSportEachPartSportModel()
-                lastItem.bTime = Date().string(withFormat: XWHDate.standardTimeAllFormat)
-                sportModel.eachPartItems.append(lastItem)
-                lastItem.startMileage = sportModel.distance
-            }
-            
-            if lastItem.endMileage > 0 {
-                var lastDuration = 0
-                if let lastETime = lastItem.eTime.date(withFormat: XWHDate.standardTimeAllFormat), let lastBTime = lastItem.bTime.date(withFormat: XWHDate.standardTimeAllFormat) {
-                    lastDuration = lastETime.timeIntervalSince1970.int - lastBTime.timeIntervalSince1970.int
-                }
-                
-                if lastDuration < 0 {
-                    lastDuration = 0
-                }
-                
-                lastItem.duration = lastDuration
-                lastItem.distance = lastItem.endMileage - lastItem.startMileage
-                
-                lastItem.pace = ((lastItem.duration.double / lastItem.distance.double) * 1000).int
-                if lastItem.pace == 0 {
-                    lastItem.pace = 1
-                }
-            }
-        } else {
-            lastItem = XWHSportEachPartSportModel()
-            lastItem.bTime = Date().string(withFormat: XWHDate.standardTimeAllFormat)
-            sportModel.eachPartItems.append(lastItem)
-            lastItem.startMileage = sportModel.distance
-        }
-        
-        if let lastLocation = tmpLastLocation {
-            let delta = newLocation.distance(from: lastLocation)
-            sportModel.distance = sportModel.distance + delta.int
-            sportModel.cal = XWHSportFunction.getCal(sportTime: sportModel.duration, distance: sportModel.distance)
-        }
-        
-        lastItem.locations.append(newLocation)
-        lastItem.coordinates.append(newLocation.coordinate)
-    }
-    
-}
+//        lastItem.locations.append(newLocation)
+//        lastItem.coordinates.append(newLocation.coordinate)
+//    }
+//
+//}
 
 extension XWHSportInMotionVC: AppPedometerManagerProtocol {
 
