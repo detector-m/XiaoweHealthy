@@ -44,6 +44,7 @@ class XWHSportStartVC: XWHBaseVC {
     
     deinit {
         mapView.delegate = nil
+        XWHSport.shared.removeObserver(observer: self)
     }
     
     override func viewDidLoad() {
@@ -51,7 +52,8 @@ class XWHSportStartVC: XWHBaseVC {
         
         configMapView()
         update()
-        getSportTotalRecord()
+        reloadOrUpdate()
+        XWHSport.shared.addObserver(observer: self)
     }
 
     override func setupNavigationItems() {
@@ -252,6 +254,15 @@ extension XWHSportStartVC {
     }
     
 }
+
+extension XWHSportStartVC: XWHSportObserverProtocol {
+    
+    func reloadOrUpdate() {
+        getSportTotalRecord()
+    }
+    
+}
+
 
 // MARK: - Api
 extension XWHSportStartVC {

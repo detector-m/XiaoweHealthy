@@ -192,8 +192,12 @@ extension XWHSportInMotionVC {
             }
         }
         
-        postSport()
-        dismiss(animated: true)
+        postSport { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.dismiss(animated: true)
+        }
     }
     
 }
@@ -413,8 +417,26 @@ extension XWHSportInMotionVC: AppPedometerManagerProtocol {
 // MARK: - Api
 extension XWHSportInMotionVC {
     
-    private func postSport() {
-        XWHServerDataManager.postSport(deviceMac: sportModel.identifier, deviceSn: sportModel.mac, data: [sportModel])
+    private func postSport(completion: @escaping () -> Void) {
+        XWHProgressHUD.show()
+        XWHServerDataManager.postSport(deviceMac: sportModel.identifier, deviceSn: sportModel.mac, data: [sportModel]) { [weak self] _ in
+            XWHProgressHUD.hide()
+            
+            guard let _ = self else {
+                return
+            }
+            
+            completion()
+        } successHandler: { [weak self] _ in
+            XWHProgressHUD.hide()
+
+            guard let _ = self else {
+                return
+            }
+            
+            completion()
+            XWHSport.shared.notifyAllObserverUpdate()
+        }
     }
     
 }

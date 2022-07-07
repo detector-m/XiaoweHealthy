@@ -40,7 +40,7 @@ class XWHSportMainVC: XWHCollectionViewBaseVC {
     }
 
     deinit {
-
+        XWHSport.shared.removeObserver(observer: self)
     }
     
     override func viewDidLoad() {
@@ -51,8 +51,11 @@ class XWHSportMainVC: XWHCollectionViewBaseVC {
             guard let self = self else {
                 return
             }
-            self.collectionView.mj_header?.beginRefreshing()
+//            self.collectionView.mj_header?.beginRefreshing()
+            self.getSportRecordList()
         }
+        
+        XWHSport.shared.addObserver(observer: self)
     }
     
     override func setupNavigationItems() {
@@ -280,6 +283,14 @@ class XWHSportMainVC: XWHCollectionViewBaseVC {
     // MARK: - UIScrollViewDeletate
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         handleScrollLargeTitle(in: scrollView)
+    }
+    
+}
+
+extension XWHSportMainVC: XWHSportObserverProtocol {
+    
+    func reloadOrUpdate() {
+        getSportRecordList()
     }
     
 }

@@ -229,6 +229,7 @@
 		96848A012841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96848A002841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift */; };
 		9684C7B12876800400BF277A /* XWHSport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684C7B02876800400BF277A /* XWHSport.swift */; };
 		9684C7B32876804200BF277A /* XWHAppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684C7B22876804200BF277A /* XWHAppManager.swift */; };
+		9684C7B52876C93800BF277A /* XWHSportObserverProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684C7B42876C93800BF277A /* XWHSportObserverProtocol.swift */; };
 		9685B47628601D6600095078 /* XWHHomeWeatherCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685B47528601D6600095078 /* XWHHomeWeatherCTCell.swift */; };
 		9685B47928604C9800095078 /* XWHWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685B47828604C9800095078 /* XWHWeather.swift */; };
 		96863E3F286AA69C004C0841 /* XWHSportInMotionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96863E3E286AA69C004C0841 /* XWHSportInMotionVC.swift */; };
@@ -715,6 +716,7 @@
 		96848A002841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyMainCommonCTCell.swift; sourceTree = "<group>"; };
 		9684C7B02876800400BF277A /* XWHSport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSport.swift; sourceTree = "<group>"; };
 		9684C7B22876804200BF277A /* XWHAppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHAppManager.swift; sourceTree = "<group>"; };
+		9684C7B42876C93800BF277A /* XWHSportObserverProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportObserverProtocol.swift; sourceTree = "<group>"; };
 		9685B47528601D6600095078 /* XWHHomeWeatherCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHomeWeatherCTCell.swift; sourceTree = "<group>"; };
 		9685B47828604C9800095078 /* XWHWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHWeather.swift; sourceTree = "<group>"; };
 		96863E3E286AA69C004C0841 /* XWHSportInMotionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportInMotionVC.swift; sourceTree = "<group>"; };
@@ -2091,6 +2093,7 @@
 		9684C7AF287679A700BF277A /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				9684C7B42876C93800BF277A /* XWHSportObserverProtocol.swift */,
 				9684C7B02876800400BF277A /* XWHSport.swift */,
 			);
 			path = Module;
@@ -3847,6 +3850,7 @@
 				96907262281564C90056CE4F /* XWHBOUIBloodOxygenModel.swift in Sources */,
 				967E97EB2859E69E001F9782 /* XWHHomeBOCTCell.swift in Sources */,
 				9644928827F7EB2F001CA321 /* XWHProgressButton.swift in Sources */,
+				9684C7B52876C93800BF277A /* XWHSportObserverProtocol.swift in Sources */,
 				96522C34285C88E300C2A208 /* XWHWeekCalendarWeekDayCell.swift in Sources */,
 				9661D35827F5FD830062B2B8 /* XWHDevSetWristVC.swift in Sources */,
 				9679E9E2281798E1003C6351 /* XWHCalendarMonthView.swift in Sources */,
