@@ -122,6 +122,8 @@ class XWHSportStartVC: XWHBaseVC {
         mapView.showsCompass = false
         
         mapView.screenAnchor = CGPoint(x: 0.5, y: 0.4)
+        mapView.isRotateEnabled = false
+        mapView.isRotateCameraEnabled = false
         
         mapView.update(currentLocationRepresentation)
     }
