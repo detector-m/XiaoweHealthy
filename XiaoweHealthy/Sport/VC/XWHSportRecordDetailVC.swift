@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 
 /// 运动详情
@@ -14,6 +15,8 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
     override var titleText: String {
         return "运动详情"
     }
+    
+    lazy var mapView = MAMapView(frame: .zero)
     
     private var tbXOffset: CGFloat {
         16
@@ -44,6 +47,7 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
         super.viewSafeAreaInsetsDidChange()
         
         tableView.frame = CGRect(x: tbXOffset, y: safeAreaTop + topOffset, width: tbWidth, height: tbHeigth)
+        mapView.frame = CGRect(x: 0, y: 0, width: view.width, height: tableView.y)
     }
     
     override func setupNavigationItems() {
@@ -63,10 +67,32 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
     override func addSubViews() {
         super.addSubViews()
         
+        view.addSubview(mapView)
+        
         view.backgroundColor = collectionBgColor
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         tableView.clipsToBounds = false
+        
+        view.sendSubviewToBack(mapView)
+        
+        configMapView()
+    }
+    
+    private func configMapView() {
+        mapView.backgroundColor = .white
+        mapView.delegate = self
+        mapView.showsUserLocation = false
+        mapView.showsScale = false
+        mapView.userTrackingMode = .none
+        mapView.allowsBackgroundLocationUpdates = false
+        mapView.distanceFilter = kCLDistanceFilterNone
+        mapView.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        mapView.setZoomLevel(17, animated: false)
+        mapView.showsCompass = false
+        
+        mapView.isRotateEnabled = false
+        mapView.isRotateCameraEnabled = false
     }
     
     override func relayoutSubViews() {
@@ -207,6 +233,97 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
     
 }
 
+extension XWHSportRecordDetailVC: MAMapViewDelegate {
+    
+    func mapViewRequireLocationAuth(_ locationManager: CLLocationManager!) {
+        locationManager.requestAlwaysAuthorization()
+    }
+    
+    func mapView(_ mapView: MAMapView!, rendererFor overlay: MAOverlay?) -> MAOverlayRenderer? {
+        guard let overlay = overlay else {
+            return nil
+        }
+        
+        if overlay.isKind(of: MAMultiPolyline.self) {
+            let renderer: MAMultiColoredPolylineRenderer = MAMultiColoredPolylineRenderer(overlay: overlay)
+            renderer.lineWidth = 3.0
+            renderer.strokeColors = [UIColor(hex: 0x74C39E)!, UIColor(hex: 0xFECA4F)!]
+            renderer.isGradient = true
+            
+            return renderer
+        }
+        
+        return nil
+    }
+    
+    func mapView(_ mapView: MAMapView!, viewFor annotation: MAAnnotation!) -> MAAnnotationView! {
+        let pointReuseIndetifier = "pointReuseIndetifier"
+        var annotationView: MAPinAnnotationView? = mapView.dequeueReusableAnnotationView(withIdentifier: pointReuseIndetifier) as? MAPinAnnotationView
+        
+        if annotationView == nil {
+            annotationView = MAPinAnnotationView(annotation: annotation, reuseIdentifier: pointReuseIndetifier)
+        }
+        
+        config(annotationView: annotationView!, annotation: annotation)
+        
+        annotationView!.canShowCallout = false
+        annotationView!.animatesDrop = false
+        annotationView!.isDraggable = false
+        
+        return annotationView!
+    }
+    
+    private func drawLocationPath() {
+        mapView.removeOverlays(mapView.overlays)
+        guard let sportModel = sportDetail else {
+            return
+        }
+        var allCoordinates = sportModel.eachPartItems.flatMap({ $0.coordinates })
+        if allCoordinates.isEmpty {
+            return
+        }
+        
+        let cCount: Int = allCoordinates.count
+        let polyline: MAMultiPolyline = MAMultiPolyline(coordinates: &allCoordinates, count: UInt(cCount), drawStyleIndexes: [NSNumber(0), NSNumber(value: cCount - 1)])
+        
+        mapView.add(polyline)
+        let centerCoordinate = allCoordinates[cCount / 2]
+        mapView.setCenter(centerCoordinate, animated: true)
+        
+        addAnnotations()
+    }
+
+    private func addAnnotations() {
+        if let f = sportDetail?.eachPartItems.first?.coordinates.first {
+            addAnnotation(coordinate: f)
+        }
+        if let l = sportDetail?.eachPartItems.last?.coordinates.last {
+            addAnnotation(coordinate: l)
+        }
+    }
+    
+    private func addAnnotation(coordinate: CLLocationCoordinate2D) {
+        let annotation: MAPointAnnotation = MAPointAnnotation()
+        annotation.coordinate = coordinate
+        
+        mapView.addAnnotation(annotation)
+    }
+    
+    private func config(annotationView: MAPinAnnotationView, annotation: MAAnnotation) {
+        if let f = sportDetail?.eachPartItems.first?.coordinates.first {
+            if annotation.coordinate.latitude == f.latitude, annotation.coordinate.longitude == f.longitude {
+                annotationView.image = R.image.location_start()
+            }
+        }
+        if let l = sportDetail?.eachPartItems.last?.coordinates.last {
+            if annotation.coordinate.latitude == l.latitude, annotation.coordinate.longitude == l.longitude {
+                annotationView.image = R.image.location_stop()
+            }
+        }
+    }
+    
+}
+
 // MARK: - Api
 extension XWHSportRecordDetailVC {
     
@@ -243,6 +360,7 @@ extension XWHSportRecordDetailVC {
             
             self.sportDetail = retModel
             self.tableView.reloadData()
+            self.drawLocationPath()
         }
     }
     

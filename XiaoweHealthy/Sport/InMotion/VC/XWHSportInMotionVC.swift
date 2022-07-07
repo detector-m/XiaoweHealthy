@@ -112,7 +112,7 @@ class XWHSportInMotionVC: XWHBaseVC {
 //        mapView.mapRectThatFits(mapView.visibleMapRect, edgePadding: UIEdgeInsets)
         mapView.showsCompass = false
         
-        mapView.screenAnchor = CGPoint(x: 0.5, y: 0.4)
+//        mapView.screenAnchor = CGPoint(x: 0.5, y: 0.5)
         mapView.isRotateEnabled = false
         mapView.isRotateCameraEnabled = false
         
