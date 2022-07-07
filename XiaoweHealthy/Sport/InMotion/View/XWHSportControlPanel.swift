@@ -13,6 +13,7 @@ class XWHSportControlPanel: XWHBaseView {
     typealias XWHActionCompletion = (() -> Void)
         
     lazy var gpsSignalView = XWHGPSSignalView()
+    
     lazy var settingBtn = UIButton()
     lazy var foldBtn = UIButton()
     
@@ -158,6 +159,10 @@ class XWHSportControlPanel: XWHBaseView {
         voiceBtn.addTarget(self, action: #selector(clickVoiceBtn), for: .touchUpInside)
         pauseBtn.addTarget(self, action: #selector(clickPauseBtn), for: .touchUpInside)
         continueBtn.addTarget(self, action: #selector(clickContinueBtn), for: .touchUpInside)
+        
+        gpsSignalView.tapAction = { [unowned self] in
+            self.showGPSTip()
+        }
     }
     
     override func relayoutSubViews() {
@@ -482,7 +487,7 @@ extension XWHSportControlPanel {
 extension XWHSportControlPanel {
     
     func showGPSTip() {
-        popTip.show(text: "GPS信号较弱时，将由计步器估算", direction: .down, maxWidth: 140, in: self, from: gpsSignalView.frame)
+        popTip.show(text: "GPS信号较弱时，将由计步器估算", direction: .down, maxWidth: 140, in: self, from: gpsSignalView.frame, duration: 10)
     }
     
 }

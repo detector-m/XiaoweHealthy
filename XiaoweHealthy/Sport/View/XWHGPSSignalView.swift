@@ -12,6 +12,10 @@ class XWHGPSSignalView: XWHBaseView {
     lazy var iconView = UIImageView()
     lazy var signalView = UIImageView()
     
+    private lazy var tapGes = UITapGestureRecognizer(target: self, action: #selector(tapGesture(sender:)))
+    
+    var tapAction: (() -> Void)?
+    
     override func addSubViews() {
         super.addSubViews()
         
@@ -20,6 +24,8 @@ class XWHGPSSignalView: XWHBaseView {
         
         iconView.image = R.image.gps_icon()
         signalView.image = R.image.signalQuality_0()
+        
+        addGestureRecognizer(tapGes)
     }
     
     override func relayoutSubViews() {
@@ -32,6 +38,10 @@ class XWHGPSSignalView: XWHBaseView {
             make.centerY.equalTo(iconView)
             make.left.equalTo(iconView.snp.right).offset(4)
         }
+    }
+    
+    @objc private func tapGesture(sender: UITapGestureRecognizer) {
+        tapAction?()
     }
     
     func update(_ level: Int) {
