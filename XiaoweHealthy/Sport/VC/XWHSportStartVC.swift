@@ -22,6 +22,7 @@ class XWHSportStartVC: XWHBaseVC {
         r.showsAccuracyRing = true //精度圈是否显示
         r.fillColor = btnBgColor.withAlphaComponent(0.2) //精度圈填充颜色
         r.strokeColor = btnBgColor //调整精度圈边线颜色
+        r.lineWidth = 2
         r.showsHeadingIndicator = true //是否显示蓝点方向指向
         r.locationDotBgColor = btnBgColor
         r.locationDotFillColor = UIColor.white
@@ -116,7 +117,7 @@ class XWHSportStartVC: XWHBaseVC {
         mapView.allowsBackgroundLocationUpdates = true
         mapView.distanceFilter = 5
         mapView.setZoomLevel(17, animated: false)
-        mapView.customizeUserLocationAccuracyCircleRepresentation = true
+//        mapView.customizeUserLocationAccuracyCircleRepresentation = true
 //        mapView.compassOrigin = CGPoint(x: 20, y: 100)
 //        mapView.mapRectThatFits(mapView.visibleMapRect, edgePadding: UIEdgeInsets)
         mapView.showsCompass = false

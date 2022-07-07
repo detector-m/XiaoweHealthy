@@ -363,7 +363,7 @@ class XWHSportControlPanel: XWHBaseView {
     }
     
     func update(sportModel: XWHSportModel) {
-        let value = (sportModel.distance.double / 1000).rounded(numberOfDecimalPlaces: 2, rule: .toNearestOrAwayFromZero).string
+        let value = (sportModel.distance.double / 1000).rounded(numberOfDecimalPlaces: 2, rule: .down).string
         let unit = " 公里"
         
         let text = value + unit

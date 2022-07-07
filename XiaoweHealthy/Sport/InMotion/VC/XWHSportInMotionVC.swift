@@ -8,11 +8,12 @@
 import UIKit
 import CoreLocation
 import CoreMotion
+import SwiftUI
 
 /// 运动中
 class XWHSportInMotionVC: XWHBaseVC {
     
-    lazy var mapView = UIView()
+    lazy var mapView = MAMapView(frame: .zero)
     
     /// 控制面板
     lazy var controlPanel = XWHSportControlPanel()
@@ -39,12 +40,12 @@ class XWHSportInMotionVC: XWHBaseVC {
     /// 时间管理器
     lazy var timeManager = TimeManager(delegate: self)
     /// 定位管理器
-    lazy var locationManager: AppLocationManager = {
-        let _locationManager = AppLocationManager.shared
-        _locationManager.delegate = self
-        
-        return _locationManager
-    }()
+//    lazy var locationManager: AppLocationManager = {
+//        let _locationManager = AppLocationManager.shared
+//        _locationManager.delegate = self
+//
+//        return _locationManager
+//    }()
     /// 运动步数管理器
     lazy var stepManager: AppPedometerManager = {
         let _stepManager = AppPedometerManager.shared
@@ -52,6 +53,10 @@ class XWHSportInMotionVC: XWHBaseVC {
         
         return _stepManager
     }()
+    
+    deinit {
+        mapView.delegate = nil
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,13 +93,47 @@ class XWHSportInMotionVC: XWHBaseVC {
         controlPanel.layer.backgroundColor = UIColor.white.cgColor
         controlPanel.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
+        configMapView()
         configEvent()
     }
     
-    override func relayoutSubViews() {
-        mapView.frame = view.bounds
+    private func configMapView() {
+        mapView.backgroundColor = .white
+        mapView.delegate = self
+        mapView.showsUserLocation = true
+        mapView.showsScale = false
+        mapView.userTrackingMode = .follow
+        mapView.allowsBackgroundLocationUpdates = true
+        mapView.distanceFilter = 5
+        mapView.desiredAccuracy = kCLLocationAccuracyBest
+        mapView.setZoomLevel(17, animated: false)
+//        mapView.customizeUserLocationAccuracyCircleRepresentation = true
+//        mapView.compassOrigin = CGPoint(x: 20, y: 100)
+//        mapView.mapRectThatFits(mapView.visibleMapRect, edgePadding: UIEdgeInsets)
+        mapView.showsCompass = false
         
+        mapView.screenAnchor = CGPoint(x: 0.5, y: 0.4)
+        mapView.isRotateEnabled = false
+        mapView.isRotateCameraEnabled = false
+        
+        //当前位置
+        let r = MAUserLocationRepresentation()
+        r.showsAccuracyRing = true //精度圈是否显示
+        r.fillColor = btnBgColor.withAlphaComponent(0.2) //精度圈填充颜色
+        r.strokeColor = btnBgColor //调整精度圈边线颜色
+        r.lineWidth = 2
+        r.showsHeadingIndicator = true //是否显示蓝点方向指向
+        r.locationDotBgColor = btnBgColor
+        r.locationDotFillColor = UIColor.white
+//        r.image = UIImage(named: "gps_icon") //定位图标, 与蓝色原点互斥
+        
+        mapView.update(r)
+    }
+    
+    override func relayoutSubViews() {
         controlPanel.frame = CGRect(x: 0, y: view.height - panelHeight, width: view.width, height: panelHeight)
+        
+        mapView.frame = CGRect(x: 0, y: 0, width: view.width, height: controlPanel.y)
     }
     
     private func configEvent() {
@@ -164,26 +203,30 @@ extension XWHSportInMotionVC {
     
     func start() {
         timeManager.start()
-        locationManager.start()
+//        locationManager.start()
         stepManager.start()
+        mapView.delegate = self
     }
     
     func stop() {
         timeManager.stop()
-        locationManager.stop()
+//        locationManager.stop()
         stepManager.stop()
+        mapView.delegate = nil
     }
     
     func pause() {
         timeManager.pause()
-        locationManager.stop()
+//        locationManager.stop()
         stepManager.pause()
+        mapView.delegate = nil
     }
     
     func resume() {
         timeManager.resume()
-        locationManager.start()
+//        locationManager.start()
         stepManager.resume()
+        mapView.delegate = self
     }
     
 }
@@ -194,6 +237,90 @@ extension XWHSportInMotionVC: TimeManagerProtocol {
     func clockTick(time: Int) {
         sportModel.duration = time
         controlPanel.update(sportModel: sportModel)
+    }
+    
+}
+
+extension XWHSportInMotionVC: MAMapViewDelegate {
+    
+    func mapViewRequireLocationAuth(_ locationManager: CLLocationManager!) {
+        locationManager.requestAlwaysAuthorization()
+    }
+    
+    func mapView(_ mapView: MAMapView!, didUpdate userLocation: MAUserLocation!, updatingLocation: Bool) {
+        guard let newLocation = userLocation.location else {
+            return
+        }
+        
+        let howRecent = newLocation.timestamp.timeIntervalSinceNow
+        let horizontalAccuracy = newLocation.horizontalAccuracy
+        
+        controlPanel.updateGPSSingal(horizontalAccuracy)
+        
+        guard horizontalAccuracy < 70 && abs(howRecent) < 10 else {
+            return
+        }
+        
+//        if let lastLocation = sportModel.locations.last {
+//            let delta = newLocation.distance(from: lastLocation)
+//            sportModel.distance = sportModel.distance + delta.int
+//            sportModel.cal = XWHSportFunction.getCal(sportTime: sportModel.duration, distance: sportModel.distance)
+//        }
+//
+//        sportModel.locations.append(newLocation)
+        
+        var tmpLastLocation: CLLocation?
+        var lastItem: XWHSportEachPartSportModel
+        if let lastSportItem = sportModel.eachPartItems.last {
+            tmpLastLocation = lastSportItem.locations.last
+            
+            if let lastLocation = tmpLastLocation {
+                let delta = newLocation.distance(from: lastLocation)
+                if delta == 0 {
+                    return
+                }
+                sportModel.distance = sportModel.distance + delta.int
+                sportModel.cal = XWHSportFunction.getCal(sportTime: sportModel.duration, distance: sportModel.distance)
+            }
+            
+            if sportModel.distance <= lastSportItem.startMileage + 1000 {
+                lastItem = lastSportItem
+                lastItem.endMileage = sportModel.distance
+                lastItem.eTime = Date().string(withFormat: XWHDate.standardTimeAllFormat)
+            } else {
+                lastItem = XWHSportEachPartSportModel()
+                lastItem.bTime = Date().string(withFormat: XWHDate.standardTimeAllFormat)
+                sportModel.eachPartItems.append(lastItem)
+                lastItem.startMileage = sportModel.distance
+            }
+            
+            if lastItem.endMileage > 0 {
+                var lastDuration = 0
+                if let lastETime = lastItem.eTime.date(withFormat: XWHDate.standardTimeAllFormat), let lastBTime = lastItem.bTime.date(withFormat: XWHDate.standardTimeAllFormat) {
+                    lastDuration = lastETime.timeIntervalSince1970.int - lastBTime.timeIntervalSince1970.int
+                }
+                
+                if lastDuration < 0 {
+                    lastDuration = 0
+                }
+                
+                lastItem.duration = lastDuration
+                lastItem.distance = lastItem.endMileage - lastItem.startMileage
+                
+                lastItem.pace = ((lastItem.duration.double / lastItem.distance.double) * 1000).int
+                if lastItem.pace == 0 {
+                    lastItem.pace = 1
+                }
+            }
+        } else {
+            lastItem = XWHSportEachPartSportModel()
+            lastItem.bTime = Date().string(withFormat: XWHDate.standardTimeAllFormat)
+            sportModel.eachPartItems.append(lastItem)
+            lastItem.startMileage = sportModel.distance
+        }
+        
+        lastItem.locations.append(newLocation)
+        lastItem.coordinates.append(newLocation.coordinate)
     }
     
 }

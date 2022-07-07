@@ -194,13 +194,24 @@ class XWHServerDataManager {
         let cId = "XWHServerDataManager.postSport"
 
         let reqData = data.toJSON()
+        
         guard let reqData = reqData as? [[String: Any]] else {
             handleDataParseError(cId, failureHandler)
             return
         }
         
+        var postData: [[String: Any]] = []
+        for iItem in reqData {
+            var iPost = iItem
+            if let stepCount = iPost["stepCount"] as? Int, stepCount == 0 {
+                iPost["stepCount"] = nil
+            }
+            
+            postData.append(iPost)
+        }
+        
         log.debug("requestId = \(cId) 上传数据")
-        serverDataProvider.request(.postSport(deviceMac, deviceSn, reqData)) { result in
+        serverDataProvider.request(.postSport(deviceMac, deviceSn, postData)) { result in
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
                 
                 return nil
