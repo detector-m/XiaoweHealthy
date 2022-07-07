@@ -26,7 +26,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
-## AMap2DMap
+## AMap3DMap
 
 Copyright © 2014 AutoNavi. All Rights Reserved.
 

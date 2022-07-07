@@ -266,8 +266,12 @@ class XWHSportMainVC: XWHCollectionViewBaseVC {
         let row = indexPath.item
         
         if section == 0 {
-            let sportTypes: [XWHSportType] = [.run, .walk, .ride, .climb]
-            gotoSportStart(sType: sportTypes[row])
+            gotoCheckMapPrivacy { [unowned self] isOk in
+                if isOk {
+                    let sportTypes: [XWHSportType] = [.run, .walk, .ride, .climb]
+                    self.gotoSportStart(sType: sportTypes[row])
+                }
+            }
         } else if section == 1 {
             gotoSportRecordDetail()
         }
@@ -317,6 +321,22 @@ extension XWHSportMainVC {
 
 // MARK: - UI Jump
 extension XWHSportMainVC {
+    
+    /// 地图隐私弹出框
+    private func gotoCheckMapPrivacy(completion: @escaping ((Bool) -> Void)) {
+        XWHAppManager.checkPrivacy {
+            //更新App是否显示隐私弹窗的状态，隐私弹窗是否包含高德SDK隐私协议内容的状态. since 8.1.0
+            MAMapView.updatePrivacyShow(AMapPrivacyShowStatus.didShow, privacyInfo: AMapPrivacyInfoStatus.didContain)
+        } btnAction: { isOk in
+            if isOk {
+                MAMapView.updatePrivacyAgree(AMapPrivacyAgreeStatus.didAgree)
+            } else {
+                MAMapView.updatePrivacyAgree(AMapPrivacyAgreeStatus.notAgree)
+            }
+            
+            completion(isOk)
+        }
+    }
     
     /// 运动开始
     private func gotoSportStart(sType: XWHSportType) {

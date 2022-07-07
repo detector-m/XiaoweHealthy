@@ -190,7 +190,8 @@ target 'XiaoweHealthy' do
 
   # 地图
 #  pod 'AMap2DMap-NO-IDFA'
-  pod 'AMap2DMap'
+#  pod 'AMap2DMap'
+  pod 'AMap3DMap'
 
 
   target 'XiaoweHealthyTests' do

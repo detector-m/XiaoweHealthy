@@ -23,8 +23,9 @@ class XWHSportStartVC: XWHBaseVC {
         r.fillColor = btnBgColor.withAlphaComponent(0.2) //精度圈填充颜色
         r.strokeColor = btnBgColor //调整精度圈边线颜色
         r.showsHeadingIndicator = true //是否显示蓝点方向指向
-//        r.locationDotBgColor = btnBgColor
-        r.image = UIImage(named: "gps_icon") //定位图标, 与蓝色原点互斥
+        r.locationDotBgColor = btnBgColor
+        r.locationDotFillColor = UIColor.white
+//        r.image = UIImage(named: "gps_icon") //定位图标, 与蓝色原点互斥
         return r
     }()
     
@@ -39,6 +40,10 @@ class XWHSportStartVC: XWHBaseVC {
     var sportTotalRecord: XWHSportTotalRecordModel?
     
     private var curLocation: MAUserLocation?
+    
+    deinit {
+        mapView.delegate = nil
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,13 +110,20 @@ class XWHSportStartVC: XWHBaseVC {
     private func configMapView() {
         mapView.backgroundColor = .white
         mapView.delegate = self
-        mapView.isShowsUserLocation = true
+        mapView.showsUserLocation = true
         mapView.showsScale = false
         mapView.userTrackingMode = .follow
         mapView.allowsBackgroundLocationUpdates = true
         mapView.distanceFilter = 5
-        mapView.zoomLevel = 20
+        mapView.setZoomLevel(17, animated: false)
+        mapView.customizeUserLocationAccuracyCircleRepresentation = true
 //        mapView.compassOrigin = CGPoint(x: 20, y: 100)
+//        mapView.mapRectThatFits(mapView.visibleMapRect, edgePadding: UIEdgeInsets)
+        mapView.showsCompass = false
+        
+        mapView.screenAnchor = CGPoint(x: 0.5, y: 0.4)
+        
+        mapView.update(currentLocationRepresentation)
     }
     
     @objc private func clickTotalBtn() {
@@ -123,6 +135,7 @@ class XWHSportStartVC: XWHBaseVC {
             return
         }
         updateMapCoordinateRegion(location: curLoc)
+        mapView.screenAnchor = CGPoint(x: 0.5, y: 0.4)
     }
     
     @objc private func clickSettingBtn() {
@@ -198,14 +211,18 @@ class XWHSportStartVC: XWHBaseVC {
 // MARK: - MAMapDelegate
 extension XWHSportStartVC: MAMapViewDelegate {
     
+    func mapViewRequireLocationAuth(_ locationManager: CLLocationManager!) {
+        locationManager.requestAlwaysAuthorization()
+    }
+    
     func mapView(_ mapView: MAMapView!, didUpdate userLocation: MAUserLocation!, updatingLocation: Bool) {
         guard let newLocation = userLocation.location else {
             return
         }
         
         if curLocation == nil {
-            updateMapCoordinateRegion(location: newLocation)
-            mapView.update(currentLocationRepresentation)
+//            updateMapCoordinateRegion(location: newLocation)
+//            mapView.update(currentLocationRepresentation)
         }
         curLocation = userLocation
         
@@ -222,6 +239,7 @@ extension XWHSportStartVC {
     
     private func updateMapCoordinateRegion(location: CLLocation) {
         let span = MACoordinateSpanMake(0.00423, 0.00425)
+
         // 设置地图中心点
     //        mapView.setCenter(newLocation.coordinate, animated: true)
         // 设置比例尺大小
