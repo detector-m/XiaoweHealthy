@@ -258,16 +258,15 @@ extension XWHSportRecordDetailVC: MAMapViewDelegate {
     
     func mapView(_ mapView: MAMapView!, viewFor annotation: MAAnnotation!) -> MAAnnotationView! {
         let pointReuseIndetifier = "pointReuseIndetifier"
-        var annotationView: MAPinAnnotationView? = mapView.dequeueReusableAnnotationView(withIdentifier: pointReuseIndetifier) as? MAPinAnnotationView
+        var annotationView: XWHLocationAnnotationView? = mapView.dequeueReusableAnnotationView(withIdentifier: pointReuseIndetifier) as? XWHLocationAnnotationView
         
         if annotationView == nil {
-            annotationView = MAPinAnnotationView(annotation: annotation, reuseIdentifier: pointReuseIndetifier)
+            annotationView = XWHLocationAnnotationView(annotation: annotation, reuseIdentifier: pointReuseIndetifier)
         }
         
         config(annotationView: annotationView!, annotation: annotation)
         
         annotationView!.canShowCallout = false
-        annotationView!.animatesDrop = false
         annotationView!.isDraggable = false
         
         return annotationView!
@@ -309,15 +308,23 @@ extension XWHSportRecordDetailVC: MAMapViewDelegate {
         mapView.addAnnotation(annotation)
     }
     
-    private func config(annotationView: MAPinAnnotationView, annotation: MAAnnotation) {
+    private func config(annotationView: XWHLocationAnnotationView, annotation: MAAnnotation) {
         if let f = sportDetail?.eachPartItems.first?.coordinates.first {
             if annotation.coordinate.latitude == f.latitude, annotation.coordinate.longitude == f.longitude {
                 annotationView.image = R.image.location_start()
+                annotationView.textLb.text = ""
+                
+//                annotationView.image = R.image.gps_icon()
+//                annotationView.textLb.text = "1"
             }
         }
         if let l = sportDetail?.eachPartItems.last?.coordinates.last {
             if annotation.coordinate.latitude == l.latitude, annotation.coordinate.longitude == l.longitude {
                 annotationView.image = R.image.location_stop()
+                annotationView.textLb.text = ""
+                
+//                annotationView.image = R.image.gps_icon()
+//                annotationView.textLb.text = "2"
             }
         }
     }
