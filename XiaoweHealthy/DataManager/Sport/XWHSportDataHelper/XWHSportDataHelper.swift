@@ -27,6 +27,9 @@ class XWHSportDataHelper {
             
         case .climb:
             intSportType = 4
+            
+        case .other:
+            intSportType = 10000
         }
         
         return intSportType
@@ -45,6 +48,9 @@ class XWHSportDataHelper {
         
         case 4:
             return .climb
+            
+        case 10000:
+            return .other
             
         default:
             return .none

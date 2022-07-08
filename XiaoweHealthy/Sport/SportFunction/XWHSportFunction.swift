@@ -81,6 +81,9 @@ extension XWHSportFunction {
             
         case .climb:
             return 4
+            
+        case .other:
+            return 10000
         }
     }
     

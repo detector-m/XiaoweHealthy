@@ -124,6 +124,10 @@ class XWHSportRecordCTCell: XWHCommonBaseCTCell {
         case .climb:
             imageView.image = R.image.sport_climb()
             textLb.text = R.string.xwhSportText.爬山()
+            
+        case .other:
+            imageView.image = nil
+            textLb.text = R.string.xwhSportText.其他()
         }
         
         let sportDate = rItem.exerciseTime.date(withFormat: XWHDate.standardTimeAllFormat) ?? Date()

@@ -698,7 +698,7 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             return 0
             
         default:
-            return 0
+            return 10000
         }
     }
     

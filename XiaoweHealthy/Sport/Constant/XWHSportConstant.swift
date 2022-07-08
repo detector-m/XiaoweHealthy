@@ -26,6 +26,9 @@ extension XWHSportType {
             
         case .climb:
             return R.string.xwhSportText.爬山()
+            
+        case .other:
+            return R.string.xwhSportText.其他()
         }
     }
     

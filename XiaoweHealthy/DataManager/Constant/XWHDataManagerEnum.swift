@@ -49,6 +49,9 @@ enum XWHSportType {
     /// 爬山
     case climb
     
+    /// 其他
+    case other
+    
 }
 
 // MARK: - 运动(Sport)

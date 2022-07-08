@@ -196,6 +196,9 @@ class XWHSportDetailSummaryTBCell: XWHSRLSportRecordSummaryTBCell {
         case .climb:
 //            iconView.image = R.image.sport_climb()
             sTypeString = R.string.xwhSportText.爬山()
+            
+        case .other:
+            sTypeString = R.string.xwhSportText.其他()
         }
         
         let sportDate = sDetail.eTime.date(withFormat: XWHDate.standardTimeAllFormat) ?? Date()
