@@ -57,8 +57,23 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
         } else {
             noticeSet = XWHNoticeSetModel()
         }
-
         setNoticeSet(noticeSet, handler: handler)
+        
+        var heartSet: XWHHeartSetModel
+        if let cHeartSet = XWHDeviceDataManager.getCurrentHeartSet() {
+            heartSet = cHeartSet
+        } else {
+            heartSet = XWHHeartSetModel()
+        }
+        setHeartSet(heartSet, user, handler: handler)
+        
+        var boSet: XWHBloodOxygenSetModel
+        if let cBoSet = XWHDeviceDataManager.getCurrentBloodOxygenSet() {
+            boSet = cBoSet
+        } else {
+            boSet = XWHBloodOxygenSetModel()
+        }
+        setBloodOxygenSet(boSet, handler: handler)
         
         setUTEMPFEnable()
     }
