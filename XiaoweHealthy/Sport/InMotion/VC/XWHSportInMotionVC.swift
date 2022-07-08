@@ -252,6 +252,9 @@ extension XWHSportInMotionVC: MAMapViewDelegate {
     }
     
     func mapView(_ mapView: MAMapView!, didUpdate userLocation: MAUserLocation!, updatingLocation: Bool) {
+        if !updatingLocation {
+            return
+        }
         guard let newLocation = userLocation.location else {
             return
         }

@@ -60,7 +60,7 @@ enum XWHServerDataApi {
     ///     - deviceMac: 设备的mac 地址 （必选）
     ///     - deviceSn: 设备唯一标识码 (可选)
     ///     - data: 上传的数据 （必选）
-    case postSport(_ deviceMac: String, _ deviceSn: String, _ data: [[String: Any]])
+    case postSport(_ deviceMac: String, _ deviceSn: String, _ data: [String: Any])
 
     
 }
@@ -111,9 +111,25 @@ extension XWHServerDataApi: XWHServiceTargetType {
             param = ["mac": deviceMac, "deviceSn": deviceSn, "items": data]
             
         case .postSport( _, _, let data):
-            param = data[0]
+            param = data
             if let avgHR = param["avgHeartRate"] as? Int, avgHR == 0 {
                 param["avgHeartRate"] = nil
+            }
+            if let stepCount = param["stepCount"] as? Int, stepCount == 0 {
+                param["stepCount"] = nil
+            }
+            if let kilometers = param["kilometers"] as? [Any], kilometers.isEmpty {
+                param["kilometers"] = nil
+            }
+            if let avgSpeed = param["avgSpeed"] as? Int, avgSpeed == 0 {
+                param["avgSpeed"] = nil
+            }
+            if let avgPace = param["avgPace"] as? Int, avgPace == 0 {
+                param["avgPace"] = nil
+            }
+            
+            if let avgStepWidth = param["avgStepWidth"] as? Int, avgStepWidth == 0 {
+                param["avgStepWidth"] = nil
             }
         }
         

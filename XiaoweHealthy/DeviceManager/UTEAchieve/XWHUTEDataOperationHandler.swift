@@ -14,6 +14,7 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
     
     let uteTimeFormat = "yyyy-MM-dd-HH-mm"
     let uteYMDHFormat = "yyyy-MM-dd-HH"
+    let uteYMDHMSFormat = "yyyy-MM-dd-HH-mm-ss"
     
     private var progressHandler: DevSyncDataProgressHandler?
     private var resultHandler: XWHDevDataOperationHandler?
@@ -65,7 +66,7 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             self._state = .inTransit
             
             var cp = 0
-            let itemMax: CGFloat = 5
+            let itemMax: CGFloat = 6
 
             // 1
             if !self.syncHeart() {
@@ -130,10 +131,10 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
                 self.handleTimeoutError()
                 return
             }
-//            cp = ((6 / itemMax) * 100).int
+            cp = ((6 / itemMax) * 100).int
             self.handleProgress(cp)
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 self._state = .succeed
                 
                 self.handleResult(.none, self._state, .success(nil))
@@ -623,12 +624,82 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             return nil
         }
         
-        guard let sportArray = rawDic[kUTEQuerySportHRMData] as? [UTEModelSportHRMData] else {
+        guard let uteSports = rawDic[kUTEQuerySportHRMData] as? [UTEModelSportHRMData] else {
             return nil
         }
-//        kUTEQuerySportHRMData
+//        UTEDeviceSportMode
+//        UTEDeviceSportModeInfo
+        var sports: [XWHSportModel] = []
+        
+        for iUTESport in uteSports {
+            // yyyy-MM-dd-HH-mm-ss
+            guard let bDate = iUTESport.timeStart.date(withFormat: uteYMDHMSFormat), let eDate = iUTESport.timeEnd.date(withFormat: uteYMDHMSFormat) else {
+                continue
+            }
+            
+            let duration = eDate.timeIntervalSince(bDate).int
+            if duration <= 0 {
+                continue
+            }
+            
+            let iSport = XWHSportModel()
+            iSport.identifier = deviceSn
+            iSport.mac = deviceMac
+            
+            iSport.bTime = bDate.string(withFormat: XWHDeviceHelper.standardTimeFormat)
+            iSport.eTime = eDate.string(withFormat: XWHDeviceHelper.standardTimeFormat)
+            
+            iSport.intSportType = getSportIndex(uteSportMode: iUTESport.sportModel)
+            iSport.distance = (iUTESport.distance * 1000).int
+            iSport.step = iUTESport.steps
+            iSport.cal = iUTESport.calories.int
+            iSport.heartRate = iUTESport.hrmAve
+            iSport.pace = iUTESport.speed
+            
+            iSport.duration = duration
+            
+            iSport.speed = iSport.distance / iSport.duration
+            if iSport.speed == 0, iSport.distance > 0 {
+                iSport.speed = 1
+            }
+            
+            iSport.stepWidth = 0
+            if iSport.step > 0 {
+                iSport.stepWidth = (iSport.distance.double / iSport.step.double * 100).int
+            }
+            
+            sports.append(iSport)
+        }
+        
+        if !sports.isEmpty {
+            XWHServerDataManager.postSport(deviceMac: deviceMac, deviceSn: deviceSn, data: sports)
+            
+            return sports
+        }
         
         return nil
+    }
+    
+    private func getSportIndex(uteSportMode: UTEDeviceSportMode) -> Int {
+        switch uteSportMode {
+        case .running, .indoorRunning:
+            return 1
+            
+        case .walking, .indoorWalking, .outdoorWalking:
+            return 2
+            
+        case .cycling:
+            return 3
+            
+        case .mountaineering:
+            return 4
+            
+        case .none:
+            return 0
+            
+        default:
+            return 0
+        }
     }
     
     private func handleProgress(_ cp: Int) {

@@ -36,6 +36,8 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
     
     var sportId: Int = -1
     private var sportDetail: XWHSportModel?
+    
+    var firstCoordinate: CLLocationCoordinate2D?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,8 +55,8 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
     override func setupNavigationItems() {
         super.setupNavigationItems()
         
-        setNav(color: .white)
-        navigationItem.title = titleText
+        setNavTransparent()
+        navigationItem.title = ""
         
         let rightItem = getNavItem(text: nil, image: R.image.share_icon(), target: self, action: #selector(clickShareBtn))
         navigationItem.rightBarButtonItem = rightItem
@@ -93,6 +95,8 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
         
         mapView.isRotateEnabled = false
         mapView.isRotateCameraEnabled = false
+        
+//        mapView.setCenter(mapView.userLocation.coordinate, animated: true)
     }
     
     override func relayoutSubViews() {
@@ -206,6 +210,8 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
                 }
                 self.tableView.frame = CGRect(x: self.tbXOffset, y: self.safeAreaTop, width: self.tbWidth, height: self.tbHeigth)
                 self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+                self.setNav(color: .white)
+                self.navigationItem.title = self.titleText
             } completion: { _ in }
         } else if sOffset < -64 {
             if tableView.y == topOffset + safeAreaTop {
@@ -219,6 +225,8 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
                 }
                 self.tableView.frame = CGRect(x: self.tbXOffset, y: self.topOffset + self.safeAreaTop, width: self.tbWidth, height: self.tbHeigth)
                 self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+                self.setNavTransparent()
+                self.navigationItem.title = ""
             } completion: { _ in }
         }
         
@@ -279,6 +287,7 @@ extension XWHSportRecordDetailVC: MAMapViewDelegate {
         }
         var allCoordinates = sportModel.eachPartItems.flatMap({ $0.coordinates })
         if allCoordinates.isEmpty {
+//            mapView.setCenter(mapView.userLocation.coordinate, animated: true)
             return
         }
         
@@ -287,6 +296,7 @@ extension XWHSportRecordDetailVC: MAMapViewDelegate {
         
         mapView.add(polyline)
         let centerCoordinate = allCoordinates[cCount / 2]
+        firstCoordinate = centerCoordinate
         mapView.setCenter(centerCoordinate, animated: true)
         
         addAnnotations()

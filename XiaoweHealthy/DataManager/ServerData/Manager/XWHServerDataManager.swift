@@ -190,28 +190,51 @@ class XWHServerDataManager {
     ///     - deviceMac: 设备的mac 地址 （必选）
     ///     - deviceSn: 设备唯一标识码 (可选)
     ///     - data: 上传的数据 （必选）
+//    func postSport(deviceMac: String, deviceSn: String, data: [XWHSportModel], failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+//        let cId = "XWHServerDataManager.postSport"
+//
+//        let reqData = data.toJSON()
+//
+//        guard let reqData = reqData as? [[String: Any]] else {
+//            handleDataParseError(cId, failureHandler)
+//            return
+//        }
+//
+//        log.debug("requestId = \(cId) 上传数据")
+//
+//        for iItem in reqData {
+//            log.debug("requestId = \(cId) 上传数据 postSport.")
+//            serverDataProvider.request(.postSport(deviceMac, deviceSn, iItem)) { result in
+//                XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
+//
+//                    return nil
+//                }
+//            }
+//        }
+//    }
+    
     func postSport(deviceMac: String, deviceSn: String, data: [XWHSportModel], failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
-        let cId = "XWHServerDataManager.postSport"
-
-        let reqData = data.toJSON()
+        for iModel in data {
+            postSingleSport(deviceMac: deviceMac, deviceSn: deviceSn, data: iModel)
+        }
+    }
+    
+    /// 上传单个运动数据 （步数、卡路里、距离）
+    /// - Parameters:
+    ///     - deviceMac: 设备的mac 地址 （必选）
+    ///     - deviceSn: 设备唯一标识码 (可选)
+    ///     - data: 上传的数据 （必选）
+    func postSingleSport(deviceMac: String, deviceSn: String, data: XWHSportModel, failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
+        let cId = "XWHServerDataManager.postSingleSport"
         
-        guard let reqData = reqData as? [[String: Any]] else {
+        log.debug("requestId = \(cId) 上传数据 sBTime = \(data.bTime), sETime = \(data.eTime)")
+        
+        guard let reqData = data.toJSON() else {
             handleDataParseError(cId, failureHandler)
             return
         }
         
-        var postData: [[String: Any]] = []
-        for iItem in reqData {
-            var iPost = iItem
-            if let stepCount = iPost["stepCount"] as? Int, stepCount == 0 {
-                iPost["stepCount"] = nil
-            }
-            
-            postData.append(iPost)
-        }
-        
-        log.debug("requestId = \(cId) 上传数据")
-        serverDataProvider.request(.postSport(deviceMac, deviceSn, postData)) { result in
+        serverDataProvider.request(.postSport(deviceMac, deviceSn, reqData)) { result in
             XWHNetwork.handleResult(rId: cId, result: result, failureHandler: failureHandler, successHandler: successHandler) { json, response in
                 
                 return nil
