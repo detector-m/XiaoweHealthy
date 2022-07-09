@@ -56,6 +56,7 @@ class XWHSportInMotionVC: XWHBaseVC {
     
     deinit {
         mapView.delegate = nil
+        XWHDDMShared.removeSportHandlerDelegate()
     }
 
     override func viewDidLoad() {
@@ -210,6 +211,9 @@ extension XWHSportInMotionVC {
 //        locationManager.start()
         stepManager.start()
         mapView.delegate = self
+        sportModel.state = .start
+        
+        startDeviceSport()
     }
     
     func stop() {
@@ -217,6 +221,10 @@ extension XWHSportInMotionVC {
 //        locationManager.stop()
         stepManager.stop()
         mapView.delegate = nil
+        
+        sportModel.state = .stop
+        
+        stopDeviceSport()
     }
     
     func pause() {
@@ -224,6 +232,10 @@ extension XWHSportInMotionVC {
 //        locationManager.stop()
         stepManager.pause()
         mapView.delegate = nil
+        
+        sportModel.state = .pause
+        
+        pauseDeviceSport()
     }
     
     func resume() {
@@ -231,6 +243,51 @@ extension XWHSportInMotionVC {
 //        locationManager.start()
         stepManager.resume()
         mapView.delegate = self
+        
+        sportModel.state = .continue
+        
+        resumeDeviceSport()
+    }
+    
+    func startDeviceSport() {
+        if !XWHDevice.isDevConnectBind {
+            return
+        }
+        
+        XWHDDMShared.addSportHandlerDelegate(self)
+        XWHDDMShared.sendSportState(sportModel: sportModel)
+    }
+    
+    func stopDeviceSport() {
+        if !XWHDevice.isDevConnectBind {
+            return
+        }
+        
+        XWHDDMShared.removeSportHandlerDelegate()
+        XWHDDMShared.sendSportState(sportModel: sportModel)
+    }
+    
+    func pauseDeviceSport() {
+        if !XWHDevice.isDevConnectBind {
+            return
+        }
+        XWHDDMShared.sendSportState(sportModel: sportModel)
+    }
+    
+    func resumeDeviceSport() {
+        if !XWHDevice.isDevConnectBind {
+            return
+        }
+        
+        XWHDDMShared.sendSportState(sportModel: sportModel)
+    }
+    
+    private func sendSportInfoToDevice() {
+        if !XWHDevice.isDevConnectBind {
+            return
+        }
+        
+        XWHDDMShared.sendSportInfo(sportModel)
     }
     
 }
@@ -241,6 +298,8 @@ extension XWHSportInMotionVC: TimeManagerProtocol {
     func clockTick(time: Int) {
         sportModel.duration = time
         controlPanel.update(sportModel: sportModel)
+        
+        sendSportInfoToDevice()
     }
     
 }
@@ -439,6 +498,35 @@ extension XWHSportInMotionVC: AppPedometerManagerProtocol {
 
     func update(stepCount: Int) {
         sportModel.step = stepCount
+    }
+    
+}
+
+// MARK: - 运动数据回调
+extension XWHSportInMotionVC: XWHDataFromDeviceInteractionProtocol {
+    
+    func receiveSportState(_ state: XWHSportState) {
+        if sportModel.state == state {
+            return
+        }
+        
+        switch state {
+        case .stop:
+            stop()
+            
+        case .start:
+            return
+            
+        case .pause:
+            controlPanel.clickPauseBtn()
+            
+        case .continue:
+            controlPanel.clickContinueBtn()
+        }
+    }
+    
+    func receiveSportHeartRate(_ hr: XWHHeartModel) {
+        
     }
     
 }

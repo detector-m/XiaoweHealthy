@@ -43,6 +43,9 @@ class XWHDevWatchDispatchManager {
     
     // 状态监听
     private var monitorHandler: XWHDeviceMonitorHandler?
+    
+    // 交互数据handler
+    private var interactionDataHandler: XWHDataToDeviceInteractionProtocol?
 
     
     // MARK: - handlers
@@ -100,6 +103,7 @@ class XWHDevWatchDispatchManager {
             dataHandler = _uteDataHandler
             bleHandler?.dataHandler = dataHandler
             
+            interactionDataHandler = _uteBLEHandler
         }
         
         return self
@@ -116,6 +120,8 @@ class XWHDevWatchDispatchManager {
         wsHandler = nil
         
         dataHandler = nil
+        
+        interactionDataHandler = nil
     }
     
 }
@@ -362,6 +368,27 @@ extension XWHDevWatchDispatchManager: XWHDevDataOperationProtocol {
     
     func syncData() {
         dataHandler?.syncData()
+    }
+    
+}
+
+// MARK: - 数据交互
+extension XWHDevWatchDispatchManager: XWHDataToDeviceInteractionProtocol {
+    
+    func addSportHandlerDelegate(_ fromDelegate: XWHDataFromDeviceInteractionProtocol) {
+        interactionDataHandler?.addSportHandlerDelegate(fromDelegate)
+    }
+    
+    func removeSportHandlerDelegate() {
+        interactionDataHandler?.removeSportHandlerDelegate()
+    }
+    
+    func sendSportState(sportModel: XWHSportModel) {
+        interactionDataHandler?.sendSportState(sportModel: sportModel)
+    }
+    
+    func sendSportInfo(_ sportInfo: XWHSportModel) {
+        interactionDataHandler?.sendSportInfo(sportInfo)
     }
     
 }

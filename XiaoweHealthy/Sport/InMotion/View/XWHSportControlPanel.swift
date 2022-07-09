@@ -322,7 +322,7 @@ class XWHSportControlPanel: XWHBaseView {
 
     }
     
-    @objc private func clickPauseBtn() {
+    @objc func clickPauseBtn() {
         configPauseControlPanel()
         
         pauseCompletion?()

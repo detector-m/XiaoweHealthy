@@ -33,6 +33,8 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
         return cHandler
     }
     
+    private weak var sportHandlerDelegate: XWHDataFromDeviceInteractionProtocol?
+    
     override init() {
         super.init()
         
@@ -447,7 +449,15 @@ extension XWHBLEUTEDispatchHandler {
 //        UTEDeviceSportMode
 //        UTEDeviceSportModeStatus
 //        UTEDeviceIntervalTime
-        log.debug("UTE 运动数据 SportModeInfo")
+        log.debug("UTE 运动数据 SportModeInfo Mode = \(info.status.rawValue)")
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.sportHandlerDelegate?.receiveSportState(self.getSportState(uteSportModel: info))
+        }
+        
     }
     
     func uteManagerReceiveTodaySport(_ dict: [AnyHashable : Any]!) {
@@ -456,6 +466,134 @@ extension XWHBLEUTEDispatchHandler {
     
     func uteManagerReceiveSportHRM(_ dict: [AnyHashable : Any]!) {
         log.debug("UTE 运动数据 SportHRM = \(dict)")
+    }
+    
+}
+
+// MARK: - 数据交互
+extension XWHBLEUTEDispatchHandler: XWHDataToDeviceInteractionProtocol {
+    
+    func addSportHandlerDelegate(_ fromDelegate: XWHDataFromDeviceInteractionProtocol) {
+        sportHandlerDelegate = fromDelegate
+    }
+    
+    func removeSportHandlerDelegate() {
+        sportHandlerDelegate = nil
+    }
+    
+    func sendSportState(sportModel: XWHSportModel) {
+        setUTESportState(sportModel: sportModel)
+    }
+    
+    func sendSportInfo(_ sportInfo: XWHSportModel) {
+        sendUTESportInfo(sportModel: sportInfo)
+    }
+    
+    private func setUTESportState(sportModel: XWHSportModel) {
+        let uteSportType: UTEDeviceSportMode = .running
+        var isOpen = false
+        
+        if sportModel.state == .continue {
+            let uteSportModel = getUteSportInfo(sportModel: sportModel)
+            manager.setUTESportModelContinue(uteSportModel)
+            
+            return
+        }
+        
+        if sportModel.state == .pause {
+            let uteSportModel = getUteSportInfo(sportModel: sportModel)
+            manager.setUTESportModelPause(uteSportModel)
+            
+            return
+        }
+        
+        if sportModel.state == .start {
+            isOpen = true
+        } else if sportModel.state == .stop {
+            isOpen = false
+        }
+
+        manager.setUTESportModel(uteSportType, open: isOpen, hrmTime: UTEDeviceIntervalTime.time10s) { (mode, cOpen) in
+            
+        }
+    }
+    
+    private func getUteSportInfo(sportModel: XWHSportModel) -> UTEDeviceSportModeInfo {
+        let model = UTEDeviceSportModeInfo.init()
+        
+        model.mode = getUteSportType(sportModel: sportModel)
+        model.status = getUteSportState(sportModel: sportModel)
+        
+        //CN:其他值，把app的数据赋值发下去给设备
+        //EN:Other values, assign app data to the device
+        
+        model.calories = sportModel.cal
+        model.distance = sportModel.distance
+        model.duration = sportModel.duration
+        model.speed = sportModel.pace
+        model.hrmTime = UTEDeviceIntervalTime.time10s
+        
+        return model
+    }
+    
+    private func getUteSportType(sportModel: XWHSportModel) -> UTEDeviceSportMode {
+        switch sportModel.type {
+        case .run:
+            return .running
+            
+        case .walk:
+            return .outdoorWalking
+            
+        case .ride:
+            return .cycling
+            
+        case .climb:
+            return .mountaineering
+            
+        default:
+            return .none
+        }
+    }
+    
+    private func getUteSportState(sportModel: XWHSportModel) -> UTEDeviceSportModeStatus {
+        switch sportModel.state {
+        case .start:
+            return .open
+            
+        case .stop:
+            return .close
+            
+        case .pause:
+            return .pause
+            
+        case .continue:
+            return .continue
+        }
+    }
+    
+    private func getSportState(uteSportModel: UTEDeviceSportModeInfo) -> XWHSportState {
+//         UTEDeviceSportModeStatus
+        switch uteSportModel.status {
+        case .close:
+            return .stop
+            
+        case .open:
+            return .start
+            
+        case .pause:
+            return .pause
+            
+        case .continue:
+            return .continue
+            
+        @unknown default:
+            return .stop
+        }
+    }
+    
+    private func sendUTESportInfo(sportModel: XWHSportModel) {
+        let uteSportModel = getUteSportInfo(sportModel: sportModel)
+        manager.setUTESportModelInfo(uteSportModel)
     }
     
 }

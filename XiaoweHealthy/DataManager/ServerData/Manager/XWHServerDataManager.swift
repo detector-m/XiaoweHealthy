@@ -215,7 +215,7 @@ class XWHServerDataManager {
     
     func postSport(deviceMac: String, deviceSn: String, data: [XWHSportModel], failureHandler: FailureHandler? = nil, successHandler: SuccessHandler? = nil) {
         for iModel in data {
-            postSingleSport(deviceMac: deviceMac, deviceSn: deviceSn, data: iModel)
+            postSingleSport(deviceMac: deviceMac, deviceSn: deviceSn, data: iModel, failureHandler: failureHandler, successHandler: successHandler)
         }
     }
     
