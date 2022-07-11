@@ -15,6 +15,6 @@ protocol XWHDataFromDeviceInteractionProtocol: AnyObject {
     func receiveSportState(_ state: XWHSportState)
     
     /// 收到运动心率
-    func receiveSportHeartRate(_ hr: XWHHeartModel)
+    func receiveSportHeartRate(_ hrs: [XWHHeartModel])
     
 }

@@ -405,7 +405,31 @@ extension XWHBLEUTEDispatchHandler {
     }
     
     func uteManagerReceiveSportHRM(_ dict: [AnyHashable : Any]!) {
-        log.debug("UTE 运动数据 SportHRM = \(dict)")
+//        kUTEQuerySportHRMData
+//        log.debug("UTE 运动数据 SportHRM = \(dict)")
+        
+        guard let uteSportModel = dict["kUTEQuerySportHRMData"] as? UTEModelSportHRMData else {
+            return
+        }
+        
+//        guard let uteHRArray = uteSportModel.hrmArray as? [NSNumber] else {
+//            return
+//        }
+        
+//        let hrModels: [XWHHeartModel] = uteHRArray.compactMap({ (h: String) in
+//            let hValue = h.int ?? 0
+//            if hValue <= 0 {
+//                return nil
+//            }
+//
+//            let hrModel = XWHHeartModel()
+//            hrModel.value = hValue
+//            return hrModel
+//        })
+        
+        let hrModel = XWHHeartModel()
+        hrModel.value = uteSportModel.hrmCurrent
+        self.sportHandlerDelegate?.receiveSportHeartRate([hrModel])
     }
     
 }

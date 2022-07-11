@@ -388,7 +388,13 @@ class XWHSportControlPanel: XWHBaseView {
         
         paceValueLb.text = "\(pace.int / 60)'\(pace.int % 60)\""
         
-        heartValueLb.text = "--"
+        if sportModel.heartRate > 0 {
+            heartValueLb.text = sportModel.heartRate.string
+        } else if sportModel.avgHeartRate > 0 {
+            heartValueLb.text = sportModel.avgHeartRate.string
+        } else {
+            heartValueLb.text = "--"
+        }
     }
     
     func updateGPSSingal(_ gpsSignal: Double) {

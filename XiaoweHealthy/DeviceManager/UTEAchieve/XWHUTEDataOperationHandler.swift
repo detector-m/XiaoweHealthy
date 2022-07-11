@@ -671,7 +671,7 @@ class XWHUTEDataOperationHandler: XWHMonitorToDeviceProtocol, XWHDevDataOperatio
             iSport.distance = (iUTESport.distance * 1000).int
             iSport.step = iUTESport.steps
             iSport.cal = iUTESport.calories.int
-            iSport.heartRate = iUTESport.hrmAve
+            iSport.avgHeartRate = iUTESport.hrmAve
             iSport.pace = iUTESport.speed
             
             iSport.duration = duration

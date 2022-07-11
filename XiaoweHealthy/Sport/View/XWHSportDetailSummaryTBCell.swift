@@ -216,6 +216,8 @@ class XWHSportDetailSummaryTBCell: XWHSRLSportRecordSummaryTBCell {
         titleValueView2.valueLb.text = sDetail.cal.string
         if sDetail.heartRate > 0 {
             titleValueView3.valueLb.text = sDetail.heartRate.string
+        } else if sDetail.avgHeartRate > 0 {
+            titleValueView3.valueLb.text = sDetail.avgHeartRate.string
         } else {
             titleValueView3.valueLb.text = "--"
         }

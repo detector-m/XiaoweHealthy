@@ -55,6 +55,12 @@ class XWHSportModel: XWHDataBaseModel {
     /// 心率
     var heartRate = 0
     
+    /// 平均心率
+    var avgHeartRate = 0
+    
+    /// 心率列表
+    var heartRateList: [XWHHeartModel] = []
+    
     /// 步幅 cm
     var stepWidth = 70
     
@@ -103,8 +109,8 @@ class XWHSportModel: XWHDataBaseModel {
         mapper <<<
             speed <-- "avgSpeed"
         
-        mapper <<<
-            heartRate <-- "avgHeartRate"
+//        mapper <<<
+//            avgHeartRate <-- "avgHeartRate"
         
         mapper <<<
             stepWidth <-- "avgStepWidth"

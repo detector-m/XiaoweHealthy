@@ -8,7 +8,8 @@
 import UIKit
 import CoreLocation
 import CoreMotion
-import SwiftUI
+import CoreBluetooth
+
 
 /// 运动中
 class XWHSportInMotionVC: XWHBaseVC {
@@ -54,6 +55,8 @@ class XWHSportInMotionVC: XWHBaseVC {
         return _stepManager
     }()
     
+    private var isShowDistance = false
+    
     deinit {
         mapView.delegate = nil
         XWHDDMShared.removeSportHandlerDelegate()
@@ -66,6 +69,10 @@ class XWHSportInMotionVC: XWHBaseVC {
         DispatchQueue.main.async { [weak self] in
             self?.sportModel.bTime = Date().string(withFormat: XWHDate.standardTimeAllFormat)
             self?.start()
+        }
+        
+        if XWHDevice.isDevConnectBind {
+            XWHDDMShared.addMonitorDelegate(self)
         }
     }
     
@@ -80,9 +87,9 @@ class XWHSportInMotionVC: XWHBaseVC {
         setNavTransparent()
     }
     
-    override func clickNavGlobalBackBtn() {
-        navigationController?.dismiss(animated: true)
-    }
+//    override func clickNavGlobalBackBtn() {
+//        navigationController?.dismiss(animated: true)
+//    }
     
     override func addSubViews() {
         view.addSubview(mapView)
@@ -167,6 +174,7 @@ extension XWHSportInMotionVC {
                 } else {
                     self.stop()
                     self.dismiss(animated: true)
+                    XWHDDMShared.removeMonitorDelegate(self)
                 }
             }
             
@@ -198,6 +206,7 @@ extension XWHSportInMotionVC {
                 return
             }
             self.dismiss(animated: true)
+            XWHDDMShared.removeMonitorDelegate(self)
         }
     }
     
@@ -525,7 +534,52 @@ extension XWHSportInMotionVC: XWHDataFromDeviceInteractionProtocol {
         }
     }
     
-    func receiveSportHeartRate(_ hr: XWHHeartModel) {
+    func receiveSportHeartRate(_ hrs: [XWHHeartModel]) {
+        sportModel.heartRate = hrs.last?.value ?? 0
+        sportModel.heartRateList.append(contentsOf: hrs)
+    }
+    
+}
+
+// MARK: - XWHMonitorFromDeviceProtocol
+extension XWHSportInMotionVC: XWHMonitorFromDeviceProtocol {
+    
+    func receiveBLEState(_ state: CBManagerState) {
+        
+    }
+    
+    func receiveConnectInfo(device: XWHDevWatchModel, connectState: XWHDeviceConnectBindState, error: XWHBLEError?) {
+        if XWHDDMShared.connectBindState == .disconnected {
+            XWHProgressHUD.hide()
+            if sportModel.state == .stop {
+                return
+            }
+            
+            if isShowDistance {
+                return
+            }
+            
+            isShowDistance = true
+            controlPanel.clickPauseBtn()
+            XWHAlert.show(title: nil, message: "检测到手表设备已断开连接", messageAlignment: .center, cancelTitle: "继续运动", confirmTitle: "重新连接") { [weak self] aType in
+                guard let self = self else {
+                    return
+                }
+                self.isShowDistance = false
+                if aType == .confirm {
+                    XWHProgressHUD.show(title: "连接中...")
+                    
+                    XWHDevice.shared.connect()
+                }
+            }
+        } else if XWHDDMShared.connectBindState == .connected {
+            XWHProgressHUD.hide()
+        } else { // 连接中
+            
+        }
+    }
+    
+    func receiveSyncDataStateInfo(syncState: XWHDevDataTransferState, progress: Int, error: XWHError?) {
         
     }
     
@@ -537,6 +591,10 @@ extension XWHSportInMotionVC {
     
     private func postSport(completion: @escaping () -> Void) {
         XWHProgressHUD.show()
+        if !sportModel.heartRateList.isEmpty {
+            sportModel.avgHeartRate = sportModel.heartRateList.sum(for: \.value) / sportModel.heartRateList.count
+        }
+        
         XWHServerDataManager.postSport(deviceMac: sportModel.identifier, deviceSn: sportModel.mac, data: [sportModel]) { [weak self] _ in
             XWHProgressHUD.hide()
             
