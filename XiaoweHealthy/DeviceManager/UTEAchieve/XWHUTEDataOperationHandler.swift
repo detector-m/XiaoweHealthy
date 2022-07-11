@@ -10,7 +10,7 @@ import UTESmartBandApi
 
 
 /// UTE 同步数据处理
-class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandlerProtocol {
+class XWHUTEDataOperationHandler: XWHMonitorToDeviceProtocol, XWHDevDataOperationProtocol, XWHInnerDataHandlerProtocol {
     
     let uteTimeFormat = "yyyy-MM-dd-HH-mm"
     let uteYMDHFormat = "yyyy-MM-dd-HH"
@@ -36,6 +36,18 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
     var state: XWHDevDataTransferState {
         return _state
     }
+    
+    // MARK: - 监听 XWHMonitorToDeviceProtocol
+    weak var monitorDelegate: XWHMonitorFromDeviceProtocol?
+    func addMonitorDelegate(_ monitorDelegate: XWHMonitorFromDeviceProtocol) {
+        self.monitorDelegate = monitorDelegate
+    }
+    
+    func removeMonitorDelegate(_ monitorDelegate: XWHMonitorFromDeviceProtocol) {
+        self.monitorDelegate = nil
+    }
+    
+    // ------------------------------------------------------------
     
     func setDataOperation(progressHandler: DevSyncDataProgressHandler?, resultHandler: XWHDevDataOperationHandler?) {
         self.progressHandler = progressHandler
@@ -64,6 +76,10 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
             }
             
             self._state = .inTransit
+            
+            DispatchQueue.main.async {
+                self.monitorDelegate?.receiveSyncDataStateInfo(syncState: self._state, progress: 0, error: nil)
+            }
             
             var cp = 0
             let itemMax: CGFloat = 6
@@ -138,6 +154,7 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
                 self._state = .succeed
                 
                 self.handleResult(.none, self._state, .success(nil))
+                self.monitorDelegate?.receiveSyncDataStateInfo(syncState: self._state, progress: cp, error: nil)
             }
         }
     }
@@ -592,6 +609,7 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
                 
                 DispatchQueue.main.async {
                     self.handleResult(.none, self._state, .success(nil))
+                    self.monitorDelegate?.receiveSyncDataStateInfo(syncState: self._state, progress: 100, error: nil)
                 }
             }
         }
@@ -601,10 +619,10 @@ class XWHUTEDataOperationHandler: XWHDevDataOperationProtocol, XWHInnerDataHandl
     
     /// 处理运动数据
     func handleSportData(_ rawData: Any?) -> Any? {
-        guard let user = XWHUserDataManager.getCurrentUser() else {
-            log.error("未获取用户信息")
-            return nil
-        }
+//        guard let user = XWHUserDataManager.getCurrentUser() else {
+//            log.error("未获取用户信息")
+//            return nil
+//        }
         
         guard let connDev = manager.connectedDevicesModel else {
             log.error("未获取到连接设备")

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreBluetooth
 
 class XWHBindDeviceVC: XWHSearchBindDevBaseVC {
 
@@ -15,10 +16,15 @@ class XWHBindDeviceVC: XWHSearchBindDevBaseVC {
     lazy var bindDeviceModel = XWHDevWatchModel()
     
     private var isBindSuccess = false
+    
+    deinit {
+        XWHDDMShared.removeMonitorDelegate(self)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        XWHDDMShared.addMonitorDelegate(self)
         startBindDevice()
     }
     
@@ -75,7 +81,7 @@ class XWHBindDeviceVC: XWHSearchBindDevBaseVC {
             return
         }
         
-        if XWHDDMShared.connectBindState != .disconnected, XWHDDMShared.connectBindState != .paired {
+        if XWHDDMShared.connectBindState == .connecting {
             view.makeInsetToast(R.string.xwhDeviceText.连接中())
             return
         }
@@ -85,6 +91,7 @@ class XWHBindDeviceVC: XWHSearchBindDevBaseVC {
             return
         }
         
+        XWHDDMShared.removeMonitorDelegate(self)
         for vc in vcs {
             if vc.isKind(of: XWHAddBrandDeviceVC.self) {
                 navigationController?.popToViewController(vc, animated: true)
@@ -97,13 +104,19 @@ class XWHBindDeviceVC: XWHSearchBindDevBaseVC {
     override func clickButton() {
         if XWHDDMShared.connectBindState == .disconnected {
             startBindDevice()
-        } else if XWHDDMShared.connectBindState == .paired {
+        } else if XWHDDMShared.connectBindState == .connected {
             gotoDeviceMain()
         }
     }
     
     @objc func clickHelpBtn() {
         XWHDevice.gotoHelp(at: self)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        XWHDDMShared.removeMonitorDelegate(self)
     }
 
 }
@@ -173,10 +186,29 @@ extension XWHBindDeviceVC {
     
 }
 
+// MARK: - 连接
+extension XWHBindDeviceVC: XWHMonitorFromDeviceProtocol {
+    
+    func receiveBLEState(_ state: CBManagerState) {
+        
+    }
+    
+    func receiveConnectInfo(device: XWHDevWatchModel, connectState: XWHDeviceConnectBindState, error: XWHBLEError?) {
+        if connectState == .connected {
+            bindDeviceSuccess(bindDevice: device)
+        } else {
+            bindDeviceFailedUI()
+        }
+    }
+    
+}
+
 // MARK: - UI Jump
 extension XWHBindDeviceVC {
     
     private func gotoDeviceMain() {
+        XWHDDMShared.removeMonitorDelegate(self)
+
         let vc = XWHDeviceMainVC()
         navigationController?.setViewControllers([vc], animated: true)
     }
@@ -188,42 +220,7 @@ extension XWHBindDeviceVC {
     
     // 连接设备
     private func connect(device: XWHDevWatchModel) {
-        XWHDDMShared.connect(device: device, isReconnect: false) { [weak self] (result: Result<XWHDeviceConnectBindState, XWHBLEError>) in
-            guard let self = self else {
-                return
-            }
-            
-            switch result {
-            case .success(let connBindState):
-                if connBindState == .paired {
-                    self.bindDeviceSuccess(bindDevice: device)
-                } else {
-                    self.bind(device: device)
-                }
-                
-            case .failure(_):
-                self.bindDeviceFailedUI()
-            }
-        }
-    }
-    
-    // 绑定（配对）设备
-    private func bind(device: XWHDevWatchModel) {
-        XWHDDMShared.bind(device: device) { [weak self] (result: Result<XWHDeviceConnectBindState, XWHBLEError>) in
-            guard let self = self else {
-                return
-            }
-            
-            switch result {
-            case .success(let connBindState):
-                if connBindState == .paired {
-                    self.bindDeviceSuccess(bindDevice: device)
-                }
-                
-            case .failure(_):
-                self.bindDeviceFailedUI()
-            }
-        }
+        XWHDDMShared.connect(device: device)
     }
     
     private func updateDeviceInfo(_ completion: ((XWHDevWatchModel) -> Void)? = nil) {

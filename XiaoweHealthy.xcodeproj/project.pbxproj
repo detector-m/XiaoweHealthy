@@ -230,6 +230,11 @@
 		9684C7B32876804200BF277A /* XWHAppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684C7B22876804200BF277A /* XWHAppManager.swift */; };
 		9684C7B52876C93800BF277A /* XWHSportObserverProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684C7B42876C93800BF277A /* XWHSportObserverProtocol.swift */; };
 		9685829328791751009231DB /* XWHDataFromDeviceInteractionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685829228791751009231DB /* XWHDataFromDeviceInteractionProtocol.swift */; };
+		96858295287954F6009231DB /* XWHMonitorFromDeviceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96858294287954F6009231DB /* XWHMonitorFromDeviceProtocol.swift */; };
+		9685829728795A85009231DB /* XWHMonitorToDeviceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685829628795A85009231DB /* XWHMonitorToDeviceProtocol.swift */; };
+		9685829B28796C0D009231DB /* XWHScanDeviceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685829A28796C0D009231DB /* XWHScanDeviceProtocol.swift */; };
+		9685829D28796F61009231DB /* XWHScanDeviceResultProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685829C28796F61009231DB /* XWHScanDeviceResultProtocol.swift */; };
+		9685829F28797C3B009231DB /* XWHDeviceConnectProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685829E28797C3B009231DB /* XWHDeviceConnectProtocol.swift */; };
 		9685B47628601D6600095078 /* XWHHomeWeatherCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685B47528601D6600095078 /* XWHHomeWeatherCTCell.swift */; };
 		9685B47928604C9800095078 /* XWHWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685B47828604C9800095078 /* XWHWeather.swift */; };
 		96863E3F286AA69C004C0841 /* XWHSportInMotionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96863E3E286AA69C004C0841 /* XWHSportInMotionVC.swift */; };
@@ -718,6 +723,11 @@
 		9684C7B22876804200BF277A /* XWHAppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHAppManager.swift; sourceTree = "<group>"; };
 		9684C7B42876C93800BF277A /* XWHSportObserverProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportObserverProtocol.swift; sourceTree = "<group>"; };
 		9685829228791751009231DB /* XWHDataFromDeviceInteractionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDataFromDeviceInteractionProtocol.swift; sourceTree = "<group>"; };
+		96858294287954F6009231DB /* XWHMonitorFromDeviceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMonitorFromDeviceProtocol.swift; sourceTree = "<group>"; };
+		9685829628795A85009231DB /* XWHMonitorToDeviceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMonitorToDeviceProtocol.swift; sourceTree = "<group>"; };
+		9685829A28796C0D009231DB /* XWHScanDeviceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHScanDeviceProtocol.swift; sourceTree = "<group>"; };
+		9685829C28796F61009231DB /* XWHScanDeviceResultProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHScanDeviceResultProtocol.swift; sourceTree = "<group>"; };
+		9685829E28797C3B009231DB /* XWHDeviceConnectProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceConnectProtocol.swift; sourceTree = "<group>"; };
 		9685B47528601D6600095078 /* XWHHomeWeatherCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHomeWeatherCTCell.swift; sourceTree = "<group>"; };
 		9685B47828604C9800095078 /* XWHWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHWeather.swift; sourceTree = "<group>"; };
 		96863E3E286AA69C004C0841 /* XWHSportInMotionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportInMotionVC.swift; sourceTree = "<group>"; };
@@ -2101,6 +2111,23 @@
 			path = Module;
 			sourceTree = "<group>";
 		};
+		9685829828796BD0009231DB /* Inner */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Inner;
+			sourceTree = "<group>";
+		};
+		9685829928796BD6009231DB /* Outer */ = {
+			isa = PBXGroup;
+			children = (
+				9685829A28796C0D009231DB /* XWHScanDeviceProtocol.swift */,
+				9685829C28796F61009231DB /* XWHScanDeviceResultProtocol.swift */,
+				9685829E28797C3B009231DB /* XWHDeviceConnectProtocol.swift */,
+			);
+			path = Outer;
+			sourceTree = "<group>";
+		};
 		9685B47728604C7B00095078 /* Weather */ = {
 			isa = PBXGroup;
 			children = (
@@ -2826,7 +2853,11 @@
 		96DC429727FD3330009BF300 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
+				9685829928796BD6009231DB /* Outer */,
+				9685829828796BD0009231DB /* Inner */,
 				96F3588227FE7CE000783614 /* XWHBLEDispatchProtocol.swift */,
+				9685829628795A85009231DB /* XWHMonitorToDeviceProtocol.swift */,
+				96858294287954F6009231DB /* XWHMonitorFromDeviceProtocol.swift */,
 				96F1D65A28065C7D0067DBFD /* XWHDevDataOperationProtocol.swift */,
 				965DADED284DDA1700BB4ED3 /* XWHDataToDeviceInteractionProtocol.swift */,
 				9685829228791751009231DB /* XWHDataFromDeviceInteractionProtocol.swift */,
@@ -3517,6 +3548,7 @@
 				9651EE2027EBFE390043FE52 /* XWHNetwork.swift in Sources */,
 				96F1D66E2807F7CC0067DBFD /* XWHWeatherServiceProtocol.swift in Sources */,
 				968379642856DB360034DB98 /* XWHHomeColumnRangeBarChartCTCell.swift in Sources */,
+				9685829B28796C0D009231DB /* XWHScanDeviceProtocol.swift in Sources */,
 				96F1D67628082B510067DBFD /* XWHLocation.swift in Sources */,
 				968CB8AC27F4570A00E549AC /* XWHDialMarketTBCell.swift in Sources */,
 				9690724928151A670056CE4F /* XWHHealthyDataDetailListTBCell.swift in Sources */,
@@ -3604,6 +3636,7 @@
 				96F1D67C28091A8E0067DBFD /* XWHDialVC.swift in Sources */,
 				96C67AF228043362001ACA81 /* XWHDataHeartSetManager.swift in Sources */,
 				9680D8182851A23E00FA6F9C /* XWHSportRecordListTBVC.swift in Sources */,
+				9685829F28797C3B009231DB /* XWHDeviceConnectProtocol.swift in Sources */,
 				969310512824C54B00133626 /* XWHMentalStressGradientCTCell.swift in Sources */,
 				9679E9E62817BC79003C6351 /* XWHCalendarDayView.swift in Sources */,
 				969B88482812A91C009952E7 /* XWHDate.swift in Sources */,
@@ -3740,6 +3773,7 @@
 				9690725128152CC50056CE4F /* XWHHeartDataDetailTBVC.swift in Sources */,
 				969B884B2812B769009952E7 /* XWHHealthyApi.swift in Sources */,
 				9693105B2824EDAA00133626 /* XWHMentalStressDataDetailTBVC.swift in Sources */,
+				9685829D28796F61009231DB /* XWHScanDeviceResultProtocol.swift in Sources */,
 				96C67AE92804174B001ACA81 /* XWHHeartSetModel.swift in Sources */,
 				967E8BA02844D4F1008E65FF /* XWHMoodGradientCTCell.swift in Sources */,
 				96863E45286AFF98004C0841 /* LongPressButton.swift in Sources */,
@@ -3861,6 +3895,7 @@
 				968CB8A627F40B5A00E549AC /* XWHDeviceDeploy.swift in Sources */,
 				969B8821280FE670009952E7 /* XWHHealthyBloodOxygenCTVC.swift in Sources */,
 				96831C7E28730813003D7C9F /* XWHSportHelper.swift in Sources */,
+				9685829728795A85009231DB /* XWHMonitorToDeviceProtocol.swift in Sources */,
 				969B88432811A1A0009952E7 /* XWHBOTipCTCell.swift in Sources */,
 				9651EE0C27EB024B0043FE52 /* XWHNetworkHelper.swift in Sources */,
 				9687061A286EA6B400A83B6D /* XWHSportVM.swift in Sources */,
@@ -3906,6 +3941,7 @@
 				967AF4C527EF547B00235E08 /* XWHDevice.swift in Sources */,
 				9653E49227F5545100EE55FF /* XWHDevSetChatVC.swift in Sources */,
 				969B883A2811320B009952E7 /* XWHHealthyUIItemModel.swift in Sources */,
+				96858295287954F6009231DB /* XWHMonitorFromDeviceProtocol.swift in Sources */,
 				9653E4AD27F5BD4D00EE55FF /* XWHDevSetStandVC.swift in Sources */,
 				968489FD2840F52100821E24 /* XWHMoodRangeCTCell.swift in Sources */,
 				96837EA72866FB21005158A0 /* XWHSportSettingsSwitchTBCell.swift in Sources */,

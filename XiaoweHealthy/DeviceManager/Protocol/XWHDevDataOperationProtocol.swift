@@ -13,7 +13,7 @@ typealias XWHDevDataOperationHandler = (_ syncType: XWHDevSyncDataType, _ syncSt
 
 
 /// 设备数据处理（操作、同步）协议
-protocol XWHDevDataOperationProtocol {
+protocol XWHDevDataOperationProtocol: XWHMonitorToDeviceProtocol {
     
     /// 同步状态
     var state: XWHDevDataTransferState { get }

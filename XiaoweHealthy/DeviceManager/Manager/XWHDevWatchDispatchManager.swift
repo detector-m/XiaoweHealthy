@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import CoreBluetooth
 
 
 var XWHDDMShared: XWHDevWatchDispatchManager {
@@ -46,6 +47,8 @@ class XWHDevWatchDispatchManager {
     
     // 交互数据handler
     private var interactionDataHandler: XWHDataToDeviceInteractionProtocol?
+    
+    private var monitors: [XWHMonitorFromDeviceProtocol] = []
 
     
     // MARK: - handlers
@@ -71,8 +74,17 @@ class XWHDevWatchDispatchManager {
 //            }
 //        }
     }
+
     
     // MARK: - 方法
+    /// 监听蓝牙开关
+    func monitorBLEState() {
+        BluetoothStateHandler.shared.reqeustState { [weak self] state in
+            log.info("蓝牙状态 state = \(state.string)")
+            self?.receiveBLEState(state)
+        }
+    }
+    
     func configCurrentDevice() {
         if let cDevice = ddManager.getCurrentDevice() {
             config(device: cDevice)
@@ -91,9 +103,7 @@ class XWHDevWatchDispatchManager {
             
         case .skyworthWatchS1, .skyworthWatchS2:
             bleHandler = _uteBLEHandler
-            
-            bleHandler?.monitorHandler = monitorHandler
-            
+                        
             cmdHandler = _uteCmdHandler
             bleHandler?.cmdHandler = cmdHandler
             
@@ -106,12 +116,14 @@ class XWHDevWatchDispatchManager {
             interactionDataHandler = _uteBLEHandler
         }
         
+        bleHandler?.addMonitorDelegate(self)
+        dataHandler?.addMonitorDelegate(self)
+        
         return self
     }
     
     private func reset() {
         bleHandler?.cmdHandler = nil
-        bleHandler?.monitorHandler = nil
         bleHandler = nil
         
         cmdHandler?.wsHandler = nil
@@ -122,91 +134,92 @@ class XWHDevWatchDispatchManager {
         dataHandler = nil
         
         interactionDataHandler = nil
+        
+        bleHandler?.removeMonitorDelegate(self)
+        dataHandler?.removeMonitorDelegate(self)
     }
     
 }
 
-// MARK: - XWHBLEDispatchProtocol(设备连接相关)
-extension XWHDevWatchDispatchManager: XWHBLEDispatchProtocol {
+// MARK: - 扫描设备 XWHScanDeviceProtocol
+extension XWHDevWatchDispatchManager: XWHScanDeviceProtocol {
     
-    /// 配对方式
-    var pairMode: XWHDevicePairMode {
-        bleHandler?.pairMode ?? .search
+    var scanTimeout: TimeInterval {
+        return bleHandler?.scanTimeout ?? 5
     }
     
-//    var randomCode: String { get }
+    var scanType: XWHScanDeviceType {
+        bleHandler?.scanType ?? .search
+    }
     
+    func startScanDevice(device: XWHDevWatchModel, scanType: XWHScanDeviceType, randomCode: String, resultDelegate: XWHScanDeviceResultProtocol?) {
+        config(device: device)
+        bleHandler?.startScanDevice(device: device, scanType: scanType, randomCode: randomCode, resultDelegate: resultDelegate)
+    }
+    
+    func stopScanDevice(resultDelegate: XWHScanDeviceResultProtocol?) {
+        bleHandler?.stopScanDevice(resultDelegate: resultDelegate)
+    }
+    
+}
+
+// MARK: - 监听 XWHMonitorToDeviceProtocol
+extension XWHDevWatchDispatchManager: XWHMonitorToDeviceProtocol {
+    
+    func addMonitorDelegate(_ monitorDelegate: XWHMonitorFromDeviceProtocol) {
+        if monitors.contains(where: { $0 === monitorDelegate }) {
+            return
+        }
+        
+        monitors.append(monitorDelegate)
+    }
+
+    func removeMonitorDelegate(_ monitorDelegate: XWHMonitorFromDeviceProtocol) {
+        monitors.removeAll(where: { $0 === monitorDelegate })
+    }
+    
+}
+
+// MARK: - 监听 XWHMonitorFromDeviceProtocol
+extension XWHDevWatchDispatchManager: XWHMonitorFromDeviceProtocol {
+    
+    func receiveBLEState(_ state: CBManagerState) {
+        for iDelegate in monitors {
+            iDelegate.receiveBLEState(state)
+        }
+    }
+    
+    func receiveConnectInfo(device: XWHDevWatchModel, connectState: XWHDeviceConnectBindState, error: XWHBLEError?) {
+        for iDelegate in monitors {
+            iDelegate.receiveConnectInfo(device: device, connectState: connectState, error: error)
+        }
+    }
+    
+    func receiveSyncDataStateInfo(syncState: XWHDevDataTransferState, progress: Int, error: XWHError?) {
+        for iDelegate in monitors {
+            iDelegate.receiveSyncDataStateInfo(syncState: syncState, progress: progress, error: error)
+        }
+    }
+    
+}
+
+
+// MARK: - 连接 XWHDeviceConnectProtocol
+extension XWHDevWatchDispatchManager: XWHDeviceConnectProtocol {
     /// 连接状态
     var connectBindState: XWHDeviceConnectBindState {
         bleHandler?.connectBindState ?? .disconnected
     }
-    
-    /// 设置设备连接状态监听回调
-    func setMonitorHandler(device: XWHDevWatchModel?, monitorHandler: XWHDeviceMonitorHandler?) {
-        self.monitorHandler = monitorHandler
-        bleHandler?.setMonitorHandler(device: device, monitorHandler: monitorHandler)
-    }
-    
-    // MARK: - 扫描
-    // 开始扫描
-    func startScan(device: XWHDevWatchModel, pairMode: XWHDevicePairMode = .search, randomCode: String = "", progressHandler: XWHDevScanProgressHandler? = nil, scanHandler: XWHDevScanHandler?) {
-        //调用startScan方法
-        //等待各类 处理扫描到的devices后，回调block
-        //后 返回给最上层device[]
-//        bleHandler?.startScan(pairMode: pairMode, randomCode: randomCode, scanHandler)
-        bleHandler?.startScan(device: device, pairMode: pairMode, randomCode: randomCode, progressHandler: progressHandler, scanHandler: scanHandler)
-    }
-  
-    // 停止扫描
-    func stopScan() {
-        bleHandler?.stopScan()
-    }
-    
-    // MARK: - 连接
-    func connect(device: XWHDevWatchModel, isReconnect: Bool, connectHandler: XWHDevConnectHandler?) {
-        bleHandler?.connect(device: device, isReconnect: isReconnect, connectHandler: connectHandler)
+
+    /// 连接
+    func connect(device: XWHDevWatchModel) {
+        config(device: device)
+        bleHandler?.connect(device: device)
     }
 
     /// 断开连接
-    func disconnect(device: XWHDevWatchModel?) {
+    func disconnect(device: XWHDevWatchModel) {
         bleHandler?.disconnect(device: device)
-    }
-    
-    /// 连接超时
-    /// - 连接超时处理
-    func connectTimeout() {
-        bleHandler?.connectTimeout()
-    }
-    
-    /// 重连设备
-    func reconnect(device: XWHDevWatchModel, connectHandler: XWHDevConnectHandler?) {
-        bleHandler?.reconnect(device: device, connectHandler: connectHandler)
-    }
-    
-    // MARK: - 绑定
-    func bind(device: XWHDevWatchModel?, bindHandler: XWHDevBindHandler?) {
-        bleHandler?.bind(device: device, bindHandler: bindHandler)
-    }
-    
-    /// 绑定超时
-    /// - 绑定超时处理
-    func bindTimeout() {
-        bleHandler?.bindTimeout()
-    }
-    
-    // 取消配对
-    func unpair(device: XWHDevWatchModel?) {
-        bleHandler?.unpair(device: device)
-    }
-    
-    /// 解除绑定
-    func unbind(device: XWHDevWatchModel?, unbindHandler: XWHDevBindHandler?) {
-        bleHandler?.unbind(device: device, unbindHandler: unbindHandler)
-    }
-    
-    /// 切换解绑
-    func switchUnbind(handler: XWHDevBindHandler?) {
-        bleHandler?.switchUnbind(handler: handler)
     }
     
 }

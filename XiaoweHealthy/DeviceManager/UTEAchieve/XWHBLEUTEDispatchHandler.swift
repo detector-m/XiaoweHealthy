@@ -11,7 +11,7 @@ import UTESmartBandApi
 class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
     
     // MARK: - 变量
-    override var searchTime: TimeInterval {
+    override var scanTimeout: TimeInterval {
         return 3
     }
     
@@ -68,11 +68,9 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
     }
     
     // 开始扫描
-    override func startScan(device: XWHDevWatchModel, pairMode: XWHDevicePairMode, randomCode: String, progressHandler: XWHDevScanProgressHandler? = nil, scanHandler: XWHDevScanHandler?) {
-        super.startScan(device: device, pairMode: pairMode, randomCode: randomCode, progressHandler: progressHandler, scanHandler: scanHandler)
+    override func startScanDevice(device: XWHDevWatchModel, scanType: XWHScanDeviceType, randomCode: String, resultDelegate: XWHScanDeviceResultProtocol?) {
+        super.startScanDevice(device: device, scanType: scanType, randomCode: randomCode, resultDelegate: resultDelegate)
         
-//        uteDevices = []
-
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.02) { [weak self] in
             guard let self = self else {
                 return
@@ -82,26 +80,27 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
         }
     }
     
-    override func stopScan() {
-        super.stopScan()
+    override func stopScanDevice(resultDelegate: XWHScanDeviceResultProtocol?) {
         manager.stopScanDevices()
-        
-//        log.debug(manager.delegate)
+        super.stopScanDevice(resultDelegate: resultDelegate)
     }
     
-    override func connect(device: XWHDevWatchModel, isReconnect: Bool, connectHandler: XWHDevConnectHandler?) {
+    // ----------------------------------------
+    
+    override func connect(device: XWHDevWatchModel) {
         if manager.bluetoothState == .close {
             log.error("蓝牙关闭")
-//            connectHandler?(.failure(.normal))
             connectBindState = .disconnected
-            handleMonitor(connectBindState: connectBindState)
+            handleMonitor(connectBindState: connectBindState, error: .bleClose)
             return
         }
         
-        super.connect(device: device, isReconnect: isReconnect, connectHandler: connectHandler)
+        super.connect(device: device)
         
         connectBindState = .connecting
         log.info("-----------UTE开始连接手表-----------")
+        
+        handleMonitor(connectBindState: connectBindState, error: nil)
     
         let uteModel = UTEModelDevices()
         uteModel.identifier = device.identifier
@@ -110,17 +109,13 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
         manager.connect(uteModel)
     }
     
-    override func disconnect(device: XWHDevWatchModel?) {
+    override func disconnect(device: XWHDevWatchModel) {
         log.info("-----------UTE断开连接手表-----------")
         
         connectTimerInvalidate()
-        bindTimerInvalidate()
-        
-        connectHandler = nil
-        bindHandler = nil
         
         let devModel = UTEModelDevices()
-        devModel.identifier = device?.identifier
+        devModel.identifier = device.identifier
         manager.disConnect(devModel)
         
         connectBindState = .disconnected
@@ -128,48 +123,8 @@ class XWHBLEUTEDispatchHandler: XWHBLEDispatchBaseHandler {
             guard let self = self else {
                 return
             }
-            self.handleMonitor(connectBindState: self.connectBindState)
+            self.handleMonitor(connectBindState: self.connectBindState, error: nil)
         }
-    }
-    
-    /// 重连设备
-    override func reconnect(device: XWHDevWatchModel, connectHandler: XWHDevConnectHandler?) {
-        if connectBindState != .disconnected {
-            return
-        }
-        
-        log.info("UTE 重连设备")
-        
-        disconnect(device: device)
-        
-        connectBindState = .connecting
-        
-        var deviceModel: XWHDevWatchModel!
-        if let cUteModel = self.manager.connectedDevicesModel {
-            deviceModel = self.getDeviceInfo(with: cUteModel)
-        } else {
-            deviceModel = XWHDevWatchModel()
-            deviceModel.category = .watch
-            deviceModel.type = .skyworthWatchS1
-        }
-        
-        self.monitorHandler?(deviceModel, self.connectBindState)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-            self?.connect(device: device, isReconnect: true, connectHandler: connectHandler)
-        }
-    }
-    
-    override func bind(device: XWHDevWatchModel?, bindHandler: XWHDevBindHandler?) {
-        bindTimerInvalidate()
-        
-//        self.bindHandler = nil
-//        self.bindHandler = bindHandler
-        
-//        connectBindState = .pairing
-        connectBindState = .paired
-        bindHandler?(.success(connectBindState))
-//        self.bindHandler = nil
     }
     
     override func sdkDeviceToXWHDevice() -> [XWHDevWatchModel] {
@@ -228,42 +183,22 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
             case syncData
         }
         
-        // 之前的连接状态
-        let preConnBindState = connectBindState
-        
         // ute 状态的类型
         var uteStateType = UTEDevStateType.none
         var transferState = XWHDevDataTransferState.failed
         
-        var cConnBindState = connectBindState
         switch devicesState {
         // MARK: - 连接
         case .connected:
             log.info("-- UTE手表连接状态(\(devicesState.rawValue))：-- connected")
-
-            if isReconnect {
-                cConnBindState = .paired
-            } else {
-                cConnBindState = .connected
-            }
-            
             uteStateType = .connect
                         
         case .disconnected:
             log.info("-- UTE手表连接状态(\(devicesState.rawValue))：-- disconnected")
-
-            bindTimerInvalidate()
-            bindHandler = nil
-            
-            cConnBindState = .disconnected
-            
             uteStateType = .connect
             
         case .connectingError:
             log.info("-- UTE手表连接状态(\(devicesState.rawValue))：-- connectingError")
-
-            cConnBindState = .disconnected
-            
             uteStateType = .connect
             
             
@@ -322,45 +257,7 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
             break
             
         case .connect:
-            if cConnBindState == .connected || cConnBindState == .paired {
-                cmdHandler?.config(nil, nil, handler: nil)
-            }
-
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else {
-                    return
-                }
-                
-                if cConnBindState == .connected || cConnBindState == .paired {
-//                    self.cmdHandler?.config(nil, nil, handler: nil)
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 14) {
-                        self.connectBindState = cConnBindState
-                        self.connectHandler?(.success(self.connectBindState))
-                        
-                        self.connectTimerInvalidate()
-                        self.connectHandler = nil
-                        self.bleDevModel = nil
-                        
-                        self.handleMonitor(connectBindState: self.connectBindState)
-                        
-//                        if (preConnBindState == .connected || preConnBindState == .paired) && self.connectHandler == nil {
-//
-//                        }
-                    }
-                } else {
-                    self.connectBindState = cConnBindState
-                    self.connectHandler?(.failure(.normal))
-                    
-                    self.connectTimerInvalidate()
-                    self.connectHandler = nil
-                    self.bleDevModel = nil
-                    
-                    if (preConnBindState == .connected || preConnBindState == .paired) && self.connectHandler == nil {
-                        self.handleMonitor(connectBindState: self.connectBindState)
-                    }
-                }
-            }
+            handleUTEConnect(devicesState, error: error)
             
         case .firmware:
             guard let uteCmdHandler = cmdHandler as? XWHUTECmdOperationHandler else {
@@ -385,17 +282,13 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
     func uteManagerBluetoothState(_ bluetoothState: UTEBluetoothState) {
         if bluetoothState == .close {
             connectTimerInvalidate()
-            bindTimerInvalidate()
-            
-            connectHandler = nil
-            bindHandler = nil
             
             connectBindState = .disconnected
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else {
                     return
                 }
-                self.handleMonitor(connectBindState: self.connectBindState)
+                self.handleMonitor(connectBindState: self.connectBindState, error: .bleClose)
             }
         }
     }
@@ -437,6 +330,53 @@ extension XWHBLEUTEDispatchHandler: UTEManagerDelegate {
         }
         
         uteCmdHandler.handleTransferProgress(process)
+    }
+    
+}
+
+// MARK: - 处理连接
+extension XWHBLEUTEDispatchHandler {
+    
+    private func handleUTEConnect(_ devicesState: UTEDevicesSate, error: Error?) {
+        connectTimerInvalidate()
+        bleDevModel = nil
+        
+        if devicesState == .connectingError {
+            connectBindState = .disconnected
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                self.handleMonitor(connectBindState: self.connectBindState, error: .normal)
+            }
+            
+            return
+        }
+        
+        if devicesState == .disconnected {
+            connectBindState = .disconnected
+            
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                self.handleMonitor(connectBindState: self.connectBindState, error: nil)
+            }
+            
+            return
+        }
+        
+        cmdHandler?.config(nil, nil, handler: nil)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 14) { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            self.connectBindState = .connected
+            
+            self.handleMonitor(connectBindState: self.connectBindState, error: nil)
+        }
     }
     
 }
@@ -623,9 +563,9 @@ extension XWHBLEUTEDispatchHandler {
     }
     
     /// 处理监测结果
-    private func handleMonitor(connectBindState: XWHDeviceConnectBindState) {
+    private func handleMonitor(connectBindState: XWHDeviceConnectBindState, error: XWHBLEError?) {
         let deviceModel = getMonitorDeviceModel()
-        self.monitorHandler?(deviceModel, connectBindState)
+        monitorDelegate?.receiveConnectInfo(device: deviceModel, connectState: connectBindState, error: error)
     }
     
     private func getMonitorDeviceModel() -> XWHDevWatchModel {

@@ -7,8 +7,9 @@
 
 import UIKit
 import SwiftyJSON
+import CoreBluetooth
 
-class XWHDeviceMainVC: XWHTableViewBaseVC, XWHDeviceObserverProtocol {
+class XWHDeviceMainVC: XWHTableViewBaseVC {
     
 //    lazy var tableView = UITableView(frame: .zero, style: .grouped)
     
@@ -30,15 +31,13 @@ class XWHDeviceMainVC: XWHTableViewBaseVC, XWHDeviceObserverProtocol {
     
     lazy var dials = [XWHDialModel]()
     
-    deinit {
-        XWHDevice.shared.removeObserver(observer: self)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
 //        configDeviceItems()
-        XWHDevice.shared.addObserver(observer: self)
+        
+        XWHDDMShared.addMonitorDelegate(self)
+        
         reloadAll()
     }
     
@@ -178,6 +177,15 @@ class XWHDeviceMainVC: XWHTableViewBaseVC, XWHDeviceObserverProtocol {
         tableView.reloadData()
         
         getDials()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        guard let _ = navigationController else {
+            XWHDDMShared.removeMonitorDelegate(self)
+            return
+        }
     }
     
     // MARK: - UITableViewDataSource, UITableViewDelegate, UITableViewRoundedProtocol
@@ -343,12 +351,20 @@ class XWHDeviceMainVC: XWHTableViewBaseVC, XWHDeviceObserverProtocol {
 //        handleScrollLargeTitle(in: scrollView)
 //    }
     
-    // MARK: - XWHDeviceObserverProtocol
-    func updateDeviceConnectBind() {
-        reloadAll()
+}
+
+// MARK: - XWHMonitorFromDeviceProtocol
+extension XWHDeviceMainVC: XWHMonitorFromDeviceProtocol {
+    
+    func receiveBLEState(_ state: CBManagerState) {
+        
     }
     
-    func updateSyncState(_ syncState: XWHDevDataTransferState) {
+    func receiveConnectInfo(device: XWHDevWatchModel, connectState: XWHDeviceConnectBindState, error: XWHBLEError?) {
+        reloadAll()
+    }
+
+    func receiveSyncDataStateInfo(syncState: XWHDevDataTransferState, progress: Int, error: XWHError?) {
         if syncState == .succeed {
             XWHDevice.shared.updateDeviceInfo(completion: nil)
             view.makeInsetToast(R.string.xwhDeviceText.同步成功())
@@ -358,7 +374,7 @@ class XWHDeviceMainVC: XWHTableViewBaseVC, XWHDeviceObserverProtocol {
         
         reloadAll()
     }
-
+    
 }
 
 // MARK: - Config Data
@@ -666,6 +682,7 @@ extension XWHDeviceMainVC {
     // 去设备入口
     private func gotoAddDeviceEntry() {
         let vc = XWHAddDeviceEntryVC()
+        XWHDDMShared.removeMonitorDelegate(self)
         navigationController?.setViewControllers([vc], animated: true)
     }
     

@@ -7,23 +7,7 @@
 
 import UIKit
 
-class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
-    
-    /// 配对方式
-    var pairMode: XWHDevicePairMode = .search
-//    var randomCode = ""
-
-    /// 连接状态
-    var connectBindState: XWHDeviceConnectBindState = .disconnected
-    
-    /// 是否是重连
-    var isReconnect = false
-    
-    var monitorHandler: XWHDeviceMonitorHandler?
-    
-    var scanProgressHandler: XWHDevScanProgressHandler?
-    var connectHandler: XWHDevConnectHandler?
-    var bindHandler: XWHDevBindHandler?
+class XWHBLEDispatchBaseHandler: NSObject, XWHScanDeviceProtocol, XWHDeviceConnectProtocol, XWHMonitorToDeviceProtocol {
     
     var cmdHandler: XWHDevCmdOperationProtocol?
     
@@ -36,162 +20,107 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
     // MARK: - 基类计时器等
     ///扫描计时器
     fileprivate var _scanTimer: Timer?
+    
     /// 连接计时器
     var connectTimer: Timer?
-    /// 绑定计时器
-    var bindTimer: Timer?
-    
-    /// 是否搜索成功
-    var isSearchSuccess = false
-    
-    /// 搜索设备超时时间
-    var searchTime: TimeInterval {
-        return 5
-    }
-    
+        
     /// 连接设备超时时间
     var connectTimeoutTime: TimeInterval {
         return 30
     }
     
-    /// 绑定设备超时时间
-    class var bindTimeoutTime: TimeInterval {
-        return 30
+    // MARK: - 扫描 XWHScanDeviceProtocol
+    /// 扫描超时时间
+    var scanTimeout: TimeInterval {
+        return 3
     }
     
-    /// 设置设备连接状态监听回调
-    func setMonitorHandler(device: XWHDevWatchModel?, monitorHandler: XWHDeviceMonitorHandler?) {
-        self.monitorHandler = monitorHandler
-    }
+    var scanType: XWHScanDeviceType = .search
     
-//    func configCurType(type: XWHDeviceType) {
-//        if curType != type {
-//            DDLogDebug("configCurType 当前curType \(curType) || 将要替换为type \(type)")
-//            curType = type
-//        }
-//    }
+    weak var scanResultDelegate: XWHScanDeviceResultProtocol?
     
-    
-    // MARK: - 扫描
-    // 开始扫描
-    func startScan(device: XWHDevWatchModel, pairMode: XWHDevicePairMode, randomCode: String, progressHandler: XWHDevScanProgressHandler? = nil, scanHandler: XWHDevScanHandler?) {
+    func startScanDevice(device: XWHDevWatchModel, scanType: XWHScanDeviceType, randomCode: String, resultDelegate: XWHScanDeviceResultProtocol?) {
         bleDevModel = device
-        self.pairMode = pairMode;
-//        self.randomCode = randomCode;
+        self.scanType = scanType
+        scanResultDelegate = resultDelegate
         
         //此处子类调用，可以回调，sdkDeviceToHBDevice子类分别调用的，无须担心
         log.debug("扫描创建计时器")
 
         scanTimerInvalidate()
-        _scanTimer = Timer.scheduledTimer(withTimeInterval: searchTime, repeats: false, block: { [weak self] cTimer in
+        _scanTimer = Timer.scheduledTimer(withTimeInterval: scanTimeout, repeats: false, block: { [weak self] cTimer in
             guard let self = self else {
                 return
             }
             
-            log.debug("扫描计时器\(self.searchTime)s，刷新回调")
+            log.debug("扫描计时器\(self.scanTimeout)s，刷新回调")
             
-            self.stopScan()
-
             let devices = self.sdkDeviceToXWHDevice()
             
-            var response: Result<[XWHDevWatchModel], XWHBLEError> = .failure(XWHBLEError.normal)
-            if devices.isEmpty {
-                self.isSearchSuccess = false
-            } else {
-                self.isSearchSuccess = true
-                response = .success(devices)
-            }
-            
             DispatchQueue.main.async {
-                scanHandler?(response)
+                self.scanResultDelegate?.deviceDidScanned(devices: devices)
+                self.stopScanDevice(resultDelegate: self.scanResultDelegate)
             }
         })
     }
-  
-    // 停止扫描
-    func stopScan() {
+    
+    func stopScanDevice(resultDelegate: XWHScanDeviceResultProtocol?) {
         log.debug("扫描停止，计时器销毁")
         scanTimerInvalidate()
+        scanResultDelegate = nil
     }
     
-    // MARK: - 连接
-    func connect(device: XWHDevWatchModel, isReconnect: Bool, connectHandler: XWHDevConnectHandler?) {
+    // ----------------------------------------
+    
+    // MARK: - 监听 XWHMonitorToDeviceProtocol
+    weak var monitorDelegate: XWHMonitorFromDeviceProtocol?
+    func addMonitorDelegate(_ monitorDelegate: XWHMonitorFromDeviceProtocol) {
+        self.monitorDelegate = monitorDelegate
+    }
+    
+    func removeMonitorDelegate(_ monitorDelegate: XWHMonitorFromDeviceProtocol) {
+        self.monitorDelegate = nil
+    }
+    
+    // ----------------------------------------
+    
+    // MARK: - 连接 XWHDeviceConnectProtocol
+    /// 连接状态
+    var connectBindState: XWHDeviceConnectBindState = .disconnected
+    
+    /// 连接
+    func connect(device: XWHDevWatchModel) {
         connectTimerInvalidate()
-        bindTimerInvalidate()
-        
-        self.connectHandler = nil
-        bindHandler = nil
-        
-        self.isReconnect = isReconnect
-        
-        self.connectHandler = connectHandler
-        
         bleDevModel = device
         
         connectTimer = Timer.scheduledTimer(timeInterval: connectTimeoutTime, target: self, selector: #selector(connectTimeout), userInfo: nil, repeats: false)
 
         RunLoop.current.add(connectTimer!, forMode: .common)
     }
-
+    
     /// 断开连接
-    func disconnect(device: XWHDevWatchModel?) {
+    func disconnect(device: XWHDevWatchModel) {
         
     }
+    
+    // ----------------------------------------
     
     /// 连接超时
     /// - 连接超时处理
     @objc func connectTimeout() {
-        bleDevModel = nil
-        //TODO:这段代码进行一次调整，此处不应直接发Post
         if self.connectBindState == .connected {
+            bleDevModel = nil
+
             return
         }
 
         log.error("-----------连接手表超时-----------")
         connectBindState = .disconnected
 
-        connectHandler?(.failure(.normal))
-        connectHandler = nil
-        
-//        let cState = connectState
-//        let dic = [connectState: "state"]
-        
-//        bleNotice.post(name: ConnectStateChanged, object: dic)
+        monitorDelegate?.receiveConnectInfo(device: bleDevModel!, connectState: connectBindState, error: .normal)
+        bleDevModel = nil
     }
-    
-    /// 重连设备
-    func reconnect(device: XWHDevWatchModel, connectHandler: XWHDevConnectHandler?) {
-        
-    }
-    
-    // MARK: - 绑定
-    func bind(device: XWHDevWatchModel?, bindHandler: XWHDevBindHandler?) {
-        
-    }
-    
-    /// 绑定超时
-    /// - 绑定超时处理
-    @objc func bindTimeout() {
-        log.error("-----------绑定设备超时-----------")
-        
-        bindHandler?(.failure(.normal))
-        bindHandler = nil
-    }
-    
-    // 取消配对
-    func unpair(device: XWHDevWatchModel?) {
-        
-    }
-    
-    /// 解除绑定
-    func unbind(device: XWHDevWatchModel?, unbindHandler: XWHDevBindHandler?) {
-        
-    }
-    
-    /// 切换解绑
-    func switchUnbind(handler: XWHDevBindHandler?) {
-        
-    }
+
     
     // MARK: - -------- 模型转换 --------
     /// SDK设备模型转XWH设备模型
@@ -209,12 +138,6 @@ class XWHBLEDispatchBaseHandler: NSObject, XWHBLEDispatchProtocol {
     func connectTimerInvalidate() {
         connectTimer?.invalidate()
         connectTimer = nil
-    }
-    
-    // 关闭绑定定时器
-    func bindTimerInvalidate() {
-        bindTimer?.invalidate()
-        bindTimer = nil
     }
     
 }

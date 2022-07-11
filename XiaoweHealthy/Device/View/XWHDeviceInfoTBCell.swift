@@ -90,7 +90,7 @@ class XWHDeviceInfoTBCell: XWHCommonBaseTBCell {
                 make.left.equalTo(titleLb)
                 make.top.equalTo(subTitleLb.snp.bottom).offset(12)
             }
-        } else if connectBindState == .paired { // 已连接配对
+        } else if connectBindState == .connected { // 已连接配对
             subTitleLb.text = R.string.xwhDeviceText.已连接电量N().replacingOccurrences(of: "N", with: deviceInfo.battery.string)
             
             if isSyncing {

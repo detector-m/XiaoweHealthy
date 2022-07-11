@@ -7,6 +7,7 @@
 
 import UIKit
 import MJRefresh
+import CoreBluetooth
 
 /// 运动健康首页
 class XWHHealthyMainVC: XWHCollectionViewBaseVC {
@@ -51,10 +52,6 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
     private var weatherInfo: XWHWeatherInfoModel?
     
     private var isGpsOk: Bool = false
-
-    deinit {
-        XWHDevice.shared.removeObserver(observer: self)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,8 +60,8 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
         
         loadDatas()
         configNotifications()
-        XWHDevice.shared.addObserver(observer: self)
         
+        XWHDDMShared.addMonitorDelegate(self)
         gotoRequestHealthKitAuthorize()
     }
     
@@ -170,12 +167,27 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
             
             self.gotoReconnectOrSyncData()
         }
+        
+        guard let _ = XWHDeviceDataManager.getCurrentDevice() else {
+            refreshHeader?.setTitle("正在加载中...", for: .refreshing)
+            return
+        }
+        
         refreshHeader?.setTitle("设备连接中...", for: .refreshing)
     }
     
     // MARK: -
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        guard let _ = navigationController else {
+            XWHDDMShared.removeMonitorDelegate(self)
+            return
+        }
     }
 
 }
@@ -239,23 +251,28 @@ extension XWHHealthyMainVC {
     
 }
 
-// MARK: - XWHDeviceObserverProtocol
-extension XWHHealthyMainVC: XWHDeviceObserverProtocol {
+// MARK: - XWHMonitorFromDeviceProtocol
+extension XWHHealthyMainVC: XWHMonitorFromDeviceProtocol {
     
-    func updateDeviceConnectBind() {
+    func receiveBLEState(_ state: CBManagerState) {
+        
+    }
+    
+    func receiveConnectInfo(device: XWHDevWatchModel, connectState: XWHDeviceConnectBindState, error: XWHBLEError?) {
         if XWHDDMShared.connectBindState == .disconnected {
             refreshHeader?.setTitle("设备未连接", for: .refreshing)
             refreshHeader?.endRefreshing()
-        } else if XWHDDMShared.connectBindState == .paired {
+        } else if XWHDDMShared.connectBindState == .connected {
             
         } else {
             refreshHeader?.beginRefreshing()
+            refreshHeader?.setTitle("设备连接中...", for: .refreshing)
         }
         
         loadDatas()
     }
     
-    func updateSyncState(_ syncState: XWHDevDataTransferState) {
+    func receiveSyncDataStateInfo(syncState: XWHDevDataTransferState, progress: Int, error: XWHError?) {
         switch syncState {
         case .failed:
             collectionView.mj_header?.endRefreshing()
@@ -752,6 +769,18 @@ extension XWHHealthyMainVC {
     
     // 重连设备或者同步数据
     private func gotoReconnectOrSyncData() {
+        guard let _ = XWHDeviceDataManager.getCurrentDevice() else {
+            refreshHeader?.setTitle("正在加载中...", for: .refreshing)
+            loadDatas()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                
+                self.refreshHeader?.endRefreshing()
+            }
+            return
+        }
         if XWHDevice.shared.isConnectBind {
             if XWHDevice.shared.isSyncing {
                 view.makeInsetToast(R.string.xwhDeviceText.正在同步数据())
@@ -760,11 +789,12 @@ extension XWHHealthyMainVC {
             
             XWHDevice.shared.syncData()
         } else {
-            RLBLEPermissions.shared.getState { bleState in
+            RLBLEPermissions.shared.getState { [weak self] bleState in
                 if bleState == .poweredOn {
                     XWHDevice.shared.connect()
                 } else {
-                    XWHAlert.show(message: R.string.xwhDeviceText.连接设备需要打开手机蓝牙要开启吗())
+                    self?.refreshHeader?.endRefreshing()
+//                    XWHAlert.show(message: R.string.xwhDeviceText.连接设备需要打开手机蓝牙要开启吗())
                 }
             }
         }

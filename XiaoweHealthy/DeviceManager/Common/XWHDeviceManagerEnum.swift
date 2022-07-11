@@ -19,12 +19,6 @@ enum XWHDeviceConnectBindState {
     /// 已连接
     case connected
     
-    /// 配对中
-    case pairing
-    
-    /// 配对完成
-    case paired
-    
 }
 
 // MARK: - 设备配对模式
@@ -49,6 +43,9 @@ enum XWHBLEError: Error {
     
     /// 已被重置
     case reset
+    
+    /// 蓝牙关闭
+    case bleClose
     
 }
 

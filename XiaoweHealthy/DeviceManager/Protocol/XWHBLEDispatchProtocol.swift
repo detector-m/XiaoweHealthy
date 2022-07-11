@@ -7,9 +7,6 @@
 
 import Foundation
 
-typealias XWHDevScanProgressHandler = (_ devices: [XWHDevWatchModel]) -> Void
-
-//typealias XWHDevScanHandler = ((_ devices: [XWHDevWatchModel]) -> Void)
 
 typealias XWHDevScanHandler = (Result<[XWHDevWatchModel], XWHBLEError>) -> Void
 
@@ -24,11 +21,6 @@ typealias XWHDeviceMonitorHandler = (XWHDevWatchModel, XWHDeviceConnectBindState
 protocol XWHBLEDispatchProtocol {
     
     // MARK: - 基础属性相关
-    
-    /// 配对方式
-    var pairMode: XWHDevicePairMode { get }
-    
-//    var randomCode: String { get }
     
     /// 连接绑定状态
     var connectBindState: XWHDeviceConnectBindState { get }
@@ -45,20 +37,6 @@ protocol XWHBLEDispatchProtocol {
     ///     - device: 设备信息
     ///     - monitorHandler: 设备监听回调
     func setMonitorHandler(device: XWHDevWatchModel?, monitorHandler: XWHDeviceMonitorHandler?)
-    
-    
-    /// 开始扫描
-    /// - Parameters:
-    ///     - device: 扫描的设备信息
-    ///     - pairMode: .search , .qrCode 必传
-    ///     - randomCode: 默认传 空字符串 ""
-    ///     - progressHandler: 扫描进度回调
-    ///     - scanHandler: 返回扫描的设备数组 devices[]
-    func startScan(device: XWHDevWatchModel, pairMode: XWHDevicePairMode, randomCode: String, progressHandler: XWHDevScanProgressHandler?, scanHandler: XWHDevScanHandler?)
-    
-    
-    /// 停止扫描
-    func stopScan()
     
     /// 连接设备
     /// - Parameters:

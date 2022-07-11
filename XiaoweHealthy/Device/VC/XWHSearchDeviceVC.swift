@@ -141,31 +141,31 @@ extension XWHSearchDeviceVC {
     
 }
 
+extension XWHSearchDeviceVC: XWHScanDeviceResultProtocol {
+    
+    func deviceDidScanned(devices: [XWHDevWatchModel]) {
+        if devices.isEmpty {
+            radarSearchingTimeout()
+
+            return
+        }
+        
+        scanWatches = devices
+        stopSearching()
+        reloadUIData()
+    }
+    
+}
+
 // MARK: - Api
 extension XWHSearchDeviceVC {
     
     private func startSearchDevice() {
-        XWHDDMShared.config(device: watchModel)
-        
-        XWHDDMShared.startScan(device: watchModel) { [weak self] result in
-            guard let self = self else {
-                return
-            }
-            
-            switch result {
-            case .success(let cWatches):
-                self.scanWatches = cWatches
-                self.stopSearching()
-                self.reloadUIData()
-                
-            case .failure:
-                self.radarSearchingTimeout()
-            }
-        }
+        XWHDDMShared.startScanDevice(device: watchModel, scanType: .search, randomCode: "", resultDelegate: self)
     }
     
     private func stopSearchDevice() {
-        XWHDDMShared.stopScan()
+        XWHDDMShared.stopScanDevice(resultDelegate: self)
     }
     
 }

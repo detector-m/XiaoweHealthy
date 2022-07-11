@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreBluetooth
 
 
 /// 业务层设备模块
@@ -15,62 +16,45 @@ class XWHDevice {
     static var shared: XWHDevice {
         return _shared
     }
-    
-    private var observers: [XWHDeviceObserverProtocol] = []
-    
+        
     private init() {
         
     }
     
-    func addObserver(observer: XWHDeviceObserverProtocol) {
-            observers.append(observer)
-        }
-        
-    func removeObserver(observer: XWHDeviceObserverProtocol) {
-        observers.removeFirst(where: { $0 === observer })
-    }
-    
-    func notifyAllObserverUpdateConnectBindState() {
-        for observer in observers {
-            observer.updateDeviceConnectBind()
-        }
-    }
-
-    func notifyAllObserverUpdateSyncState(_ state: XWHDevDataTransferState) {
-        for observer in observers {
-            observer.updateSyncState(state)
-        }
-    }
-    
-//    func notifyAllObservers() {
-//        for observer in observers {
-//            observer.updateDeviceConnectBind()
-//        }
-//    }
-    
 }
 
 // MARK: - 设备
+
+extension XWHDevice: XWHMonitorFromDeviceProtocol {
+    
+    func receiveBLEState(_ state: CBManagerState) {
+        if state.isOpen {
+            connect()
+        }
+    }
+    
+    func receiveConnectInfo(device: XWHDevWatchModel, connectState: XWHDeviceConnectBindState, error: XWHBLEError?) {
+//        notifyAllObserverUpdateConnectBindState()
+        
+        if connectState == .connected {
+            self.updateDeviceInfo {
+                self.syncData()
+            }
+        } else {
+            log.error("连接设备失败")
+        }
+    }
+    
+}
 extension XWHDevice {
     
     var isConnectBind: Bool {
-        return XWHDDMShared.connectBindState == .paired
+        return XWHDDMShared.connectBindState == .connected
     }
     
     func config() {
-        XWHDDMShared.bleStateHandler = { [weak self] state in
-//            log.info("蓝牙状态 state = \(state.string)")
-            if state.isOpen {
-                self?.connect()
-            }
-        }
-        
-        XWHDDMShared.setMonitorHandler(device: nil) { [weak self] _, _ in
-            self?.notifyAllObserverUpdateConnectBindState()
-        }
-        if let connWatch = XWHDeviceDataManager.getCurrentWatch() {
-            XWHDDMShared.config(device: connWatch)
-        }
+        XWHDDMShared.addMonitorDelegate(self)
+        XWHDDMShared.monitorBLEState()
     }
 
     func connect() {
@@ -86,26 +70,7 @@ extension XWHDevice {
             return
         }
         
-        XWHDDMShared.config(device: connWatch)
-        XWHDDMShared.reconnect(device: connWatch) { [weak self] (result: Result<XWHDeviceConnectBindState, XWHBLEError>) in
-            guard let self = self else {
-                return
-            }
-
-            switch result {
-            case .success(let connBindState):
-                if connBindState == .paired {
-                    self.updateDeviceInfo {
-                        self.syncData()
-                    }
-                } else {
-                    log.error("重连设备失败")
-                }
-
-            case .failure(_):
-                log.error("重连设备失败")
-            }
-        }
+        XWHDDMShared.connect(device: connWatch)
     }
 
     func updateDeviceInfo(completion: (() -> Void)?) {
@@ -137,12 +102,6 @@ extension XWHDevice {
             return
         }
         
-        guard let devModel = XWHDeviceDataManager.getCurrentWatch() else {
-            return
-        }
-        
-        XWHDDMShared.config(device: devModel)
-        
         XWHDDMShared.setDataOperation { cp in
             log.debug("同步进度 = \(cp)")
         } resultHandler: { [weak self] (syncType, syncState, result: Result<XWHResponse?, XWHError>) in
@@ -160,11 +119,9 @@ extension XWHDevice {
                 }
             }
             
-            self?.notifyAllObserverUpdateSyncState(syncState)
         }
 
         XWHDDMShared.syncData()
-        notifyAllObserverUpdateSyncState(.inTransit)
     }
 
 }
