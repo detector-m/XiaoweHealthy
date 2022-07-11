@@ -55,7 +55,9 @@ class XWHSportInMotionVC: XWHBaseVC {
         return _stepManager
     }()
     
-    private var isShowDistance = false
+    private var isShowDisconnect = false
+    
+    private var isDeviceSport = false
     
     deinit {
         mapView.showsUserLocation = false
@@ -74,6 +76,7 @@ class XWHSportInMotionVC: XWHBaseVC {
         }
         
         if XWHDevice.isDevConnectBind {
+            isDeviceSport = true
             XWHDDMShared.addMonitorDelegate(self)
         }
     }
@@ -159,7 +162,7 @@ class XWHSportInMotionVC: XWHBaseVC {
             self.resume()
         }
         
-        controlPanel.unlockCompletion = { [unowned self] in
+        controlPanel.unlockCompletion = {
             
         }
     }
@@ -541,6 +544,10 @@ extension XWHSportInMotionVC: XWHDataFromDeviceInteractionProtocol {
         if sportModel.state == state {
             return
         }
+
+        if !isDeviceSport {
+            return
+        }
         
         switch state {
         case .stop:
@@ -572,27 +579,34 @@ extension XWHSportInMotionVC: XWHMonitorFromDeviceProtocol {
     }
     
     func receiveConnectInfo(device: XWHDevWatchModel, connectState: XWHDeviceConnectBindState, error: XWHBLEError?) {
+        if !isDeviceSport {
+            return
+        }
+        
         if XWHDDMShared.connectBindState == .disconnected {
             XWHProgressHUD.hide()
             if sportModel.state == .stop {
                 return
             }
             
-            if isShowDistance {
+            if isShowDisconnect {
                 return
             }
             
-            isShowDistance = true
+            isShowDisconnect = true
             controlPanel.clickPauseBtn()
             XWHAlert.show(title: nil, message: "检测到手表设备已断开连接", messageAlignment: .center, cancelTitle: "继续运动", confirmTitle: "重新连接") { [weak self] aType in
                 guard let self = self else {
                     return
                 }
-                self.isShowDistance = false
+                self.isShowDisconnect = false
                 if aType == .confirm {
+                    self.isDeviceSport = true
                     XWHProgressHUD.show(title: "连接中...")
                     
                     XWHDevice.shared.connect()
+                } else {
+                    self.isDeviceSport = false
                 }
             }
         } else if XWHDDMShared.connectBindState == .connected {

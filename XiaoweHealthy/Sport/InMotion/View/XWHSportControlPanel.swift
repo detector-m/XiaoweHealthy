@@ -449,7 +449,7 @@ extension XWHSportControlPanel {
         stopBtn.innerButn.setTitleColor(.white, for: .normal)
         stopBtn.innerButn.titleLabel?.font = XWHFont.harmonyOSSans(ofSize: 15, weight: .regular)
         stopBtn.innerButn.adjustsImageWhenHighlighted  = false
-        stopBtn.innerButn.set(image: R.image.sport_pause_icon(), title: "长按结束", titlePosition: .bottom, additionalSpacing: 2, state: .normal)
+        stopBtn.innerButn.set(image: R.image.sport_stop_icon(), title: "长按结束", titlePosition: .bottom, additionalSpacing: 2, state: .normal)
         stopBtn.innerButn.layer.cornerRadius = longPressBtnSize / 2 * 0.8
         stopBtn.innerButn.layer.backgroundColor = color.cgColor
         
