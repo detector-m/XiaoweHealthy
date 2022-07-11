@@ -314,6 +314,8 @@ class XWHSportControlPanel: XWHBaseView {
         }
     }
     
+    /// 
+    
     @objc private func clickLockBtn() {
         configLockControlPanel()
     }

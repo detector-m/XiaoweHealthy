@@ -381,7 +381,7 @@ extension XWHSportInMotionVC: MAMapViewDelegate {
                     return
                 }
                 sportModel.distance = sportModel.distance + delta.int
-                sportModel.cal = XWHSportFunction.getCal(sportTime: sportModel.duration, distance: sportModel.distance)
+                sportModel.cal = XWHSportFunction.getCal(sportTime: sportModel.duration, distance: sportModel.distance, sportType: sportModel.type)
             }
             
             if sportModel.distance <= lastSportItem.startMileage + 1000 {

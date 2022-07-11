@@ -12,24 +12,39 @@ class XWHSportFunction {
     
     // MARK: - 卡路里
     /// 获取计算运动卡路里
-    class func getCal(sportTime: Int, distance: Int) -> Int {
+    class func getCal(sportTime: Int, distance: Int, sportType: XWHSportType) -> Int {
         if sportTime == 0 {
             return 0
         }
-        
         
         var weight: Int = 60
         if let user = XWHUserDataManager.getCurrentUser() {
             weight = user.weight
         }
-        let cal = calculateCalorie(weight: weight, distance: distance)
+        let cal = calculateCalorie(weight: weight, distance: distance, sportType: sportType)
+        
         return cal
     }
     
-    private class func calculateCalorie(weight: Int, distance: Int) -> Int {
+    private class func calculateCalorie(weight: Int, distance: Int, sportType: XWHSportType) -> Int {
         // 暂时用这个算卡路里
         // 跑步热量（kcal）＝体重（kg）×距离（公里）×1.036
-        let calorie: Double = weight.double * distance.double / 1000 * 1.036;
+        var k: Double = 0
+        switch sportType {
+        case .none:
+            k = 0
+        case .run:
+            k = 1.036
+        case .walk:
+            k = 0.8214
+        case .ride:
+            k = 0.6142
+        case .climb:
+            k = 1.036
+        case .other:
+            k = 0.5
+        }
+        let calorie: Double = weight.double * distance.double / 1000 * k
         return calorie.int
     }
     
