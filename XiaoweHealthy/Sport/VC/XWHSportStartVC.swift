@@ -43,6 +43,8 @@ class XWHSportStartVC: XWHBaseVC {
     private var curLocation: MAUserLocation?
     
     deinit {
+        mapView.showsUserLocation = false
+        mapView.allowsBackgroundLocationUpdates = false
         mapView.delegate = nil
         XWHSport.shared.removeObserver(observer: self)
     }
@@ -113,10 +115,10 @@ class XWHSportStartVC: XWHBaseVC {
     private func configMapView() {
         mapView.backgroundColor = .white
         mapView.delegate = self
+        mapView.allowsBackgroundLocationUpdates = false
         mapView.showsUserLocation = true
         mapView.showsScale = false
         mapView.userTrackingMode = .follow
-        mapView.allowsBackgroundLocationUpdates = true
         mapView.distanceFilter = 5
         mapView.setZoomLevel(17, animated: false)
 //        mapView.customizeUserLocationAccuracyCircleRepresentation = true
@@ -197,6 +199,18 @@ class XWHSportStartVC: XWHBaseVC {
             make.size.equalTo(50)
             make.centerY.equalTo(goBtn)
             make.left.equalTo(goBtn.snp.right).offset(30)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if let vcs = navigationController?.viewControllers, !vcs.contains(self) {
+            XWHSport.shared.removeObserver(observer: self)
         }
     }
     

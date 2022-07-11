@@ -58,6 +58,8 @@ class XWHSportInMotionVC: XWHBaseVC {
     private var isShowDistance = false
     
     deinit {
+        mapView.showsUserLocation = false
+        mapView.allowsBackgroundLocationUpdates = false
         mapView.delegate = nil
         XWHDDMShared.removeSportHandlerDelegate()
     }
@@ -159,6 +161,27 @@ class XWHSportInMotionVC: XWHBaseVC {
         
         controlPanel.unlockCompletion = { [unowned self] in
             
+        }
+    }
+    
+    // MARK: -
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if presentedViewController == nil {
+            XWHDDMShared.removeMonitorDelegate(self)
+        }
+        
+        if let vcs = navigationController?.viewControllers, !vcs.contains(self) {
+            XWHDDMShared.removeMonitorDelegate(self)
         }
     }
 

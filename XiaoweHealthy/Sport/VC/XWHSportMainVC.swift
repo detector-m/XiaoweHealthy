@@ -156,8 +156,21 @@ class XWHSportMainVC: XWHCollectionViewBaseVC {
     // MARK: -
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if isBeingPresented || isMovingToParent {
+            // push / present
+        } else {
+            // pop /dismiss to here
+        }
     }
-
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if let vcs = navigationController?.viewControllers, !vcs.contains(self) {
+            XWHSport.shared.removeObserver(observer: self)
+        }
+    }
+    
 }
 
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate

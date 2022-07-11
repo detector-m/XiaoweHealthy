@@ -165,8 +165,14 @@ class XWHDeviceMainVC: XWHTableViewBaseVC {
         }
     }
     
+    // MARK: -
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if isBeingPresented || isMovingToParent {
+            // push / present
+        } else {
+            // pop /dismiss to here
+        }
         
         if !XWHUser.isLogined {
             gotoAddDeviceEntry()
@@ -179,12 +185,11 @@ class XWHDeviceMainVC: XWHTableViewBaseVC {
         getDials()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         
-        guard let _ = navigationController else {
+        if let vcs = navigationController?.viewControllers, !vcs.contains(self) {
             XWHDDMShared.removeMonitorDelegate(self)
-            return
         }
     }
     

@@ -38,6 +38,12 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
     private var sportDetail: XWHSportModel?
     
     var firstCoordinate: CLLocationCoordinate2D?
+    
+    deinit {
+        mapView.showsUserLocation = false
+        mapView.allowsBackgroundLocationUpdates = false
+        mapView.delegate = nil
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

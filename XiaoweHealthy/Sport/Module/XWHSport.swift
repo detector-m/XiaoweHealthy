@@ -22,7 +22,10 @@ class XWHSport {
     }
     
     func addObserver(observer: XWHSportObserverProtocol) {
-            observers.append(observer)
+        if observers.contains(where: { $0 === observer }) {
+            return
+        }
+        observers.append(observer)
     }
         
     func removeObserver(observer: XWHSportObserverProtocol) {
