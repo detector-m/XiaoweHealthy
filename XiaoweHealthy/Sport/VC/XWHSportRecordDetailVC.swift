@@ -69,7 +69,7 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
     }
     
     @objc private func clickShareBtn() {
-        
+        XWHSportShareView.show(sportInfo: sportDetail)
     }
     
     override func addSubViews() {
@@ -301,9 +301,9 @@ extension XWHSportRecordDetailVC: MAMapViewDelegate {
         let polyline: MAMultiPolyline = MAMultiPolyline(coordinates: &allCoordinates, count: UInt(cCount), drawStyleIndexes: [NSNumber(0), NSNumber(value: cCount - 1)])
         
         mapView.add(polyline)
-        let centerCoordinate = allCoordinates[cCount / 2]
-        firstCoordinate = centerCoordinate
-        mapView.setCenter(centerCoordinate, animated: true)
+//        let centerCoordinate = allCoordinates[cCount / 2]
+        firstCoordinate = polyline.coordinate
+        mapView.setCenter(polyline.coordinate, animated: true)
         
         addAnnotations()
     }

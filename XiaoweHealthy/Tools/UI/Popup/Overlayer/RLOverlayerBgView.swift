@@ -54,13 +54,15 @@ public class RLOverlayerBgView: UIControl {
     }
 
     func refreshBackgroundStyle() {
+        effectView?.removeFromSuperview()
+
         if style == .solidColor {
-            effectView?.removeFromSuperview()
             effectView = nil
-        }else {
+        } else {
             effectView = UIVisualEffectView(effect: UIBlurEffect(style: self.blurEffectStyle))
             effectView?.frame = bounds
             addSubview(effectView!)
         }
     }
+    
 }

@@ -118,5 +118,7 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>需要访问您的相册保存图片</string>
 </dict>
 </plist>

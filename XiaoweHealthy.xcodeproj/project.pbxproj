@@ -225,6 +225,8 @@
 		96840250285B27720079923C /* XWHActivityCalendarMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684024F285B27720079923C /* XWHActivityCalendarMonthView.swift */; };
 		96840252285B2BB00079923C /* XWHActivityCalendarMonthDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96840251285B2BB00079923C /* XWHActivityCalendarMonthDayCell.swift */; };
 		96844E82287D5C3400B6DAF4 /* XWHSportShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96844E81287D5C3400B6DAF4 /* XWHSportShareView.swift */; };
+		96844E84287D686800B6DAF4 /* XWHSportShareContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96844E83287D686800B6DAF4 /* XWHSportShareContentView.swift */; };
+		96844E86287D837F00B6DAF4 /* XWHSportShareBtnPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96844E85287D837F00B6DAF4 /* XWHSportShareBtnPanel.swift */; };
 		968489FD2840F52100821E24 /* XWHMoodRangeCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */; };
 		96848A012841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96848A002841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift */; };
 		9684C7B12876800400BF277A /* XWHSport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684C7B02876800400BF277A /* XWHSport.swift */; };
@@ -720,6 +722,8 @@
 		9684024F285B27720079923C /* XWHActivityCalendarMonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHActivityCalendarMonthView.swift; sourceTree = "<group>"; };
 		96840251285B2BB00079923C /* XWHActivityCalendarMonthDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHActivityCalendarMonthDayCell.swift; sourceTree = "<group>"; };
 		96844E81287D5C3400B6DAF4 /* XWHSportShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportShareView.swift; sourceTree = "<group>"; };
+		96844E83287D686800B6DAF4 /* XWHSportShareContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportShareContentView.swift; sourceTree = "<group>"; };
+		96844E85287D837F00B6DAF4 /* XWHSportShareBtnPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportShareBtnPanel.swift; sourceTree = "<group>"; };
 		968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMoodRangeCTCell.swift; sourceTree = "<group>"; };
 		96848A002841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyMainCommonCTCell.swift; sourceTree = "<group>"; };
 		9684C7B02876800400BF277A /* XWHSport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSport.swift; sourceTree = "<group>"; };
@@ -2082,6 +2086,8 @@
 			isa = PBXGroup;
 			children = (
 				96844E81287D5C3400B6DAF4 /* XWHSportShareView.swift */,
+				96844E83287D686800B6DAF4 /* XWHSportShareContentView.swift */,
+				96844E85287D837F00B6DAF4 /* XWHSportShareBtnPanel.swift */,
 			);
 			path = SportShare;
 			sourceTree = "<group>";
@@ -3770,6 +3776,7 @@
 				96617AAD27E3408C00139B03 /* XWHRegisterBaseVC.swift in Sources */,
 				9651EE2927EC58AA0043FE52 /* XWHThirdAppConfig.swift in Sources */,
 				96F3588927FE858900783614 /* XWHDevWatchModel.swift in Sources */,
+				96844E86287D837F00B6DAF4 /* XWHSportShareBtnPanel.swift in Sources */,
 				96F1D65B28065C7D0067DBFD /* XWHDevDataOperationProtocol.swift in Sources */,
 				969B883428110B24009952E7 /* XWHHealthyUIManager.swift in Sources */,
 				9689A4CD2877BE3400F1AC17 /* XWHLocationAnnotationView.swift in Sources */,
@@ -3909,6 +3916,7 @@
 				96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */,
 				96127D162842100E00940132 /* PullToRefreshHeader.swift in Sources */,
 				96863E3F286AA69C004C0841 /* XWHSportInMotionVC.swift in Sources */,
+				96844E84287D686800B6DAF4 /* XWHSportShareContentView.swift in Sources */,
 				96907262281564C90056CE4F /* XWHBOUIBloodOxygenModel.swift in Sources */,
 				967E97EB2859E69E001F9782 /* XWHHomeBOCTCell.swift in Sources */,
 				9644928827F7EB2F001CA321 /* XWHProgressButton.swift in Sources */,
