@@ -237,6 +237,7 @@
 		9685829F28797C3B009231DB /* XWHDeviceConnectProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685829E28797C3B009231DB /* XWHDeviceConnectProtocol.swift */; };
 		9685B47628601D6600095078 /* XWHHomeWeatherCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685B47528601D6600095078 /* XWHHomeWeatherCTCell.swift */; };
 		9685B47928604C9800095078 /* XWHWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685B47828604C9800095078 /* XWHWeather.swift */; };
+		9685F1D1287C1A3E00AF6E48 /* SportCountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685F1D0287C1A3E00AF6E48 /* SportCountdownView.swift */; };
 		96863E3F286AA69C004C0841 /* XWHSportInMotionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96863E3E286AA69C004C0841 /* XWHSportInMotionVC.swift */; };
 		96863E42286AAC2A004C0841 /* XWHSportControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96863E41286AAC2A004C0841 /* XWHSportControlPanel.swift */; };
 		96863E45286AFF98004C0841 /* LongPressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96863E44286AFF98004C0841 /* LongPressButton.swift */; };
@@ -730,6 +731,7 @@
 		9685829E28797C3B009231DB /* XWHDeviceConnectProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceConnectProtocol.swift; sourceTree = "<group>"; };
 		9685B47528601D6600095078 /* XWHHomeWeatherCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHomeWeatherCTCell.swift; sourceTree = "<group>"; };
 		9685B47828604C9800095078 /* XWHWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHWeather.swift; sourceTree = "<group>"; };
+		9685F1D0287C1A3E00AF6E48 /* SportCountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportCountdownView.swift; sourceTree = "<group>"; };
 		96863E3E286AA69C004C0841 /* XWHSportInMotionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportInMotionVC.swift; sourceTree = "<group>"; };
 		96863E41286AAC2A004C0841 /* XWHSportControlPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportControlPanel.swift; sourceTree = "<group>"; };
 		96863E44286AFF98004C0841 /* LongPressButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongPressButton.swift; sourceTree = "<group>"; };
@@ -1023,6 +1025,7 @@
 		96127D11284202AA00940132 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
+				9685F1CF287C1A1400AF6E48 /* CountdownView */,
 				9687061E286ECC7000A83B6D /* MotionTrackerManager */,
 				968315FA286D765900B444AD /* TimeManager */,
 				968CB8A127F3FB3700E549AC /* UITableViewRoundedProtocol */,
@@ -2134,6 +2137,14 @@
 				9685B47828604C9800095078 /* XWHWeather.swift */,
 			);
 			path = Weather;
+			sourceTree = "<group>";
+		};
+		9685F1CF287C1A1400AF6E48 /* CountdownView */ = {
+			isa = PBXGroup;
+			children = (
+				9685F1D0287C1A3E00AF6E48 /* SportCountdownView.swift */,
+			);
+			path = CountdownView;
 			sourceTree = "<group>";
 		};
 		96863E3B286AA5DF004C0841 /* InMotion */ = {
@@ -3861,6 +3872,7 @@
 				9651EDF727E961740043FE52 /* XWHAlert.swift in Sources */,
 				96786284282FA1C3003E5730 /* XWHColumnRangeBarChartBaseCTCell.swift in Sources */,
 				96E23C2A27E1A55E009EF208 /* XWHHealthyMainVC.swift in Sources */,
+				9685F1D1287C1A3E00AF6E48 /* SportCountdownView.swift in Sources */,
 				9672B26227EF06FB00DC80D6 /* XWHAddBrandDeviceVC.swift in Sources */,
 				9651EDEF27E849740043FE52 /* RLPopupView.swift in Sources */,
 				969A14D62862C0D100B61CEB /* XWHTitleValueView.swift in Sources */,

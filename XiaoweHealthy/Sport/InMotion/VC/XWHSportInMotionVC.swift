@@ -70,14 +70,16 @@ class XWHSportInMotionVC: XWHBaseVC {
         super.viewDidLoad()
         
         controlPanel.update(sportModel: sportModel)
-        DispatchQueue.main.async { [weak self] in
-            self?.sportModel.bTime = Date().string(withFormat: XWHDate.standardTimeAllFormat)
-            self?.start()
-        }
-        
         if XWHDevice.isDevConnectBind {
             isDeviceSport = true
             XWHDDMShared.addMonitorDelegate(self)
+        }
+        
+        addCountdownView()
+        startDeviceSport()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.5) { [weak self] in
+            self?.sportModel.bTime = Date().string(withFormat: XWHDate.standardTimeAllFormat)
+            self?.start()
         }
     }
     
@@ -167,6 +169,13 @@ class XWHSportInMotionVC: XWHBaseVC {
         }
     }
     
+    //倒计时弹窗
+    func addCountdownView() {
+        //倒计时
+        let countdownView = SportCountdownView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        view.insertSubview(countdownView, at: 9999)
+    }
+    
     // MARK: -
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -248,7 +257,7 @@ extension XWHSportInMotionVC {
         mapView.delegate = self
         sportModel.state = .start
         
-        startDeviceSport()
+//        startDeviceSport()
     }
     
     func stop() {
@@ -289,8 +298,16 @@ extension XWHSportInMotionVC {
             return
         }
         
+        if sportModel.state == .start {
+            return
+        }
+        
+        let startSportModel = XWHSportModel()
+        startSportModel.type = sportModel.type
+        startSportModel.state = .start
+    
         XWHDDMShared.addSportHandlerDelegate(self)
-        XWHDDMShared.sendSportState(sportModel: sportModel)
+        XWHDDMShared.sendSportState(sportModel: startSportModel)
     }
     
     func stopDeviceSport() {
@@ -358,7 +375,7 @@ extension XWHSportInMotionVC: MAMapViewDelegate {
         
         controlPanel.updateGPSSingal(horizontalAccuracy)
         
-        guard horizontalAccuracy < 70 && abs(howRecent) < 10 else {
+        guard horizontalAccuracy < 60 && abs(howRecent) < 10 else {
             return
         }
         

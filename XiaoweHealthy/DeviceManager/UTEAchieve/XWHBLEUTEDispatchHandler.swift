@@ -454,7 +454,7 @@ extension XWHBLEUTEDispatchHandler: XWHDataToDeviceInteractionProtocol {
     }
     
     private func setUTESportState(sportModel: XWHSportModel) {
-        let uteSportType: UTEDeviceSportMode = .running
+        let uteSportType: UTEDeviceSportMode = getUteSportType(sportModel: sportModel)
         var isOpen = false
         
         if sportModel.state == .continue {
