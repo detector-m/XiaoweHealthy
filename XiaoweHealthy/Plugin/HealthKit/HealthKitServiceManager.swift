@@ -7,6 +7,7 @@
 
 import Foundation
 import HealthKitReporter
+import HealthKit
 
 
 let hkServiceManager = HealthKitServiceManager.shared
@@ -78,6 +79,68 @@ final class HealthKitServiceManager {
                 }
             }
         })
+    }
+    
+    func getTotayStepCount(completion: @escaping (Int) -> Void) {
+        let now = Date()
+        getQuantity(bDate: now.dayBegin, eDate: now, quantityType: QuantityType.stepCount) { (samples: [Quantity]) in
+            var sum = 0
+            for iItem in samples {
+                sum += iItem.harmonized.value.int
+            }
+            completion(sum)
+        }
+    }
+    
+    func getTotayDistance(completion: @escaping (Int) -> Void) {
+        let now = Date()
+        getQuantity(bDate: now.dayBegin, eDate: now, quantityType: QuantityType.distanceWalkingRunning) { (samples: [Quantity]) in
+            var sum = 0
+            for iItem in samples {
+                sum += iItem.harmonized.value.int
+            }
+            completion(sum)
+        }
+    }
+    
+    func getTotayCal(completion: @escaping (Int) -> Void) {
+        do {
+            let eDate = Date()
+            let bDate = eDate.dayBegin
+            let predicate: NSPredicate = Query.predicateForSamples(withStart: bDate, end: eDate, options: .strictEndDate)
+            if let query = reporter?.reader.queryActivitySummary(predicate: predicate, completionHandler: { (summaries: [ActivitySummary], error) in
+                if error != nil {
+                    log.error("获取HealthKit出错 error = \(error!)")
+                }
+                var sum = 0
+                for iItem in summaries {
+                    sum += iItem.harmonized.activeEnergyBurned.int
+                }
+                completion(sum)
+            }) {
+                reporter?.manager.executeQuery(query)
+            }
+        } catch let cError {
+            log.error("获取HealthKit出错 error = \(cError)")
+        }
+    }
+    
+    func getQuantity(bDate: Date, eDate: Date, quantityType: QuantityType, unit: String = HKUnit.count().unitString, completion: @escaping ([Quantity]) -> Void) {
+        do {
+            let predicate: NSPredicate = Query.predicateForSamples(withStart: bDate, end: eDate, options: .strictEndDate)
+            
+            if let quantityQuery = try reporter?.reader.quantityQuery(type: quantityType, unit: unit, predicate: predicate, resultsHandler: { (samples: [Quantity], error) in
+                if error != nil {
+                    log.error("获取HealthKit出错 error = \(error!)")
+                }
+                
+                completion(samples)
+            }) {
+                reporter?.manager.executeQuery(quantityQuery)
+            }
+        } catch let cError {
+            log.error("获取HealthKit出错 error = \(cError)")
+        }
     }
     
 }

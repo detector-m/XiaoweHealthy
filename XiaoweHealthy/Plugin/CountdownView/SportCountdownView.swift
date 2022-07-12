@@ -100,7 +100,6 @@ extension SportCountdownView {
 //                        HFTTSPlayer.shared.speak(content: num.string)
 //                    }
                     self.numLbl.text = num.string
-//                    self.numLbl.font = R.font.fitdockfontRegular(size: 200)
                 }
                 // 每秒计时一次
                 num -= 1

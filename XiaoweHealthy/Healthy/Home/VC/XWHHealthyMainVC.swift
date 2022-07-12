@@ -47,6 +47,7 @@ class XWHHealthyMainVC: XWHCollectionViewBaseVC {
     private var moodUIModel: XWHMoodUIMoodModel?
 
     private var atSumUIModel: XWHActivitySumUIModel?
+    private var healthKitAtSumUIModel = XWHActivitySumUIModel()
     
     private var isGpsStarting: Bool = false
     private var weatherInfo: XWHWeatherInfoModel?
@@ -372,7 +373,11 @@ extension XWHHealthyMainVC: XWHMonitorFromDeviceProtocol {
         if iDeployItem.type == .activity {
             let cell = collectionView.dequeueReusableCell(withClass: XWHHealthActivityCTCell.self, for: indexPath)
             
-            cell.update(atSumUIModel: atSumUIModel)
+            if atSumUIModel != nil {
+                cell.update(atSumUIModel: atSumUIModel)
+            } else {
+                cell.update(atSumUIModel: healthKitAtSumUIModel)
+            }
             return cell
         }
         
@@ -515,6 +520,23 @@ extension XWHHealthyMainVC: XWHMonitorFromDeviceProtocol {
 
 // MARK: - Api
 extension XWHHealthyMainVC {
+    
+    /// 获取每日数据从 HealthKit
+    private func getActivitySumFormHealthKit() {
+        HealthKitServiceManager.shared.getTotayStepCount { [weak self] steps in
+            self?.healthKitAtSumUIModel.totalSteps = steps
+        }
+        HealthKitServiceManager.shared.getTotayCal { [weak self] cal in
+            self?.healthKitAtSumUIModel.totalCalories = cal
+        }
+        HealthKitServiceManager.shared.getTotayDistance { [weak self] distance in
+            self?.healthKitAtSumUIModel.totalDistance = distance
+            
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
+    }
     
     /// 获取每日数据概览
     private func getActivitySum() {
@@ -807,14 +829,18 @@ extension XWHHealthyMainVC {
     /// 运动健康授权
     private func gotoRequestHealthKitAuthorize() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            hkServiceManager.requestAuthorization { success, setupError in
+            hkServiceManager.requestAuthorization { [weak self] success, setupError in
                 if !success {
                     XWHAlert.show(title: nil, message: "运动健康未授权，请到运动健康App授权", cancelTitle: R.string.xwhDisplayText.取消(), confirmTitle: "去授权") { aType in
                         if aType == .confirm {
                             RLBLEPermissions.openAppSettings()
                         }
                     }
+                    
+                    return
                 }
+                
+                self?.getActivitySumFormHealthKit()
             }
         }
     }

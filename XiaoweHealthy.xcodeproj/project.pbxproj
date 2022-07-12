@@ -224,6 +224,7 @@
 		9684024E285B165F0079923C /* XWHActivityCalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684024D285B165F0079923C /* XWHActivityCalendarVC.swift */; };
 		96840250285B27720079923C /* XWHActivityCalendarMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684024F285B27720079923C /* XWHActivityCalendarMonthView.swift */; };
 		96840252285B2BB00079923C /* XWHActivityCalendarMonthDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96840251285B2BB00079923C /* XWHActivityCalendarMonthDayCell.swift */; };
+		96844E82287D5C3400B6DAF4 /* XWHSportShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96844E81287D5C3400B6DAF4 /* XWHSportShareView.swift */; };
 		968489FD2840F52100821E24 /* XWHMoodRangeCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */; };
 		96848A012841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96848A002841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift */; };
 		9684C7B12876800400BF277A /* XWHSport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684C7B02876800400BF277A /* XWHSport.swift */; };
@@ -718,6 +719,7 @@
 		9684024D285B165F0079923C /* XWHActivityCalendarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHActivityCalendarVC.swift; sourceTree = "<group>"; };
 		9684024F285B27720079923C /* XWHActivityCalendarMonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHActivityCalendarMonthView.swift; sourceTree = "<group>"; };
 		96840251285B2BB00079923C /* XWHActivityCalendarMonthDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHActivityCalendarMonthDayCell.swift; sourceTree = "<group>"; };
+		96844E81287D5C3400B6DAF4 /* XWHSportShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportShareView.swift; sourceTree = "<group>"; };
 		968489FC2840F52100821E24 /* XWHMoodRangeCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMoodRangeCTCell.swift; sourceTree = "<group>"; };
 		96848A002841C74F00821E24 /* XWHHealthyMainCommonCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyMainCommonCTCell.swift; sourceTree = "<group>"; };
 		9684C7B02876800400BF277A /* XWHSport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSport.swift; sourceTree = "<group>"; };
@@ -1922,6 +1924,7 @@
 		9680D8162851A1D600FA6F9C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				96844E80287D5C1700B6DAF4 /* SportShare */,
 				967F0F252865C915005E74DC /* SportFilter */,
 				969A14CF2862AAD800B61CEB /* XWHSportMainSportCTCell.swift */,
 				969A14D12862AD5900B61CEB /* XWHSportCTReusableView.swift */,
@@ -2073,6 +2076,14 @@
 				9684024A285AECB70079923C /* UnitHandler.swift */,
 			);
 			path = UnitHandler;
+			sourceTree = "<group>";
+		};
+		96844E80287D5C1700B6DAF4 /* SportShare */ = {
+			isa = PBXGroup;
+			children = (
+				96844E81287D5C3400B6DAF4 /* XWHSportShareView.swift */,
+			);
+			path = SportShare;
 			sourceTree = "<group>";
 		};
 		968489FE2841BF1800821E24 /* VC */ = {
@@ -3550,6 +3561,7 @@
 				96E23C0A27E1898C009EF208 /* XWHTabBarVC.swift in Sources */,
 				9690723F2814EBC50056CE4F /* XWHHealthyDataDetailListBaseTBVC.swift in Sources */,
 				9651EDF427E8C3870043FE52 /* XWHUIViewExtension.swift in Sources */,
+				96844E82287D5C3400B6DAF4 /* XWHSportShareView.swift in Sources */,
 				966F53C727F1E71800411D38 /* XWHSearchBindDevBaseVC.swift in Sources */,
 				9679E9DA281783CE003C6351 /* XWHCalendarYearView.swift in Sources */,
 				96FC407F27EDA19300D64B64 /* XWHFont.swift in Sources */,
