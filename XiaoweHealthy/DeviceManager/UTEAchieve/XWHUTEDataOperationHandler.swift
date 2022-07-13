@@ -660,6 +660,13 @@ class XWHUTEDataOperationHandler: XWHMonitorToDeviceProtocol, XWHDevDataOperatio
                 continue
             }
             
+            let intSportType = getSportIndex(uteSportMode: iUTESport.sportModel)
+            let sportType = XWHSportDataHelper.getSportType(sportIndex: intSportType)
+            
+            if sportType == .none || sportType == .other {
+                continue
+            }
+            
             let iSport = XWHSportModel()
             iSport.identifier = deviceSn
             iSport.mac = deviceMac
@@ -667,7 +674,7 @@ class XWHUTEDataOperationHandler: XWHMonitorToDeviceProtocol, XWHDevDataOperatio
             iSport.bTime = bDate.string(withFormat: XWHDeviceHelper.standardTimeFormat)
             iSport.eTime = eDate.string(withFormat: XWHDeviceHelper.standardTimeFormat)
             
-            iSport.intSportType = getSportIndex(uteSportMode: iUTESport.sportModel)
+            iSport.intSportType = intSportType
             iSport.distance = (iUTESport.distance * 1000).int
             iSport.step = iUTESport.steps
             iSport.cal = iUTESport.calories.int
