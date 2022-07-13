@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 class XWHUMManager {
@@ -72,6 +73,25 @@ class XWHUMManager {
             retResponse.identifier = retIdStr
             retResponse.data = userInfo
             successHandler?(retResponse)
+        }
+    }
+    
+    /// 分享一张图片
+    class func share(plattype: UMSocialPlatformType, aImage: UIImage, viewController: UIViewController?, completion: @escaping (Bool) -> Void) {
+        let imageObject = UMShareImageObject.shareObject(withTitle: "运动报告", descr: "我的运动详情", thumImage: nil)
+        imageObject?.shareImage = aImage
+        guard let messageObject = UMSocialMessageObject(mediaObject: imageObject) else {
+            completion(false)
+            return
+        }
+        UMShareSwiftInterface.share(plattype: plattype, messageObject: messageObject, viewController: viewController) { result, error in
+            var isOk = true
+            if error != nil {
+                log.error(error!)
+                isOk = false
+            }
+            
+            completion(isOk)
         }
     }
     

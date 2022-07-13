@@ -42,15 +42,51 @@ class XWHSportShareView: XWHBaseView {
         dismissBtn.setImage(dismissImage, for: .normal)
         dismissBtn.addTarget(self, action: #selector(clickDismissBtn), for: .touchUpInside)
         
-        btnPanel.completion = { [unowned self] bType in
+        btnPanel.completion = { [weak self] bType in
+            guard let self = self else {
+                return
+            }
+            
             self.contentView.getScreenshot { cImage in
                 guard let image = cImage else {
                     log.error("运动分享截屏失败")
                     return
                 }
+                
+                var plattype = UMSocialPlatformType.wechatSession
+                
                 if bType == .save {
                     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
                     self.makeInsetToast("已保存到系统相册")
+                } else if bType == .wechat {
+                    plattype = .wechatSession
+                    if !XWHUMManager.isWeixinInstalled {
+                        self.makeInsetToast("未安装微信")
+                        return
+                    }
+                } else if bType == .timeline {
+                    plattype = .wechatTimeLine
+                    if !XWHUMManager.isWeixinInstalled {
+                        self.makeInsetToast("未安装微信")
+                        return
+                    }
+                } else if bType == .qq {
+                    plattype = .QQ
+                    if !XWHUMManager.isQQInstalled {
+                        self.makeInsetToast("未安装QQ")
+                        return
+                    }
+                } else {
+                    return
+                }
+                
+                XWHUMManager.share(plattype: plattype, aImage: image, viewController: nil) { isOk in
+                    if isOk {
+                        self.makeInsetToast("分享成功")
+//                        self.hide()
+                    } else {
+                        self.makeInsetToast("分享失败")
+                    }
                 }
             }
         }
