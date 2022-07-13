@@ -282,6 +282,7 @@ class XWHSportMainVC: XWHCollectionViewBaseVC {
         let row = indexPath.item
         
         if section == 0 {
+            
             gotoCheckMapPrivacy { [unowned self] isOk in
                 if isOk {
                     let sportTypes: [XWHSportType] = [.run, .walk, .ride, .climb]
@@ -303,6 +304,9 @@ class XWHSportMainVC: XWHCollectionViewBaseVC {
 extension XWHSportMainVC: XWHSportObserverProtocol {
     
     func reloadOrUpdate() {
+        if !XWHUser.isLogined {
+            return
+        }
         getSportRecordList()
     }
     
@@ -346,8 +350,23 @@ extension XWHSportMainVC {
 // MARK: - UI Jump
 extension XWHSportMainVC {
     
+    /// 去登录
+    private func gotoLogin() -> Bool {
+        if !XWHUser.isLogined {
+            XWHLogin.present(at: self)
+            
+            return true
+        }
+        
+        return false
+    }
+    
     /// 地图隐私弹出框
     private func gotoCheckMapPrivacy(completion: @escaping ((Bool) -> Void)) {
+        if gotoLogin() {
+            return
+        }
+        
         XWHAppManager.checkPrivacy {
             //更新App是否显示隐私弹窗的状态，隐私弹窗是否包含高德SDK隐私协议内容的状态. since 8.1.0
             MAMapView.updatePrivacyShow(AMapPrivacyShowStatus.didShow, privacyInfo: AMapPrivacyInfoStatus.didContain)
@@ -364,6 +383,9 @@ extension XWHSportMainVC {
     
     /// 运动开始
     private func gotoSportStart(sType: XWHSportType) {
+        if gotoLogin() {
+            return
+        }
         let vc = XWHSportStartVC()
         vc.sportType = sType
         navigationController?.pushViewController(vc, animated: true)
@@ -371,12 +393,20 @@ extension XWHSportMainVC {
     
     /// 运动记录列表
     private func gotoSportRecordList() {
+        if gotoLogin() {
+            return
+        }
+        
         let vc = XWHSportRecordListTBVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     
     /// 运动记录详情
     private func gotoSportRecordDetail() {
+        if gotoLogin() {
+            return
+        }
+        
         let vc = XWHSportRecordDetailVC()
         vc.sportId = lastSportItem?.sportId ?? -1
         navigationController?.pushViewController(vc, animated: true)

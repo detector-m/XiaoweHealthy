@@ -401,7 +401,7 @@ extension XWHBLEUTEDispatchHandler {
     }
     
     func uteManagerReceiveTodaySport(_ dict: [AnyHashable : Any]!) {
-        log.debug("UTE 运动数据 TodaySport = \(dict)")
+        log.debug("UTE 运动数据 TodaySport = \(String(describing: dict))")
     }
     
     func uteManagerReceiveSportHRM(_ dict: [AnyHashable : Any]!) {

@@ -204,6 +204,10 @@ extension XWHHealthyMainVC {
         deployItems = deploy.loadDeploys(rawData: [])
         collectionView.reloadData()
         
+        if !XWHUser.isLogined {
+            return
+        }
+        
         loadServerDatas()
     }
     
@@ -523,16 +527,35 @@ extension XWHHealthyMainVC {
     
     /// 获取每日数据从 HealthKit
     private func getActivitySumFormHealthKit() {
-        HealthKitServiceManager.shared.getTotayStepCount { [weak self] steps in
-            self?.healthKitAtSumUIModel.totalSteps = steps
+        let queue = DispatchQueue.global()
+        let group = DispatchGroup()
+        
+        group.enter()
+        queue.async {
+            HealthKitServiceManager.shared.getTotayStepCount { [weak self] steps in
+                self?.healthKitAtSumUIModel.totalSteps = steps
+                group.leave()
+            }
         }
-        HealthKitServiceManager.shared.getTotayCal { [weak self] cal in
-            self?.healthKitAtSumUIModel.totalCalories = cal
+        
+        group.enter()
+        queue.async {
+            HealthKitServiceManager.shared.getTotayCal { [weak self] cal in
+                self?.healthKitAtSumUIModel.totalCalories = cal
+                group.leave()
+            }
         }
-        HealthKitServiceManager.shared.getTotayDistance { [weak self] distance in
-            self?.healthKitAtSumUIModel.totalDistance = distance
-            
-            DispatchQueue.main.async {
+        
+        group.enter()
+        queue.async {
+            HealthKitServiceManager.shared.getTotayDistance { [weak self] distance in
+                self?.healthKitAtSumUIModel.totalDistance = distance
+                group.leave()
+            }
+        }
+        
+        group.notify(queue: queue) {
+            DispatchQueue.main.async { [weak self] in
                 self?.collectionView.reloadData()
             }
         }
