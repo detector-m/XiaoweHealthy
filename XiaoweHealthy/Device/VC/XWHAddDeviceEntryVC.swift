@@ -51,7 +51,7 @@ class XWHAddDeviceEntryVC: XWHSearchBindDevBaseVC, FSPagerViewDataSource, FSPage
         pagerView.dataSource = self
         pagerView.delegate = self
         pagerView.itemSize = FSPagerView.automaticSize
-        pagerView.isUserInteractionEnabled = false
+//        pagerView.isUserInteractionEnabled = false
         pagerView.automaticSlidingInterval = 5
         view.addSubview(pagerView)
         
@@ -153,6 +153,13 @@ class XWHAddDeviceEntryVC: XWHSearchBindDevBaseVC, FSPagerViewDataSource, FSPage
     }
     
     // MARK:- FSPagerView Delegate
+    func pagerView(_ pagerView: FSPagerView, shouldHighlightItemAt index: Int) -> Bool {
+        return false
+    }
+    
+    func pagerView(_ pagerView: FSPagerView, shouldSelectItemAt index: Int) -> Bool {
+        return false
+    }
     func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {
 //        pagerView.deselectItem(at: index, animated: true)
 //        pagerView.scrollToItem(at: index, animated: true)
