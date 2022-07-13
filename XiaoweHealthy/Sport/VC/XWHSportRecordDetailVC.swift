@@ -9,6 +9,14 @@ import UIKit
 import CoreLocation
 
 
+enum XWHSportRecordUICardType {
+    
+    case summary
+    case pace
+    case detail
+    
+}
+
 /// 运动详情
 class XWHSportRecordDetailVC: XWHTableViewBaseVC {
     
@@ -34,6 +42,8 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
         242
     }
     
+    private var uiCardTypes: [XWHSportRecordUICardType] = [.summary, .pace, .detail]
+    
     var sportId: Int = -1
     private var sportDetail: XWHSportModel?
     
@@ -55,7 +65,7 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
         super.viewSafeAreaInsetsDidChange()
         
         tableView.frame = CGRect(x: tbXOffset, y: safeAreaTop + topOffset, width: tbWidth, height: tbHeigth)
-        mapView.frame = CGRect(x: 0, y: 0, width: view.width, height: tableView.y)
+        mapView.frame = CGRect(x: 0, y: 0, width: view.width, height: tableView.y + 60)
     }
     
     override func setupNavigationItems() {
@@ -121,7 +131,7 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
 @objc extension XWHSportRecordDetailVC {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return uiCardTypes.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -131,10 +141,12 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let section = indexPath.section
 //        let row = indexPath.row
+        
+        let uiCardType = uiCardTypes[section]
 
-        if section == 0 {
+        if uiCardType == .summary {
             return 300
-        } else if section == 1 {
+        } else if uiCardType == .pace {
             let paceCount = sportDetail?.eachPartItems.count ?? 0
             return 85 + 11 + (34 + 5) * paceCount.cgFloat
         } else {
@@ -145,13 +157,14 @@ class XWHSportRecordDetailVC: XWHTableViewBaseVC {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = indexPath.section
 //        let row = indexPath.row
-        
-        if section == 0 {
+        let uiCardType = uiCardTypes[section]
+            
+        if uiCardType == .summary {
             let cell = tableView.dequeueReusableCell(withClass: XWHSportDetailSummaryTBCell.self)
             cell.update(sportDetail: sportDetail)
             
             return cell
-        } else if section == 1 {
+        } else if uiCardType == .pace {
             let cell = tableView.dequeueReusableCell(withClass: XWHSportDetailPaceTBCell.self)
             cell.update(sportDetail: sportDetail)
             
@@ -382,6 +395,11 @@ extension XWHSportRecordDetailVC {
             }
             
             self.sportDetail = retModel
+            if retModel.eachPartItems.isEmpty {
+                self.uiCardTypes = [.summary, .detail]
+            } else {
+                self.uiCardTypes = [.summary, .pace, .detail]
+            }
             self.tableView.reloadData()
             self.drawLocationPath()
         }
