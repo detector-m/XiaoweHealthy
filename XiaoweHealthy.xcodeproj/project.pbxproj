@@ -363,6 +363,7 @@
 		96A7A5FD287FE97400890056 /* AliyunCredentialModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7A5FC287FE97400890056 /* AliyunCredentialModel.swift */; };
 		96A7A60128801EFE00890056 /* AppSysSpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7A5FF28801EFE00890056 /* AppSysSpeechManager.swift */; };
 		96A7A60228801EFE00890056 /* AppSysSpeechObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7A60028801EFE00890056 /* AppSysSpeechObject.swift */; };
+		96A7A6052880275400890056 /* AppCallTelephonyMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7A6042880275400890056 /* AppCallTelephonyMonitor.swift */; };
 		96AD2857280139670092B843 /* AppDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD2856280139670092B843 /* AppDatabase.swift */; };
 		96AD285A280144F40092B843 /* AppLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD2859280144F40092B843 /* AppLogManager.swift */; };
 		96AD285C28016BB30092B843 /* XWHTestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD285B28016BB30092B843 /* XWHTestModel.swift */; };
@@ -865,6 +866,7 @@
 		96A7A5FC287FE97400890056 /* AliyunCredentialModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliyunCredentialModel.swift; sourceTree = "<group>"; };
 		96A7A5FF28801EFE00890056 /* AppSysSpeechManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSysSpeechManager.swift; sourceTree = "<group>"; };
 		96A7A60028801EFE00890056 /* AppSysSpeechObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSysSpeechObject.swift; sourceTree = "<group>"; };
+		96A7A6042880275400890056 /* AppCallTelephonyMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCallTelephonyMonitor.swift; sourceTree = "<group>"; };
 		96AD2856280139670092B843 /* AppDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDatabase.swift; sourceTree = "<group>"; };
 		96AD2859280144F40092B843 /* AppLogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogManager.swift; sourceTree = "<group>"; };
 		96AD285B28016BB30092B843 /* XWHTestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTestModel.swift; sourceTree = "<group>"; };
@@ -1049,6 +1051,7 @@
 		96127D11284202AA00940132 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
+				96A7A6032880270700890056 /* CallTelephonyMonitor */,
 				96A7A5FE28801EDC00890056 /* SysSpeech */,
 				96A7A5F7287FE8A700890056 /* Aliyun */,
 				9685F1CF287C1A1400AF6E48 /* CountdownView */,
@@ -2714,6 +2717,14 @@
 			path = SysSpeech;
 			sourceTree = "<group>";
 		};
+		96A7A6032880270700890056 /* CallTelephonyMonitor */ = {
+			isa = PBXGroup;
+			children = (
+				96A7A6042880275400890056 /* AppCallTelephonyMonitor.swift */,
+			);
+			path = CallTelephonyMonitor;
+			sourceTree = "<group>";
+		};
 		96AD28552801393B0092B843 /* Database */ = {
 			isa = PBXGroup;
 			children = (
@@ -3955,6 +3966,7 @@
 				967F867F283CCF2500AFB1D0 /* XWHDeviceUseGuideTBVC.swift in Sources */,
 				96617AA327E3110E00139B03 /* XWHPasswordLoginVC.swift in Sources */,
 				9693104D2824C01700133626 /* XWHHealthyMentalStressCTVC.swift in Sources */,
+				96A7A6052880275400890056 /* AppCallTelephonyMonitor.swift in Sources */,
 				96522C25285C3FAA00C2A208 /* MKRingProgressView.swift in Sources */,
 				96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */,
 				96127D162842100E00940132 /* PullToRefreshHeader.swift in Sources */,
