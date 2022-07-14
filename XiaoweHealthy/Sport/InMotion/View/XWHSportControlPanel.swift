@@ -53,6 +53,12 @@ class XWHSportControlPanel: XWHBaseView {
     /// 弹出tip
     lazy private var popTip = PopTip()
     
+    /// 设置回调
+    var settingsCompletion: XWHActionCompletion?
+    
+    /// 折叠回调
+    var foldCompletion: XWHActionCompletion?
+    
     /// 停止回调
     var stopCompletion: XWHActionCompletion?
     
@@ -112,9 +118,11 @@ class XWHSportControlPanel: XWHBaseView {
         addSubview(unlockBnt)
         
         settingBtn.setImage(R.image.sport_setting(), for: .normal)
+        settingBtn.addTarget(self, action: #selector(clickSettingsBtn), for: .touchUpInside)
         
         foldBtn.setImage(openImage, for: .normal)
         foldBtn.setImage(closeImage, for: .selected)
+        foldBtn.addTarget(self, action: #selector(clickFoldBtn), for: .touchUpInside)
         
         valueLb.textAlignment = .center
         
@@ -155,6 +163,8 @@ class XWHSportControlPanel: XWHBaseView {
         
         configNormalControlPanel()
         
+        configPopTip()
+        
         lockBtn.addTarget(self, action: #selector(clickLockBtn), for: .touchUpInside)
         voiceBtn.addTarget(self, action: #selector(clickVoiceBtn), for: .touchUpInside)
         pauseBtn.addTarget(self, action: #selector(clickPauseBtn), for: .touchUpInside)
@@ -166,43 +176,43 @@ class XWHSportControlPanel: XWHBaseView {
     }
     
     override func relayoutSubViews() {
-        foldBtn.snp.makeConstraints { make in
+        foldBtn.snp.remakeConstraints { make in
             make.size.equalTo(24)
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().inset(16)
         }
         
-        gpsSignalView.snp.makeConstraints { make in
+        gpsSignalView.snp.remakeConstraints { make in
             make.left.top.equalToSuperview().inset(16)
             make.height.equalTo(24)
             make.width.lessThanOrEqualTo(60)
         }
         
-        settingBtn.snp.makeConstraints { make in
+        settingBtn.snp.remakeConstraints { make in
             make.size.equalTo(24)
             make.centerY.equalTo(foldBtn)
             make.right.equalToSuperview().inset(16)
         }
         
-        valueLb.snp.makeConstraints { make in
+        valueLb.snp.remakeConstraints { make in
             make.left.right.equalToSuperview().inset(16)
             make.top.equalToSuperview().offset(44)
             make.height.equalTo(84)
         }
         
         
-        timeValueLb.snp.makeConstraints { make in
+        timeValueLb.snp.remakeConstraints { make in
             make.left.equalToSuperview().inset(57)
             make.width.equalTo(120)
             make.top.equalToSuperview().offset(153)
             make.height.equalTo(40)
         }
-        timeIcon.snp.makeConstraints { make in
+        timeIcon.snp.remakeConstraints { make in
             make.left.equalTo(timeValueLb)
             make.top.equalTo(timeValueLb.snp.bottom).offset(11)
             make.size.equalTo(13)
         }
-        timeTitleLb.snp.makeConstraints { make in
+        timeTitleLb.snp.remakeConstraints { make in
             make.left.equalTo(timeIcon.snp.right).offset(2)
             make.right.equalTo(timeValueLb)
             make.height.equalTo(18)
@@ -210,18 +220,18 @@ class XWHSportControlPanel: XWHBaseView {
         }
         
         
-        calValueLb.snp.makeConstraints { make in
+        calValueLb.snp.remakeConstraints { make in
             make.left.equalTo(self.snp.centerX).offset(50)
             make.right.equalToSuperview().inset(16)
             make.top.equalToSuperview().offset(153)
             make.height.equalTo(40)
         }
-        calIcon.snp.makeConstraints { make in
+        calIcon.snp.remakeConstraints { make in
             make.left.equalTo(calValueLb)
             make.top.equalTo(calValueLb.snp.bottom).offset(11)
             make.size.equalTo(13)
         }
-        calTitleLb.snp.makeConstraints { make in
+        calTitleLb.snp.remakeConstraints { make in
             make.left.equalTo(calIcon.snp.right).offset(2)
             make.right.equalTo(calValueLb)
             make.height.equalTo(18)
@@ -229,32 +239,32 @@ class XWHSportControlPanel: XWHBaseView {
         }
         
         
-        paceValueLb.snp.makeConstraints { make in
+        paceValueLb.snp.remakeConstraints { make in
             make.left.right.height.equalTo(timeValueLb)
             make.top.equalTo(timeTitleLb.snp.bottom).offset(8)
         }
-        paceIcon.snp.makeConstraints { make in
+        paceIcon.snp.remakeConstraints { make in
             make.left.equalTo(paceValueLb)
             make.top.equalTo(paceValueLb.snp.bottom).offset(11)
             make.size.equalTo(13)
         }
-        paceTitleLb.snp.makeConstraints { make in
+        paceTitleLb.snp.remakeConstraints { make in
             make.left.equalTo(paceIcon.snp.right).offset(2)
             make.right.equalTo(paceValueLb)
             make.height.equalTo(18)
             make.centerY.equalTo(paceIcon)
         }
         
-        heartValueLb.snp.makeConstraints { make in
+        heartValueLb.snp.remakeConstraints { make in
             make.left.right.height.equalTo(calValueLb)
             make.top.equalTo(paceValueLb)
         }
-        heartIcon.snp.makeConstraints { make in
+        heartIcon.snp.remakeConstraints { make in
             make.left.equalTo(heartValueLb)
             make.top.equalTo(heartValueLb.snp.bottom).offset(11)
             make.size.equalTo(13)
         }
-        heartTitleLb.snp.makeConstraints { make in
+        heartTitleLb.snp.remakeConstraints { make in
             make.left.equalTo(heartIcon.snp.right).offset(2)
             make.right.equalTo(heartValueLb)
             make.height.equalTo(18)
@@ -264,26 +274,24 @@ class XWHSportControlPanel: XWHBaseView {
         relayoutNormalControlPanel()
         relayoutLockControlPanel()
         relayoutPauseControlPanel()
-        
-        configPopTip()
     }
     
     
     /// 正常情况控制面板
     private func relayoutNormalControlPanel() {
-        pauseBtn.snp.makeConstraints { make in
+        pauseBtn.snp.remakeConstraints { make in
             make.size.equalTo(94)
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(340)
         }
         
-        lockBtn.snp.makeConstraints { make in
+        lockBtn.snp.remakeConstraints { make in
             make.size.equalTo(46)
             make.centerY.equalTo(pauseBtn)
             make.right.equalTo(self.snp.centerX).offset(-38 - 37)
         }
         
-        voiceBtn.snp.makeConstraints { make in
+        voiceBtn.snp.remakeConstraints { make in
             make.size.equalTo(46)
             make.centerY.equalTo(pauseBtn)
             make.left.equalTo(self.snp.centerX).offset(38 + 37)
@@ -292,7 +300,7 @@ class XWHSportControlPanel: XWHBaseView {
     
     /// 锁定控制面板
     private func relayoutLockControlPanel() {
-        unlockBnt.snp.makeConstraints { make in
+        unlockBnt.snp.remakeConstraints { make in
             make.size.equalTo(longPressBtnSize)
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(340 - 12)
@@ -301,20 +309,66 @@ class XWHSportControlPanel: XWHBaseView {
     
     ///  暂停控制面板
     private func relayoutPauseControlPanel() {
-        continueBtn.snp.makeConstraints { make in
+        continueBtn.snp.remakeConstraints { make in
             make.size.equalTo(94)
             make.right.equalTo(self.snp.centerX).offset(-36)
             make.top.equalToSuperview().offset(340)
         }
         
-        stopBtn.snp.makeConstraints { make in
+        stopBtn.snp.remakeConstraints { make in
             make.size.equalTo(longPressBtnSize)
             make.left.equalTo(self.snp.centerX).offset(36 - 12)
             make.top.equalToSuperview().offset(340 - 12)
         }
     }
     
-    /// 
+    /// 折叠控制面板
+    private func relayoutFoldControlPanel() {
+        timeValueLb.snp.remakeConstraints { make in
+            make.right.equalToSuperview().inset(25)
+            make.width.equalTo(120)
+            make.top.equalToSuperview().offset(62)
+            make.height.equalTo(40)
+        }
+        timeIcon.snp.remakeConstraints { make in
+            make.left.equalTo(timeValueLb)
+            make.top.equalTo(timeValueLb.snp.bottom).offset(4)
+            make.size.equalTo(13)
+        }
+        timeTitleLb.snp.remakeConstraints { make in
+            make.left.equalTo(timeIcon.snp.right).offset(2)
+            make.right.equalTo(timeValueLb)
+            make.height.equalTo(18)
+            make.centerY.equalTo(timeIcon)
+        }
+        
+        valueLb.snp.remakeConstraints { make in
+            make.left.equalToSuperview().inset(25)
+            make.right.equalTo(timeValueLb.snp.left).offset(-15)
+            make.top.equalToSuperview().offset(44)
+            make.height.equalTo(84)
+        }
+    }
+    
+    // MARK: - Actions
+    @objc private func clickSettingsBtn() {
+        settingsCompletion?()
+    }
+    
+    @objc private func clickFoldBtn() {
+        foldBtn.isSelected = !foldBtn.isSelected
+        if foldBtn.isSelected {
+            relayoutFoldControlPanel()
+            
+            configFoldControlPanel()
+        } else {
+            relayoutSubViews()
+            
+            configNormalControlPanel()
+        }
+        
+        foldCompletion?()
+    }
     
     @objc private func clickLockBtn() {
         configLockControlPanel()
@@ -325,18 +379,24 @@ class XWHSportControlPanel: XWHBaseView {
     }
     
     @objc func clickPauseBtn() {
+        relayoutSubViews()
         configPauseControlPanel()
         
         pauseCompletion?()
     }
     
     @objc func clickContinueBtn() {
+        relayoutSubViews()
+
         configNormalControlPanel()
         
         continueCompletion?()
     }
     
     private func configNormalControlPanel() {
+        settingBtn.isHidden = false
+        foldBtn.isHidden = false
+        
         pauseBtn.isHidden = false
         lockBtn.isHidden = false
         voiceBtn.isHidden = false
@@ -345,9 +405,14 @@ class XWHSportControlPanel: XWHBaseView {
         continueBtn.isHidden = true
         
         unlockBnt.isHidden = true
+        
+        configUnfoldLbs()
     }
     
     private func configLockControlPanel() {
+        settingBtn.isHidden = false
+        foldBtn.isHidden = true
+
         pauseBtn.isHidden = true
         lockBtn.isHidden = true
         voiceBtn.isHidden = true
@@ -356,9 +421,14 @@ class XWHSportControlPanel: XWHBaseView {
         continueBtn.isHidden = true
         
         unlockBnt.isHidden = false
+        
+        configUnfoldLbs()
     }
     
     private func configPauseControlPanel() {
+        settingBtn.isHidden = false
+        foldBtn.isHidden = true
+        
         pauseBtn.isHidden = true
         lockBtn.isHidden = true
         voiceBtn.isHidden = true
@@ -367,6 +437,64 @@ class XWHSportControlPanel: XWHBaseView {
         continueBtn.isHidden = false
         
         unlockBnt.isHidden = true
+        
+        configUnfoldLbs()
+    }
+    
+    private func configFoldControlPanel() {
+        settingBtn.isHidden = true
+        foldBtn.isHidden = false
+        
+        pauseBtn.isHidden = true
+        lockBtn.isHidden = true
+        voiceBtn.isHidden = true
+        
+        stopBtn.isHidden = true
+        continueBtn.isHidden = true
+        
+        unlockBnt.isHidden = true
+        
+        configFoldLbs()
+    }
+    
+    private func configFoldLbs() {
+        foldBtn.isSelected = true
+
+        timeIcon.isHidden = false
+        timeTitleLb.isHidden = false
+        timeValueLb.isHidden = false
+        
+        calIcon.isHidden = true
+        calTitleLb.isHidden = true
+        calValueLb.isHidden = true
+        
+        paceIcon.isHidden = true
+        paceTitleLb.isHidden = true
+        paceValueLb.isHidden = true
+        
+        heartIcon.isHidden = true
+        heartTitleLb.isHidden = true
+        heartValueLb.isHidden = true
+    }
+    
+    private func configUnfoldLbs() {
+        foldBtn.isSelected = false
+        
+        timeIcon.isHidden = false
+        timeTitleLb.isHidden = false
+        timeValueLb.isHidden = false
+        
+        calIcon.isHidden = false
+        calTitleLb.isHidden = false
+        calValueLb.isHidden = false
+        
+        paceIcon.isHidden = false
+        paceTitleLb.isHidden = false
+        paceValueLb.isHidden = false
+        
+        heartIcon.isHidden = false
+        heartTitleLb.isHidden = false
+        heartValueLb.isHidden = false
     }
     
     func update(sportModel: XWHSportModel) {

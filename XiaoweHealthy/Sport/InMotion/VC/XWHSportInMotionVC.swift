@@ -23,6 +23,10 @@ class XWHSportInMotionVC: XWHBaseVC {
         return 508
     }
     
+    private var foldPanelHeight: CGFloat {
+        160
+    }
+    
     lazy var sportType = XWHSportType.none
     
     private lazy var sportModel: XWHSportModel = {
@@ -146,12 +150,40 @@ class XWHSportInMotionVC: XWHBaseVC {
     }
     
     override func relayoutSubViews() {
+        relayoutUnfold()
+    }
+    
+    private func relayoutUnfold() {
         controlPanel.frame = CGRect(x: 0, y: view.height - panelHeight, width: view.width, height: panelHeight)
         
         mapView.frame = CGRect(x: 0, y: 0, width: view.width, height: controlPanel.y)
     }
     
+    private func relayoutFold() {
+        controlPanel.frame = CGRect(x: 0, y: view.height - foldPanelHeight, width: view.width, height: foldPanelHeight)
+        
+        mapView.frame = CGRect(x: 0, y: 0, width: view.width, height: controlPanel.y)
+    }
+    
     private func configEvent() {
+        controlPanel.settingsCompletion = { [unowned self] in
+            self.gotoSportSettings()
+        }
+        
+        controlPanel.foldCompletion = { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            UIView.animate(withDuration: 0.25) {
+                if self.controlPanel.foldBtn.isSelected {
+                    self.relayoutFold()
+                } else {
+                    self.relayoutUnfold()
+                }
+            }
+        }
+        
         controlPanel.stopCompletion = { [unowned self] in
             self.stopSport()
         }
@@ -635,6 +667,17 @@ extension XWHSportInMotionVC: XWHMonitorFromDeviceProtocol {
     
     func receiveSyncDataStateInfo(syncState: XWHDevDataTransferState, progress: Int, error: XWHError?) {
         
+    }
+    
+}
+
+// MARK: - UI Jump
+extension XWHSportInMotionVC {
+    
+    /// 运动设置
+    private func gotoSportSettings() {
+        let vc = XWHSportSettingsTBVC()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }
