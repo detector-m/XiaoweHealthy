@@ -361,6 +361,8 @@
 		96A5EC0D281B955B0048125A /* XWHHealthyDataBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A5EC0C281B955B0048125A /* XWHHealthyDataBaseModel.swift */; };
 		96A7A5FB287FE8F000890056 /* AliyunUploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7A5F9287FE8F000890056 /* AliyunUploadManager.swift */; };
 		96A7A5FD287FE97400890056 /* AliyunCredentialModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7A5FC287FE97400890056 /* AliyunCredentialModel.swift */; };
+		96A7A60128801EFE00890056 /* AppSysSpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7A5FF28801EFE00890056 /* AppSysSpeechManager.swift */; };
+		96A7A60228801EFE00890056 /* AppSysSpeechObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7A60028801EFE00890056 /* AppSysSpeechObject.swift */; };
 		96AD2857280139670092B843 /* AppDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD2856280139670092B843 /* AppDatabase.swift */; };
 		96AD285A280144F40092B843 /* AppLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD2859280144F40092B843 /* AppLogManager.swift */; };
 		96AD285C28016BB30092B843 /* XWHTestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD285B28016BB30092B843 /* XWHTestModel.swift */; };
@@ -861,6 +863,8 @@
 		96A5EC0C281B955B0048125A /* XWHHealthyDataBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyDataBaseModel.swift; sourceTree = "<group>"; };
 		96A7A5F9287FE8F000890056 /* AliyunUploadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AliyunUploadManager.swift; sourceTree = "<group>"; };
 		96A7A5FC287FE97400890056 /* AliyunCredentialModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliyunCredentialModel.swift; sourceTree = "<group>"; };
+		96A7A5FF28801EFE00890056 /* AppSysSpeechManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSysSpeechManager.swift; sourceTree = "<group>"; };
+		96A7A60028801EFE00890056 /* AppSysSpeechObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSysSpeechObject.swift; sourceTree = "<group>"; };
 		96AD2856280139670092B843 /* AppDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDatabase.swift; sourceTree = "<group>"; };
 		96AD2859280144F40092B843 /* AppLogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogManager.swift; sourceTree = "<group>"; };
 		96AD285B28016BB30092B843 /* XWHTestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTestModel.swift; sourceTree = "<group>"; };
@@ -1045,6 +1049,7 @@
 		96127D11284202AA00940132 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
+				96A7A5FE28801EDC00890056 /* SysSpeech */,
 				96A7A5F7287FE8A700890056 /* Aliyun */,
 				9685F1CF287C1A1400AF6E48 /* CountdownView */,
 				9687061E286ECC7000A83B6D /* MotionTrackerManager */,
@@ -2700,6 +2705,15 @@
 			path = Aliyun;
 			sourceTree = "<group>";
 		};
+		96A7A5FE28801EDC00890056 /* SysSpeech */ = {
+			isa = PBXGroup;
+			children = (
+				96A7A60028801EFE00890056 /* AppSysSpeechObject.swift */,
+				96A7A5FF28801EFE00890056 /* AppSysSpeechManager.swift */,
+			);
+			path = SysSpeech;
+			sourceTree = "<group>";
+		};
 		96AD28552801393B0092B843 /* Database */ = {
 			isa = PBXGroup;
 			children = (
@@ -3866,6 +3880,7 @@
 				96C67ADE2803D5E7001ACA81 /* XWHNoticeSetModel.swift in Sources */,
 				967F0F202865950F005E74DC /* HealthKitServiceManager.swift in Sources */,
 				96F3588B27FE8C9A00783614 /* XWHBLEDispatchBaseHandler.swift in Sources */,
+				96A7A60128801EFE00890056 /* AppSysSpeechManager.swift in Sources */,
 				96617AA927E328C800139B03 /* XWHResetPasswordVC.swift in Sources */,
 				9651EE3027EC5C7E0043FE52 /* XWHUMManager.swift in Sources */,
 				969310642825034A00133626 /* XWHMultiColorLinearCTCell.swift in Sources */,
@@ -4004,6 +4019,7 @@
 				96858295287954F6009231DB /* XWHMonitorFromDeviceProtocol.swift in Sources */,
 				9653E4AD27F5BD4D00EE55FF /* XWHDevSetStandVC.swift in Sources */,
 				968489FD2840F52100821E24 /* XWHMoodRangeCTCell.swift in Sources */,
+				96A7A60228801EFE00890056 /* AppSysSpeechObject.swift in Sources */,
 				96837EA72866FB21005158A0 /* XWHSportSettingsSwitchTBCell.swift in Sources */,
 				969072412814EC120056CE4F /* XWHHeartAllDataTBVC.swift in Sources */,
 				969ACEF12834E85E00DC4E3C /* XWHDeviceObserverProtocol.swift in Sources */,
