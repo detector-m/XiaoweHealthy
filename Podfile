@@ -192,6 +192,9 @@ target 'XiaoweHealthy' do
 #  pod 'AMap2DMap-NO-IDFA'
 #  pod 'AMap2DMap'
   pod 'AMap3DMap'
+  
+  # 阿里云
+  pod 'AliyunOSSiOS'
 
 
   target 'XiaoweHealthyTests' do

@@ -359,6 +359,8 @@
 		96A10CC2282A69A500C1E18F /* XWHSleepDayChartCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A10CC1282A69A500C1E18F /* XWHSleepDayChartCTCell.swift */; };
 		96A10CC4282A6D4200C1E18F /* XWHGradientBaseCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A10CC3282A6D4200C1E18F /* XWHGradientBaseCTCell.swift */; };
 		96A5EC0D281B955B0048125A /* XWHHealthyDataBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A5EC0C281B955B0048125A /* XWHHealthyDataBaseModel.swift */; };
+		96A7A5FB287FE8F000890056 /* AliyunUploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7A5F9287FE8F000890056 /* AliyunUploadManager.swift */; };
+		96A7A5FD287FE97400890056 /* AliyunCredentialModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7A5FC287FE97400890056 /* AliyunCredentialModel.swift */; };
 		96AD2857280139670092B843 /* AppDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD2856280139670092B843 /* AppDatabase.swift */; };
 		96AD285A280144F40092B843 /* AppLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD2859280144F40092B843 /* AppLogManager.swift */; };
 		96AD285C28016BB30092B843 /* XWHTestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD285B28016BB30092B843 /* XWHTestModel.swift */; };
@@ -857,6 +859,8 @@
 		96A10CC1282A69A500C1E18F /* XWHSleepDayChartCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSleepDayChartCTCell.swift; sourceTree = "<group>"; };
 		96A10CC3282A6D4200C1E18F /* XWHGradientBaseCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHGradientBaseCTCell.swift; sourceTree = "<group>"; };
 		96A5EC0C281B955B0048125A /* XWHHealthyDataBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHHealthyDataBaseModel.swift; sourceTree = "<group>"; };
+		96A7A5F9287FE8F000890056 /* AliyunUploadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AliyunUploadManager.swift; sourceTree = "<group>"; };
+		96A7A5FC287FE97400890056 /* AliyunCredentialModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliyunCredentialModel.swift; sourceTree = "<group>"; };
 		96AD2856280139670092B843 /* AppDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDatabase.swift; sourceTree = "<group>"; };
 		96AD2859280144F40092B843 /* AppLogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogManager.swift; sourceTree = "<group>"; };
 		96AD285B28016BB30092B843 /* XWHTestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHTestModel.swift; sourceTree = "<group>"; };
@@ -1041,6 +1045,7 @@
 		96127D11284202AA00940132 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
+				96A7A5F7287FE8A700890056 /* Aliyun */,
 				9685F1CF287C1A1400AF6E48 /* CountdownView */,
 				9687061E286ECC7000A83B6D /* MotionTrackerManager */,
 				968315FA286D765900B444AD /* TimeManager */,
@@ -2686,6 +2691,15 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		96A7A5F7287FE8A700890056 /* Aliyun */ = {
+			isa = PBXGroup;
+			children = (
+				96A7A5FC287FE97400890056 /* AliyunCredentialModel.swift */,
+				96A7A5F9287FE8F000890056 /* AliyunUploadManager.swift */,
+			);
+			path = Aliyun;
+			sourceTree = "<group>";
+		};
 		96AD28552801393B0092B843 /* Database */ = {
 			isa = PBXGroup;
 			children = (
@@ -3599,6 +3613,7 @@
 				967AF4C327EF545800235E08 /* XWHDeviceVM.swift in Sources */,
 				9653E49027F552E300EE55FF /* XWHDevSetBaseVC.swift in Sources */,
 				9687061D286EA6E900A83B6D /* XWHSportApi.swift in Sources */,
+				96A7A5FB287FE8F000890056 /* AliyunUploadManager.swift in Sources */,
 				96F1D6662806BE960067DBFD /* XWHDevContactModel.swift in Sources */,
 				969310472824B15500133626 /* XWHServerDataManager.swift in Sources */,
 				96F3588E27FE92C900783614 /* XWHBLEUTEDispatchHandler.swift in Sources */,
@@ -3642,6 +3657,7 @@
 				9679E9D12815946A003C6351 /* XWHBOUIBloodOxygenAllDataItemModel.swift in Sources */,
 				96617A6C27E1DFE100139B03 /* XWHBaseView.swift in Sources */,
 				96786280282E7120003E5730 /* XWHChartMarkerView.swift in Sources */,
+				96A7A5FD287FE97400890056 /* AliyunCredentialModel.swift in Sources */,
 				96E79EB5284F00020063647C /* XWHPersonInfoTBCell.swift in Sources */,
 				96522C26285C3FAA00C2A208 /* MKRingProgressLayer.swift in Sources */,
 				96C67AFA28047416001ACA81 /* XWHDataBloodPressureSetManager.swift in Sources */,
