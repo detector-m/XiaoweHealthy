@@ -13,7 +13,7 @@ import CallKit
 class AppCallTelephonyMonitor: NSObject, CXCallObserverDelegate {
     
     static let shared = AppCallTelephonyMonitor()
-    lazy var callObserver: CXCallObserver = {
+    private lazy var callObserver: CXCallObserver = {
         let _callObserver = CXCallObserver()
         _callObserver.setDelegate(self, queue: DispatchQueue.main)
         
@@ -33,8 +33,8 @@ class AppCallTelephonyMonitor: NSObject, CXCallObserverDelegate {
     }
     
     // MARK: - CXCallObserverDelegate
-    func callObserver(_ callObserver: CXCallObserver, callChanged call: CXCall) {
-        print("outgoing :%d  onHold :%d   hasConnected :%d   hasEnded :%d", call.isOutgoing, call.isOnHold, call.hasConnected, call.hasEnded);
+    internal func callObserver(_ callObserver: CXCallObserver, callChanged call: CXCall) {
+        print("outgoing :%d  onHold :%d   hasConnected :%d   hasEnded :%d", call.isOutgoing, call.isOnHold, call.hasConnected, call.hasEnded)
             /*
              拨打:  outgoing :1  onHold :0   hasConnected :0   hasEnded :0
              拒绝:  outgoing :1  onHold :0   hasConnected :0   hasEnded :1
