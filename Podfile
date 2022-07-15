@@ -156,6 +156,9 @@ target 'XiaoweHealthy' do
   # 图片选择
   pod 'HXPHPicker'
   
+  # 图片浏览
+  pod 'SKPhotoBrowser'
+  
   # 隐私权限 (PermissionsKit)
 #  pod 'PermissionsKit/BluetoothPermission', :git => 'https://github.com/sparrowcode/PermissionsKit'
 
