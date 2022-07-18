@@ -12,14 +12,14 @@ import UIKit
 /// App 用户引导
 class AppUserGuide {
     
-    private static let kNotShow = "AppUserGuideNotShow"
+    private static let kUserGuideNotShow = "AppUserGuideNotShow"
     static var isShow: Bool {
         get {
-//            !UserDefaults.standard.bool(forKey: kNotShow)
+//            !UserDefaults.standard.bool(forKey: kUserGuideNotShow)
             false
         }
         set {
-            UserDefaults.standard[kNotShow] = !newValue
+            UserDefaults.standard[kUserGuideNotShow] = !newValue
         }
     }
     

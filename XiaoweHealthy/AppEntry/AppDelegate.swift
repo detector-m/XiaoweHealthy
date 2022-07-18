@@ -93,7 +93,11 @@ extension AppDelegate {
     /// 配置 根控制器
     class func configWindow(win: UIWindow) {
         var rVC: UIViewController
-        if AppUserGuide.isShow {
+        if AppPrivacy.isShow {
+            rVC = AppPrivacy.getPrivacyVC(completion: {
+                AppDelegate.configWindow(win: win)
+            })
+        } else if AppUserGuide.isShow {
             rVC = AppUserGuide.getGuideVC(btnAction: { isSkip in
                 AppDelegate.configWindow(win: win)
             })
