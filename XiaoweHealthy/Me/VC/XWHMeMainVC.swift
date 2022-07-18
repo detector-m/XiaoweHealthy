@@ -17,6 +17,16 @@ class XWHMeMainVC: XWHTableViewBaseVC {
         R.string.xwhDisplayText.我的()
     }
     
+    private lazy var gradientLayer: CAGradientLayer = {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = gradientColors.map({ $0.cgColor })
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0, y: 1)
+        gradientLayer.type = .axial
+        return gradientLayer
+    }()
+    private lazy var gradientColors: [UIColor] = [UIColor(hex: 0xD5F9E1)!, UIColor(hex: 0xF8F8F8)!]
+    
     private lazy var meItems = [[XWHMeDeployItemModel]]()
 
     override func viewDidLoad() {
@@ -58,10 +68,13 @@ class XWHMeMainVC: XWHTableViewBaseVC {
     override func addSubViews() {
         super.addSubViews()
         
+        gradientLayer.frame = view.bounds
+        view.layer.insertSublayer(gradientLayer, at: 0)
+        
         setLargeTitleMode()
 
         view.backgroundColor = collectionBgColor
-        tableView.backgroundColor = view.backgroundColor
+        tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         largeTitleView.backgroundColor = tableView.backgroundColor
         
@@ -143,7 +156,7 @@ class XWHMeMainVC: XWHTableViewBaseVC {
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let cView = UIView()
-        cView.backgroundColor = collectionBgColor
+        cView.backgroundColor = .clear
         
         return cView
     }
