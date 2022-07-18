@@ -216,6 +216,9 @@ class XWHMeMainVC: XWHTableViewBaseVC {
             
         case .feedback:
             break
+        
+        case .about:
+            gotoAboutApp()
             
         default:
             gotoPersonHealthDatas()
@@ -272,6 +275,12 @@ extension XWHMeMainVC {
         }
         
         let vc = XWHPersonSettingsTBVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    /// 关于
+    private func gotoAboutApp() {
+        let vc = XWHAboutAppVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     

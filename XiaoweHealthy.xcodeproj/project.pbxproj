@@ -243,6 +243,7 @@
 		9685B47928604C9800095078 /* XWHWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685B47828604C9800095078 /* XWHWeather.swift */; };
 		9685D0B32885072600F3C5DF /* AppPrivacyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685D0B22885072600F3C5DF /* AppPrivacyVC.swift */; };
 		9685D0B528852CAB00F3C5DF /* AppPrivacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685D0B428852CAB00F3C5DF /* AppPrivacy.swift */; };
+		9685D0B7288564E400F3C5DF /* XWHAboutAppVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685D0B6288564E400F3C5DF /* XWHAboutAppVC.swift */; };
 		9685F1D1287C1A3E00AF6E48 /* SportCountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685F1D0287C1A3E00AF6E48 /* SportCountdownView.swift */; };
 		96863E3F286AA69C004C0841 /* XWHSportInMotionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96863E3E286AA69C004C0841 /* XWHSportInMotionVC.swift */; };
 		96863E42286AAC2A004C0841 /* XWHSportControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96863E41286AAC2A004C0841 /* XWHSportControlPanel.swift */; };
@@ -748,6 +749,7 @@
 		9685B47828604C9800095078 /* XWHWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHWeather.swift; sourceTree = "<group>"; };
 		9685D0B22885072600F3C5DF /* AppPrivacyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPrivacyVC.swift; sourceTree = "<group>"; };
 		9685D0B428852CAB00F3C5DF /* AppPrivacy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPrivacy.swift; sourceTree = "<group>"; };
+		9685D0B6288564E400F3C5DF /* XWHAboutAppVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHAboutAppVC.swift; sourceTree = "<group>"; };
 		9685F1D0287C1A3E00AF6E48 /* SportCountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportCountdownView.swift; sourceTree = "<group>"; };
 		96863E3E286AA69C004C0841 /* XWHSportInMotionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportInMotionVC.swift; sourceTree = "<group>"; };
 		96863E41286AAC2A004C0841 /* XWHSportControlPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportControlPanel.swift; sourceTree = "<group>"; };
@@ -1670,6 +1672,7 @@
 				96E79EB2284EFB830063647C /* XWHPersonInfoTBVC.swift */,
 				96E79EB8284F46430063647C /* XWHPersonSettingsTBVC.swift */,
 				961F4C30285089B2003029B1 /* XWHPersonHealthDatasTBVC.swift */,
+				9685D0B6288564E400F3C5DF /* XWHAboutAppVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -3710,6 +3713,7 @@
 				9651EE1E27EBFDAA0043FE52 /* XWHResponse.swift in Sources */,
 				969B88302811028C009952E7 /* XWHHeartCommonCTCell.swift in Sources */,
 				969310592824ED8B00133626 /* XWHMentalStressDataDetailListTBVC.swift in Sources */,
+				9685D0B7288564E400F3C5DF /* XWHAboutAppVC.swift in Sources */,
 				967E97DF2859A7FE001F9782 /* XWHActivityItemModel.swift in Sources */,
 				96F1D65D28066CC30067DBFD /* XWHDevDialOperationProtocol.swift in Sources */,
 				96E23C2C27E1A579009EF208 /* XWHDeviceMainVC.swift in Sources */,
