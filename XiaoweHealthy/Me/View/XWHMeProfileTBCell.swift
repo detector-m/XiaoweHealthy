@@ -12,10 +12,10 @@ class XWHMeProfileTBCell: XWHCommonBaseTBCell {
     override func addSubViews() {
         super.addSubViews()
         
-        iconView.layer.cornerRadius = 14
-        iconView.layer.backgroundColor = UIColor(hex: 0x49CE64)?.cgColor
+        iconView.layer.cornerRadius = 52
+        iconView.contentMode = .scaleAspectFit
         
-        iconView.contentMode = .center
+        titleLb.font = XWHFont.harmonyOSSans(ofSize: 18, weight: .medium)
     }
 
     override func relayoutSubViews() {
@@ -32,7 +32,7 @@ class XWHMeProfileTBCell: XWHCommonBaseTBCell {
         }
         
         iconView.snp.makeConstraints { make in
-            make.size.equalTo(28)
+            make.size.equalTo(52)
             make.centerY.equalToSuperview()
             make.left.equalToSuperview().offset(16)
         }

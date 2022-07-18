@@ -11,21 +11,20 @@ import Foundation
 // MARK: - Me item 的类型
 enum XWHMeDeployType: Int {
     
-    /// 登录
-    case login = 0
-    
     /// 个人描述
     case profile
-    
-    /// 我的数据
-    case data
-    
-    /// 个人资料
-    case info
 
     /// 设置
     case settings
     
+    /// 建议反馈
+    case feedback
+    
+    /// app update
+    case appUpdate
+    
+    /// about
+    case about
 }
 
 // MARK: - 我的(Me)部署的模型
@@ -47,35 +46,24 @@ struct XWHMeDeployItemModel {
 }
 
 class XWHMeDeploy {
-     
-    lazy var loginDeploy: [XWHMeDeployType] = [.login]
     
     lazy var profileDeploy: [XWHMeDeployType] = [.profile]
     
-    lazy var commonDeploy1: [XWHMeDeployType] = [.data, .info]
-    lazy var commonDeploy2: [XWHMeDeployType] = [.settings]
+    lazy var commonDeploy: [XWHMeDeployType] = [.settings, .feedback, .appUpdate, .about]
     
     // 获取配置数据
-    func loadDeploys(isLogin: Bool) -> [[XWHMeDeployItemModel]] {
-        let deployTypes = loadDeployTypes(isLogin: isLogin)
+    func loadDeploys() -> [[XWHMeDeployItemModel]] {
+        let deployTypes = loadDeployTypes()
 
         return loadDeployItems(deployTypes: deployTypes)
     }
     
     // 获取配置类型
-    private func loadDeployTypes(isLogin: Bool) -> [[XWHMeDeployType]] {
+    private func loadDeployTypes() -> [[XWHMeDeployType]] {
         var deployTypes = [[XWHMeDeployType]]()
         
-        if !isLogin {
-            deployTypes.append(loginDeploy)
-            
-            return deployTypes
-        }
-        
         deployTypes.append(profileDeploy)
-        
-        deployTypes.append(commonDeploy1)
-        deployTypes.append(commonDeploy2)
+        deployTypes.append(commonDeploy)
 
         return deployTypes
     }
@@ -102,26 +90,24 @@ class XWHMeDeploy {
         var item = XWHMeDeployItemModel(type: type)
         
         switch type {
-        case .login:
-            break
-        
         case .profile:
             break
             
-        case .data:
-            item.title = R.string.xwhDisplayText.我的数据()
-//            item.iconBgColor = UIColor(hex: 0x6AACF7)
-//            item.iconImageName = "DeviceGuide"
-            
-        case .info:
-            item.title = R.string.xwhDisplayText.个人资料()
-//            item.iconBgColor = UIColor(hex: 0x6AACF7)
-//            item.iconImageName = "DeviceGuide"
-            
         case .settings:
             item.title = R.string.xwhDisplayText.设置()
-//            item.iconBgColor = UIColor(hex: 0x8389F3)
-//            item.iconImageName = "DeviceRecover"
+            item.iconImageName = "user_settings_icon"
+            
+        case .feedback:
+            item.title = "建议反馈"
+            item.iconImageName = "feedback_icon"
+            
+        case .appUpdate:
+            item.title = "APP检查更新"
+            item.iconImageName = "app_update_icon"
+        
+        case .about:
+            item.title = "关于"
+            item.iconImageName = "about_icon"
         }
         
         return item

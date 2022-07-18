@@ -9,6 +9,10 @@ import UIKit
 
 class XWHMeMainVC: XWHTableViewBaseVC {
     
+    override var largeTitleWidth: CGFloat {
+        UIScreen.main.bounds.width - 32
+    }
+    
     override var topContentInset: CGFloat {
         66
     }
@@ -82,7 +86,31 @@ class XWHMeMainVC: XWHTableViewBaseVC {
     }
     
     override func relayoutSubViews() {
-        relayoutCommon()
+        tableView.snp.remakeConstraints { make in
+            make.left.right.equalToSuperview().inset(16)
+            make.top.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        relayoutLargeTitle()
+        relayoutLargeTitleContentView()
+    }
+    
+    override func relayoutLargeTitleContentView() {
+        largeTitleView.relayout { ltView in
+            ltView.button.snp.remakeConstraints { make in
+                make.right.equalToSuperview().inset(12)
+                make.size.equalTo(24)
+                make.centerY.equalTo(ltView.titleLb)
+            }
+
+            ltView.titleLb.snp.remakeConstraints { make in
+                make.top.equalToSuperview()
+                make.height.equalTo(40)
+                make.left.equalToSuperview().inset(12)
+                make.right.lessThanOrEqualTo(ltView.button.snp.left).offset(-10)
+            }
+        }
     }
     
     override func registerViews() {
@@ -112,7 +140,16 @@ class XWHMeMainVC: XWHTableViewBaseVC {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 52
+        let section = indexPath.section
+        let row = indexPath.row
+        
+        let item = meItems[section][row]
+        
+        if item.type == .profile {
+            return 84
+        }
+        
+        return 62
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -121,26 +158,29 @@ class XWHMeMainVC: XWHTableViewBaseVC {
         
         let item = meItems[section][row]
         
-        if item.type == .login {
-            let cell = tableView.dequeueReusableCell(withClass: XWHMeNormalTBCell.self, for: indexPath)
-            cell.titleLb.text = R.string.xwhDisplayText.未登录()
-            
-            return cell
-        } else if item.type == .profile {
+        if item.type == .profile {
             let cell = tableView.dequeueReusableCell(withClass: XWHMeProfileTBCell.self, for: indexPath)
-            cell.titleLb.text = XWHUserDataManager.getCurrentUser()?.nickname ?? ""
+            if let user = XWHUserDataManager.getCurrentUser() {
+                cell.titleLb.text = XWHUserDataManager.getCurrentUser()?.nickname ?? ""
+                cell.iconView.kf.setImage(with: user.avatar.url, placeholder: R.image.sport_avatar())
+            } else {
+                cell.titleLb.text = "未登录"
+                cell.iconView.image = R.image.sport_avatar()
+            }
             
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withClass: XWHMeNormalTBCell.self, for: indexPath)
             cell.titleLb.text = item.title
+            cell.iconView.image = UIImage(named: item.iconImageName)
             
             return cell
         }
     }
     
-//   override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//    }
+   override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+       rounded(tableView, willDisplay: cell, forRowAt: indexPath)
+    }
     
 //    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 //        return 0.001
@@ -168,20 +208,17 @@ class XWHMeMainVC: XWHTableViewBaseVC {
         let item = meItems[section][row]
         
         switch item.type {
-        case .login:
-            XWHLogin.present(at: self)
-            
         case .profile:
-            break
-            
-        case .data:
-            gotoPersonHealthDatas()
-            
-        case .info:
             gotoPersonInfo()
             
         case .settings:
             gotoPersonSettings()
+            
+        case .feedback:
+            break
+            
+        default:
+            gotoPersonHealthDatas()
         }
     }
     
@@ -196,7 +233,7 @@ class XWHMeMainVC: XWHTableViewBaseVC {
 extension XWHMeMainVC {
     
     private func reloadAll() {
-        meItems = XWHMeDeploy().loadDeploys(isLogin: XWHUser.isLogined)
+        meItems = XWHMeDeploy().loadDeploys()
         tableView.reloadData()
     }
     
@@ -207,18 +244,33 @@ extension XWHMeMainVC {
     
     /// 我的数据
     private func gotoPersonHealthDatas() {
+        if !XWHUser.isLogined {
+            XWHLogin.present(at: self)
+            return
+        }
+        
         let vc = XWHPersonHealthDatasTBVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     
     /// 跳转到个人信息
     private func gotoPersonInfo() {
+        if !XWHUser.isLogined {
+            XWHLogin.present(at: self)
+            return
+        }
+        
         let vc = XWHPersonInfoTBVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     
     /// 设置
     private func gotoPersonSettings() {
+        if !XWHUser.isLogined {
+            XWHLogin.present(at: self)
+            return
+        }
+        
         let vc = XWHPersonSettingsTBVC()
         navigationController?.pushViewController(vc, animated: true)
     }

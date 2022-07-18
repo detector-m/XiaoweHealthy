@@ -12,8 +12,7 @@ class XWHMeNormalTBCell: XWHCommonBaseTBCell {
     override func addSubViews() {
         super.addSubViews()
         
-        iconView.layer.cornerRadius = 14
-        iconView.layer.backgroundColor = UIColor(hex: 0x49CE64)?.cgColor
+        iconView.layer.cornerRadius = 16
         
         iconView.contentMode = .center
     }
@@ -32,7 +31,7 @@ class XWHMeNormalTBCell: XWHCommonBaseTBCell {
         }
         
         iconView.snp.makeConstraints { make in
-            make.size.equalTo(28)
+            make.size.equalTo(32)
             make.centerY.equalToSuperview()
             make.left.equalToSuperview().offset(16)
         }
