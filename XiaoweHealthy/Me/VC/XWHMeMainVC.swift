@@ -216,12 +216,15 @@ class XWHMeMainVC: XWHTableViewBaseVC {
             
         case .feedback:
             break
+            
+        case .appUpdate:
+            gotoAppUpdate()
         
         case .about:
             gotoAboutApp()
             
-        default:
-            gotoPersonHealthDatas()
+//        default:
+//            gotoPersonHealthDatas()
         }
     }
     
@@ -276,6 +279,11 @@ extension XWHMeMainVC {
         
         let vc = XWHPersonSettingsTBVC()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    /// 版本更新
+    private func gotoAppUpdate() {
+        UIApplication.shared.open(kAppDownloadUrl.url!)
     }
     
     /// 关于

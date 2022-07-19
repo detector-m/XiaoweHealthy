@@ -29,3 +29,7 @@ var XWHApiDomain: String {
 
 /// 是否为测试服务器
 public var isTestServer = true
+
+var kAppDownloadUrl: String {
+    "https://apps.apple.com/app/id1617253483"
+}
