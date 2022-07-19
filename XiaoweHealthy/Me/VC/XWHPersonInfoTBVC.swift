@@ -237,16 +237,25 @@ extension XWHPersonInfoTBVC {
     
     /// 选择性别
     private func gotoSelectGender() {
-        let vc = XWHGenderSelectVC()
-        vc.userModel = userModel
-        vc.isUpdate = true
+//        let vc = XWHGenderSelectVC()
+//        vc.userModel = userModel
+//        vc.isUpdate = true
+//
+//        vc.updateCallback = { [weak self] cUserModel in
+//            self?.userModel.gender = cUserModel.gender
+//            self?.tableView.reloadData()
+//        }
+//
+//        navigationController?.pushViewController(vc, animated: true)
         
-        vc.updateCallback = { [weak self] cUserModel in
-            self?.userModel.gender = cUserModel.gender
-            self?.tableView.reloadData()
+        XWHPickGenderPopupView.show(genderIndex: userModel.gender) { [weak self] cGender in
+            guard let self = self else {
+                return
+            }
+            
+            self.userModel.gender = cGender
+            self.tableView.reloadData()
         }
-        
-        navigationController?.pushViewController(vc, animated: true)
     }
     
     /// 选择身高

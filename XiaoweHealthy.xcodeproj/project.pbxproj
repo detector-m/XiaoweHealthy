@@ -117,6 +117,8 @@
 		9661851428869276002436BD /* XWHMePopupContentBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661851328869276002436BD /* XWHMePopupContentBaseView.swift */; };
 		96618516288694A3002436BD /* XWHEditNicknameContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96618515288694A3002436BD /* XWHEditNicknameContentView.swift */; };
 		9661851928869EEE002436BD /* TextFieldCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661851828869EEE002436BD /* TextFieldCounter.swift */; };
+		9661851B2886AC23002436BD /* XWHPickGenderPopupContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661851A2886AC23002436BD /* XWHPickGenderPopupContentView.swift */; };
+		9661851D2886AC3F002436BD /* XWHPickGenderPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661851C2886AC3F002436BD /* XWHPickGenderPopupView.swift */; };
 		9661D35827F5FD830062B2B8 /* XWHDevSetWristVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661D35727F5FD830062B2B8 /* XWHDevSetWristVC.swift */; };
 		9661D35A27F5FD970062B2B8 /* XWHDevSetDisturbVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661D35927F5FD970062B2B8 /* XWHDevSetDisturbVC.swift */; };
 		966A60F627FFD5DE00CBE915 /* XWHDeviceProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966A60F527FFD5DE00CBE915 /* XWHDeviceProductModel.swift */; };
@@ -632,6 +634,8 @@
 		9661851328869276002436BD /* XWHMePopupContentBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMePopupContentBaseView.swift; sourceTree = "<group>"; };
 		96618515288694A3002436BD /* XWHEditNicknameContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHEditNicknameContentView.swift; sourceTree = "<group>"; };
 		9661851828869EEE002436BD /* TextFieldCounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldCounter.swift; sourceTree = "<group>"; };
+		9661851A2886AC23002436BD /* XWHPickGenderPopupContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPickGenderPopupContentView.swift; sourceTree = "<group>"; };
+		9661851C2886AC3F002436BD /* XWHPickGenderPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPickGenderPopupView.swift; sourceTree = "<group>"; };
 		9661D35727F5FD830062B2B8 /* XWHDevSetWristVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetWristVC.swift; sourceTree = "<group>"; };
 		9661D35927F5FD970062B2B8 /* XWHDevSetDisturbVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetDisturbVC.swift; sourceTree = "<group>"; };
 		966A60F527FFD5DE00CBE915 /* XWHDeviceProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceProductModel.swift; sourceTree = "<group>"; };
@@ -1719,6 +1723,8 @@
 				9661851328869276002436BD /* XWHMePopupContentBaseView.swift */,
 				96618515288694A3002436BD /* XWHEditNicknameContentView.swift */,
 				96618511288691A7002436BD /* XWHEditNicknamePopupView.swift */,
+				9661851A2886AC23002436BD /* XWHPickGenderPopupContentView.swift */,
+				9661851C2886AC3F002436BD /* XWHPickGenderPopupView.swift */,
 			);
 			path = PopupViews;
 			sourceTree = "<group>";
@@ -3922,6 +3928,7 @@
 				96C67AF028043348001ACA81 /* XWHDataDisturbSetManager.swift in Sources */,
 				9651EE2C27EC5B1B0043FE52 /* UMAnalyticsSwift.swift in Sources */,
 				9651EE1027EB30040043FE52 /* XWHKeyConfig.swift in Sources */,
+				9661851B2886AC23002436BD /* XWHPickGenderPopupContentView.swift in Sources */,
 				96617AAB27E32C4100139B03 /* XWHBindPhoneVC.swift in Sources */,
 				9690EE3C2873CB3300B88727 /* XWHSportTotalRecordModel.swift in Sources */,
 				96617AB327E34CBB00139B03 /* XWHHeightSelectVC.swift in Sources */,
@@ -4029,6 +4036,7 @@
 				96E23C2A27E1A55E009EF208 /* XWHHealthyMainVC.swift in Sources */,
 				9685F1D1287C1A3E00AF6E48 /* SportCountdownView.swift in Sources */,
 				9672B26227EF06FB00DC80D6 /* XWHAddBrandDeviceVC.swift in Sources */,
+				9661851D2886AC3F002436BD /* XWHPickGenderPopupView.swift in Sources */,
 				9651EDEF27E849740043FE52 /* RLPopupView.swift in Sources */,
 				969A14D62862C0D100B61CEB /* XWHTitleValueView.swift in Sources */,
 				9678627A282DE91D003E5730 /* XWHBarChartBaseCTCell.swift in Sources */,
