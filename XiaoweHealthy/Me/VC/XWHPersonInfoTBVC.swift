@@ -34,8 +34,6 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setNav(color: .white)
     }
     
     override func setupNavigationItems() {
@@ -68,11 +66,15 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
 
         largeTitleView.titleLb.text = titleText
         
+        view.backgroundColor = collectionBgColor
+        tableView.backgroundColor = collectionBgColor
+        
         tableView.separatorStyle = .none
+        
         tableView.tableFooterView = tbFooter
         tbFooter.button.setTitle(R.string.xwhDisplayText.保存(), for: .normal)
         DispatchQueue.main.async { [unowned self] in
-            self.tbFooter.relayoutSubViews(leftRightInset: 50, bottomInset: 40, height: 50)
+            self.tbFooter.relayoutSubViews(leftRightInset: 12, bottomInset: 40, height: 50)
         }
         tbFooter.clickCallback = { [unowned self] in
             self.updatePersonInfo()
@@ -149,6 +151,7 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
         
         let cell = tableView.dequeueReusableCell(withClass: XWHPersonInfoTBCell.self, for: indexPath)
         
+        cell.bottomLine.isHidden = false
         if indexPath.row == 0 { // 昵称
             cell.titleLb.text = "昵称"
             cell.subTitleLb.text = userModel.nickname
@@ -164,13 +167,15 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
         } else if indexPath.row == 4 { // 出生年份
             cell.titleLb.text = "出生年份"
             cell.subTitleLb.text = userModel.birthday
+            cell.bottomLine.isHidden = true
         }
         
         return cell
     }
     
-//   override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//    }
+   override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+       rounded(tableView, willDisplay: cell, forRowAt: indexPath)
+    }
     
 //    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 //        return 0.001

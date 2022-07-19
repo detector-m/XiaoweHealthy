@@ -17,12 +17,16 @@ class XWHPersonSettingsTBVC: XWHPersonInfoTBVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setNav(color: .white)
         
         getAppCacheSize()
     }
     
     override func addSubViews() {
         super.addSubViews()
+
+        view.backgroundColor = .white
+        tableView.backgroundColor = .white
 
         tbFooter.button.setTitle(R.string.xwhDisplayText.退出登录(), for: .normal)
         tbFooter.clickCallback = { [unowned self] in
@@ -86,6 +90,9 @@ extension XWHPersonSettingsTBVC {
         
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 1 {

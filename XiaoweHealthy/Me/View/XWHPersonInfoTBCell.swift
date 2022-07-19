@@ -21,9 +21,11 @@ class XWHPersonInfoTBCell: XWHComLineBaseTBCell {
         
         iconView.isHidden = true
         
-        bottomLine.backgroundColor = fontDarkColor.withAlphaComponent(0.3)
-        subTitleLb.textColor = fontDarkColor.withAlphaComponent(0.3)
-        subIconView.image = UIImage.iconFont(text: XWHIconFontOcticons.arrowRight.rawValue, size: 18, color: fontDarkColor.withAlphaComponent(0.3))
+        bottomLine.backgroundColor = UIColor.black.withAlphaComponent(0.08)
+        subTitleLb.textColor = fontDarkColor.withAlphaComponent(0.5)
+        subIconView.image = UIImage.iconFont(text: XWHIconFontOcticons.arrowRight.rawValue, size: 18, color: UIColor.black.withAlphaComponent(0.08))
+        
+        subTitleLb.font = XWHFont.harmonyOSSans(ofSize: 16, weight: .medium)
     }
 
     override func relayoutSubViews() {
