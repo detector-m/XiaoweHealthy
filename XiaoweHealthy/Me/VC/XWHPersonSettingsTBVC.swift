@@ -12,9 +12,13 @@ class XWHPersonSettingsTBVC: XWHPersonInfoTBVC {
     override var titleText: String {
         R.string.xwhDisplayText.设置()
     }
+    
+    private var appCacheSize: Double = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getAppCacheSize()
     }
     
     override func addSubViews() {
@@ -40,7 +44,7 @@ extension XWHPersonSettingsTBVC {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 4
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -50,36 +54,64 @@ extension XWHPersonSettingsTBVC {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: XWHPersonInfoTBCell.self, for: indexPath)
         
-        cell.titleLb.text = "修改密码"
+        var mainTitle = ""
+        var subTitle = ""
+        
+        cell.subIconView.isHidden = false
+        switch indexPath.row {
+        case 0:
+            mainTitle = "地图引擎"
+            subTitle = "高德地图"
+            
+            cell.subIconView.isHidden = true
+            
+        case 1:
+            mainTitle = "修改手机号"
+            subTitle = userModel.mobile
+            
+        case 2:
+            mainTitle = "修改密码"
+            subTitle = ""
+            
+        case 3:
+            mainTitle = "清除缓存"
+            subTitle = appCacheSize.string + "M"
+            
+        default:
+            break
+        }
+        
+        cell.titleLb.text = mainTitle
+        cell.subTitleLb.text = subTitle
         
         return cell
     }
     
-//   override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//    }
-    
-//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 0.001
-//    }
-//
-//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        return UIView()
-//    }
-
-//    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return 12
-//    }
-//
-//    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        let cView = UIView()
-//        cView.backgroundColor = collectionBgColor
-//
-//        return cView
-//    }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
+        if indexPath.row == 1 {
+            // 修改手机号
+        } else if indexPath.row == 2 {
+            // 修改密码
             gotoResetPassword()
+        } else if indexPath.row == 3 {
+            // 清除缓存
+            gotoCleanAppCache()
+        }
+    }
+    
+}
+
+extension XWHPersonSettingsTBVC {
+    
+    private func getAppCacheSize() {
+        AppCacheManager.getAllCacheSize { [weak self] cSize in
+            guard let self = self else {
+                return
+            }
+            self.appCacheSize = cSize
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -101,6 +133,20 @@ extension XWHPersonSettingsTBVC {
 //        }
         
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    /// 清楚缓存
+    private func gotoCleanAppCache() {
+        if appCacheSize == 0 {
+            return
+        }
+        
+        AppCacheManager.cleanAllCache { [weak self] _ in
+            guard let self = self else {
+                return
+            }
+            self.getAppCacheSize()
+        }
     }
     
     /// 退出登录

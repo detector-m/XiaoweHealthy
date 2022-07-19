@@ -68,6 +68,7 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
 
         largeTitleView.titleLb.text = titleText
         
+        tableView.separatorStyle = .none
         tableView.tableFooterView = tbFooter
         tbFooter.button.setTitle(R.string.xwhDisplayText.保存(), for: .normal)
         DispatchQueue.main.async { [unowned self] in
@@ -163,14 +164,13 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
 //    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 //        return UIView()
 //    }
-
+//
 //    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return 12
+//        return 0.001
 //    }
 //
 //    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 //        let cView = UIView()
-//        cView.backgroundColor = collectionBgColor
 //
 //        return cView
 //    }

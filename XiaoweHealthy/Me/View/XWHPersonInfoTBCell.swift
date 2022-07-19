@@ -7,10 +7,12 @@
 
 import UIKit
 
-class XWHPersonInfoTBCell: XWHCommonBaseTBCell {
+class XWHPersonInfoTBCell: XWHComLineBaseTBCell {
     
     override func addSubViews() {
         super.addSubViews()
+        
+        bringLineViewToFront()
         
         iconView.layer.cornerRadius = 14
         iconView.layer.backgroundColor = UIColor(hex: 0x49CE64)?.cgColor
@@ -18,6 +20,10 @@ class XWHPersonInfoTBCell: XWHCommonBaseTBCell {
         iconView.contentMode = .center
         
         iconView.isHidden = true
+        
+        bottomLine.backgroundColor = fontDarkColor.withAlphaComponent(0.3)
+        subTitleLb.textColor = fontDarkColor.withAlphaComponent(0.3)
+        subIconView.image = UIImage.iconFont(text: XWHIconFontOcticons.arrowRight.rawValue, size: 18, color: fontDarkColor.withAlphaComponent(0.3))
     }
 
     override func relayoutSubViews() {
@@ -45,6 +51,13 @@ class XWHPersonInfoTBCell: XWHCommonBaseTBCell {
             make.right.equalTo(subTitleLb.snp.left).offset(-6)
             make.centerY.equalToSuperview()
             make.height.equalTo(22)
+        }
+        
+        bottomLine.snp.makeConstraints { make in
+            make.left.equalTo(titleLb)
+            make.right.equalTo(subIconView)
+            make.height.equalTo(0.5)
+            make.bottom.equalToSuperview()
         }
     }
 
