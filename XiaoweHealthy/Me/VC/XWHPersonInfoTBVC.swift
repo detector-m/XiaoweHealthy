@@ -306,16 +306,25 @@ extension XWHPersonInfoTBVC {
     
     /// 选择出生
     private func gotoSelectBirthday() {
-        let vc = XWHBirthdaySelectVC()
-        vc.userModel = userModel
-        vc.isUpdate = true
+//        let vc = XWHBirthdaySelectVC()
+//        vc.userModel = userModel
+//        vc.isUpdate = true
+//
+//        vc.updateCallback = { [weak self] cUserModel in
+//            self?.userModel.birthday = cUserModel.birthday
+//            self?.tableView.reloadData()
+//        }
+//
+//        navigationController?.pushViewController(vc, animated: true)
         
-        vc.updateCallback = { [weak self] cUserModel in
-            self?.userModel.birthday = cUserModel.birthday
-            self?.tableView.reloadData()
+        XWHPickBirthdayPopupView.showPickBirthday(userModel: userModel) { [weak self] cUserModel in
+            guard let self = self else {
+                return
+            }
+            
+            self.userModel.birthday = cUserModel.birthday
+            self.tableView.reloadData()
         }
-        
-        navigationController?.pushViewController(vc, animated: true)
     }
     
     /// 更新用户信息

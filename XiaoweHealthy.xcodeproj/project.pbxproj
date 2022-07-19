@@ -123,6 +123,8 @@
 		966185212886B2C4002436BD /* XWHPickHeightPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966185202886B2C4002436BD /* XWHPickHeightPopupView.swift */; };
 		966185232886B2ED002436BD /* XWHPickWeightPopupContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966185222886B2ED002436BD /* XWHPickWeightPopupContentView.swift */; };
 		966185252886B303002436BD /* XWHPickWeightPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966185242886B303002436BD /* XWHPickWeightPopupView.swift */; };
+		966185272886BEDF002436BD /* XWHPickBirthdayPopupContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966185262886BEDF002436BD /* XWHPickBirthdayPopupContentView.swift */; };
+		966185292886BEF4002436BD /* XWHPickBirthdayPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966185282886BEF4002436BD /* XWHPickBirthdayPopupView.swift */; };
 		9661D35827F5FD830062B2B8 /* XWHDevSetWristVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661D35727F5FD830062B2B8 /* XWHDevSetWristVC.swift */; };
 		9661D35A27F5FD970062B2B8 /* XWHDevSetDisturbVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661D35927F5FD970062B2B8 /* XWHDevSetDisturbVC.swift */; };
 		966A60F627FFD5DE00CBE915 /* XWHDeviceProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966A60F527FFD5DE00CBE915 /* XWHDeviceProductModel.swift */; };
@@ -644,6 +646,8 @@
 		966185202886B2C4002436BD /* XWHPickHeightPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPickHeightPopupView.swift; sourceTree = "<group>"; };
 		966185222886B2ED002436BD /* XWHPickWeightPopupContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPickWeightPopupContentView.swift; sourceTree = "<group>"; };
 		966185242886B303002436BD /* XWHPickWeightPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPickWeightPopupView.swift; sourceTree = "<group>"; };
+		966185262886BEDF002436BD /* XWHPickBirthdayPopupContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPickBirthdayPopupContentView.swift; sourceTree = "<group>"; };
+		966185282886BEF4002436BD /* XWHPickBirthdayPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPickBirthdayPopupView.swift; sourceTree = "<group>"; };
 		9661D35727F5FD830062B2B8 /* XWHDevSetWristVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetWristVC.swift; sourceTree = "<group>"; };
 		9661D35927F5FD970062B2B8 /* XWHDevSetDisturbVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetDisturbVC.swift; sourceTree = "<group>"; };
 		966A60F527FFD5DE00CBE915 /* XWHDeviceProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceProductModel.swift; sourceTree = "<group>"; };
@@ -1737,6 +1741,8 @@
 				966185202886B2C4002436BD /* XWHPickHeightPopupView.swift */,
 				966185222886B2ED002436BD /* XWHPickWeightPopupContentView.swift */,
 				966185242886B303002436BD /* XWHPickWeightPopupView.swift */,
+				966185262886BEDF002436BD /* XWHPickBirthdayPopupContentView.swift */,
+				966185282886BEF4002436BD /* XWHPickBirthdayPopupView.swift */,
 			);
 			path = PopupViews;
 			sourceTree = "<group>";
@@ -3728,6 +3734,7 @@
 				9678257C27F2F44D004F66FB /* RLRadarIndicatorView.swift in Sources */,
 				96DEA2182809B6F100723D11 /* XWHDialVM.swift in Sources */,
 				969A14D22862AD5900B61CEB /* XWHSportCTReusableView.swift in Sources */,
+				966185272886BEDF002436BD /* XWHPickBirthdayPopupContentView.swift in Sources */,
 				9661850828865FDE002436BD /* XWHPersonAvatarTBCell.swift in Sources */,
 				967AF4C327EF545800235E08 /* XWHDeviceVM.swift in Sources */,
 				9653E49027F552E300EE55FF /* XWHDevSetBaseVC.swift in Sources */,
@@ -4094,6 +4101,7 @@
 				9651EE0C27EB024B0043FE52 /* XWHNetworkHelper.swift in Sources */,
 				9687061A286EA6B400A83B6D /* XWHSportVM.swift in Sources */,
 				9653E4A027F5A32000EE55FF /* XWHDevSetBloodPressureVC.swift in Sources */,
+				966185292886BEF4002436BD /* XWHPickBirthdayPopupView.swift in Sources */,
 				968379682856DD7F0034DB98 /* XWHHomeMoodCTCell.swift in Sources */,
 				969B883F2811A050009952E7 /* XWHBOCommonCTCell.swift in Sources */,
 				967F0F272865C9D7005E74DC /* XWHSportFilterView.swift in Sources */,
