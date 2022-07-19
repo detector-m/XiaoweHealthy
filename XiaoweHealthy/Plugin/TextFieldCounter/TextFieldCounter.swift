@@ -254,6 +254,8 @@ open class TextFieldCounter: UITextField, UITextFieldDelegate {
     // MARK: - UITextFieldDelegate Forwarding
 
     public func textFieldDidBeginEditing(_ textField: UITextField) {
+        updateCounterLabel(count: textField.text?.count ?? 0)
+        
         delegate?.textFieldDidBeginEditing?(self)
     }
     
