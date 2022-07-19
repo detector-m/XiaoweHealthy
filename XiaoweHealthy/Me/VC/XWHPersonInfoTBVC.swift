@@ -248,42 +248,60 @@ extension XWHPersonInfoTBVC {
 //
 //        navigationController?.pushViewController(vc, animated: true)
         
-        XWHPickGenderPopupView.show(genderIndex: userModel.gender) { [weak self] cGender in
+        XWHPickGenderPopupView.showPickGender(userModel: userModel) { [weak self] cUserModel in
             guard let self = self else {
                 return
             }
             
-            self.userModel.gender = cGender
+            self.userModel.gender = cUserModel.gender
             self.tableView.reloadData()
         }
     }
     
     /// 选择身高
     private func gotoSelectHeight() {
-        let vc = XWHHeightSelectVC()
-        vc.userModel = userModel
-        vc.isUpdate = true
+//        let vc = XWHHeightSelectVC()
+//        vc.userModel = userModel
+//        vc.isUpdate = true
+//
+//        vc.updateCallback = { [weak self] cUserModel in
+//            self?.userModel.height = cUserModel.height
+//            self?.tableView.reloadData()
+//        }
+//
+//        navigationController?.pushViewController(vc, animated: true)
         
-        vc.updateCallback = { [weak self] cUserModel in
-            self?.userModel.height = cUserModel.height
-            self?.tableView.reloadData()
+        XWHPickHeightPopupView.showPickHeight(userModel: userModel) { [weak self] cUserModel in
+            guard let self = self else {
+                return
+            }
+            
+            self.userModel.height = cUserModel.height
+            self.tableView.reloadData()
         }
-        
-        navigationController?.pushViewController(vc, animated: true)
     }
     
     /// 选择体重
     private func gotoSelectWeight() {
-        let vc = XWHWeightSelectVC()
-        vc.userModel = userModel
-        vc.isUpdate = true
+//        let vc = XWHWeightSelectVC()
+//        vc.userModel = userModel
+//        vc.isUpdate = true
+//
+//        vc.updateCallback = { [weak self] cUserModel in
+//            self?.userModel.weight = cUserModel.weight
+//            self?.tableView.reloadData()
+//        }
+//
+//        navigationController?.pushViewController(vc, animated: true)
         
-        vc.updateCallback = { [weak self] cUserModel in
-            self?.userModel.weight = cUserModel.weight
-            self?.tableView.reloadData()
+        XWHPickWeightPopupView.showPickWeight(userModel: userModel) { [weak self] cUserModel in
+            guard let self = self else {
+                return
+            }
+            
+            self.userModel.weight = cUserModel.weight
+            self.tableView.reloadData()
         }
-        
-        navigationController?.pushViewController(vc, animated: true)
     }
     
     /// 选择出生

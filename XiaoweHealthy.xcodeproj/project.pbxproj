@@ -119,6 +119,10 @@
 		9661851928869EEE002436BD /* TextFieldCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661851828869EEE002436BD /* TextFieldCounter.swift */; };
 		9661851B2886AC23002436BD /* XWHPickGenderPopupContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661851A2886AC23002436BD /* XWHPickGenderPopupContentView.swift */; };
 		9661851D2886AC3F002436BD /* XWHPickGenderPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661851C2886AC3F002436BD /* XWHPickGenderPopupView.swift */; };
+		9661851F2886B2A7002436BD /* XWHPickHeightPopupContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661851E2886B2A7002436BD /* XWHPickHeightPopupContentView.swift */; };
+		966185212886B2C4002436BD /* XWHPickHeightPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966185202886B2C4002436BD /* XWHPickHeightPopupView.swift */; };
+		966185232886B2ED002436BD /* XWHPickWeightPopupContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966185222886B2ED002436BD /* XWHPickWeightPopupContentView.swift */; };
+		966185252886B303002436BD /* XWHPickWeightPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966185242886B303002436BD /* XWHPickWeightPopupView.swift */; };
 		9661D35827F5FD830062B2B8 /* XWHDevSetWristVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661D35727F5FD830062B2B8 /* XWHDevSetWristVC.swift */; };
 		9661D35A27F5FD970062B2B8 /* XWHDevSetDisturbVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661D35927F5FD970062B2B8 /* XWHDevSetDisturbVC.swift */; };
 		966A60F627FFD5DE00CBE915 /* XWHDeviceProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966A60F527FFD5DE00CBE915 /* XWHDeviceProductModel.swift */; };
@@ -636,6 +640,10 @@
 		9661851828869EEE002436BD /* TextFieldCounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldCounter.swift; sourceTree = "<group>"; };
 		9661851A2886AC23002436BD /* XWHPickGenderPopupContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPickGenderPopupContentView.swift; sourceTree = "<group>"; };
 		9661851C2886AC3F002436BD /* XWHPickGenderPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPickGenderPopupView.swift; sourceTree = "<group>"; };
+		9661851E2886B2A7002436BD /* XWHPickHeightPopupContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPickHeightPopupContentView.swift; sourceTree = "<group>"; };
+		966185202886B2C4002436BD /* XWHPickHeightPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPickHeightPopupView.swift; sourceTree = "<group>"; };
+		966185222886B2ED002436BD /* XWHPickWeightPopupContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPickWeightPopupContentView.swift; sourceTree = "<group>"; };
+		966185242886B303002436BD /* XWHPickWeightPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHPickWeightPopupView.swift; sourceTree = "<group>"; };
 		9661D35727F5FD830062B2B8 /* XWHDevSetWristVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetWristVC.swift; sourceTree = "<group>"; };
 		9661D35927F5FD970062B2B8 /* XWHDevSetDisturbVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDevSetDisturbVC.swift; sourceTree = "<group>"; };
 		966A60F527FFD5DE00CBE915 /* XWHDeviceProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceProductModel.swift; sourceTree = "<group>"; };
@@ -1725,6 +1733,10 @@
 				96618511288691A7002436BD /* XWHEditNicknamePopupView.swift */,
 				9661851A2886AC23002436BD /* XWHPickGenderPopupContentView.swift */,
 				9661851C2886AC3F002436BD /* XWHPickGenderPopupView.swift */,
+				9661851E2886B2A7002436BD /* XWHPickHeightPopupContentView.swift */,
+				966185202886B2C4002436BD /* XWHPickHeightPopupView.swift */,
+				966185222886B2ED002436BD /* XWHPickWeightPopupContentView.swift */,
+				966185242886B303002436BD /* XWHPickWeightPopupView.swift */,
 			);
 			path = PopupViews;
 			sourceTree = "<group>";
@@ -3687,6 +3699,7 @@
 			files = (
 				96D0041C27F8328B00E569C7 /* XWHCryptoAES.swift in Sources */,
 				96DEA21C2809C93100723D11 /* XWHDialCategoryModel.swift in Sources */,
+				966185212886B2C4002436BD /* XWHPickHeightPopupView.swift in Sources */,
 				96A10CB928291B7200C1E18F /* XWHMentalStressUIAllDataItemModel.swift in Sources */,
 				9651EE0127EAC6730043FE52 /* RLCountDownTimer.swift in Sources */,
 				969310622825011600133626 /* XWHMultiColorLinearView.swift in Sources */,
@@ -3710,6 +3723,7 @@
 				96F1D67628082B510067DBFD /* XWHLocation.swift in Sources */,
 				968CB8AC27F4570A00E549AC /* XWHDialMarketTBCell.swift in Sources */,
 				9690724928151A670056CE4F /* XWHHealthyDataDetailListTBCell.swift in Sources */,
+				966185232886B2ED002436BD /* XWHPickWeightPopupContentView.swift in Sources */,
 				969B88412811A0A6009952E7 /* XWHBOGradientCTCell.swift in Sources */,
 				9678257C27F2F44D004F66FB /* RLRadarIndicatorView.swift in Sources */,
 				96DEA2182809B6F100723D11 /* XWHDialVM.swift in Sources */,
@@ -3764,6 +3778,7 @@
 				96617A6C27E1DFE100139B03 /* XWHBaseView.swift in Sources */,
 				96618512288691A7002436BD /* XWHEditNicknamePopupView.swift in Sources */,
 				96786280282E7120003E5730 /* XWHChartMarkerView.swift in Sources */,
+				9661851F2886B2A7002436BD /* XWHPickHeightPopupContentView.swift in Sources */,
 				96A7A5FD287FE97400890056 /* AliyunCredentialModel.swift in Sources */,
 				96E79EB5284F00020063647C /* XWHPersonInfoTBCell.swift in Sources */,
 				96522C26285C3FAA00C2A208 /* MKRingProgressLayer.swift in Sources */,
@@ -4061,6 +4076,7 @@
 				96522C25285C3FAA00C2A208 /* MKRingProgressView.swift in Sources */,
 				96E23C0C27E18A19009EF208 /* XWHRootVCProvider.swift in Sources */,
 				96127D162842100E00940132 /* PullToRefreshHeader.swift in Sources */,
+				966185252886B303002436BD /* XWHPickWeightPopupView.swift in Sources */,
 				96863E3F286AA69C004C0841 /* XWHSportInMotionVC.swift in Sources */,
 				96844E84287D686800B6DAF4 /* XWHSportShareContentView.swift in Sources */,
 				96907262281564C90056CE4F /* XWHBOUIBloodOxygenModel.swift in Sources */,

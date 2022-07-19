@@ -11,7 +11,7 @@ class XWHPickGenderPopupContentView: XWHMePopupContentBaseView & UIPickerViewDel
 
     lazy var pickerView = UIPickerView()
     
-    lazy var genderIndex: Int = 1
+    lazy var userModel = XWHUserModel()
     
     override func addSubViews() {
         super.addSubViews()
@@ -21,17 +21,6 @@ class XWHPickGenderPopupContentView: XWHMePopupContentBaseView & UIPickerViewDel
         addSubview(pickerView)
         
         titleLb.isHidden = true
-        
-        if genderIndex < 0 {
-            genderIndex = 0
-        }
-        
-        var sRow = 0
-        if genderIndex == 0 {
-            sRow = 1
-        }
-        
-        pickerView.selectRow(sRow, inComponent: 0, animated: false)
     }
     
     override func relayoutSubViews() {
@@ -52,28 +41,30 @@ class XWHPickGenderPopupContentView: XWHMePopupContentBaseView & UIPickerViewDel
             cGenderIndex = 0
         }
         
-        if genderIndex == cGenderIndex {
+        if userModel.gender == cGenderIndex {
             return
         }
     
-        genderIndex = cGenderIndex
+        userModel.gender = cGenderIndex
+        
         if let callback = clickCallback {
             callback(.confirm)
         }
     }
     
-    func update(genderIndex: Int) {
-        self.genderIndex = genderIndex
+    func update(userModel: XWHUserModel) {
+        self.userModel = userModel
         
-        if genderIndex < 0 {
-            self.genderIndex = 0
+        if self.userModel.gender < 0 {
+            self.userModel.gender = 0
         }
         
         var sRow = 0
-        if self.genderIndex == 0 {
+        if self.userModel.gender == 0 {
             sRow = 1
         }
         
+        pickerView.reloadAllComponents()
         pickerView.selectRow(sRow, inComponent: 0, animated: false)
     }
     

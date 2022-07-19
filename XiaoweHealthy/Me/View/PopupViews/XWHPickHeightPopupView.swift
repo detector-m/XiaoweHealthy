@@ -1,5 +1,5 @@
 //
-//  XWHPickGenderPopupView.swift
+//  XWHPickHeightPopupView.swift
 //  XiaoweHealthy
 //
 //  Created by Riven on 2022/7/19.
@@ -7,15 +7,13 @@
 
 import UIKit
 
-class XWHPickGenderPopupView: AppOverlayerPopupView {
-
-    private lazy var _contentView = XWHPickGenderPopupContentView()
+class XWHPickHeightPopupView: XWHPickGenderPopupView {
+    
+    private lazy var _contentView = XWHPickHeightPopupContentView()
     override var contentView: UIView {
         _contentView
     }
     
-    var completion: ((XWHUserModel) -> Void)?
-
     override func addSubViews() {
         super.addSubViews()
         
@@ -28,25 +26,25 @@ class XWHPickGenderPopupView: AppOverlayerPopupView {
             self.hide()
         }
     }
-    
+
     override func relayoutSubViews() {
         overlayMaskView.frame = bounds
         
         let cWidth = bounds.width - 32
-        let cHeight: CGFloat = 301
+        let cHeight: CGFloat = 407
         contentView.frame = CGRect(x: 12, y: (bounds.size.height - cHeight - UIApplication.shared.keyWindow!.safeAreaInsets.bottom - 27) - UIApplication.shared.statusBarFrame.height, width: cWidth, height: cHeight)
     }
     
-    func update(userModel: XWHUserModel) {
+    override func update(userModel: XWHUserModel) {
         _contentView.update(userModel: userModel)
     }
 
 }
 
-extension XWHPickGenderPopupView {
+extension XWHPickHeightPopupView {
     
-    class func showPickGender(userModel: XWHUserModel, completion: @escaping (XWHUserModel) -> Void) {
-        let cView = XWHPickGenderPopupView(frame: UIScreen.main.bounds)
+    class func showPickHeight(userModel: XWHUserModel, completion: @escaping (XWHUserModel) -> Void) {
+        let cView = XWHPickHeightPopupView(frame: UIScreen.main.bounds)
         UIApplication.shared.keyWindow?.addSubview(cView)
         
         cView.update(userModel: userModel)
