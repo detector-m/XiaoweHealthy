@@ -108,6 +108,8 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
     }
     
     override func registerViews() {
+        tableView.register(cellWithClass: XWHPersonAvatarTBCell.self)
+
         tableView.register(cellWithClass: XWHPersonInfoTBCell.self)
     }
 
@@ -117,36 +119,49 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
 @objc extension XWHPersonInfoTBVC {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        if section == 0 {
+            return 1
+        }
+        
+        return 5
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return 153
+        }
         return 52
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withClass: XWHPersonAvatarTBCell.self, for: indexPath)
+            
+            cell.iconView.kf.setImage(with: userModel.avatar.url, placeholder: R.image.sport_avatar())
+            
+            return cell
+        }
+        
         let cell = tableView.dequeueReusableCell(withClass: XWHPersonInfoTBCell.self, for: indexPath)
         
-        if indexPath.row == 0 { // 头像
-            cell.titleLb.text = "头像"
-            cell.subTitleLb.text = ""
+        if indexPath.row == 0 { // 昵称
+            cell.titleLb.text = "昵称"
+            cell.subTitleLb.text = userModel.nickname
         } else if indexPath.row == 1 { // 性别
             cell.titleLb.text = "性别"
             cell.subTitleLb.text = userModel.genderType.name
-        } else if indexPath.row == 2 { // 昵称
-            cell.titleLb.text = "昵称"
-            cell.subTitleLb.text = userModel.nickname
-        } else if indexPath.row == 3 { // 身高
+        } else if indexPath.row == 2 { // 身高
             cell.titleLb.text = "身高"
             cell.subTitleLb.text = userModel.height.string + "CM"
-        } else if indexPath.row == 4 { // 体重
+        } else if indexPath.row == 3 { // 体重
             cell.titleLb.text = "体重"
             cell.subTitleLb.text = userModel.weight.string + "KG"
-        } else if indexPath.row == 5 { // 出生年份
+        } else if indexPath.row == 4 { // 出生年份
             cell.titleLb.text = "出生年份"
             cell.subTitleLb.text = userModel.birthday
         }
@@ -176,17 +191,20 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
 //    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 { // 头像
+        if indexPath.section == 0 {
+            
+            return
+        }
+        
+        if indexPath.row == 0 { // 昵称
             
         } else if indexPath.row == 1 { // 性别
             gotoSelectGender()
-        } else if indexPath.row == 2 { // 昵称
-            
-        } else if indexPath.row == 3 { // 身高
+        } else if indexPath.row == 2 { // 身高
             gotoSelectHeight()
-        } else if indexPath.row == 4 { // 体重
+        } else if indexPath.row == 3 { // 体重
             gotoSelectWeight()
-        } else if indexPath.row == 5 { // 出生年份
+        } else if indexPath.row == 4 { // 出生年份
             gotoSelectBirthday()
         }
     }
