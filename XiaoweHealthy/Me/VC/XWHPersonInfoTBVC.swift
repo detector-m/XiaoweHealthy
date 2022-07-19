@@ -174,6 +174,9 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
     }
     
    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+       if indexPath.section == 0 {
+           return
+       }
        rounded(tableView, willDisplay: cell, forRowAt: indexPath)
     }
     
@@ -202,7 +205,7 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
         }
         
         if indexPath.row == 0 { // 昵称
-            
+            gotoSetNickname()
         } else if indexPath.row == 1 { // 性别
             gotoSelectGender()
         } else if indexPath.row == 2 { // 身高
@@ -219,6 +222,18 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
 
 // MARK: - UI Jump & Api
 extension XWHPersonInfoTBVC {
+    
+    /// 设置昵称
+    private func gotoSetNickname() {
+        XWHEditNicknamePopupView.show(nickname: userModel.nickname) { [weak self] cNickname in
+            guard let self = self else {
+                return
+            }
+            
+            self.userModel.nickname = cNickname
+            self.tableView.reloadData()
+        }
+    }
     
     /// 选择性别
     private func gotoSelectGender() {
