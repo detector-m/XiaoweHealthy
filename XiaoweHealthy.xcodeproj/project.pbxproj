@@ -264,6 +264,9 @@
 		96863E3F286AA69C004C0841 /* XWHSportInMotionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96863E3E286AA69C004C0841 /* XWHSportInMotionVC.swift */; };
 		96863E42286AAC2A004C0841 /* XWHSportControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96863E41286AAC2A004C0841 /* XWHSportControlPanel.swift */; };
 		96863E45286AFF98004C0841 /* LongPressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96863E44286AFF98004C0841 /* LongPressButton.swift */; };
+		96866DC52887AD4D0091C762 /* XWHChangePwdVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96866DC42887AD4D0091C762 /* XWHChangePwdVC.swift */; };
+		96866DC72887AFA30091C762 /* XWHCheckPhoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96866DC62887AFA30091C762 /* XWHCheckPhoneVC.swift */; };
+		96866DC92887B1DD0091C762 /* XWHRebindPhoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96866DC82887B1DD0091C762 /* XWHRebindPhoneVC.swift */; };
 		96870617286E904C00A83B6D /* XWHSportEachPartSportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96870616286E904C00A83B6D /* XWHSportEachPartSportModel.swift */; };
 		9687061A286EA6B400A83B6D /* XWHSportVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96870619286EA6B400A83B6D /* XWHSportVM.swift */; };
 		9687061D286EA6E900A83B6D /* XWHSportApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9687061C286EA6E800A83B6D /* XWHSportApi.swift */; };
@@ -786,6 +789,9 @@
 		96863E3E286AA69C004C0841 /* XWHSportInMotionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportInMotionVC.swift; sourceTree = "<group>"; };
 		96863E41286AAC2A004C0841 /* XWHSportControlPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportControlPanel.swift; sourceTree = "<group>"; };
 		96863E44286AFF98004C0841 /* LongPressButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongPressButton.swift; sourceTree = "<group>"; };
+		96866DC42887AD4D0091C762 /* XWHChangePwdVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHChangePwdVC.swift; sourceTree = "<group>"; };
+		96866DC62887AFA30091C762 /* XWHCheckPhoneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHCheckPhoneVC.swift; sourceTree = "<group>"; };
+		96866DC82887B1DD0091C762 /* XWHRebindPhoneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHRebindPhoneVC.swift; sourceTree = "<group>"; };
 		96870616286E904C00A83B6D /* XWHSportEachPartSportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportEachPartSportModel.swift; sourceTree = "<group>"; };
 		96870619286EA6B400A83B6D /* XWHSportVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportVM.swift; sourceTree = "<group>"; };
 		9687061C286EA6E800A83B6D /* XWHSportApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportApi.swift; sourceTree = "<group>"; };
@@ -1706,6 +1712,9 @@
 				96E23C2D27E1A586009EF208 /* XWHMeMainVC.swift */,
 				96E79EB2284EFB830063647C /* XWHPersonInfoTBVC.swift */,
 				96E79EB8284F46430063647C /* XWHPersonSettingsTBVC.swift */,
+				96866DC62887AFA30091C762 /* XWHCheckPhoneVC.swift */,
+				96866DC82887B1DD0091C762 /* XWHRebindPhoneVC.swift */,
+				96866DC42887AD4D0091C762 /* XWHChangePwdVC.swift */,
 				961F4C30285089B2003029B1 /* XWHPersonHealthDatasTBVC.swift */,
 				9685D0B6288564E400F3C5DF /* XWHAboutAppVC.swift */,
 			);
@@ -3942,6 +3951,7 @@
 				969B883428110B24009952E7 /* XWHHealthyUIManager.swift in Sources */,
 				9689A4CD2877BE3400F1AC17 /* XWHLocationAnnotationView.swift in Sources */,
 				96DEA21A2809C7F800723D11 /* XWHDialModel.swift in Sources */,
+				96866DC92887B1DD0091C762 /* XWHRebindPhoneVC.swift in Sources */,
 				96F1D66C2806D6E70067DBFD /* XWHDataManagerEnum.swift in Sources */,
 				968CB8AA27F42DB800E549AC /* XWHDeviceNormallTBCell.swift in Sources */,
 				968315F9286D41F800B444AD /* XWHSportModel.swift in Sources */,
@@ -3985,6 +3995,7 @@
 				96BFC900283775420080DCFC /* XWHMoodIntroductionTXVC.swift in Sources */,
 				96907255281530820056CE4F /* XWHBODataDetailTBVC.swift in Sources */,
 				9653E49A27F5978800EE55FF /* XWHTBHeaderFooterBaseView.swift in Sources */,
+				96866DC52887AD4D0091C762 /* XWHChangePwdVC.swift in Sources */,
 				96F788D62852EFD200877898 /* XWHHealthCardEditTBVC.swift in Sources */,
 				9683797D28586D5C0034DB98 /* XWHRoundedCornersBarChartBaseCTCell.swift in Sources */,
 				967823AD27F2C9DC004F66FB /* XWHUIFontExtension.swift in Sources */,
@@ -4086,6 +4097,7 @@
 				966185252886B303002436BD /* XWHPickWeightPopupView.swift in Sources */,
 				96863E3F286AA69C004C0841 /* XWHSportInMotionVC.swift in Sources */,
 				96844E84287D686800B6DAF4 /* XWHSportShareContentView.swift in Sources */,
+				96866DC72887AFA30091C762 /* XWHCheckPhoneVC.swift in Sources */,
 				96907262281564C90056CE4F /* XWHBOUIBloodOxygenModel.swift in Sources */,
 				967E97EB2859E69E001F9782 /* XWHHomeBOCTCell.swift in Sources */,
 				9644928827F7EB2F001CA321 /* XWHProgressButton.swift in Sources */,

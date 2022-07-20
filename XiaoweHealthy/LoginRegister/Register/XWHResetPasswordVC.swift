@@ -14,7 +14,7 @@ class XWHResetPasswordVC: XWHBindPhoneVC {
     
 //    private var isPhoneOk = false
 //    private var isCodeOk = false
-    private var isPasswordOk = false
+    var isPasswordOk = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,7 +79,7 @@ class XWHResetPasswordVC: XWHBindPhoneVC {
     
     override func relayoutSubViews() {
         titleLb.snp.makeConstraints { make in
-            make.top.equalTo(128)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(40)
             make.left.right.equalToSuperview().inset(28)
             make.height.equalTo(40)
         }

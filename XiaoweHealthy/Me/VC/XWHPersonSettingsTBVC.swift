@@ -97,9 +97,10 @@ extension XWHPersonSettingsTBVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 1 {
             // 修改手机号
+            gotoCheckPhone()
         } else if indexPath.row == 2 {
             // 修改密码
-            gotoResetPassword()
+            gotoChangePassword()
         } else if indexPath.row == 3 {
             // 清除缓存
             gotoCleanAppCache()
@@ -128,17 +129,15 @@ extension XWHPersonSettingsTBVC {
 // MARK: - UI Jump & Api
 extension XWHPersonSettingsTBVC {
     
+    /// 去验证手机号码
+    private func gotoCheckPhone() {
+        let vc = XWHCheckPhoneVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     /// 修改密码
-    private func gotoResetPassword() {
-        let vc = XWHResetPasswordVC()
-//        vc.userModel = userModel
-//        vc.isUpdate = true
-//
-//        vc.updateCallback = { [weak self] cUserModel in
-//            self?.userModel.gender = cUserModel.gender
-//            self?.tableView.reloadData()
-//        }
-        
+    private func gotoChangePassword() {
+        let vc = XWHChangePwdVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     

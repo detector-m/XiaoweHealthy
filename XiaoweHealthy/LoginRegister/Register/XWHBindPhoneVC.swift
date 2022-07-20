@@ -94,7 +94,7 @@ class XWHBindPhoneVC: XWHRegisterBaseVC {
     
     override func relayoutSubViews() {
         titleLb.snp.makeConstraints { make in
-            make.top.equalTo(128)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(40)
             make.left.right.equalToSuperview().inset(28)
             make.height.equalTo(28)
         }
