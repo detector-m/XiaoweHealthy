@@ -13,7 +13,7 @@ class XWHPickBirthdayPopupContentView: XWHPickGenderPopupContentView {
     
     override func relayoutSubViews() {
         pickerView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(22)
+            make.left.right.equalToSuperview().inset(6)
             make.top.equalToSuperview().offset(30)
             make.height.equalTo(274)
         }
@@ -97,27 +97,54 @@ class XWHPickBirthdayPopupContentView: XWHPickGenderPopupContentView {
         if let tLabel = rLabel {
             cLabel = tLabel
         }
-        cLabel.font = XWHFont.harmonyOSSans(ofSize: 38, weight: .medium)
-        cLabel.textColor = UIColor(hex: 0x000000, transparency: 0.9)
+        
         cLabel.textAlignment = .center
         
         var cText = ""
-        if component == 0 {
-            cText = (1900 + row).string
-        } else if component == 1 {
-            cText = String(format: "%02d", row + 1)
+        var unit = ""
+        let attr: NSAttributedString
+        
+        let valueFont = XWHFont.harmonyOSSans(ofSize: 32, weight: .medium)
+        let unitFont = XWHFont.harmonyOSSans(ofSize: 20, weight: .medium)
+//        var isSelectedRow = false
+        if row == pickerView.selectedRow(inComponent: component) {
+            if component == 0 {
+                cText = (1900 + row).string
+                unit = " 年"
+            } else if component == 1 {
+                cText = String(format: "%02d", row + 1)
+                unit = " 月"
+            } else {
+                cText = String(format: "%02d", row + 1)
+                unit = " 日"
+            }
+            
+            attr = (cText + unit).colored(with: btnBgColor).applying(attributes: [.font: valueFont], toOccurrencesOf: cText).applying(attributes: [.font: unitFont], toOccurrencesOf: unit)
+            
+            cLabel.attributedText = attr
         } else {
-            cText = String(format: "%02d", row + 1)
+            cLabel.font = valueFont
+            cLabel.textColor = fontDarkColor
+            
+            if component == 0 {
+                cText = (1900 + row).string
+            } else if component == 1 {
+                cText = String(format: "%02d", row + 1)
+            } else {
+                cText = String(format: "%02d", row + 1)
+            }
+            cLabel.text = cText
         }
-        cLabel.text = cText
         
         return cLabel
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if component == 1 {
-            pickerView.reloadComponent(2)
-        }
+//        if component == 1 {
+//            pickerView.reloadComponent(2)
+//        }
+        
+        pickerView.reloadAllComponents()
     }
     
 }

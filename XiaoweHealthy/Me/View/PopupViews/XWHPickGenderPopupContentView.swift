@@ -83,8 +83,8 @@ class XWHPickGenderPopupContentView: XWHMePopupContentBaseView & UIPickerViewDel
         if let tLabel = rLabel {
             cLabel = tLabel
         }
-        cLabel.font = XWHFont.harmonyOSSans(ofSize: 38, weight: .medium)
-        cLabel.textColor = UIColor(hex: 0x000000, transparency: 0.9)
+        cLabel.font = XWHFont.harmonyOSSans(ofSize: 32, weight: .medium)
+        cLabel.textColor = fontDarkColor
         cLabel.textAlignment = .center
         if row == 0 {
             cLabel.text = R.string.xwhDisplayText.男()

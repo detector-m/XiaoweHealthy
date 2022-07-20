@@ -64,12 +64,33 @@ class XWHPickHeightPopupContentView: XWHPickGenderPopupContentView {
         if let tLabel = rLabel {
             cLabel = tLabel
         }
-        cLabel.font = XWHFont.harmonyOSSans(ofSize: 38, weight: .medium)
-        cLabel.textColor = UIColor(hex: 0x000000, transparency: 0.9)
+        
         cLabel.textAlignment = .center
-        cLabel.text = (30 + row).string
+        
+        var cText = ""
+        let unit = " kg"
+        let attr: NSAttributedString
+        
+        let valueFont = XWHFont.harmonyOSSans(ofSize: 32, weight: .medium)
+        let unitFont = XWHFont.harmonyOSSans(ofSize: 20, weight: .medium)
+
+        if row == pickerView.selectedRow(inComponent: component) {
+            cText = (30 + row).string
+            attr = (cText + unit).colored(with: btnBgColor).applying(attributes: [.font: valueFont], toOccurrencesOf: cText).applying(attributes: [.font: unitFont], toOccurrencesOf: unit)
+            
+            cLabel.attributedText = attr
+        } else {
+            cLabel.font = valueFont
+            cLabel.textColor = fontDarkColor
+            
+            cLabel.text = (30 + row).string
+        }
         
         return cLabel
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        pickerView.reloadAllComponents()
     }
 
 }
