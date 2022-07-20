@@ -18,6 +18,10 @@ class XWHRebindPhoneVC: XWHCheckPhoneVC {
         
         titleLb.text = "绑定手机号"
         subLb.text = ""
+        
+        phoneNumView.textFiled.text = nil
+        phoneNumView.textFiled.isEnabled = true
+        isPhoneOk = false
     }
 
 }

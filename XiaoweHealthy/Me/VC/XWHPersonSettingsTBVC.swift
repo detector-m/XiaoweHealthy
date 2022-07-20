@@ -131,7 +131,12 @@ extension XWHPersonSettingsTBVC {
     
     /// 去验证手机号码
     private func gotoCheckPhone() {
+        if userModel.mobile .isEmpty {
+            return
+        }
+        
         let vc = XWHCheckPhoneVC()
+        vc.userPhone = userModel.mobile
         navigationController?.pushViewController(vc, animated: true)
     }
     

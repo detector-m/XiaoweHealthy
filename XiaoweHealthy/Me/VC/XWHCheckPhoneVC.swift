@@ -9,6 +9,8 @@ import UIKit
 
 /// 验证手机
 class XWHCheckPhoneVC: XWHBindPhoneVC {
+    
+    lazy var userPhone = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +21,10 @@ class XWHCheckPhoneVC: XWHBindPhoneVC {
         
         titleLb.text = "修改手机号"
         subLb.text = "为保证账号安全，请先进行身份验证"
+        
+        phoneNumView.textFiled.text = userPhone
+        phoneNumView.textFiled.isEnabled = false
+        isPhoneOk = true
     }
     
     override func clickConfirmBtn() {
