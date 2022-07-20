@@ -168,7 +168,7 @@ class XWHResetPasswordVC: XWHBindPhoneVC {
 // MARK: - Api
 extension XWHResetPasswordVC {
     
-    fileprivate func gotoResetPassword(phoneNum: String, code: String, pw: String) {
+    @objc func gotoResetPassword(phoneNum: String, code: String, pw: String) {
         XWHProgressHUD.showLogin(text: R.string.xwhDisplayText.重置密码中())
         XWHUserVM().setPassword(phoneNum: phoneNum, code: code, password: pw) { [weak self] error in
             XWHProgressHUD.hideLogin()
@@ -178,7 +178,6 @@ extension XWHResetPasswordVC {
             
             self?.navigationController?.popToRootViewController(animated: true)
         }
-
     }
     
 }
