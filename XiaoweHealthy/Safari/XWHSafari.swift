@@ -16,7 +16,8 @@ struct XWHSafari {
     }
     
     static func gotoPrivacyProtocol(at vc: UIViewController) {
-        let privacyProtocolUrl = "https://app.uteasy.com/privacy-policy/xiaowei.html"
+//        let privacyProtocolUrl = "https://app.uteasy.com/privacy-policy/xiaowei.html"
+        let privacyProtocolUrl = "https://files.xiaowe.cc/privacy.html"
         present(at: vc, urlStr: privacyProtocolUrl)
     }
     
