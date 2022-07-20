@@ -159,6 +159,10 @@ target 'XiaoweHealthy' do
   # 图片浏览
   pod 'SKPhotoBrowser'
   
+  # ActionSheet
+#  pod 'Sheeeeeeeeet'
+  pod 'LEEAlert'
+  
   # 隐私权限 (PermissionsKit)
 #  pod 'PermissionsKit/BluetoothPermission', :git => 'https://github.com/sparrowcode/PermissionsKit'
 

@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import LEEAlert
+import SKPhotoBrowser
 
 class XWHPersonInfoTBVC: XWHTableViewBaseVC {
     
@@ -199,8 +201,9 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
 //    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // 头像
         if indexPath.section == 0 {
-            
+            gotoAvatarActionSheet()
             return
         }
         
@@ -222,6 +225,80 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
 
 // MARK: - UI Jump & Api
 extension XWHPersonInfoTBVC {
+    
+    /// 头像
+    private func gotoAvatarActionSheet() {
+        let aSheet = LEEAlert.actionsheet()
+        let aSheetConfig = aSheet.config
+        let _ = aSheetConfig.leeAddAction { [unowned self] action in
+            self.configSheetAction(action)
+            action.title = "拍照"
+            action.clickBlock = {
+                self.gotoTakePhoto()
+            }
+        }
+        let _ = aSheetConfig.leeAddAction { [unowned self] action in
+            self.configSheetAction(action)
+            action.title = "相册"
+            
+            action.clickBlock = {
+                self.gotoPickPhoto()
+            }
+        }
+        
+        if !userModel.avatar.isEmpty {
+            let _ = aSheetConfig.leeAddAction { [unowned self] action in
+                self.configSheetAction(action)
+                action.title = "浏览大图"
+                
+                action.clickBlock = {
+                    self.gotoShowFullAvatar()
+                }
+            }
+        }
+        
+        let _ = aSheetConfig.leeAddAction { [unowned self] action in
+            self.configSheetAction(action)
+            
+            action.type = .cancel
+            action.borderColor = .clear
+            action.height = 78
+            action.title = "取消"
+        }
+        
+        let _ = aSheetConfig.leeShow()
+    }
+    
+    private func configSheetAction(_ action: LEEAction) {
+        action.type = .default
+        action.height = 60
+        action.borderColor = UIColor(hex: 0x979797).withAlphaComponent(0.15)
+        action.insets = UIEdgeInsets(top: 0, left: 23, bottom: 0, right: 23)
+        action.font = XWHFont.harmonyOSSans(ofSize: 16, weight: .medium)
+        action.titleColor = fontDarkColor
+        action.backgroundHighlightColor = .white
+    }
+    
+    /// 去拍照
+    private func gotoTakePhoto() {
+        
+    }
+    
+    /// 去相册
+    private func gotoPickPhoto() {
+        
+    }
+    
+    /// 浏览大图
+    private func gotoShowFullAvatar() {
+        if userModel.avatar.isEmpty {
+            return
+        }
+        
+        let photo = SKPhoto.photoWithImageURL(userModel.avatar)
+        let pb = SKPhotoBrowser(photos: [photo])
+        present(pb, animated: true)
+    }
     
     /// 设置昵称
     private func gotoSetNickname() {
