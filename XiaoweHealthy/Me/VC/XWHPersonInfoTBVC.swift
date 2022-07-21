@@ -336,10 +336,17 @@ extension XWHPersonInfoTBVC {
     private func gotoTakePhoto() {
         let config = CameraConfiguration()
         config.position = .front
-        config.sessionPreset = .iFrame960x540
+        config.sessionPreset = .hd1280x720
+        config.appearanceStyle = .varied
+        config.photoEditor.state = .cropping
+        config.photoEditor.fixedCropState = true
+        config.shouldAutorotate = false
+        
         let camerController = CameraController(config: config, type: .photo)
         camerController.autoDismiss = false
         camerController.cameraDelegate = self
+        camerController.modalPresentationStyle = .fullScreen
+        
         present(camerController, animated: true, completion: nil)
     }
     
