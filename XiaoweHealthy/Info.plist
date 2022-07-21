@@ -119,6 +119,10 @@
 		<true/>
 	</dict>
 	<key>NSPhotoLibraryUsageDescription</key>
+	<string>需要访问您的相册图片</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>需要访问您的相册保存图片</string>
+	<key>NSCameraUsageDescription</key>
+	<string>需要访问您的相机进行拍照</string>
 </dict>
 </plist>

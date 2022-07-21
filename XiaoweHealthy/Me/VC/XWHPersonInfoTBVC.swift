@@ -8,6 +8,7 @@
 import UIKit
 import LEEAlert
 import SKPhotoBrowser
+import HXPHPicker
 
 class XWHPersonInfoTBVC: XWHTableViewBaseVC {
     
@@ -222,6 +223,58 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
     
 }
 
+extension XWHPersonInfoTBVC: PhotoPickerControllerDelegate {
+    
+    /// Called after the selection is complete
+    /// - Parameters:
+    ///   - pickerController: corresponding PhotoPickerController
+    ///   - result: Selected result
+    ///     result.photoAssets  Selected asset array
+    ///     result.isOriginal   Whether to select the original image
+    func pickerController(_ pickerController: PhotoPickerController,
+                            didFinishSelection result: PickerResult) {
+        result.getImage { (image, photoAsset, index) in
+            if let image = image {
+                print("success", image)
+            }else {
+                print("failed")
+            }
+        } completionHandler: { (images) in
+            print(images)
+        }
+    }
+    
+    /// Called when cancel is clicked
+    /// - Parameter pickerController: Corresponding PhotoPickerController
+    func pickerController(didCancel pickerController: PhotoPickerController) {
+        
+    }
+    
+}
+
+extension XWHPersonInfoTBVC: CameraControllerDelegate {
+    
+    func cameraController(
+        _ cameraController: CameraController,
+        didFinishWithResult result: CameraController.Result,
+        location: CLLocation?) {
+        cameraController.dismiss(animated: true) {
+//            let photoAsset: PhotoAsset
+//            switch result {
+//            case .image(let image):
+//                photoAsset = PhotoAsset(localImageAsset: .init(image: image))
+//            case .video(let videoURL):
+//                let videoDuration = PhotoTools.getVideoDuration(videoURL: videoURL)
+//                photoAsset = .init(localVideoAsset: .init(videoURL: videoURL, duration: videoDuration))
+//            }
+//            let pickerResultVC = PickerResultViewController.init()
+//            pickerResultVC.selectedAssets = [photoAsset]
+//            self.navigationController?.pushViewController(pickerResultVC, animated: true)
+        }
+    }
+    
+}
+
 
 // MARK: - UI Jump & Api
 extension XWHPersonInfoTBVC {
@@ -281,12 +334,31 @@ extension XWHPersonInfoTBVC {
     
     /// 去拍照
     private func gotoTakePhoto() {
-        
+        let config = CameraConfiguration()
+        config.position = .front
+        config.sessionPreset = .iFrame960x540
+        let camerController = CameraController(config: config, type: .photo)
+        camerController.autoDismiss = false
+        camerController.cameraDelegate = self
+        present(camerController, animated: true, completion: nil)
     }
     
     /// 去相册
     private func gotoPickPhoto() {
+        // 设置与微信主题一致的配置
+        let config = PhotoTools.getWXPickerConfig()
+        config.photoList.allowAddCamera = false
+        config.allowSelectedTogether = false
+        config.selectMode = .single
+        config.maximumSelectedCount = 1
+        config.selectOptions = [.photo]
+        config.photoList.cancelType = .text
         
+        let pickerController = PhotoPickerController(picker: config)
+        pickerController.pickerDelegate = self
+        // 是否选中原图
+        pickerController.isOriginal = true
+        present(pickerController, animated: true, completion: nil)
     }
     
     /// 浏览大图

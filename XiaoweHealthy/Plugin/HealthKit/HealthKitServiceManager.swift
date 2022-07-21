@@ -19,7 +19,7 @@ final class HealthKitServiceManager {
     private var reporter: HealthKitReporter?
     
     private lazy var typesToReadWrite: [SampleType] = {
-        [QuantityType.stepCount, QuantityType.distanceWalkingRunning, QuantityType.heartRate, QuantityType.activeEnergyBurned, WorkoutType.workoutType, CategoryType.sleepAnalysis]
+        [QuantityType.stepCount, QuantityType.distanceWalkingRunning, QuantityType.heartRate, QuantityType.activeEnergyBurned, QuantityType.basalEnergyBurned, WorkoutType.workoutType, CategoryType.sleepAnalysis]
     }()
 //    private var typesToRead: [ObjectType] {
 //        let types = typesToReadWrite
@@ -121,7 +121,15 @@ final class HealthKitServiceManager {
 //        }
         
         let now = Date()
-        getQuantity(bDate: now.dayBegin, eDate: now, quantityType: QuantityType.activeEnergyBurned, unit: HKUnit.largeCalorie()) { (samples: [Quantity]) in
+//        getQuantity(bDate: now.dayBegin, eDate: now, quantityType: QuantityType.activeEnergyBurned, unit: HKUnit.largeCalorie()) { (samples: [Quantity]) in
+//            var sum = 0
+//            for iItem in samples {
+//                sum += iItem.harmonized.value.int
+//            }
+//            completion(sum)
+//        }
+        
+        getQuantity(bDate: now.dayBegin, eDate: now, quantityType: QuantityType.basalEnergyBurned, unit: HKUnit.largeCalorie()) { (samples: [Quantity]) in
             var sum = 0
             for iItem in samples {
                 sum += iItem.harmonized.value.int
