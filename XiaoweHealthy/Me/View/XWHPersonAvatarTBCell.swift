@@ -13,6 +13,7 @@ class XWHPersonAvatarTBCell: XWHBaseTBCell {
         super.addSubViews()
         
         iconView.layer.cornerRadius = 85.cgFloat / 2
+        iconView.layer.masksToBounds = true
         
         iconView.contentMode = .scaleAspectFit
         

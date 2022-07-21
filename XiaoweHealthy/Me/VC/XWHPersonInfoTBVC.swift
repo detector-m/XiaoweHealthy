@@ -34,6 +34,8 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
         
         return user
     }()
+    
+    private var pickedImage: UIImage?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,7 +149,11 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withClass: XWHPersonAvatarTBCell.self, for: indexPath)
             
-            cell.iconView.kf.setImage(with: userModel.avatar.url, placeholder: R.image.sport_avatar())
+            if let pImage = pickedImage {
+                cell.iconView.image = pImage
+            } else {
+                cell.iconView.kf.setImage(with: userModel.avatar.url, placeholder: R.image.sport_avatar())
+            }
             
             return cell
         }
@@ -233,14 +239,14 @@ extension XWHPersonInfoTBVC: PhotoPickerControllerDelegate {
     ///     result.isOriginal   Whether to select the original image
     func pickerController(_ pickerController: PhotoPickerController,
                             didFinishSelection result: PickerResult) {
-        result.getImage { (image, photoAsset, index) in
-            if let image = image {
-                print("success", image)
-            }else {
-                print("failed")
-            }
-        } completionHandler: { (images) in
-            print(images)
+//        result.getImage { (image, photoAsset, index) in
+//
+//        } completionHandler: { (images) in
+//            print(images)
+//        }
+        result.getImage { [unowned self] pickedImages in
+            self.pickedImage = pickedImages.first
+            self.tableView.reloadData()
         }
     }
     
@@ -258,18 +264,15 @@ extension XWHPersonInfoTBVC: CameraControllerDelegate {
         _ cameraController: CameraController,
         didFinishWithResult result: CameraController.Result,
         location: CLLocation?) {
-        cameraController.dismiss(animated: true) {
-//            let photoAsset: PhotoAsset
-//            switch result {
-//            case .image(let image):
-//                photoAsset = PhotoAsset(localImageAsset: .init(image: image))
-//            case .video(let videoURL):
-//                let videoDuration = PhotoTools.getVideoDuration(videoURL: videoURL)
-//                photoAsset = .init(localVideoAsset: .init(videoURL: videoURL, duration: videoDuration))
-//            }
-//            let pickerResultVC = PickerResultViewController.init()
-//            pickerResultVC.selectedAssets = [photoAsset]
-//            self.navigationController?.pushViewController(pickerResultVC, animated: true)
+        cameraController.dismiss(animated: true) { [unowned self] in
+            switch result {
+            case .image(let image):
+                self.pickedImage = image
+                self.tableView.reloadData()
+                
+            case .video(_):
+                break
+            }
         }
     }
     
@@ -338,10 +341,10 @@ extension XWHPersonInfoTBVC {
         config.position = .front
         config.sessionPreset = .hd1280x720
         config.appearanceStyle = .varied
-        config.photoEditor.state = .cropping
-        config.photoEditor.fixedCropState = true
         config.shouldAutorotate = false
         config.takePhotoMode = .click
+        config.photoEditor.state = .cropping
+        config.photoEditor.fixedCropState = true
         config.photoEditor.cropping.fixedRatio = true
         config.photoEditor.cropping.aspectRatioType = .ratio_1x1
         config.photoEditor.cropping.maskType = .blackColor
@@ -367,6 +370,16 @@ extension XWHPersonInfoTBVC {
         config.maximumSelectedCount = 1
         config.selectOptions = [.photo]
         config.photoList.cancelType = .text
+        config.editorOptions = [.photo]
+        config.photoSelectionTapAction = .openEditor
+        
+        config.photoEditor.state = .cropping
+        config.photoEditor.fixedCropState = true
+        config.photoEditor.cropping.fixedRatio = true
+        config.photoEditor.cropping.aspectRatioType = .ratio_1x1
+        config.photoEditor.cropping.maskType = .blackColor
+        config.photoEditor.toolView.toolOptions.removeAll(where: { $0.type != .cropSize })
+
         
         let pickerController = PhotoPickerController(picker: config)
         pickerController.pickerDelegate = self
