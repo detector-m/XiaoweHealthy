@@ -341,6 +341,13 @@ extension XWHPersonInfoTBVC {
         config.photoEditor.state = .cropping
         config.photoEditor.fixedCropState = true
         config.shouldAutorotate = false
+        config.takePhotoMode = .click
+        config.photoEditor.cropping.fixedRatio = true
+        config.photoEditor.cropping.aspectRatioType = .ratio_1x1
+        config.photoEditor.cropping.maskType = .blackColor
+        config.photoFilters = []
+        config.videoFilters = []
+        config.photoEditor.toolView.toolOptions.removeAll(where: { $0.type != .cropSize })
         
         let camerController = CameraController(config: config, type: .photo)
         camerController.autoDismiss = false
