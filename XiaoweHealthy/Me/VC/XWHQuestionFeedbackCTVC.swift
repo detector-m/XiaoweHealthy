@@ -55,8 +55,8 @@ class XWHQuestionFeedbackCTVC: XWHCollectionViewBaseVC {
 
         largeTitleView.titleLb.text = titleText
         
-        view.backgroundColor = collectionBgColor
-        collectionView.backgroundColor = collectionBgColor
+        view.backgroundColor = .white
+        collectionView.backgroundColor = .white
     }
     
     override func relayoutSubViews() {
@@ -88,7 +88,76 @@ class XWHQuestionFeedbackCTVC: XWHCollectionViewBaseVC {
     }
     
     override func registerViews() {
-
+        collectionView.register(cellWithClass: XWHQuestionTagCTCell.self)
+        collectionView.register(cellWithClass: XWHQuestionTextViewCTCell.self)
+        
+        collectionView.register(cellWithClass: XWHQuestionSubmitCTCell.self)
     }
 
+}
+
+// MARK: - UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate
+extension XWHQuestionFeedbackCTVC {
+    
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 4
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if section == 0 {
+            return 1
+        } else if section == 1 {
+            return 1
+        } else if section == 2 {
+            return 1
+        } else {
+            return 1
+        }
+    }
+    
+    // - UICollectionViewDelegateFlowLayout
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.section == 0 {
+            return CGSize(width: collectionView.width, height: 86)
+        } else if indexPath.section == 1 {
+            return CGSize(width: collectionView.width, height: 227)
+        } else if indexPath.section == 2 {
+            return CGSize(width: 73, height: 73)
+        } else {
+            return CGSize(width: collectionView.width, height: 202)
+        }
+    }
+    
+
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 9
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let section = indexPath.section
+//        let row = indexPath.row
+        
+        if section == 0 {
+            let cell = collectionView.dequeueReusableCell(withClass: XWHQuestionTagCTCell.self, for: indexPath)
+            
+            return cell
+        } else if section == 1 {
+            let cell = collectionView.dequeueReusableCell(withClass: XWHQuestionTextViewCTCell.self, for: indexPath)
+            
+            return cell
+        } else if section == 2 {
+            let cell = collectionView.dequeueReusableCell(withClass: XWHQuestionTextViewCTCell.self, for: indexPath)
+            
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withClass: XWHQuestionSubmitCTCell.self, for: indexPath)
+            
+            return cell
+        }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+    
 }

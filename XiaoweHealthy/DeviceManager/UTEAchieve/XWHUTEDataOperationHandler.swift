@@ -25,6 +25,7 @@ class XWHUTEDataOperationHandler: XWHMonitorToDeviceProtocol, XWHDevDataOperatio
     
     /// 信号量同步处理
     private lazy var semaphore = DispatchSemaphore(value: 0)
+    private var isSemaphoreWait = false
     
     private var manager: UTESmartBandClient {
         return UTESmartBandClient.sharedInstance()
@@ -71,11 +72,15 @@ class XWHUTEDataOperationHandler: XWHMonitorToDeviceProtocol, XWHDevDataOperatio
                 return
             }
             
+            objc_sync_enter(self)
             if self._state == .inTransit {
+                objc_sync_exit(self)
+
                 return
             }
             
             self._state = .inTransit
+            objc_sync_exit(self)
             
             DispatchQueue.main.async {
                 self.monitorDelegate?.receiveSyncDataStateInfo(syncState: self._state, progress: 0, error: nil)
@@ -784,13 +789,18 @@ class XWHUTEDataOperationHandler: XWHMonitorToDeviceProtocol, XWHDevDataOperatio
 
 // MARK: - 信号量处理
 extension XWHUTEDataOperationHandler {
-    
+        
     /// 返回是否超时
     private func semaphoreWait() -> Bool {
         let to: DispatchTime = .now() + 60
         
+        isSemaphoreWait = true
+        log.debug("----- semaphore -------------- isSemaphoreWait = \(isSemaphoreWait)")
+        
         let semaResult = semaphore.wait(timeout: to)
         if semaResult == .timedOut {
+            isSemaphoreWait = false
+            log.debug("----- semaphore -------------- isSemaphoreWait = \(isSemaphoreWait)")
             return true
         }
         
@@ -799,6 +809,13 @@ extension XWHUTEDataOperationHandler {
     
     /// 发送信号
     private func semaphoreSignal() {
+        if !isSemaphoreWait {
+            return
+        }
+        
+        isSemaphoreWait = false
+        log.debug("----- semaphore -------------- isSemaphoreWait = \(isSemaphoreWait)")
+        
         semaphore.signal()
     }
     

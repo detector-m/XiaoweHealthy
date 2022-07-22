@@ -272,6 +272,9 @@
 		9687061D286EA6E900A83B6D /* XWHSportApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9687061C286EA6E800A83B6D /* XWHSportApi.swift */; };
 		96870622286EDD2D00A83B6D /* AppPedometerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96870621286EDD2D00A83B6D /* AppPedometerManager.swift */; };
 		9687C281288A3104004601FD /* XWHQuestionFeedbackCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9687C280288A3104004601FD /* XWHQuestionFeedbackCTVC.swift */; };
+		9687C283288A4827004601FD /* XWHQuestionTagCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9687C282288A4827004601FD /* XWHQuestionTagCTCell.swift */; };
+		9687C285288A485C004601FD /* XWHQuestionTextViewCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9687C284288A485C004601FD /* XWHQuestionTextViewCTCell.swift */; };
+		9687C287288A56E5004601FD /* XWHQuestionSubmitCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9687C286288A56E5004601FD /* XWHQuestionSubmitCTCell.swift */; };
 		9689A4CD2877BE3400F1AC17 /* XWHLocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689A4CC2877BE3400F1AC17 /* XWHLocationAnnotationView.swift */; };
 		968CB8A327F3FB8800E549AC /* UITableViewRoundedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */; };
 		968CB8A627F40B5A00E549AC /* XWHDeviceDeploy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */; };
@@ -798,6 +801,9 @@
 		9687061C286EA6E800A83B6D /* XWHSportApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportApi.swift; sourceTree = "<group>"; };
 		96870621286EDD2D00A83B6D /* AppPedometerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPedometerManager.swift; sourceTree = "<group>"; };
 		9687C280288A3104004601FD /* XWHQuestionFeedbackCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHQuestionFeedbackCTVC.swift; sourceTree = "<group>"; };
+		9687C282288A4827004601FD /* XWHQuestionTagCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHQuestionTagCTCell.swift; sourceTree = "<group>"; };
+		9687C284288A485C004601FD /* XWHQuestionTextViewCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHQuestionTextViewCTCell.swift; sourceTree = "<group>"; };
+		9687C286288A56E5004601FD /* XWHQuestionSubmitCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHQuestionSubmitCTCell.swift; sourceTree = "<group>"; };
 		9689A4CC2877BE3400F1AC17 /* XWHLocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLocationAnnotationView.swift; sourceTree = "<group>"; };
 		968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewRoundedProtocol.swift; sourceTree = "<group>"; };
 		968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceDeploy.swift; sourceTree = "<group>"; };
@@ -3260,6 +3266,9 @@
 				96E79EB0284EF39E0063647C /* XWHMeProfileTBCell.swift */,
 				96E79EB4284F00020063647C /* XWHPersonInfoTBCell.swift */,
 				9661850728865FDE002436BD /* XWHPersonAvatarTBCell.swift */,
+				9687C282288A4827004601FD /* XWHQuestionTagCTCell.swift */,
+				9687C284288A485C004601FD /* XWHQuestionTextViewCTCell.swift */,
+				9687C286288A56E5004601FD /* XWHQuestionSubmitCTCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3955,6 +3964,7 @@
 				969B883428110B24009952E7 /* XWHHealthyUIManager.swift in Sources */,
 				9689A4CD2877BE3400F1AC17 /* XWHLocationAnnotationView.swift in Sources */,
 				96DEA21A2809C7F800723D11 /* XWHDialModel.swift in Sources */,
+				9687C285288A485C004601FD /* XWHQuestionTextViewCTCell.swift in Sources */,
 				96866DC92887B1DD0091C762 /* XWHRebindPhoneVC.swift in Sources */,
 				96F1D66C2806D6E70067DBFD /* XWHDataManagerEnum.swift in Sources */,
 				968CB8AA27F42DB800E549AC /* XWHDeviceNormallTBCell.swift in Sources */,
@@ -4132,11 +4142,13 @@
 				9651EE0727EAF6CE0043FE52 /* XWHServiceTargetType.swift in Sources */,
 				969F01C027F6DBB600CA4DA4 /* XWHDevSetUpdateVC.swift in Sources */,
 				96A10CC0282A67B500C1E18F /* XWHChartLegendView.swift in Sources */,
+				9687C287288A56E5004601FD /* XWHQuestionSubmitCTCell.swift in Sources */,
 				96786286282FA208003E5730 /* XWHChartBaseCTCell.swift in Sources */,
 				969072432814EC320056CE4F /* XWHHeartDataDetailListTBVC.swift in Sources */,
 				96E23C2027E1A22C009EF208 /* R.generated.swift in Sources */,
 				9653E4A627F5A6D700EE55FF /* XWHDevSetBloodOxygenVC.swift in Sources */,
 				96870622286EDD2D00A83B6D /* AppPedometerManager.swift in Sources */,
+				9687C283288A4827004601FD /* XWHQuestionTagCTCell.swift in Sources */,
 				9678257627F2DD0C004F66FB /* XWHIconFont.swift in Sources */,
 				96F1D6732808002F0067DBFD /* XWHWeatherInfoOneDayModel.swift in Sources */,
 				9661850B288689C6002436BD /* AppOverlayerPopupView.swift in Sources */,
