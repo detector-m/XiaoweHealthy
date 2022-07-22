@@ -215,7 +215,7 @@ class XWHMeMainVC: XWHTableViewBaseVC {
             gotoPersonSettings()
             
         case .feedback:
-            break
+            gotoQuestionFeedback()
             
         case .appUpdate:
             gotoAppUpdate()
@@ -256,6 +256,12 @@ extension XWHMeMainVC {
         }
         
         let vc = XWHPersonHealthDatasTBVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    /// 意见反馈
+    private func gotoQuestionFeedback() {
+        let vc = XWHQuestionFeedbackCTVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     

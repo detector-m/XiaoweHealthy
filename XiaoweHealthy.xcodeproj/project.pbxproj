@@ -271,6 +271,7 @@
 		9687061A286EA6B400A83B6D /* XWHSportVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96870619286EA6B400A83B6D /* XWHSportVM.swift */; };
 		9687061D286EA6E900A83B6D /* XWHSportApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9687061C286EA6E800A83B6D /* XWHSportApi.swift */; };
 		96870622286EDD2D00A83B6D /* AppPedometerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96870621286EDD2D00A83B6D /* AppPedometerManager.swift */; };
+		9687C281288A3104004601FD /* XWHQuestionFeedbackCTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9687C280288A3104004601FD /* XWHQuestionFeedbackCTVC.swift */; };
 		9689A4CD2877BE3400F1AC17 /* XWHLocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689A4CC2877BE3400F1AC17 /* XWHLocationAnnotationView.swift */; };
 		968CB8A327F3FB8800E549AC /* UITableViewRoundedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */; };
 		968CB8A627F40B5A00E549AC /* XWHDeviceDeploy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */; };
@@ -796,6 +797,7 @@
 		96870619286EA6B400A83B6D /* XWHSportVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportVM.swift; sourceTree = "<group>"; };
 		9687061C286EA6E800A83B6D /* XWHSportApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHSportApi.swift; sourceTree = "<group>"; };
 		96870621286EDD2D00A83B6D /* AppPedometerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPedometerManager.swift; sourceTree = "<group>"; };
+		9687C280288A3104004601FD /* XWHQuestionFeedbackCTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHQuestionFeedbackCTVC.swift; sourceTree = "<group>"; };
 		9689A4CC2877BE3400F1AC17 /* XWHLocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLocationAnnotationView.swift; sourceTree = "<group>"; };
 		968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewRoundedProtocol.swift; sourceTree = "<group>"; };
 		968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceDeploy.swift; sourceTree = "<group>"; };
@@ -1715,6 +1717,7 @@
 				96866DC62887AFA30091C762 /* XWHCheckPhoneVC.swift */,
 				96866DC82887B1DD0091C762 /* XWHRebindPhoneVC.swift */,
 				96866DC42887AD4D0091C762 /* XWHChangePwdVC.swift */,
+				9687C280288A3104004601FD /* XWHQuestionFeedbackCTVC.swift */,
 				961F4C30285089B2003029B1 /* XWHPersonHealthDatasTBVC.swift */,
 				9685D0B6288564E400F3C5DF /* XWHAboutAppVC.swift */,
 			);
@@ -3890,6 +3893,7 @@
 				9651EE2E27EC5BD30043FE52 /* UMShareSwiftInterface.swift in Sources */,
 				96F1D68A28096F370067DBFD /* XWHDialTitleCTCell.swift in Sources */,
 				96837971285829090034DB98 /* XWHActivityCTVC.swift in Sources */,
+				9687C281288A3104004601FD /* XWHQuestionFeedbackCTVC.swift in Sources */,
 				967F0F222865A946005E74DC /* XWHSRLSectionHeaderTBCell.swift in Sources */,
 				960C4799286454C100EE693A /* XWHGPSSignalView.swift in Sources */,
 				96A10CAB2828EF1A00C1E18F /* XWHSleepUIAllDataItemModel.swift in Sources */,
