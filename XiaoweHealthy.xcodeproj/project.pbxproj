@@ -275,6 +275,8 @@
 		9687C283288A4827004601FD /* XWHQuestionTagCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9687C282288A4827004601FD /* XWHQuestionTagCTCell.swift */; };
 		9687C285288A485C004601FD /* XWHQuestionTextViewCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9687C284288A485C004601FD /* XWHQuestionTextViewCTCell.swift */; };
 		9687C287288A56E5004601FD /* XWHQuestionSubmitCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9687C286288A56E5004601FD /* XWHQuestionSubmitCTCell.swift */; };
+		9687C289288A835F004601FD /* XWHButtonCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9687C288288A835F004601FD /* XWHButtonCTCell.swift */; };
+		9687C28B288A8405004601FD /* XWHQuestionImageCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9687C28A288A8405004601FD /* XWHQuestionImageCTCell.swift */; };
 		9689A4CD2877BE3400F1AC17 /* XWHLocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689A4CC2877BE3400F1AC17 /* XWHLocationAnnotationView.swift */; };
 		968CB8A327F3FB8800E549AC /* UITableViewRoundedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */; };
 		968CB8A627F40B5A00E549AC /* XWHDeviceDeploy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */; };
@@ -804,6 +806,8 @@
 		9687C282288A4827004601FD /* XWHQuestionTagCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHQuestionTagCTCell.swift; sourceTree = "<group>"; };
 		9687C284288A485C004601FD /* XWHQuestionTextViewCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHQuestionTextViewCTCell.swift; sourceTree = "<group>"; };
 		9687C286288A56E5004601FD /* XWHQuestionSubmitCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHQuestionSubmitCTCell.swift; sourceTree = "<group>"; };
+		9687C288288A835F004601FD /* XWHButtonCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHButtonCTCell.swift; sourceTree = "<group>"; };
+		9687C28A288A8405004601FD /* XWHQuestionImageCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHQuestionImageCTCell.swift; sourceTree = "<group>"; };
 		9689A4CC2877BE3400F1AC17 /* XWHLocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLocationAnnotationView.swift; sourceTree = "<group>"; };
 		968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewRoundedProtocol.swift; sourceTree = "<group>"; };
 		968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceDeploy.swift; sourceTree = "<group>"; };
@@ -1558,6 +1562,7 @@
 				96A10CC3282A6D4200C1E18F /* XWHGradientBaseCTCell.swift */,
 				9653E49927F5978800EE55FF /* XWHTBHeaderFooterBaseView.swift */,
 				96E79EB6284F1EED0063647C /* XWHTBButtonFooter.swift */,
+				9687C288288A835F004601FD /* XWHButtonCTCell.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -3269,6 +3274,7 @@
 				9687C282288A4827004601FD /* XWHQuestionTagCTCell.swift */,
 				9687C284288A485C004601FD /* XWHQuestionTextViewCTCell.swift */,
 				9687C286288A56E5004601FD /* XWHQuestionSubmitCTCell.swift */,
+				9687C28A288A8405004601FD /* XWHQuestionImageCTCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3838,6 +3844,7 @@
 				969B88452812A6B1009952E7 /* XWHDateExtension.swift in Sources */,
 				96D68D0328544B9F0027DB46 /* XWHHomeDeploy.swift in Sources */,
 				969072372812F3980056CE4F /* XWHBOIntroductionTXVC.swift in Sources */,
+				9687C28B288A8405004601FD /* XWHQuestionImageCTCell.swift in Sources */,
 				9679E9FB281A7918003C6351 /* XWHHealthyExistDataDateModel.swift in Sources */,
 				9685B47628601D6600095078 /* XWHHomeWeatherCTCell.swift in Sources */,
 				96DC429A27FD34C7009BF300 /* RLBLEPermissions.swift in Sources */,
@@ -3999,6 +4006,7 @@
 				96A10CBB2829F8CD00C1E18F /* XWHMentalStressUIStressModel.swift in Sources */,
 				9690724F2815291C0056CE4F /* XWHHealthyDataDetailBaseTBVC.swift in Sources */,
 				96617AA527E3169200139B03 /* XWHCodeView.swift in Sources */,
+				9687C289288A835F004601FD /* XWHButtonCTCell.swift in Sources */,
 				96837983285884EA0034DB98 /* XWHActivitySetGoalTBVC.swift in Sources */,
 				9676489F2827B90600DE9AFF /* XWHDeviceHelper.swift in Sources */,
 				96E79EAC284EE8260063647C /* XWHMeDeploy.swift in Sources */,

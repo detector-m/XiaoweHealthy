@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import HXPHPicker
+import SKPhotoBrowser
 
 class XWHQuestionFeedbackCTVC: XWHCollectionViewBaseVC {
     
@@ -20,9 +22,13 @@ class XWHQuestionFeedbackCTVC: XWHCollectionViewBaseVC {
     override var titleText: String {
         "意见反馈"
     }
+    
+    private lazy var imageUrls = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        imageUrls = ["https://img0.baidu.com/it/u=1880899726,3824907986&fm=253&fmt=auto&app=138&f=JPEG?w=750&h=500", "https://img0.baidu.com/it/u=3798217922,3880088897&fm=253&app=120&size=w931&n=0&f=JPEG&fmt=auto?sec=1658595600&t=20e62f15b577273597305d00cf94b4b2", "https://img2.baidu.com/it/u=1792249350,650626052&fm=253&app=120&size=w931&n=0&f=JPEG&fmt=auto?sec=1658595600&t=dcadebca8a30f1ae7811954b0d85f338"]
     }
     
     override func setupNavigationItems() {
@@ -92,6 +98,8 @@ class XWHQuestionFeedbackCTVC: XWHCollectionViewBaseVC {
         collectionView.register(cellWithClass: XWHQuestionTextViewCTCell.self)
         
         collectionView.register(cellWithClass: XWHQuestionSubmitCTCell.self)
+        
+        collectionView.register(cellWithClass: XWHQuestionImageCTCell.self)
     }
 
 }
@@ -109,7 +117,7 @@ extension XWHQuestionFeedbackCTVC {
         } else if section == 1 {
             return 1
         } else if section == 2 {
-            return 1
+            return imageUrls.count + 1
         } else {
             return 1
         }
@@ -135,7 +143,7 @@ extension XWHQuestionFeedbackCTVC {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let section = indexPath.section
-//        let row = indexPath.row
+        let row = indexPath.row
         
         if section == 0 {
             let cell = collectionView.dequeueReusableCell(withClass: XWHQuestionTagCTCell.self, for: indexPath)
@@ -146,7 +154,21 @@ extension XWHQuestionFeedbackCTVC {
             
             return cell
         } else if section == 2 {
-            let cell = collectionView.dequeueReusableCell(withClass: XWHQuestionTextViewCTCell.self, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withClass: XWHQuestionImageCTCell.self, for: indexPath)
+            
+            if row == imageUrls.count {
+                cell.update(imageUrl: "")
+            } else {
+                cell.update(imageUrl: imageUrls[row])
+            }
+            cell.clickCallback = { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                
+                self.imageUrls.remove(at: row)
+                self.collectionView.reloadData()
+            }
             
             return cell
         } else {
@@ -157,7 +179,97 @@ extension XWHQuestionFeedbackCTVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let section = indexPath.section
+        let row = indexPath.row
+        if section != 2 {
+            return
+        }
         
+        if row == imageUrls.count {
+            if imageUrls.count == 3 {
+                view.makeInsetToast("最多只能上传3张")
+                return
+            }
+            gotoPickPhoto()
+        } else {
+            gotoShowImages(row)
+        }
+    }
+    
+}
+
+extension XWHQuestionFeedbackCTVC: PhotoPickerControllerDelegate {
+    
+    /// Called after the selection is complete
+    /// - Parameters:
+    ///   - pickerController: corresponding PhotoPickerController
+    ///   - result: Selected result
+    ///     result.photoAssets  Selected asset array
+    ///     result.isOriginal   Whether to select the original image
+    func pickerController(_ pickerController: PhotoPickerController,
+                            didFinishSelection result: PickerResult) {
+//        result.getImage { (image, photoAsset, index) in
+//
+//        } completionHandler: { (images) in
+//            print(images)
+//        }
+        result.getImage { [unowned self] pickedImages in
+//            self.pickedImage = pickedImages.first
+//            self.tableView.reloadData()
+        }
+    }
+    
+    /// Called when cancel is clicked
+    /// - Parameter pickerController: Corresponding PhotoPickerController
+    func pickerController(didCancel pickerController: PhotoPickerController) {
+        
+    }
+    
+}
+
+extension XWHQuestionFeedbackCTVC {
+    
+    /// 去相册
+    private func gotoPickPhoto() {
+        // 设置与微信主题一致的配置
+        let config = PhotoTools.getWXPickerConfig()
+        config.photoList.allowAddCamera = false
+        config.allowSelectedTogether = false
+        config.selectMode = .single
+        config.maximumSelectedCount = 3 - imageUrls.count
+        config.selectOptions = [.photo]
+        config.photoList.cancelType = .text
+        config.editorOptions = [.photo]
+        config.photoSelectionTapAction = .openEditor
+        
+        config.photoEditor.state = .cropping
+        config.photoEditor.fixedCropState = true
+        config.photoEditor.cropping.fixedRatio = true
+        config.photoEditor.cropping.aspectRatioType = .ratio_1x1
+        config.photoEditor.cropping.maskType = .blackColor
+        config.photoEditor.toolView.toolOptions.removeAll(where: { $0.type != .cropSize })
+
+        
+        let pickerController = PhotoPickerController(picker: config)
+        pickerController.pickerDelegate = self
+        // 是否选中原图
+        pickerController.isOriginal = true
+        present(pickerController, animated: true, completion: nil)
+    }
+    
+    /// 浏览大图
+    private func gotoShowImages(_ at: Int) {
+        SKPhotoBrowserOptions.displayAction = false
+        
+        var photos: [SKPhoto] = []
+        for iImageUrl in imageUrls {
+            let photo = SKPhoto.photoWithImageURL(iImageUrl)
+            photos.append(photo)
+        }
+        
+        let pb = SKPhotoBrowser(photos: photos)
+        pb.currentPageIndex = at
+        present(pb, animated: true)
     }
     
 }

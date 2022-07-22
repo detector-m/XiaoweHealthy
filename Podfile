@@ -163,6 +163,9 @@ target 'XiaoweHealthy' do
 #  pod 'Sheeeeeeeeet'
   pod 'LEEAlert'
   
+  # KMPlaceholderTextView
+  pod 'KMPlaceholderTextView'
+  
   # 隐私权限 (PermissionsKit)
 #  pod 'PermissionsKit/BluetoothPermission', :git => 'https://github.com/sparrowcode/PermissionsKit'
 

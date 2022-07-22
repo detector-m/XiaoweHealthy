@@ -151,4 +151,9 @@ class XWHCollectionViewBaseVC: XWHBaseVC {
         
     }
     
+    // MARK: - UIScrollViewDeletate
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        handleScrollLargeTitle(in: scrollView)
+    }
+    
 }
