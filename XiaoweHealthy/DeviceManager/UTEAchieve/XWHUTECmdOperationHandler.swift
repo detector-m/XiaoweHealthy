@@ -75,7 +75,18 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
         }
         setBloodOxygenSet(boSet, handler: handler)
         
-        setUTEMPFEnable()
+        setUTEMPFEnable { [weak self] in
+            guard let self = self else {
+                return
+            }
+            var msSet: XWHMentalStressSetModel
+            if let cMsSet = XWHDeviceDataManager.getCurrentMentalStressSet() {
+                msSet = cMsSet
+            } else {
+                msSet = XWHMentalStressSetModel()
+            }
+            self.setMentalStressSet(msSet, handler: handler)
+        }
     }
     
     func reboot(handler: XWHDevCmdOperationHandler?) {
@@ -343,11 +354,13 @@ class XWHUTECmdOperationHandler: XWHDevCmdOperationProtocol {
         manager.setBloodOxygenAutoTest(bloodOxygenSet.isOn, time: boTimeInterval)
         
         // 设置血氧开关
-        if bloodOxygenSet.isSetBeginEndTime {
-            manager.setBloodOxygenAutoTestDuration(false, startTime: bloodOxygenSet.beginTime, endTime: bloodOxygenSet.endTime)
-        } else {
-            manager.setBloodOxygenAutoTestDuration(bloodOxygenSet.isOn, startTime: bloodOxygenSet.beginTime, endTime: bloodOxygenSet.endTime)
-        }
+        manager.setBloodOxygenAutoTestDuration(bloodOxygenSet.isOn, startTime: bloodOxygenSet.beginTime, endTime: bloodOxygenSet.endTime)
+
+//        if bloodOxygenSet.isSetBeginEndTime {
+//            manager.setBloodOxygenAutoTestDuration(false, startTime: bloodOxygenSet.beginTime, endTime: bloodOxygenSet.endTime)
+//        } else {
+//            manager.setBloodOxygenAutoTestDuration(bloodOxygenSet.isOn, startTime: bloodOxygenSet.beginTime, endTime: bloodOxygenSet.endTime)
+//        }
         
         handler?(.success(nil))
     }
@@ -641,14 +654,16 @@ extension XWHUTECmdOperationHandler {
 extension XWHUTECmdOperationHandler {
     
     /// 开启 MPF
-    private func setUTEMPFEnable() {
+    private func setUTEMPFEnable(completion: (() -> Void)? = nil) {
         let isHasMpf = manager.connectedDevicesModel?.isHasMPF ?? false
         if isHasMpf {
             log.debug("UTE 开启MPF")
             manager.activateDeviceMPF { (isOk, eCode: UTEErrorCode) in
                 if !isOk {
                     log.error("UTE 开启 MPF 失败")
+                    return
                 }
+                completion?()
             }
         }
     }
