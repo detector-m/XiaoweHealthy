@@ -12,8 +12,9 @@ class XWHMeProfileTBCell: XWHCommonBaseTBCell {
     override func addSubViews() {
         super.addSubViews()
         
-        iconView.layer.cornerRadius = 52
+        iconView.layer.cornerRadius = 25
         iconView.contentMode = .scaleAspectFit
+        iconView.layer.masksToBounds = true
         
         titleLb.font = XWHFont.harmonyOSSans(ofSize: 18, weight: .medium)
     }

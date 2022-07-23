@@ -75,6 +75,7 @@ class AliyunUploadManager {
                     imagePaths.append("https://\(put.bucketName).\(ossPath)/\(put.objectKey)")
                     print(imagePaths)
                     if task.error != nil {
+                        log.error("阿里云上传图片 error = \(String(describing: task.error))")
                         failure("上传失败")
                         return nil
                     }
@@ -91,8 +92,8 @@ class AliyunUploadManager {
                 putTask.waitUntilFinished()
             }
         }
-        
     }
+    
 }
 
 fileprivate extension Date {

@@ -75,5 +75,3 @@ extension XWHSportApi: XWHServiceTargetType {
     }
     
 }
-
-

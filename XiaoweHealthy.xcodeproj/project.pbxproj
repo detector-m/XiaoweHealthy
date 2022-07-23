@@ -277,6 +277,10 @@
 		9687C287288A56E5004601FD /* XWHQuestionSubmitCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9687C286288A56E5004601FD /* XWHQuestionSubmitCTCell.swift */; };
 		9687C289288A835F004601FD /* XWHButtonCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9687C288288A835F004601FD /* XWHButtonCTCell.swift */; };
 		9687C28B288A8405004601FD /* XWHQuestionImageCTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9687C28A288A8405004601FD /* XWHQuestionImageCTCell.swift */; };
+		9687DF10288BE41200D6ED34 /* XWHMeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9687DF0F288BE41200D6ED34 /* XWHMeVM.swift */; };
+		9687DF13288BE46300D6ED34 /* XWHMeApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9687DF12288BE46300D6ED34 /* XWHMeApi.swift */; };
+		9687DF18288BE5F000D6ED34 /* AppImageUploadApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9687DF17288BE5F000D6ED34 /* AppImageUploadApi.swift */; };
+		9687DF1A288BE76700D6ED34 /* AppImageUploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9687DF19288BE76700D6ED34 /* AppImageUploadManager.swift */; };
 		9689A4CD2877BE3400F1AC17 /* XWHLocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689A4CC2877BE3400F1AC17 /* XWHLocationAnnotationView.swift */; };
 		968CB8A327F3FB8800E549AC /* UITableViewRoundedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */; };
 		968CB8A627F40B5A00E549AC /* XWHDeviceDeploy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */; };
@@ -808,6 +812,10 @@
 		9687C286288A56E5004601FD /* XWHQuestionSubmitCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHQuestionSubmitCTCell.swift; sourceTree = "<group>"; };
 		9687C288288A835F004601FD /* XWHButtonCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHButtonCTCell.swift; sourceTree = "<group>"; };
 		9687C28A288A8405004601FD /* XWHQuestionImageCTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHQuestionImageCTCell.swift; sourceTree = "<group>"; };
+		9687DF0F288BE41200D6ED34 /* XWHMeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMeVM.swift; sourceTree = "<group>"; };
+		9687DF12288BE46300D6ED34 /* XWHMeApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHMeApi.swift; sourceTree = "<group>"; };
+		9687DF17288BE5F000D6ED34 /* AppImageUploadApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppImageUploadApi.swift; sourceTree = "<group>"; };
+		9687DF19288BE76700D6ED34 /* AppImageUploadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppImageUploadManager.swift; sourceTree = "<group>"; };
 		9689A4CC2877BE3400F1AC17 /* XWHLocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHLocationAnnotationView.swift; sourceTree = "<group>"; };
 		968CB8A227F3FB8800E549AC /* UITableViewRoundedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewRoundedProtocol.swift; sourceTree = "<group>"; };
 		968CB8A527F40B5A00E549AC /* XWHDeviceDeploy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWHDeviceDeploy.swift; sourceTree = "<group>"; };
@@ -1113,7 +1121,7 @@
 				9685D0B1288506C900F3C5DF /* Privacy */,
 				96A7A6032880270700890056 /* CallTelephonyMonitor */,
 				96A7A5FE28801EDC00890056 /* SysSpeech */,
-				96A7A5F7287FE8A700890056 /* Aliyun */,
+				96A7A5F7287FE8A700890056 /* AliyunUpload */,
 				9685F1CF287C1A1400AF6E48 /* CountdownView */,
 				9687061E286ECC7000A83B6D /* MotionTrackerManager */,
 				968315FA286D765900B444AD /* TimeManager */,
@@ -1189,6 +1197,7 @@
 				96E23C2327E1A32F009EF208 /* Device */,
 				96E23C2427E1A33E009EF208 /* Me */,
 				96931075282600B800133626 /* UIDisplayHandler */,
+				9687DF14288BE53000D6ED34 /* ImageUpload */,
 				96DC429427FD303A009BF300 /* DeviceManager */,
 				96DC429E27FD7323009BF300 /* DataManager */,
 				96127D11284202AA00940132 /* Plugin */,
@@ -2371,6 +2380,47 @@
 			path = MotionTrackerManager;
 			sourceTree = "<group>";
 		};
+		9687DF0E288BE3C300D6ED34 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9687DF0F288BE41200D6ED34 /* XWHMeVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9687DF11288BE41700D6ED34 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				9687DF12288BE46300D6ED34 /* XWHMeApi.swift */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
+		9687DF14288BE53000D6ED34 /* ImageUpload */ = {
+			isa = PBXGroup;
+			children = (
+				9687DF16288BE59F00D6ED34 /* Manager */,
+				9687DF15288BE59900D6ED34 /* Api */,
+			);
+			path = ImageUpload;
+			sourceTree = "<group>";
+		};
+		9687DF15288BE59900D6ED34 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				9687DF17288BE5F000D6ED34 /* AppImageUploadApi.swift */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
+		9687DF16288BE59F00D6ED34 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				9687DF19288BE76700D6ED34 /* AppImageUploadManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		968CB8A127F3FB3700E549AC /* UITableViewRoundedProtocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -2817,13 +2867,13 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
-		96A7A5F7287FE8A700890056 /* Aliyun */ = {
+		96A7A5F7287FE8A700890056 /* AliyunUpload */ = {
 			isa = PBXGroup;
 			children = (
 				96A7A5FC287FE97400890056 /* AliyunCredentialModel.swift */,
 				96A7A5F9287FE8F000890056 /* AliyunUploadManager.swift */,
 			);
-			path = Aliyun;
+			path = AliyunUpload;
 			sourceTree = "<group>";
 		};
 		96A7A5FE28801EDC00890056 /* SysSpeech */ = {
@@ -3249,6 +3299,8 @@
 			isa = PBXGroup;
 			children = (
 				96E79EAA284EE7C20063647C /* Deploy */,
+				9687DF0E288BE3C300D6ED34 /* ViewModel */,
+				9687DF11288BE41700D6ED34 /* Api */,
 				96E79EAD284EEECB0063647C /* View */,
 				96617A9B27E2BFF200139B03 /* VC */,
 			);
@@ -3824,6 +3876,7 @@
 				96759D8627F3533C0098CA92 /* XWHSearchDeviceTBCell.swift in Sources */,
 				96618516288694A3002436BD /* XWHEditNicknameContentView.swift in Sources */,
 				9684C7B12876800400BF277A /* XWHSport.swift in Sources */,
+				9687DF1A288BE76700D6ED34 /* AppImageUploadManager.swift in Sources */,
 				9651EE1E27EBFDAA0043FE52 /* XWHResponse.swift in Sources */,
 				969B88302811028C009952E7 /* XWHHeartCommonCTCell.swift in Sources */,
 				969310592824ED8B00133626 /* XWHMentalStressDataDetailListTBVC.swift in Sources */,
@@ -3904,6 +3957,7 @@
 				969310532824C68D00133626 /* XWHMentalStressRangeCTCell.swift in Sources */,
 				9680D81E2851CF3A00FA6F9C /* XWHSRLSportRecordTBCell.swift in Sources */,
 				9672B25E27EEA48900DC80D6 /* XWHUser.swift in Sources */,
+				9687DF10288BE41200D6ED34 /* XWHMeVM.swift in Sources */,
 				96C67AFC2804742D001ACA81 /* XWHDataBloodOxygenSetManager.swift in Sources */,
 				96837EB028670F7A005158A0 /* XWHSportSettingsCommponTBCell.swift in Sources */,
 				9651EE2E27EC5BD30043FE52 /* UMShareSwiftInterface.swift in Sources */,
@@ -3985,6 +4039,7 @@
 				96617AAB27E32C4100139B03 /* XWHBindPhoneVC.swift in Sources */,
 				9690EE3C2873CB3300B88727 /* XWHSportTotalRecordModel.swift in Sources */,
 				96617AB327E34CBB00139B03 /* XWHHeightSelectVC.swift in Sources */,
+				9687DF13288BE46300D6ED34 /* XWHMeApi.swift in Sources */,
 				969B884E2812BAB1009952E7 /* XWHHealthyVM.swift in Sources */,
 				96F3588727FE815B00783614 /* XWHDeviceBaseModel.swift in Sources */,
 				969E712B280C07D400BDA401 /* XWHContactDataManager.swift in Sources */,
@@ -4152,6 +4207,7 @@
 				96A10CC0282A67B500C1E18F /* XWHChartLegendView.swift in Sources */,
 				9687C287288A56E5004601FD /* XWHQuestionSubmitCTCell.swift in Sources */,
 				96786286282FA208003E5730 /* XWHChartBaseCTCell.swift in Sources */,
+				9687DF18288BE5F000D6ED34 /* AppImageUploadApi.swift in Sources */,
 				969072432814EC320056CE4F /* XWHHeartDataDetailListTBVC.swift in Sources */,
 				96E23C2027E1A22C009EF208 /* R.generated.swift in Sources */,
 				9653E4A627F5A6D700EE55FF /* XWHDevSetBloodOxygenVC.swift in Sources */,

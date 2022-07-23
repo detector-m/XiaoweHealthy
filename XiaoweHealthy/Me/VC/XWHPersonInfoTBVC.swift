@@ -34,8 +34,6 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
         
         return user
     }()
-    
-    private var pickedImage: UIImage?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -149,11 +147,7 @@ class XWHPersonInfoTBVC: XWHTableViewBaseVC {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withClass: XWHPersonAvatarTBCell.self, for: indexPath)
             
-            if let pImage = pickedImage {
-                cell.iconView.image = pImage
-            } else {
-                cell.iconView.kf.setImage(with: userModel.avatar.url, placeholder: R.image.sport_avatar())
-            }
+            cell.iconView.kf.setImage(with: userModel.avatar.url, placeholder: R.image.sport_avatar())
             
             return cell
         }
@@ -245,8 +239,10 @@ extension XWHPersonInfoTBVC: PhotoPickerControllerDelegate {
 //            print(images)
 //        }
         result.getImage { [unowned self] pickedImages in
-            self.pickedImage = pickedImages.first
-            self.tableView.reloadData()
+            guard let cImage = pickedImages.first else {
+                return
+            }
+            self.uploadImage(image: cImage)
         }
     }
     
@@ -267,8 +263,7 @@ extension XWHPersonInfoTBVC: CameraControllerDelegate {
         cameraController.dismiss(animated: true) { [unowned self] in
             switch result {
             case .image(let image):
-                self.pickedImage = image
-                self.tableView.reloadData()
+                self.uploadImage(image: image)
                 
             case .video(_):
                 break
@@ -279,7 +274,7 @@ extension XWHPersonInfoTBVC: CameraControllerDelegate {
 }
 
 
-// MARK: - UI Jump & Api
+// MARK: - UI Jump
 extension XWHPersonInfoTBVC {
     
     /// 头像
@@ -503,10 +498,86 @@ extension XWHPersonInfoTBVC {
         }
     }
     
+}
+
+// MARK: - UI Jump & Api
+extension XWHPersonInfoTBVC {
+    
     /// 更新用户信息
     private func updatePersonInfo() {
         XWHUserVM().update(userModel: userModel)
         XWHUserDataManager.saveUser(&userModel)
+    }
+    
+    /// 上传图片
+    private func uploadImage(image: UIImage) {
+        XWHProgressHUD.show(title: "上传图片中...")
+        getOssStsToken { [weak self] cModel in
+            guard let self = self else {
+                return
+            }
+            
+//            DispatchQueue.main.async {
+                guard let cModel = cModel else {
+                    XWHProgressHUD.hide()
+                    self.view.makeInsetToast("上传图片失败")
+                    return
+                }
+
+                guard let ossClient = AliyunUploadManager.createCredential(with: cModel) else {
+                    XWHProgressHUD.hide()
+                    self.view.makeInsetToast("上传图片成功")
+                    return
+                }
+                AliyunUploadManager.uploadImages([image], client: ossClient, bucketName: "xiaowe-ycyoss", documentPath: "avatars") { json in
+                    DispatchQueue.main.async {
+                        XWHProgressHUD.hide()
+
+                        guard let cAvatar = json.first else {
+                            self.view.makeInsetToast("上传图片成功")
+                            return
+                        }
+                        self.userModel.avatar = cAvatar
+                        self.view.makeInsetToast("上传图片成功")
+                        self.tableView.reloadData()
+                    }
+                } failure: { eString in
+                    log.error("上传头像图片失败 error = \(eString)")
+
+                    DispatchQueue.main.async {
+                        XWHProgressHUD.hide()
+
+                        XWHProgressHUD.hide()
+
+                        self.view.makeInsetToast("上传图片失败")
+                    }
+                }
+//            }
+        }
+    }
+    
+    /// 获取图片零时token
+    private func getOssStsToken(completion: @escaping (AliyunCredentialModel?) -> Void) {
+        AppImageUploadManager.getOssStsToken { [weak self] error in
+            log.error("上传图片失败 \(error)")
+            guard let _ = self else {
+                return
+            }
+            
+            completion(nil)
+        } successHandler: { [weak self] response in
+            guard let _ = self else {
+                return
+            }
+            
+            guard let credentialModel = response.data as? AliyunCredentialModel else {
+                log.error("上传图片失败, 获取的 AliyunCredentialModel 为空")
+                completion(nil)
+                return
+            }
+            
+            completion(credentialModel)
+        }
     }
     
 }
