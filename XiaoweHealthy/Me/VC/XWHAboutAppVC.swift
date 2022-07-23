@@ -149,7 +149,11 @@ class XWHAboutAppVC: XWHBaseVC {
     }
     
     @objc private func clickMobileBtn() {
+        guard let telUrl = URL(string: "tel://\(mobile)") else {
+            return
+        }
         
+        UIApplication.shared.open(telUrl)
     }
     
     @objc private func clickUserBtn() {
